@@ -1,5 +1,8 @@
 this project should be at ~/bhp056
 
+cd ~/
+svn co http://192.168.1.50/svn/bhp056_project bhp056
+
 you now need to get the "mpepu" application from subversion. 
 
 cd ~/bhp056
