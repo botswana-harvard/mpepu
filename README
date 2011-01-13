@@ -12,3 +12,24 @@ After that read the README file in the "mpepu" folder where you
 will find the other applications that "mpepu" needs.
 
 
+To generate tables
+
+cd ~/bhp056
+python manage.py syncdb
+
+To delete a table
+
+mysql -u root -p bhp056
+show tables;
+delete table [table name];
+quit;
+
+run syncdb again (as above)
+
+
+To run the development server
+
+cd ~/bhp056
+python manage.py runserver
+
+
