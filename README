@@ -1,0 +1,11 @@
+this project should be at ~/bhp056
+
+you now need to get the "mpepu" application from subversion. 
+
+cd ~/bhp056
+svn co http://192.168.1.50/svn/mpepu mpepu
+
+After that read the README file in the "mpepu" folder where you
+will find the other applications that "mpepu" needs.
+
+
