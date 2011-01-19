@@ -18,7 +18,7 @@ svn commit -m ""
 svn update
 svn status
 
-cd ../bhp_consent_models bhp_consent_models
+cd ../bhp_consent_models bhp_consent
 svn commit -m ""
 svn update
 svn status
@@ -33,7 +33,7 @@ svn commit -m ""
 svn update
 svn status
 
-cd ../bhp_study_variables bhp_study_variables
+cd ../bhp_study_variables bhp_variables
 svn commit -m ""
 svn update
 svn status
