@@ -126,6 +126,7 @@ INSTALLED_APPS = (
     'bhp_variables',
     'bhp_code_lists',
     'bhp_lab',
+    'bhp_visit',
 )
 
 # A sample logging configuration. The only tangible logging
