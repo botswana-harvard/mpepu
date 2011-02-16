@@ -120,13 +120,13 @@ INSTALLED_APPS = (
     'bhp_basic_models',
     'bhp_consent',
     'bhp_clinic_models',
-    'bhp_choices',
-    'bhp_validators',
-    'bhp_fields',
     'bhp_variables',
     'bhp_code_lists',
     'bhp_lab',
     'bhp_visit',
+    'bhp_common',
+    'bhp_registration ',
+    'bhp_study_variables',
 )
 
 # A sample logging configuration. The only tangible logging
