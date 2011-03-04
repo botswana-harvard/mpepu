@@ -116,7 +116,6 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.admindocs',
     'django_extensions',
-    'django_extensions',
     'mpepu',
     'bhp_admin_models',
     'bhp_basic_models',
