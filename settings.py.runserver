@@ -119,6 +119,7 @@ INSTALLED_APPS = (
     'south',
     'bhp_basesite',
     'bhp_templatetags',
+    'bhp_calendar',
     'bhp_adverse',
     'bhp_code_lists',    
     'bhp_common',    
