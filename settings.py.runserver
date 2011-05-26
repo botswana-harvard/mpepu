@@ -119,7 +119,7 @@ INSTALLED_APPS = (
     'south',
     'bhp_basesite',
     'bhp_templatetags',
-    'bhp_calendar',
+    'bhp_calendar',    
     'bhp_adverse',
     'bhp_code_lists',    
     'bhp_common',    
@@ -129,7 +129,11 @@ INSTALLED_APPS = (
     'bhp_registration',
     'bhp_variables',
     'bhp_visit',    
-    'mpepu',    
+    'bhp_list',
+    'bhp_form',
+    'mpepu_list',    
+    'mpepu_dashboard',    
+    'mpepu',
 )
 
 # A sample logging configuration. The only tangible logging
