@@ -4,7 +4,7 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    # ('erikvw', 'ewidenfelt@bhp.org.bw'),
+    # ('Your Name', 'your_email@example.com'),
 )
 
 MANAGERS = ADMINS
@@ -121,6 +121,7 @@ INSTALLED_APPS = (
     'bhp_templatetags',
     'bhp_calendar',    
     'bhp_adverse',
+    'bhp_haart',    
     'bhp_code_lists',    
     'bhp_common',    
     'bhp_search',
