@@ -1,5 +1,5 @@
 # Django settings for bhp project.
-
+import os
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -126,15 +126,17 @@ INSTALLED_APPS = (
     'bhp_common',    
     'bhp_search',
     'bhp_consent',
-    'bhp_pharmacy',
     'bhp_registration',
+    'bhp_pharmacy',
     'bhp_variables',
     'bhp_visit',    
     'bhp_list',
     'bhp_form',
-    'mpepu_list',    
-    'mpepu_dashboard',    
+    'mpepu_list',
     'mpepu',
+    'mpepu_maternal',        
+    'mpepu_infant',    
+    'mpepu_dashboard',    
 )
 
 # A sample logging configuration. The only tangible logging
@@ -159,3 +161,7 @@ LOGGING = {
         },
     }
 }
+
+SOUTH_LOGGING_FILE = os.path.join(os.path.dirname(__file__),"south.log")
+SOUTH_LOGGING_ON = True
+
