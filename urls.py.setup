@@ -11,7 +11,7 @@ urlpatterns = patterns('',
     (r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
     # Uncomment the next line to enable the admin:
-    (r'^admin/$', redirect_to, {'url': '/mpepu/'}),
+    #(r'^admin/$', redirect_to, {'url': '/mpepu/'}),
 
 
     # Uncomment the next line to enable the admin:
@@ -24,4 +24,12 @@ urlpatterns += patterns('',
     #url(r'^autocomplete/', include(autocomplete.urls)),    
     
 )
+
+"""
+urlpatterns += patterns('',
+    (r'^accounts/login/$', include(admin.site.urls)),
+    (r'^accounts/profile/$', redirect_to, {'url': '/mpepu/'}),
+    (r'^accounts/profile/logout', 'django.contrib.auth.views.login'),
+)
+"""
 
