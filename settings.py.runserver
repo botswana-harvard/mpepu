@@ -129,7 +129,7 @@ INSTALLED_APPS = (
     'bhp_registration',
     'bhp_pharmacy',
     'bhp_variables',
-    'bhp_visit',    
+    'bhp_visit',  
     'bhp_list',
     'bhp_form',
     'mpepu_list',
