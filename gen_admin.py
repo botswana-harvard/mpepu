@@ -38,6 +38,8 @@ class ${model}Admin(${base}): \n\
 \n\
     filter_horizontal = (\n        ${filter_horizontal}\n    )\n\
 \n\
+    \"\"\"${related}\"\"\"\n\
+\n\
 admin.site.register(${model}, ${model}Admin)")
 
     model_names = []
@@ -52,7 +54,8 @@ admin.site.register(${model}, ${model}Admin)")
             if field.name == foreign_key_field:
                 # list fields        
                 fields = [] 
-                choice_fields = []   
+                choice_fields = [] 
+                related = []  
                 for field in model._meta.fields:
                     if field.name not in ['created', 'modified', 'user_created', 'user_modified', 'hostname_created', 'hostname_modified', 'id',]:
                         fields.append('"'+field.name+'"')
@@ -61,7 +64,7 @@ admin.site.register(${model}, ${model}Admin)")
                        choice_fields.append('"%s":admin.VERTICAL' % field.name)
                     try:
                         if field.__dict__['related']:
-                            related.append(field.__dict__['parent_model']._meta.module_name)
+                            related.append(field.__dict__['related'].__dict__['parent_model']._meta.module_name)
                     except:
                         pass        
                 # if field has manytomany add to filter_horizontal
@@ -74,6 +77,7 @@ admin.site.register(${model}, ${model}Admin)")
                     fields = ',\n        '.join(fields),        
                     radio_fields = ',\n        '.join(choice_fields),        
                     filter_horizontal = ',\n        '.join(m2m_fields),
+                    related = ', '.join(related),
                     )
 
 def gen_form( **kwargs):
