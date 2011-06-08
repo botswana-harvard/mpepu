@@ -20,10 +20,18 @@ urlpatterns = patterns('',
 
 urlpatterns += patterns('',
 
+    url(r'^mpepu/dashboard/', include('mpepu_dashboard.urls')),
+    
+)
+
+urlpatterns += patterns('',
+
     url(r'^mpepu/', include('mpepu.urls')),
     #url(r'^autocomplete/', include(autocomplete.urls)),    
     
 )
+
+
 
 """
 urlpatterns += patterns('',

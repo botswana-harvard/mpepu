@@ -132,6 +132,7 @@ INSTALLED_APPS = (
     'bhp_visit',  
     'bhp_list',
     'bhp_form',
+    'bhp_dashboard',    
     'mpepu_list',
     'mpepu',
     'mpepu_maternal',        
