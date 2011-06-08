@@ -26,6 +26,9 @@ def gen_admin( **kwargs):
     #foreign_key_field = "registered_subject"
     #base_model_admin = 'MyRegisteredSubjectModelAdmin'
 
+    #app_label = 'mpepu_infant'
+    #foreign_key_field = "infant_visit"
+    #base_model_admin = 'MyMaternalVisitModelAdmin'
 
     s = Template("\n# ${model}\n\
 class ${model}Admin(${base}): \n\
