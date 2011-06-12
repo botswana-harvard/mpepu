@@ -1,5 +1,6 @@
 from django.conf.urls.defaults import patterns, include, url
 from django.contrib import admin
+from django.contrib.auth.views import logout, login, password_change
 from django.views.generic.simple import redirect_to
 #from autocomplete.views import autocomplete
 #from django.contrib.staticfiles.urls import staticfiles_urlpatterns
@@ -15,6 +16,8 @@ urlpatterns = patterns('',
 
 
     # Uncomment the next line to enable the admin:
+    (r'^admin/logout/$', redirect_to, {'url':'/mpepu/logout/'}),
+    #(r'^admin/$', redirect_to, {'url':'/mpepu/administration/'}),    
     (r'^admin/', include(admin.site.urls)),
 )
 
@@ -25,13 +28,15 @@ urlpatterns += patterns('',
 )
 
 urlpatterns += patterns('',
-
-    url(r'^mpepu/', include('mpepu.urls')),
-    #url(r'^autocomplete/', include(autocomplete.urls)),    
-    
+    url(r'^mpepu/login/', 'django.contrib.auth.views.login', name='mpepu_login'),
+    url(r'^mpepu/logout/', 'django.contrib.auth.views.logout_then_login', name='mpepu_logout'),
+    url(r'^mpepu/passwordchange/', 'django.contrib.auth.views.password_change', name='mpepu_password_change'),
+    url(r'^mpepu/passwordchangedone/', 'django.contrib.auth.views.password_change_done', name='mpepu_password_change_done'),                            
+    url(r'^mpepu/', include('mpepu.urls'), name='home'),
+    url(r'', include('mpepu.urls'), name='index'),    
 )
 
-
+    
 
 """
 urlpatterns += patterns('',

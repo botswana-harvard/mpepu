@@ -129,10 +129,9 @@ INSTALLED_APPS = (
     'bhp_registration',
     'bhp_pharmacy',
     'bhp_variables',
-    'bhp_visit',  
+    #'bhp_visit',  
     'bhp_list',
     'bhp_form',
-    'bhp_dashboard',    
     'mpepu_list',
     'mpepu',
     'mpepu_maternal',        
@@ -165,4 +164,8 @@ LOGGING = {
 
 SOUTH_LOGGING_FILE = os.path.join(os.path.dirname(__file__),"south.log")
 SOUTH_LOGGING_ON = True
-
+LOGIN_URL = '/mpepu/login/'
+LOGIN_REDIRECT_URL = '/mpepu/'
+LOGOUT_URL = '/mpepu/logout/'
+SHORT_DATE_FORMAT = 'Y-m-d'
+SHORT_DATETIME_FORMAT = 'Y-m-d H:i'
