@@ -1,5 +1,8 @@
 # Django settings for bhp project.
-import os
+import os, sys
+sys.path.append('/home/erikvw/source/')
+sys.path.append('/home/erikvw/source/bhplab/')
+
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -20,6 +23,17 @@ DATABASES = {
         'PASSWORD': 'cc3721b',                  # Not used with sqlite3.
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
         'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
+    },
+    'bhplab': {
+        'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+	'OPTIONS': {
+            'init_command': 'SET storage_engine=INNODB',
+        },
+        'NAME': 'bhplab',                      # Or path to database file if using sqlite3.
+        'USER': 'root',                      # Not used with sqlite3.
+        'PASSWORD': 'cc3721b',                  # Not used with sqlite3.
+        'HOST': '192.168.1.50',                      # Set to empty string for localhost. Not used with sqlite3.
+        'PORT': '3306',                      # Set to empty string for default. Not used with sqlite3.
     }
 }
 
