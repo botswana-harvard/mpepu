@@ -132,6 +132,7 @@ INSTALLED_APPS = (
     'django_extensions',
     'south',
     'bhp_basesite',
+    'bhp_dashboard',
     'bhp_templatetags',
     'bhp_calendar',    
     'bhp_adverse',
