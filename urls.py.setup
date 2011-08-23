@@ -28,6 +28,10 @@ urlpatterns += patterns('',
 )
 
 urlpatterns += patterns('',
+    url(r'^mpepu/(?P<section_name>statistics)/',include('mpepu_stats.urls'), name="section_url_name"),
+)
+
+urlpatterns += patterns('',
 
     url(r'^mpepu/dashboard/', include('mpepu_dashboard.urls')),
     

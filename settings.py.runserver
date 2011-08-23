@@ -3,6 +3,7 @@ import os, sys
 sys.path.append('/home/erikvw/source/')
 sys.path.append('/home/erikvw/source/bhplab/')
 
+
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -132,7 +133,6 @@ INSTALLED_APPS = (
     'django_extensions',
     'south',
     'bhp_basesite',
-    'bhp_dashboard',
     'bhp_templatetags',
     'bhp_calendar',    
     'bhp_adverse',
@@ -144,13 +144,21 @@ INSTALLED_APPS = (
     'bhp_registration',
     'bhp_pharmacy',
     'bhp_variables',
+    'bhp_visit',
+    'bhp_appointment',
+    'bhp_entry',
     'bhp_list',
-    'bhp_form',
     'bhp_lab_api',    
+    'bhp_context',
+    'bhp_dashboard',
+    'bhp_dashboard_registered_subject',          
+    'bhp_export_data',
+    'bhp_describer',
     'mpepu_list',
     'mpepu',
+    'mpepu_stats',
     'mpepu_maternal',        
-    'mpepu_infant',    
+    'mpepu_infant',
     'mpepu_dashboard',    
 )
 
