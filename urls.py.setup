@@ -19,12 +19,19 @@ urlpatterns = patterns('',
     (r'^admin/logout/$', redirect_to, {'url':'/mpepu/logout/'}),
     #(r'^admin/$', redirect_to, {'url':'/mpepu/administration/'}),    
     (r'^admin/', include(admin.site.urls)),
+    #(r'^admin/', include('mpepu.urls')),    
+    
 )
 
 urlpatterns += staticfiles_urlpatterns()
 
 urlpatterns += patterns('',
     (r'^bhp_lab_api/', include('bhp_lab_api.urls')),
+)
+
+urlpatterns += patterns('',
+    (r'^audit_trail/', include('audit_trail.urls')),
+    (r'^mpepu/audit_trail/', include('audit_trail.urls')),    
 )
 
 urlpatterns += patterns('',

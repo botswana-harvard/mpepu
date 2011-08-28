@@ -60,7 +60,7 @@ USE_I18N = True
 
 # If you set this to False, Django will not format dates, numbers and
 # calendars according to the current locale
-USE_L10N = True
+USE_L10N = False
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
@@ -132,7 +132,9 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
     'django_extensions',
     'south',
+    'audit_trail',
     'bhp_basesite',
+    'bhp_model_selector',
     'bhp_templatetags',
     'bhp_calendar',    
     'bhp_adverse',
@@ -190,6 +192,8 @@ SOUTH_LOGGING_ON = True
 LOGIN_URL = '/mpepu/login/'
 LOGIN_REDIRECT_URL = '/mpepu/'
 LOGOUT_URL = '/mpepu/logout/'
+DATE_FORMAT = 'Y-m-d'
+DATETIME_FORMAT = 'Y-m-d H:i'
 SHORT_DATE_FORMAT = 'Y-m-d'
 SHORT_DATETIME_FORMAT = 'Y-m-d H:i'
 LABDB = 'bhplab' 
