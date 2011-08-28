@@ -1,7 +1,7 @@
 # Django settings for bhp project.
 import os, sys
-sys.path.append('/home/erikvw/source/')
-sys.path.append('/home/erikvw/source/bhplab/')
+sys.path.append('/home/django/source/')
+sys.path.append('/home/django/source/bhplab/')
 
 
 DEBUG = True
@@ -82,7 +82,7 @@ STATIC_URL = '/static/'
 # URL prefix for admin media -- CSS, JavaScript and images.
 # Make sure to use a trailing slash.
 # Examples: "http://foo.com/static/admin/", "/static/admin/".
-ADMIN_MEDIA_PREFIX = '/static/admin/'
+#ADMIN_MEDIA_PREFIX = '/static/admin/'
 
 # A list of locations of additional static files
 STATICFILES_DIRS = ()
