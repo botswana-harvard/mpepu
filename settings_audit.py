@@ -34,6 +34,6 @@ def get_subject_identifier(obj):
 
 # Populate the fields that every Audit model in this app will use.
 GLOBAL_TRACK_FIELDS = (
-    ('_audit_subject_identifier', models.CharField(max_length=50), get_subject_identifier),
+    ('_audit_subject_identifier', models.CharField(max_length=50, null=True), get_subject_identifier),
 )
 
