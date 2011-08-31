@@ -1,35 +1,32 @@
-this project should be at ~/bhp056
+this project should be at ~/source/bhp056
 
-cd ~/
+cd ~/source
+django-admin startproject bhp056
 svn co http://192.168.1.50/svn/bhp056_project bhp056
 
-you now need to get the "mpepu" application from subversion. 
+cd ~/source/bhp056
+cp settings.py.runserver settings.py
+cp urls.py.setup urls.py
 
-cd ~/bhp056
-svn co http://192.168.1.50/svn/mpepu mpepu
+check the paths, if any, at the top of the settings.py
 
-After that read the README file in the "mpepu" folder where you
-will find the other applications that "mpepu" needs.
+if you are using apache 
 
+cd ~/source/bhp056
+cp settings.py.apache settings.py
+
+also for apache, check the paths in apache/django.wsgi
+
+you now need to get the other "bhp_" and "mpepu" application from subversion. 
+Check settings.INSTALLED_APPS for the current list.
+
+use mysql to create the bhp056 database.
 
 To generate tables
 
-cd ~/bhp056
+cd ~/source/bhp056
 python manage.py syncdb
 
-To delete a table
-
-mysql -u root -p bhp056
-show tables;
-delete table [table name];
-quit;
-
-run syncdb again (as above)
-
-
-To run the development server
-
-cd ~/bhp056
-python manage.py runserver
+python manage.py migrate
 
 

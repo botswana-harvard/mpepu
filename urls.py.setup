@@ -1,29 +1,39 @@
 from django.conf.urls.defaults import patterns, include, url
 from django.contrib import admin
+from django.contrib import databrowse
+from django.db.models import get_model
 from django.contrib.auth.views import logout, login, password_change
 from django.views.generic.simple import redirect_to
+from django.contrib.auth.decorators import login_required
 #from autocomplete.views import autocomplete
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 admin.autodiscover()
+from django.db.models import get_model
+from mpepu_maternal import models
+
+m = []
+for model_name in dir(models):
+    m = (get_model('mpepu_maternal', model_name.lower()))
+    if m:
+        databrowse.site.register(m)
+ 
+m = []
+for model_name in dir(models):
+    m = (get_model('mpepu_infant', model_name.lower()))
+    if m:
+        databrowse.site.register(m)
 
 urlpatterns = patterns('',
-
-    # Uncomment the admin/doc line below to enable admin documentation:
     (r'^admin/doc/', include('django.contrib.admindocs.urls')),
-
-    # Uncomment the next line to enable the admin:
-    #(r'^admin/$', redirect_to, {'url': '/mpepu/'}),
-
-
-    # Uncomment the next line to enable the admin:
     (r'^admin/logout/$', redirect_to, {'url':'/mpepu/logout/'}),
-    #(r'^admin/$', redirect_to, {'url':'/mpepu/administration/'}),    
     (r'^admin/', include(admin.site.urls)),
-    #(r'^admin/', include('mpepu.urls')),    
-    
 )
 
 urlpatterns += staticfiles_urlpatterns()
+
+urlpatterns += patterns('',
+    (r'^databrowse/(.*)', login_required(databrowse.site.root)),
+)
 
 urlpatterns += patterns('',
     (r'^bhp_lab_api/', include('bhp_lab_api.urls')),
@@ -39,9 +49,7 @@ urlpatterns += patterns('',
 )
 
 urlpatterns += patterns('',
-
     url(r'^mpepu/dashboard/', include('mpepu_dashboard.urls')),
-    
 )
 
 urlpatterns += patterns('',
