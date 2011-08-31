@@ -18,9 +18,9 @@ def gen_admin( **kwargs):
     from string import Template
     from django.contrib.contenttypes.models import ContentType
 
-    app_label = kwargs.get("app_label", 'mpepu_maternal')
-    foreign_key_field = kwargs.get("foreign_key", "maternal_arv_preg_history")
-    base_model_admin = kwargs.get("base", 'MyMaternalVisitModelAdmin')
+    #app_label = kwargs.get("app_label", 'mpepu_maternal')
+    #foreign_key_field = kwargs.get("foreign_key", "maternal_arv_preg_history")
+    #base_model_admin = kwargs.get("base", 'MyMaternalVisitModelAdmin')
 
     #app_label = 'mpepu_maternal'
     #foreign_key_field = "registered_subject"
@@ -30,9 +30,9 @@ def gen_admin( **kwargs):
     #foreign_key_field = "infant_visit"
     #base_model_admin = 'MyInfantVisitModelAdmin'
 
-    ##app_label = 'mpepu_maternal'
-    #foreign_key_field = "maternal_visit"
-    #base_model_admin = 'MyMaternalVisitModelAdmin'
+    app_label = 'mpepu_maternal'
+    foreign_key_field = "maternal_visit"
+    base_model_admin = 'MyMaternalVisitModelAdmin'
 
     s = Template("\n# ${model}\n\
 class ${model}Admin(${base}): \n\

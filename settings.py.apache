@@ -130,9 +130,12 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.admin',
     'django.contrib.admindocs',
+    'django.contrib.databrowse',
     'django_extensions',
     'south',
+    'audit_trail',
     'bhp_basesite',
+    'bhp_model_selector',
     'bhp_templatetags',
     'bhp_calendar',    
     'bhp_adverse',
@@ -159,7 +162,8 @@ INSTALLED_APPS = (
     'mpepu_stats',
     'mpepu_maternal',        
     'mpepu_infant',
-    'mpepu_dashboard',    
+    'mpepu_infant_rando',
+    'mpepu_dashboard',   
 )
 
 # A sample logging configuration. The only tangible logging
