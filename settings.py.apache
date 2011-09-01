@@ -142,6 +142,7 @@ INSTALLED_APPS = (
     'bhp_haart',    
     'bhp_code_lists',    
     'bhp_common',    
+    'bhp_content_type_map',    
     'bhp_search',
     'bhp_consent',
     'bhp_registration',
