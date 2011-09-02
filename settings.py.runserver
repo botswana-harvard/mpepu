@@ -30,7 +30,7 @@ DATABASES = {
     	'OPTIONS': {
             'init_command': 'SET storage_engine=INNODB',
         },
-        'NAME': 'bhplab',                      # Or path to database file if using sqlite3.
+        'NAME': 'lab',                      # Or path to database file if using sqlite3.
         'USER': 'root',                      # Not used with sqlite3.
         'PASSWORD': 'cc3721b',                  # Not used with sqlite3.
         'HOST': '192.168.1.50',                      # Set to empty string for localhost. Not used with sqlite3.
@@ -130,9 +130,11 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.admin',
     'django.contrib.admindocs',
+    'django.contrib.databrowse',
     'django_extensions',
     'south',
     'audit_trail',
+    'autocomplete',
     'bhp_basesite',
     'bhp_model_selector',
     'bhp_templatetags',
@@ -141,14 +143,21 @@ INSTALLED_APPS = (
     'bhp_haart',    
     'bhp_code_lists',    
     'bhp_common',    
+    'bhp_identifier',    
+    'bhp_content_type_map',    
     'bhp_search',
     'bhp_consent',
     'bhp_registration',
     'bhp_pharmacy',
     'bhp_variables',
+    'lab_requisition',
+    'lab_aliquot_list',
+    'lab_panel',
+    'lab_test_code',
     'bhp_visit',
     'bhp_appointment',
     'bhp_entry',
+    'bhp_lab_entry',    
     'bhp_list',
     'bhp_lab_api',    
     'bhp_context',
@@ -161,7 +170,9 @@ INSTALLED_APPS = (
     'mpepu_stats',
     'mpepu_maternal',        
     'mpepu_infant',
+    'mpepu_infant_rando',    
     'mpepu_dashboard',    
+    'mpepu_lab',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -197,3 +208,4 @@ DATETIME_FORMAT = 'Y-m-d H:i'
 SHORT_DATE_FORMAT = 'Y-m-d'
 SHORT_DATETIME_FORMAT = 'Y-m-d H:i'
 LABDB = 'bhplab' 
+AUTOCOMPLETE_MEDIA_PREFIX = '/media/autocomplete/media/'
