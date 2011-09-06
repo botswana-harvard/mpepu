@@ -36,7 +36,7 @@ urlpatterns += patterns('',
 )
 
 urlpatterns += patterns('',
-    (r'^bhp_lab_api/', include('bhp_lab_api.urls')),
+    (r'^lab_ajax_api/', include('lab_ajax_api.urls')),
 )
 
 urlpatterns += patterns('',
