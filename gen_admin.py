@@ -30,7 +30,7 @@ def gen_admin( **kwargs):
     #foreign_key_field = "infant_visit"
     #base_model_admin = 'MyInfantVisitModelAdmin'
     
-    app_label = 'audit_trail'
+    app_label = 'lab_clinic_api'
     foreign_key_field = "id"
     base_model_admin = 'MyModelAdmin'
 
@@ -55,7 +55,7 @@ admin.site.register(${model}, ${model}Admin)")
 
     # get model class from content type
     for model_name in model_names:
-        model = ContentType.objects.get(model=model_name).model_class()
+        model = ContentType.objects.get(model=model_name, app_label=app_label).model_class()
         object_name = model._meta.__dict__['object_name']
         for field in model._meta.fields:
             if field.name == foreign_key_field:
