@@ -1,8 +1,5 @@
 # Django settings for bhp project.
 import os, sys
-#sys.path.append('/home/django/source/')
-#sys.path.append('/home/django/source/bhplab/')
-
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -163,6 +160,9 @@ INSTALLED_APPS = (
     'bhp_pharmacy',
     'bhp_variables',
     'bhp_research_protocol',
+    'lab_flag',
+    'lab_grading',
+    'lab_reference',
     'lab_requisition',
     'lab_aliquot_list',
     'lab_panel',
