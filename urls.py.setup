@@ -43,9 +43,9 @@ urlpatterns += patterns('',
     (r'^databrowse/(.*)', login_required(databrowse.site.root)),
 )
 
-urlpatterns += patterns('',
-    (r'^lab_ajax_api/', include('lab_ajax_api.urls')),
-)
+#urlpatterns += patterns('',
+#    (r'^lab_ajax_api/', include('lab_ajax_api.urls')),
+#)
 
 urlpatterns += patterns('',
     (r'^audit_trail/', include('audit_trail.urls')),
