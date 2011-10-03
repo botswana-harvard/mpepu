@@ -10,19 +10,20 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.db.models import get_model
 from dajaxice.core import dajaxice_autodiscover
-from mpepu_maternal import models
+from mpepu_maternal import models as maternal_models
+from mpepu_infant import models as infant_models
 
 admin.autodiscover()
 dajaxice_autodiscover()
 
 m = []
-for model_name in dir(models):
+for model_name in dir(maternal_models):
     m = (get_model('mpepu_maternal', model_name.lower()))
     if m:
         databrowse.site.register(m)
  
 m = []
-for model_name in dir(models):
+for model_name in dir(infant_models):
     m = (get_model('mpepu_infant', model_name.lower()))
     if m:
         databrowse.site.register(m)
