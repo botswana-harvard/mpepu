@@ -235,3 +235,4 @@ AUTH_PROFILE_MODULE = "bhp_userprofile.userprofile"
 # https://bitbucket.org/tyrion/django-autocomplete
 AUTOCOMPLETE_MEDIA_PREFIX = '/media/autocomplete/media/'
 DAJAXICE_MEDIA_PREFIX="dajaxice"
+SESSION_COOKIE_AGE = 300
