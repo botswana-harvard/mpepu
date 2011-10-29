@@ -2,31 +2,18 @@ from django.conf.urls.defaults import patterns, include, url
 from django.contrib import admin
 from django.conf import settings
 from django.contrib import databrowse
-from django.db.models import get_model
+from django.db.models import get_models
 from django.contrib.auth.views import logout, login, password_change
 from django.views.generic.simple import redirect_to
 from django.contrib.auth.decorators import login_required
 #from autocomplete.views import autocomplete
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-from django.db.models import get_model
 from dajaxice.core import dajaxice_autodiscover
-from mpepu_maternal import models as maternal_models
-from mpepu_infant import models as infant_models
 
 admin.autodiscover()
 dajaxice_autodiscover()
-
-m = []
-for model_name in dir(maternal_models):
-    m = (get_model('mpepu_maternal', model_name.lower()))
-    if m:
-        databrowse.site.register(m)
- 
-m = []
-for model_name in dir(infant_models):
-    m = (get_model('mpepu_infant', model_name.lower()))
-    if m:
-        databrowse.site.register(m)
+for model in get_models():
+   databrowse.site.register(model)
 
 urlpatterns = staticfiles_urlpatterns()
 
@@ -43,10 +30,6 @@ urlpatterns += patterns('',
 urlpatterns += patterns('',
     (r'^databrowse/(.*)', login_required(databrowse.site.root)),
 )
-
-#urlpatterns += patterns('',
-#    (r'^lab_ajax_api/', include('lab_ajax_api.urls')),
-#)
 
 urlpatterns += patterns('',
     (r'^audit_trail/', include('audit_trail.urls')),
