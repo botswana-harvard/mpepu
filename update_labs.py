@@ -1,14 +1,17 @@
 #!/usr/bin/env python
 def main():
     registered_subjects = RegisteredSubject.objects.all()
+    total = registered_subjects.count()
+    cnt = 0
     for registered_subject in registered_subjects:
         subject_identifier = registered_subject.subject_identifier
+        cnt += 1
         labs = Lab.objects.fetch(subject_identifier=subject_identifier)
         if labs:
             results = Result.objects.fetch(subject_identifier=subject_identifier, labs=labs)
             if results:
                 x= ResultItem.objects.fetch(subject_identifier=subject_identifier, results=results)
-        print subject_identifier     
+        print '%s %s/%s' % (subject_identifier, cnt, total)
 
 if __name__=="__main__":
 
