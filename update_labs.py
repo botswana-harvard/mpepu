@@ -5,6 +5,8 @@ def main():
     cnt = 0
     for registered_subject in registered_subjects:
         
+        subject_identifier = registered_subject.subject_identifier
+
         dmis = Dmis()
         dmis.fetch(subject_identifier=subject_identifier, lab_db='lab_api')
 
@@ -13,7 +15,6 @@ def main():
         dmis = DmisOrder()
         dmis.fetch(subject_identifier=subject_identifier, lab_db='lab_api')
         
-        subject_identifier = registered_subject.subject_identifier
         cnt += 1
         if Lab.objects.filter(subject_identifier=subject_identifier, result__isnull=True):
             Lab.objects.filter(subject_identifier=subject_identifier, result__isnull=True).delete()
