@@ -1,5 +1,5 @@
 # Django settings for bhp project.
-import os, sys
+import os, platform
 os.environ['MPLCONFIGDIR']='/tmp'
 
 DEBUG = True
@@ -17,7 +17,7 @@ DATABASES = {
 	'OPTIONS': {
             'init_command': 'SET storage_engine=INNODB',
         },
-        'NAME': 'bhp056',                      # Or path to database file if using sqlite3.
+        'NAME': 'bhp056_20120315',                      # Or path to database file if using sqlite3.
         'USER': 'root',                      # Not used with sqlite3.
         'PASSWORD': 'cc3721b',                  # Not used with sqlite3.
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
@@ -163,7 +163,6 @@ INSTALLED_APPS = (
     'bhp_pharmacy',
     'bhp_variables',
     'bhp_research_protocol',
-    'bhp_sync',
     'lab_common', 
     'lab_flag',
     'lab_grading',
@@ -182,8 +181,8 @@ INSTALLED_APPS = (
     'lab_barcode',
     'lab_import_dmis',
     'lab_clinic_api',
-    'lab_result_report',            
-    'lab_packing',
+    'lab_result_report',   
+    'lab_packing',         
     'bhp_visit',
     'bhp_appointment',
     'bhp_entry',
@@ -204,7 +203,6 @@ INSTALLED_APPS = (
     'mpepu_infant_rando',    
     'mpepu_dashboard',    
     'mpepu_lab',
-    'mpepu_summary',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -244,3 +242,9 @@ AUTH_PROFILE_MODULE = "bhp_userprofile.userprofile"
 AUTOCOMPLETE_MEDIA_PREFIX = '/media/autocomplete/media/'
 DAJAXICE_MEDIA_PREFIX="dajaxice"
 SESSION_COOKIE_AGE = 10000
+
+
+if platform.system() == 'Darwin':
+    LAB_IMPORT_DMIS_DATA_SOURCE = "DRIVER=/usr/local/lib/libtdsodbc.so;SERVER=s012.bhp.org.bw;PORT=1433;UID=sa;PWD=cc3721b;DATABASE=BHPLAB"
+else:
+    LAB_IMPORT_DMIS_DATA_SOURCE = "DRIVER={FreeTDS};SERVER=192.168.1.141;UID=sa;PWD=cc3721b;DATABASE=BHPLAB"

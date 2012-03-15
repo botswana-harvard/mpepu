@@ -3,7 +3,7 @@ from django.contrib import admin
 from django.conf import settings
 import databrowse
 from django.db.models import get_models
-from django.contrib.auth.views import logout, login, password_change
+#from django.contrib.auth.views import logout, login, password_change
 from django.views.generic.simple import redirect_to
 from django.contrib.auth.decorators import login_required
 #from autocomplete.views import autocomplete
@@ -13,7 +13,7 @@ from dajaxice.core import dajaxice_autodiscover
 admin.autodiscover()
 dajaxice_autodiscover()
 for model in get_models():
-   databrowse.site.register(model)
+    databrowse.site.register(model)
 
 urlpatterns = staticfiles_urlpatterns()
 
