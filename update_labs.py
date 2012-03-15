@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-def main(subject_identifier):
+def main():
     if len(sys.argv) == 1:
         subject_identifier=sys.argv[1]
     else:
