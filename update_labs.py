@@ -7,6 +7,7 @@ def main():
         subject_identifier = registered_subject.subject_identifier
         cnt += 1
         labs = Lab.objects.fetch(subject_identifier=subject_identifier)
+        
         if labs:
             results = Result.objects.fetch(subject_identifier=subject_identifier, labs=labs)
             if results:
