@@ -1,6 +1,12 @@
 #!/usr/bin/env python
-def main():
-    registered_subjects = RegisteredSubject.objects.all()
+def main(**kwargs):
+    
+    subject_identifier = kwargs.get("subject_identifier", None)
+    
+    if subject_identifier:
+        registered_subjects = RegisteredSubject.objects.filter(subject_identifier=subject_identifier)
+    else:    
+        registered_subjects = RegisteredSubject.objects.all()
     total = registered_subjects.count()
     cnt = 0
     dmis = Dmis()
@@ -44,4 +50,7 @@ if __name__=="__main__":
     from lab_import_dmis.classes import Dmis, DmisReceive, DmisOrder
 
 
-    main()
+    if len(sys.argv) == 1:
+        main(subject_identifier=sys.argv[1])
+    else:
+        main()
