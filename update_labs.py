@@ -1,6 +1,10 @@
 #!/usr/bin/env python
 def main(subject_identifier):
-
+    if len(sys.argv) == 1:
+        subject_identifier=sys.argv[1]
+    else:
+        subject_identifier=None
+        
     if subject_identifier:
         registered_subjects = RegisteredSubject.objects.filter(subject_identifier=subject_identifier)
     else:    
@@ -46,9 +50,4 @@ if __name__=="__main__":
     from bhp_registration.models import RegisteredSubject
     from lab_clinic_api.models import Lab, Result, ResultItem
     from lab_import_dmis.classes import Dmis, DmisReceive, DmisOrder
-
-
-    if len(sys.argv) == 1:
-        main(sys.argv[1])
-    else:
-        main(None)
+    main()
