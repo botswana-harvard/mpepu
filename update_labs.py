@@ -1,8 +1,6 @@
 #!/usr/bin/env python
-def main(**kwargs):
-    
-    subject_identifier = kwargs.get("subject_identifier", None)
-    
+def main(subject_identifier):
+
     if subject_identifier:
         registered_subjects = RegisteredSubject.objects.filter(subject_identifier=subject_identifier)
     else:    
@@ -51,6 +49,6 @@ if __name__=="__main__":
 
 
     if len(sys.argv) == 1:
-        main(subject_identifier=sys.argv[1])
+        main(sys.argv[1])
     else:
-        main()
+        main(None)
