@@ -40,5 +40,7 @@ if __name__=="__main__":
     setup_environ(settings)
     from bhp_registration.models import RegisteredSubject
     from lab_clinic_api.models import Lab, Result, ResultItem
+    from lab_import_dmis.classes import Dmis, DmisReceive, DmisOrder
+
 
     main()
