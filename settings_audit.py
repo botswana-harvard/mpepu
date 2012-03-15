@@ -24,6 +24,8 @@ def get_subject_identifier(obj):
         subject_identifier = obj.appointment.registered_subject.subject_identifier        
     elif [fld for fld in obj._meta.fields if fld.name == 'registered_subject']:
         subject_identifier = obj.registered_subject.subject_identifier        
+    elif 'get_subject_identifier' in dir(obj):        
+        subject_identifier = obj.get_subject_identifier()
     else:
         try:
             subject_identifier = obj.get_visit().appointment.registered_subject.subject_identifier                    
