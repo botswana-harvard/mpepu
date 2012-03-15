@@ -1,7 +1,9 @@
 #!/usr/bin/env python
+import sys, os
 
-def main():
-    if len(sys.argv) == 1:
+
+def main(argv):
+    if sys.argv.count > 1:
         subject_identifier=sys.argv[1]
     else:
         subject_identifier=None
@@ -37,7 +39,7 @@ def main():
 
 if __name__=="__main__":
 
-    import sys, os
+    #import sys, os
     sys.path.append('/home/django/source/bhp056/')
     os.environ['DJANGO_SETTINGS_MODULE'] ='bhp056.settings'
     try:
@@ -51,4 +53,4 @@ if __name__=="__main__":
     from bhp_registration.models import RegisteredSubject
     from lab_clinic_api.models import Lab, Result, ResultItem
     from lab_import_dmis.classes import Dmis, DmisReceive, DmisOrder
-    main()
+    main(sys.argv[1:])
