@@ -4,6 +4,15 @@ def main():
     total = registered_subjects.count()
     cnt = 0
     for registered_subject in registered_subjects:
+        
+        dmis = Dmis()
+        dmis.fetch(subject_identifier=subject_identifier, lab_db='lab_api')
+
+        dmis = DmisReceive()
+        dmis.fetch(subject_identifier=subject_identifier, lab_db='lab_api')
+        dmis = DmisOrder()
+        dmis.fetch(subject_identifier=subject_identifier, lab_db='lab_api')
+        
         subject_identifier = registered_subject.subject_identifier
         cnt += 1
         if Lab.objects.filter(subject_identifier=subject_identifier, result__isnull=True):
