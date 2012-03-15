@@ -3,17 +3,17 @@ def main():
     registered_subjects = RegisteredSubject.objects.all()
     total = registered_subjects.count()
     cnt = 0
+    dmis = Dmis()
+    dmis_receive = DmisReceive()
+    dmis_order = DmisOrder()
+
     for registered_subject in registered_subjects:
         
         subject_identifier = registered_subject.subject_identifier
 
-        dmis = Dmis()
         dmis.fetch(subject_identifier=subject_identifier, lab_db='lab_api')
-
-        dmis = DmisReceive()
-        dmis.fetch(subject_identifier=subject_identifier, lab_db='lab_api')
-        dmis = DmisOrder()
-        dmis.fetch(subject_identifier=subject_identifier, lab_db='lab_api')
+        dmis_receive.fetch(subject_identifier=subject_identifier, lab_db='lab_api')
+        dmis_order.fetch(subject_identifier=subject_identifier, lab_db='lab_api')
         
         cnt += 1
         if Lab.objects.filter(subject_identifier=subject_identifier, result__isnull=True):
