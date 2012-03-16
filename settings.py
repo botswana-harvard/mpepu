@@ -17,7 +17,7 @@ DATABASES = {
 	'OPTIONS': {
             'init_command': 'SET storage_engine=INNODB',
         },
-        'NAME': 'bhp056_20120315',                      # Or path to database file if using sqlite3.
+        'NAME': 'bhp056',                      # Or path to database file if using sqlite3.
         'USER': 'root',                      # Not used with sqlite3.
         'PASSWORD': 'cc3721b',                  # Not used with sqlite3.
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
@@ -31,8 +31,8 @@ DATABASES = {
         'NAME': 'lab',                      # Or path to database file if using sqlite3.
         'USER': 'root',                      # Not used with sqlite3.
         'PASSWORD': 'cc3721b',                  # Not used with sqlite3.
-        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
-        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
+        'HOST': '192.168.1.50',                      # Set to empty string for localhost. Not used with sqlite3.
+        'PORT': '3306',                      # Set to empty string for default. Not used with sqlite3.
     }
 }
 
@@ -163,6 +163,7 @@ INSTALLED_APPS = (
     'bhp_pharmacy',
     'bhp_variables',
     'bhp_research_protocol',
+    'bhp_sync',
     'lab_common', 
     'lab_flag',
     'lab_grading',
