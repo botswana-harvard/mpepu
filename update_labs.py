@@ -9,7 +9,7 @@ def main(argv):
         subject_identifier=None
         
     if subject_identifier:
-        registered_subjects = RegisteredSubject.objects.filter(subject_identifier=subject_identifier)
+        registered_subjects = RegisteredSubject.objects.filter(subject_identifier=subject_identifier).order_by('subject_identifier')
     else:    
         registered_subjects = RegisteredSubject.objects.all()
     total = registered_subjects.count()
