@@ -183,8 +183,11 @@ INSTALLED_APPS = (
     'lab_import_dmis',
     'lab_clinic_api',
     'lab_result_report',   
-    'lab_packing',         
+    'lab_packing',  
+    'lab_longitudinal_history',   
+    'bhp_crypto',    
     'bhp_visit',
+    'bhp_visit_tracking',
     'bhp_appointment',
     'bhp_entry',
     'bhp_lab_entry',    
@@ -195,6 +198,7 @@ INSTALLED_APPS = (
     'bhp_export_data',
     'bhp_model_describer',
     'bhp_subject_summary',
+    'bhp_bucket',
     'mpepu_list',
     'mpepu',
     'mpepu_reference',
@@ -243,6 +247,19 @@ AUTH_PROFILE_MODULE = "bhp_userprofile.userprofile"
 AUTOCOMPLETE_MEDIA_PREFIX = '/media/autocomplete/media/'
 DAJAXICE_MEDIA_PREFIX="dajaxice"
 SESSION_COOKIE_AGE = 10000
+
+DEVICE_ID='31'
+# parameters for bhp_crypto
+SALT = 'Iyd2CHUAtEMbqZnZgsDhJkoL5jrPGfkT0xa1g81wM8GhABLJe/wVyHtRPpMGvUGUN2FMXZR9a1sQCH+HbrCOpNNFiPvipY44eBCdx3X3C65Lbi/OG4Ienuuum2twtfquUNu/Wuy6pGWDcH5mqqkeAhNCPtD7tHsmj1awj3PQEPXLCQICNMdXrkdR87WwXhhv41yTij7FZemD/xZos7lT0jdxZoqnuSkS6WmVPDkIbZlyYK778wPwglgNOWBSaH3wuzpN5hgAsfTy6dipYdKbdZheR1Q1s3JWPkCP1Ib6cOeOnZz+GI0S8I+pc+sCA0rEfseVQLIoxCou98+e/WSy0Q=='
+## strong encryption method
+IS_SECURE_DEVICE = True
+PUBLIC_KEY_RESTRICTED = 'user-public-restricted.pem'
+## restricted to configured for level-4+ data
+#PRIVATE_KEY_RESTRICTED = 'user-private-restricted.pem'
+## parameters for EncryptedField weak encryption method
+PUBLIC_KEY_LOCAL = 'user-public-local.pem'
+PRIVATE_KEY_LOCAL = 'user-private-local.pem'
+AES_KEY = 'user-aes-local.pem'
 
 
 if platform.system() == 'Darwin':

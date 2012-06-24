@@ -9,9 +9,14 @@ from django.contrib.auth.decorators import login_required
 #from autocomplete.views import autocomplete
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from dajaxice.core import dajaxice_autodiscover
+from lab_longitudinal_history.classes import longitudinal_history
+from bhp_bucket.classes import bucket
 
 admin.autodiscover()
 dajaxice_autodiscover()
+bucket.autodiscover()
+longitudinal_history.autodiscover()
+
 for model in get_models():
     databrowse.site.register(model)
 

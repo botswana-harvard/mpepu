@@ -1,10 +1,11 @@
 #!/usr/bin/env python
 import sys, os
 
+
 def main(argv):
     
-    if len(argv) > 1:
-        subject_identifier=argv[1]
+    if sys.argv.count > 1:
+        subject_identifier=sys.argv[1]
     else:
         subject_identifier=None
         
