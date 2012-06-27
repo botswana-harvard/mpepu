@@ -1,6 +1,6 @@
 # Django settings for bhp project.
 import os, platform
-os.environ['MPLCONFIGDIR']='/tmp'
+#os.environ['MPLCONFIGDIR']='/tmp'
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -71,7 +71,7 @@ MEDIA_URL = ''
 
 # Absolute path to the directory that holds static files.
 # Example: "/home/media/media.lawrence.com/static/"
-STATIC_ROOT = '/home/django/source/bhp056/sitestatic/'
+STATIC_ROOT = ''
 
 # URL that handles the static files served from STATIC_ROOT.
 # Example: "http://media.lawrence.com/static/"
@@ -160,10 +160,12 @@ INSTALLED_APPS = (
     'bhp_search',
     'bhp_consent',
     'bhp_registration',
-    'bhp_pharmacy',
+    'bhp_botswana',
+    'bhp_base_form',
     'bhp_variables',
     'bhp_research_protocol',
     'bhp_sync',
+    'bhp_device',
     'lab_common', 
     'lab_flag',
     'lab_grading',
@@ -189,6 +191,7 @@ INSTALLED_APPS = (
     'bhp_visit',
     'bhp_visit_tracking',
     'bhp_appointment',
+    'bhp_subject',
     'bhp_entry',
     'bhp_lab_entry',    
     'bhp_list',
@@ -235,6 +238,7 @@ LOGGING = {
 
 SOUTH_LOGGING_FILE = os.path.join(os.path.dirname(__file__),"south.log")
 SOUTH_LOGGING_ON = True
+APP_NAME='mpepu'
 LOGIN_URL = '/mpepu/login/'
 LOGIN_REDIRECT_URL = '/mpepu/'
 LOGOUT_URL = '/mpepu/logout/'
@@ -250,7 +254,7 @@ SESSION_COOKIE_AGE = 10000
 
 DEVICE_ID='31'
 # parameters for bhp_crypto
-SALT = 'Iyd2CHUAtEMbqZnZgsDhJkoL5jrPGfkT0xa1g81wM8GhABLJe/wVyHtRPpMGvUGUN2FMXZR9a1sQCH+HbrCOpNNFiPvipY44eBCdx3X3C65Lbi/OG4Ienuuum2twtfquUNu/Wuy6pGWDcH5mqqkeAhNCPtD7tHsmj1awj3PQEPXLCQICNMdXrkdR87WwXhhv41yTij7FZemD/xZos7lT0jdxZoqnuSkS6WmVPDkIbZlyYK778wPwglgNOWBSaH3wuzpN5hgAsfTy6dipYdKbdZheR1Q1s3JWPkCP1Ib6cOeOnZz+GI0S8I+pc+sCA0rEfseVQLIoxCou98+e/WSy0Q=='
+SALT = 'tjWXbHWlZvoPROWSBHo+QjSRS6dOufzX5NnX/TnH+iCBAagThmRbyBvLEK7g/h32zbqLJUP3Emj1jA7uOwY921XqnIbjtU9pmfGAs5MlynlWEesAGddtU3qnmwNzBlNlXIY6Q57m36N/xv7DNDgq8YQy2rUldF2Z8RyXVUom+RqyoX880mum5ZuTRLJhhv5Wx1PBVtLUkkGxo8kFUz90M0o1QTwlMco0cZciboG4XHf/PYCNnpPx8DFFdb6NJm0sAwCeqx2Kpq8FxxSw3+mOGQx7uDh4ySATSOujsaw/lMg8+c1cW1s31qQek9k0iRv2YfrCMTjOFmZdgIwr2jvUMw=='
 ## strong encryption method
 IS_SECURE_DEVICE = True
 PUBLIC_KEY_RESTRICTED = 'user-public-restricted.pem'
