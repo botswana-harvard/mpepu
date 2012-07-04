@@ -159,6 +159,7 @@ INSTALLED_APPS = (
     'bhp_content_type_map',    
     'bhp_search',
     'bhp_consent',
+    'bhp_locator',
     'bhp_registration',
     'bhp_botswana',
     'bhp_base_form',
@@ -262,7 +263,7 @@ PUBLIC_KEY_RESTRICTED = 'user-public-restricted.pem'
 #PRIVATE_KEY_RESTRICTED = 'user-private-restricted.pem'
 ## parameters for EncryptedField weak encryption method
 PUBLIC_KEY_LOCAL = 'user-public-local.pem'
-PRIVATE_KEY_LOCAL = 'user-private-local.pem'
+#PRIVATE_KEY_LOCAL = 'user-private-local.pem'
 AES_KEY = 'user-aes-local.pem'
 
 
