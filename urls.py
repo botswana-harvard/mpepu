@@ -17,13 +17,7 @@ dajaxice_autodiscover()
 bucket.autodiscover()
 longitudinal_history.autodiscover()
 
-if not settings.SALT:
-    # create a salt if it does not exists
-    from bhp_crypto.classes import BaseCrypter
-    crypter = BaseCrypter()
-    public_keyfile = settings.PUBLIC_KEY_LOCAL
-    crypter.set_public_key(public_keyfile)
-    crypter.make_encrypted_salt()
+
     
 
 

@@ -4,7 +4,7 @@ import os, platform
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
-
+DIRNAME = os.path.dirname(__file__)
 ADMINS = (
     # ('erikvw', 'your_email@example.com'),
 )
@@ -62,8 +62,8 @@ USE_L10N = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
-MEDIA_ROOT = ''
-
+#MEDIA_ROOT = ''
+MEDIA_ROOT = os.path.join(DIRNAME, '')
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
 # Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
@@ -237,7 +237,7 @@ LOGGING = {
     }
 }
 
-SOUTH_LOGGING_FILE = os.path.join(os.path.dirname(__file__),"south.log")
+SOUTH_LOGGING_FILE = os.path.join(DIRNAME,"south.log")
 SOUTH_LOGGING_ON = True
 APP_NAME='mpepu'
 LOGIN_URL = '/mpepu/login/'
@@ -252,20 +252,17 @@ AUTH_PROFILE_MODULE = "bhp_userprofile.userprofile"
 AUTOCOMPLETE_MEDIA_PREFIX = '/media/autocomplete/media/'
 DAJAXICE_MEDIA_PREFIX="dajaxice"
 SESSION_COOKIE_AGE = 10000
+DEVICE_ID = '31'
 
-DEVICE_ID='31'
-# parameters for bhp_crypto
-SALT = 'tjWXbHWlZvoPROWSBHo+QjSRS6dOufzX5NnX/TnH+iCBAagThmRbyBvLEK7g/h32zbqLJUP3Emj1jA7uOwY921XqnIbjtU9pmfGAs5MlynlWEesAGddtU3qnmwNzBlNlXIY6Q57m36N/xv7DNDgq8YQy2rUldF2Z8RyXVUom+RqyoX880mum5ZuTRLJhhv5Wx1PBVtLUkkGxo8kFUz90M0o1QTwlMco0cZciboG4XHf/PYCNnpPx8DFFdb6NJm0sAwCeqx2Kpq8FxxSw3+mOGQx7uDh4ySATSOujsaw/lMg8+c1cW1s31qQek9k0iRv2YfrCMTjOFmZdgIwr2jvUMw=='
-## strong encryption method
-IS_SECURE_DEVICE = True
-PUBLIC_KEY_RESTRICTED = 'user-public-restricted.pem'
-## restricted to configured for level-4+ data
-#PRIVATE_KEY_RESTRICTED = 'user-private-restricted.pem'
-## parameters for EncryptedField weak encryption method
-PUBLIC_KEY_LOCAL = 'user-public-local.pem'
-#PRIVATE_KEY_LOCAL = 'user-private-local.pem'
-AES_KEY = 'user-aes-local.pem'
-
+BHP_CRYPTO_SETTINGS = {
+    "SALT" : 'tjWXbHWlZvoPROWSBHo+QjSRS6dOufzX5NnX/TnH+iCBAagThmRbyBvLEK7g/h32zbqLJUP3Emj1jA7uOwY921XqnIbjtU9pmfGAs5MlynlWEesAGddtU3qnmwNzBlNlXIY6Q57m36N/xv7DNDgq8YQy2rUldF2Z8RyXVUom+RqyoX880mum5ZuTRLJhhv5Wx1PBVtLUkkGxo8kFUz90M0o1QTwlMco0cZciboG4XHf/PYCNnpPx8DFFdb6NJm0sAwCeqx2Kpq8FxxSw3+mOGQx7uDh4ySATSOujsaw/lMg8+c1cW1s31qQek9k0iRv2YfrCMTjOFmZdgIwr2jvUMw==',
+    "IS_SECURE_DEVICE" : True,
+    "PUBLIC_KEY_RESTRICTED" : 'user-public-restricted.pem',
+    "PRIVATE_KEY_RESTRICTED" : 'user-private-restricted.pem',
+    "PUBLIC_KEY_LOCAL" : 'user-public-local.pem',
+    "PRIVATE_KEY_LOCAL" : 'user-private-local.pem',
+    "AES_KEY" : 'user-aes-local.pem',
+    }
 
 if platform.system() == 'Darwin':
     LAB_IMPORT_DMIS_DATA_SOURCE = "DRIVER=/usr/local/lib/libtdsodbc.so;SERVER=s012.bhp.org.bw;PORT=1433;UID=sa;PWD=cc3721b;DATABASE=BHPLAB"
