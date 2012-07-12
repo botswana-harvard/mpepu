@@ -145,6 +145,7 @@ INSTALLED_APPS = (
     'audit_trail',
     'autocomplete',
     'bhp_basesite',
+    'bhp_crypto',    
     'bhp_userprofile', 
     'bhp_poll_mysql',
     'bhp_model_selector',
@@ -188,7 +189,6 @@ INSTALLED_APPS = (
     'lab_result_report',   
     'lab_packing',  
     'lab_longitudinal_history',   
-    'bhp_crypto',    
     'bhp_visit',
     'bhp_visit_tracking',
     'bhp_appointment',
@@ -254,15 +254,9 @@ DAJAXICE_MEDIA_PREFIX="dajaxice"
 SESSION_COOKIE_AGE = 10000
 DEVICE_ID = '31'
 
-BHP_CRYPTO_SETTINGS = {
-    "SALT" : 'tjWXbHWlZvoPROWSBHo+QjSRS6dOufzX5NnX/TnH+iCBAagThmRbyBvLEK7g/h32zbqLJUP3Emj1jA7uOwY921XqnIbjtU9pmfGAs5MlynlWEesAGddtU3qnmwNzBlNlXIY6Q57m36N/xv7DNDgq8YQy2rUldF2Z8RyXVUom+RqyoX880mum5ZuTRLJhhv5Wx1PBVtLUkkGxo8kFUz90M0o1QTwlMco0cZciboG4XHf/PYCNnpPx8DFFdb6NJm0sAwCeqx2Kpq8FxxSw3+mOGQx7uDh4ySATSOujsaw/lMg8+c1cW1s31qQek9k0iRv2YfrCMTjOFmZdgIwr2jvUMw==',
-    "IS_SECURE_DEVICE" : True,
-    "PUBLIC_KEY_RESTRICTED" : 'user-public-restricted.pem',
-    "PRIVATE_KEY_RESTRICTED" : 'user-private-restricted.pem',
-    "PUBLIC_KEY_LOCAL" : 'user-public-local.pem',
-    "PRIVATE_KEY_LOCAL" : 'user-private-local.pem',
-    "AES_KEY" : 'user-aes-local.pem',
-    }
+#BHP_CRYPTO_SETTINGS
+IS_SECURE_DEVICE=False
+MAY_CREATE_NEW_KEYS=True
 
 if platform.system() == 'Darwin':
     LAB_IMPORT_DMIS_DATA_SOURCE = "DRIVER=/usr/local/lib/libtdsodbc.so;SERVER=s012.bhp.org.bw;PORT=1433;UID=sa;PWD=cc3721b;DATABASE=BHPLAB"
