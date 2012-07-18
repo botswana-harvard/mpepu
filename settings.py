@@ -257,6 +257,7 @@ DEVICE_ID = '31'
 #BHP_CRYPTO_SETTINGS
 IS_SECURE_DEVICE=False
 MAY_CREATE_NEW_KEYS=True
+KEY_PATH='/Volumes/bhp056/keys'
 
 if platform.system() == 'Darwin':
     LAB_IMPORT_DMIS_DATA_SOURCE = "DRIVER=/usr/local/lib/libtdsodbc.so;SERVER=s012.bhp.org.bw;PORT=1433;UID=sa;PWD=cc3721b;DATABASE=BHPLAB"
