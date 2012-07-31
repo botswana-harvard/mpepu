@@ -1,25 +1,26 @@
 from django.conf.urls.defaults import patterns, include, url
 from django.contrib import admin
 from django.conf import settings
-import databrowse
+from django import get_version
 from django.db.models import get_models
-#from django.contrib.auth.views import logout, login, password_change
 from django.views.generic.simple import redirect_to
 from django.contrib.auth.decorators import login_required
-#from autocomplete.views import autocomplete
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+import databrowse
 from dajaxice.core import dajaxice_autodiscover
+
 from lab_longitudinal_history.classes import longitudinal_history
 from bhp_bucket.classes import bucket
 
+if not get_version() == '1.4':
+    raise ValueError('Incorrect django version. '
+                     'Must be 1.4. Got {0}'.format(get_version()))
 admin.autodiscover()
 dajaxice_autodiscover()
 bucket.autodiscover()
 longitudinal_history.autodiscover()
 
-
-    
-
+APP_NAME = settings.APP_NAME
 
 for model in get_models():
     databrowse.site.register(model)
@@ -28,7 +29,7 @@ urlpatterns = staticfiles_urlpatterns()
 
 urlpatterns += patterns('',
     (r'^admin/doc/', include('django.contrib.admindocs.urls')),
-    (r'^admin/logout/$', redirect_to, {'url':'/mpepu/logout/'}),
+    (r'^admin/logout/$', redirect_to, {'url': '/{app_name}/logout/'.format(app_name=APP_NAME)}),
     (r'^admin/', include(admin.site.urls)),
 )
 
@@ -42,38 +43,42 @@ urlpatterns += patterns('',
 
 urlpatterns += patterns('',
     (r'^audit_trail/', include('audit_trail.urls')),
-    (r'^mpepu/audit_trail/', include('audit_trail.urls')),    
+    (r'^{app_name}/audit_trail/'.format(app_name=APP_NAME), include('audit_trail.urls')),
 )
 
 urlpatterns += patterns('',
-    url(r'^mpepu/(?P<section_name>statistics)/',include('mpepu_stats.urls'), name="section_url_name"),
+    url(r'^{app_name}/(?P<section_name>statistics)/'.format(app_name=APP_NAME),
+        include('{app_name}_stats.urls'.format(app_name=APP_NAME)), name="section_url_name"),
 )
 
 urlpatterns += patterns('',
-    url(r'^mpepu/(?P<section_name>specimens)/',include('lab_clinic_api.urls'), name="section_url_name"),
+    url(r'^{app_name}/(?P<section_name>specimens)/'.format(app_name=APP_NAME),
+        include('lab_clinic_api.urls'), name="section_url_name"),
 )
 
 
 urlpatterns += patterns('',
-    url(r'^mpepu/dashboard/', include('mpepu_dashboard.urls')),
+    url(r'^{app_name}/dashboard/'.format(app_name=APP_NAME).format(app_name=APP_NAME),
+        include('{app_name}_dashboard.urls'.format(app_name=APP_NAME))),
 )
 
 urlpatterns += patterns('',
-    url(r'^mpepu/login/', 'django.contrib.auth.views.login', name='mpepu_login'),
-    url(r'^mpepu/logout/', 'django.contrib.auth.views.logout_then_login', name='mpepu_logout'),
-    url(r'^mpepu/passwordchange/', 'django.contrib.auth.views.password_change', name='mpepu_password_change'),
-    url(r'^mpepu/passwordchangedone/', 'django.contrib.auth.views.password_change_done', name='mpepu_password_change_done'),                            
-    url(r'^mpepu/', include('mpepu.urls'), name='home'),
-    url(r'', include('mpepu.urls'), name='index'),    
+    url(r'^{app_name}/login/'.format(app_name=APP_NAME),
+        'django.contrib.auth.views.login',
+        name='{app_name}_login'.format(app_name=APP_NAME)),
+    url(r'^{app_name}/logout/'.format(app_name=APP_NAME),
+        'django.contrib.auth.views.logout_then_login',
+        name='{app_name}_logout'.format(app_name=APP_NAME)),
+    url(r'^{app_name}/password_change/'.format(app_name=APP_NAME),
+        'django.contrib.auth.views.password_change',
+        name='password_change_url'.format(app_name=APP_NAME)),
+    url(r'^{app_name}/password_change_done/'.format(app_name=APP_NAME),
+        'django.contrib.auth.views.password_change_done',
+        name='password_change_done'.format(app_name=APP_NAME)),
 )
 
-    
-
-"""
 urlpatterns += patterns('',
-    (r'^accounts/login/$', include(admin.site.urls)),
-    (r'^accounts/profile/$', redirect_to, {'url': '/mpepu/'}),
-    (r'^accounts/profile/logout', 'django.contrib.auth.views.login'),
-)
-"""
-
+    url(r'^{app_name}/'.format(app_name=APP_NAME),
+        include('{app_name}.urls'.format(app_name=APP_NAME)), name='home'),
+    url(r'', redirect_to, {'url': '/{app_name}/'.format(app_name=APP_NAME)}),
+    )

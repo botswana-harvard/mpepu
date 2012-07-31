@@ -1,6 +1,6 @@
 # Django settings for bhp project.
-import os, platform
-#os.environ['MPLCONFIGDIR']='/tmp'
+import os
+import platform
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -13,26 +13,26 @@ MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-	'OPTIONS': {
+        'ENGINE': 'django.db.backends.mysql',  # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+        'OPTIONS': {
             'init_command': 'SET storage_engine=INNODB',
         },
-        'NAME': 'bhp056',                      # Or path to database file if using sqlite3.
-        'USER': 'root',                      # Not used with sqlite3.
-        'PASSWORD': 'cc3721b',                  # Not used with sqlite3.
-        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
-        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
+        'NAME': 'bhp056',  # Or path to database file if using sqlite3.
+        'USER': 'root',  # Not used with sqlite3.
+        'PASSWORD': 'cc3721b',  # Not used with sqlite3.
+        'HOST': '',  # Set to empty string for localhost. Not used with sqlite3.
+        'PORT': '',  # Set to empty string for default. Not used with sqlite3.
     },
     'lab_api': {
-        'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-    	'OPTIONS': {
+        'ENGINE': 'django.db.backends.mysql',
+        'OPTIONS': {
             'init_command': 'SET storage_engine=INNODB',
         },
-        'NAME': 'lab',                      # Or path to database file if using sqlite3.
-        'USER': 'root',                      # Not used with sqlite3.
-        'PASSWORD': 'cc3721b',                  # Not used with sqlite3.
-        'HOST': '192.168.1.50',                      # Set to empty string for localhost. Not used with sqlite3.
-        'PORT': '3306',                      # Set to empty string for default. Not used with sqlite3.
+        'NAME': 'lab',
+        'USER': 'root',
+        'PASSWORD': 'cc3721b',
+        'HOST': '192.168.1.50',
+        'PORT': '3306',
     }
 }
 
@@ -108,8 +108,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-)
+    'django.contrib.messages.middleware.MessageMiddleware')
 
 TEMPLATE_CONTEXT_PROCESSORS = ("django.contrib.auth.context_processors.auth",
                                "django.core.context_processors.debug",
@@ -145,19 +144,19 @@ INSTALLED_APPS = (
     'audit_trail',
     'autocomplete',
     'bhp_basesite',
-    'bhp_crypto',    
-    'bhp_userprofile', 
+    'bhp_crypto',
+    'bhp_userprofile',
     'bhp_poll_mysql',
     'bhp_model_selector',
     'bhp_templatetags',
-    'bhp_calendar',    
+    'bhp_calendar',
     'bhp_actg_reference',
     'bhp_adverse',
-    'bhp_haart',    
-    'bhp_code_lists',    
-    'bhp_common',    
-    'bhp_identifier',    
-    'bhp_content_type_map',    
+    'bhp_haart',
+    'bhp_code_lists',
+    'bhp_common',
+    'bhp_identifier',
+    'bhp_content_type_map',
     'bhp_search',
     'bhp_consent',
     'bhp_locator',
@@ -168,7 +167,7 @@ INSTALLED_APPS = (
     'bhp_research_protocol',
     'bhp_sync',
     'bhp_device',
-    'lab_common', 
+    'lab_common',
     'lab_flag',
     'lab_grading',
     'lab_reference',
@@ -181,24 +180,24 @@ INSTALLED_APPS = (
     'lab_receive',
     'lab_aliquot',
     'lab_order',
-    'lab_result',            
-    'lab_result_item',            
+    'lab_result',
+    'lab_result_item',
     'lab_barcode',
     'lab_import_dmis',
     'lab_clinic_api',
-    'lab_result_report',   
-    'lab_packing',  
-    'lab_longitudinal_history',   
+    'lab_result_report',
+    'lab_packing',
+    'lab_longitudinal_history',
     'bhp_visit',
     'bhp_visit_tracking',
     'bhp_appointment',
     'bhp_subject',
     'bhp_entry',
-    'bhp_lab_entry',    
+    'bhp_lab_entry',
     'bhp_list',
     'bhp_context',
     'bhp_dashboard',
-    'bhp_dashboard_registered_subject',          
+    'bhp_dashboard_registered_subject',
     'bhp_export_data',
     'bhp_model_describer',
     'bhp_subject_summary',
@@ -207,10 +206,10 @@ INSTALLED_APPS = (
     'mpepu',
     'mpepu_reference',
     'mpepu_stats',
-    'mpepu_maternal',        
+    'mpepu_maternal',
     'mpepu_infant',
-    'mpepu_infant_rando',    
-    'mpepu_dashboard',    
+    'mpepu_infant_rando',
+    'mpepu_dashboard',
     'mpepu_lab',
 )
 
@@ -229,7 +228,7 @@ LOGGING = {
         }
     },
     'loggers': {
-        'django.request':{
+        'django.request': {
             'handlers': ['mail_admins'],
             'level': 'ERROR',
             'propagate': True,
@@ -237,27 +236,31 @@ LOGGING = {
     }
 }
 
-SOUTH_LOGGING_FILE = os.path.join(DIRNAME,"south.log")
+SOUTH_LOGGING_FILE = os.path.join(DIRNAME, "south.log")
 SOUTH_LOGGING_ON = True
-APP_NAME='mpepu'
-LOGIN_URL = '/mpepu/login/'
-LOGIN_REDIRECT_URL = '/mpepu/'
-LOGOUT_URL = '/mpepu/logout/'
-SHORT_DATE_FORMAT = 'Y-m-d'
-SHORT_DATETIME_FORMAT = 'Y-m-d H:i'
-LABDB = 'bhplab' 
-
 AUTH_PROFILE_MODULE = "bhp_userprofile.userprofile"
 # https://bitbucket.org/tyrion/django-autocomplete
 AUTOCOMPLETE_MEDIA_PREFIX = '/media/autocomplete/media/'
-DAJAXICE_MEDIA_PREFIX="dajaxice"
+DAJAXICE_MEDIA_PREFIX = "dajaxice"
+
+# EDC GENERAL SETTINGS
+APP_NAME = 'mpepu'
+PROJECT_TITLE = 'BHP056: The Mpepu Study '
+LOGIN_URL = '/{app_name}/login/'.format(app_name=APP_NAME)
+LOGIN_REDIRECT_URL = '/{app_name}/'.format(app_name=APP_NAME)
+LOGOUT_URL = '/{app_name}/logout/'.format(app_name=APP_NAME)
+SHORT_DATE_FORMAT = 'Y-m-d'
+SHORT_DATETIME_FORMAT = 'Y-m-d H:i'
+LABDB = 'bhplab'
 SESSION_COOKIE_AGE = 10000
 DEVICE_ID = '31'
 
 #BHP_CRYPTO_SETTINGS
-IS_SECURE_DEVICE=False
-MAY_CREATE_NEW_KEYS=True
-KEY_PATH='/Volumes/bhp056/keys'
+IS_SECURE_DEVICE = False
+MAY_CREATE_NEW_KEYS = True
+KEY_PATH = '/Volumes/bhp056/keys'
+#FIELD_MAX_LENGTH='default'
+FIELD_MAX_LENGTH = 'migration'
 
 if platform.system() == 'Darwin':
     LAB_IMPORT_DMIS_DATA_SOURCE = "DRIVER=/usr/local/lib/libtdsodbc.so;SERVER=s012.bhp.org.bw;PORT=1433;UID=sa;PWD=cc3721b;DATABASE=BHPLAB"
