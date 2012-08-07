@@ -246,6 +246,8 @@ DAJAXICE_MEDIA_PREFIX = "dajaxice"
 # EDC GENERAL SETTINGS
 APP_NAME = 'mpepu'
 PROJECT_TITLE = 'BHP056: The Mpepu Study '
+PROJECT_NUMBER = 'BHP056'
+PROJECT_IDENTIFIER_PREFIX = '056'
 LOGIN_URL = '/{app_name}/login/'.format(app_name=APP_NAME)
 LOGIN_REDIRECT_URL = '/{app_name}/'.format(app_name=APP_NAME)
 LOGOUT_URL = '/{app_name}/logout/'.format(app_name=APP_NAME)
@@ -263,6 +265,116 @@ KEY_PATH = '/Volumes/bhp056/keys'
 FIELD_MAX_LENGTH = 'migration'
 
 if platform.system() == 'Darwin':
-    LAB_IMPORT_DMIS_DATA_SOURCE = "DRIVER=/usr/local/lib/libtdsodbc.so;SERVER=s012.bhp.org.bw;PORT=1433;UID=sa;PWD=cc3721b;DATABASE=BHPLAB"
+    LAB_IMPORT_DMIS_DATA_SOURCE = "DRIVER=/usr/local/lib/libtdsodbc.so;SERVER=192.168.1.141;PORT=1433;UID=sa;PWD=cc3721b;DATABASE=BHPLAB"
 else:
     LAB_IMPORT_DMIS_DATA_SOURCE = "DRIVER={FreeTDS};SERVER=192.168.1.141;UID=sa;PWD=cc3721b;DATABASE=BHPLAB"
+
+VAR_ROOT = '/var'
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
+        },
+        'simple': {
+            'format': '%(message)s'
+        },
+    },
+    'handlers': {
+        'null': {
+            'level': 'DEBUG',
+            'class': 'django.utils.log.NullHandler',
+        },
+        'console': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple',
+        },
+        #'debug_console': {
+        #    'level': 'DEBUG',
+        #    'class': 'logging.StreamHandler',
+        #    'formatter': 'simple',
+        #},
+        'mail_admins': {
+            'level': 'ERROR',
+            'class': 'django.utils.log.AdminEmailHandler',
+            'formatter': 'verbose',
+            #'filters': ['special']
+        }
+    },
+   'loggers': {
+        'django': {
+            'handlers': ['null'],
+            'propagate': False,
+            'level': 'DEBUG',
+        },
+        'django.db.backends': {
+            'handlers': ['null'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+       'django.request': {
+            'handlers': ['mail_admins'],
+            'level': 'ERROR',
+            'propagate': False,
+        },
+       #'log_file': {
+       #     'level': 'DEBUG',
+       #     'class': 'logging.handlers.RotatingFileHandler',
+       #     'filename': os.path.join(VAR_ROOT, 'logs/django.log'),
+       #     'maxBytes': '16777216',  # 16megabytes
+       #     'formatter': 'verbose',
+       #     },
+        'bhp_crypto.classes.cryptor': {
+            'handlers': ['console', ],
+            'level': 'INFO',
+            #'filters': ['special']
+        },
+        'lab_clinic_api.managers.lab_manager': {
+            'handlers': ['console', ],
+            'level': 'INFO',
+            #'filters': ['special']
+        },
+        'lab_clinic_api.classes.updater': {
+            'handlers': ['console', ],
+            'level': 'INFO',
+            #'filters': ['special']
+        },
+        'lab_clinic_api.management.commands.update_labs': {
+            'handlers': ['console', ],
+            'level': 'INFO',
+            #'filters': ['special']
+        },
+        'lab_import_dmis.classes.dmis': {
+            'handlers': ['console', ],
+            'level': 'INFO',
+            #'filters': ['special']
+        },
+        'lab_import_dmis.classes.dmis_lock': {
+            'handlers': ['console', ],
+            'level': 'INFO',
+            #'filters': ['special']
+        },
+       'lab_clinic_api.managers.lab_manager': {
+            'handlers': ['console', ],
+            'level': 'INFO',
+            #'filters': ['special']
+        },
+       'lab_clinic_api.managers.result_manager': {
+            'handlers': ['console', ],
+            'level': 'INFO',
+            #'filters': ['special']
+        },
+       'lab_clinic_api.classes.dmis_result': {
+            'handlers': ['console', ],
+            'level': 'INFO',
+            #'filters': ['special']
+        },
+       'mochudi_survey.views.update_labs': {
+            'handlers': ['console', ],
+            'level': 'INFO',
+            #'filters': ['special']
+        },
+    }
+}

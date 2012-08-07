@@ -58,7 +58,7 @@ urlpatterns += patterns('',
 
 
 urlpatterns += patterns('',
-    url(r'^{app_name}/dashboard/'.format(app_name=APP_NAME).format(app_name=APP_NAME),
+    url(r'^{app_name}/dashboard/'.format(app_name=APP_NAME),
         include('{app_name}_dashboard.urls'.format(app_name=APP_NAME))),
 )
 
