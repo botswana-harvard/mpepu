@@ -213,29 +213,6 @@ INSTALLED_APPS = (
     'mpepu_lab',
 )
 
-# A sample logging configuration. The only tangible logging
-# performed by this configuration is to send an email to
-# the site admins on every HTTP 500 error.
-# See http://docs.djangoproject.com/en/dev/topics/logging for
-# more details on how to customize your logging configuration.
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'mail_admins': {
-            'level': 'ERROR',
-            'class': 'django.utils.log.AdminEmailHandler'
-        }
-    },
-    'loggers': {
-        'django.request': {
-            'handlers': ['mail_admins'],
-            'level': 'ERROR',
-            'propagate': True,
-        },
-    }
-}
-
 SOUTH_LOGGING_FILE = os.path.join(DIRNAME, "south.log")
 SOUTH_LOGGING_ON = True
 AUTH_PROFILE_MODULE = "bhp_userprofile.userprofile"
@@ -255,12 +232,12 @@ SHORT_DATE_FORMAT = 'Y-m-d'
 SHORT_DATETIME_FORMAT = 'Y-m-d H:i'
 LABDB = 'bhplab'
 SESSION_COOKIE_AGE = 10000
-DEVICE_ID = '31'
+DEVICE_ID = '98'
 
 #BHP_CRYPTO_SETTINGS
 IS_SECURE_DEVICE = False
 MAY_CREATE_NEW_KEYS = True
-KEY_PATH = '/Volumes/bhp056/keys'
+KEY_PATH = 'keys'
 #FIELD_MAX_LENGTH='default'
 FIELD_MAX_LENGTH = 'migration'
 
