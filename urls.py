@@ -47,6 +47,10 @@ urlpatterns += patterns('',
 )
 
 urlpatterns += patterns('',
+    url(r'^bhp_common/', include('bhp_common.urls')),
+)
+
+urlpatterns += patterns('',
     url(r'^{app_name}/(?P<section_name>statistics)/'.format(app_name=APP_NAME),
         include('{app_name}_stats.urls'.format(app_name=APP_NAME)), name="section_url_name"),
 )

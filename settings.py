@@ -168,6 +168,7 @@ INSTALLED_APPS = (
     'bhp_sync',
     'bhp_device',
     'lab_common',
+    'lab_import',
     'lab_flag',
     'lab_grading',
     'lab_reference',
@@ -192,6 +193,7 @@ INSTALLED_APPS = (
     'bhp_visit_tracking',
     'bhp_appointment',
     'bhp_subject',
+    'bhp_data_manager',
     'bhp_entry',
     'bhp_lab_entry',
     'bhp_list',
@@ -328,7 +330,12 @@ LOGGING = {
             'level': 'INFO',
             #'filters': ['special']
         },
-        'lab_import_dmis.classes.dmis_lock': {
+        'lab_import.classes.base_lock': {
+            'handlers': ['console', ],
+            'level': 'INFO',
+            #'filters': ['special']
+        },
+        'lab_import.classes.base_import_history': {
             'handlers': ['console', ],
             'level': 'INFO',
             #'filters': ['special']
