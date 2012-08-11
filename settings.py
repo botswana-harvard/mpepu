@@ -27,6 +27,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'OPTIONS': {
             'init_command': 'SET storage_engine=INNODB',
+            #'connect_timeout': 20,
         },
         'NAME': 'lab',
         'USER': 'root',
@@ -144,6 +145,7 @@ INSTALLED_APPS = (
     'audit_trail',
     'autocomplete',
     'bhp_basesite',
+    'bhp_poll_mysql',
     'bhp_crypto',
     'bhp_userprofile',
     'bhp_poll_mysql',
@@ -239,7 +241,7 @@ DEVICE_ID = '98'
 #BHP_CRYPTO_SETTINGS
 IS_SECURE_DEVICE = False
 MAY_CREATE_NEW_KEYS = True
-KEY_PATH = 'keys'
+KEY_PATH = '/Volumes/bhp056/keys'
 #FIELD_MAX_LENGTH='default'
 FIELD_MAX_LENGTH = 'migration'
 
