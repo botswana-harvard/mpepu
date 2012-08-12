@@ -32,8 +32,10 @@ DATABASES = {
         'NAME': 'lab',
         'USER': 'root',
         'PASSWORD': 'cc3721b',
-        'HOST': '192.168.1.50',
-        'PORT': '3306',
+        'HOST': '',
+        'PORT': '',
+        #'HOST': '192.168.1.50',
+        #'PORT': '3306',
     }
 }
 
@@ -188,9 +190,10 @@ INSTALLED_APPS = (
     'lab_barcode',
     'lab_import_dmis',
     'lab_clinic_api',
+    'lab_clinic_reference',
     'lab_result_report',
     'lab_packing',
-    'lab_longitudinal_history',
+    'lab_longitudinal',
     'bhp_visit',
     'bhp_visit_tracking',
     'bhp_appointment',
@@ -244,6 +247,10 @@ MAY_CREATE_NEW_KEYS = True
 KEY_PATH = '/Volumes/bhp056/keys'
 #FIELD_MAX_LENGTH='default'
 FIELD_MAX_LENGTH = 'migration'
+
+# LAB REFERENCE AND GRADING
+REFERENCE_RANGE_LIST = 'BHPLAB_NORMAL_RANGES_201005'
+GRADING_LIST = 'DAIDS_2004'
 
 if platform.system() == 'Darwin':
     LAB_IMPORT_DMIS_DATA_SOURCE = "DRIVER=/usr/local/lib/libtdsodbc.so;SERVER=192.168.1.141;PORT=1433;UID=sa;PWD=cc3721b;DATABASE=BHPLAB"
@@ -337,6 +344,11 @@ LOGGING = {
             'level': 'INFO',
             #'filters': ['special']
         },
+        'lab_clinic_api.classes.lis': {
+            'handlers': ['console', ],
+            'level': 'INFO',
+            #'filters': ['special']
+        },
         'lab_import.classes.base_import_history': {
             'handlers': ['console', ],
             'level': 'INFO',
@@ -352,12 +364,27 @@ LOGGING = {
             'level': 'INFO',
             #'filters': ['special']
         },
+       'lab_flag.classes.flag': {
+            'handlers': ['console', ],
+            'level': 'INFO',
+            #'filters': ['special']
+        },
        'lab_clinic_api.classes.dmis_result': {
             'handlers': ['console', ],
             'level': 'INFO',
             #'filters': ['special']
         },
-       'mochudi_survey.views.update_labs': {
+       'lab_clinic_reference.classes.import_reference_range': {
+            'handlers': ['console', ],
+            'level': 'INFO',
+            #'filters': ['special']
+        },
+       'lab_clinic_reference.classes.base_import': {
+            'handlers': ['console', ],
+            'level': 'INFO',
+            #'filters': ['special']
+        },
+      'mochudi_survey.views.update_labs': {
             'handlers': ['console', ],
             'level': 'INFO',
             #'filters': ['special']
