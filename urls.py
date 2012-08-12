@@ -8,8 +8,6 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 import databrowse
 from dajaxice.core import dajaxice_autodiscover
-
-from lab_longitudinal_history.classes import longitudinal_history
 from bhp_bucket.classes import bucket
 
 if not get_version() == '1.4':
@@ -18,7 +16,6 @@ if not get_version() == '1.4':
 admin.autodiscover()
 dajaxice_autodiscover()
 bucket.autodiscover()
-longitudinal_history.autodiscover()
 
 APP_NAME = settings.APP_NAME
 

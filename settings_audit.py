@@ -14,23 +14,23 @@ def get_subject_identifier(obj):
     
     subject_identifier = ''
 
-    if [fld for fld in obj._meta.fields if fld.name == 'subject_identifier']:    
-        subject_identifier = obj.subject_identifier
-    elif [fld for fld in obj._meta.fields if fld.name == 'maternal_visit']:
-        subject_identifier = eval('obj.maternal_visit.appointment.registered_subject.subject_identifier')
-    elif [fld for fld in obj._meta.fields if fld.name == 'infant_visit']:
-        subject_identifier = eval('obj.infant_visit.appointment.registered_subject.subject_identifier')
-    elif [fld for fld in obj._meta.fields if fld.name == 'appointment']:
-        subject_identifier = obj.appointment.registered_subject.subject_identifier        
-    elif [fld for fld in obj._meta.fields if fld.name == 'registered_subject']:
-        subject_identifier = obj.registered_subject.subject_identifier        
-    elif 'get_subject_identifier' in dir(obj):        
-        subject_identifier = obj.get_subject_identifier()
-    else:
-        try:
-            subject_identifier = obj.get_visit().appointment.registered_subject.subject_identifier                    
-        except:            
-            raise TypeError('AuditTrail cannot find the subject_identifier. Perhaps add a get_visit() method to the model')    
+#    if [fld for fld in obj._meta.fields if fld.name == 'subject_identifier']:    
+#        subject_identifier = obj.subject_identifier
+#    elif [fld for fld in obj._meta.fields if fld.name == 'maternal_visit']:
+#        subject_identifier = eval('obj.maternal_visit.appointment.registered_subject.subject_identifier')
+#    elif [fld for fld in obj._meta.fields if fld.name == 'infant_visit']:
+#        subject_identifier = eval('obj.infant_visit.appointment.registered_subject.subject_identifier')
+#    elif [fld for fld in obj._meta.fields if fld.name == 'appointment']:
+#        subject_identifier = obj.appointment.registered_subject.subject_identifier        
+#    elif [fld for fld in obj._meta.fields if fld.name == 'registered_subject']:
+#        subject_identifier = obj.registered_subject.subject_identifier        
+#    elif 'get_subject_identifier' in dir(obj):        
+#        subject_identifier = obj.get_subject_identifier()
+#    else:
+#        try:
+#            subject_identifier = obj.get_visit().appointment.registered_subject.subject_identifier                    
+#        except:            
+#            raise TypeError('AuditTrail cannot find the subject_identifier. Perhaps add a get_visit() method to the model')    
     
     return subject_identifier
 
