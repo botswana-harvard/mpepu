@@ -232,6 +232,7 @@ APP_NAME = 'mpepu'
 PROJECT_TITLE = 'BHP056: The Mpepu Study '
 PROJECT_NUMBER = 'BHP056'
 PROJECT_IDENTIFIER_PREFIX = '056'
+PROJECT_IDENTIFIER_MODULUS = 4
 LOGIN_URL = '/{app_name}/login/'.format(app_name=APP_NAME)
 LOGIN_REDIRECT_URL = '/{app_name}/'.format(app_name=APP_NAME)
 LOGOUT_URL = '/{app_name}/logout/'.format(app_name=APP_NAME)
