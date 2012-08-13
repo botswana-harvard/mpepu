@@ -1,6 +1,7 @@
 # Django settings for bhp project.
 import os
 import platform
+import logger
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -14,10 +15,8 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',  # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'OPTIONS': {
-            'init_command': 'SET storage_engine=INNODB',
-        },
-        'NAME': 'bhp056',  # Or path to database file if using sqlite3.
+        'OPTIONS': {'init_command': 'SET storage_engine=INNODB'},
+        'NAME': 'bhp056', 
         'USER': 'root',  # Not used with sqlite3.
         'PASSWORD': 'cc3721b',  # Not used with sqlite3.
         'HOST': '',  # Set to empty string for localhost. Not used with sqlite3.
@@ -25,17 +24,12 @@ DATABASES = {
     },
     'lab_api': {
         'ENGINE': 'django.db.backends.mysql',
-        'OPTIONS': {
-            'init_command': 'SET storage_engine=INNODB',
-            #'connect_timeout': 20,
-        },
+        'OPTIONS': {'init_command': 'SET storage_engine=INNODB'},
         'NAME': 'lab',
         'USER': 'root',
         'PASSWORD': 'cc3721b',
-        'HOST': '',
-        'PORT': '',
-        #'HOST': '192.168.1.50',
-        #'PORT': '3306',
+        'HOST': '192.168.1.50',
+        'PORT': '3306',
     }
 }
 
@@ -173,6 +167,8 @@ INSTALLED_APPS = (
     'bhp_device',
     'lab_common',
     'lab_import',
+    'lab_import_lis',
+    'lab_import_dmis',
     'lab_flag',
     'lab_grading',
     'lab_reference',
@@ -188,7 +184,6 @@ INSTALLED_APPS = (
     'lab_result',
     'lab_result_item',
     'lab_barcode',
-    'lab_import_dmis',
     'lab_clinic_api',
     'lab_clinic_reference',
     'lab_result_report',
@@ -259,136 +254,4 @@ else:
     LAB_IMPORT_DMIS_DATA_SOURCE = "DRIVER={FreeTDS};SERVER=192.168.1.141;UID=sa;PWD=cc3721b;DATABASE=BHPLAB"
 
 VAR_ROOT = '/var'
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'formatters': {
-        'verbose': {
-            'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
-        },
-        'simple': {
-            'format': '%(message)s'
-        },
-    },
-    'handlers': {
-        'null': {
-            'level': 'DEBUG',
-            'class': 'django.utils.log.NullHandler',
-        },
-        'console': {
-            'level': 'INFO',
-            'class': 'logging.StreamHandler',
-            'formatter': 'simple',
-        },
-        #'debug_console': {
-        #    'level': 'DEBUG',
-        #    'class': 'logging.StreamHandler',
-        #    'formatter': 'simple',
-        #},
-        'mail_admins': {
-            'level': 'ERROR',
-            'class': 'django.utils.log.AdminEmailHandler',
-            'formatter': 'verbose',
-            #'filters': ['special']
-        }
-    },
-   'loggers': {
-        'django': {
-            'handlers': ['null'],
-            'propagate': False,
-            'level': 'DEBUG',
-        },
-        'django.db.backends': {
-            'handlers': ['null'],
-            'level': 'DEBUG',
-            'propagate': False,
-        },
-       'django.request': {
-            'handlers': ['mail_admins'],
-            'level': 'ERROR',
-            'propagate': False,
-        },
-       #'log_file': {
-       #     'level': 'DEBUG',
-       #     'class': 'logging.handlers.RotatingFileHandler',
-       #     'filename': os.path.join(VAR_ROOT, 'logs/django.log'),
-       #     'maxBytes': '16777216',  # 16megabytes
-       #     'formatter': 'verbose',
-       #     },
-        'bhp_crypto.classes.cryptor': {
-            'handlers': ['console', ],
-            'level': 'INFO',
-            #'filters': ['special']
-        },
-        'lab_clinic_api.managers.lab_manager': {
-            'handlers': ['console', ],
-            'level': 'INFO',
-            #'filters': ['special']
-        },
-        'lab_clinic_api.classes.updater': {
-            'handlers': ['console', ],
-            'level': 'INFO',
-            #'filters': ['special']
-        },
-        'lab_clinic_api.management.commands.update_labs': {
-            'handlers': ['console', ],
-            'level': 'INFO',
-            #'filters': ['special']
-        },
-        'lab_import_dmis.classes.dmis': {
-            'handlers': ['console', ],
-            'level': 'INFO',
-            #'filters': ['special']
-        },
-        'lab_import.classes.base_lock': {
-            'handlers': ['console', ],
-            'level': 'INFO',
-            #'filters': ['special']
-        },
-        'lab_clinic_api.classes.lis': {
-            'handlers': ['console', ],
-            'level': 'INFO',
-            #'filters': ['special']
-        },
-        'lab_import.classes.base_import_history': {
-            'handlers': ['console', ],
-            'level': 'INFO',
-            #'filters': ['special']
-        },
-       'lab_clinic_api.managers.lab_manager': {
-            'handlers': ['console', ],
-            'level': 'INFO',
-            #'filters': ['special']
-        },
-       'lab_clinic_api.managers.result_manager': {
-            'handlers': ['console', ],
-            'level': 'INFO',
-            #'filters': ['special']
-        },
-       'lab_flag.classes.flag': {
-            'handlers': ['console', ],
-            'level': 'INFO',
-            #'filters': ['special']
-        },
-       'lab_clinic_api.classes.dmis_result': {
-            'handlers': ['console', ],
-            'level': 'INFO',
-            #'filters': ['special']
-        },
-       'lab_clinic_reference.classes.import_reference_range': {
-            'handlers': ['console', ],
-            'level': 'INFO',
-            #'filters': ['special']
-        },
-       'lab_clinic_reference.classes.base_import': {
-            'handlers': ['console', ],
-            'level': 'INFO',
-            #'filters': ['special']
-        },
-      'mochudi_survey.views.update_labs': {
-            'handlers': ['console', ],
-            'level': 'INFO',
-            #'filters': ['special']
-        },
-    }
-}
+LOGGING = logger.LOGGING
