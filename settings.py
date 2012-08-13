@@ -160,6 +160,7 @@ INSTALLED_APPS = (
     'bhp_locator',
     'bhp_registration',
     'bhp_botswana',
+    'bhp_data_manager',
     'bhp_base_form',
     'bhp_variables',
     'bhp_research_protocol',
@@ -240,7 +241,7 @@ DEVICE_ID = '98'
 #BHP_CRYPTO_SETTINGS
 IS_SECURE_DEVICE = False
 MAY_CREATE_NEW_KEYS = True
-KEY_PATH = '/Volumes/bhp056/keys'
+KEY_PATH = os.path.join(DIRNAME, 'keys')
 #FIELD_MAX_LENGTH='default'
 FIELD_MAX_LENGTH = 'migration'
 
