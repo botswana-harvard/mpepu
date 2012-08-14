@@ -16,7 +16,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',  # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
         'OPTIONS': {'init_command': 'SET storage_engine=INNODB'},
-        'NAME': 'bhp056', 
+        'NAME': 'bhp056',
         'USER': 'root',  # Not used with sqlite3.
         'PASSWORD': 'cc3721b',  # Not used with sqlite3.
         'HOST': '',  # Set to empty string for localhost. Not used with sqlite3.
@@ -243,7 +243,8 @@ DEVICE_ID = '98'
 #BHP_CRYPTO_SETTINGS
 IS_SECURE_DEVICE = False
 MAY_CREATE_NEW_KEYS = True
-KEY_PATH = os.path.join(DIRNAME, 'keys')
+KEY_PATH = '/Volumes/bhp056/keys'
+#KEY_PATH = os.path.join(DIRNAME, 'keys')
 #FIELD_MAX_LENGTH='default'
 FIELD_MAX_LENGTH = 'migration'
 
