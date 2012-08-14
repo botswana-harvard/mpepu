@@ -28,8 +28,10 @@ DATABASES = {
         'NAME': 'lab',
         'USER': 'root',
         'PASSWORD': 'cc3721b',
-        'HOST': '192.168.1.50',
-        'PORT': '3306',
+        #'HOST': '192.168.1.50',
+        #'PORT': '3306',
+        'HOST': '',
+        'PORT': '',
     }
 }
 

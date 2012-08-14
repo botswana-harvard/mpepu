@@ -84,7 +84,7 @@ LOGGING = {
             'level': 'INFO',
             #'filters': ['special']
         },
-        'lab_clinic_api.classes.lis': {
+        'lab_import_lis.classes.lis': {
             'handlers': ['console', ],
             'level': 'INFO',
             #'filters': ['special']
