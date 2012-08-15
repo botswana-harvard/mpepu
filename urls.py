@@ -54,9 +54,8 @@ urlpatterns += patterns('',
 
 urlpatterns += patterns('',
     url(r'^{app_name}/(?P<section_name>specimens)/'.format(app_name=APP_NAME),
-        include('lab_clinic_api.urls'), name="section_url_name"),
+        include('lab_clinic_api.urls')),
 )
-
 
 urlpatterns += patterns('',
     url(r'^{app_name}/dashboard/'.format(app_name=APP_NAME),

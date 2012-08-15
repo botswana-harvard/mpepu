@@ -124,6 +124,7 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
+    os.path.join(DIRNAME, 'templates'),
 )
 
 INSTALLED_APPS = (
@@ -224,6 +225,7 @@ AUTH_PROFILE_MODULE = "bhp_userprofile.userprofile"
 # https://bitbucket.org/tyrion/django-autocomplete
 AUTOCOMPLETE_MEDIA_PREFIX = '/media/autocomplete/media/'
 DAJAXICE_MEDIA_PREFIX = "dajaxice"
+DAJAXICE_DEBUG = True
 
 # EDC GENERAL SETTINGS
 APP_NAME = 'mpepu'
@@ -251,6 +253,7 @@ FIELD_MAX_LENGTH = 'migration'
 # LAB REFERENCE AND GRADING
 REFERENCE_RANGE_LIST = 'BHPLAB_NORMAL_RANGES_201005'
 GRADING_LIST = 'DAIDS_2004'
+
 
 if platform.system() == 'Darwin':
     LAB_IMPORT_DMIS_DATA_SOURCE = "DRIVER=/usr/local/lib/libtdsodbc.so;SERVER=192.168.1.141;PORT=1433;UID=sa;PWD=cc3721b;DATABASE=BHPLAB"
