@@ -221,11 +221,18 @@ INSTALLED_APPS = (
 
 SOUTH_LOGGING_FILE = os.path.join(DIRNAME, "south.log")
 SOUTH_LOGGING_ON = True
-AUTH_PROFILE_MODULE = "bhp_userprofile.userprofile"
+AUTH_PROFILE_MODULE = "bhp_userprofile.UserProfile"
 # https://bitbucket.org/tyrion/django-autocomplete
 AUTOCOMPLETE_MEDIA_PREFIX = '/media/autocomplete/media/'
 DAJAXICE_MEDIA_PREFIX = "dajaxice"
 DAJAXICE_DEBUG = True
+
+# email settings
+EMAIL_HOST = '192.168.1.48'
+EMAIL_PORT = '25'
+EMAIL_HOST_USER = 'django'
+EMAIL_HOST_PASSWORD = 'paeH#ie9'
+EMAIL_USE_TLS = True
 
 # EDC GENERAL SETTINGS
 APP_NAME = 'mpepu'
