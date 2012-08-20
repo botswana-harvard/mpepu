@@ -28,10 +28,10 @@ DATABASES = {
         'NAME': 'lab',
         'USER': 'root',
         'PASSWORD': 'cc3721b',
-        #'HOST': '192.168.1.50',
-        #'PORT': '3306',
-        'HOST': '',
-        'PORT': '',
+        'HOST': '192.168.1.50',
+        'PORT': '3306',
+        #'HOST': '',
+        #'PORT': '',
     }
 }
 
@@ -192,7 +192,7 @@ INSTALLED_APPS = (
     'lab_clinic_reference',
     'lab_result_report',
     'lab_packing',
-    'lab_longitudinal',
+    'lab_tracker',
     'bhp_visit',
     'bhp_visit_tracking',
     'bhp_appointment',
@@ -252,15 +252,14 @@ DEVICE_ID = '98'
 #BHP_CRYPTO_SETTINGS
 IS_SECURE_DEVICE = False
 MAY_CREATE_NEW_KEYS = True
-KEY_PATH = '/Volumes/bhp056/keys'
-#KEY_PATH = os.path.join(DIRNAME, 'keys')
+#KEY_PATH = '/Volumes/bhp056/keys'
+KEY_PATH = os.path.join(DIRNAME, 'keys')
 #FIELD_MAX_LENGTH='default'
 FIELD_MAX_LENGTH = 'migration'
 
 # LAB REFERENCE AND GRADING
 REFERENCE_RANGE_LIST = 'BHPLAB_NORMAL_RANGES_201005'
 GRADING_LIST = 'DAIDS_2004'
-
 
 if platform.system() == 'Darwin':
     LAB_IMPORT_DMIS_DATA_SOURCE = "DRIVER=/usr/local/lib/libtdsodbc.so;SERVER=192.168.1.141;PORT=1433;UID=sa;PWD=cc3721b;DATABASE=BHPLAB"
