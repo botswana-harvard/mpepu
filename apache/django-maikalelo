@@ -22,8 +22,8 @@
           Allow from all
         </Directory>
 
-        Alias /static/ /home/django/source/bhp062/static/
-        <Directory "/home/django/source/bhp062/static/" >
+        Alias /static/ /home/django/source/bhp062/sitestatic/
+        <Directory "/home/django/source/bhp062/sitestatic/" >
           Order deny,allow
           Allow from all
         </Directory>
