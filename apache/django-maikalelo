@@ -1,4 +1,4 @@
-<VirtualHost *:8062>
+<VirtualHost *:80>
 
 	#Redirect / http://192.168.1.49/maikalelo_offline.html?
 
