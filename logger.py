@@ -94,6 +94,11 @@ LOGGING = {
             'level': 'INFO',
             #'filters': ['special']
         },
+        'lab_import.classes.import_history': {
+            'handlers': ['console', ],
+            'level': 'INFO',
+            #'filters': ['special']
+        },
        'lab_clinic_api.managers.lab_manager': {
             'handlers': ['console', ],
             'level': 'INFO',
