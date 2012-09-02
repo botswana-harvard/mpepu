@@ -8,14 +8,14 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 import databrowse
 from dajaxice.core import dajaxice_autodiscover
-from bhp_bucket.classes import bucket
+from bhp_entry_rules.classes import rule_groups
 
 if not get_version() == '1.4':
     raise ValueError('Incorrect django version. '
                      'Must be 1.4. Got {0}'.format(get_version()))
 admin.autodiscover()
 dajaxice_autodiscover()
-bucket.autodiscover()
+rule_groups.autodiscover()
 
 APP_NAME = settings.APP_NAME
 
@@ -44,10 +44,6 @@ urlpatterns += patterns('',
 )
 
 urlpatterns += patterns('',
-    url(r'^bhp_common/', include('bhp_common.urls')),
-)
-
-urlpatterns += patterns('',
     url(r'^{app_name}/(?P<section_name>statistics)/'.format(app_name=APP_NAME),
         include('{app_name}_stats.urls'.format(app_name=APP_NAME)), name="section_url_name"),
 )
@@ -58,8 +54,7 @@ urlpatterns += patterns('',
 )
 
 urlpatterns += patterns('',
-    url(r'^{app_name}/dashboard/'.format(app_name=APP_NAME),
-        include('{app_name}_dashboard.urls'.format(app_name=APP_NAME))),
+    url(r'^{app_name}/dashboard/'.format(app_name=APP_NAME), include('{app_name}_dashboard.urls'.format(app_name=APP_NAME))),
 )
 
 urlpatterns += patterns('',

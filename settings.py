@@ -207,7 +207,7 @@ INSTALLED_APPS = (
     'bhp_export_data',
     'bhp_model_describer',
     'bhp_subject_summary',
-    'bhp_bucket',
+    'bhp_entry_rules',
     'mpepu_list',
     'mpepu',
     'mpepu_reference',
