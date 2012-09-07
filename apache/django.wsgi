@@ -5,7 +5,7 @@ path = '/home/django/source'
 if path not in sys.path:
     sys.path.append(path)
  
-path = '/home/django/source/bhp062'
+path = '/home/django/source/bhp056'
 if path not in sys.path:
     sys.path.append(path)
  
