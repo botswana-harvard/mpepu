@@ -199,6 +199,7 @@ INSTALLED_APPS = (
     'bhp_subject',
     'bhp_data_manager',
     'bhp_entry',
+    'bhp_entry_rules',
     'bhp_lab_entry',
     'bhp_list',
     'bhp_context',
@@ -207,7 +208,7 @@ INSTALLED_APPS = (
     'bhp_export_data',
     'bhp_model_describer',
     'bhp_subject_summary',
-    'bhp_entry_rules',
+    'ph_dispenser',
     'mpepu_list',
     'mpepu',
     'mpepu_reference',
@@ -252,8 +253,8 @@ DEVICE_ID = '98'
 #BHP_CRYPTO_SETTINGS
 IS_SECURE_DEVICE = False
 MAY_CREATE_NEW_KEYS = True
-#KEY_PATH = '/Volumes/bhp056/keys'
-KEY_PATH = os.path.join(DIRNAME, 'keys')
+KEY_PATH = '/Volumes/bhp056/keys'
+#KEY_PATH = os.path.join(DIRNAME, 'keys')
 #FIELD_MAX_LENGTH='default'
 FIELD_MAX_LENGTH = 'migration'
 
