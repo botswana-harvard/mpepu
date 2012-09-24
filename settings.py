@@ -30,8 +30,6 @@ DATABASES = {
         'PASSWORD': 'cc3721b',
         'HOST': '192.168.1.50',
         'PORT': '3306',
-        #'HOST': '',
-        #'PORT': '',
     }
 }
 
@@ -196,6 +194,7 @@ INSTALLED_APPS = (
     'bhp_visit',
     'bhp_visit_tracking',
     'bhp_appointment',
+    'bhp_appointment_helper',
     'bhp_subject',
     'bhp_data_manager',
     'bhp_entry',
@@ -250,11 +249,13 @@ LABDB = 'bhplab'
 SESSION_COOKIE_AGE = 10000
 DEVICE_ID = '98'
 
+APPOINTMENTS_PER_DAY_MAX=20
+
 #BHP_CRYPTO_SETTINGS
 IS_SECURE_DEVICE = False
 MAY_CREATE_NEW_KEYS = True
-#KEY_PATH = '/Volumes/bhp056/keys'
-KEY_PATH = os.path.join(DIRNAME, 'keys')
+KEY_PATH = '/Volumes/bhp056/keys'
+#KEY_PATH = os.path.join(DIRNAME, 'keys')
 #FIELD_MAX_LENGTH='default'
 FIELD_MAX_LENGTH = 'migration'
 
