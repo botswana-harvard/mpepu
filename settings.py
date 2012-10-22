@@ -190,7 +190,7 @@ INSTALLED_APPS = (
     'lab_clinic_reference',
     'lab_result_report',
     'lab_packing',
-    'lab_tracker',
+    'bhp_lab_tracker',
     'bhp_visit',
     'bhp_visit_tracking',
     'bhp_appointment',
@@ -238,6 +238,8 @@ EMAIL_USE_TLS = True
 APP_NAME = 'mpepu'
 PROJECT_TITLE = 'BHP056: The Mpepu Study '
 PROJECT_NUMBER = 'BHP056'
+INSTITUTION = 'Botswana Harvard AIDS Institute'
+PROTOCOL_REVISION = '???'
 PROJECT_IDENTIFIER_PREFIX = '056'
 PROJECT_IDENTIFIER_MODULUS = 4
 LOGIN_URL = '/{app_name}/login/'.format(app_name=APP_NAME)
@@ -249,7 +251,7 @@ LABDB = 'bhplab'
 SESSION_COOKIE_AGE = 10000
 DEVICE_ID = '98'
 
-APPOINTMENTS_PER_DAY_MAX=20
+APPOINTMENTS_PER_DAY_MAX = 30
 
 #BHP_CRYPTO_SETTINGS
 IS_SECURE_DEVICE = False
