@@ -79,6 +79,11 @@ LOGGING = {
             'level': 'INFO',
             #'filters': ['special']
         },
+        'lab_import_dmis.classes.dmis_tools': {
+            'handlers': ['console', ],
+            'level': 'INFO',
+            #'filters': ['special']
+        },
         'lab_import.classes.base_lock': {
             'handlers': ['console', ],
             'level': 'INFO',
