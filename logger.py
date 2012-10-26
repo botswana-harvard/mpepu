@@ -134,6 +134,11 @@ LOGGING = {
             'level': 'INFO',
             #'filters': ['special']
         },
+       'bhp_lab_tracker.classes.tracker': {
+            'handlers': ['console', ],
+            'level': 'INFO',
+            #'filters': ['special']
+        },
       'mochudi_survey.views.update_labs': {
             'handlers': ['console', ],
             'level': 'INFO',
