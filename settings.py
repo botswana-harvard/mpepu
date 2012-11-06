@@ -16,7 +16,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',  # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
         'OPTIONS': {'init_command': 'SET storage_engine=INNODB'},
-        'NAME': 'bhp056',
+        'NAME': 'bhp056a',
         'USER': 'root',  # Not used with sqlite3.
         'PASSWORD': 'cc3721b',  # Not used with sqlite3.
         'HOST': '',  # Set to empty string for localhost. Not used with sqlite3.
@@ -241,7 +241,7 @@ PROJECT_NUMBER = 'BHP056'
 INSTITUTION = 'Botswana Harvard AIDS Institute'
 PROTOCOL_REVISION = '???'
 PROJECT_IDENTIFIER_PREFIX = '056'
-PROJECT_IDENTIFIER_MODULUS = 4
+PROJECT_IDENTIFIER_MODULUS = 7
 LOGIN_URL = '/{app_name}/login/'.format(app_name=APP_NAME)
 LOGIN_REDIRECT_URL = '/{app_name}/'.format(app_name=APP_NAME)
 LOGOUT_URL = '/{app_name}/logout/'.format(app_name=APP_NAME)

@@ -30,9 +30,9 @@ def gen_admin( **kwargs):
     #foreign_key_field = "infant_visit"
     #base_model_admin = 'MyInfantVisitModelAdmin'
     
-    app_label = 'lab_clinic_api'
+    app_label = 'lab_clinic_reference'
     foreign_key_field = "id"
-    base_model_admin = 'MyModelAdmin'
+    base_model_admin = 'BaseModelAdmin'
 
     s = Template("\n# ${model}\n\
 class ${model}Admin(${base}): \n\
