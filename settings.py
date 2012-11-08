@@ -16,7 +16,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',  # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
         'OPTIONS': {'init_command': 'SET storage_engine=INNODB'},
-        'NAME': 'bhp056a',
+        'NAME': 'bhp056',
         'USER': 'root',  # Not used with sqlite3.
         'PASSWORD': 'cc3721b',  # Not used with sqlite3.
         'HOST': '',  # Set to empty string for localhost. Not used with sqlite3.
