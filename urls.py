@@ -10,6 +10,7 @@ import databrowse
 from dajaxice.core import dajaxice_autodiscover
 from bhp_entry_rules.classes import rule_groups
 from bhp_lab_tracker.classes import lab_tracker
+from lab_requisition.classes import requisitions
 
 if not get_version() == '1.4':
     raise ValueError('Incorrect django version. '
@@ -18,6 +19,7 @@ admin.autodiscover()
 dajaxice_autodiscover()
 rule_groups.autodiscover()
 lab_tracker.autodiscover()
+requisitions.autodiscover()
 
 APP_NAME = settings.APP_NAME
 
@@ -38,6 +40,10 @@ urlpatterns += patterns('',
 
 urlpatterns += patterns('',
     (r'^databrowse/(.*)', login_required(databrowse.site.root)),
+)
+
+urlpatterns += patterns('',
+    (r'^lab_requisition/', include('lab_requisition.urls')),
 )
 
 urlpatterns += patterns('',
