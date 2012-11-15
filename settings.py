@@ -208,6 +208,7 @@ INSTALLED_APPS = (
     'bhp_model_describer',
     'bhp_subject_summary',
     'ph_dispenser',
+    'ph_dispenser',
     'mpepu_list',
     'mpepu',
     'mpepu_reference',
@@ -256,8 +257,8 @@ APPOINTMENTS_PER_DAY_MAX = 30
 #BHP_CRYPTO_SETTINGS
 IS_SECURE_DEVICE = False
 MAY_CREATE_NEW_KEYS = True
-KEY_PATH = '/Volumes/bhp056/keys'
-#KEY_PATH = os.path.join(DIRNAME, 'keys')
+#KEY_PATH = '/Volumes/bhp056/keys'
+KEY_PATH = os.path.join(DIRNAME, 'keys')
 #FIELD_MAX_LENGTH='default'
 FIELD_MAX_LENGTH = 'migration'
 
