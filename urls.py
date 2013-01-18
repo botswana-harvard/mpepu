@@ -12,6 +12,7 @@ from bhp_entry_rules.classes import rule_groups
 from bhp_lab_tracker.classes import lab_tracker
 from lab_requisition.classes import requisitions
 
+
 if not get_version() == '1.4':
     raise ValueError('Incorrect django version. '
                      'Must be 1.4. Got {0}'.format(get_version()))
