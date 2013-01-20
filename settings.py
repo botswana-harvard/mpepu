@@ -2,6 +2,10 @@
 import os
 import platform
 import logger
+import djcelery
+from datetime import datetime
+
+djcelery.setup_loader()
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -135,6 +139,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.admindocs',
     'databrowse',
+    'djcelery',
     'django_extensions',
     'dajaxice',
     'dajax',
@@ -255,11 +260,14 @@ DEVICE_ID = '98'
 
 APPOINTMENTS_PER_DAY_MAX = 30
 
+CONSENT_VERSIONS = ({'version': 1, 'start_date': datetime(2011, 5, 10), 'end_date': datetime(2012, 11, 15)},
+                    {'version': 2, 'start_date': datetime(2012, 11, 15), 'end_date': None})
+
 #BHP_CRYPTO_SETTINGS
 IS_SECURE_DEVICE = False
 MAY_CREATE_NEW_KEYS = True
-#KEY_PATH = '/Volumes/bhp056/keys'
-KEY_PATH = os.path.join(DIRNAME, 'keys')
+KEY_PATH = '/Volumes/bhp056/keys'
+#KEY_PATH = os.path.join(DIRNAME, 'keys')
 #FIELD_MAX_LENGTH='default'
 FIELD_MAX_LENGTH = 'migration'
 
@@ -274,3 +282,10 @@ else:
 
 VAR_ROOT = '/var'
 LOGGING = logger.LOGGING
+
+BROKER_URL = 'amqp://guest:guest@localhost:5672/'
+CELERY_RESULT_BACKEND = BROKER_URL
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = TIME_ZONE
+#CELERY_ENABLE_UTC = True
