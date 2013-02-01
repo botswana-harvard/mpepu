@@ -31,7 +31,8 @@ def get_subject_identifier(obj):
         try:
             subject_identifier = obj.get_visit().appointment.registered_subject.subject_identifier
         except:
-            raise TypeError('AuditTrail cannot find the subject_identifier. Perhaps add a get_visit() method to the model')
+            #raise TypeError('AuditTrail cannot find the subject_identifier. Perhaps add a get_visit() method to the model')
+            pass
 
     return subject_identifier
 
