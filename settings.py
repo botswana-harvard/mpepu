@@ -1,5 +1,6 @@
 # Django settings for bhp project.
 import os
+import sys
 import platform
 import logger
 import djcelery
@@ -14,28 +15,51 @@ ADMINS = (
     # ('erikvw', 'your_email@example.com'),
 )
 
-MANAGERS = ADMINS
+testing_db_name = 'sqlite'
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',  # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'OPTIONS': {'init_command': 'SET storage_engine=INNODB'},
-        'NAME': 'bhp056',
-        'USER': 'root',  # Not used with sqlite3.
-        'PASSWORD': 'cc3721b',  # Not used with sqlite3.
-        'HOST': '',  # Set to empty string for localhost. Not used with sqlite3.
-        'PORT': '',  # Set to empty string for default. Not used with sqlite3.
-    },
-    'lab_api': {
-        'ENGINE': 'django.db.backends.mysql',
-        'OPTIONS': {'init_command': 'SET storage_engine=INNODB'},
-        'NAME': 'lab',
-        'USER': 'root',
-        'PASSWORD': 'cc3721b',
-        'HOST': '192.168.1.50',
-        'PORT': '3306',
+MANAGERS = ADMINS
+if 'test' in sys.argv:
+    # make tests faster
+    SOUTH_TESTS_MIGRATE = False
+    if testing_db_name == 'sqlite':
+        DATABASES = {
+            'default': {
+                'ENGINE': 'django.db.backends.sqlite3',
+                'NAME': 'default',
+                'USER': 'root',
+                'PASSWORD': 'cc3721b',
+                'HOST': '',
+                'PORT': ''},
+            'lab_api': {
+                'ENGINE': 'django.db.backends.sqlite3',
+                'NAME': 'lab',
+                'USER': 'root',
+                'PASSWORD': 'cc3721b',
+                'HOST': '',
+                'PORT': '',
+            },
+        }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',  # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+            'OPTIONS': {'init_command': 'SET storage_engine=INNODB'},
+            'NAME': 'bhp056',
+            'USER': 'root',  # Not used with sqlite3.
+            'PASSWORD': 'cc3721b',  # Not used with sqlite3.
+            'HOST': '',  # Set to empty string for localhost. Not used with sqlite3.
+            'PORT': '',  # Set to empty string for default. Not used with sqlite3.
+        },
+        'lab_api': {
+            'ENGINE': 'django.db.backends.mysql',
+            'OPTIONS': {'init_command': 'SET storage_engine=INNODB'},
+            'NAME': 'lab',
+            'USER': 'root',
+            'PASSWORD': 'cc3721b',
+            'HOST': '192.168.1.50',
+            'PORT': '3306',
+        }
     }
-}
 
 
 # Local time zone for this installation. Choices can be found here:
@@ -196,6 +220,7 @@ INSTALLED_APPS = (
     'lab_clinic_reference',
     'lab_result_report',
     'lab_packing',
+    'bhp_base_model',
     'bhp_lab_tracker',
     'bhp_visit',
     'bhp_visit_tracking',
@@ -270,7 +295,7 @@ KEY_PATH = '/Volumes/bhp056/keys'
 #KEY_PATH = os.path.join(DIRNAME, 'keys')
 #FIELD_MAX_LENGTH='default'
 FIELD_MAX_LENGTH = 'migration'
-
+DISPATCH_APP_LABELS = []
 # LAB REFERENCE AND GRADING
 REFERENCE_RANGE_LIST = 'BHPLAB_NORMAL_RANGES_201005'
 GRADING_LIST = 'DAIDS_2004'
