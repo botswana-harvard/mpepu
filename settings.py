@@ -179,6 +179,7 @@ INSTALLED_APPS = (
     'bhp_templatetags',
     'bhp_calendar',
     'bhp_actg_reference',
+    'bhp_off_study',
     'bhp_adverse',
     'bhp_haart',
     'bhp_code_lists',
@@ -196,7 +197,7 @@ INSTALLED_APPS = (
     'bhp_research_protocol',
     'bhp_sync',
     'bhp_device',
-    'bhp_dispatch',
+    #'bhp_dispatch',
     'lab_common',
     'lab_import',
     'lab_import_lis',
@@ -282,7 +283,7 @@ SHORT_DATETIME_FORMAT = 'Y-m-d H:i'
 LABDB = 'bhplab'
 SESSION_COOKIE_AGE = 10000
 DEVICE_ID = '98'
-
+MAX_SUBJECTS = 3724
 APPOINTMENTS_PER_DAY_MAX = 30
 
 CONSENT_VERSIONS = ({'version': 1, 'start_date': datetime(2011, 5, 10), 'end_date': datetime(2012, 11, 15)},
