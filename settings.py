@@ -198,6 +198,7 @@ INSTALLED_APPS = (
     'bhp_sync',
     'bhp_device',
     'bhp_base_test',
+    'bhp_subject_config',
     #'bhp_dispatch',
     'lab_common',
     'lab_import',
