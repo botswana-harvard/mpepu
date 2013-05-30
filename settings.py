@@ -296,8 +296,8 @@ CONSENT_VERSIONS = ({'version': 1, 'start_date': datetime(2011, 5, 10), 'end_dat
 #BHP_CRYPTO_SETTINGS
 IS_SECURE_DEVICE = False
 MAY_CREATE_NEW_KEYS = True
-#KEY_PATH = '/Volumes/bhp056/keys'
-KEY_PATH = os.path.join(DIRNAME, 'keys')
+KEY_PATH = '/Volumes/bhp056/keys'
+#KEY_PATH = os.path.join(DIRNAME, 'keys')
 #FIELD_MAX_LENGTH='default'
 FIELD_MAX_LENGTH = 'migration'
 DISPATCH_APP_LABELS = []
