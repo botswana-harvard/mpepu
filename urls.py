@@ -7,13 +7,13 @@ from django.views.generic.simple import redirect_to
 from django.contrib.auth.decorators import login_required
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 import databrowse
-from dajaxice.core import dajaxice_autodiscover
+from dajaxice.core import dajaxice_autodiscover, dajaxice_config
 from bhp_entry_rules.classes import rule_groups
 from bhp_lab_tracker.classes import lab_tracker
 from lab_requisition.classes import requisitions
 from bhp_data_manager.classes import data_manager
 
-if not get_version() == '1.4':
+if not get_version() in ['1.4', '1.4.5']:
     raise ValueError('Incorrect django version. '
                      'Must be 1.4. Got {0}'.format(get_version()))
 data_manager.prepare()
@@ -37,7 +37,8 @@ urlpatterns += patterns('',
 )
 
 urlpatterns += patterns('',
-    (r'^%s/' % settings.DAJAXICE_MEDIA_PREFIX, include('dajaxice.urls')),
+#    (r'^%s/' % settings.DAJAXICE_MEDIA_PREFIX, include('dajaxice.urls')),
+    url(dajaxice_config.dajaxice_url, include('dajaxice.urls')),
 )
 
 urlpatterns += patterns('',
