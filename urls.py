@@ -28,9 +28,7 @@ APP_NAME = settings.APP_NAME
 for model in get_models():
     databrowse.site.register(model)
 
-urlpatterns = staticfiles_urlpatterns()
-
-urlpatterns += patterns('',
+urlpatterns = patterns('',
     (r'^admin/doc/', include('django.contrib.admindocs.urls')),
     (r'^admin/logout/$', redirect_to, {'url': '/{app_name}/logout/'.format(app_name=APP_NAME)}),
     (r'^admin/', include(admin.site.urls)),
@@ -88,3 +86,5 @@ urlpatterns += patterns('',
         include('{app_name}.urls'.format(app_name=APP_NAME)), name='home'),
     url(r'', redirect_to, {'url': '/{app_name}/'.format(app_name=APP_NAME)}),
     )
+
+urlpatterns += staticfiles_urlpatterns()
