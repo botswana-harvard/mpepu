@@ -115,6 +115,7 @@ STATICFILES_DIRS = ()
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'dajaxice.finders.DajaxiceFinder',
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
@@ -260,7 +261,7 @@ SOUTH_LOGGING_ON = True
 AUTH_PROFILE_MODULE = "bhp_userprofile.UserProfile"
 # https://bitbucket.org/tyrion/django-autocomplete
 AUTOCOMPLETE_MEDIA_PREFIX = '/media/autocomplete/media/'
-DAJAXICE_MEDIA_PREFIX = "dajaxice"
+#DAJAXICE_MEDIA_PREFIX = "dajaxice"
 DAJAXICE_DEBUG = True
 
 # email settings
@@ -295,8 +296,8 @@ CONSENT_VERSIONS = ({'version': 1, 'start_date': datetime(2011, 5, 10), 'end_dat
 #BHP_CRYPTO_SETTINGS
 IS_SECURE_DEVICE = False
 MAY_CREATE_NEW_KEYS = True
-KEY_PATH = '/Volumes/bhp056/keys'
-#KEY_PATH = os.path.join(DIRNAME, 'keys')
+#KEY_PATH = '/Volumes/bhp056/keys'
+KEY_PATH = os.path.join(DIRNAME, 'keys')
 #FIELD_MAX_LENGTH='default'
 FIELD_MAX_LENGTH = 'migration'
 DISPATCH_APP_LABELS = []
