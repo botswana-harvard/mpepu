@@ -8,7 +8,7 @@ from datetime import datetime
 
 djcelery.setup_loader()
 
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 DIRNAME = os.path.dirname(__file__)
 ADMINS = (
@@ -261,7 +261,7 @@ SOUTH_LOGGING_ON = True
 AUTH_PROFILE_MODULE = "bhp_userprofile.UserProfile"
 # https://bitbucket.org/tyrion/django-autocomplete
 AUTOCOMPLETE_MEDIA_PREFIX = '/media/autocomplete/media/'
-#DAJAXICE_MEDIA_PREFIX = "dajaxice"
+DAJAXICE_MEDIA_PREFIX = "dajaxice"
 DAJAXICE_DEBUG = True
 
 # email settings
