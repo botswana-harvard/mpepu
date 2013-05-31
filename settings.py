@@ -8,7 +8,7 @@ from datetime import datetime
 
 djcelery.setup_loader()
 
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 DIRNAME = os.path.dirname(__file__)
 ADMINS = (
@@ -96,7 +96,7 @@ MEDIA_URL = ''
 
 # Absolute path to the directory that holds static files.
 # Example: "/home/media/media.lawrence.com/static/"
-STATIC_ROOT = ''
+STATIC_ROOT = os.path.join(DIRNAME, 'static')
 
 # URL that handles the static files served from STATIC_ROOT.
 # Example: "http://media.lawrence.com/static/"
@@ -151,7 +151,7 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    os.path.join(DIRNAME, 'templates'),
+    os.path.join(DIRNAME, 'bhp_templates'),
 )
 
 INSTALLED_APPS = (
@@ -171,7 +171,9 @@ INSTALLED_APPS = (
     'south',
     'audit_trail',
     'autocomplete',
-    'bhp_basesite',
+    #'bhp_basesite',
+    'bhp_templates',
+    'bhp_static',
     'bhp_poll_mysql',
     'bhp_crypto',
     'bhp_userprofile',
@@ -296,8 +298,8 @@ CONSENT_VERSIONS = ({'version': 1, 'start_date': datetime(2011, 5, 10), 'end_dat
 #BHP_CRYPTO_SETTINGS
 IS_SECURE_DEVICE = False
 MAY_CREATE_NEW_KEYS = True
-KEY_PATH = '/Volumes/bhp056/keys'
-#KEY_PATH = os.path.join(DIRNAME, 'keys')
+#KEY_PATH = '/Volumes/bhp056/keys'
+KEY_PATH = os.path.join(DIRNAME, 'keys')
 #FIELD_MAX_LENGTH='default'
 FIELD_MAX_LENGTH = 'migration'
 DISPATCH_APP_LABELS = []
