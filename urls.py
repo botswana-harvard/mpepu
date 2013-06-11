@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 import databrowse
 from dajaxice.core import dajaxice_autodiscover
+from bhp_site_edc import edc
 from bhp_entry_rules.classes import rule_groups
 from bhp_lab_tracker.classes import lab_tracker
 from lab_requisition.classes import requisitions
@@ -32,6 +33,7 @@ urlpatterns = patterns('',
     (r'^admin/doc/', include('django.contrib.admindocs.urls')),
     (r'^admin/logout/$', redirect_to, {'url': '/{app_name}/logout/'.format(app_name=APP_NAME)}),
     (r'^admin/', include(admin.site.urls)),
+    (r'^edc/', include(edc.site.urls)),
 )
 
 urlpatterns += patterns('',
@@ -80,11 +82,13 @@ urlpatterns += patterns('',
         'django.contrib.auth.views.password_change_done',
         name='password_change_done'.format(app_name=APP_NAME)),
 )
+urlpatterns += patterns('',
+    url(r'^{app_name}/section/'.format(app_name=APP_NAME), include('bhp_section.urls'), name='section'),
+)
 
 urlpatterns += patterns('',
-    url(r'^{app_name}/'.format(app_name=APP_NAME),
-        include('{app_name}.urls'.format(app_name=APP_NAME)), name='home'),
-    url(r'', redirect_to, {'url': '/{app_name}/'.format(app_name=APP_NAME)}),
+    url(r'^{app_name}/$'.format(app_name=APP_NAME), redirect_to, {'url': '/{app_name}/section/'.format(app_name=APP_NAME)}),
+    url(r'', redirect_to, {'url': '/{app_name}/section/'.format(app_name=APP_NAME)}),
     )
 
 urlpatterns += staticfiles_urlpatterns()
