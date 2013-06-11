@@ -8,7 +8,7 @@ from datetime import datetime
 
 djcelery.setup_loader()
 
-DEBUG = False
+DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 DIRNAME = os.path.dirname(__file__)
 ADMINS = (
@@ -174,6 +174,7 @@ INSTALLED_APPS = (
     #'bhp_basesite',
     'bhp_templates',
     'bhp_static',
+    'bhp_section',
     'bhp_poll_mysql',
     'bhp_crypto',
     'bhp_userprofile',
@@ -298,8 +299,8 @@ CONSENT_VERSIONS = ({'version': 1, 'start_date': datetime(2011, 5, 10), 'end_dat
 #BHP_CRYPTO_SETTINGS
 IS_SECURE_DEVICE = False
 MAY_CREATE_NEW_KEYS = True
-#KEY_PATH = '/Volumes/bhp056/keys'
-KEY_PATH = os.path.join(DIRNAME, 'keys')
+KEY_PATH = '/Volumes/bhp056/keys'
+#KEY_PATH = os.path.join(DIRNAME, 'keys')
 #FIELD_MAX_LENGTH='default'
 FIELD_MAX_LENGTH = 'migration'
 DISPATCH_APP_LABELS = []
