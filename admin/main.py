@@ -1,0 +1,536 @@
+from django.contrib import admin
+from bhp_base_admin.admin import BaseModelAdmin, BaseTabularInline
+from mpepu_infant.classes import InfantVisitModelAdmin, RegisteredSubjectModelAdmin, MyInfantFuModelAdmin, MyInfantArvProphModelAdmin
+from mpepu_infant.classes import OffStudyModelAdmin
+from mpepu_infant.models import *
+from mpepu_infant.forms import *
+
+
+class InfantHaartAdmin(RegisteredSubjectModelAdmin):
+
+    form = InfantHaartForm
+
+    fields = (
+        "registered_subject",
+        "hiv_positive_date",
+        "haart_initiated",
+        "haart_date",
+        "arv_status",
+        "comment"
+    )
+
+    radio_fields = {
+        "haart_initiated": admin.VERTICAL,
+        "arv_status": admin.VERTICAL
+    }
+
+    filter_horizontal = (
+
+    )
+
+admin.site.register(InfantHaart, InfantHaartAdmin)
+
+
+class InfantOffDrugAdmin(RegisteredSubjectModelAdmin):
+
+    form = InfantOffDrugForm
+
+    fields = (
+        "registered_subject",
+        "last_dose_date",
+        "reason_off",
+        "reason_off_other"
+    )
+
+    radio_fields = {
+        "reason_off": admin.VERTICAL
+    }
+
+    filter_horizontal = (
+
+    )
+
+admin.site.register(InfantOffDrug, InfantOffDrugAdmin)
+
+
+class InfantOffStudyAdmin(OffStudyModelAdmin):
+
+    form = InfantOffStudyForm
+
+    #fields = (
+    #    "registered_subject",
+    #    "offstudy_date",
+    #    "reason",
+    #    "reason_other",
+    #    "comment"
+    #)
+
+    #radio_fields = {
+    #    "reason": admin.VERTICAL
+    #}
+
+    filter_horizontal = (
+
+    )
+
+admin.site.register(InfantOffStudy, InfantOffStudyAdmin)
+
+
+class InfantPrerandoLossAdmin(RegisteredSubjectModelAdmin):
+
+    form = InfantPrerandoLossForm
+
+    fields = (
+        "registered_subject",
+        #"infant_visit",
+        "reason_loss",
+        "loss_code",
+        "reason_loss_other",
+        "comment"
+    )
+
+    radio_fields = {
+        "loss_code": admin.VERTICAL
+    }
+
+    filter_horizontal = (
+
+    )
+
+admin.site.register(InfantPrerandoLoss, InfantPrerandoLossAdmin)
+
+
+class InfantSurvivalAdmin(RegisteredSubjectModelAdmin):
+
+    form = InfantSurvivalForm
+
+    fields = (
+        "registered_subject",
+        "infant_survival_status",
+        "info_provider",
+        "info_provider_other",
+        "comment"
+    )
+
+    radio_fields = {
+        "infant_survival_status": admin.VERTICAL,
+        "info_provider": admin.VERTICAL
+    }
+
+    filter_horizontal = (
+
+    )
+
+admin.site.register(InfantSurvival, InfantSurvivalAdmin)
+
+
+class InfantNvpAdherenceAdmin(MyInfantArvProphModelAdmin):
+
+    form = InfantNvpAdherenceForm
+
+    fields = (
+        "infant_visit",
+        "infant_arv_proph",
+        "days_missed",
+        "reason_missed",
+        "reason_missed_other"
+    )
+
+    radio_fields = {
+        "reason_missed": admin.VERTICAL
+    }
+
+    filter_horizontal = (
+
+    )
+
+    """Visit"""
+
+admin.site.register(InfantNvpAdherence, InfantNvpAdherenceAdmin)
+
+
+class InfantArvProphModInlineAdmin(BaseTabularInline):
+    model = InfantArvProphMod
+    form = InfantArvProphModForm
+
+
+class InfantArvProphAdmin(InfantVisitModelAdmin):
+
+    form = InfantArvProphForm
+
+    fields = (
+        "infant_visit",
+        "prophylatic_nvp",
+        "arv_status"
+    )
+
+    radio_fields = {
+        "arv_status": admin.VERTICAL,
+        "prophylatic_nvp": admin.VERTICAL,
+    }
+
+    filter_horizontal = (
+
+    )
+    inlines = [InfantArvProphModInlineAdmin, ]
+
+    """Visit"""
+
+admin.site.register(InfantArvProph, InfantArvProphAdmin)
+
+
+class InfantArvProphModAdmin(BaseModelAdmin):
+
+    form = InfantArvProphModForm
+
+    fields = (
+        "arv_code",
+        "dose_status",
+        "modification_date",
+        "modification_code",
+    )
+
+    '''radio_fields = {
+        "arv_code": admin.VERTICAL,
+        "dose_status": admin.VERTICAL,
+        "modification_code": admin.VERTICAL,
+        "modification_date": admin.VERTICAL,
+    }'''
+
+    filter_horizontal = (
+
+    )
+
+    """Visit, infantarvproph"""
+
+admin.site.register(InfantArvProphMod, InfantArvProphModAdmin)
+
+
+class InfantStudyDrugInitAdmin(InfantVisitModelAdmin):
+
+    form = InfantStudyDrugInitForm
+
+    fields = (
+        "infant_visit",
+        "initiated",
+        "first_dose_date",
+        "reason_not_init",
+        "reason_not_survive",
+        "reason_not_init_other"
+    )
+
+    radio_fields = {
+        "initiated": admin.VERTICAL,
+        "reason_not_init": admin.VERTICAL
+    }
+
+    filter_horizontal = (
+
+    )
+
+    """Visit"""
+
+admin.site.register(InfantStudyDrugInit, InfantStudyDrugInitAdmin)
+
+
+class InfantDeathAdmin(RegisteredSubjectModelAdmin):
+
+    def __init__(self, *args, **kwargs):
+        super(InfantDeathAdmin, self).__init__(*args, **kwargs)
+        self.list_filter.insert(0, 'death_date')
+        self.list_display = ('registered_subject', 'death_date', 'created', 'modified', 'user_created', 'user_modified')
+        self.date_hierarchy = 'death_date'
+    form = InfantDeathForm
+
+    fields = (
+        "registered_subject",
+        "death_date",
+        "death_cause_info",
+        "death_cause_info_other",
+        "perform_autopsy",
+        "death_cause",
+        "death_cause_category",
+        "death_cause_other",
+        "dx_code",
+        "illness_duration",
+        "death_medical_responsibility",
+        "participant_hospitalized",
+        "death_reason_hospitalized",
+        "death_reason_hospitalized_other",
+        "days_hospitalized",
+        "study_drug_relate",
+        "infant_nvp_relate",
+        "haart_relate",
+        "trad_med_relate",
+        "comment",
+
+
+
+    )
+
+    radio_fields = {
+        "death_reason_hospitalized": admin.VERTICAL,
+        "death_medical_responsibility": admin.VERTICAL,
+        "death_cause_info": admin.VERTICAL,
+        "death_cause_category": admin.VERTICAL,
+        "perform_autopsy": admin.VERTICAL,
+        "participant_hospitalized": admin.VERTICAL,
+        "study_drug_relate": admin.VERTICAL,
+        "infant_nvp_relate": admin.VERTICAL,
+        "haart_relate": admin.VERTICAL,
+        "trad_med_relate": admin.VERTICAL
+    }
+
+    filter_horizontal = (
+
+    )
+
+    """deathcauseinfo, deathcausecategory, dxcode, deathmedicalresponsibility, deathreasonhospitalized, registeredsubject"""
+
+admin.site.register(InfantDeath, InfantDeathAdmin)
+
+
+class InfantFuAdmin(InfantVisitModelAdmin):
+
+    form = InfantFuForm
+
+    fields = (
+        "infant_visit",
+        "physical_assessment",
+        "diarrhea_illness",
+        "has_dx",
+    )
+
+    radio_fields = {
+        "physical_assessment": admin.VERTICAL,
+        "diarrhea_illness": admin.VERTICAL,
+        "has_dx": admin.VERTICAL,
+    }
+
+    filter_horizontal = (
+
+    )
+
+    """registeredsubject"""
+
+admin.site.register(InfantFu, InfantFuAdmin)
+
+
+class InfantFuPhysicalAdmin(MyInfantFuModelAdmin):
+
+    form = InfantFuPhysicalForm
+
+    fields = (
+        "infant_visit",
+        "infant_fu",
+        "weight",
+        "height",
+        "has_abnormalities",
+        "abnormalities",
+        "was_hospitalized",
+        "days_hospitalized",
+
+    )
+
+    radio_fields = {
+        "has_abnormalities": admin.VERTICAL,
+        "was_hospitalized": admin.VERTICAL,
+
+    }
+
+    filter_horizontal = (
+
+    )
+
+    """registeredsubject"""
+
+admin.site.register(InfantFuPhysical, InfantFuPhysicalAdmin)
+
+
+class InfantFuDxItemsInlineAdmin(BaseTabularInline):
+
+    model = InfantFuDxItems
+    form = InfantFuDxItemsForm
+
+
+class InfantFuDxAdmin(MyInfantFuModelAdmin):
+
+    form = InfantFuDxForm
+
+    fields = (
+    )
+
+    filter_horizontal = (
+    )
+    inlines = [InfantFuDxItemsInlineAdmin, ]
+    """registeredsubject"""
+
+admin.site.register(InfantFuDx, InfantFuDxAdmin)
+
+
+class InfantFuDxItemsAdmin(BaseModelAdmin):
+    form = InfantFuDxItemsForm
+admin.site.register(InfantFuDxItems, InfantFuDxItemsAdmin)
+
+
+class InfantFuDx2ProphItemsInlineAdmin(BaseTabularInline):
+    model = InfantFuDx2ProphItems
+    form = InfantFuDx2ProphItemsForm
+
+
+class InfantFuDx2ProphAdmin(MyInfantFuModelAdmin):
+
+    form = InfantFuDx2ProphForm
+
+    fields = (
+        "infant_visit",
+        "infant_fu",
+        "who_diagnosis",
+        "wcs_dx_ped",
+        "has_dx")
+    radio_fields = {
+        "has_dx": admin.VERTICAL,
+        "who_diagnosis": admin.VERTICAL}
+    filter_horizontal = ("wcs_dx_ped", )
+    inlines = [InfantFuDx2ProphItemsInlineAdmin, ]
+    """registeredsubject"""
+
+admin.site.register(InfantFuDx2Proph, InfantFuDx2ProphAdmin)
+
+
+class InfantFuDx2ProphItemsAdmin(BaseModelAdmin):
+    form = InfantFuDx2ProphItemsForm
+admin.site.register(InfantFuDx2ProphItems, InfantFuDx2ProphItemsAdmin)
+
+
+class InfantFuDAdmin(MyInfantFuModelAdmin):
+    form = InfantFuDForm
+    radio_fields = {
+        "health_facility": admin.VERTICAL,
+        "hospitalized": admin.VERTICAL,
+        "bloody_diarrhea": admin.VERTICAL,
+        "fever_present": admin.VERTICAL}
+admin.site.register(InfantFuD, InfantFuDAdmin)
+
+
+class InfantFuMedAdmin(MyInfantFuModelAdmin):
+    form = InfantFuMedForm
+    fields = (
+        "infant_visit",
+        "infant_fu",
+        "vaccines_received",
+        "vaccination",
+        "comments")
+    radio_fields = {"vaccines_received": admin.VERTICAL}
+    filter_horizontal = ("vaccination", )
+admin.site.register(InfantFuMed, InfantFuMedAdmin)
+
+
+class InfantFuNewMedItemsInlineAdmin(BaseTabularInline):
+    model = InfantFuNewMedItems
+    form = InfantFuNewMedItemsForm
+
+
+class InfantFuNewMedAdmin(MyInfantFuModelAdmin):
+    form = InfantFuNewMedForm
+    fields = (
+        "infant_visit",
+        "infant_fu",
+        "new_medications",
+        "other_medications")
+    radio_fields = {"new_medications": admin.VERTICAL}
+    inlines = [InfantFuNewMedItemsInlineAdmin, ]
+admin.site.register(InfantFuNewMed, InfantFuNewMedAdmin)
+
+
+class InfantStudyDrugItemsAdmin(BaseModelAdmin):
+    form = InfantStudyDrugItemsForm
+    list_display = ('inf_study_drug', 'dose_status', 'ingestion_date', 'modification_reason', 'modified')
+    search_fields = ('inf_study_drug__infant_visit__appointment__registered_subject__subject_identifier', 'dose_status', 'modification_reason',)
+
+admin.site.register(InfantStudyDrugItems, InfantStudyDrugItemsAdmin)
+
+
+class InfantStudyDrugItemsInlineAdmin(BaseTabularInline):
+    model = InfantStudyDrugItems
+    form = InfantStudyDrugItemsForm
+
+
+class InfantStudyDrugAdmin(InfantVisitModelAdmin):
+
+    form = InfantStudyDrugForm
+    fields = (
+       "infant_visit",
+       "on_placebo_status",
+       "drug_status")
+    radio_fields = {
+       "drug_status": admin.VERTICAL,
+       "on_placebo_status": admin.VERTICAL}
+    inlines = [InfantStudyDrugItemsInlineAdmin, ]
+admin.site.register(InfantStudyDrug, InfantStudyDrugAdmin)
+
+
+class InfantCtxPlaceboAdhAdmin(InfantVisitModelAdmin):
+    form = InfantCtxPlaceboAdhForm
+    fields = (
+       "infant_visit",
+       "day_missed_drug",
+       "reason_missed",
+       "reason_missed_other")
+    radio_fields = {"reason_missed": admin.VERTICAL}
+admin.site.register(InfantCtxPlaceboAdh, InfantCtxPlaceboAdhAdmin)
+
+
+class InfantFeedingAdmin(InfantVisitModelAdmin):
+
+    form = InfantFeedingForm
+    fields = (
+        "infant_visit",
+        "last_att_sche_visit",
+        "other_feeding",
+        "formula_intro_occur",
+        "formula_date",
+        "formula",
+        "water",
+        "juice",
+        "cow_milk",
+        "cow_milk_yes",
+        "other_milk",
+        "other_milk_animal",
+        "milk_boiled",
+        "fruits_veg",
+        "cereal_porridge",
+        "solid_liquid",
+        "rehydration_salts",
+        "water_used",
+        "water_used_other",
+        "reason_rcv_formula",
+        "reason_rcv_fm_other",
+        "ever_breastfeed",
+        "complete_weaning",
+        "weaned_completely",
+        "most_recent_bm",
+        "times_breastfed",
+        "comments")
+    radio_fields = {
+        "other_feeding": admin.VERTICAL,
+        "formula_intro_occur": admin.VERTICAL,
+        "reason_rcv_formula": admin.VERTICAL,
+        "water_used": admin.VERTICAL,
+        "formula": admin.VERTICAL,
+        "water": admin.VERTICAL,
+        "juice": admin.VERTICAL,
+        "cow_milk": admin.VERTICAL,
+        "cow_milk_yes": admin.VERTICAL,
+        "other_milk": admin.VERTICAL,
+        "milk_boiled": admin.VERTICAL,
+        "fruits_veg": admin.VERTICAL,
+        "cereal_porridge": admin.VERTICAL,
+        "solid_liquid": admin.VERTICAL,
+        "rehydration_salts": admin.VERTICAL,
+        "ever_breastfeed": admin.VERTICAL,
+        "complete_weaning": admin.VERTICAL,
+        "weaned_completely": admin.VERTICAL,
+        "times_breastfed": admin.VERTICAL}
+
+admin.site.register(InfantFeeding, InfantFeedingAdmin)
