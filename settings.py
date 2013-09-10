@@ -189,6 +189,7 @@ INSTALLED_APPS = (
     'bhp_actg_reference',
     'bhp_off_study',
     'bhp_adverse',
+    'bhp_diagnosis',
     'bhp_haart',
     'bhp_code_lists',
     'bhp_common',
