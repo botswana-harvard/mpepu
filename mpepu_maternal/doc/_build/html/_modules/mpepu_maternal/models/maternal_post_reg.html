@@ -1,0 +1,135 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>mpepu_maternal.models.maternal_post_reg &mdash; mpepu_maternal 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="mpepu_maternal 1.0 documentation" href="../../../index.html" />
+    <link rel="up" title="mpepu_maternal.models" href="../models.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">mpepu_maternal 1.0 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" >Module code</a> &raquo;</li>
+          <li><a href="../models.html" accesskey="U">mpepu_maternal.models</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for mpepu_maternal.models.maternal_post_reg</h1><div class="highlight"><pre>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">time</span>
+<span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">models</span>
+<span class="kn">from</span> <span class="nn">django.core.urlresolvers</span> <span class="kn">import</span> <span class="n">reverse</span>
+<span class="kn">from</span> <span class="nn">audit_trail.audit</span> <span class="kn">import</span> <span class="n">AuditTrail</span>
+<span class="kn">from</span> <span class="nn">bhp_registration.models</span> <span class="kn">import</span> <span class="n">BaseRegisteredSubjectModel</span><span class="p">,</span> <span class="n">RegisteredSubject</span>
+
+
+<div class="viewcode-block" id="MaternalPostReg"><a class="viewcode-back" href="../../../models.html#mpepu_maternal.models.maternal_post_reg.MaternalPostReg">[docs]</a><span class="k">class</span> <span class="nc">MaternalPostReg</span><span class="p">(</span><span class="n">BaseRegisteredSubjectModel</span><span class="p">):</span>
+    
+    <span class="n">reg_datetime</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">()</span>
+    
+    <span class="n">history</span> <span class="o">=</span> <span class="n">AuditTrail</span><span class="p">()</span>    
+    
+    <span class="k">def</span> <span class="nf">get_registration_datetime</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    
+        <span class="c"># base the date on the infant dob which implies the infant must exist    </span>
+        <span class="k">if</span> <span class="n">RegisteredSubject</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">relative_identifier</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">registered_subject</span><span class="o">.</span><span class="n">subject_identifier</span><span class="p">):</span>
+            <span class="n">rs</span> <span class="o">=</span> <span class="n">RegisteredSubject</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">relative_identifier</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">registered_subject</span><span class="o">.</span><span class="n">subject_identifier</span><span class="p">)</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s">&#39;dob&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">rs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">dob</span><span class="p">:</span>
+                <span class="n">infant_dob</span> <span class="o">=</span> <span class="n">rs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">dob</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">,</span> <span class="s">&#39;</span><span class="si">%s</span><span class="s"> model method </span><span class="se">\&#39;</span><span class="s">get_registration_datetime</span><span class="se">\&#39;</span><span class="s"> cannot determine the dob of the first infant for this </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">registered_subject</span><span class="p">,)</span>                                 
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">,</span> <span class="s">&#39;</span><span class="si">%s</span><span class="s"> model method </span><span class="se">\&#39;</span><span class="s">get_registration_datetime</span><span class="se">\&#39;</span><span class="s"> cannot find an infant for this </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">registered_subject</span><span class="p">,)</span>             
+        <span class="k">return</span> <span class="n">datetime</span><span class="o">.</span><span class="n">combine</span><span class="p">(</span><span class="n">infant_dob</span><span class="p">,</span> <span class="n">time</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+    
+    <span class="k">def</span> <span class="nf">__unicode__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s">&quot;</span><span class="si">%s</span><span class="s"> </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">registered_subject</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">reg_datetime</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">get_absolute_url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">reverse</span><span class="p">(</span><span class="s">&#39;admin:mpepu_maternal_maternalpostreg_change&#39;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">,))</span>
+
+
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">app_label</span> <span class="o">=</span> <span class="s">&quot;mpepu_maternal&quot;</span>
+        <span class="n">verbose_name</span> <span class="o">=</span> <span class="s">&quot;Maternal Post Partum Registration&quot;</span>
+
+
+        
+</pre></div></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">mpepu_maternal 1.0 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" >Module code</a> &raquo;</li>
+          <li><a href="../models.html" >mpepu_maternal.models</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2012, erik van widenfelt.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

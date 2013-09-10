@@ -1,0 +1,918 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Models &mdash; mpepu_maternal 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="mpepu_maternal 1.0 documentation" href="index.html" />
+    <link rel="next" title="Forms" href="forms.html" />
+    <link rel="prev" title="Registration" href="registration.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="forms.html" title="Forms"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="registration.html" title="Registration"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">mpepu_maternal 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-mpepu_maternal.models">
+<span id="models"></span><h1>Models<a class="headerlink" href="#module-mpepu_maternal.models" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="base">
+<h2>Base<a class="headerlink" href="#base" title="Permalink to this headline">¶</a></h2>
+<p>The Base classes help ensure the following:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>All maternal models use a UUID as the primary key.</li>
+<li>Eligibility models have a foreign key to <tt class="xref py py-class docutils literal"><span class="pre">RegisteredSubject</span></tt>.</li>
+<li>Scheduled models have a foreign key to <tt class="xref py py-class docutils literal"><span class="pre">MaternalVisit</span></tt>.</li>
+</ol>
+</div></blockquote>
+<dl class="class">
+<dt id="mpepu_maternal.models.MyBaseUuidModel">
+<em class="property">class </em><tt class="descclassname">mpepu_maternal.models.</tt><tt class="descname">MyBaseUuidModel</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mpepu_maternal.models.MyBaseUuidModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">bhp_sync.classes.base_sync_model.BaseSyncModel</span></tt></p>
+<p>Base model for all maternal models</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Name :</th><td class="field-body">my base uuid model</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Table :</th><td class="field-body">models_mybaseuuidmodel</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="mpepu_maternal.models.BaseMaternalEligibility">
+<em class="property">class </em><tt class="descclassname">mpepu_maternal.models.</tt><tt class="descname">BaseMaternalEligibility</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mpepu_maternal.models.BaseMaternalEligibility" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">bhp_registration.models.base_registration_model.BaseRegistrationModel</span></tt></p>
+<p>Base model for maternal eligibility forms (EN001/2).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>registered_subject_id</strong> (<em>OneToOneField</em>) &#8211; Registered subject</li>
+<li><strong>registration_datetime</strong> (<em>DateTimeField</em>) &#8211; Today&#8217;s date</li>
+<li><strong>maternal_consent_id</strong> (<em>OneToOneField</em>) &#8211; Mother&#8217;s consent</li>
+<li><strong>is_hiv_positive</strong> (<em>CharField</em>) &#8211; By indicating YES, you confirm that you  have copied such evidence for the patient chart</li>
+<li><strong>agree_follow_up</strong> (<em>CharField</em>) &#8211; if no ,INELIGIBLE</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="mpepu_maternal.models.BaseScheduledVisitModel">
+<em class="property">class </em><tt class="descclassname">mpepu_maternal.models.</tt><tt class="descname">BaseScheduledVisitModel</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mpepu_maternal.models.BaseScheduledVisitModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">mpepu_maternal.models.my_base_uuid_model.MyBaseUuidModel</span></tt></p>
+<p>Base model for all scheduled models (adds key to <tt class="xref py py-class docutils literal"><span class="pre">MaternalVisit</span></tt>).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>maternal_visit_id</strong> (<em>ForeignKey</em>) &#8211; Maternal visit</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="consent">
+<h2>Consent<a class="headerlink" href="#consent" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="mpepu_maternal.models.MaternalConsent">
+<em class="property">class </em><tt class="descclassname">mpepu_maternal.models.</tt><tt class="descname">MaternalConsent</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mpepu_maternal.models.MaternalConsent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">bhp_botswana.models.base_consent.BaseConsent</span></tt></p>
+<p>Model for maternal consent and registration model for mothers.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Name :</th><td class="field-body"><p class="first">Maternal Consent</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Table :</th><td class="field-body"><p class="first">mpepu_maternal_maternalconsent</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>subject_identifier</strong> (<em>CharField</em>) &#8211; Subject identifier</li>
+<li><strong>first_name</strong> (<em>EncryptedFirstnameField</em>) &#8211; (Encryption: local-rsa)</li>
+<li><strong>last_name</strong> (<em>EncryptedLastnameField</em>) &#8211; (Encryption: restricted-rsa)</li>
+<li><strong>initials</strong> (<em>CharField</em>) &#8211; Initials</li>
+<li><strong>dob</strong> (<em>DateField</em>) &#8211; Format is YYYY-MM-DD</li>
+<li><strong>is_dob_estimated</strong> (<em>IsDateEstimatedField</em>) &#8211; If the exact date is not known, please indicate which part of the date is estimated.</li>
+<li><strong>gender</strong> (<em>CharField</em>) &#8211; Gender</li>
+<li><strong>subject_type</strong> (<em>CharField</em>) &#8211; Subject type</li>
+<li><strong>screening_datetime</strong> (<em>DateTimeField</em>) &#8211; Screening datetime</li>
+<li><strong>registration_datetime</strong> (<em>DateTimeField</em>) &#8211; Registration datetime</li>
+<li><strong>randomization_datetime</strong> (<em>DateTimeField</em>) &#8211; Randomization datetime</li>
+<li><strong>registration_status</strong> (<em>CharField</em>) &#8211; Registration status</li>
+<li><strong>study_site_id</strong> (<em>ForeignKey</em>) &#8211; This refers to the site or &#8216;clinic area&#8217; where the subject is being consented.</li>
+<li><strong>consent_datetime</strong> (<em>DateTimeField</em>) &#8211; Consent date and time</li>
+<li><strong>guardian_name</strong> (<em>EncryptedLastnameField</em>) &#8211; Required only if subject is a minor. Format is &#8216;LASTNAME, FIRSTNAME&#8217;. All uppercase separated by a comma (Encryption: restricted-rsa)</li>
+<li><strong>may_store_samples</strong> (<em>CharField</em>) &#8211; Does the subject agree to have samples stored after the study has ended</li>
+<li><strong>comment</strong> (<em>EncryptedTextField</em>) &#8211; (Encryption: local-aes)</li>
+<li><strong>identity</strong> (<em>EncryptedOmangField</em>) &#8211; Use Omang, Passport number, driver&#8217;s license number or Omang receipt number (Encryption: restricted-rsa)</li>
+<li><strong>identity_type</strong> (<em>IdentityTypeField</em>) &#8211; What type of identity number is this?</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="eligibility">
+<h2>Eligibility<a class="headerlink" href="#eligibility" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="mpepu_maternal.models.MaternalEligibilityAnte">
+<em class="property">class </em><tt class="descclassname">mpepu_maternal.models.</tt><tt class="descname">MaternalEligibilityAnte</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mpepu_maternal.models.MaternalEligibilityAnte" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">mpepu_maternal.models.base_maternal_eligibility.BaseMaternalEligibility</span></tt></p>
+<p>Model for Maternal Eligiblity Ante-Natal</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Name :</th><td class="field-body"><p class="first">Maternal Eligibility Ante-Natal</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Table :</th><td class="field-body"><p class="first">mpepu_maternal_maternaleligibilityante</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>registered_subject_id</strong> (<em>OneToOneField</em>) &#8211; Registered subject</li>
+<li><strong>registration_datetime</strong> (<em>DateTimeField</em>) &#8211; Today&#8217;s date</li>
+<li><strong>maternal_consent_id</strong> (<em>OneToOneField</em>) &#8211; Mother&#8217;s consent</li>
+<li><strong>is_hiv_positive</strong> (<em>CharField</em>) &#8211; By indicating YES, you confirm that you  have copied such evidence for the patient chart</li>
+<li><strong>agree_follow_up</strong> (<em>CharField</em>) &#8211; if no ,INELIGIBLE</li>
+<li><strong>gestational_age</strong> (<em>IntegerField</em>) &#8211; if &lt;26 weeks,ineligible</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="mpepu_maternal.models.MaternalEligibilityPost">
+<em class="property">class </em><tt class="descclassname">mpepu_maternal.models.</tt><tt class="descname">MaternalEligibilityPost</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mpepu_maternal.models.MaternalEligibilityPost" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">mpepu_maternal.models.base_maternal_eligibility.BaseMaternalEligibility</span></tt></p>
+<p>Maternal Eligiblity determined post-partum</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Name :</th><td class="field-body"><p class="first">Maternal Eligibility Post-Partum</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Table :</th><td class="field-body"><p class="first">mpepu_maternal_maternaleligibilitypost</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>registered_subject_id</strong> (<em>OneToOneField</em>) &#8211; Registered subject</li>
+<li><strong>registration_datetime</strong> (<em>DateTimeField</em>) &#8211; Today&#8217;s date</li>
+<li><strong>maternal_consent_id</strong> (<em>OneToOneField</em>) &#8211; Mother&#8217;s consent</li>
+<li><strong>is_hiv_positive</strong> (<em>CharField</em>) &#8211; By indicating YES, you confirm that you  have copied such evidence for the patient chart</li>
+<li><strong>agree_follow_up</strong> (<em>CharField</em>) &#8211; if no ,INELIGIBLE</li>
+<li><strong>days_pnc</strong> (<em>IntegerField</em>) &#8211; if &gt;34 days, ineligible</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="registration">
+<h2>Registration<a class="headerlink" href="#registration" title="Permalink to this headline">¶</a></h2>
+<p>Mothers are registered to the study using the <a class="reference internal" href="#mpepu_maternal.models.MaternalConsent" title="mpepu_maternal.models.MaternalConsent"><tt class="xref py py-class docutils literal"><span class="pre">MaternalConsent</span></tt></a>.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Is this model used?</p>
+</div>
+<dl class="class">
+<dt id="mpepu_maternal.models.MaternalPostReg">
+<em class="property">class </em><tt class="descclassname">mpepu_maternal.models.</tt><tt class="descname">MaternalPostReg</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mpepu_maternal.models.MaternalPostReg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">bhp_registration.models.base_registered_subject_model.BaseRegisteredSubjectModel</span></tt></p>
+<p>Post-partum registration</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Name :</th><td class="field-body"><p class="first">Maternal Post Partum Registration</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Table :</th><td class="field-body"><p class="first">mpepu_maternal_maternalpostreg</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>registered_subject_id</strong> (<em>OneToOneField</em>) &#8211; Registered subject</li>
+<li><strong>reg_datetime</strong> (<em>DateTimeField</em>) &#8211; Reg datetime</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="enrollment">
+<h2>Enrollment<a class="headerlink" href="#enrollment" title="Permalink to this headline">¶</a></h2>
+<p>In Mpepu, the Maternal Enrollment form is not a registration form and may be completed at any time between registration and randomization.</p>
+<dl class="class">
+<dt id="mpepu_maternal.models.MaternalEnroll">
+<em class="property">class </em><tt class="descclassname">mpepu_maternal.models.</tt><tt class="descname">MaternalEnroll</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mpepu_maternal.models.MaternalEnroll" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">mpepu_maternal.models.base_scheduled_visit_model.BaseScheduledVisitModel</span></tt></p>
+<p>Model for Maternal enrollment (first of several).</p>
+<p>mp003</p>
+<p>this is not a registration form, just a form to collect &#8216;other data&#8217; 
+This form is initiated at the time of maternal enrollment, 
+and can be completed and submitted any time before randomization</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Name :</th><td class="field-body"><p class="first">Maternal Enrollment</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Table :</th><td class="field-body"><p class="first">mpepu_maternal_maternalenroll</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>maternal_visit_id</strong> (<em>ForeignKey</em>) &#8211; Maternal visit</li>
+<li><strong>recruit_source</strong> (<em>CharField</em>) &#8211; <ol class="arabic">
+<li>the mother first learned about the mpepu study from</li>
+</ol>
+</li>
+<li><strong>recruit_source_other</strong> (<em>OtherCharField</em>) &#8211; 1a. if other specify...</li>
+<li><strong>prev_pregnancies</strong> (<em>IntegerField</em>) &#8211; <ol class="arabic" start="2">
+<li>not including this pregnancy, how many previous pregnancies for this participant?</li>
+</ol>
+</li>
+<li><strong>prior_health_haart</strong> (<em>CharField</em>) &#8211; For her own health and not just PMTCT for an earlier pregnancy or breastfeeding.</li>
+<li><strong>prev_pregnancy_arv</strong> (<em>CharField</em>) &#8211; not including this pregnancy</li>
+<li><strong>weight</strong> (<em>DecimalField</em>) &#8211; Measured in Kilograms (kg)</li>
+<li><strong>height</strong> (<em>DecimalField</em>) &#8211; Measured in Centimeters (cm)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="visit">
+<h2>Visit<a class="headerlink" href="#visit" title="Permalink to this headline">¶</a></h2>
+<dl class="attribute">
+<dt id="mpepu_maternal.models.maternal_visit">
+<tt class="descclassname">mpepu_maternal.models.</tt><tt class="descname">maternal_visit</tt><a class="headerlink" href="#mpepu_maternal.models.maternal_visit" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#mpepu_maternal.models.maternal_visit" title="mpepu_maternal.models.maternal_visit"><tt class="xref py py-class docutils literal"><span class="pre">mpepu_maternal.models.maternal_visit</span></tt></a></p>
+</dd></dl>
+
+</div>
+<div class="section" id="follow-up">
+<h2>Follow-Up<a class="headerlink" href="#follow-up" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-mpepu_maternal.models.maternal_arv_preg">
+<span id="arv-this-pregnancy"></span><h3>ARV - This Pregnancy<a class="headerlink" href="#module-mpepu_maternal.models.maternal_arv_preg" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="mpepu_maternal.models.maternal_arv_preg.MaternalArv">
+<em class="property">class </em><tt class="descclassname">mpepu_maternal.models.maternal_arv_preg.</tt><tt class="descname">MaternalArv</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mpepu_maternal/models/maternal_arv_preg.html#MaternalArv"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mpepu_maternal.models.maternal_arv_preg.MaternalArv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">bhp_haart.models.base_history.BaseHaartHistory</span></tt></p>
+<p>Maternal arv history (current and post-partum).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Name :</th><td class="field-body"><p class="first">Maternal ARV</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Table :</th><td class="field-body"><p class="first">mpepu_maternal_maternalarv</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>arv_code</strong> (<em>CharField</em>) &#8211; Arv code</li>
+<li><strong>date_start</strong> (<em>DateField</em>) &#8211; Date started</li>
+<li><strong>date_stop</strong> (<em>DateField</em>) &#8211; Date stopped</li>
+<li><strong>maternal_arv_preg_history_id</strong> (<em>ForeignKey</em>) &#8211; Maternal arv preg history</li>
+<li><strong>maternal_arv_pp_history_id</strong> (<em>ForeignKey</em>) &#8211; Maternal arv pp history</li>
+<li><strong>transaction_flag</strong> (<em>CharField</em>) &#8211; Transaction flag</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="mpepu_maternal.models.maternal_arv_preg.MaternalArvPPHistory">
+<em class="property">class </em><tt class="descclassname">mpepu_maternal.models.maternal_arv_preg.</tt><tt class="descname">MaternalArvPPHistory</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mpepu_maternal/models/maternal_arv_preg.html#MaternalArvPPHistory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mpepu_maternal.models.maternal_arv_preg.MaternalArvPPHistory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">mpepu_maternal.models.base_scheduled_visit_model.BaseScheduledVisitModel</span></tt></p>
+<p>Maternal arv for post-partum (transactions).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Name :</th><td class="field-body"><p class="first">Maternal ARV In This Preg: PostPart</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Table :</th><td class="field-body"><p class="first">mpepu_maternal_maternalarvpphistory</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>maternal_visit_id</strong> (<em>ForeignKey</em>) &#8211; Maternal visit</li>
+<li><strong>maternal_arv_preg_id</strong> (<em>ForeignKey</em>) &#8211; Maternal arv preg</li>
+<li><strong>comment</strong> (<em>CharField</em>) &#8211; <ol class="arabic" start="8">
+<li>comments postpartum regimens:</li>
+</ol>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="mpepu_maternal.models.maternal_arv_preg.MaternalArvPreg">
+<em class="property">class </em><tt class="descclassname">mpepu_maternal.models.maternal_arv_preg.</tt><tt class="descname">MaternalArvPreg</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mpepu_maternal/models/maternal_arv_preg.html#MaternalArvPreg"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mpepu_maternal.models.maternal_arv_preg.MaternalArvPreg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">mpepu_maternal.models.base_scheduled_visit_model.BaseScheduledVisitModel</span></tt></p>
+<p>Maternal arv for current pregnancy.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Name :</th><td class="field-body"><p class="first">Maternal ARV In This Preg</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Table :</th><td class="field-body"><p class="first">mpepu_maternal_maternalarvpreg</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>maternal_visit_id</strong> (<em>ForeignKey</em>) &#8211; Maternal visit</li>
+<li><strong>took_arv</strong> (<em>CharField</em>) &#8211; (NOT including single -dose NVP in labour)</li>
+<li><strong>sd_nvp</strong> (<em>CharField</em>) &#8211; <ol class="arabic" start="4">
+<li>was single-dose nvp received by the mother during labour(or false labour)?</li>
+</ol>
+</li>
+<li><strong>start_pp</strong> (<em>CharField</em>) &#8211; <ol class="arabic" start="6">
+<li>did the mother start any antiretroviral drugs during the immediate postpartum period (before discharge from maternity)?</li>
+</ol>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="mpepu_maternal.models.maternal_arv_preg.MaternalArvPregHistory">
+<em class="property">class </em><tt class="descclassname">mpepu_maternal.models.maternal_arv_preg.</tt><tt class="descname">MaternalArvPregHistory</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mpepu_maternal/models/maternal_arv_preg.html#MaternalArvPregHistory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mpepu_maternal.models.maternal_arv_preg.MaternalArvPregHistory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">mpepu_maternal.models.base_scheduled_visit_model.BaseScheduledVisitModel</span></tt></p>
+<p>Maternal arv for current pregnancy (transactions).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Name :</th><td class="field-body"><p class="first">Maternal ARV In This Preg: Pregnancy</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Table :</th><td class="field-body"><p class="first">mpepu_maternal_maternalarvpreghistory</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>maternal_visit_id</strong> (<em>ForeignKey</em>) &#8211; Maternal visit</li>
+<li><strong>maternal_arv_preg_id</strong> (<em>ForeignKey</em>) &#8211; Maternal arv preg</li>
+<li><strong>is_interrupt</strong> (<em>CharField</em>) &#8211; <ol class="arabic" start="3">
+<li>was there an interruption in the arvs received during pregnancy through delivery of &gt;/=3days?</li>
+</ol>
+</li>
+<li><strong>interrupt</strong> (<em>CharField</em>) &#8211; 3a. please give reason for interruption</li>
+<li><strong>interrupt_other</strong> (<em>TextField</em>) &#8211; 3b.other, specify</li>
+<li><strong>comment</strong> (<em>TextField</em>) &#8211; <ol class="arabic" start="8">
+<li>comments on pregnancy regimens:</li>
+</ol>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-mpepu_maternal.models.maternal_arv_post">
+<span id="arv-post-partum"></span><h3>ARV - Post-Partum<a class="headerlink" href="#module-mpepu_maternal.models.maternal_arv_post" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="mpepu_maternal.models.maternal_arv_post.MaternalArvPost">
+<em class="property">class </em><tt class="descclassname">mpepu_maternal.models.maternal_arv_post.</tt><tt class="descname">MaternalArvPost</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mpepu_maternal/models/maternal_arv_post.html#MaternalArvPost"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mpepu_maternal.models.maternal_arv_post.MaternalArvPost" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">mpepu_maternal.models.base_scheduled_visit_model.BaseScheduledVisitModel</span></tt></p>
+<p>Maternal ARV post-partum (mp007).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Name :</th><td class="field-body"><p class="first">Maternal ARVs Post</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Table :</th><td class="field-body"><p class="first">mpepu_maternal_maternalarvpost</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>maternal_visit_id</strong> (<em>ForeignKey</em>) &#8211; Maternal visit</li>
+<li><strong>haart_last_visit</strong> (<em>CharField</em>) &#8211; If &#8216;NO&#8217; End. Otherwise continue go to section one</li>
+<li><strong>haart_reason</strong> (<em>CharField</em>) &#8211; <ol class="arabic" start="2">
+<li>reason for haart</li>
+</ol>
+</li>
+<li><strong>haart_reason_other</strong> (<em>TextField</em>) &#8211; 2a. if other, specify</li>
+<li><strong>arv_status</strong> (<em>CharField</em>) &#8211; 3.what is the status of the participant&#8217;s antiretroviral treatment / prophylaxis at this visit or since the last visit?</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="mpepu_maternal.models.maternal_arv_post.MaternalArvPostAdh">
+<em class="property">class </em><tt class="descclassname">mpepu_maternal.models.maternal_arv_post.</tt><tt class="descname">MaternalArvPostAdh</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mpepu_maternal/models/maternal_arv_post.html#MaternalArvPostAdh"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mpepu_maternal.models.maternal_arv_post.MaternalArvPostAdh" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">mpepu_maternal.models.base_scheduled_visit_model.BaseScheduledVisitModel</span></tt></p>
+<p>Maternal ARV adherence post-partum.</p>
+<p>complete if YES for  haart_last_visit in MaternalArvPost</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Name :</th><td class="field-body"><p class="first">Maternal ARVs Post: Adherence</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Table :</th><td class="field-body"><p class="first">mpepu_maternal_maternalarvpostadh</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>maternal_visit_id</strong> (<em>ForeignKey</em>) &#8211; Maternal visit</li>
+<li><strong>maternal_arv_post_id</strong> (<em>OneToOneField</em>) &#8211; Maternal arv post</li>
+<li><strong>missed_doses</strong> (<em>IntegerField</em>) &#8211; <ol class="arabic" start="4">
+<li>since the last attended last scheduled visit, how many doses of haart were missed?</li>
+</ol>
+</li>
+<li><strong>missed_days</strong> (<em>IntegerField</em>) &#8211; <ol class="arabic" start="5">
+<li>since the last attended scheduled visit, how many entire days was haart not taken?</li>
+</ol>
+</li>
+<li><strong>missed_days_discnt</strong> (<em>IntegerField</em>) &#8211; <ol class="arabic" start="6">
+<li>if haart discontinued by health provider, how many days was haart missed prior to haart discontinuation?</li>
+</ol>
+</li>
+<li><strong>comment</strong> (<em>TextField</em>) &#8211; <ol class="arabic" start="7">
+<li>comment</li>
+</ol>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="mpepu_maternal.models.maternal_arv_post.MaternalArvPostMod">
+<em class="property">class </em><tt class="descclassname">mpepu_maternal.models.maternal_arv_post.</tt><tt class="descname">MaternalArvPostMod</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mpepu_maternal/models/maternal_arv_post.html#MaternalArvPostMod"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mpepu_maternal.models.maternal_arv_post.MaternalArvPostMod" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">bhp_haart.models.base_modification.BaseHaartModification</span></tt></p>
+<p>Maternal ARV modifications post-partum.</p>
+<p>if art_status never, no_mod or N/A then this is not required</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Name :</th><td class="field-body"><p class="first">Maternal ARVs Post: Mods</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Table :</th><td class="field-body"><p class="first">mpepu_maternal_maternalarvpostmod</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>arv_code</strong> (<em>CharField</em>) &#8211; Arv code</li>
+<li><strong>dose_status</strong> (<em>CharField</em>) &#8211; Dose status</li>
+<li><strong>modification_date</strong> (<em>DateField</em>) &#8211; Date arv modified</li>
+<li><strong>modification_code</strong> (<em>CharField</em>) &#8211; Reason for modification</li>
+<li><strong>maternal_arv_post_id</strong> (<em>ForeignKey</em>) &#8211; Maternal arv post</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="labor-and-delivery">
+<h3>Labor and Delivery<a class="headerlink" href="#labor-and-delivery" title="Permalink to this headline">¶</a></h3>
+<p>The Labor and Delivery model is responsible to create as many infant identifiers as indicated by the field
+attribute <tt class="xref py py-attr docutils literal"><span class="pre">live_infants_to_register</span></tt>.</p>
+<span class="target" id="module-mpepu_maternal.models.maternal_lab_del"></span><dl class="class">
+<dt id="mpepu_maternal.models.maternal_lab_del.MaternalLabDel">
+<em class="property">class </em><tt class="descclassname">mpepu_maternal.models.maternal_lab_del.</tt><tt class="descname">MaternalLabDel</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mpepu_maternal/models/maternal_lab_del.html#MaternalLabDel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mpepu_maternal.models.maternal_lab_del.MaternalLabDel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">mpepu_maternal.models.base_scheduled_visit_model.BaseScheduledVisitModel</span></tt></p>
+<p>Maternal Labor and Delivery which triggers registration of infants.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Name :</th><td class="field-body"><p class="first">Maternal Labour &amp; Delivery</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Table :</th><td class="field-body"><p class="first">mpepu_maternal_maternallabdel</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>maternal_visit_id</strong> (<em>ForeignKey</em>) &#8211; Maternal visit</li>
+<li><strong>delivery_datetime</strong> (<em>DateTimeField</em>) &#8211; If TIME unknown, estimate</li>
+<li><strong>del_time_is_est</strong> (<em>CharField</em>) &#8211; 1a. is the delivery time estimated?</li>
+<li><strong>labour_hrs</strong> (<em>CharField</em>) &#8211; For multiple births, time of delivery = time first infant born</li>
+<li><strong>del_mode</strong> (<em>CharField</em>) &#8211; <ol class="arabic" start="3">
+<li>mode of delivery</li>
+</ol>
+</li>
+<li><strong>has_ga</strong> (<em>CharField</em>) &#8211; If known, complete below</li>
+<li><strong>ga</strong> (<em>IntegerField</em>) &#8211; in weeks</li>
+<li><strong>del_hosp</strong> (<em>CharField</em>) &#8211; If &#8216;Other health facility&#8217; or &#8216;Other&#8217;, specify below</li>
+<li><strong>del_hosp_other</strong> (<em>OtherCharField</em>) &#8211; ...if &#8220;other&#8221;, specify</li>
+<li><strong>has_urine_tender</strong> (<em>CharField</em>) &#8211; <ol class="arabic" start="5">
+<li>was uterine tenderness recorded?</li>
+</ol>
+</li>
+<li><strong>labr_max_temp</strong> (<em>DecimalField</em>) &#8211; In degrees Celcius. -1 = unknown</li>
+<li><strong>has_chorioamnionitis</strong> (<em>CharField</em>) &#8211; <ol class="arabic" start="7">
+<li>was chorio-amnionitis suspected?</li>
+</ol>
+</li>
+<li><strong>has_del_comp</strong> (<em>CharField</em>) &#8211; ( if &#8216;YES&#8217; continue. Otherwise go to question 10 )</li>
+<li><strong>del_comp_other</strong> (<em>TextField</em>) &#8211; 9a. if other, describe the complication</li>
+<li><strong>live_infants</strong> (<em>IntegerField</em>) &#8211; <ol class="arabic" start="10">
+<li>how many live babies did the mother deliver?</li>
+</ol>
+</li>
+<li><strong>live_infants_to_register</strong> (<em>IntegerField</em>) &#8211; 10a. how many babies are registering to the study?</li>
+<li><strong>still_borns</strong> (<em>IntegerField</em>) &#8211; ( if &#8216;&gt;0&#8217; continue. Otherwise go to question 13 )</li>
+<li><strong>still_born_has_congen_abn</strong> (<em>CharField</em>) &#8211; <ol class="arabic" start="12">
+<li>if any stillborns, did any have a congenital abnormality noted?</li>
+</ol>
+</li>
+<li><strong>still_born_congen_abn</strong> (<em>OtherCharField</em>) &#8211; 12a. if yes, specify;</li>
+<li><strong>del_comment</strong> (<em>TextField</em>) &#8211; <ol class="arabic" start="13">
+<li>list any addtional information about the labour and delivery (mother only)</li>
+</ol>
+</li>
+<li><strong>comment</strong> (<em>TextField</em>) &#8211; Comment if any additional pertinent information</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="mpepu_maternal.models.maternal_lab_del.MaternalLabDelClinic">
+<em class="property">class </em><tt class="descclassname">mpepu_maternal.models.maternal_lab_del.</tt><tt class="descname">MaternalLabDelClinic</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mpepu_maternal/models/maternal_lab_del.html#MaternalLabDelClinic"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mpepu_maternal.models.maternal_lab_del.MaternalLabDelClinic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">mpepu_maternal.models.base_scheduled_visit_model.BaseScheduledVisitModel</span></tt></p>
+<p>Laboratory and other clinical information collected during labor and delivery</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Name :</th><td class="field-body"><p class="first">Maternal Labour &amp; Delivery: ClinHist</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Table :</th><td class="field-body"><p class="first">mpepu_maternal_maternallabdelclinic</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>maternal_visit_id</strong> (<em>ForeignKey</em>) &#8211; Maternal visit</li>
+<li><strong>maternal_lab_del_id</strong> (<em>OneToOneField</em>) &#8211; Maternal lab del</li>
+<li><strong>has_cd4</strong> (<em>CharField</em>) &#8211; ( if &#8216;YES&#8217; continue. Otherwise go to question 20 )</li>
+<li><strong>cd4_date</strong> (<em>DateField</em>) &#8211; 19a. 	date of most recent cd4 test?</li>
+<li><strong>cd4_result</strong> (<em>CharField</em>) &#8211; 19b. result of most recent cd4 test</li>
+<li><strong>has_vl</strong> (<em>CharField</em>) &#8211; (if &#8216;YES&#8217; continue. Otherwise go to question 2)</li>
+<li><strong>vl_date</strong> (<em>DateField</em>) &#8211; 21a. 	if yes, date of most recent vl test?</li>
+<li><strong>vl_result</strong> (<em>CharField</em>) &#8211; 21b.result of most recent vl test</li>
+<li><strong>took_suppliments</strong> (<em>CharField</em>) &#8211; ( if &#8216;YES&#8217; continue. Otherwise go to question 23 )</li>
+<li><strong>comment</strong> (<em>TextField</em>) &#8211; <ol class="arabic" start="23">
+<li>comment if any additional pertinent information</li>
+</ol>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="mpepu_maternal.models.maternal_lab_del.MaternalLabDelDx">
+<em class="property">class </em><tt class="descclassname">mpepu_maternal.models.maternal_lab_del.</tt><tt class="descname">MaternalLabDelDx</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mpepu_maternal/models/maternal_lab_del.html#MaternalLabDelDx"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mpepu_maternal.models.maternal_lab_del.MaternalLabDelDx" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">mpepu_maternal.models.base_scheduled_visit_model.BaseScheduledVisitModel</span></tt></p>
+<p>Diagnosis during pregnancy collected during labor and delivery.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Name :</th><td class="field-body"><p class="first">Maternal Labour &amp; Delivery: Preg Dx</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Table :</th><td class="field-body"><p class="first">mpepu_maternal_maternallabdeldx</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>maternal_visit_id</strong> (<em>ForeignKey</em>) &#8211; Maternal visit</li>
+<li><strong>maternal_lab_del_id</strong> (<em>OneToOneField</em>) &#8211; Maternal lab del</li>
+<li><strong>has_preg_dx</strong> (<em>CharField</em>) &#8211; If yes, Select all that apply in the table, only report grade 3 or 4 diagnoses</li>
+<li><strong>has_who_dx</strong> (<em>CharField</em>) &#8211; If yes, answer 17a, otherwise go to Question 18</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="mpepu_maternal.models.maternal_lab_del.MaternalLabDelDxT">
+<em class="property">class </em><tt class="descclassname">mpepu_maternal.models.maternal_lab_del.</tt><tt class="descname">MaternalLabDelDxT</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mpepu_maternal/models/maternal_lab_del.html#MaternalLabDelDxT"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mpepu_maternal.models.maternal_lab_del.MaternalLabDelDxT" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">mpepu_maternal.models.my_base_uuid_model.MyBaseUuidModel</span></tt></p>
+<p>Diagnosis during pregnancy collected during labor and delivery (transactions).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Name :</th><td class="field-body"><p class="first">Maternal Labour &amp; Delivery: Preg DxT</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Table :</th><td class="field-body"><p class="first">mpepu_maternal_maternallabdeldxt</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>maternal_lab_del_dx_id</strong> (<em>ForeignKey</em>) &#8211; Maternal lab del dx</li>
+<li><strong>lab_del_dx</strong> (<em>CharField</em>) &#8211; Diagnosis</li>
+<li><strong>lab_del_dx_specify</strong> (<em>CharField</em>) &#8211; Diagnosis specification</li>
+<li><strong>grade</strong> (<em>IntegerField</em>) &#8211; Grade</li>
+<li><strong>hospitalized</strong> (<em>CharField</em>) &#8211; Hospitalized</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="mpepu_maternal.models.maternal_lab_del.MaternalLabDelMed">
+<em class="property">class </em><tt class="descclassname">mpepu_maternal.models.maternal_lab_del.</tt><tt class="descname">MaternalLabDelMed</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mpepu_maternal/models/maternal_lab_del.html#MaternalLabDelMed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mpepu_maternal.models.maternal_lab_del.MaternalLabDelMed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">mpepu_maternal.models.base_scheduled_visit_model.BaseScheduledVisitModel</span></tt></p>
+<p>Medical history collected during labor and delivery.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Name :</th><td class="field-body"><p class="first">Maternal Labour &amp; Delivery: MedHistory</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Table :</th><td class="field-body"><p class="first">mpepu_maternal_maternallabdelmed</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>maternal_visit_id</strong> (<em>ForeignKey</em>) &#8211; Maternal visit</li>
+<li><strong>maternal_lab_del_id</strong> (<em>OneToOneField</em>) &#8211; Maternal lab del</li>
+<li><strong>has_health_cond</strong> (<em>CharField</em>) &#8211; if yes answer 14a, otherwise go to Question 15</li>
+<li><strong>health_cond_other</strong> (<em>OtherCharField</em>) &#8211; ...if &#8220;other&#8221;, specify</li>
+<li><strong>has_ob_comp</strong> (<em>CharField</em>) &#8211; <ol class="arabic" start="15">
+<li>during this pregnancy, did the mother have any of the following obstetrical complications? (in 15a)</li>
+</ol>
+</li>
+<li><strong>ob_comp_other</strong> (<em>TextField</em>) &#8211; Ob comp other</li>
+<li><strong>comment</strong> (<em>TextField</em>) &#8211; <ol class="arabic" start="16">
+<li>comment if any additional pertinent information</li>
+</ol>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-mpepu_maternal.models.maternal_post_fu">
+<span id="post-partum"></span><h3>Post Partum<a class="headerlink" href="#module-mpepu_maternal.models.maternal_post_fu" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="mpepu_maternal.models.maternal_post_fu.MaternalPostFu">
+<em class="property">class </em><tt class="descclassname">mpepu_maternal.models.maternal_post_fu.</tt><tt class="descname">MaternalPostFu</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mpepu_maternal/models/maternal_post_fu.html#MaternalPostFu"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mpepu_maternal.models.maternal_post_fu.MaternalPostFu" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">mpepu_maternal.models.base_scheduled_visit_model.BaseScheduledVisitModel</span></tt></p>
+<p>General post-partum follow-up.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Name :</th><td class="field-body"><p class="first">Maternal Postnatal Follow-Up</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Table :</th><td class="field-body"><p class="first">mpepu_maternal_maternalpostfu</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>maternal_visit_id</strong> (<em>ForeignKey</em>) &#8211; Maternal visit</li>
+<li><strong>mother_weight</strong> (<em>CharField</em>) &#8211; (If Yes,complete 2a.If No,go to question 3)</li>
+<li><strong>enter_weight</strong> (<em>DecimalField</em>) &#8211; kg</li>
+<li><strong>breastfeeding</strong> (<em>CharField</em>) &#8211; (If no,skip to question 4)</li>
+<li><strong>had_mastitis</strong> (<em>CharField</em>) &#8211; 2a. if yes,since the last attended scheduled visit,has the mother had mastitis at any time?</li>
+<li><strong>has_chronic_cond</strong> (<em>CharField</em>) &#8211; 4.since the last attended scheduled visit, has the mother had any of the following chronic health conditions, which were new diagnoses (never previously reported)?</li>
+<li><strong>chronic_cond_other</strong> (<em>OtherCharField</em>) &#8211; ...if &#8220;other&#8221;, specify</li>
+<li><strong>started_ctx</strong> (<em>CharField</em>) &#8211; 7.since the last attended scheduled visit, has the mother started ctx?</li>
+<li><strong>comment</strong> (<em>CharField</em>) &#8211; 8.comment if any additional pertinent information:</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="mpepu_maternal.models.maternal_post_fu.MaternalPostFuDx">
+<em class="property">class </em><tt class="descclassname">mpepu_maternal.models.maternal_post_fu.</tt><tt class="descname">MaternalPostFuDx</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mpepu_maternal/models/maternal_post_fu.html#MaternalPostFuDx"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mpepu_maternal.models.maternal_post_fu.MaternalPostFuDx" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">mpepu_maternal.models.base_scheduled_visit_model.BaseScheduledVisitModel</span></tt></p>
+<p>Post-partum follow up of diagnosis.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Name :</th><td class="field-body"><p class="first">Maternal Postnatal Follow-Up: Dx</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Table :</th><td class="field-body"><p class="first">mpepu_maternal_maternalpostfudx</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>maternal_visit_id</strong> (<em>ForeignKey</em>) &#8211; Maternal visit</li>
+<li><strong>maternal_post_fu_id</strong> (<em>OneToOneField</em>) &#8211; Maternal post fu</li>
+<li><strong>mother_hospitalized</strong> (<em>CharField</em>) &#8211; if yes, the primary diagnosis associated with the hospitalization(s) must be recorded in Postnatal diagnosis section</li>
+<li><strong>new_diagnoses</strong> (<em>CharField</em>) &#8211; if yes, tick all that apply, only report grade 3 0r 4 diagnoses</li>
+<li><strong>who_clinical_stage</strong> (<em>CharField</em>) &#8211; never previously reported, or a NEW episode of a previously resolved diagnosis, and which is NOT reported above in Question 6</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="mpepu_maternal.models.maternal_post_fu.MaternalPostFuDxT">
+<em class="property">class </em><tt class="descclassname">mpepu_maternal.models.maternal_post_fu.</tt><tt class="descname">MaternalPostFuDxT</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mpepu_maternal/models/maternal_post_fu.html#MaternalPostFuDxT"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mpepu_maternal.models.maternal_post_fu.MaternalPostFuDxT" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">mpepu_maternal.models.my_base_uuid_model.MyBaseUuidModel</span></tt></p>
+<p>Post-partum follow up of diagnosis (transactions).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Name :</th><td class="field-body"><p class="first">Maternal Postnatal Follow-Up: DxT</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Table :</th><td class="field-body"><p class="first">mpepu_maternal_maternalpostfudxt</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>maternal_post_fu_id</strong> (<em>ForeignKey</em>) &#8211; Maternal post fu</li>
+<li><strong>post_fu_dx</strong> (<em>CharField</em>) &#8211; Diagnosis</li>
+<li><strong>post_fu_specify</strong> (<em>CharField</em>) &#8211; Diagnosis specification</li>
+<li><strong>grade</strong> (<em>IntegerField</em>) &#8211; Grade</li>
+<li><strong>hospitalized</strong> (<em>CharField</em>) &#8211; Hospitalized</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Models</a><ul>
+<li><a class="reference internal" href="#base">Base</a></li>
+<li><a class="reference internal" href="#consent">Consent</a></li>
+<li><a class="reference internal" href="#eligibility">Eligibility</a></li>
+<li><a class="reference internal" href="#registration">Registration</a></li>
+<li><a class="reference internal" href="#enrollment">Enrollment</a></li>
+<li><a class="reference internal" href="#visit">Visit</a></li>
+<li><a class="reference internal" href="#follow-up">Follow-Up</a><ul>
+<li><a class="reference internal" href="#module-mpepu_maternal.models.maternal_arv_preg">ARV - This Pregnancy</a></li>
+<li><a class="reference internal" href="#module-mpepu_maternal.models.maternal_arv_post">ARV - Post-Partum</a></li>
+<li><a class="reference internal" href="#labor-and-delivery">Labor and Delivery</a></li>
+<li><a class="reference internal" href="#module-mpepu_maternal.models.maternal_post_fu">Post Partum</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="registration.html"
+                        title="previous chapter">Registration</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="forms.html"
+                        title="next chapter">Forms</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/models.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="forms.html" title="Forms"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="registration.html" title="Registration"
+             >previous</a> |</li>
+        <li><a href="index.html">mpepu_maternal 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2012, erik van widenfelt.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,265 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>mpepu_maternal.models.maternal_post_fu &mdash; mpepu_maternal 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="mpepu_maternal 1.0 documentation" href="../../../index.html" />
+    <link rel="up" title="mpepu_maternal.models" href="../models.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">mpepu_maternal 1.0 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" >Module code</a> &raquo;</li>
+          <li><a href="../models.html" accesskey="U">mpepu_maternal.models</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for mpepu_maternal.models.maternal_post_fu</h1><div class="highlight"><pre>
+<span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">models</span>
+<span class="kn">from</span> <span class="nn">django.core.urlresolvers</span> <span class="kn">import</span> <span class="n">reverse</span>
+<span class="kn">from</span> <span class="nn">bhp_base_model.fields</span> <span class="kn">import</span> <span class="n">OtherCharField</span>
+<span class="kn">from</span> <span class="nn">bhp_common.choices</span> <span class="kn">import</span> <span class="n">YES_NO</span>
+<span class="kn">from</span> <span class="nn">bhp_adverse.choices</span> <span class="kn">import</span> <span class="n">GRADING_SCALE</span>
+<span class="kn">from</span> <span class="nn">bhp_code_lists.models</span> <span class="kn">import</span> <span class="n">WcsDxAdult</span>
+<span class="kn">from</span> <span class="nn">audit_trail.audit</span> <span class="kn">import</span> <span class="n">AuditTrail</span>
+<span class="kn">from</span> <span class="nn">mpepu_list.models.maternal_post_fu</span> <span class="kn">import</span> <span class="n">ChronicCond</span>
+<span class="kn">from</span> <span class="nn">mpepu_maternal.models</span> <span class="kn">import</span> <span class="n">BaseScheduledVisitModel</span>
+<span class="kn">from</span> <span class="nn">mpepu.choices</span> <span class="kn">import</span> <span class="n">DX</span>
+<span class="kn">from</span> <span class="nn">my_base_uuid_model</span> <span class="kn">import</span> <span class="n">MyBaseUuidModel</span>
+
+
+<div class="viewcode-block" id="MaternalPostFu"><a class="viewcode-back" href="../../../models.html#mpepu_maternal.models.maternal_post_fu.MaternalPostFu">[docs]</a><span class="k">class</span> <span class="nc">MaternalPostFu</span><span class="p">(</span><span class="n">BaseScheduledVisitModel</span><span class="p">):</span>
+    
+    <span class="n">mother_weight</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
+        <span class="n">max_length</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+        <span class="n">choices</span><span class="o">=</span><span class="n">YES_NO</span><span class="p">,</span>
+        <span class="n">verbose_name</span><span class="o">=</span><span class="s">&quot;1. Was the mother&#39;s weight measured at this visit?&quot;</span><span class="p">,</span>
+        <span class="n">help_text</span><span class="o">=</span><span class="s">&quot;(If Yes,complete 2a.If No,go to question 3)&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="n">enter_weight</span><span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DecimalField</span><span class="p">(</span>
+        <span class="n">max_digits</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> 
+        <span class="n">decimal_places</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">verbose_name</span><span class="o">=</span><span class="s">&quot;1a.Enter mother&#39;s weight  &quot;</span><span class="p">,</span>
+        <span class="n">help_text</span><span class="o">=</span><span class="s">&quot;kg&quot;</span><span class="p">,</span>
+        <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+        <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="n">breastfeeding</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
+        <span class="n">max_length</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+        <span class="n">choices</span><span class="o">=</span><span class="n">YES_NO</span><span class="p">,</span>
+        <span class="n">verbose_name</span><span class="o">=</span><span class="s">&quot;2. Has the mother breastfed since the last attended visit? &quot;</span><span class="p">,</span>
+        <span class="n">help_text</span><span class="o">=</span><span class="s">&quot;(If no,skip to question 4)&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="n">had_mastitis</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
+        <span class="n">max_length</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+        <span class="n">choices</span><span class="o">=</span><span class="n">YES_NO</span><span class="p">,</span>
+        <span class="n">verbose_name</span><span class="o">=</span><span class="s">&quot;2a. If yes,since the last attended scheduled visit,has the mother had mastitis at any time? &quot;</span><span class="p">,</span>
+        <span class="n">help_text</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+        <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+        <span class="p">)</span>
+    
+    <span class="n">has_chronic_cond</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
+        <span class="n">max_length</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+        <span class="n">choices</span><span class="o">=</span><span class="n">YES_NO</span><span class="p">,</span> 
+        <span class="n">verbose_name</span><span class="o">=</span><span class="s">&quot;4.Since the last attended scheduled visit, has the mother had any of the following chronic health conditions, which were NEW diagnoses (never previously reported)?&quot;</span><span class="p">,</span>
+        <span class="n">help_text</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span>
+        <span class="p">)</span>             
+    
+    <span class="n">chronic_cond</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ManyToManyField</span><span class="p">(</span><span class="n">ChronicCond</span><span class="p">,</span> 
+        <span class="n">verbose_name</span><span class="o">=</span><span class="s">&quot;Tick all that apply&quot;</span><span class="p">,</span>
+        <span class="n">help_text</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="n">chronic_cond_other</span> <span class="o">=</span> <span class="n">OtherCharField</span><span class="p">()</span>
+             
+    <span class="n">started_ctx</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
+        <span class="n">max_length</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+        <span class="n">choices</span><span class="o">=</span><span class="n">YES_NO</span><span class="p">,</span>
+        <span class="n">verbose_name</span><span class="o">=</span><span class="s">&quot;7.Since the last attended scheduled visit, has the mother started CTX? &quot;</span><span class="p">,</span>
+        <span class="n">help_text</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+    
+    <span class="n">comment</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
+        <span class="n">max_length</span><span class="o">=</span><span class="mi">350</span><span class="p">,</span>
+        <span class="n">verbose_name</span><span class="o">=</span><span class="s">&quot;8.Comment if any additional pertinent information: &quot;</span><span class="p">,</span>
+        <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+        <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>   
+        <span class="p">)</span>  
+
+    <span class="n">history</span> <span class="o">=</span> <span class="n">AuditTrail</span><span class="p">()</span>
+    
+    
+    <span class="k">def</span> <span class="nf">__unicode__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s">&quot;</span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">maternal_visit</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">get_absolute_url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">reverse</span><span class="p">(</span><span class="s">&#39;admin:mpepu_maternal_maternalpostnatalfollowup_change&#39;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">,))</span>
+
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">app_label</span><span class="o">=</span><span class="s">&quot;mpepu_maternal&quot;</span>        
+        <span class="n">verbose_name</span><span class="o">=</span><span class="s">&quot;Maternal Postnatal Follow-Up&quot;</span>        
+           </div>
+<div class="viewcode-block" id="MaternalPostFuDx"><a class="viewcode-back" href="../../../models.html#mpepu_maternal.models.maternal_post_fu.MaternalPostFuDx">[docs]</a><span class="k">class</span> <span class="nc">MaternalPostFuDx</span><span class="p">(</span><span class="n">BaseScheduledVisitModel</span><span class="p">):</span>  
+
+    <span class="sd">&quot;&quot;&quot;post natal follow up diagnosis&quot;&quot;&quot;</span>
+    
+    <span class="n">maternal_post_fu</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">OneToOneField</span><span class="p">(</span><span class="n">MaternalPostFu</span><span class="p">)</span>
+    
+    <span class="n">mother_hospitalized</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
+        <span class="n">max_length</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+        <span class="n">choices</span><span class="o">=</span><span class="n">YES_NO</span><span class="p">,</span>
+        <span class="n">verbose_name</span><span class="o">=</span><span class="s">&quot;3.Has the mother been hospitalized overnight since the last scheduled visit (or since discharge after delivery, if this is the randomization visit)?&quot;</span><span class="p">,</span>
+        <span class="n">help_text</span><span class="o">=</span><span class="s">&quot;if yes, the primary diagnosis associated with the hospitalization(s) must be recorded in Postnatal diagnosis section&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="n">new_diagnoses</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
+        <span class="n">max_length</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+        <span class="n">choices</span><span class="o">=</span><span class="n">YES_NO</span><span class="p">,</span> 
+        <span class="n">verbose_name</span><span class="o">=</span><span class="s">&quot;5.Since the last attended scheduled visit, has the mother had any of the following which were NEW (never previously reported, or a NEW episode of a previously resolved* diagnosis)&quot;</span><span class="p">,</span>
+        <span class="n">help_text</span><span class="o">=</span><span class="s">&quot;if yes, tick all that apply, only report grade 3 0r 4 diagnoses&quot;</span><span class="p">,</span>
+        <span class="p">)</span> 
+    <span class="n">who_clinical_stage</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
+        <span class="n">max_length</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+        <span class="n">choices</span><span class="o">=</span><span class="n">YES_NO</span><span class="p">,</span>
+        <span class="n">verbose_name</span><span class="o">=</span><span class="s">&quot;6.Since the last attended scheduled visit, has the mother ever had any of the diagnoses listed in the WHO Adult/Adolescent HIV clinical staging document which are NEW?&quot;</span><span class="p">,</span>
+        <span class="n">help_text</span><span class="o">=</span><span class="s">&quot;never previously reported, or a NEW episode of a previously resolved diagnosis, and which is NOT reported above in Question 6&quot;</span><span class="p">,</span>
+        <span class="p">)</span>        
+    <span class="n">wcs_dx_adult</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ManyToManyField</span><span class="p">(</span><span class="n">WcsDxAdult</span><span class="p">,</span>
+        <span class="n">verbose_name</span><span class="o">=</span><span class="s">&quot;6a. List any new WHO Stage III/IV diagnoses that are not reported in Question 6 above:  &quot;</span><span class="p">,</span>
+        <span class="p">)</span>     
+        
+    <span class="n">history</span> <span class="o">=</span> <span class="n">AuditTrail</span><span class="p">()</span>
+        
+    <span class="k">def</span> <span class="nf">get_absolute_url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">reverse</span><span class="p">(</span><span class="s">&#39;admin:mpepu_maternal_maternalpostfollowupdx_change&#39;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">,))</span>    
+          
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">app_label</span><span class="o">=</span><span class="s">&quot;mpepu_maternal&quot;</span>                  
+        <span class="n">verbose_name</span><span class="o">=</span><span class="s">&quot;Maternal Postnatal Follow-Up: Dx&quot;</span>                                   
+                 
+                
+          </div>
+<div class="viewcode-block" id="MaternalPostFuDxT"><a class="viewcode-back" href="../../../models.html#mpepu_maternal.models.maternal_post_fu.MaternalPostFuDxT">[docs]</a><span class="k">class</span> <span class="nc">MaternalPostFuDxT</span><span class="p">(</span><span class="n">MyBaseUuidModel</span><span class="p">):</span> 
+    
+    <span class="n">maternal_post_fu</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">MaternalPostFuDx</span><span class="p">)</span>     
+    
+    <span class="n">post_fu_dx</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
+        <span class="n">max_length</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span>
+        <span class="n">choices</span> <span class="o">=</span> <span class="n">DX</span><span class="p">,</span>
+        <span class="n">verbose_name</span><span class="o">=</span><span class="s">&quot;Diagnosis&quot;</span><span class="p">,</span>
+        <span class="n">help_text</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="n">post_fu_specify</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
+        <span class="n">max_length</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span>
+        <span class="n">verbose_name</span><span class="o">=</span><span class="s">&quot;Diagnosis specification&quot;</span><span class="p">,</span>
+        <span class="n">help_text</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">blank</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span>
+        <span class="n">null</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span>
+        <span class="p">)</span>    
+    <span class="n">grade</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">(</span>
+        <span class="n">max_length</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+        <span class="n">choices</span><span class="o">=</span><span class="n">GRADING_SCALE</span><span class="p">,</span>
+        <span class="n">verbose_name</span><span class="o">=</span><span class="s">&quot;Grade&quot;</span><span class="p">,</span>
+        <span class="p">)</span>                                                        
+    <span class="n">hospitalized</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
+        <span class="n">choices</span><span class="o">=</span> <span class="n">YES_NO</span><span class="p">,</span>
+        <span class="n">max_length</span> <span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+        <span class="n">verbose_name</span><span class="o">=</span><span class="s">&quot;Hospitalized&quot;</span><span class="p">,</span>
+        <span class="n">help_text</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span>
+        <span class="p">)</span>     
+        
+    <span class="n">history</span> <span class="o">=</span> <span class="n">AuditTrail</span><span class="p">()</span>        
+
+    <span class="k">def</span> <span class="nf">get_visit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">maternal_post_fu</span><span class="o">.</span><span class="n">maternal_visit</span>
+
+    <span class="k">def</span> <span class="nf">__unicode__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">unicode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_visit</span><span class="p">())</span>
+
+           
+    <span class="k">def</span> <span class="nf">get_absolute_url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">reverse</span><span class="p">(</span><span class="s">&#39;admin:mpepu_maternal_maternalpostnatalfollowupdx_change&#39;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">,))</span>    
+          
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">app_label</span><span class="o">=</span><span class="s">&quot;mpepu_maternal&quot;</span>                  
+        <span class="n">verbose_name</span><span class="o">=</span><span class="s">&quot;Maternal Postnatal Follow-Up: DxT&quot;</span>     
+    
+</pre></div></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">mpepu_maternal 1.0 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" >Module code</a> &raquo;</li>
+          <li><a href="../models.html" >mpepu_maternal.models</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2012, erik van widenfelt.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>
