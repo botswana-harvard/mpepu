@@ -1,0 +1,1362 @@
+[
+  {
+    "pk": 1, 
+    "model": "mpepu_list.priorarv", 
+    "fields": {
+      "hostname_created": "cabel", 
+      "name": "HAART, unknown", 
+      "short_name": "HAART, unknown", 
+      "created": "2011-06-16 18:41:41", 
+      "user_modified": "", 
+      "modified": "2011-06-16 18:41:41", 
+      "hostname_modified": "cabel", 
+      "version": "1.0", 
+      "display_index": 10, 
+      "user_created": "django", 
+      "field_name": ""
+    }
+  }, 
+  {
+    "pk": 2, 
+    "model": "mpepu_list.priorarv", 
+    "fields": {
+      "hostname_created": "cabel", 
+      "name": "AZT", 
+      "short_name": "AZT", 
+      "created": "2011-06-16 18:41:55", 
+      "user_modified": "", 
+      "modified": "2011-06-16 18:41:55", 
+      "hostname_modified": "cabel", 
+      "version": "1.0", 
+      "display_index": 20, 
+      "user_created": "django", 
+      "field_name": ""
+    }
+  }, 
+  {
+    "pk": 3, 
+    "model": "mpepu_list.priorarv", 
+    "fields": {
+      "hostname_created": "cabel", 
+      "name": "3TC", 
+      "short_name": "3TC", 
+      "created": "2011-06-16 18:42:19", 
+      "user_modified": "", 
+      "modified": "2011-06-16 18:42:19", 
+      "hostname_modified": "cabel", 
+      "version": "1.0", 
+      "display_index": 30, 
+      "user_created": "django", 
+      "field_name": ""
+    }
+  }, 
+  {
+    "pk": 4, 
+    "model": "mpepu_list.priorarv", 
+    "fields": {
+      "hostname_created": "cabel", 
+      "name": "Combivir (AZT,3TC)", 
+      "short_name": "Combivir (AZT,3TC)", 
+      "created": "2011-06-16 18:42:34", 
+      "user_modified": "", 
+      "modified": "2011-06-16 18:42:34", 
+      "hostname_modified": "cabel", 
+      "version": "1.0", 
+      "display_index": 40, 
+      "user_created": "django", 
+      "field_name": ""
+    }
+  }, 
+  {
+    "pk": 5, 
+    "model": "mpepu_list.priorarv", 
+    "fields": {
+      "hostname_created": "cabel", 
+      "name": "Tenofovir", 
+      "short_name": "Tenofovir", 
+      "created": "2011-06-16 18:42:59", 
+      "user_modified": "", 
+      "modified": "2011-06-16 18:42:59", 
+      "hostname_modified": "cabel", 
+      "version": "1.0", 
+      "display_index": 50, 
+      "user_created": "django", 
+      "field_name": ""
+    }
+  }, 
+  {
+    "pk": 6, 
+    "model": "mpepu_list.priorarv", 
+    "fields": {
+      "hostname_created": "cabel", 
+      "name": "Truvada (Tenofovir, FTC)", 
+      "short_name": "Truvada (Tenofovir, FTC)", 
+      "created": "2011-06-16 18:43:36", 
+      "user_modified": "", 
+      "modified": "2011-06-16 18:43:36", 
+      "hostname_modified": "cabel", 
+      "version": "1.0", 
+      "display_index": 60, 
+      "user_created": "django", 
+      "field_name": ""
+    }
+  }, 
+  {
+    "pk": 7, 
+    "model": "mpepu_list.priorarv", 
+    "fields": {
+      "hostname_created": "cabel", 
+      "name": "Abacavir", 
+      "short_name": "Abacavir", 
+      "created": "2011-06-16 18:43:52", 
+      "user_modified": "", 
+      "modified": "2011-06-16 18:43:52", 
+      "hostname_modified": "cabel", 
+      "version": "1.0", 
+      "display_index": 70, 
+      "user_created": "django", 
+      "field_name": ""
+    }
+  }, 
+  {
+    "pk": 8, 
+    "model": "mpepu_list.priorarv", 
+    "fields": {
+      "hostname_created": "cabel", 
+      "name": "Trizivir (AZT, 3TC, Abacavir)", 
+      "short_name": "Trizivir (AZT, 3TC, Abacavir)", 
+      "created": "2011-06-16 18:44:38", 
+      "user_modified": "", 
+      "modified": "2011-06-16 18:44:38", 
+      "hostname_modified": "cabel", 
+      "version": "1.0", 
+      "display_index": 80, 
+      "user_created": "django", 
+      "field_name": ""
+    }
+  }, 
+  {
+    "pk": 9, 
+    "model": "mpepu_list.priorarv", 
+    "fields": {
+      "hostname_created": "cabel", 
+      "name": "D4T", 
+      "short_name": "D4T", 
+      "created": "2011-06-16 18:45:00", 
+      "user_modified": "", 
+      "modified": "2011-06-16 18:45:00", 
+      "hostname_modified": "cabel", 
+      "version": "1.0", 
+      "display_index": 90, 
+      "user_created": "django", 
+      "field_name": ""
+    }
+  }, 
+  {
+    "pk": 10, 
+    "model": "mpepu_list.priorarv", 
+    "fields": {
+      "hostname_created": "cabel", 
+      "name": "DDI", 
+      "short_name": "DDI", 
+      "created": "2011-06-16 18:45:23", 
+      "user_modified": "", 
+      "modified": "2011-06-16 18:45:23", 
+      "hostname_modified": "cabel", 
+      "version": "1.0", 
+      "display_index": 100, 
+      "user_created": "django", 
+      "field_name": ""
+    }
+  }, 
+  {
+    "pk": 11, 
+    "model": "mpepu_list.priorarv", 
+    "fields": {
+      "hostname_created": "cabel", 
+      "name": "Nevirapine", 
+      "short_name": "Nevirapine", 
+      "created": "2011-06-16 18:45:40", 
+      "user_modified": "", 
+      "modified": "2011-06-16 18:45:40", 
+      "hostname_modified": "cabel", 
+      "version": "1.0", 
+      "display_index": 110, 
+      "user_created": "django", 
+      "field_name": ""
+    }
+  }, 
+  {
+    "pk": 12, 
+    "model": "mpepu_list.priorarv", 
+    "fields": {
+      "hostname_created": "cabel", 
+      "name": "Efavirenz (or Sustiva)", 
+      "short_name": "Efavirenz (or Sustiva)", 
+      "created": "2011-06-16 18:46:01", 
+      "user_modified": "django", 
+      "modified": "2011-06-16 18:56:23", 
+      "hostname_modified": "cabel", 
+      "version": "1.0", 
+      "display_index": 120, 
+      "user_created": "django", 
+      "field_name": ""
+    }
+  }, 
+  {
+    "pk": 13, 
+    "model": "mpepu_list.priorarv", 
+    "fields": {
+      "hostname_created": "cabel", 
+      "name": "Kaletra (or Aluvia)", 
+      "short_name": "Kaletra (or Aluvia)", 
+      "created": "2011-06-16 18:59:37", 
+      "user_modified": "", 
+      "modified": "2011-06-16 18:59:37", 
+      "hostname_modified": "cabel", 
+      "version": "1.0", 
+      "display_index": 130, 
+      "user_created": "django", 
+      "field_name": ""
+    }
+  }, 
+  {
+    "pk": 14, 
+    "model": "mpepu_list.priorarv", 
+    "fields": {
+      "hostname_created": "cabel", 
+      "name": "Raltegravir", 
+      "short_name": "Raltegravir", 
+      "created": "2011-06-16 19:00:04", 
+      "user_modified": "", 
+      "modified": "2011-06-16 19:00:04", 
+      "hostname_modified": "cabel", 
+      "version": "1.0", 
+      "display_index": 140, 
+      "user_created": "django", 
+      "field_name": ""
+    }
+  }, 
+  {
+    "pk": 15, 
+    "model": "mpepu_list.priorarv", 
+    "fields": {
+      "hostname_created": "cabel", 
+      "name": "Other, specify", 
+      "short_name": "Other, specify", 
+      "created": "2011-06-16 19:00:20", 
+      "user_modified": "", 
+      "modified": "2011-06-16 19:00:20", 
+      "hostname_modified": "cabel", 
+      "version": "1.0", 
+      "display_index": 99, 
+      "user_created": "django", 
+      "field_name": ""
+    }
+  }, 
+  {
+    "pk": 1, 
+    "model": "mpepu_list.chroniccond", 
+    "fields": {
+      "hostname_created": "cabel", 
+      "name": "Chronic Hypertension", 
+      "short_name": "Chronic Hypertension", 
+      "created": "2011-06-16 13:17:33", 
+      "user_modified": "", 
+      "modified": "2011-06-16 13:17:33", 
+      "hostname_modified": "cabel", 
+      "version": "1.0", 
+      "display_index": 10, 
+      "user_created": "django", 
+      "field_name": ""
+    }
+  }, 
+  {
+    "pk": 2, 
+    "model": "mpepu_list.chroniccond", 
+    "fields": {
+      "hostname_created": "cabel", 
+      "name": "Chronic Diabetes", 
+      "short_name": "Chronic Diabetes", 
+      "created": "2011-06-16 13:17:58", 
+      "user_modified": "", 
+      "modified": "2011-06-16 13:17:58", 
+      "hostname_modified": "cabel", 
+      "version": "1.0", 
+      "display_index": 20, 
+      "user_created": "django", 
+      "field_name": ""
+    }
+  }, 
+  {
+    "pk": 3, 
+    "model": "mpepu_list.chroniccond", 
+    "fields": {
+      "hostname_created": "cabel", 
+      "name": "Asthma", 
+      "short_name": "Asthma", 
+      "created": "2011-06-16 13:18:15", 
+      "user_modified": "", 
+      "modified": "2011-06-16 13:18:15", 
+      "hostname_modified": "cabel", 
+      "version": "1.0", 
+      "display_index": 30, 
+      "user_created": "django", 
+      "field_name": ""
+    }
+  }, 
+  {
+    "pk": 4, 
+    "model": "mpepu_list.chroniccond", 
+    "fields": {
+      "hostname_created": "cabel", 
+      "name": "Depression", 
+      "short_name": "Depression", 
+      "created": "2011-06-16 13:18:33", 
+      "user_modified": "", 
+      "modified": "2011-06-16 13:18:33", 
+      "hostname_modified": "cabel", 
+      "version": "1.0", 
+      "display_index": 40, 
+      "user_created": "django", 
+      "field_name": ""
+    }
+  }, 
+  {
+    "pk": 5, 
+    "model": "mpepu_list.chroniccond", 
+    "fields": {
+      "hostname_created": "cabel", 
+      "name": "Hep B  surface antigen positive", 
+      "short_name": "Chronic Hepatitis Diagnosed prior to this pregnancy: Hepatitis B surface antigen positive", 
+      "created": "2011-06-16 13:21:03", 
+      "user_modified": "django", 
+      "modified": "2011-06-16 13:26:43", 
+      "hostname_modified": "cabel", 
+      "version": "1.0", 
+      "display_index": 50, 
+      "user_created": "django", 
+      "field_name": ""
+    }
+  }, 
+  {
+    "pk": 6, 
+    "model": "mpepu_list.chroniccond", 
+    "fields": {
+      "hostname_created": "cabel", 
+      "name": "Chronic Hep B carrier", 
+      "short_name": "Chronic Hepatitis Diagnosed prior to this pregnancy: Chronic Hep B carrier", 
+      "created": "2011-06-16 13:23:59", 
+      "user_modified": "", 
+      "modified": "2011-06-16 13:23:59", 
+      "hostname_modified": "cabel", 
+      "version": "1.0", 
+      "display_index": 60, 
+      "user_created": "django", 
+      "field_name": ""
+    }
+  }, 
+  {
+    "pk": 7, 
+    "model": "mpepu_list.chroniccond", 
+    "fields": {
+      "hostname_created": "cabel", 
+      "name": "Hepatitis C", 
+      "short_name": "Chronic Hepatitis Diagnosed prior to this pregnancy: Chronic Hepatitis C", 
+      "created": "2011-06-16 13:24:42", 
+      "user_modified": "", 
+      "modified": "2011-06-16 13:24:42", 
+      "hostname_modified": "cabel", 
+      "version": "1.0", 
+      "display_index": 70, 
+      "user_created": "django", 
+      "field_name": ""
+    }
+  }, 
+  {
+    "pk": 8, 
+    "model": "mpepu_list.chroniccond", 
+    "fields": {
+      "hostname_created": "cabel", 
+      "name": "Hepatitis: Other/Unknown", 
+      "short_name": "Chronic Hepatitis Diagnosed prior to this pregnancy: Other/Unkown", 
+      "created": "2011-06-16 13:25:34", 
+      "user_modified": "", 
+      "modified": "2011-06-16 13:25:34", 
+      "hostname_modified": "cabel", 
+      "version": "1.0", 
+      "display_index": 80, 
+      "user_created": "django", 
+      "field_name": ""
+    }
+  }, 
+  {
+    "pk": 9, 
+    "model": "mpepu_list.chroniccond", 
+    "fields": {
+      "hostname_created": "cabel", 
+      "name": "Other, specify", 
+      "short_name": "Other, specify", 
+      "created": "2011-06-16 13:25:53", 
+      "user_modified": "", 
+      "modified": "2011-06-16 13:25:53", 
+      "hostname_modified": "cabel", 
+      "version": "1.0", 
+      "display_index": 99, 
+      "user_created": "django", 
+      "field_name": ""
+    }
+  }, 
+  {
+    "pk": 10, 
+    "model": "mpepu_list.chroniccond", 
+    "fields": {
+      "hostname_created": "cabel", 
+      "name": "Not applicable", 
+      "short_name": "Not applicable", 
+      "created": "2011-06-16 13:28:19", 
+      "user_modified": "", 
+      "modified": "2011-06-16 13:28:19", 
+      "hostname_modified": "cabel", 
+      "version": "1.0", 
+      "display_index": 999, 
+      "user_created": "django", 
+      "field_name": ""
+    }
+  }, 
+  {
+    "pk": 1, 
+    "model": "mpepu_list.hhgoods", 
+    "fields": {
+      "hostname_created": "cabel", 
+      "name": "Radio", 
+      "short_name": "Radio", 
+      "created": "2011-06-16 13:08:08", 
+      "user_modified": "", 
+      "modified": "2011-06-16 13:08:08", 
+      "hostname_modified": "cabel", 
+      "version": "1.0", 
+      "display_index": 10, 
+      "user_created": "django", 
+      "field_name": ""
+    }
+  }, 
+  {
+    "pk": 2, 
+    "model": "mpepu_list.hhgoods", 
+    "fields": {
+      "hostname_created": "cabel", 
+      "name": "Television", 
+      "short_name": "Television", 
+      "created": "2011-06-16 13:08:24", 
+      "user_modified": "", 
+      "modified": "2011-06-16 13:08:24", 
+      "hostname_modified": "cabel", 
+      "version": "1.0", 
+      "display_index": 20, 
+      "user_created": "django", 
+      "field_name": ""
+    }
+  }, 
+  {
+    "pk": 3, 
+    "model": "mpepu_list.hhgoods", 
+    "fields": {
+      "hostname_created": "cabel", 
+      "name": "Car", 
+      "short_name": "Car", 
+      "created": "2011-06-16 13:08:46", 
+      "user_modified": "", 
+      "modified": "2011-06-16 13:08:46", 
+      "hostname_modified": "cabel", 
+      "version": "1.0", 
+      "display_index": 30, 
+      "user_created": "django", 
+      "field_name": ""
+    }
+  }, 
+  {
+    "pk": 4, 
+    "model": "mpepu_list.hhgoods", 
+    "fields": {
+      "hostname_created": "cabel", 
+      "name": "Satellite Dish", 
+      "short_name": "Satellite Dish", 
+      "created": "2011-06-16 13:09:54", 
+      "user_modified": "", 
+      "modified": "2011-06-16 13:09:54", 
+      "hostname_modified": "cabel", 
+      "version": "1.0", 
+      "display_index": 40, 
+      "user_created": "django", 
+      "field_name": ""
+    }
+  }, 
+  {
+    "pk": 5, 
+    "model": "mpepu_list.hhgoods", 
+    "fields": {
+      "hostname_created": "cabel", 
+      "name": "None of the above", 
+      "short_name": "None of the above", 
+      "created": "2011-06-16 13:10:11", 
+      "user_modified": "", 
+      "modified": "2011-06-16 13:10:11", 
+      "hostname_modified": "cabel", 
+      "version": "1.0", 
+      "display_index": 50, 
+      "user_created": "django", 
+      "field_name": ""
+    }
+  }, 
+  {
+    "pk": 1, 
+    "model": "mpepu_list.healthcond", 
+    "fields": {
+      "hostname_created": "cabel", 
+      "name": "Asthma", 
+      "short_name": "Asthma", 
+      "created": "2011-06-16 16:53:53", 
+      "user_modified": "", 
+      "modified": "2011-06-16 16:53:53", 
+      "hostname_modified": "cabel", 
+      "version": "1.0", 
+      "display_index": 10, 
+      "user_created": "django", 
+      "field_name": ""
+    }
+  }, 
+  {
+    "pk": 2, 
+    "model": "mpepu_list.healthcond", 
+    "fields": {
+      "hostname_created": "cabel", 
+      "name": "Depression", 
+      "short_name": "Depression", 
+      "created": "2011-06-16 16:54:06", 
+      "user_modified": "", 
+      "modified": "2011-06-16 16:54:06", 
+      "hostname_modified": "cabel", 
+      "version": "1.0", 
+      "display_index": 20, 
+      "user_created": "django", 
+      "field_name": ""
+    }
+  }, 
+  {
+    "pk": 3, 
+    "model": "mpepu_list.healthcond", 
+    "fields": {
+      "hostname_created": "cabel", 
+      "name": "Hep B  surface antigen positive", 
+      "short_name": "Chronic Hepatitis Diagnosed prior to this pregnancy: Hepatitis B surface antigen positive", 
+      "created": "2011-06-16 16:54:30", 
+      "user_modified": "", 
+      "modified": "2011-06-16 16:54:30", 
+      "hostname_modified": "cabel", 
+      "version": "1.0", 
+      "display_index": 30, 
+      "user_created": "django", 
+      "field_name": ""
+    }
+  }, 
+  {
+    "pk": 4, 
+    "model": "mpepu_list.healthcond", 
+    "fields": {
+      "hostname_created": "cabel", 
+      "name": "Chronic Hep B carrier", 
+      "short_name": "Chronic Hepatitis Diagnosed prior to this pregnancy: Chronic Hep B carrier", 
+      "created": "2011-06-16 16:54:56", 
+      "user_modified": "", 
+      "modified": "2011-06-16 16:54:56", 
+      "hostname_modified": "cabel", 
+      "version": "1.0", 
+      "display_index": 40, 
+      "user_created": "django", 
+      "field_name": ""
+    }
+  }, 
+  {
+    "pk": 5, 
+    "model": "mpepu_list.healthcond", 
+    "fields": {
+      "hostname_created": "cabel", 
+      "name": "Hepatitis C", 
+      "short_name": "Chronic Hepatitis Diagnosed prior to this pregnancy: Chronic Hepatitis C", 
+      "created": "2011-06-16 16:55:22", 
+      "user_modified": "", 
+      "modified": "2011-06-16 16:55:22", 
+      "hostname_modified": "cabel", 
+      "version": "1.0", 
+      "display_index": 50, 
+      "user_created": "django", 
+      "field_name": ""
+    }
+  }, 
+  {
+    "pk": 6, 
+    "model": "mpepu_list.healthcond", 
+    "fields": {
+      "hostname_created": "cabel", 
+      "name": "Hepatitis: Other/Unknown", 
+      "short_name": "Chronic Hepatitis Diagnosed prior to this pregnancy: Other/Unkown", 
+      "created": "2011-06-16 16:55:45", 
+      "user_modified": "", 
+      "modified": "2011-06-16 16:55:45", 
+      "hostname_modified": "cabel", 
+      "version": "1.0", 
+      "display_index": 60, 
+      "user_created": "django", 
+      "field_name": ""
+    }
+  }, 
+  {
+    "pk": 7, 
+    "model": "mpepu_list.healthcond", 
+    "fields": {
+      "hostname_created": "cabel", 
+      "name": "Other, specify", 
+      "short_name": "Other, specify", 
+      "created": "2011-06-16 16:56:04", 
+      "user_modified": "", 
+      "modified": "2011-06-16 16:56:04", 
+      "hostname_modified": "cabel", 
+      "version": "1.0", 
+      "display_index": 99, 
+      "user_created": "django", 
+      "field_name": ""
+    }
+  }, 
+  {
+    "pk": 8, 
+    "model": "mpepu_list.healthcond", 
+    "fields": {
+      "hostname_created": "cabel", 
+      "name": "Not applicable", 
+      "short_name": "Not applicable", 
+      "created": "2011-06-16 16:56:18", 
+      "user_modified": "", 
+      "modified": "2011-06-16 16:56:18", 
+      "hostname_modified": "cabel", 
+      "version": "1.0", 
+      "display_index": 999, 
+      "user_created": "django", 
+      "field_name": ""
+    }
+  }, 
+  {
+    "pk": 1, 
+    "model": "mpepu_list.delcomp", 
+    "fields": {
+      "hostname_created": "cabel", 
+      "name": "Prolonged rapture of membranes", 
+      "short_name": "Prolonged rapture of membranes", 
+      "created": "2011-06-13 16:34:15", 
+      "user_modified": "", 
+      "modified": "2011-06-13 16:34:15", 
+      "hostname_modified": "cabel", 
+      "version": "1.0", 
+      "display_index": 10, 
+      "user_created": "django", 
+      "field_name": ""
+    }
+  }, 
+  {
+    "pk": 2, 
+    "model": "mpepu_list.delcomp", 
+    "fields": {
+      "hostname_created": "cabel", 
+      "name": "Preterm delivery", 
+      "short_name": "Preterm delivery", 
+      "created": "2011-06-13 16:34:36", 
+      "user_modified": "", 
+      "modified": "2011-06-13 16:34:36", 
+      "hostname_modified": "cabel", 
+      "version": "1.0", 
+      "display_index": 20, 
+      "user_created": "django", 
+      "field_name": ""
+    }
+  }, 
+  {
+    "pk": 3, 
+    "model": "mpepu_list.delcomp", 
+    "fields": {
+      "hostname_created": "cabel", 
+      "name": "Postpartum hemorrhage", 
+      "short_name": "Postpartum hemorrhage", 
+      "created": "2011-06-13 16:35:02", 
+      "user_modified": "", 
+      "modified": "2011-06-13 16:35:02", 
+      "hostname_modified": "cabel", 
+      "version": "1.0", 
+      "display_index": 30, 
+      "user_created": "django", 
+      "field_name": ""
+    }
+  }, 
+  {
+    "pk": 4, 
+    "model": "mpepu_list.delcomp", 
+    "fields": {
+      "hostname_created": "cabel", 
+      "name": "Retained placenta", 
+      "short_name": "Retained placenta", 
+      "created": "2011-06-13 16:35:26", 
+      "user_modified": "", 
+      "modified": "2011-06-13 16:35:26", 
+      "hostname_modified": "cabel", 
+      "version": "1.0", 
+      "display_index": 40, 
+      "user_created": "django", 
+      "field_name": ""
+    }
+  }, 
+  {
+    "pk": 5, 
+    "model": "mpepu_list.delcomp", 
+    "fields": {
+      "hostname_created": "cabel", 
+      "name": "Uterine perforation / rapture", 
+      "short_name": "Uterine perforation / rapture", 
+      "created": "2011-06-13 16:36:05", 
+      "user_modified": "", 
+      "modified": "2011-06-13 16:36:05", 
+      "hostname_modified": "cabel", 
+      "version": "1.0", 
+      "display_index": 50, 
+      "user_created": "django", 
+      "field_name": ""
+    }
+  }, 
+  {
+    "pk": 6, 
+    "model": "mpepu_list.delcomp", 
+    "fields": {
+      "hostname_created": "cabel", 
+      "name": "Nuchal cord", 
+      "short_name": "Nuchal cord", 
+      "created": "2011-06-13 16:36:51", 
+      "user_modified": "", 
+      "modified": "2011-06-13 16:36:51", 
+      "hostname_modified": "cabel", 
+      "version": "1.0", 
+      "display_index": 60, 
+      "user_created": "django", 
+      "field_name": ""
+    }
+  }, 
+  {
+    "pk": 7, 
+    "model": "mpepu_list.delcomp", 
+    "fields": {
+      "hostname_created": "cabel", 
+      "name": "Other, specify", 
+      "short_name": "Other, specify", 
+      "created": "2011-06-13 16:37:10", 
+      "user_modified": "", 
+      "modified": "2011-06-13 16:37:10", 
+      "hostname_modified": "cabel", 
+      "version": "1.0", 
+      "display_index": 99, 
+      "user_created": "django", 
+      "field_name": ""
+    }
+  }, 
+  {
+    "pk": 8, 
+    "model": "mpepu_list.delcomp", 
+    "fields": {
+      "hostname_created": "cabel", 
+      "name": "Not applicable", 
+      "short_name": "Not applicable", 
+      "created": "2011-06-15 09:06:37", 
+      "user_modified": "", 
+      "modified": "2011-06-15 09:06:37", 
+      "hostname_modified": "cabel", 
+      "version": "1.0", 
+      "display_index": 999, 
+      "user_created": "django", 
+      "field_name": ""
+    }
+  }, 
+  {
+    "pk": 1, 
+    "model": "mpepu_list.obcomp", 
+    "fields": {
+      "hostname_created": "cabel", 
+      "name": "Asthma requiring PO or IV steroids", 
+      "short_name": "Asthma exacerbation requiring treatment (PO or IV steroids)", 
+      "created": "2011-06-16 16:59:36", 
+      "user_modified": "", 
+      "modified": "2011-06-16 16:59:36", 
+      "hostname_modified": "cabel", 
+      "version": "1.0", 
+      "display_index": 10, 
+      "user_created": "django", 
+      "field_name": ""
+    }
+  }, 
+  {
+    "pk": 2, 
+    "model": "mpepu_list.obcomp", 
+    "fields": {
+      "hostname_created": "cabel", 
+      "name": "Pregnancy induced hypertension", 
+      "short_name": "Pregnancy induced hypertension (hypertension diagnosed in this pregnancy) ", 
+      "created": "2011-06-16 17:00:14", 
+      "user_modified": "", 
+      "modified": "2011-06-16 17:00:14", 
+      "hostname_modified": "cabel", 
+      "version": "1.0", 
+      "display_index": 20, 
+      "user_created": "django", 
+      "field_name": ""
+    }
+  }, 
+  {
+    "pk": 3, 
+    "model": "mpepu_list.obcomp", 
+    "fields": {
+      "hostname_created": "cabel", 
+      "name": "Preeclampsia", 
+      "short_name": "Preeclampsia", 
+      "created": "2011-06-16 17:00:41", 
+      "user_modified": "", 
+      "modified": "2011-06-16 17:00:41", 
+      "hostname_modified": "cabel", 
+      "version": "1.0", 
+      "display_index": 30, 
+      "user_created": "django", 
+      "field_name": ""
+    }
+  }, 
+  {
+    "pk": 4, 
+    "model": "mpepu_list.obcomp", 
+    "fields": {
+      "hostname_created": "cabel", 
+      "name": "Chronic Diabetes", 
+      "short_name": "Chronic Diabetes", 
+      "created": "2011-06-16 17:01:06", 
+      "user_modified": "", 
+      "modified": "2011-06-16 17:01:06", 
+      "hostname_modified": "cabel", 
+      "version": "1.0", 
+      "display_index": 40, 
+      "user_created": "django", 
+      "field_name": ""
+    }
+  }, 
+  {
+    "pk": 5, 
+    "model": "mpepu_list.obcomp", 
+    "fields": {
+      "hostname_created": "cabel", 
+      "name": "Gestational diabetes", 
+      "short_name": "Gestational diabetes (diabetes diagnosed during this pregnancy) ", 
+      "created": "2011-06-16 17:01:38", 
+      "user_modified": "", 
+      "modified": "2011-06-16 17:01:38", 
+      "hostname_modified": "cabel", 
+      "version": "1.0", 
+      "display_index": 50, 
+      "user_created": "django", 
+      "field_name": ""
+    }
+  }, 
+  {
+    "pk": 6, 
+    "model": "mpepu_list.obcomp", 
+    "fields": {
+      "hostname_created": "cabel", 
+      "name": "Vaginal bleeding ", 
+      "short_name": "Vaginal bleeding ", 
+      "created": "2011-06-16 17:02:00", 
+      "user_modified": "", 
+      "modified": "2011-06-16 17:02:01", 
+      "hostname_modified": "cabel", 
+      "version": "1.0", 
+      "display_index": 60, 
+      "user_created": "django", 
+      "field_name": ""
+    }
+  }, 
+  {
+    "pk": 7, 
+    "model": "mpepu_list.obcomp", 
+    "fields": {
+      "hostname_created": "cabel", 
+      "name": "Oligohydramnios ", 
+      "short_name": "Oligohydramnios ", 
+      "created": "2011-06-16 17:02:22", 
+      "user_modified": "", 
+      "modified": "2011-06-16 17:02:22", 
+      "hostname_modified": "cabel", 
+      "version": "1.0", 
+      "display_index": 70, 
+      "user_created": "django", 
+      "field_name": ""
+    }
+  }, 
+  {
+    "pk": 8, 
+    "model": "mpepu_list.obcomp", 
+    "fields": {
+      "hostname_created": "cabel", 
+      "name": "Placenta abruption", 
+      "short_name": "Placenta abruption", 
+      "created": "2011-06-16 17:03:26", 
+      "user_modified": "", 
+      "modified": "2011-06-16 17:03:26", 
+      "hostname_modified": "cabel", 
+      "version": "1.0", 
+      "display_index": 80, 
+      "user_created": "django", 
+      "field_name": ""
+    }
+  }, 
+  {
+    "pk": 9, 
+    "model": "mpepu_list.obcomp", 
+    "fields": {
+      "hostname_created": "cabel", 
+      "name": "Placenta previa ", 
+      "short_name": "Placenta previa ", 
+      "created": "2011-06-16 17:03:47", 
+      "user_modified": "", 
+      "modified": "2011-06-16 17:03:47", 
+      "hostname_modified": "cabel", 
+      "version": "1.0", 
+      "display_index": 90, 
+      "user_created": "django", 
+      "field_name": ""
+    }
+  }, 
+  {
+    "pk": 10, 
+    "model": "mpepu_list.obcomp", 
+    "fields": {
+      "hostname_created": "cabel", 
+      "name": "STI:cervicitis unspecified", 
+      "short_name": "STI:cervicitis unspecified", 
+      "created": "2011-06-16 17:04:31", 
+      "user_modified": "", 
+      "modified": "2011-06-16 17:04:31", 
+      "hostname_modified": "cabel", 
+      "version": "1.0", 
+      "display_index": 100, 
+      "user_created": "django", 
+      "field_name": ""
+    }
+  }, 
+  {
+    "pk": 11, 
+    "model": "mpepu_list.obcomp", 
+    "fields": {
+      "hostname_created": "cabel", 
+      "name": "STI:Herpes", 
+      "short_name": "STI:Herpes", 
+      "created": "2011-06-16 17:04:47", 
+      "user_modified": "", 
+      "modified": "2011-06-16 17:04:47", 
+      "hostname_modified": "cabel", 
+      "version": "1.0", 
+      "display_index": 110, 
+      "user_created": "django", 
+      "field_name": ""
+    }
+  }, 
+  {
+    "pk": 12, 
+    "model": "mpepu_list.obcomp", 
+    "fields": {
+      "hostname_created": "cabel", 
+      "name": "STI:Chlamydia ", 
+      "short_name": "STI:Chlamydia ", 
+      "created": "2011-06-16 17:05:25", 
+      "user_modified": "", 
+      "modified": "2011-06-16 17:05:25", 
+      "hostname_modified": "cabel", 
+      "version": "1.0", 
+      "display_index": 120, 
+      "user_created": "django", 
+      "field_name": ""
+    }
+  }, 
+  {
+    "pk": 13, 
+    "model": "mpepu_list.obcomp", 
+    "fields": {
+      "hostname_created": "cabel", 
+      "name": "STI:Gonorhea ", 
+      "short_name": "STI:Gonorhea ", 
+      "created": "2011-06-16 17:05:44", 
+      "user_modified": "", 
+      "modified": "2011-06-16 17:05:44", 
+      "hostname_modified": "cabel", 
+      "version": "1.0", 
+      "display_index": 130, 
+      "user_created": "django", 
+      "field_name": ""
+    }
+  }, 
+  {
+    "pk": 14, 
+    "model": "mpepu_list.obcomp", 
+    "fields": {
+      "hostname_created": "cabel", 
+      "name": "STI:Syphilis ", 
+      "short_name": "STI:Syphilis ", 
+      "created": "2011-06-16 17:06:11", 
+      "user_modified": "", 
+      "modified": "2011-06-16 17:06:11", 
+      "hostname_modified": "cabel", 
+      "version": "1.0", 
+      "display_index": 140, 
+      "user_created": "django", 
+      "field_name": ""
+    }
+  }, 
+  {
+    "pk": 15, 
+    "model": "mpepu_list.obcomp", 
+    "fields": {
+      "hostname_created": "cabel", 
+      "name": "Other, specify", 
+      "short_name": "Other, specify", 
+      "created": "2011-06-16 17:06:26", 
+      "user_modified": "", 
+      "modified": "2011-06-16 17:06:26", 
+      "hostname_modified": "cabel", 
+      "version": "1.0", 
+      "display_index": 99, 
+      "user_created": "django", 
+      "field_name": ""
+    }
+  }, 
+  {
+    "pk": 16, 
+    "model": "mpepu_list.obcomp", 
+    "fields": {
+      "hostname_created": "cabel", 
+      "name": "Not applicable", 
+      "short_name": "Not applicable", 
+      "created": "2011-06-16 17:06:41", 
+      "user_modified": "", 
+      "modified": "2011-06-16 17:06:41", 
+      "hostname_modified": "cabel", 
+      "version": "1.0", 
+      "display_index": 999, 
+      "user_created": "django", 
+      "field_name": ""
+    }
+  }, 
+  {
+    "pk": 1, 
+    "model": "mpepu_list.suppliment", 
+    "fields": {
+      "hostname_created": "cabel", 
+      "name": "Prenatal vitamins", 
+      "short_name": "cardiomyopathy", 
+      "created": "2011-06-23 18:05:01", 
+      "user_modified": "", 
+      "modified": "2011-06-23 18:05:01", 
+      "hostname_modified": "cabel", 
+      "version": "1.0", 
+      "display_index": 10, 
+      "user_created": "abelc", 
+      "field_name": ""
+    }
+  }, 
+  {
+    "pk": 2, 
+    "model": "mpepu_list.suppliment", 
+    "fields": {
+      "hostname_created": "cabel", 
+      "name": "Ferrous (separate from prenatal vitamins)", 
+      "short_name": "Ferrous (separate from prenatal vitamins)", 
+      "created": "2011-06-23 18:05:32", 
+      "user_modified": "abelc", 
+      "modified": "2011-07-11 09:30:58", 
+      "hostname_modified": "cabel", 
+      "version": "1.0", 
+      "display_index": 20, 
+      "user_created": "abelc", 
+      "field_name": ""
+    }
+  }, 
+  {
+    "pk": 3, 
+    "model": "mpepu_list.suppliment", 
+    "fields": {
+      "hostname_created": "cabel", 
+      "name": "Cotrimoxazole", 
+      "short_name": "Cotrimoxazole", 
+      "created": "2011-06-23 18:05:49", 
+      "user_modified": "", 
+      "modified": "2011-06-23 18:05:49", 
+      "hostname_modified": "cabel", 
+      "version": "1.0", 
+      "display_index": 30, 
+      "user_created": "abelc", 
+      "field_name": ""
+    }
+  }, 
+  {
+    "pk": 4, 
+    "model": "mpepu_list.suppliment", 
+    "fields": {
+      "hostname_created": "cabel", 
+      "name": "Isoniazid", 
+      "short_name": "Isoniazid", 
+      "created": "2011-06-23 18:06:08", 
+      "user_modified": "", 
+      "modified": "2011-06-23 18:06:08", 
+      "hostname_modified": "cabel", 
+      "version": "1.0", 
+      "display_index": 40, 
+      "user_created": "abelc", 
+      "field_name": ""
+    }
+  }, 
+  {
+    "pk": 5, 
+    "model": "mpepu_list.suppliment", 
+    "fields": {
+      "hostname_created": "cabel", 
+      "name": "Vitamins C", 
+      "short_name": "Vitamins C", 
+      "created": "2011-06-23 18:06:27", 
+      "user_modified": "", 
+      "modified": "2011-06-23 18:06:27", 
+      "hostname_modified": "cabel", 
+      "version": "1.0", 
+      "display_index": 50, 
+      "user_created": "abelc", 
+      "field_name": ""
+    }
+  }, 
+  {
+    "pk": 6, 
+    "model": "mpepu_list.suppliment", 
+    "fields": {
+      "hostname_created": "cabel", 
+      "name": "B complex", 
+      "short_name": "B complex", 
+      "created": "2011-06-23 18:06:45", 
+      "user_modified": "", 
+      "modified": "2011-06-23 18:06:45", 
+      "hostname_modified": "cabel", 
+      "version": "1.0", 
+      "display_index": 60, 
+      "user_created": "abelc", 
+      "field_name": ""
+    }
+  }, 
+  {
+    "pk": 7, 
+    "model": "mpepu_list.suppliment", 
+    "fields": {
+      "hostname_created": "cabel", 
+      "name": "Not applicable", 
+      "short_name": "Not applicable", 
+      "created": "2011-06-23 18:07:05", 
+      "user_modified": "abelc", 
+      "modified": "2011-07-07 19:12:29", 
+      "hostname_modified": "cabel", 
+      "version": "1.0", 
+      "display_index": 900, 
+      "user_created": "abelc", 
+      "field_name": ""
+    }
+  }, 
+  {
+    "pk": 1, 
+    "model": "mpepu_list.infantvaccines", 
+    "fields": {
+      "hostname_created": "cabel", 
+      "name": "HBV", 
+      "short_name": "HBV", 
+      "created": "2011-06-21 13:29:15", 
+      "user_modified": "", 
+      "modified": "2011-06-21 13:29:15", 
+      "hostname_modified": "cabel", 
+      "version": "1.0", 
+      "display_index": 10, 
+      "user_created": "abelc", 
+      "field_name": ""
+    }
+  }, 
+  {
+    "pk": 2, 
+    "model": "mpepu_list.infantvaccines", 
+    "fields": {
+      "hostname_created": "cabel", 
+      "name": "BCG", 
+      "short_name": "BCG", 
+      "created": "2011-06-21 13:29:30", 
+      "user_modified": "", 
+      "modified": "2011-06-21 13:29:30", 
+      "hostname_modified": "cabel", 
+      "version": "1.0", 
+      "display_index": 20, 
+      "user_created": "abelc", 
+      "field_name": ""
+    }
+  }, 
+  {
+    "pk": 3, 
+    "model": "mpepu_list.infantvaccines", 
+    "fields": {
+      "hostname_created": "cabel", 
+      "name": "DTap", 
+      "short_name": "DTap", 
+      "created": "2011-06-21 13:29:50", 
+      "user_modified": "", 
+      "modified": "2011-06-21 13:29:50", 
+      "hostname_modified": "cabel", 
+      "version": "1.0", 
+      "display_index": 30, 
+      "user_created": "abelc", 
+      "field_name": ""
+    }
+  }, 
+  {
+    "pk": 4, 
+    "model": "mpepu_list.infantvaccines", 
+    "fields": {
+      "hostname_created": "cabel", 
+      "name": "Hib", 
+      "short_name": "Hib", 
+      "created": "2011-06-21 13:30:11", 
+      "user_modified": "", 
+      "modified": "2011-06-21 13:30:11", 
+      "hostname_modified": "cabel", 
+      "version": "1.0", 
+      "display_index": 40, 
+      "user_created": "abelc", 
+      "field_name": ""
+    }
+  }, 
+  {
+    "pk": 5, 
+    "model": "mpepu_list.infantvaccines", 
+    "fields": {
+      "hostname_created": "cabel", 
+      "name": "Polio", 
+      "short_name": "Polio", 
+      "created": "2011-06-21 13:30:44", 
+      "user_modified": "", 
+      "modified": "2011-06-21 13:30:44", 
+      "hostname_modified": "cabel", 
+      "version": "1.0", 
+      "display_index": 50, 
+      "user_created": "abelc", 
+      "field_name": ""
+    }
+  }, 
+  {
+    "pk": 6, 
+    "model": "mpepu_list.infantvaccines", 
+    "fields": {
+      "hostname_created": "cabel", 
+      "name": "Pneumoccal Vaccine", 
+      "short_name": "Pneumoccal Vaccine", 
+      "created": "2011-06-21 13:31:13", 
+      "user_modified": "", 
+      "modified": "2011-06-21 13:31:13", 
+      "hostname_modified": "cabel", 
+      "version": "1.0", 
+      "display_index": 60, 
+      "user_created": "abelc", 
+      "field_name": ""
+    }
+  }, 
+  {
+    "pk": 7, 
+    "model": "mpepu_list.infantvaccines", 
+    "fields": {
+      "hostname_created": "cabel", 
+      "name": "Rotavirus", 
+      "short_name": "Rotavirus", 
+      "created": "2011-06-21 13:31:37", 
+      "user_modified": "", 
+      "modified": "2011-06-21 13:31:37", 
+      "hostname_modified": "cabel", 
+      "version": "1.0", 
+      "display_index": 70, 
+      "user_created": "abelc", 
+      "field_name": ""
+    }
+  }, 
+  {
+    "pk": 8, 
+    "model": "mpepu_list.infantvaccines", 
+    "fields": {
+      "hostname_created": "cabel", 
+      "name": "MMR", 
+      "short_name": "MMR", 
+      "created": "2011-06-21 13:31:55", 
+      "user_modified": "", 
+      "modified": "2011-06-21 13:31:55", 
+      "hostname_modified": "cabel", 
+      "version": "1.0", 
+      "display_index": 80, 
+      "user_created": "abelc", 
+      "field_name": ""
+    }
+  }, 
+  {
+    "pk": 9, 
+    "model": "mpepu_list.infantvaccines", 
+    "fields": {
+      "hostname_created": "cabel", 
+      "name": "Varicella", 
+      "short_name": "Varicella", 
+      "created": "2011-06-21 13:32:30", 
+      "user_modified": "", 
+      "modified": "2011-06-21 13:32:30", 
+      "hostname_modified": "cabel", 
+      "version": "1.0", 
+      "display_index": 90, 
+      "user_created": "abelc", 
+      "field_name": ""
+    }
+  }, 
+  {
+    "pk": 10, 
+    "model": "mpepu_list.infantvaccines", 
+    "fields": {
+      "hostname_created": "cabel", 
+      "name": "Influenza", 
+      "short_name": "Influenza", 
+      "created": "2011-06-21 13:32:46", 
+      "user_modified": "", 
+      "modified": "2011-06-21 13:32:46", 
+      "hostname_modified": "cabel", 
+      "version": "1.0", 
+      "display_index": 100, 
+      "user_created": "abelc", 
+      "field_name": ""
+    }
+  }, 
+  {
+    "pk": 11, 
+    "model": "mpepu_list.infantvaccines", 
+    "fields": {
+      "hostname_created": "cabel", 
+      "name": "Not applicable", 
+      "short_name": "Not applicable", 
+      "created": "2011-06-21 13:33:52", 
+      "user_modified": "abelc", 
+      "modified": "2011-07-08 09:03:02", 
+      "hostname_modified": "cabel", 
+      "version": "1.0", 
+      "display_index": 500, 
+      "user_created": "abelc", 
+      "field_name": ""
+    }
+  }
+]
