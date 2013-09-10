@@ -209,6 +209,7 @@ INSTALLED_APPS = (
     'bhp_subject_config',
     #'bhp_dispatch',
     'lab_common',
+    'lab_base_model',
     'lab_import',
     'lab_import_lis',
     'lab_import_dmis',
