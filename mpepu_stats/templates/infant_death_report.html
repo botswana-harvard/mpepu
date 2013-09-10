@@ -1,0 +1,98 @@
+{% extends "section_statistics.html"%}
+{% load common_tags %}
+
+{% block content %}
+
+
+<form action="." method="POST">
+<div style='display:none'>  
+  {% csrf_token %}
+</div>
+<table>
+<tr>
+{% for f in form %}
+<td class="field">
+    {{ f.errors }}
+    <label for="id_{{f.name}}">{{f.label}}</label>
+    {{ f }}
+</td>
+{% endfor %}
+<td>
+    <input type="submit" value="Submit" class="default" name="submit" />
+</td>
+
+<script type="text/javascript">document.getElementById("id_date_start").focus();</script>
+<script type="text/javascript">
+    (function($) {
+        var field = null;
+    })(django.jQuery);
+</script>
+    </table>
+</form>
+
+
+<P><B>Infant Deaths to date:</B> {{ total_infant_death }}</P>
+<P><B>Infant Deaths for period:</B> {{ infant_death_not_randomized.count }} (not rando) + {{ infant_death_randomized.count }} (rando)</P>
+
+{% if infant_death_aggregates %}
+    Infant Deaths: {{ infant_death_aggregates.dob__count }} ( min: {{ infant_death_aggregates.dob__min|date:"Y-m-d" }} max {{ infant_death_aggregates.dob__max|date:"Y-m-d" }} )
+{% endif %}
+
+{% if infant_death_not_randomized %}
+<table>
+<tr>
+<td valign="top">
+<h4>Not Randomized<h4></center>
+<table id=result">
+<thead>
+<th>#</th>
+<th>Infant</th>
+<th>Born</th>
+<th>Age</th>
+<th>SID</th>
+<th>Mother</th>
+</thead>
+<tbody>
+{% for infant_death in infant_death_not_randomized %}
+<tr>
+<td>{{ forloop.counter }}</td>
+<td><A href="{% url dashboard_url dashboard_type='infant' subject_identifier=infant_death.registered_subject.subject_identifier %}">{{ infant_death.registered_subject.subject_identifier }}</A></td> 
+<td>{{ infant_death.death_date|date:"Y-m-d" }}</td>
+<td>{{ infant_death.registered_subject.dob|age }}</td>
+<td>{{ infant_death.registered_subject.sid }}</td>
+<td><A href="{% url dashboard_url dashboard_type='maternal' subject_identifier=infant_death.registered_subject.relative_identifier %}">{{ infant_death.registered_subject.relative_identifier }}</A></td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+{% endif %}
+{% if infant_death_randomized %}
+<table>
+<tr>
+<td valign="top">
+<h4>Randomized<h4></center>
+<table id=result">
+<thead>
+<th>#</th>
+<th>Infant</th>
+<th>Born</th>
+<th>Age</th>
+<th>SID</th>
+<th>Mother</th>
+</thead>
+<tbody>
+{% for infant_death in infant_death_randomized %}
+<tr>
+<td>{{ forloop.counter }}</td>
+<td><A href="{% url dashboard_url dashboard_type='infant' subject_identifier=infant_death.registered_subject.subject_identifier %}">{{ infant_death.registered_subject.subject_identifier }}</A></td> 
+<td>{{ infant_death.death_date|date:"Y-m-d" }}</td>
+<td>{{ infant_death.registered_subject.dob|age }}</td>
+<td>{{ infant_death.registered_subject.sid }}</td>
+<td><A href="{% url dashboard_url dashboard_type='maternal' subject_identifier=infant_death.registered_subject.relative_identifier %}">{{ infant_death.registered_subject.relative_identifier }}</A></td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+{% endif %}
+
+{% endblock content%}

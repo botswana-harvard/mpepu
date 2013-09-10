@@ -1,0 +1,68 @@
+{% extends "section_statistics.html"%}
+{% load common_tags %}
+
+{% block content %}
+
+Infant births: {{ infantbirth_aggregates.dob__count }} ( min: {{ infantbirth_aggregates.dob__min|date:"Y-m-d" }} max {{ infantbirth_aggregates.dob__max|date:"Y-m-d" }} )
+
+<table>
+<tr>
+<td valign="top">
+<center><h3>DOB after {{ cutoff_dob|date:"Y-m-d" }} (age <= 34 days)</H3>
+<h4>Potential<h4></center>
+
+<table id=result">
+<thead>
+<th>#</th>
+<th>Infant</th>
+<th>Born</th>
+<th>Age</th>
+<th>Mother</th>
+</thead>
+<tbody>
+
+{% for infantbirth in potential_randos %}
+<tr>
+<td>{{ forloop.counter }}</td>
+<td><A href="{% url dashboard_url dashboard_type='infant' subject_identifier=infantbirth.registered_subject.subject_identifier %}">{{ infantbirth.registered_subject.subject_identifier }}</A></td> 
+<td>{{ infantbirth.dob|date:"Y-m-d" }}</td>
+<td>{{ infantbirth.dob|age }}</td>
+<td><A href="{% url dashboard_url dashboard_type='maternal' subject_identifier=infantbirth.registered_subject.relative_identifier %}">{{ infantbirth.registered_subject.relative_identifier }}</A></td>
+</tr>
+{% endfor %}
+
+</tbody>
+</table>
+
+</td><td valign="top">
+
+<center><h3>DOB before {{ cutoff_dob|date:"Y-m-d" }} (age > 34 days)</H3><h4>Missed<h4></center>
+
+<table id=result">
+<thead>
+<th>#</th>
+<th>Infant</th>
+<th>Born</th>
+<th>Age</th>
+<th>Mother</th>
+</thead>
+<tbody>
+
+{% for infantbirth in missed_randos %}
+<tr>
+<td>{{ forloop.counter }}</td>
+<td><A href="{% url dashboard_url dashboard_type='infant' subject_identifier=infantbirth.registered_subject.subject_identifier %}">{{ infantbirth.registered_subject.subject_identifier }}</A></td> 
+<td>{{ infantbirth.dob|date:"Y-m-d" }}</td>
+<td>{{ infantbirth.dob|age }}</td>
+<td><A href="{% url dashboard_url dashboard_type='maternal' subject_identifier=infantbirth.registered_subject.relative_identifier %}">{{ infantbirth.registered_subject.relative_identifier }}</A></td>
+</tr>
+{% endfor %}
+
+</tbody>
+</table>
+
+
+</td>
+</tr>
+</table>
+{% endblock content%}
