@@ -1,0 +1,147 @@
+{% extends "section_statistics.html"%}
+{% load common_tags %}
+
+{% block content %}
+
+
+<form action="." method="POST">
+<div style='display:none'>  
+  {% csrf_token %}
+</div>
+<table>
+<tr>
+{% for f in form %}
+<td class="field">
+    {{ f.errors }}
+    <label for="id_{{f.name}}">{{f.label}}</label>
+    {{ f }}
+</td>
+{% endfor %}
+<td>
+    <input type="submit" value="Submit" class="default" name="submit" />
+</td>
+
+<script type="text/javascript">document.getElementById("id_date_start").focus();</script>
+<script type="text/javascript">
+    (function($) {
+        var field = null;
+    })(django.jQuery);
+</script>
+    </table>
+</form>
+
+<P><B>Infant Diagnoses to Date:</B> {{ total_dx }}</P>
+<P><B>Infant Diagnoses for Selection:</B> {{ period_total_dx }} = {{ infant_dx_not_randomized.count }} (not rando) + {{ infant_dx_randomized.count }} (rando)</P>
+
+{% if infant_dx_not_randomized %}
+<table>
+<tr>
+<td valign="top">
+<h4>Not Randomized<h4></center>
+<table id=result">
+<thead>
+<th>#</th>
+<th>Infant</th>
+<th colspan=2>Dx</th>
+<th>G</th>
+<th>Hosp</th>
+<th>Born</th>
+<th>Age</th>
+<th>SID</th>
+<th>Randomized</th>
+<th>Visit</th>
+<th>Mother</th>
+</thead>
+<tbody>
+{% for infant_diagnosis in infant_dx_not_randomized %}
+<tr>
+<td>{{ forloop.counter }}</td>
+<td><A href="{% url dashboard_url dashboard_type='infant' subject_identifier=infant_diagnosis.infant_fu_dx.infant_visit.appointment.registered_subject.subject_identifier %}">{{ infant_diagnosis.infant_fu_dx.infant_visit.appointment.registered_subject.subject_identifier }}</A></td> 
+<td><textarea cols=15>{{ infant_diagnosis.fu_dx|wordwrap:15 }}</textarea></td>
+<td><textarea cols=15>{{ infant_diagnosis.fu_dx_specify|wordwrap:15 }}</textarea></td>
+<td>{{ infant_diagnosis.grade }}</td>
+<td>{{ infant_diagnosis.was_hospitalized }}</td>
+<td>{{ infant_diagnosis.infant_fu_dx.infant_visit.appointment.registered_subject.dob|date:"Y-m-d" }}</td>
+<td>{{ infant_diagnosis.infant_fu_dx.infant_visit.appointment.registered_subject.dob|age }}</td>
+<td>{{ infant_diagnosis.infant_fu_dx.infant_visit.appointment.registered_subject.sid }}</td>
+<td>{{ infant_diagnosis.infant_fu_dx.infant_visit.appointment.registered_subject.randomization_datetime|date:"Y-m-d" }}</td>
+<td>{{ infant_diagnosis.infant_fu_dx.infant_visit.report_datetime|date:"Y-m-d" }}</td>
+
+<td><A href="{% url dashboard_url dashboard_type='maternal' subject_identifier=infant_diagnosis.infant_fu_dx.infant_visit.appointment.registered_subject.relative_identifier %}">{{ infant_diagnosis.infant_fu_dx.infant_visit.appointment.registered_subject.relative_identifier }}</A></td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+
+<table id=result">
+<thead>
+<th>Freq.</th>
+<th>Diagnosis</th>
+</thead>
+<tbody>
+{% for item in infant_dx_not_randomized_group %}
+    <tr><td>{{ item.fu_dx__count }}</td><td>{{item.fu_dx}}</td></tr>
+{% endfor%}
+</tbody>
+</table>
+
+{% endif %}
+
+{% if infant_dx_randomized %}
+<table>
+<tr>
+<td valign="top">
+<h4>Randomized<h4></center>
+<table id=result">
+<thead>
+<th>#</th>
+<th>Infant</th>
+<th colspan=2>Dx</th>
+<th>G</th>
+<th>Hosp</th>
+<th>Born</th>
+<th>Age</th>
+<th>SID</th>
+<th>Randomized</th>
+<th>Visit</th>
+<th>Mother</th>
+</thead>
+<tbody>
+{% for infant_diagnosis in infant_dx_randomized %}
+<tr>
+<td>{{ forloop.counter }}</td>
+<td><A href="{% url dashboard_url dashboard_type='infant' subject_identifier=infant_diagnosis.infant_fu_dx.infant_visit.appointment.registered_subject.subject_identifier %}">{{ infant_diagnosis.infant_fu_dx.infant_visit.appointment.registered_subject.subject_identifier }}</A></td> 
+<td><textarea cols=15>{{ infant_diagnosis.fu_dx|wordwrap:15 }}</textarea></td>
+<td><textarea cols=15>{{ infant_diagnosis.fu_dx_specify|wordwrap:15 }}</textarea></td>
+<td>{{ infant_diagnosis.grade }}</td>
+<td>{{ infant_diagnosis.was_hospitalized }}</td>
+<td>{{ infant_diagnosis.infant_fu_dx.infant_visit.appointment.registered_subject.dob|date:"Y-m-d" }}</td>
+<td>{{ infant_diagnosis.infant_fu_dx.infant_visit.appointment.registered_subject.dob|age }}</td>
+<td>{{ infant_diagnosis.infant_fu_dx.infant_visit.appointment.registered_subject.sid }}</td>
+<td>{{ infant_diagnosis.infant_fu_dx.infant_visit.appointment.registered_subject.randomization_datetime|date:"Y-m-d" }}</td>
+<td>{{ infant_diagnosis.infant_fu_dx.infant_visit.report_datetime|date:"Y-m-d" }}</td>
+<td><A href="{% url dashboard_url dashboard_type='maternal' subject_identifier=infant_diagnosis.infant_fu_dx.infant_visit.appointment.registered_subject.relative_identifier %}">{{ infant_diagnosis.infant_fu_dx.infant_visit.appointment.registered_subject.relative_identifier }}</A></td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+
+<table id=result">
+<thead>
+<th>Freq.</th>
+<th>Diagnosis</th>
+</thead>
+<tbody>
+{% for item in infant_dx_randomized_group %}
+    <tr><td>{{ item.fu_dx__count }}</td><td>{{item.fu_dx}}</td></tr>
+{% endfor%}
+</tbody>
+</table>
+
+
+
+{% endif %}
+
+
+
+{% endblock content%}
