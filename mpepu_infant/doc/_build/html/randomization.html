@@ -1,0 +1,134 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Randomization &mdash; mpepu_infant 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="mpepu_infant 1.0 documentation" href="index.html" />
+    <link rel="prev" title="Registration" href="registration.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="registration.html" title="Registration"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">mpepu_infant 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="randomization">
+<h1>Randomization<a class="headerlink" href="#randomization" title="Permalink to this headline">¶</a></h1>
+<p>Infant randomization is triggered once the Infant Eligibility form is submitted successfully.</p>
+<p>..seealso:: the <tt class="xref py py-class docutils literal"><span class="pre">save_model</span></tt> in <tt class="xref py py-class docutils literal"><span class="pre">InfantEligibilityAdmin</span></tt>.</p>
+<div class="section" id="rando-date-depends-on-maternal-ga">
+<h2>Rando date depends on Maternal GA<a class="headerlink" href="#rando-date-depends-on-maternal-ga" title="Permalink to this headline">¶</a></h2>
+<p>Depending on the maternal gestational age, randomization can occur at 14 or 28 days. If maternal
+GA is &gt;= 37, the 2010 appointment date will be moved up from 28 to 14 days after birth. If GA
+is unknown, the 2010 appointment date stays at 28 days from birth.</p>
+<div class="admonition-see-also admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><tt class="xref py py-class docutils literal"><span class="pre">InfantBirth</span></tt>: <tt class="xref py py-func docutils literal"><span class="pre">post_appointment()</span></tt></p>
+</div>
+</div>
+<div class="section" id="rando-date-depends-on-infant-weight-at-2010">
+<h2>Rando date depends on infant weight at 2010<a class="headerlink" href="#rando-date-depends-on-infant-weight-at-2010" title="Permalink to this headline">¶</a></h2>
+<p>If infant weight is less that 2.5kg at 2010, the infant is not eligible and the
+appointment date for 2010 should be moved to 28 days from birth.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Randomization</a><ul>
+<li><a class="reference internal" href="#rando-date-depends-on-maternal-ga">Rando date depends on Maternal GA</a></li>
+<li><a class="reference internal" href="#rando-date-depends-on-infant-weight-at-2010">Rando date depends on infant weight at 2010</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="registration.html"
+                        title="previous chapter">Registration</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/randomization.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="registration.html" title="Registration"
+             >previous</a> |</li>
+        <li><a href="index.html">mpepu_infant 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2012, erik van widenfelt.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>
