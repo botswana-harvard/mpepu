@@ -175,6 +175,7 @@ INSTALLED_APPS = (
     'bhp_templates',
     'bhp_static',
     'bhp_string',
+    'bhp_lock',
     'bhp_section',
     'bhp_poll_mysql',
     'bhp_crypto',
