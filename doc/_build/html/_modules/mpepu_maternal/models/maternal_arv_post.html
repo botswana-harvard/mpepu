@@ -1,0 +1,209 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>mpepu_maternal.models.maternal_arv_post &mdash; mpepu_maternal 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="mpepu_maternal 1.0 documentation" href="../../../index.html" />
+    <link rel="up" title="mpepu_maternal.models" href="../models.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">mpepu_maternal 1.0 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" >Module code</a> &raquo;</li>
+          <li><a href="../models.html" accesskey="U">mpepu_maternal.models</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for mpepu_maternal.models.maternal_arv_post</h1><div class="highlight"><pre>
+<span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">models</span>
+<span class="kn">from</span> <span class="nn">audit_trail.audit</span> <span class="kn">import</span> <span class="n">AuditTrail</span>
+<span class="kn">from</span> <span class="nn">django.core.urlresolvers</span> <span class="kn">import</span> <span class="n">reverse</span>
+<span class="kn">from</span> <span class="nn">bhp_common.choices</span> <span class="kn">import</span> <span class="n">YES_NO</span> 
+<span class="kn">from</span> <span class="nn">bhp_haart.choices</span> <span class="kn">import</span> <span class="n">ARV_STATUS_WITH_NEVER</span>
+<span class="kn">from</span> <span class="nn">bhp_haart.models</span> <span class="kn">import</span> <span class="n">BaseHaartModification</span>
+<span class="kn">from</span> <span class="nn">mpepu.choices</span> <span class="kn">import</span> <span class="n">REASON_FOR_HAART</span>
+<span class="kn">from</span> <span class="nn">mpepu_maternal.models</span> <span class="kn">import</span> <span class="n">BaseScheduledVisitModel</span>
+
+
+<div class="viewcode-block" id="MaternalArvPost"><a class="viewcode-back" href="../../../models.html#mpepu_maternal.models.maternal_arv_post.MaternalArvPost">[docs]</a><span class="k">class</span> <span class="nc">MaternalArvPost</span> <span class="p">(</span><span class="n">BaseScheduledVisitModel</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot; mp007. &quot;&quot;&quot;</span>
+
+    <span class="n">haart_last_visit</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
+        <span class="n">max_length</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span>
+        <span class="n">choices</span><span class="o">=</span><span class="n">YES_NO</span><span class="p">,</span>
+        <span class="n">verbose_name</span><span class="o">=</span><span class="s">&quot;1. Was the mother supposed to be on HAART any time since the last attended scheduled visit?&quot;</span><span class="p">,</span>  
+        <span class="n">help_text</span><span class="o">=</span><span class="s">&quot;If &#39;NO&#39; End. Otherwise continue go to section one&quot;</span><span class="p">,</span>
+        <span class="p">)</span> 
+    <span class="n">haart_reason</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
+        <span class="n">verbose_name</span><span class="o">=</span><span class="s">&quot;2. Reason for HAART &quot;</span><span class="p">,</span>
+        <span class="n">max_length</span> <span class="o">=</span> <span class="mi">25</span><span class="p">,</span>        
+        <span class="n">choices</span> <span class="o">=</span> <span class="n">REASON_FOR_HAART</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="s">&#39;N/A&#39;</span><span class="p">,</span>
+        <span class="n">help_text</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span>
+        <span class="p">)</span>  
+    <span class="n">haart_reason_other</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">TextField</span><span class="p">(</span>
+        <span class="n">max_length</span><span class="o">=</span><span class="mi">35</span><span class="p">,</span>
+        <span class="n">verbose_name</span><span class="o">=</span><span class="s">&quot;2a. if other, specify&quot;</span><span class="p">,</span>
+        <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+        <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+        <span class="p">)</span>            
+    <span class="n">arv_status</span><span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
+        <span class="n">verbose_name</span><span class="o">=</span><span class="s">&quot;3.What is the status of the participant&#39;s antiretroviral treatment / prophylaxis at this visit or since the last visit? &quot;</span><span class="p">,</span> 
+        <span class="n">max_length</span> <span class="o">=</span> <span class="mi">25</span><span class="p">,</span>
+        <span class="n">choices</span> <span class="o">=</span> <span class="n">ARV_STATUS_WITH_NEVER</span><span class="p">,</span>
+        <span class="n">help_text</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">default</span> <span class="o">=</span> <span class="s">&#39;N/A&#39;</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="n">history</span> <span class="o">=</span> <span class="n">AuditTrail</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">visit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">maternal_visit</span>
+        
+    <span class="k">def</span> <span class="nf">__unicode__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s">&quot;</span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">maternal_visit</span><span class="p">)</span>
+                                      
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">app_label</span><span class="o">=</span><span class="s">&quot;mpepu_maternal&quot;</span>    
+        <span class="n">verbose_name</span> <span class="o">=</span> <span class="s">&quot;Maternal ARVs Post&quot;</span>
+</div>
+<div class="viewcode-block" id="MaternalArvPostMod"><a class="viewcode-back" href="../../../models.html#mpepu_maternal.models.maternal_arv_post.MaternalArvPostMod">[docs]</a><span class="k">class</span> <span class="nc">MaternalArvPostMod</span><span class="p">(</span><span class="n">BaseHaartModification</span><span class="p">):</span>        
+
+    <span class="sd">&quot;&quot;&quot; if art_status never, no_mod or N/A then this is not required&quot;&quot;&quot;</span>    
+
+    <span class="n">maternal_arv_post</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">MaternalArvPost</span><span class="p">)</span>            
+
+    <span class="n">history</span> <span class="o">=</span> <span class="n">AuditTrail</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">get_visit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">maternal_arv_post</span><span class="o">.</span><span class="n">maternal_visit</span>
+
+    <span class="k">def</span> <span class="nf">__unicode__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s">&quot;</span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">maternal_arv_post</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">get_absolute_url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">reverse</span><span class="p">(</span><span class="s">&#39;admin:mpepu_maternal_maternalarvspostmeds_change&#39;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">,))</span>
+        
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">app_label</span><span class="o">=</span><span class="s">&quot;mpepu_maternal&quot;</span>           
+        <span class="n">verbose_name</span> <span class="o">=</span> <span class="s">&#39;Maternal ARVs Post: Mods&#39;</span>
+
+        </div>
+<div class="viewcode-block" id="MaternalArvPostAdh"><a class="viewcode-back" href="../../../models.html#mpepu_maternal.models.maternal_arv_post.MaternalArvPostAdh">[docs]</a><span class="k">class</span> <span class="nc">MaternalArvPostAdh</span><span class="p">(</span><span class="n">BaseScheduledVisitModel</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot; complete if YES for  haart_last_visit in MaternalArvPost &quot;&quot;&quot;</span>
+
+    <span class="n">maternal_arv_post</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">OneToOneField</span><span class="p">(</span><span class="n">MaternalArvPost</span><span class="p">)</span>
+            
+    <span class="n">missed_doses</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">(</span>
+        <span class="n">verbose_name</span><span class="o">=</span><span class="s">&quot;4. Since the last attended last scheduled visit, how many doses of HAART were missed? &quot;</span><span class="p">,</span>
+        <span class="n">help_text</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span>
+        <span class="p">)</span> 
+    <span class="n">missed_days</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">(</span>
+        <span class="n">verbose_name</span><span class="o">=</span><span class="s">&quot;5. Since the last attended scheduled visit, how many entire days was HAART not taken?  &quot;</span><span class="p">,</span>
+        <span class="n">help_text</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">default</span> <span class="o">=</span> <span class="s">&#39;0&#39;</span><span class="p">,</span>
+        <span class="p">)</span>               
+    <span class="n">missed_days_discnt</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">(</span>
+        <span class="n">verbose_name</span><span class="o">=</span><span class="s">&quot;6. If HAART discontinued by health provider, how many days was HAART missed prior to HAART discontinuation?  &quot;</span><span class="p">,</span>
+        <span class="n">help_text</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">default</span> <span class="o">=</span> <span class="s">&#39;0&#39;</span><span class="p">,</span>
+        <span class="p">)</span>                        
+    <span class="n">comment</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">TextField</span><span class="p">(</span>
+        <span class="n">max_length</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span>
+        <span class="n">verbose_name</span><span class="o">=</span><span class="s">&quot;7. Comment&quot;</span><span class="p">,</span>
+        <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+        <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+        <span class="p">)</span>         
+        
+    <span class="n">history</span> <span class="o">=</span> <span class="n">AuditTrail</span><span class="p">()</span>
+                         
+    <span class="k">def</span> <span class="nf">__unicode__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s">&quot;</span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">maternal_arv_post</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">get_absolute_url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">reverse</span><span class="p">(</span><span class="s">&#39;admin:mpepu_maternal_maternalarvspostadherence_change&#39;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">,))</span>
+
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">app_label</span><span class="o">=</span><span class="s">&quot;mpepu_maternal&quot;</span>    
+        <span class="n">verbose_name</span> <span class="o">=</span> <span class="s">&quot;Maternal ARVs Post: Adherence&quot;</span>     
+</pre></div></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">mpepu_maternal 1.0 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" >Module code</a> &raquo;</li>
+          <li><a href="../models.html" >mpepu_maternal.models</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2012, erik van widenfelt.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

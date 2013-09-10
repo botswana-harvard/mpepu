@@ -1,0 +1,455 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>mpepu_maternal.models.maternal_lab_del &mdash; mpepu_maternal 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="mpepu_maternal 1.0 documentation" href="../../../index.html" />
+    <link rel="up" title="mpepu_maternal.models" href="../models.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">mpepu_maternal 1.0 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" >Module code</a> &raquo;</li>
+          <li><a href="../models.html" accesskey="U">mpepu_maternal.models</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for mpepu_maternal.models.maternal_lab_del</h1><div class="highlight"><pre>
+<span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">models</span>
+<span class="kn">from</span> <span class="nn">django.core.validators</span> <span class="kn">import</span> <span class="n">MinValueValidator</span><span class="p">,</span> <span class="n">MaxValueValidator</span>
+<span class="kn">from</span> <span class="nn">django.core.urlresolvers</span> <span class="kn">import</span> <span class="n">reverse</span>
+<span class="kn">from</span> <span class="nn">audit_trail.audit</span> <span class="kn">import</span> <span class="n">AuditTrail</span>
+<span class="kn">from</span> <span class="nn">bhp_code_lists.models</span> <span class="kn">import</span> <span class="n">WcsDxAdult</span>
+<span class="kn">from</span> <span class="nn">bhp_base_model.fields</span> <span class="kn">import</span> <span class="n">OtherCharField</span>
+<span class="kn">from</span> <span class="nn">bhp_common.choices</span> <span class="kn">import</span> <span class="n">YES_NO</span><span class="p">,</span> <span class="n">YES_NO_NA_SPECIFY</span><span class="p">,</span> <span class="n">YES_NO_UNKNOWN</span>
+<span class="kn">from</span> <span class="nn">bhp_adverse.choices</span> <span class="kn">import</span> <span class="n">GRADING_SCALE</span>
+<span class="kn">from</span> <span class="nn">bhp_crypto.classes</span> <span class="kn">import</span> <span class="n">Crypter</span>
+<span class="kn">from</span> <span class="nn">mpepu_list.models</span> <span class="kn">import</span> <span class="n">HealthCond</span><span class="p">,</span> <span class="n">DelComp</span><span class="p">,</span> <span class="n">ObComp</span><span class="p">,</span> <span class="n">Suppliment</span>
+<span class="kn">from</span> <span class="nn">mpepu.choices</span> <span class="kn">import</span> <span class="n">LABOUR_HOURS</span><span class="p">,</span> <span class="n">LABOUR_MODE_OF_DELIVERY</span><span class="p">,</span> <span class="n">DELIVERY_HOSPITAL</span><span class="p">,</span> <span class="n">DX</span>
+<span class="kn">from</span> <span class="nn">base_scheduled_visit_model</span> <span class="kn">import</span> <span class="n">BaseScheduledVisitModel</span>    
+<span class="kn">from</span> <span class="nn">my_base_uuid_model</span> <span class="kn">import</span> <span class="n">MyBaseUuidModel</span>
+
+
+<div class="viewcode-block" id="MaternalLabDel"><a class="viewcode-back" href="../../../models.html#mpepu_maternal.models.maternal_lab_del.MaternalLabDel">[docs]</a><span class="k">class</span> <span class="nc">MaternalLabDel</span><span class="p">(</span><span class="n">BaseScheduledVisitModel</span><span class="p">):</span>
+
+    <span class="n">delivery_datetime</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">(</span> 
+        <span class="n">verbose_name</span><span class="o">=</span><span class="s">&quot;1. Date and time of delivery :&quot;</span><span class="p">,</span>
+        <span class="n">help_text</span><span class="o">=</span><span class="s">&quot;If TIME unknown, estimate&quot;</span><span class="p">,</span>
+<span class="c">#        validators=[</span>
+<span class="c">#            datetime_not_before_study_start,</span>
+<span class="c">#            datetime_not_future,],</span>
+        <span class="p">)</span> 
+    <span class="n">del_time_is_est</span><span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
+        <span class="n">verbose_name</span><span class="o">=</span><span class="s">&quot;1a. Is the delivery TIME estimated?&quot;</span><span class="p">,</span>
+        <span class="n">max_length</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+        <span class="n">choices</span><span class="o">=</span><span class="n">YES_NO</span><span class="p">,</span>
+        <span class="n">help_text</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span>
+        <span class="p">)</span>   
+    <span class="n">labour_hrs</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
+        <span class="n">verbose_name</span><span class="o">=</span><span class="s">&quot;2. How long prior to to delivery, in HRS, did labour begin? &quot;</span><span class="p">,</span>
+        <span class="n">max_length</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="n">choices</span> <span class="o">=</span> <span class="n">LABOUR_HOURS</span><span class="p">,</span> 
+        <span class="n">help_text</span><span class="o">=</span><span class="s">&quot;For multiple births, time of delivery = time first infant born&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="n">del_mode</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
+        <span class="n">verbose_name</span><span class="o">=</span><span class="s">&quot;3. Mode of delivery  &quot;</span><span class="p">,</span>
+        <span class="n">max_length</span> <span class="o">=</span> <span class="mi">25</span><span class="p">,</span>
+        <span class="n">choices</span> <span class="o">=</span> <span class="n">LABOUR_MODE_OF_DELIVERY</span><span class="p">,</span>
+        <span class="n">help_text</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+    
+    <span class="n">has_ga</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
+        <span class="n">verbose_name</span> <span class="o">=</span> <span class="s">&#39;Is the gestational age at delivery known?&#39;</span><span class="p">,</span>
+        <span class="n">max_length</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="n">choices</span> <span class="o">=</span> <span class="n">YES_NO</span><span class="p">,</span>
+        <span class="n">help_text</span> <span class="o">=</span> <span class="s">&quot;If known, complete below&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="n">ga</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">(</span>
+        <span class="n">verbose_name</span><span class="o">=</span><span class="s">&quot;3a. Gestational Age at Delivery  &quot;</span><span class="p">,</span>
+        <span class="n">validators</span> <span class="o">=</span> <span class="p">[</span><span class="n">MinValueValidator</span><span class="p">(</span><span class="mi">20</span><span class="p">),</span><span class="n">MaxValueValidator</span><span class="p">(</span><span class="mi">44</span><span class="p">),],</span> 
+        <span class="n">null</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span>
+        <span class="n">blank</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span>
+        <span class="n">help_text</span><span class="o">=</span><span class="s">&quot;in weeks&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+    
+    <span class="n">del_hosp</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
+        <span class="n">verbose_name</span><span class="o">=</span><span class="s">&quot;4. Where did the participant deliver? &quot;</span><span class="p">,</span>
+        <span class="n">max_length</span> <span class="o">=</span> <span class="mi">25</span><span class="p">,</span>
+        <span class="n">choices</span> <span class="o">=</span> <span class="n">DELIVERY_HOSPITAL</span><span class="p">,</span>        
+        <span class="n">help_text</span><span class="o">=</span><span class="s">&quot;If &#39;Other health facility&#39; or &#39;Other&#39;, specify below&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="n">del_hosp_other</span> <span class="o">=</span> <span class="n">OtherCharField</span><span class="p">()</span>
+    
+    <span class="n">has_urine_tender</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
+        <span class="n">max_length</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+        <span class="n">choices</span><span class="o">=</span><span class="n">YES_NO_UNKNOWN</span><span class="p">,</span>
+        <span class="n">verbose_name</span><span class="o">=</span><span class="s">&quot;5. Was uterine tenderness recorded? &quot;</span><span class="p">,</span>
+        <span class="n">help_text</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="n">labr_max_temp</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DecimalField</span><span class="p">(</span>
+        <span class="n">max_digits</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> 
+        <span class="n">decimal_places</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">verbose_name</span><span class="o">=</span><span class="s">&quot;6. Indicate the maximum temperature of mother during labour&quot;</span><span class="p">,</span>
+        <span class="n">help_text</span><span class="o">=</span><span class="s">&quot;In degrees Celcius. -1 = unknown&quot;</span><span class="p">,</span>
+        <span class="n">validators</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">MinValueValidator</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span>
+            <span class="n">MaxValueValidator</span><span class="p">(</span><span class="mi">41</span><span class="p">),</span>            
+            <span class="p">]</span>    
+        <span class="p">)</span>
+    <span class="n">has_chorioamnionitis</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
+        <span class="n">max_length</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+        <span class="n">choices</span><span class="o">=</span><span class="n">YES_NO</span><span class="p">,</span>
+        <span class="n">verbose_name</span><span class="o">=</span><span class="s">&quot;7. Was chorio-amnionitis suspected? &quot;</span><span class="p">,</span>
+        <span class="n">help_text</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="n">has_del_comp</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
+        <span class="n">max_length</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+        <span class="n">choices</span><span class="o">=</span><span class="n">YES_NO</span><span class="p">,</span>
+        <span class="n">verbose_name</span><span class="o">=</span><span class="s">&quot;8. Were there other complications at delivery? &quot;</span><span class="p">,</span>
+        <span class="n">help_text</span><span class="o">=</span><span class="s">&quot;( if &#39;YES&#39; continue. Otherwise go to question 10 )&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="n">del_comp</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ManyToManyField</span><span class="p">(</span><span class="n">DelComp</span><span class="p">,</span> 
+        <span class="n">verbose_name</span><span class="o">=</span><span class="s">&quot;9. If so, select the complication &quot;</span><span class="p">,</span>
+        <span class="n">help_text</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span>
+ 
+        <span class="p">)</span>
+    <span class="n">del_comp_other</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">TextField</span><span class="p">(</span>
+        <span class="n">max_length</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span>
+        <span class="n">verbose_name</span><span class="o">=</span><span class="s">&quot;9a. if other, describe the complication&quot;</span><span class="p">,</span>
+        <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+        <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>   
+        <span class="p">)</span>     
+
+    <span class="n">live_infants</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">(</span>
+        <span class="n">verbose_name</span><span class="o">=</span><span class="s">&quot;10. How many live babies did the mother deliver? &quot;</span><span class="p">,</span>
+        <span class="n">help_text</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="n">live_infants_to_register</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">(</span>
+        <span class="n">verbose_name</span><span class="o">=</span><span class="s">&quot;10a. How many babies are registering to the study? &quot;</span><span class="p">,</span>
+        <span class="n">help_text</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span>
+        <span class="p">)</span>        
+      
+    <span class="n">still_borns</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">(</span>
+        <span class="n">verbose_name</span><span class="o">=</span><span class="s">&quot;11. How many stillbirths did the mother deliver?  &quot;</span><span class="p">,</span>
+        <span class="n">help_text</span><span class="o">=</span><span class="s">&quot;( if &#39;&gt;0&#39; continue. Otherwise go to question 13 )&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="n">still_born_has_congen_abn</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
+        <span class="n">max_length</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+        <span class="n">choices</span><span class="o">=</span><span class="n">YES_NO_NA_SPECIFY</span><span class="p">,</span>
+        <span class="n">verbose_name</span><span class="o">=</span><span class="s">&quot;12. If any stillborns, did any have a congenital abnormality noted? &quot;</span><span class="p">,</span>
+        <span class="n">help_text</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+        <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+        <span class="n">default</span> <span class="o">=</span> <span class="s">&quot;N/A&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="n">still_born_congen_abn</span> <span class="o">=</span> <span class="n">OtherCharField</span><span class="p">(</span>
+        <span class="n">verbose_name</span><span class="o">=</span><span class="s">&quot;12a. If yes, specify;&quot;</span><span class="p">,</span>
+        <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+        <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="n">del_comment</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">TextField</span><span class="p">(</span>
+        <span class="n">max_length</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span>
+        <span class="n">verbose_name</span><span class="o">=</span><span class="s">&quot;13. List any addtional information about the labour and delivery (mother only) &quot;</span><span class="p">,</span>
+        <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+        <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>   
+        <span class="p">)</span> 
+    <span class="n">comment</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">TextField</span><span class="p">(</span>
+        <span class="n">max_length</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span>
+        <span class="n">verbose_name</span><span class="o">=</span><span class="s">&quot;Comment if any additional pertinent information &quot;</span><span class="p">,</span>
+        <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+        <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>   
+        <span class="p">)</span>  
+        
+    <span class="n">history</span> <span class="o">=</span> <span class="n">AuditTrail</span><span class="p">()</span>        
+        
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">app_label</span><span class="o">=</span><span class="s">&#39;mpepu_maternal&#39;</span>  
+        <span class="n">verbose_name</span><span class="o">=</span><span class="s">&quot;Maternal Labour &amp; Delivery&quot;</span>      
+     
+    <span class="k">def</span> <span class="nf">get_absolute_url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">reverse</span><span class="p">(</span><span class="s">&#39;admin:mpepu_maternal_maternallabour&amp;delivery_change&#39;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">,))</span>     
+        
+    <span class="k">def</span> <span class="nf">__unicode__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">crypter</span><span class="o">=</span><span class="n">Crypter</span><span class="p">()</span>
+        <span class="k">return</span> <span class="s">&quot;{0} delivered on {1} ({2})&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">maternal_visit</span><span class="o">.</span><span class="n">appointment</span><span class="o">.</span><span class="n">registered_subject</span><span class="p">,</span>
+                                                   <span class="bp">self</span><span class="o">.</span><span class="n">delivery_datetime</span><span class="p">,</span>  
+                                                   <span class="n">crypter</span><span class="o">.</span><span class="n">mask_encrypted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">maternal_visit</span><span class="o">.</span><span class="n">appointment</span><span class="o">.</span><span class="n">registered_subject</span><span class="o">.</span><span class="n">first_name</span><span class="p">))</span>         
+        </div>
+<div class="viewcode-block" id="MaternalLabDelMed"><a class="viewcode-back" href="../../../models.html#mpepu_maternal.models.maternal_lab_del.MaternalLabDelMed">[docs]</a><span class="k">class</span> <span class="nc">MaternalLabDelMed</span><span class="p">(</span><span class="n">BaseScheduledVisitModel</span><span class="p">):</span>        
+    <span class="sd">&quot;&quot;&quot; MedicalHistory &quot;&quot;&quot;</span>
+    
+    <span class="n">maternal_lab_del</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">OneToOneField</span><span class="p">(</span><span class="n">MaternalLabDel</span><span class="p">)</span>
+
+    <span class="n">has_health_cond</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
+        <span class="n">max_length</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+        <span class="n">choices</span><span class="o">=</span><span class="n">YES_NO</span><span class="p">,</span>
+        <span class="n">verbose_name</span><span class="o">=</span><span class="s">&quot;14. Has the mother been newly diagnosed (during this pregnancy) with any major chronic health condition(s) that remain ongoing?  &quot;</span><span class="p">,</span>
+        <span class="n">help_text</span><span class="o">=</span><span class="s">&quot;if yes answer 14a, otherwise go to Question 15&quot;</span><span class="p">,</span>  
+        <span class="p">)</span>  
+    <span class="n">health_cond</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ManyToManyField</span><span class="p">(</span><span class="n">HealthCond</span><span class="p">,</span> 
+        <span class="n">verbose_name</span><span class="o">=</span><span class="s">&quot;14a. Select all that apply &quot;</span><span class="p">,</span>
+        <span class="n">help_text</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="n">health_cond_other</span> <span class="o">=</span> <span class="n">OtherCharField</span><span class="p">()</span>                         
+    <span class="n">has_ob_comp</span> <span class="o">=</span>  <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
+        <span class="n">max_length</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+        <span class="n">choices</span><span class="o">=</span><span class="n">YES_NO</span><span class="p">,</span>
+        <span class="n">verbose_name</span><span class="o">=</span><span class="s">&quot;15. During this pregnancy, did the mother have any of the following obstetrical complications? (in 15a)&quot;</span><span class="p">,</span>
+        <span class="n">help_text</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span>
+        <span class="p">)</span> 
+    <span class="n">ob_comp</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ManyToManyField</span><span class="p">(</span><span class="n">ObComp</span><span class="p">,</span> 
+        <span class="n">verbose_name</span><span class="o">=</span><span class="s">&quot;15a. Select all that apply&quot;</span><span class="p">,</span>
+        <span class="n">help_text</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span>
+        <span class="p">)</span>    
+    <span class="n">ob_comp_other</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">TextField</span><span class="p">(</span>
+        <span class="n">max_length</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span>
+        <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+        <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>   
+        <span class="p">)</span>                   
+    
+    <span class="n">comment</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">TextField</span><span class="p">(</span>
+        <span class="n">max_length</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span>
+        <span class="n">verbose_name</span><span class="o">=</span><span class="s">&quot;16. Comment if any additional pertinent information &quot;</span><span class="p">,</span>
+        <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+        <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>   
+        <span class="p">)</span>  
+
+    <span class="n">history</span> <span class="o">=</span> <span class="n">AuditTrail</span><span class="p">()</span>
+
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">app_label</span><span class="o">=</span><span class="s">&quot;mpepu_maternal&quot;</span>   
+        <span class="n">verbose_name</span><span class="o">=</span><span class="s">&quot;Maternal Labour &amp; Delivery: MedHistory&quot;</span> 
+        
+    <span class="k">def</span> <span class="nf">get_absolute_url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">reverse</span><span class="p">(</span><span class="s">&#39;admin:mpepu_maternal_maternallabour&amp;deliverymedhistory_change&#39;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">,))</span>               
+     
+ </div>
+<div class="viewcode-block" id="MaternalLabDelClinic"><a class="viewcode-back" href="../../../models.html#mpepu_maternal.models.maternal_lab_del.MaternalLabDelClinic">[docs]</a><span class="k">class</span> <span class="nc">MaternalLabDelClinic</span><span class="p">(</span><span class="n">BaseScheduledVisitModel</span><span class="p">):</span>             
+    
+    <span class="sd">&quot;&quot;&quot; Clinical Information &quot;&quot;&quot;</span>
+    <span class="c"># maternal_visit = models.ForeignKey(MaternalVisit)    </span>
+    
+    <span class="n">maternal_lab_del</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">OneToOneField</span><span class="p">(</span><span class="n">MaternalLabDel</span><span class="p">)</span>
+    
+    <span class="n">has_cd4</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
+        <span class="n">max_length</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+        <span class="n">choices</span><span class="o">=</span><span class="n">YES_NO</span><span class="p">,</span>
+        <span class="n">verbose_name</span><span class="o">=</span><span class="s">&quot;18. During this pregnancy did the mother have at least one CD4 count performed (outside the study)? &quot;</span><span class="p">,</span>
+        <span class="n">help_text</span><span class="o">=</span><span class="s">&quot;( if &#39;YES&#39; continue. Otherwise go to question 20 )&quot;</span><span class="p">,</span>
+        <span class="p">)</span>        
+    <span class="n">cd4_date</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateField</span><span class="p">(</span>
+        <span class="n">verbose_name</span><span class="o">=</span><span class="s">&quot;19a. 	Date of most recent CD4 test? &quot;</span><span class="p">,</span>
+        <span class="n">help_text</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+        <span class="n">null</span><span class="o">=</span><span class="bp">True</span>
+        <span class="p">)</span>
+    <span class="n">cd4_result</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
+        <span class="n">max_length</span><span class="o">=</span><span class="mi">35</span><span class="p">,</span>
+        <span class="n">verbose_name</span><span class="o">=</span><span class="s">&quot;19b. Result of most recent CD4 test&quot;</span><span class="p">,</span>
+        <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+        <span class="n">null</span><span class="o">=</span><span class="bp">True</span>
+        <span class="p">)</span>         
+    <span class="n">has_vl</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
+        <span class="n">max_length</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+        <span class="n">choices</span><span class="o">=</span><span class="n">YES_NO</span><span class="p">,</span>
+        <span class="n">verbose_name</span><span class="o">=</span><span class="s">&quot;20. During this pregnancy did the mother have a viral load perfomed (outside the study)? &quot;</span><span class="p">,</span>
+        <span class="n">help_text</span><span class="o">=</span><span class="s">&quot;(if &#39;YES&#39; continue. Otherwise go to question 2)&quot;</span><span class="p">,</span>
+        <span class="p">)</span>        
+    <span class="n">vl_date</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateField</span><span class="p">(</span>
+        <span class="n">verbose_name</span><span class="o">=</span><span class="s">&quot;21a. 	If yes, Date of most recent VL test? &quot;</span><span class="p">,</span>
+        <span class="n">help_text</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+        <span class="n">null</span><span class="o">=</span><span class="bp">True</span>
+        <span class="p">)</span>
+    <span class="n">vl_result</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
+        <span class="n">max_length</span><span class="o">=</span><span class="mi">35</span><span class="p">,</span>
+        <span class="n">verbose_name</span><span class="o">=</span><span class="s">&quot;21b.Result of most recent VL test&quot;</span><span class="p">,</span>
+        <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+        <span class="n">null</span><span class="o">=</span><span class="bp">True</span>
+        <span class="p">)</span> 
+            
+    <span class="n">took_suppliments</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
+        <span class="n">max_length</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+        <span class="n">choices</span><span class="o">=</span><span class="n">YES_NO</span><span class="p">,</span>
+        <span class="n">verbose_name</span><span class="o">=</span><span class="s">&quot;22. Did the mother take any of the following during this pregnancy?(in 23a)   &quot;</span><span class="p">,</span>
+        <span class="n">help_text</span><span class="o">=</span><span class="s">&quot;( if &#39;YES&#39; continue. Otherwise go to question 23 )&quot;</span><span class="p">,</span>
+        <span class="p">)</span>         
+        
+    <span class="n">suppliment</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ManyToManyField</span><span class="p">(</span><span class="n">Suppliment</span><span class="p">,</span> 
+        <span class="n">verbose_name</span><span class="o">=</span><span class="s">&quot;22a. Select all that apply &quot;</span><span class="p">,</span>
+        <span class="n">help_text</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span>
+        <span class="p">)</span>              
+    <span class="n">comment</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">TextField</span><span class="p">(</span>
+        <span class="n">max_length</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span>
+        <span class="n">verbose_name</span><span class="o">=</span><span class="s">&quot;23. Comment if any additional pertinent information &quot;</span><span class="p">,</span>
+        <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+        <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>   
+        <span class="p">)</span>  
+        
+    <span class="n">history</span> <span class="o">=</span> <span class="n">AuditTrail</span><span class="p">()</span>        
+        
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">app_label</span><span class="o">=</span><span class="s">&quot;mpepu_maternal&quot;</span>   
+        <span class="n">verbose_name</span><span class="o">=</span><span class="s">&quot;Maternal Labour &amp; Delivery: ClinHist&quot;</span> 
+        
+    <span class="k">def</span> <span class="nf">get_absolute_url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">reverse</span><span class="p">(</span><span class="s">&#39;admin:mpepu_maternal_maternallabour&amp;deliverymedhistory_change&#39;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">,))</span>               
+        </div>
+<div class="viewcode-block" id="MaternalLabDelDx"><a class="viewcode-back" href="../../../models.html#mpepu_maternal.models.maternal_lab_del.MaternalLabDelDx">[docs]</a><span class="k">class</span> <span class="nc">MaternalLabDelDx</span><span class="p">(</span><span class="n">BaseScheduledVisitModel</span><span class="p">):</span>  
+
+    <span class="sd">&quot;&quot;&quot;pregnancy diagnosis&quot;&quot;&quot;</span>
+   
+    <span class="n">maternal_lab_del</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">OneToOneField</span><span class="p">(</span><span class="n">MaternalLabDel</span><span class="p">)</span>
+    
+    <span class="n">has_preg_dx</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
+        <span class="n">max_length</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+        <span class="n">choices</span><span class="o">=</span><span class="n">YES_NO</span><span class="p">,</span> 
+        <span class="n">verbose_name</span><span class="o">=</span><span class="s">&quot;16. During this pregnancy, did the mother have any of the following (in 16a)? &quot;</span><span class="p">,</span>
+        <span class="n">help_text</span><span class="o">=</span><span class="s">&quot;If yes, Select all that apply in the table, only report grade 3 or 4 diagnoses&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="n">has_who_dx</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
+        <span class="n">max_length</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+        <span class="n">choices</span><span class="o">=</span><span class="n">YES_NO</span><span class="p">,</span>
+        <span class="n">verbose_name</span><span class="o">=</span><span class="s">&quot;17. During this preganancy, did the mother have any new diagnoses listed in the WHO Adult/Adolescent HIV clinical staging document which is/are NOT reported above in Question 16? &quot;</span><span class="p">,</span>
+        <span class="n">help_text</span><span class="o">=</span><span class="s">&quot;If yes, answer 17a, otherwise go to Question 18&quot;</span><span class="p">,</span>
+        <span class="p">)</span>       
+    <span class="n">wcs_dx_adult</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ManyToManyField</span><span class="p">(</span><span class="n">WcsDxAdult</span><span class="p">,</span>
+        <span class="n">verbose_name</span><span class="o">=</span><span class="s">&quot;17a. List any new WHO Stage III/IV diagnoses that are not reported in Question 16 above:  &quot;</span><span class="p">,</span>
+        <span class="p">)</span>    
+        
+    <span class="n">history</span> <span class="o">=</span> <span class="n">AuditTrail</span><span class="p">()</span>        
+         
+    <span class="k">def</span> <span class="nf">get_absolute_url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">reverse</span><span class="p">(</span><span class="s">&#39;admin:mpepu_maternal_maternallabour&amp;deliverypregdx_change&#39;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">,))</span>    
+
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">app_label</span><span class="o">=</span><span class="s">&quot;mpepu_maternal&quot;</span>        
+        <span class="n">verbose_name</span><span class="o">=</span><span class="s">&quot;Maternal Labour &amp; Delivery: Preg Dx&quot;</span>
+</div>
+<div class="viewcode-block" id="MaternalLabDelDxT"><a class="viewcode-back" href="../../../models.html#mpepu_maternal.models.maternal_lab_del.MaternalLabDelDxT">[docs]</a><span class="k">class</span> <span class="nc">MaternalLabDelDxT</span> <span class="p">(</span><span class="n">MyBaseUuidModel</span><span class="p">):</span>      
+    
+    <span class="n">maternal_lab_del_dx</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">MaternalLabDelDx</span><span class="p">)</span>
+            
+    <span class="n">lab_del_dx</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
+        <span class="n">max_length</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span>
+        <span class="n">choices</span> <span class="o">=</span> <span class="n">DX</span><span class="p">,</span>
+        <span class="n">verbose_name</span><span class="o">=</span><span class="s">&quot;Diagnosis&quot;</span><span class="p">,</span>
+        <span class="n">help_text</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="n">lab_del_dx_specify</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
+        <span class="n">max_length</span> <span class="o">=</span> <span class="mi">50</span><span class="p">,</span>
+        <span class="n">verbose_name</span><span class="o">=</span><span class="s">&quot;Diagnosis specification&quot;</span><span class="p">,</span>
+        <span class="n">help_text</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">blank</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span>
+        <span class="n">null</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span>
+        <span class="p">)</span>    
+    <span class="n">grade</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">(</span>
+        <span class="n">choices</span><span class="o">=</span><span class="n">GRADING_SCALE</span><span class="p">,</span>
+        <span class="n">verbose_name</span><span class="o">=</span><span class="s">&quot;Grade&quot;</span><span class="p">,</span>
+        <span class="p">)</span>                                                        
+    <span class="n">hospitalized</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
+        <span class="n">max_length</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span>
+        <span class="n">choices</span><span class="o">=</span> <span class="n">YES_NO</span><span class="p">,</span>
+        <span class="n">verbose_name</span><span class="o">=</span><span class="s">&quot;Hospitalized&quot;</span><span class="p">,</span>
+        <span class="n">help_text</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span>
+        <span class="p">)</span>    
+        
+    <span class="n">history</span> <span class="o">=</span> <span class="n">AuditTrail</span><span class="p">()</span>        
+
+    <span class="k">def</span> <span class="nf">get_visit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">maternal_lab_del_dx</span><span class="o">.</span><span class="n">maternal_visit</span>
+
+    <span class="k">def</span> <span class="nf">__unicode__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">unicode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_visit</span><span class="p">())</span>
+
+
+    <span class="k">def</span> <span class="nf">get_absolute_url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">reverse</span><span class="p">(</span><span class="s">&#39;admin:mpepu_maternal_maternallabour&amp;deliverypregdx_change&#39;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">,))</span>    
+
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">app_label</span><span class="o">=</span><span class="s">&quot;mpepu_maternal&quot;</span>        
+        <span class="n">verbose_name</span><span class="o">=</span><span class="s">&quot;Maternal Labour &amp; Delivery: Preg DxT&quot;</span>
+        
+            
+                        
+</pre></div></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">mpepu_maternal 1.0 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" >Module code</a> &raquo;</li>
+          <li><a href="../models.html" >mpepu_maternal.models</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2012, erik van widenfelt.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

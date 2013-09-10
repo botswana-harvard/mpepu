@@ -1,0 +1,4 @@
+cabel = cabel <cabel>
+erikvw = erikvw <erikvw>
+mkewagamang = mkewagamang <mkewagamang>
+pmotshegwa = pmotshegwa <pmotshegwa>
