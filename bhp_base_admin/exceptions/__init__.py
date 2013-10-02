@@ -1,5 +1,0 @@
-
-
-class NextUrlError(Exception):
-    pass
-
