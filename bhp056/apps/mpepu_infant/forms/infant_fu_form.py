@@ -1,7 +1,7 @@
 from django import forms
 from datetime import datetime, date 
 from django.contrib.admin.widgets import AdminRadioSelect, AdminRadioFieldRenderer
-from bhp_adverse.choices import GRADING_SCALE_234
+from edc.subject.adverse_event.choices import GRADING_SCALE_234
 from base_infant_model_form import BaseInfantModelForm
 from mpepu_infant.models import (InfantFu, InfantFuDx, InfantFuPhysical, InfantFuDxItems, InfantFuD,
                                  InfantFuDx2Proph, InfantFuDx2ProphItems, InfantFuMed, InfantFuNewMed,

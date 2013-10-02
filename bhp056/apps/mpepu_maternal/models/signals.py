@@ -1,6 +1,7 @@
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from mpepu_maternal.models import MaternalLabDel
+
+from .maternal_lab_del import MaternalLabDel
 
 
 @receiver(post_save, weak=False, dispatch_uid='post_save_register_infants')

@@ -1,5 +1,5 @@
 from bhp_base_admin.admin import BaseModelAdmin
-from bhp_registration.models import RegisteredSubject
+from edc.subject.registration.models import RegisteredSubject
 
 
 class MyBaseRegistrationModelAdmin (BaseModelAdmin):

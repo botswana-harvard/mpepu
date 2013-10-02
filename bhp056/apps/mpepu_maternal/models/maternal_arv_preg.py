@@ -1,12 +1,15 @@
 from django.db import models
 from django.core.urlresolvers import reverse
+
 from edc.audit.audit_trail import AuditTrail
 from edc.choices.common import YES_NO, YES_NO_UNKNOWN
-from bhp_haart.models import BaseHaartHistory
+from edc.subject.haart.models import BaseHaartHistory
+
 from apps.mpepu.choices import ARV_INTERRUPTION_REASON
-from mpepu_maternal.models import BaseScheduledVisitModel
-from mpepu_maternal.managers import MaternalArvManager
-from maternal_off_study_mixin import MaternalOffStudyMixin
+
+from ..managers import MaternalArvManager
+from .base_scheduled_visit_model import BaseScheduledVisitModel
+from .maternal_off_study_mixin import MaternalOffStudyMixin
 
 
 class MaternalArvPreg (BaseScheduledVisitModel):

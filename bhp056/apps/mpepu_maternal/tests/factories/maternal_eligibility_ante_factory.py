@@ -1,6 +1,6 @@
 import factory
 from datetime import datetime
-from bhp_registration.tests.factories import RegisteredSubjectFactory
+from edc.subject.registration.tests.factories import RegisteredSubjectFactory
 from bhp_base_model.tests.factories import BaseUuidModelFactory
 from mpepu_maternal.models import MaternalEligibilityAnte
 from mpepu_maternal.tests.factories import MaternalConsentFactory

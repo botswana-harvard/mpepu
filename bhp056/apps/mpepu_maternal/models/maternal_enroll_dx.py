@@ -1,11 +1,14 @@
 from datetime import datetime
+
 from django.db import models
 from django.core.urlresolvers import reverse
 from django.core.validators import MinValueValidator, MaxValueValidator
+
 from edc.audit.audit_trail import AuditTrail
-from mpepu_maternal.managers import MaternalEnrollDxManager
-from maternal_base_uuid_model import MaternalBaseUuidModel
-from maternal_enroll_med import MaternalEnrollMed
+
+from ..managers import MaternalEnrollDxManager
+from .maternal_base_uuid_model import MaternalBaseUuidModel
+from .maternal_enroll_med import MaternalEnrollMed
 
 
 class MaternalEnrollDx(MaternalBaseUuidModel):

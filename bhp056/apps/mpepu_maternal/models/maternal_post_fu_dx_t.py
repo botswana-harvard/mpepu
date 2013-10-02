@@ -1,12 +1,15 @@
 from django.db import models
 from django.core.urlresolvers import reverse
+
 from edc.choices.common import YES_NO
-from bhp_adverse.choices import GRADING_SCALE
+from edc.subject.adverse_event.choices import GRADING_SCALE
 from edc.audit.audit_trail import AuditTrail
+
 from apps.mpepu.choices import DX
-from mpepu_maternal.managers import MaternalPostFuDxTManager
-from maternal_base_uuid_model import MaternalBaseUuidModel
-from maternal_post_fu_dx import MaternalPostFuDx
+
+from ..managers import MaternalPostFuDxTManager
+from .maternal_base_uuid_model import MaternalBaseUuidModel
+from .maternal_post_fu_dx import MaternalPostFuDx
 
 
 class MaternalPostFuDxT(MaternalBaseUuidModel):

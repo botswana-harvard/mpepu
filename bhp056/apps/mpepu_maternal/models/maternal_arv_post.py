@@ -1,13 +1,16 @@
 from django.db import models
-from edc.audit.audit_trail import AuditTrail
 from django.core.urlresolvers import reverse
+
+from edc.audit.audit_trail import AuditTrail
 from edc.choices.common import YES_NO
 from edc.subject.haart.choices import ARV_STATUS_WITH_NEVER
-from bhp_haart.models import BaseHaartModification
+from edc.subject.haart.models import BaseHaartModification
+
 from apps.mpepu.choices import REASON_FOR_HAART
-from mpepu_maternal.models import BaseScheduledVisitModel
-from mpepu_maternal.managers import MaternalArvPostModManager
-from maternal_off_study_mixin import MaternalOffStudyMixin
+
+from ..managers import MaternalArvPostModManager
+from .base_scheduled_visit_model import BaseScheduledVisitModel
+from .maternal_off_study_mixin import MaternalOffStudyMixin
 
 
 class MaternalArvPost (BaseScheduledVisitModel):

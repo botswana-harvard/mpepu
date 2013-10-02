@@ -1,5 +1,5 @@
 from bhp_actg_reference.models import Appendix40
-from bhp_code_lists.models import DxCode
+from edc.subject.code_lists.models import DxCode
 
 
 def ImportCode(**kwargs):

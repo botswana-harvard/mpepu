@@ -7,7 +7,7 @@ from bhp056 import settings
 
 setup_environ(settings)
 
-from bhp_registration.models import RegisteredSubject
+from edc.subject.registration.models import RegisteredSubject
 from edc.subject.appointment.models import Appointment
 from mpepu_maternal.models import MaternalPostReg, MaternalEligibilityPost, MaternalEligibilityAnte
 

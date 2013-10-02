@@ -3,11 +3,11 @@ import pprint
 from datetime import datetime, date, timedelta
 from django.test import TestCase
 from django.db.models import get_app, get_models
-from bhp_identifier.exceptions import IdentifierError
+from edc.core.identifier.exceptions import IdentifierError
 from bhp_lab_tracker.classes import lab_tracker
 from bhp_variables.models import StudySpecific, StudySite
 from bhp_variables.tests.factories import StudySpecificFactory, StudySiteFactory
-from bhp_registration.models import RegisteredSubject
+from edc.subject.registration.models import RegisteredSubject
 from bhp_consent.tests.factories import ConsentCatalogueFactory
 from edc.subject.appointment.models import Appointment
 from bhp_appointment.tests.factories import ConfigurationFactory
@@ -16,7 +16,7 @@ from bhp_content_type_map.classes import ContentTypeMapHelper
 from bhp_content_type_map.models import ContentTypeMap
 from mpepu_maternal.models import MaternalVisit, MaternalConsent, MaternalOffStudy, MaternalEligibilityAnte, MaternalEligibilityPost, MaternalPostReg
 from mpepu_maternal.tests.factories import MaternalConsentFactory, MaternalOffStudyFactory, MaternalVisitFactory, MaternalEligibilityAnteFactory, MaternalLabDelFactory
-from bhp_identifier.models import SubjectIdentifier, Sequence
+from edc.core.identifier.models import SubjectIdentifier, Sequence
 from bhp_off_study.exceptions import SubjectOffStudyError, SubjectOffStudyDateError
 from mpepu_infant.models import InfantBirth, InfantVisit
 from factories import InfantVisitFactory, InfantBirthFactory, InfantBirthDataFactory, InfantEligibilityFactory, InfantOffStudyFactory, InfantArvProphFactory, InfantArvProphModFactory

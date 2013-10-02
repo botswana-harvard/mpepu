@@ -1,8 +1,11 @@
-from edc.audit.audit_trail import AuditTrail
 from datetime import datetime, time
+
 from django.core.urlresolvers import reverse
-from bhp_adverse.models import BaseDeathReport
-from maternal_off_study_mixin import MaternalOffStudyMixin
+
+from edc.audit.audit_trail import AuditTrail
+from edc.subject.adverse_event.models import BaseDeathReport
+
+from .maternal_off_study_mixin import MaternalOffStudyMixin
 
 
 class MaternalDeath (MaternalOffStudyMixin, BaseDeathReport):

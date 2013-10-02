@@ -2,14 +2,14 @@ import re
 import pprint
 from datetime import datetime
 from django.core import serializers
-from bhp_crypto.classes import FieldCryptor
+from edc.core.crypto_fields.classes import FieldCryptor
 from django.db.models import get_app, get_models
 from bhp_base_test.classes import BaseNaturalKeyTests
 from bhp_lab_tracker.classes import lab_tracker
 from bhp_sync.classes import SerializeToTransaction, DeserializeFromTransaction
 from bhp_variables.models import StudySpecific, StudySite
 from bhp_variables.tests.factories import StudySpecificFactory, StudySiteFactory
-from bhp_registration.models import RegisteredSubject
+from edc.subject.registration.models import RegisteredSubject
 from bhp_consent.tests.factories import ConsentCatalogueFactory
 from edc.subject.appointment.models import Appointment
 from bhp_appointment.tests.factories import ConfigurationFactory

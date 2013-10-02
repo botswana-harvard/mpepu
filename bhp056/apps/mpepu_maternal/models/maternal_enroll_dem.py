@@ -1,14 +1,17 @@
 from django.db import models
 from django.core.urlresolvers import reverse
 from django.core.validators import MinValueValidator, MaxValueValidator
+
 from edc.audit.audit_trail import AuditTrail
 from edc.choices.common import YES_NO
 from edc.base.model.fields.custom.custom_fields import OtherCharField
-from mpepu_list.models.maternal_enroll import HhGoods
+
+from apps.mpepu_list.models.maternal_enroll import HhGoods
 from apps.mpepu.choices import MARITAL_STATUS, HIGHEST_EDUCATION, CURRENT_OCCUPATION, MONEY_PROVIDER, TOILET_FACILITY
 from apps.mpepu.choices import HOUSE_TYPE, ETHNICITY, MONEY_EARNED, WATER_SOURCE, COOKING_METHOD, KNOW_HIV_STATUS
-from mpepu_maternal.models import BaseScheduledVisitModel
-from maternal_enroll import MaternalEnroll
+
+from .base_scheduled_visit_model import BaseScheduledVisitModel
+from .maternal_enroll import MaternalEnroll
 
 
 class MaternalEnrollDem(BaseScheduledVisitModel):

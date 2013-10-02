@@ -4,7 +4,7 @@ from django.core.exceptions import ValidationError
 from bhp_base_model.models import BaseUuidModel
 from ph_dispenser.classes import DispensingIdentifier
 from ph_dispenser.choices import PACKING_UNITS
-from bhp_registration.models import RegisteredSubject
+from edc.subject.registration.models import RegisteredSubject
 
 
 class Dispensing(BaseUuidModel):

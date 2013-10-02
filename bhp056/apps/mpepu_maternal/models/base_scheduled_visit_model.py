@@ -1,7 +1,8 @@
 from django.db import models
-from mpepu_maternal.managers import ScheduledModelManager
-from maternal_visit import MaternalVisit
-from maternal_base_uuid_model import MaternalBaseUuidModel
+
+from ..managers import ScheduledModelManager
+from .maternal_visit import MaternalVisit
+from .maternal_base_uuid_model import MaternalBaseUuidModel
 
 
 class BaseScheduledVisitModel(MaternalBaseUuidModel):

@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand, CommandError
 from mpepu_maternal.choices import FEEDING_INFLUENCE, FEEDING_TRAINING, FEEDING_INDECISION
-from mpepu_list.models import MaternalFeedingInfluence, MaternalBfFfRisksBenefits, MaternalUndecidedFeeding
+from apps.mpepu_list.models import MaternalFeedingInfluence, MaternalBfFfRisksBenefits, MaternalUndecidedFeeding
 
 
 class Command(BaseCommand):

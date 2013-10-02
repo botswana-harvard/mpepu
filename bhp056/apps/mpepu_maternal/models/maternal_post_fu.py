@@ -3,8 +3,8 @@ from django.core.urlresolvers import reverse
 from edc.base.model.fields.custom.custom_fields import OtherCharField
 from edc.choices.common import YES_NO
 from edc.audit.audit_trail import AuditTrail
-from mpepu_list.models.maternal_post_fu import ChronicCond
-from mpepu_maternal.models import BaseScheduledVisitModel
+from apps.mpepu_list.models.maternal_post_fu import ChronicCond
+from .base_scheduled_visit_model import BaseScheduledVisitModel
 
 
 class MaternalPostFu(BaseScheduledVisitModel):

@@ -2,7 +2,7 @@ from datetime import date, timedelta, datetime
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from bhp_registration.models import RegisteredSubject
+from edc.subject.registration.models import RegisteredSubject
 from mpepu_dashboard.classes import MaternalDashboard
 from mpepu_maternal.models import MaternalConsent, MaternalVisit
 from mpepu_infant.models import InfantBirth

@@ -1,11 +1,14 @@
 from django.db import models
 from django.core.urlresolvers import reverse
+
 from edc.audit.audit_trail import AuditTrail
 from edc.choices.common import YES_NO
 from edc.base.model.fields.custom.custom_fields import OtherCharField
+
 from apps.mpepu.choices import HIV_INSIDE_DISCLOSURE, HIV_OUTSIDE_DISCLOSURE, TIME_AFTER_DELIVERY, AGREEING_TERMS
-from mpepu_list.models import MaternalFeedingInfluence
-from base_scheduled_visit_model import BaseScheduledVisitModel
+from apps.mpepu_list.models import MaternalFeedingInfluence
+
+from .base_scheduled_visit_model import BaseScheduledVisitModel
 
 
 class FeedingChoiceSectionTwo(BaseScheduledVisitModel):

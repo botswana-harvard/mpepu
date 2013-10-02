@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib import admin
-from bhp_registration.models import RegisteredSubject
+from edc.subject.registration.models import RegisteredSubject
 from mpepu_infant_rando.models import InfantRando
 from mpepu_infant.classes import RegisteredSubjectModelAdmin
 from mpepu_infant.models import InfantEligibility, InfantBirth

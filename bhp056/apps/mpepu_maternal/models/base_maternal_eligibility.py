@@ -4,9 +4,8 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from edc.choices.common import YES_NO
 from edc.base.model.validators import eligible_if_yes
 
-from apps.mpepu_maternal.classes import MaternalEligibilityConsentHelper
-from apps.maternal_consent import MaternalConsent
-
+from ..classes import MaternalEligibilityConsentHelper
+from .maternal_consent import MaternalConsent
 from .base_maternal_registration_model import BaseMaternalRegistrationModel
 
 

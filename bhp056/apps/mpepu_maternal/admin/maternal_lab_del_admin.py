@@ -1,5 +1,5 @@
 from django.contrib import admin
-from bhp_identifier.classes import InfantIdentifier
+from edc.core.identifier.classes import InfantIdentifier
 from bhp_base_admin.admin import BaseTabularInline, BaseModelAdmin
 from mpepu_maternal.models import MaternalLabDel, MaternalLabDelMed, MaternalLabDelDx, MaternalLabDelDxT, MaternalLabDelClinic
 from mpepu_maternal.forms import MaternalLabDelMedForm, MaternalLabDelClinicForm, MaternalLabDelDxForm, MaternalLabDelForm

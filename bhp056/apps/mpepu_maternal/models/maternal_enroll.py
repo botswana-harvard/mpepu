@@ -1,10 +1,13 @@
 from django.db import models
 from django.core.urlresolvers import reverse
+
 from edc.audit.audit_trail import AuditTrail
 from edc.choices.common import YES_NO, YES_NO_NA
 from edc.base.model.fields.custom.custom_fields import OtherCharField
+
 from apps.mpepu.choices import RECRUIT_SOURCE
-from mpepu_maternal.models import BaseScheduledVisitModel
+
+from .base_scheduled_visit_model import BaseScheduledVisitModel
 
 
 class MaternalEnroll(BaseScheduledVisitModel):

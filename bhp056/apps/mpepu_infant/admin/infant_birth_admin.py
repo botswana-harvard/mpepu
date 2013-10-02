@@ -1,5 +1,5 @@
 from django.contrib import admin
-from bhp_registration.models import RegisteredSubject
+from edc.subject.registration.models import RegisteredSubject
 from mpepu_infant.classes import InfantVisitModelAdmin, RegisteredSubjectModelAdmin
 from mpepu_maternal.models import MaternalLabDel
 from mpepu_infant.models import InfantBirth, InfantBirthArv, InfantBirthData, InfantBirthExam, InfantBirthFeed

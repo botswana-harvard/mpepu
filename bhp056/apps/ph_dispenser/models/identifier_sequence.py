@@ -1,4 +1,4 @@
-from bhp_identifier.models import BaseSequence
+from edc.core.identifier.models import BaseSequence
 
 
 class IdentifierSequence(BaseSequence):
