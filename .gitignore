@@ -1,1 +1,12 @@
-*.pyc
+*.py[cod]
+*.sh
+*.sql
+.project
+.pydevproject
+.settings
+keys
+south.log
+*.bz2
+.DS_Store
+bhp056/edc
+bhp056/lis
