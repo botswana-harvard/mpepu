@@ -1,5 +1,6 @@
 from edc.subject.visit_tracking.admin import BaseVisitTrackingModelAdmin
-from mpepu_maternal.models import MaternalVisit
+
+from ..models import MaternalVisit
 
 
 class MaternalVisitModelAdmin (BaseVisitTrackingModelAdmin):

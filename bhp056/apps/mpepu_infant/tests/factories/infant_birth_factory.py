@@ -2,7 +2,7 @@ import factory
 from datetime import date
 from bhp_base_model.tests.factories import BaseUuidModelFactory
 from edc.subject.registration.tests.factories import RegisteredSubjectFactory
-from mpepu_maternal.tests.factories import MaternalLabDelFactory
+from ..tests.factories import MaternalLabDelFactory
 from mpepu_infant.models import InfantBirth
 
 

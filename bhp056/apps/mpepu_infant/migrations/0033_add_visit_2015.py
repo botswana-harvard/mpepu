@@ -9,7 +9,7 @@ class Migration(DataMigration):
     def forwards(self, orm):
         "Write your forwards methods here."
         # Note: Remember to use orm['appname.ModelName'] rather than "from appname.models..."
-        from bhp_visit.classes import VisitDefinitionHelper
+        from edc.subject.visit_schedule.classes import VisitDefinitionHelper
         MembershipForm = orm['bhp_visit.MembershipForm']
         ScheduleGroup = orm['bhp_visit.ScheduleGroup']
         ContentTypeMap = orm['bhp_content_type_map.ContentTypeMap']

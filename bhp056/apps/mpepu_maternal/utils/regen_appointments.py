@@ -9,7 +9,7 @@ setup_environ(settings)
 
 from edc.subject.registration.models import RegisteredSubject
 from edc.subject.appointment.models import Appointment
-from mpepu_maternal.models import MaternalPostReg, MaternalEligibilityPost, MaternalEligibilityAnte
+from ..models import MaternalPostReg, MaternalEligibilityPost, MaternalEligibilityAnte
 
 """maternal registration forms """
 

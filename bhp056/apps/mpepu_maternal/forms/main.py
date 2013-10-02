@@ -1,5 +1,6 @@
 from base_maternal_model_form import BaseMaternalModelForm
-from mpepu_maternal.models import MaternalDeath, MaternalLocator
+
+from ..models import MaternalDeath, MaternalLocator
 
 
 class MaternalDeathForm (BaseMaternalModelForm):

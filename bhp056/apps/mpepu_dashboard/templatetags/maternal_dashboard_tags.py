@@ -2,7 +2,7 @@ from datetime import *
 from dateutil.relativedelta import *
 from django import template
 from django.core.urlresolvers import reverse
-from mpepu_maternal.models import MaternalVisit
+from ..models import MaternalVisit
 
 register = template.Library()
 

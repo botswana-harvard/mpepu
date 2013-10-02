@@ -1,7 +1,8 @@
 from django.contrib import admin
-from registered_subject_model_admin import RegisteredSubjectModelAdmin
-from mpepu_maternal.models import MaternalDeath
-from mpepu_maternal.forms import MaternalDeathForm
+
+from .registered_subject_model_admin import RegisteredSubjectModelAdmin
+from ..models import MaternalDeath
+from ..forms import MaternalDeathForm
 
 
 class MaternalDeathAdmin(RegisteredSubjectModelAdmin):

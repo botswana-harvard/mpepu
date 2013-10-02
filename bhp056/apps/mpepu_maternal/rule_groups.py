@@ -1,6 +1,7 @@
 from bhp_entry_rules.classes import RuleGroup, ScheduledDataRule, Logic, rule_groups
 from edc.subject.registration.models import RegisteredSubject
-from mpepu_maternal.models import (MaternalVisit, MaternalArvPreg, MaternalArvPost,
+
+from .models import (MaternalVisit, MaternalArvPreg, MaternalArvPost,
                                    MaternalEnroll, FeedingChoice)
 
 

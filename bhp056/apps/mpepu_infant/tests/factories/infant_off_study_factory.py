@@ -1,5 +1,5 @@
 import factory
-from bhp_off_study.tests.factories import BaseOffStudyFactory
+from edc.subject.off_study.tests.factories import BaseOffStudyFactory
 from mpepu_infant.models import InfantOffStudy
 
 

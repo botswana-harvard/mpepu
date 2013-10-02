@@ -1,9 +1,11 @@
 from django.db.models import Q, get_model
 from django import forms
 from django.contrib.admin.widgets import AdminRadioSelect, AdminRadioFieldRenderer
-from bhp_consent.forms import BaseConsentedModelForm
-from mpepu_maternal.choices import VISIT_INFO_SOURCE, VISIT_REASON
-from mpepu_maternal.models import MaternalVisit, MaternalOffStudy, MaternalDeath
+
+from edc.subject.consent.forms import BaseConsentedModelForm
+
+from ..choices import VISIT_INFO_SOURCE, VISIT_REASON
+from ..models import MaternalVisit, MaternalOffStudy, MaternalDeath
 
 
 class MaternalVisitForm (BaseConsentedModelForm):

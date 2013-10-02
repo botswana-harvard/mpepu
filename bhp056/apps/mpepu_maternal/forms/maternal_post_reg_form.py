@@ -1,7 +1,9 @@
 from django import forms
-from mpepu_infant_rando.models import InfantRando
-from base_maternal_model_form import BaseMaternalModelForm
-from mpepu_maternal.models import MaternalPostReg
+
+from apps.mpepu_infant_rando.models import InfantRando
+
+from .base_maternal_model_form import BaseMaternalModelForm
+from ..models import MaternalPostReg
 
 
 class MaternalPostRegForm (BaseMaternalModelForm):

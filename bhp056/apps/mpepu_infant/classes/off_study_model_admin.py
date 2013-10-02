@@ -1,4 +1,4 @@
-from bhp_off_study.admin import BaseOffStudyModelAdmin
+from edc.subject.off_study.admin import BaseOffStudyModelAdmin
 
 
 class OffStudyModelAdmin (BaseOffStudyModelAdmin):

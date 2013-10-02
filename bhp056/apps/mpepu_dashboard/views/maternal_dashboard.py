@@ -4,7 +4,7 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from edc.subject.registration.models import RegisteredSubject
 from mpepu_dashboard.classes import MaternalDashboard
-from mpepu_maternal.models import MaternalConsent, MaternalVisit
+from ..models import MaternalConsent, MaternalVisit
 from mpepu_infant.models import InfantBirth
 
 

@@ -1,4 +1,4 @@
-from bhp_visit.models import VisitDefinition, ScheduleGroup, Appointment
+from edc.subject.visit_schedule.models import VisitDefinition, ScheduleGroup, Appointment
 
 def create_appointment( ** kwargs ):
     

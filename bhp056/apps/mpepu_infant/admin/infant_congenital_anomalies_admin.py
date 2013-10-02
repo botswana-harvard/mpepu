@@ -1,5 +1,5 @@
 from django.contrib import admin
-from bhp_base_admin.admin import BaseTabularInline
+from edc.base.admin.admin import BaseTabularInline
 from mpepu_infant.classes import RegisteredSubjectModelAdmin
 from mpepu_infant.models import (InfantCnsAbnormalityItems, InfantFacialDefectItems, InfantCleftDisorderItems, InfantMouthUpGastrointestinalItems,
                                  InfantCardiovascularDisorderItems, InfantRespiratoryDefectItems, InfantLowerGastrointestinalItems, InfantFemaleGenitalAnomalyItems,

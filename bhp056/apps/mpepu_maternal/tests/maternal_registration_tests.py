@@ -3,18 +3,18 @@ import pprint
 from datetime import datetime
 from django.test import TestCase
 from edc.core.identifier.exceptions import IdentifierError
-from bhp_lab_tracker.classes import lab_tracker
-from bhp_variables.models import StudySpecific, StudySite
-from bhp_variables.tests.factories import StudySpecificFactory, StudySiteFactory
+from edc.subject.lab_tracker.classes import lab_tracker
+from edc.core.bhp_variables.models import StudySpecific, StudySite
+from edc.core.bhp_variables.tests.factories import StudySpecificFactory, StudySiteFactory
 from edc.subject.registration.models import RegisteredSubject
-from bhp_consent.tests.factories import ConsentCatalogueFactory
+from edc.subject.consent.tests.factories import ConsentCatalogueFactory
 from edc.subject.appointment.models import Appointment
-from bhp_appointment.tests.factories import ConfigurationFactory
-from bhp_visit.tests.factories import MembershipFormFactory, ScheduleGroupFactory, VisitDefinitionFactory
+from edc.subject.appointment.tests.factories import ConfigurationFactory
+from edc.subject.visit_schedule.tests.factories import MembershipFormFactory, ScheduleGroupFactory, VisitDefinitionFactory
 from bhp_content_type_map.classes import ContentTypeMapHelper
 from bhp_content_type_map.models import ContentTypeMap
-from mpepu_maternal.models import MaternalVisit, MaternalConsent, MaternalEligibilityAnte, MaternalEligibilityPost, MaternalPostReg
-from mpepu_maternal.tests.factories import MaternalConsentFactory, MaternalVisitFactory, MaternalEligibilityAnteFactory, MaternalLabDelFactory
+from ..models import MaternalVisit, MaternalConsent, MaternalEligibilityAnte, MaternalEligibilityPost, MaternalPostReg
+from ..tests.factories import MaternalConsentFactory, MaternalVisitFactory, MaternalEligibilityAnteFactory, MaternalLabDelFactory
 from edc.core.identifier.models import SubjectIdentifier, Sequence
 
 

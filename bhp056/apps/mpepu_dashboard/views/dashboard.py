@@ -5,7 +5,7 @@ from edc.subject.registration.models import RegisteredSubject
 from mpepu_dashboard.classes import InfantDashboard, MaternalDashboard
 from mpepu_infant.models import InfantVisit, InfantBirth
 from mpepu_infant_rando.models import  InfantRando
-from mpepu_maternal.models import MaternalConsent, MaternalVisit
+from ..models import MaternalConsent, MaternalVisit
 
 @login_required
 def dashboard(request, **kwargs):

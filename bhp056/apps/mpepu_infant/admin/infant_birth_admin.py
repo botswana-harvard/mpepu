@@ -1,7 +1,7 @@
 from django.contrib import admin
 from edc.subject.registration.models import RegisteredSubject
 from mpepu_infant.classes import InfantVisitModelAdmin, RegisteredSubjectModelAdmin
-from mpepu_maternal.models import MaternalLabDel
+from ..models import MaternalLabDel
 from mpepu_infant.models import InfantBirth, InfantBirthArv, InfantBirthData, InfantBirthExam, InfantBirthFeed
 from mpepu_infant.forms import InfantBirthForm, InfantBirthArvForm, InfantBirthDataForm, InfantBirthExamForm, InfantBirthFeedForm
 

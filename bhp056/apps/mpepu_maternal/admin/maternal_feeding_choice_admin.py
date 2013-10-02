@@ -1,7 +1,8 @@
 from django.contrib import admin
-from maternal_enroll_admin import BaseMaternalEnrollAdmin
-from mpepu_maternal.models import FeedingChoice, FeedingChoiceSectionOne, FeedingChoiceSectionTwo, FeedingChoiceSectionThree
-from mpepu_maternal.forms import FeedingChoiceForm, FeedingChoiceSectionOneForm, FeedingChoiceSectionTwoForm, FeedingChoiceSectionThreeForm
+
+from .maternal_enroll_admin import BaseMaternalEnrollAdmin
+from ..models import FeedingChoice, FeedingChoiceSectionOne, FeedingChoiceSectionTwo, FeedingChoiceSectionThree
+from ..forms import FeedingChoiceForm, FeedingChoiceSectionOneForm, FeedingChoiceSectionTwoForm, FeedingChoiceSectionThreeForm
 
 
 class FeedingChoiceAdmin(BaseMaternalEnrollAdmin):

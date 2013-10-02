@@ -1,5 +1,5 @@
 from datetime import timedelta
-from bhp_appointment_helper.classes import AppointmentDateHelper
+from edc.subject.appointment_helper.classes import AppointmentDateHelper
 
 
 class InfantEligibilityMixin(object):

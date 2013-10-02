@@ -1,5 +1,5 @@
 from django import forms
-from mpepu_maternal.models import MaternalLabDel
+from ..models import MaternalLabDel
 from mpepu_infant.models import InfantBirth, InfantBirthExam, InfantBirthArv, InfantBirthFeed, InfantBirthData
 from base_infant_model_form import BaseInfantModelForm
 

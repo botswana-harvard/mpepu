@@ -1,7 +1,8 @@
 from django.contrib import admin
-from mpepu_maternal.models import MaternalOffStudy
-from mpepu_maternal.forms import MaternalOffStudyForm
-from bhp_off_study.admin import BaseOffStudyModelAdmin
+
+from ..models import MaternalOffStudy
+from ..forms import MaternalOffStudyForm
+from .bhp_off_study.admin import BaseOffStudyModelAdmin
 
 
 class MaternalOffStudyAdmin(BaseOffStudyModelAdmin):

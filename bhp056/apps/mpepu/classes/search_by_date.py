@@ -1,5 +1,5 @@
 from bhp_search.classes import BaseSearchByDate
-from mpepu_maternal.models import MaternalConsent
+from ..models import MaternalConsent
 from mpepu_infant.models import InfantBirth
 
 

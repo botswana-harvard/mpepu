@@ -1,8 +1,9 @@
 from django import forms
 from django.contrib.admin.widgets import AdminRadioSelect, AdminRadioFieldRenderer
-from bhp_off_study.forms import BaseOffStudyForm
-from mpepu_maternal.choices import OFF_STUDY_REASON
-from mpepu_maternal.models import MaternalOffStudy
+
+from .bhp_off_study.forms import BaseOffStudyForm
+from ..choices import OFF_STUDY_REASON
+from ..models import MaternalOffStudy
 
 
 class MaternalOffStudyForm (BaseOffStudyForm):

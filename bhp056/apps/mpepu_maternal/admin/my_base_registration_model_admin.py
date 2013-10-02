@@ -1,4 +1,4 @@
-from bhp_base_admin.admin import BaseModelAdmin
+from edc.base.admin.admin import BaseModelAdmin
 from edc.subject.registration.models import RegisteredSubject
 
 

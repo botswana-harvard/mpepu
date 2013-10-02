@@ -1,5 +1,5 @@
 from django.contrib import admin
-from bhp_base_admin.admin import BaseModelAdmin, BaseTabularInline
+from edc.base.admin.admin import BaseModelAdmin, BaseTabularInline
 from mpepu_infant.classes import InfantVisitModelAdmin, RegisteredSubjectModelAdmin, MyInfantFuModelAdmin, MyInfantArvProphModelAdmin
 from mpepu_infant.classes import OffStudyModelAdmin
 from mpepu_infant.models import *

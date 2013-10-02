@@ -1,9 +1,11 @@
 from django.contrib import admin
-from bhp_base_admin.admin import BaseModelAdmin, BaseTabularInline
-from mpepu_maternal.admin import RegisteredSubjectModelAdmin
-from mpepu_maternal.models import (MaternalPostFu, MaternalPostFuDxT, MaternalPostFuDx, MaternalPostReg)
-from mpepu_maternal.forms import (MaternalPostFuForm, MaternalPostFuDxForm, MaternalPostRegForm)
-from maternal_visit_model_admin import MaternalVisitModelAdmin
+
+from edc.base.admin.admin import BaseModelAdmin, BaseTabularInline
+
+from ..admin import RegisteredSubjectModelAdmin
+from ..models import (MaternalPostFu, MaternalPostFuDxT, MaternalPostFuDx, MaternalPostReg)
+from ..forms import (MaternalPostFuForm, MaternalPostFuDxForm, MaternalPostRegForm)
+from .maternal_visit_model_admin import MaternalVisitModelAdmin
 
 
 class MyMaternalPostFuModelAdmin (MaternalVisitModelAdmin):

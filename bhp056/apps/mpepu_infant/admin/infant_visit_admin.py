@@ -1,5 +1,5 @@
 from django.contrib import admin
-from bhp_appointment.admin import BaseAppointmentModelAdmin
+from edc.subject.appointment.admin import BaseAppointmentModelAdmin
 from mpepu_lab.models import InfantRequisition
 from mpepu_infant.models import InfantVisit
 from mpepu_infant.forms import InfantVisitForm

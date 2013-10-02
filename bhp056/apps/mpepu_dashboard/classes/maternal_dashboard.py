@@ -1,7 +1,7 @@
 from bhp_dashboard_registered_subject.classes import RegisteredSubjectDashboard
 from edc.subject.registration.models import RegisteredSubject
 from mpepu_infant.models import InfantBirth
-from mpepu_maternal.models import MaternalConsent, MaternalVisit, MaternalLabDel  # MaternalLocator
+from ..models import MaternalConsent, MaternalVisit, MaternalLabDel  # MaternalLocator
 from mpepu_lab.models import MaternalRequisition
 
 

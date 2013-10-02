@@ -1,7 +1,9 @@
-from django import forms
 from datetime import datetime, date
-from base_maternal_model_form import BaseMaternalModelForm
-from mpepu_maternal.models import MaternalLabDel, MaternalLabDelMed, MaternalLabDelClinic, MaternalLabDelDx, MaternalLabDelDxT
+
+from django import forms
+
+from .base_maternal_model_form import BaseMaternalModelForm
+from ..models import MaternalLabDel, MaternalLabDelMed, MaternalLabDelClinic, MaternalLabDelDx, MaternalLabDelDxT
 
 
 class MaternalLabDelForm (BaseMaternalModelForm):

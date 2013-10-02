@@ -3,7 +3,7 @@ from bhp_dashboard_registered_subject.classes import RegisteredSubjectDashboard
 #from bhp_subject_summary.models import Link
 from mpepu_infant.models import InfantBirth, InfantVisit, InfantEligibility
 from mpepu_infant_rando.models import InfantRando
-from mpepu_maternal.models import MaternalConsent, MaternalLabDel
+from ..models import MaternalConsent, MaternalLabDel
 from mpepu_lab.models import InfantRequisition
 
 

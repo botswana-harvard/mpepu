@@ -1,10 +1,12 @@
 from django.contrib import admin
+
 from edc.core.identifier.classes import InfantIdentifier
-from bhp_base_admin.admin import BaseTabularInline, BaseModelAdmin
-from mpepu_maternal.models import MaternalLabDel, MaternalLabDelMed, MaternalLabDelDx, MaternalLabDelDxT, MaternalLabDelClinic
-from mpepu_maternal.forms import MaternalLabDelMedForm, MaternalLabDelClinicForm, MaternalLabDelDxForm, MaternalLabDelForm
-from mpepu_maternal.filters import GaListFilter
-from maternal_visit_model_admin import MaternalVisitModelAdmin
+from edc.base.admin.admin import BaseTabularInline, BaseModelAdmin
+
+from ..models import MaternalLabDel, MaternalLabDelMed, MaternalLabDelDx, MaternalLabDelDxT, MaternalLabDelClinic
+from ..forms import MaternalLabDelMedForm, MaternalLabDelClinicForm, MaternalLabDelDxForm, MaternalLabDelForm
+from ..filters import GaListFilter
+from .maternal_visit_model_admin import MaternalVisitModelAdmin
 
 
 class BaseMaternalLabDelModelAdmin (MaternalVisitModelAdmin):
