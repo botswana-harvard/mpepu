@@ -1,10 +1,13 @@
 from django.db import models
 from django.core.urlresolvers import reverse
-from audit_trail.audit import AuditTrail
-from mpepu_list.models.infant_vaccines import InfantVaccines
-from mpepu_infant.choices import FEEDING_CHOICES
-from mpepu_infant.models import BaseScheduledVisitModel
-from infant_birth import InfantBirth
+
+from edc.audit.audit_trail import AuditTrail
+
+from apps.mpepu_list.models.infant_vaccines import InfantVaccines
+
+from ..choices import FEEDING_CHOICES
+from .base_scheduled_visit_model import BaseScheduledVisitModel
+from .infant_birth import InfantBirth
 
 
 class InfantBirthFeed(BaseScheduledVisitModel):

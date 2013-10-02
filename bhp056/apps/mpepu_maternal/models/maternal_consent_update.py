@@ -1,7 +1,9 @@
 from django.db import models
-from bhp_consent.models import BaseConsentUpdate
-from maternal_consent import MaternalConsent
-from maternal_off_study_mixin import MaternalOffStudyMixin
+
+from edc.subject.consent.models import BaseConsentUpdate
+
+from .maternal_consent import MaternalConsent
+from .maternal_off_study_mixin import MaternalOffStudyMixin
 
 
 class MaternalConsentUpdate(MaternalOffStudyMixin, BaseConsentUpdate):

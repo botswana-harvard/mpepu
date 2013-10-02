@@ -1,9 +1,11 @@
 from django.db import models
 from django.core.urlresolvers import reverse
-from audit_trail.audit import AuditTrail
-from bhp_haart.models import BaseHaartModification
-from infant_arv_proph import InfantArvProph
-from infant_off_study_mixin import InfantOffStudyMixin
+
+from edc.audit.audit_trail import AuditTrail
+from edc.subject.haart.models import BaseHaartModification
+
+from .infant_arv_proph import InfantArvProph
+from .infant_off_study_mixin import InfantOffStudyMixin
 
 
 class InfantArvProphMod(InfantOffStudyMixin, BaseHaartModification):

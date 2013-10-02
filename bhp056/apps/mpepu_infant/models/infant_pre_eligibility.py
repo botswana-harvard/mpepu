@@ -3,8 +3,8 @@ from dateutil.relativedelta import relativedelta
 from django.db import models
 from django.core.exceptions import ValidationError, ImproperlyConfigured
 from django.core.urlresolvers import reverse
-from audit_trail.audit import AuditTrail
-from bhp_common.choices import YES_NO
+from edc.audit.audit_trail import AuditTrail
+from edc.choices.common import YES_NO
 from bhp_consent.classes import ConsentHelper
 from bhp_appointment.models import Appointment
 from infant_birth import InfantBirth

@@ -1,10 +1,12 @@
 from django.db import models
 from django.core.urlresolvers import reverse
-from audit_trail.audit import AuditTrail
-from bhp_code_lists.models import WcsDxPed
-from bhp_common.choices import YES_NO
-from mpepu_infant.models import BaseScheduledVisitModel
-from infant_fu import InfantFu
+
+from edc.audit.audit_trail import AuditTrail
+from edc.subject.code_lists.models import WcsDxPed
+from edc.choices.common import YES_NO
+
+from .base_scheduled_visit_model import BaseScheduledVisitModel
+from .infant_fu import InfantFu
 
 
 class InfantFuDx2Proph(BaseScheduledVisitModel):

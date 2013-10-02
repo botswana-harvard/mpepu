@@ -1,10 +1,13 @@
 from django.db import models
-from audit_trail.audit import AuditTrail
 from django.core.urlresolvers import reverse
-from bhp_base_model.fields import OtherCharField
-from bhp_common.choices import YES_NO, YES_NO_NA, YES_NO_UNSURE_NA
-from mpepu_infant.choices import COWS_MILK, REASON_RCV_FORMULA, TIMES_BREASTFED, WATER_USED
-from mpepu_infant.models import BaseScheduledVisitModel
+
+from edc.audit.audit_trail import AuditTrail
+
+from edc.base.model.fields.custom.custom_fields import OtherCharField
+from edc.choices.common import YES_NO, YES_NO_NA, YES_NO_UNSURE_NA
+
+from ..choices import COWS_MILK, REASON_RCV_FORMULA, TIMES_BREASTFED, WATER_USED
+from .base_scheduled_visit_model import BaseScheduledVisitModel
 
 
 class InfantFeeding(BaseScheduledVisitModel):

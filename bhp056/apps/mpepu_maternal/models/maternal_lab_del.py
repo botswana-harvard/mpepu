@@ -2,15 +2,15 @@ from django.db import models
 from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.core.urlresolvers import reverse
-from audit_trail.audit import AuditTrail
+from edc.audit.audit_trail import AuditTrail
 from bhp_code_lists.models import WcsDxAdult
 from bhp_identifier.classes import InfantIdentifier
 from bhp_base_model.fields import OtherCharField
-from bhp_common.choices import YES_NO, YES_NO_NA_SPECIFY, YES_NO_UNKNOWN
+from edc.choices.common import YES_NO, YES_NO_NA_SPECIFY, YES_NO_UNKNOWN
 from bhp_adverse.choices import GRADING_SCALE
 from bhp_crypto.utils import mask_encrypted
 from mpepu_list.models import HealthCond, DelComp, ObComp, Suppliment
-from mpepu.choices import LABOUR_HOURS, LABOUR_MODE_OF_DELIVERY, DELIVERY_HOSPITAL, DX
+from apps.mpepu.choices import LABOUR_HOURS, LABOUR_MODE_OF_DELIVERY, DELIVERY_HOSPITAL, DX
 from base_scheduled_visit_model import BaseScheduledVisitModel
 from maternal_base_uuid_model import MaternalBaseUuidModel
 from mpepu_maternal.managers import MaternalLabDelDxTManager

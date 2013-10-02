@@ -1,9 +1,9 @@
 from django.db import models
 from django.core.urlresolvers import reverse
-from audit_trail.audit import AuditTrail
-from bhp_common.choices import YES_NO, YES_NO_UNKNOWN
+from edc.audit.audit_trail import AuditTrail
+from edc.choices.common import YES_NO, YES_NO_UNKNOWN
 from bhp_haart.models import BaseHaartHistory
-from mpepu.choices import ARV_INTERRUPTION_REASON
+from apps.mpepu.choices import ARV_INTERRUPTION_REASON
 from mpepu_maternal.models import BaseScheduledVisitModel
 from mpepu_maternal.managers import MaternalArvManager
 from maternal_off_study_mixin import MaternalOffStudyMixin

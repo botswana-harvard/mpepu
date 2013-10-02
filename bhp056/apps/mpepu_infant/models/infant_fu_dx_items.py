@@ -1,11 +1,13 @@
 from django.db import models
 from django.core.urlresolvers import reverse
-from audit_trail.audit import AuditTrail
-from bhp_common.choices import YES_NO
+
+from edc.audit.audit_trail import AuditTrail
+from edc.choices.common import YES_NO
 from bhp_diagnosis.models import BaseBaseDiagnosisItem
-from mpepu_infant.choices import DX_INFANT
-from infant_fu_dx import InfantFuDx
-from infant_off_study_mixin import InfantOffStudyMixin
+
+from ..choices import DX_INFANT
+from .infant_fu_dx import InfantFuDx
+from .infant_off_study_mixin import InfantOffStudyMixin
 
 
 class InfantFuDxItems(InfantOffStudyMixin, BaseBaseDiagnosisItem):

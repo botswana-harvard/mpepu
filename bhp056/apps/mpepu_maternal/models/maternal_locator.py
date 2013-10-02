@@ -1,7 +1,7 @@
 from django.db import models
-from audit_trail.audit import AuditTrail
+from edc.audit.audit_trail import AuditTrail
 from bhp_locator.models import BaseLocator
-from bhp_common.choices import YES_NO
+from edc.choices.common import YES_NO
 from bhp_base_model.fields import OtherCharField
 from bhp_base_model.validators import BWCellNumber, BWTelephoneNumber
 from mpepu_maternal.models import MaternalVisit

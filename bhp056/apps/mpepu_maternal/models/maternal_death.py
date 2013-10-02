@@ -1,4 +1,4 @@
-from audit_trail.audit import AuditTrail
+from edc.audit.audit_trail import AuditTrail
 from datetime import datetime, time
 from django.core.urlresolvers import reverse
 from bhp_adverse.models import BaseDeathReport

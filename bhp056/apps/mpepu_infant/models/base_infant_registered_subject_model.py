@@ -1,7 +1,9 @@
 from django.db import models
-from bhp_registration.models import BaseRegisteredSubjectModel
-from infant_off_study_mixin import InfantOffStudyMixin
-from infant_visit import InfantVisit
+
+from edc.subject.regisrtation.models import BaseRegisteredSubjectModel
+
+from .infant_off_study_mixin import InfantOffStudyMixin
+from .infant_visit import InfantVisit
 
 
 class BaseInfantRegisteredSubjectModel(InfantOffStudyMixin, BaseRegisteredSubjectModel):

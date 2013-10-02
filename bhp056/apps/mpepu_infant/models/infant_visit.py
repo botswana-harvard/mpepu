@@ -1,12 +1,15 @@
 from django.db import models
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ValidationError
-from audit_trail.audit import AuditTrail
-from bhp_visit_tracking.models import BaseVisitTracking
-from mpepu.choices import INFO_PROVIDER
-from mpepu_infant.choices import INFANT_VISIT_STUDY_STATUS, ALIVE_DEAD_UNKNOWN, VISIT_REASON
-from infant_off_study_mixin import InfantOffStudyMixin
-from bhp_visit_tracking.settings import VISIT_REASON_NO_FOLLOW_UP_CHOICES
+
+from edc.audit.audit_trail import AuditTrail
+from edc.subject.visit_tracking.models.base_visit_tracking import BaseVisitTracking
+from edc.subject.visit_tracking.settings import VISIT_REASON_NO_FOLLOW_UP_CHOICES
+
+from apps.mpepu.choices import INFO_PROVIDER
+from apps.mpepu_infant.choices import INFANT_VISIT_STUDY_STATUS, ALIVE_DEAD_UNKNOWN, VISIT_REASON
+
+from .infant_off_study_mixin import InfantOffStudyMixin
 
 
 class InfantVisit(InfantOffStudyMixin, BaseVisitTracking):

@@ -1,9 +1,9 @@
 from django.db import models
 from django.core.urlresolvers import reverse
-from audit_trail.audit import AuditTrail
-from bhp_common.choices import YES_NO
+from edc.audit.audit_trail import AuditTrail
+from edc.choices.common import YES_NO
 from mpepu_maternal.choices import YES_NO_FF
-from mpepu.choices import NEXT_FEEDING_CHOICE, FEEDING_DURATION, CORRECT_BF_DURATION
+from apps.mpepu.choices import NEXT_FEEDING_CHOICE, FEEDING_DURATION, CORRECT_BF_DURATION
 from base_scheduled_visit_model import BaseScheduledVisitModel
 
 

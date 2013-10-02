@@ -1,8 +1,9 @@
 from django.db import models
 from django.core.urlresolvers import reverse
-from audit_trail.audit import AuditTrail
-from mpepu_infant.choices import REASON_MISSED_CTX_PLACEBO
-from mpepu_infant.models import BaseScheduledVisitModel
+
+from edc.audit.audit_trail import AuditTrail
+from ..choices import REASON_MISSED_CTX_PLACEBO
+from .base_scheduled_visit_model import BaseScheduledVisitModel
 
 
 class InfantCtxPlaceboAdh(BaseScheduledVisitModel):

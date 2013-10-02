@@ -1,8 +1,8 @@
 from django.db import models
-from audit_trail.audit import AuditTrail
+from edc.audit.audit_trail import AuditTrail
 from bhp_base_model.fields import InitialsField
 from bhp_sync.models import BaseSyncUuidModel
-from bhp_common.choices import YES_NO
+from edc.choices.common import YES_NO
 from bhp_crypto.fields import RestrictedRsaEncryptionField
 from mpepu_infant_rando.managers import InfantRandoManager
 from mpepu_infant_rando.choices import FEEDING_CHOICES, BF_DURATION

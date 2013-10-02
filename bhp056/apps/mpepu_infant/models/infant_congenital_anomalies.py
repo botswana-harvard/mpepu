@@ -1,10 +1,12 @@
 from django.db import models
 from django.core.urlresolvers import reverse
-from bhp_base_model.fields import OtherCharField
-from bhp_common.choices import CONFIRMED_SUSPECTED
-from mpepu.choices import CNS_ABNORMALITIES, FACIAL_DEFECT, CLEFT_DISORDER, MOUTH_UP_GASTROINT_DISORDER, CARDIOVASCULAR_DISORDER, RESPIRATORY_DEFECT, LOWER_GASTROINTESTINAL_ABNORMALITY, FEM_GENITAL_ANOMALY, MALE_GENITAL_ANOMALY, RENAL_ANOMALY, MUSCULOSKELETAL_ABNORMALITY, SKIN_ABNORMALITY, TRISOME_CHROSOMESOME_ABNORMALITY, OTHER_DEFECT
-from infant_base_uuid_model import InfantBaseUuidModel
-from base_infant_registered_subject_model import BaseInfantRegisteredSubjectModel
+
+from edc.base.model.fields.custom.custom_fields import OtherCharField
+from edc.choices.common import CONFIRMED_SUSPECTED
+
+from apps.mpepu.choices import CNS_ABNORMALITIES, FACIAL_DEFECT, CLEFT_DISORDER, MOUTH_UP_GASTROINT_DISORDER, CARDIOVASCULAR_DISORDER, RESPIRATORY_DEFECT, LOWER_GASTROINTESTINAL_ABNORMALITY, FEM_GENITAL_ANOMALY, MALE_GENITAL_ANOMALY, RENAL_ANOMALY, MUSCULOSKELETAL_ABNORMALITY, SKIN_ABNORMALITY, TRISOME_CHROSOMESOME_ABNORMALITY, OTHER_DEFECT
+from .infant_base_uuid_model import InfantBaseUuidModel
+from .base_infant_registered_subject_model import BaseInfantRegisteredSubjectModel
 
 
 class InfantCongenitalAnomalies(BaseInfantRegisteredSubjectModel):

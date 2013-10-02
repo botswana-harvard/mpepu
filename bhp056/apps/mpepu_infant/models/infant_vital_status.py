@@ -1,7 +1,7 @@
 from datetime import datetime, time
 from django.db import models
 from django.core.urlresolvers import reverse
-from audit_trail.audit import AuditTrail
+from edc.audit.audit_trail import AuditTrail
 from bhp_base_model.validators import datetime_not_before_study_start, datetime_not_future
 from mpepu_infant.models import InfantVisit
 from base_infant_registered_subject_model import BaseInfantRegisteredSubjectModel

@@ -1,8 +1,8 @@
 from django.db import models
 from django.core.urlresolvers import reverse
-from audit_trail.audit import AuditTrail
+from edc.audit.audit_trail import AuditTrail
 from bhp_base_model.fields import OtherCharField
-from bhp_common.choices import YES_NO, SEVERITY_LEVEL
+from edc.choices.common import YES_NO, SEVERITY_LEVEL
 from bhp_base_model.validators import datetime_not_before_study_start, datetime_not_future
 from mpepu_list.models import AutopsyInfoSource
 from mpepu_infant.choices import AUTOPSY_SIGNS

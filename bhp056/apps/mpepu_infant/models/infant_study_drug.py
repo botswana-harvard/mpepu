@@ -1,9 +1,9 @@
 from django.db import models
 from django.core.urlresolvers import reverse
-from bhp_common.choices import YES_NO
-from audit_trail.audit import AuditTrail
+from edc.choices.common import YES_NO
+from edc.audit.audit_trail import AuditTrail
 from mpepu_infant.choices import CTX_PLACEBO_STATUS
-from mpepu_infant.models import BaseScheduledVisitModel
+from .base_scheduled_visit_model import BaseScheduledVisitModel
 
 
 class InfantStudyDrug(BaseScheduledVisitModel):

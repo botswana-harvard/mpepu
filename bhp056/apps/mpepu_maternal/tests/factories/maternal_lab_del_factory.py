@@ -3,7 +3,7 @@ from datetime import datetime
 from bhp_base_model.tests.factories import BaseUuidModelFactory
 from mpepu_maternal.models import MaternalLabDel
 from mpepu_maternal.tests.factories import MaternalVisitFactory
-from mpepu.choices import LABOUR_MODE_OF_DELIVERY, LABOUR_HOURS, DELIVERY_HOSPITAL
+from apps.mpepu.choices import LABOUR_MODE_OF_DELIVERY, LABOUR_HOURS, DELIVERY_HOSPITAL
 
 
 class MaternalLabDelFactory(BaseUuidModelFactory):

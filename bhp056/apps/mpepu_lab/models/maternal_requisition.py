@@ -1,5 +1,5 @@
 from django.db import models
-from audit_trail.audit import AuditTrail
+from edc.audit.audit_trail import AuditTrail
 from mpepu_maternal.models import MaternalVisit
 from lab_requisition.models import BaseClinicRequisition
 

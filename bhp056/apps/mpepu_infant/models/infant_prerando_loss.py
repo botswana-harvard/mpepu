@@ -1,8 +1,8 @@
 from django.db import models
 from django.core.urlresolvers import reverse
 from bhp_base_model.fields import OtherCharField
-from audit_trail.audit import AuditTrail
-from mpepu.choices import INFANT_PRE_RANDO_LOSS_REASON
+from edc.audit.audit_trail import AuditTrail
+from apps.mpepu.choices import INFANT_PRE_RANDO_LOSS_REASON
 from base_infant_registered_subject_model import BaseInfantRegisteredSubjectModel
 
 

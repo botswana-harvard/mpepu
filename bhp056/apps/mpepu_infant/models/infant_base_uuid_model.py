@@ -1,5 +1,6 @@
-from bhp_consent.models import BaseConsentedUuidModel
-from infant_off_study_mixin import InfantOffStudyMixin
+from edc.subject.consent.models.base_consented_uuid_model import BaseConsentedUuidModel
+
+from .infant_off_study_mixin import InfantOffStudyMixin
 
 
 class InfantBaseUuidModel(InfantOffStudyMixin, BaseConsentedUuidModel):

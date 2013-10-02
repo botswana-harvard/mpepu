@@ -1,6 +1,6 @@
 from django.db import models
 from django.core.urlresolvers import reverse
-from audit_trail.audit import AuditTrail
+from edc.audit.audit_trail import AuditTrail
 from mpepu_maternal.models import BaseScheduledVisitModel
 from maternal_enroll import MaternalEnroll
 

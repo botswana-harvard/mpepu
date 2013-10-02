@@ -1,5 +1,5 @@
 from django.db import models
-from audit_trail.audit import AuditTrail
+from edc.audit.audit_trail import AuditTrail
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.core.urlresolvers import reverse
 from mpepu_maternal.models import BaseMaternalEligibility

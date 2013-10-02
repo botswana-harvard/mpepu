@@ -1,8 +1,8 @@
 from django.db import models
-from audit_trail.audit import AuditTrail
+from edc.audit.audit_trail import AuditTrail
 from django.core.urlresolvers import reverse
-from bhp_common.choices import POS_NEG, YES_NO
-from mpepu_infant.models import BaseScheduledVisitModel
+from edc.choices.common import POS_NEG, YES_NO
+from .base_scheduled_visit_model import BaseScheduledVisitModel
 
 
 class InfantHivStatus(BaseScheduledVisitModel):
