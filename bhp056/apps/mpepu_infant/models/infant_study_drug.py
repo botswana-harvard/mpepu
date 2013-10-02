@@ -1,8 +1,10 @@
 from django.db import models
 from django.core.urlresolvers import reverse
+
 from edc.choices.common import YES_NO
 from edc.audit.audit_trail import AuditTrail
-from mpepu_infant.choices import CTX_PLACEBO_STATUS
+
+from ..choices import CTX_PLACEBO_STATUS
 from .base_scheduled_visit_model import BaseScheduledVisitModel
 
 

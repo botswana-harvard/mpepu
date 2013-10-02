@@ -2,7 +2,7 @@ from django.db import models
 from edc.audit.audit_trail import AuditTrail
 from django.core.urlresolvers import reverse
 from edc.choices.common import YES_NO
-from bhp_haart.choices import ARV_STATUS_WITH_NEVER
+from edc.subject.haart.choices import ARV_STATUS_WITH_NEVER
 from bhp_haart.models import BaseHaartModification
 from apps.mpepu.choices import REASON_FOR_HAART
 from mpepu_maternal.models import BaseScheduledVisitModel

@@ -1,10 +1,12 @@
 from django.db import models
 from django.core.urlresolvers import reverse
+
 from edc.audit.audit_trail import AuditTrail
-from bhp_base_model.fields import OtherCharField
+from edc.base.model.fields.custom.custom_fields import OtherCharField
 from edc.choices.common import YES_NO
+
 from .base_scheduled_visit_model import BaseScheduledVisitModel
-from infant_fu import InfantFu
+from .infant_fu import InfantFu
 
 
 class InfantFuPhysical(BaseScheduledVisitModel):

@@ -1,6 +1,6 @@
 from django.db import models
 from edc.audit.audit_trail import AuditTrail
-from bhp_base_model.fields import InitialsField
+from edc.base.model.fields.custom.custom_fields import InitialsField
 from bhp_sync.models import BaseSyncUuidModel
 from edc.choices.common import YES_NO
 from bhp_crypto.fields import RestrictedRsaEncryptionField

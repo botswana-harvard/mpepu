@@ -1,6 +1,6 @@
 from bhp_entry_rules.classes import RuleGroup, ScheduledDataRule, Logic, rule_groups, AdditionalDataRule
 from bhp_registration.models import RegisteredSubject
-from bhp_appointment.models import Appointment
+from edc.subject.appointment.models import Appointment
 from mpepu_infant.models import (InfantVisit, InfantEligibility, InfantOffStudy, InfantArvProph, InfantFu, InfantStudyDrug, InfantHivStatus)
 
 

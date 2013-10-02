@@ -4,9 +4,10 @@ from django.core.urlresolvers import reverse
 from edc.audit.audit_trail import AuditTrail
 from edc.choices.common import YES_NO
 
+from apps.mpepu_list.models import InfantVaccines
+
 from .base_scheduled_visit_model import BaseScheduledVisitModel
-from mpepu_list.models import InfantVaccines
-from infant_fu import InfantFu
+from .infant_fu import InfantFu
 
 
 class InfantFuMed(BaseScheduledVisitModel):

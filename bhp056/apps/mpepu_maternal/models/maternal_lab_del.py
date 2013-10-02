@@ -5,7 +5,7 @@ from django.core.urlresolvers import reverse
 from edc.audit.audit_trail import AuditTrail
 from bhp_code_lists.models import WcsDxAdult
 from bhp_identifier.classes import InfantIdentifier
-from bhp_base_model.fields import OtherCharField
+from edc.base.model.fields.custom.custom_fields import OtherCharField
 from edc.choices.common import YES_NO, YES_NO_NA_SPECIFY, YES_NO_UNKNOWN
 from bhp_adverse.choices import GRADING_SCALE
 from bhp_crypto.utils import mask_encrypted

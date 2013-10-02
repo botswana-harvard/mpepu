@@ -1,9 +1,12 @@
 from django.db import models
 from django.core.urlresolvers import reverse
+
 from edc.audit.audit_trail import AuditTrail
-from bhp_base_model.fields import OtherCharField
+from edc.base.model.fields.custom.custom_fields import OtherCharField
+
 from apps.mpepu.choices import ALIVE_DECEASED, INFO_PROVIDER
-from base_infant_registered_subject_model import BaseInfantRegisteredSubjectModel
+
+from .base_infant_registered_subject_model import BaseInfantRegisteredSubjectModel
 
 
 class InfantSurvival(BaseInfantRegisteredSubjectModel):

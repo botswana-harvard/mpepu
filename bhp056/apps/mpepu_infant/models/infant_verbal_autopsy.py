@@ -1,13 +1,16 @@
 from django.db import models
 from django.core.urlresolvers import reverse
+
 from edc.audit.audit_trail import AuditTrail
-from bhp_base_model.fields import OtherCharField
+from edc.base.model.fields.custom.custom_fields import OtherCharField
 from edc.choices.common import YES_NO, SEVERITY_LEVEL
-from bhp_base_model.validators import datetime_not_before_study_start, datetime_not_future
-from mpepu_list.models import AutopsyInfoSource
-from mpepu_infant.choices import AUTOPSY_SIGNS
-from infant_base_uuid_model import InfantBaseUuidModel
-from base_infant_registered_subject_model import BaseInfantRegisteredSubjectModel
+from edc.base.model.validators import datetime_not_before_study_start, datetime_not_future
+
+from apps.mpepu_list.models import AutopsyInfoSource
+
+from ..choices import AUTOPSY_SIGNS
+from .infant_base_uuid_model import InfantBaseUuidModel
+from .base_infant_registered_subject_model import BaseInfantRegisteredSubjectModel
 
 
 class InfantVerbalAutopsy(BaseInfantRegisteredSubjectModel):

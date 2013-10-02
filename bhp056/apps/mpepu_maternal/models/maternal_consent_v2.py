@@ -1,7 +1,7 @@
 #from django.db import models
 #from django.core.urlresolvers import reverse
 #from edc.audit.audit_trail import AuditTrail
-#from bhp_base_model.validators import eligible_if_no
+#from edc.base.model.validators import eligible_if_no
 #from edc.choices.common import YES_NO
 #from base_maternal_consent import BaseMaternalConsent
 #

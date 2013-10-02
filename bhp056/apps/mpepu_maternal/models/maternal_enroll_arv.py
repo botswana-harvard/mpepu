@@ -2,7 +2,7 @@ from django.db import models
 from django.core.urlresolvers import reverse
 from edc.audit.audit_trail import AuditTrail
 from edc.choices.common import YES_NO
-from bhp_base_model.fields import OtherCharField, IsDateEstimatedField
+from edc.base.model.fields.custom.custom_fields import OtherCharField, IsDateEstimatedField
 from mpepu_list.models.maternal_enroll import PriorArv
 from apps.mpepu.choices import PRIOR_PREG_HAART_STATUS
 from mpepu_maternal.models import BaseScheduledVisitModel

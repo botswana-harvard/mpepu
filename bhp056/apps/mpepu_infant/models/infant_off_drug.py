@@ -1,11 +1,13 @@
 from datetime import datetime, time
 from django.db import models
 from django.core.urlresolvers import reverse
+
 from edc.audit.audit_trail import AuditTrail
-from bhp_base_model.fields import OtherCharField
-from bhp_base_model.validators import date_not_future
-from mpepu_infant.choices import INFANT_OFF_DRUG_REASON
-from base_infant_registered_subject_model import BaseInfantRegisteredSubjectModel
+from edc.base.model.fields.custom.custom_fields import OtherCharField
+
+from edc.base.model.validators import date_not_future
+from ..choices import INFANT_OFF_DRUG_REASON
+from .base_infant_registered_subject_model import BaseInfantRegisteredSubjectModel
 
 
 class InfantOffDrug(BaseInfantRegisteredSubjectModel):

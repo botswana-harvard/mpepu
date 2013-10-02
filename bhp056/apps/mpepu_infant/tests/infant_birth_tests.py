@@ -13,7 +13,7 @@ from bhp_registration.models import RegisteredSubject
 from bhp_consent.tests.factories import ConsentCatalogueFactory
 from bhp_entry.tests.factories import EntryFactory
 from bhp_entry.models import ScheduledEntryBucket
-from bhp_appointment.models import Appointment
+from edc.subject.appointment.models import Appointment
 from bhp_appointment.tests.factories import ConfigurationFactory
 from bhp_visit.tests.factories import MembershipFormFactory, ScheduleGroupFactory, VisitDefinitionFactory
 from bhp_content_type_map.classes import ContentTypeMapHelper
@@ -24,7 +24,7 @@ from bhp_identifier.models import SubjectIdentifier, Sequence
 from bhp_off_study.exceptions import SubjectOffStudyError, SubjectOffStudyDateError
 from mpepu_infant.models import InfantBirth, InfantPreEligibility, InfantFu, InfantFeeding
 from factories import InfantVisitFactory, InfantBirthFactory, InfantBirthDataFactory, InfantEligibilityFactory, InfantPreEligibilityFactory, InfantOffStudyFactory, InfantArvProphFactory, InfantArvProphModFactory
-from bhp_consent.classes import ConsentHelper
+from edc.subject.consent.classes import ConsentHelper
 from mpepu_infant_rando.classes import Eligibility
 
 

@@ -1,9 +1,12 @@
 from django.db import models
 from django.core.urlresolvers import reverse
+
 from edc.audit.audit_trail import AuditTrail
 from edc.choices.common import YES_NO
-from bhp_base_model.validators import date_not_future
+from edc.base.model.validators import date_not_future
+
 from apps.mpepu.choices import INFANT_DRUG_INITIATION
+
 from .base_scheduled_visit_model import BaseScheduledVisitModel
 
 

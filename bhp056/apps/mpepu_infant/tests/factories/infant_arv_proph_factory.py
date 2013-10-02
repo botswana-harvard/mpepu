@@ -2,7 +2,7 @@ import factory
 from bhp_base_model.tests.factories import BaseUuidModelFactory
 from mpepu_infant.tests.factories import InfantVisitFactory
 from mpepu_infant.models import InfantArvProph
-from bhp_haart.choices import ARV_STATUS_WITH_NEVER
+from edc.subject.haart.choices import ARV_STATUS_WITH_NEVER
 
 
 class InfantArvProphFactory(BaseUuidModelFactory):

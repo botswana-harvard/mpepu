@@ -2,7 +2,7 @@ from django.db import models
 from django.core.urlresolvers import reverse
 from edc.audit.audit_trail import AuditTrail
 from edc.choices.common import YES_NO
-from bhp_base_model.fields import OtherCharField
+from edc.base.model.fields.custom.custom_fields import OtherCharField
 from mpepu_list.models.maternal_enroll import ChronicCond
 from mpepu_maternal.models import BaseScheduledVisitModel
 from maternal_enroll import MaternalEnroll

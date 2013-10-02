@@ -1,9 +1,12 @@
 from django.db import models
 from django.core.urlresolvers import reverse
+
 from edc.audit.audit_trail import AuditTrail
+
 from apps.mpepu.choices import MP010_MEDICATIONS, DRUG_ROUTE
-from infant_fu_new_med import InfantFuNewMed
-from infant_base_uuid_model import InfantBaseUuidModel
+
+from .infant_fu_new_med import InfantFuNewMed
+from .infant_base_uuid_model import InfantBaseUuidModel
 
 
 class InfantFuNewMedItems(InfantBaseUuidModel):
