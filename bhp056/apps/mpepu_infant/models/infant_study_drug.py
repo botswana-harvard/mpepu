@@ -1,7 +1,7 @@
 from django.db import models
 from django.core.urlresolvers import reverse
 
-from edc.choices.common import YES_NO
+from edc.choices import YES_NO
 from edc.audit.audit_trail import AuditTrail
 
 from ..choices import CTX_PLACEBO_STATUS

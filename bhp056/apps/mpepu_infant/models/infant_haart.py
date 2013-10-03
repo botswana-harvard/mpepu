@@ -2,7 +2,7 @@ from django.db import models
 from django.core.urlresolvers import reverse
 
 from edc.audit.audit_trail import AuditTrail
-from edc.choices.common import YES_NO
+from edc.choices import YES_NO
 
 from edc.subject.haart.models import BaseHaartModification
 from edc.subject.haart.choices import ARV_STATUS

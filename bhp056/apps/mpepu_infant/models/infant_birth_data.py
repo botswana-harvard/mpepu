@@ -1,5 +1,3 @@
-from datetime import timedelta
-
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.core.urlresolvers import reverse
@@ -11,7 +9,6 @@ from edc.subject.entry.models import AdditionalEntryBucket
 
 from .base_scheduled_visit_model import BaseScheduledVisitModel
 from .infant_birth import InfantBirth
-from .infant_visit import InfantVisit
 
 
 class InfantBirthData(BaseScheduledVisitModel):

@@ -1,5 +1,3 @@
-from datetime import timedelta
-
 from django.db import models
 from django.core.exceptions import ImproperlyConfigured
 from django.core.validators import MinValueValidator, MaxValueValidator
@@ -9,7 +7,6 @@ from edc.base.model.fields.custom.custom_fields import InitialsField
 from edc.choices.common import GENDER_UNDETERMINED
 from edc.subject.consent.classes import ConsentHelper
 from edc.base.model.validators import date_not_future
-from edc.subject.appointment_helper.classes import AppointmentDateHelper
 from edc.core.crypto_fields.fields import EncryptedFirstnameField
 
 from apps.mpepu_maternal.models.maternal_lab_del import MaternalLabDel

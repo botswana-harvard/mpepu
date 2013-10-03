@@ -1,9 +1,8 @@
-from datetime import date
 from django.db.models import get_model
 from django import forms
 from edc.subject.consent.classes import ConsentHelper
-from mpepu_infant_rando.classes import Eligibility
-from base_infant_model_form import BaseInfantModelForm
+from ...mpepu_infant_rando.classes import Eligibility
+from .base_infant_model_form import BaseInfantModelForm
 
 
 class BaseInfantEligibilityForm (BaseInfantModelForm):

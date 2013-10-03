@@ -1,11 +1,11 @@
 from django.db import models
 from edc.audit.audit_trail import AuditTrail
 from edc.base.model.fields.custom.custom_fields import InitialsField
-from bhp_sync.models import BaseSyncUuidModel
+from edc.device.sync.models import BaseSyncUuidModel
 from edc.choices.common import YES_NO
 from edc.core.crypto_fields.fields import RestrictedRsaEncryptionField
-from mpepu_infant_rando.managers import InfantRandoManager
-from mpepu_infant_rando.choices import FEEDING_CHOICES, BF_DURATION
+from ..managers import InfantRandoManager
+from ..choices import FEEDING_CHOICES, BF_DURATION
 
 
 class InfantRando (BaseSyncUuidModel):

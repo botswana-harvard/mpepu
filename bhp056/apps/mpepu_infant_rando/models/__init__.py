@@ -1,2 +1,1 @@
-
-from infant_rando import *     
+from infant_rando import InfantRando

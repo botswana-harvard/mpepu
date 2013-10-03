@@ -1,6 +1,6 @@
 from django.db import models
 
-from edc.subject.regisrtation.models import BaseRegisteredSubjectModel
+from edc.subject.registration.models import BaseRegisteredSubjectModel
 
 from .infant_off_study_mixin import InfantOffStudyMixin
 from .infant_visit import InfantVisit

@@ -3,7 +3,7 @@ from django.core.urlresolvers import reverse
 
 from edc.audit.audit_trail import AuditTrail
 from edc.base.model.fields.custom.custom_fields import OtherCharField
-from edc.choices.common import YES_NO, SEVERITY_LEVEL
+from edc.choices import YES_NO, SEVERITY_LEVEL
 from edc.base.model.validators import datetime_not_before_study_start, datetime_not_future
 
 from apps.mpepu_list.models import AutopsyInfoSource

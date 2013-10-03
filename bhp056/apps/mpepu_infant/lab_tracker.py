@@ -1,8 +1,8 @@
-from edc.subject.lab_tracker.classes import lab_tracker
+from edc.subject.lab_tracker.classes import site_lab_tracker
 from edc.subject.lab_tracker.classes import HivLabTracker
 from models import InfantHivStatus
 
 
 class InfantHivLabTracker(HivLabTracker):
     models = [(InfantHivStatus, 'recent_hiv_result', 'recent_hiv_date')]
-lab_tracker.register(InfantHivLabTracker)
+site_lab_tracker.register(InfantHivLabTracker)

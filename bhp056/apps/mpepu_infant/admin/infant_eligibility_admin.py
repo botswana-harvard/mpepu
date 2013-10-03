@@ -1,11 +1,11 @@
 from django import forms
 from django.contrib import admin
 from edc.subject.registration.models import RegisteredSubject
-from mpepu_infant_rando.models import InfantRando
-from mpepu_infant.classes import RegisteredSubjectModelAdmin
-from mpepu_infant.models import InfantEligibility, InfantBirth
-from mpepu_infant.forms import InfantEligibilityForm
-from mpepu_infant.filters import FeedingChoiceListFilter, FeedingDurationListFilter
+from ...mpepu_infant_rando.models import InfantRando
+from ..classes import RegisteredSubjectModelAdmin
+from ..models import InfantEligibility, InfantBirth
+from ..forms import InfantEligibilityForm
+from ..filters import FeedingChoiceListFilter, FeedingDurationListFilter
 
 
 class InfantEligibilityAdmin(RegisteredSubjectModelAdmin):

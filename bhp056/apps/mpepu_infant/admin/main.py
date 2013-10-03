@@ -1,9 +1,18 @@
 from django.contrib import admin
 from edc.base.admin.admin import BaseModelAdmin, BaseTabularInline
-from mpepu_infant.classes import InfantVisitModelAdmin, RegisteredSubjectModelAdmin, MyInfantFuModelAdmin, MyInfantArvProphModelAdmin
-from mpepu_infant.classes import OffStudyModelAdmin
-from mpepu_infant.models import *
-from mpepu_infant.forms import *
+from ..classes import InfantVisitModelAdmin, RegisteredSubjectModelAdmin, MyInfantFuModelAdmin, MyInfantArvProphModelAdmin
+from ..classes import OffStudyModelAdmin
+from ..models import (InfantHaart, InfantOffDrug, InfantOffStudy, InfantPrerandoLoss, InfantSurvival, InfantNvpAdherence,
+                      InfantArvProphMod, InfantArvProph, InfantStudyDrugInit, InfantDeath, InfantFu, InfantFuPhysical,
+                      InfantFuDxItems, InfantFuDx, InfantFuDx2ProphItems, InfantFuDx2Proph, InfantFuD, InfantFuMed,
+                      InfantFuNewMedItems, InfantFuNewMed, InfantStudyDrugItems, InfantStudyDrug, InfantCtxPlaceboAdh,
+                      InfantFeeding)
+from ..forms import (InfantHaartForm, InfantOffDrugForm, InfantOffStudyForm, InfantPrerandoLossForm, InfantSurvivalForm,
+                     InfantNvpAdherenceForm, InfantArvProphModForm, InfantArvProphForm, InfantStudyDrugInitForm,
+                     InfantDeathForm, InfantFuForm, InfantFuPhysicalForm, InfantFuDxItemsForm, InfantFuDxForm,
+                     InfantFuDx2ProphItemsForm, InfantFuDx2ProphForm, InfantFuDForm, InfantFuMedForm, InfantFuNewMedItemsForm,
+                     InfantFuNewMedForm, InfantStudyDrugItemsForm, InfantStudyDrugForm, InfantCtxPlaceboAdhForm,
+                     InfantFeedingForm)
 
 
 class InfantHaartAdmin(RegisteredSubjectModelAdmin):
@@ -24,10 +33,6 @@ class InfantHaartAdmin(RegisteredSubjectModelAdmin):
         "arv_status": admin.VERTICAL
     }
 
-    filter_horizontal = (
-
-    )
-
 admin.site.register(InfantHaart, InfantHaartAdmin)
 
 
@@ -46,32 +51,12 @@ class InfantOffDrugAdmin(RegisteredSubjectModelAdmin):
         "reason_off": admin.VERTICAL
     }
 
-    filter_horizontal = (
-
-    )
-
 admin.site.register(InfantOffDrug, InfantOffDrugAdmin)
 
 
 class InfantOffStudyAdmin(OffStudyModelAdmin):
 
     form = InfantOffStudyForm
-
-    #fields = (
-    #    "registered_subject",
-    #    "offstudy_date",
-    #    "reason",
-    #    "reason_other",
-    #    "comment"
-    #)
-
-    #radio_fields = {
-    #    "reason": admin.VERTICAL
-    #}
-
-    filter_horizontal = (
-
-    )
 
 admin.site.register(InfantOffStudy, InfantOffStudyAdmin)
 
@@ -116,11 +101,6 @@ class InfantSurvivalAdmin(RegisteredSubjectModelAdmin):
         "infant_survival_status": admin.VERTICAL,
         "info_provider": admin.VERTICAL
     }
-
-    filter_horizontal = (
-
-    )
-
 admin.site.register(InfantSurvival, InfantSurvivalAdmin)
 
 
@@ -139,12 +119,6 @@ class InfantNvpAdherenceAdmin(MyInfantArvProphModelAdmin):
     radio_fields = {
         "reason_missed": admin.VERTICAL
     }
-
-    filter_horizontal = (
-
-    )
-
-    """Visit"""
 
 admin.site.register(InfantNvpAdherence, InfantNvpAdherenceAdmin)
 
@@ -168,14 +142,7 @@ class InfantArvProphAdmin(InfantVisitModelAdmin):
         "arv_status": admin.VERTICAL,
         "prophylatic_nvp": admin.VERTICAL,
     }
-
-    filter_horizontal = (
-
-    )
     inlines = [InfantArvProphModInlineAdmin, ]
-
-    """Visit"""
-
 admin.site.register(InfantArvProph, InfantArvProphAdmin)
 
 
@@ -189,20 +156,6 @@ class InfantArvProphModAdmin(BaseModelAdmin):
         "modification_date",
         "modification_code",
     )
-
-    '''radio_fields = {
-        "arv_code": admin.VERTICAL,
-        "dose_status": admin.VERTICAL,
-        "modification_code": admin.VERTICAL,
-        "modification_date": admin.VERTICAL,
-    }'''
-
-    filter_horizontal = (
-
-    )
-
-    """Visit, infantarvproph"""
-
 admin.site.register(InfantArvProphMod, InfantArvProphModAdmin)
 
 
@@ -223,13 +176,6 @@ class InfantStudyDrugInitAdmin(InfantVisitModelAdmin):
         "initiated": admin.VERTICAL,
         "reason_not_init": admin.VERTICAL
     }
-
-    filter_horizontal = (
-
-    )
-
-    """Visit"""
-
 admin.site.register(InfantStudyDrugInit, InfantStudyDrugInitAdmin)
 
 
@@ -263,9 +209,6 @@ class InfantDeathAdmin(RegisteredSubjectModelAdmin):
         "haart_relate",
         "trad_med_relate",
         "comment",
-
-
-
     )
 
     radio_fields = {
@@ -280,13 +223,6 @@ class InfantDeathAdmin(RegisteredSubjectModelAdmin):
         "haart_relate": admin.VERTICAL,
         "trad_med_relate": admin.VERTICAL
     }
-
-    filter_horizontal = (
-
-    )
-
-    """deathcauseinfo, deathcausecategory, dxcode, deathmedicalresponsibility, deathreasonhospitalized, registeredsubject"""
-
 admin.site.register(InfantDeath, InfantDeathAdmin)
 
 
@@ -306,13 +242,6 @@ class InfantFuAdmin(InfantVisitModelAdmin):
         "diarrhea_illness": admin.VERTICAL,
         "has_dx": admin.VERTICAL,
     }
-
-    filter_horizontal = (
-
-    )
-
-    """registeredsubject"""
-
 admin.site.register(InfantFu, InfantFuAdmin)
 
 
@@ -338,12 +267,6 @@ class InfantFuPhysicalAdmin(MyInfantFuModelAdmin):
 
     }
 
-    filter_horizontal = (
-
-    )
-
-    """registeredsubject"""
-
 admin.site.register(InfantFuPhysical, InfantFuPhysicalAdmin)
 
 
@@ -357,13 +280,7 @@ class InfantFuDxAdmin(MyInfantFuModelAdmin):
 
     form = InfantFuDxForm
 
-    fields = (
-    )
-
-    filter_horizontal = (
-    )
     inlines = [InfantFuDxItemsInlineAdmin, ]
-    """registeredsubject"""
 
 admin.site.register(InfantFuDx, InfantFuDxAdmin)
 
