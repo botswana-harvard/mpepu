@@ -1,6 +1,6 @@
 from django import forms
-from mpepu_infant.models import InfantHivStatus
-from base_infant_model_form import BaseInfantModelForm
+from apps.mpepu_infant.models import InfantHivStatus
+from .base_infant_model_form import BaseInfantModelForm
 
 
 class InfantHivStatusForm (BaseInfantModelForm):

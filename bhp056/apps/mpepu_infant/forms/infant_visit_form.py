@@ -1,9 +1,9 @@
 import re
 from django import forms
 from django.contrib.admin.widgets import AdminRadioSelect, AdminRadioFieldRenderer
-from mpepu_infant.choices import VISIT_INFO_SOURCE, VISIT_REASON
-from mpepu_infant.models import InfantVisit, InfantBirth
-from base_infant_model_form import BaseInfantModelForm
+from apps.mpepu_infant.choices import VISIT_INFO_SOURCE, VISIT_REASON
+from apps.mpepu_infant.models import InfantVisit, InfantBirth
+from .base_infant_model_form import BaseInfantModelForm
 
 
 class InfantVisitForm (BaseInfantModelForm):
@@ -29,10 +29,7 @@ class InfantVisitForm (BaseInfantModelForm):
 
     def clean(self):
 
-        cleaned_data = self.cleaned_data
-
-        self._meta.model(**cleaned_data).requires_infant_eligibility(forms.ValidationError)
-
+        cleaned_data = super(InfantVisitForm, self).clean()
         """validate data"""
         if cleaned_data.get('reason') == 'deferred':
             if cleaned_data.get('appointment').visit_definition.code != '2010':
@@ -63,9 +60,6 @@ class InfantVisitForm (BaseInfantModelForm):
                 if registered_subject.sid:
                     # is rando'ed, so no...
                     raise forms.ValidationError("Infant is randomized. Please choose the correct study status. You wrote %s" % study_status_display)
-
-        cleaned_data = super(InfantVisitForm, self).clean()
-
         return cleaned_data
 
     class Meta:
