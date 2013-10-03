@@ -260,7 +260,6 @@ INSTALLED_APPS = (
     'edc.core.bhp_context',
     'edc.core.bhp_using',
     'edc.core.bhp_export_data',
-    'edc.core.bhp_diagnosis',
 
     'edc.pharma.dispenser',
 
@@ -304,6 +303,8 @@ INSTALLED_APPS = (
     'edc.subject.subject_config',
     'edc.subject.local.bw',
     'edc.subject.adverse_event',
+    'edc.subject.diagnosis',
+
     'edc.lab.lab_clinic_api',
     'edc.lab.lab_clinic_reference',
     'edc.lab.lab_requisition',

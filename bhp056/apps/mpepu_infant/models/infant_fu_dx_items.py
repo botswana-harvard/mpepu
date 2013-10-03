@@ -3,7 +3,7 @@ from django.core.urlresolvers import reverse
 
 from edc.audit.audit_trail import AuditTrail
 from edc.choices.common import YES_NO
-from edc.core.bhp_diagnosis.models import BaseBaseDiagnosisItem
+from edc.subject.diagnosis.models import BaseBaseDiagnosisItem
 
 from ..choices import DX_INFANT
 from .infant_fu_dx import InfantFuDx
