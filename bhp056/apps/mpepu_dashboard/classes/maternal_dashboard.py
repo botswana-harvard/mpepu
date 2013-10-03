@@ -1,66 +1,72 @@
-from bhp_dashboard_registered_subject.classes import RegisteredSubjectDashboard
+from edc.dashboard.subject.classes import RegisteredSubjectDashboard
 from edc.subject.registration.models import RegisteredSubject
-from mpepu_infant.models import InfantBirth
-from ..models import MaternalConsent, MaternalVisit, MaternalLabDel  # MaternalLocator
-from mpepu_lab.models import MaternalRequisition
+from apps.mpepu_infant.models import InfantBirth
+from apps.mpepu_maternal.models import MaternalConsent, MaternalVisit, MaternalLabDel, MaternalLocator
+from apps.mpepu_lab.models import MaternalRequisition, PackingList
 
 
 class MaternalDashboard(RegisteredSubjectDashboard):
 
-    def __init__(self, **kwargs):
+    view = 'maternal_dashboard'
+    dashboard_name = 'Maternal Dashboard'
 
-        self.dashboard_type = 'maternal'
+    def __init__(self, *args, **kwargs):
+        kwargs.update({'dashboard_models': {'maternal_consent': MaternalConsent}})
+        super(MaternalDashboard, self).__init__(*args, **kwargs)
 
-        super(MaternalDashboard, self).__init__(**kwargs)
-
-        self.visit_model = MaternalVisit
-        self.visit_model_app_label = MaternalVisit._meta.app_label
-        self.visit_model_name = MaternalVisit._meta.module_name
-        self.requisition_model = MaternalRequisition
-        self.subject_type = 'maternal'
-
+    def add_to_context(self):
+        super(MaternalDashboard, self).add_to_context()
         self.context.add(
-            visit_model_name=self.visit_model_name,
-            requisition_model=MaternalRequisition,
-            visit_model=self.visit_model,
-            visit_model_app_label=self.visit_model_app_label,
-            subject_type=self.subject_type,
-            home=kwargs.get('home', 'mpepu'),
-            search_name=kwargs.get('search_name', 'maternal'),
+            home='mpepu',
+            search_name='maternal',
+            subject_dashboard_url='maternal_dashboard_url',
+            infant_dashboard_url=self.get_infant_dashboard_url(),
+            title='Maternal Dashboard',
+            subject_consent=self.get_consent(),
+            delivery_datetime=self.get_delivery_datetime(),
+            infants=self.get_infants(),
             )
 
-    def create(self, **kwargs):
+    def set_dashboard_type_list(self):
+        self._dashboard_type_list = ['subject']
 
-        self.dashboard_identifier = kwargs.get("registered_subject").subject_identifier
+    def set_consent(self):
+        """Sets to the subject consent, if it has been completed."""
+        self._consent = None
+        if MaternalConsent.objects.filter(subject_identifier=self.get_subject_identifier()):
+            self._consent = MaternalConsent.objects.get(subject_identifier=self.get_subject_identifier())
 
-        # call super to initialize default context 
-        super(MaternalDashboard, self).create(**kwargs)
+    def get_visit_model(self):
+        return MaternalVisit
 
-        maternal_consent = MaternalConsent.objects.get(subject_identifier=self.get_subject_identifier())
+    def get_requisition_model(self):
+        return MaternalRequisition
 
+    def get_locator_model(self):
+        return MaternalLocator
+
+    def get_locator_scheduled_visit_code(self):
+        """ Returns visit where the locator is scheduled, TODO: maybe search visit definition for this?."""
+        return '1000M'
+
+    def get_packing_list_model(self):
+        return PackingList
+
+    def get_infants(self):
         # list infant on the side bar. If InfantBirth information is available, use that
         infants = {}
-
         for infant_registered_subject in RegisteredSubject.objects.filter(subject_type='INFANT', relative_identifier__iexact=self.get_subject_identifier()):
             #look for infant birth record
             if InfantBirth.objects.filter(registered_subject__exact=infant_registered_subject):
                 infants[infant_registered_subject.subject_identifier] = InfantBirth.objects.get(registered_subject__exact=infant_registered_subject).__dict__
             else:
                 infants[infant_registered_subject.subject_identifier] = {'subject_identifier': infant_registered_subject.subject_identifier}
-        # any plots to show?
-        show_lab_plots = []
+        return infants
+
+    def get_delivery_datetime(self):
         # get delivery date if delivered
         if MaternalLabDel.objects.filter(maternal_visit__appointment__registered_subject__subject_identifier=self.get_subject_identifier()):
             delivery_datetime = MaternalLabDel.objects.get(maternal_visit__appointment__registered_subject__subject_identifier=self.get_subject_identifier()).delivery_datetime
         else:
             delivery_datetime = None
-        self.context.add(
-            # home = 'mpepu',
-            # search_name = 'maternalconsent',
-            maternal_consent=maternal_consent,
-            infants=infants,
-            local_results=self.render_labs(),
-            #locator=self.render_locator(MaternalLocator),
-            show_lab_plots=show_lab_plots,
-            delivery_datetime=delivery_datetime,
-            )
+        return delivery_datetime
