@@ -1,6 +1,6 @@
 import factory
 from datetime import datetime
-from bhp_base_model.tests.factories import BaseUuidModelFactory
+from edc.base.model.tests.factories import BaseUuidModelFactory
 from ..models import MaternalLabDel
 from ..tests.factories import MaternalVisitFactory
 from apps.mpepu.choices import LABOUR_MODE_OF_DELIVERY, LABOUR_HOURS, DELIVERY_HOSPITAL

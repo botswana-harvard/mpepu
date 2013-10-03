@@ -1,5 +1,5 @@
 import factory
-from bhp_base_model.tests.factories import BaseUuidModelFactory
+from edc.base.model.tests.factories import BaseUuidModelFactory
 from bhp_haart.tests.factories import BaseHaartModificationFactory
 from mpepu_infant.models import InfantArvProphMod
 from infant_arv_proph_factory import InfantArvProphFactory

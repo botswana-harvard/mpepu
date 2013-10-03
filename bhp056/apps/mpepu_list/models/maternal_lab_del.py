@@ -1,4 +1,4 @@
-from bhp_base_model.models import BaseListModel
+from edc.base.model.models import BaseListModel
 from edc.subject.code_lists.models import DxCode
 
 
