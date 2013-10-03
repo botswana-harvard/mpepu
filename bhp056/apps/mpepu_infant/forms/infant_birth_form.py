@@ -1,7 +1,7 @@
 from django import forms
+from apps.mpepu_infant.models import InfantBirth, InfantBirthExam, InfantBirthArv, InfantBirthFeed, InfantBirthData
 from ..models import MaternalLabDel
-from mpepu_infant.models import InfantBirth, InfantBirthExam, InfantBirthArv, InfantBirthFeed, InfantBirthData
-from base_infant_model_form import BaseInfantModelForm
+from .base_infant_model_form import BaseInfantModelForm
 
 
 class InfantBirthForm (BaseInfantModelForm):
