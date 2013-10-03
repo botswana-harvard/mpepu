@@ -1,8 +1,8 @@
 from django.contrib import admin
 from edc.subject.registration.models import RegisteredSubject
 from ..models import InfantRandoDeferral, InfantBirth
-from ..classes import RegisteredSubjectModelAdmin
 from ..forms import InfantRandoDeferralForm
+from .registered_subject_model_admin import RegisteredSubjectModelAdmin
 
 
 class InfantRandoDeferralAdmin(RegisteredSubjectModelAdmin):

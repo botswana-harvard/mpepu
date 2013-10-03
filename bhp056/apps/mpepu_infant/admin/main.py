@@ -1,7 +1,5 @@
 from django.contrib import admin
 from edc.base.admin.admin import BaseModelAdmin, BaseTabularInline
-from ..classes import InfantVisitModelAdmin, RegisteredSubjectModelAdmin, MyInfantFuModelAdmin, MyInfantArvProphModelAdmin
-from ..classes import OffStudyModelAdmin
 from ..models import (InfantHaart, InfantOffDrug, InfantOffStudy, InfantPrerandoLoss, InfantSurvival, InfantNvpAdherence,
                       InfantArvProphMod, InfantArvProph, InfantStudyDrugInit, InfantDeath, InfantFu, InfantFuPhysical,
                       InfantFuDxItems, InfantFuDx, InfantFuDx2ProphItems, InfantFuDx2Proph, InfantFuD, InfantFuMed,
@@ -13,6 +11,11 @@ from ..forms import (InfantHaartForm, InfantOffDrugForm, InfantOffStudyForm, Inf
                      InfantFuDx2ProphItemsForm, InfantFuDx2ProphForm, InfantFuDForm, InfantFuMedForm, InfantFuNewMedItemsForm,
                      InfantFuNewMedForm, InfantStudyDrugItemsForm, InfantStudyDrugForm, InfantCtxPlaceboAdhForm,
                      InfantFeedingForm)
+from .infant_visit_model_admin import InfantVisitModelAdmin
+from .registered_subject_model_admin import RegisteredSubjectModelAdmin
+from .my_infant_fu_model_admin import MyInfantFuModelAdmin
+from .my_infant_arv_proph_model_admin import MyInfantArvProphModelAdmin
+from .off_study_model_admin import OffStudyModelAdmin
 
 
 class InfantHaartAdmin(RegisteredSubjectModelAdmin):

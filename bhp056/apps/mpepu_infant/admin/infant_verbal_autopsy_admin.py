@@ -1,8 +1,8 @@
 from django.contrib import admin
 from edc.base.admin.admin import BaseTabularInline
-from ..classes import RegisteredSubjectModelAdmin
 from ..models import InfantVerbalAutopsyItems, InfantVerbalAutopsy
 from ..forms import InfantVerbalAutopsyForm
+from .registered_subject_model_admin import RegisteredSubjectModelAdmin
 
 
 class InfantVerbalAutopsyItemsInlineAdmin(BaseTabularInline):

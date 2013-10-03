@@ -1,11 +1,11 @@
 from django.contrib import admin
 from edc.base.admin.admin import BaseTabularInline
-from ..classes import RegisteredSubjectModelAdmin
 from ..models import (InfantCnsAbnormalityItems, InfantFacialDefectItems, InfantCleftDisorderItems, InfantMouthUpGastrointestinalItems,
                                  InfantCardiovascularDisorderItems, InfantRespiratoryDefectItems, InfantLowerGastrointestinalItems, InfantFemaleGenitalAnomalyItems,
                                  InfantMaleGenitalAnomalyItems, InfantRenalAnomalyItems, InfantMusculoskeletalAbnormalItems,
                                  InfantSkinAbnormalItems, InfantTrisomiesChromosomeItems, InfantOtherAbnormalityItems, InfantCongenitalAnomalies)
 from ..forms import InfantCongenitalAnomaliesForm
+from .registered_subject_model_admin import RegisteredSubjectModelAdmin
 
 
 class InfantCnsAbnormalityItemsInlineAdmin(BaseTabularInline):

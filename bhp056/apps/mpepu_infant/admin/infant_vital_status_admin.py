@@ -1,7 +1,7 @@
 from django.contrib import admin
-from ..classes import RegisteredSubjectModelAdmin
 from ..models import InfantVitalStatus
 from ..forms import InfantVitalStatusForm
+from .registered_subject_model_admin import RegisteredSubjectModelAdmin
 
 
 class InfantVitalStatusAdmin(RegisteredSubjectModelAdmin):
