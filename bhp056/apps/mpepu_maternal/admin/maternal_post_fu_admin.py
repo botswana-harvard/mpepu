@@ -19,13 +19,6 @@ class MyMaternalPostFuModelAdmin (MaternalVisitModelAdmin):
                                                                maternal_visit__appointment__visit_instance=request.GET.get('visit_instance', 0))
         return super(MyMaternalPostFuModelAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
-    # override to disallow subject to be changed
-#     def get_readonly_fields(self, request, obj=None):
-#         if obj:  # In edit mode
-#             return ('maternal_post_fu',) + self.readonly_fields
-#         else:
-#             return self.readonly_fields
-
 
 class MaternalPostFuAdmin(MaternalVisitModelAdmin):
 

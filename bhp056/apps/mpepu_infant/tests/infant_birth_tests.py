@@ -1,31 +1,23 @@
-import re
-import pprint
 from datetime import datetime, date, timedelta
 from django.test import TestCase
-from django.db.models import get_app, get_models
 from django.core.exceptions import ValidationError
-from edc.core.identifier.exceptions import IdentifierError
-from edc.subject.lab_tracker.classes import lab_tracker
-from bhp_entry_rules.classes import rule_groups
-from edc.core.bhp_variables.models import StudySpecific, StudySite
+from edc.subject.rule_groups.classes import rule_groups
 from edc.core.bhp_variables.tests.factories import StudySpecificFactory, StudySiteFactory
+from edc.subject.lab_tracker.classes import site_lab_tracker
 from edc.subject.registration.models import RegisteredSubject
 from edc.subject.consent.tests.factories import ConsentCatalogueFactory
-from bhp_entry.tests.factories import EntryFactory
-from bhp_entry.models import ScheduledEntryBucket
+from edc.subject.entry.tests.factories import EntryFactory
 from edc.subject.appointment.models import Appointment
 from edc.subject.appointment.tests.factories import ConfigurationFactory
 from edc.subject.visit_schedule.tests.factories import MembershipFormFactory, ScheduleGroupFactory, VisitDefinitionFactory
-from bhp_content_type_map.classes import ContentTypeMapHelper
-from bhp_content_type_map.models import ContentTypeMap
-from ..models import MaternalVisit, MaternalConsent, MaternalOffStudy, MaternalEligibilityAnte, MaternalEligibilityPost, MaternalPostReg
-from ..tests.factories import MaternalConsentFactory, MaternalOffStudyFactory, MaternalVisitFactory, MaternalEligibilityAnteFactory, MaternalLabDelFactory
-from edc.core.identifier.models import SubjectIdentifier, Sequence
-from edc.subject.off_study.exceptions import SubjectOffStudyError, SubjectOffStudyDateError
-from mpepu_infant.models import InfantBirth, InfantPreEligibility, InfantFu, InfantFeeding
-from factories import InfantVisitFactory, InfantBirthFactory, InfantBirthDataFactory, InfantEligibilityFactory, InfantPreEligibilityFactory, InfantOffStudyFactory, InfantArvProphFactory, InfantArvProphModFactory
-from edc.subject.consent.classes import ConsentHelper
-from mpepu_infant_rando.classes import Eligibility
+from edc.core.bhp_content_type_map.classes import ContentTypeMapHelper
+from edc.core.bhp_content_type_map.models import ContentTypeMap
+from apps.mpepu_maternal.models import MaternalConsent, MaternalEligibilityAnte, MaternalEligibilityPost, MaternalPostReg
+from apps.mpepu_maternal.tests.factories import MaternalConsentFactory, MaternalVisitFactory, MaternalEligibilityAnteFactory, MaternalLabDelFactory
+from edc.core.identifier.models import SubjectIdentifier
+from ..models import InfantBirth, InfantPreEligibility, InfantFu, InfantFeeding
+from factories import InfantVisitFactory, InfantBirthFactory, InfantEligibilityFactory, InfantPreEligibilityFactory
+from apps.mpepu_infant_rando.classes import Eligibility
 
 
 class InfantBirthTests(TestCase):
@@ -33,7 +25,7 @@ class InfantBirthTests(TestCase):
     consent_catalogue_name = 'mpepu V1'
 
     def test_p1(self):
-        lab_tracker.autodiscover()
+        site_lab_tracker.autodiscover()
         rule_groups.autodiscover()
         StudySpecificFactory()
         study_site = StudySiteFactory()
@@ -139,7 +131,7 @@ class InfantBirthTests(TestCase):
                 self.assertEqual(delivery_date + timedelta(days=criteria[DAYS]), appt_date)
 
     def test_p2(self):
-        lab_tracker.autodiscover()
+        site_lab_tracker.autodiscover()
         StudySpecificFactory()
         study_site = StudySiteFactory()
         ConfigurationFactory()
