@@ -1,7 +1,7 @@
 from django.db import models
 from edc.audit.audit_trail import AuditTrail
-from mpepu_infant.models import InfantVisit
-from lab_requisition.models import BaseClinicRequisition
+from apps.mpepu_infant.models import InfantVisit
+from edc.lab.lab_requisition.models import BaseClinicRequisition
 
 
 class InfantRequisition(BaseClinicRequisition):
