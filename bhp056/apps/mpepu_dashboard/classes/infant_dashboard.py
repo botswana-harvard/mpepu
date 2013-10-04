@@ -10,11 +10,12 @@ class InfantDashboard(RegisteredSubjectDashboard):
 
     view = 'infant_dashboard'
     dashboard_name = 'Infant Dashboard'
+    dashboard_url_name = 'subject_dashboard_url'
 
     def __init__(self, *args, **kwargs):
         self._infant_birth = None
         self._maternal_identifier = None
-#         kwargs.update({'dashboard_models': {'maternal_consent': MaternalConsent}})
+        kwargs.update({'dashboard_models': {'infant_birth': InfantBirth}})
         super(InfantDashboard, self).__init__(*args, **kwargs)
 
     def add_to_context(self):
@@ -22,7 +23,6 @@ class InfantDashboard(RegisteredSubjectDashboard):
         self.context.add(
             home='mpepu',
             search_name='infant',
-            subject_dashboard_url='infant_dashboard_url',
             maternal_dashboard_url=self.get_infant_dashboard_url(),
             title='Infant Dashboard',
             subject_consent=self.get_consent(),

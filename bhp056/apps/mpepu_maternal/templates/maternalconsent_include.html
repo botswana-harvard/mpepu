@@ -1,4 +1,6 @@
   {% load common_tags %}  {% load crypto_tags %}
+ {% load url from future %}
+{% load admin_urls %}
  
       <table>
     	<thead>
@@ -15,8 +17,7 @@
         {% for consent in search_result.object_list %}
             {% if consent.subject_identifier %}
                 <tr class="{% cycle 'row1' 'row2' %}">
-                <td><A href="{% url dashboard_url dashboard_type='maternal' subject_identifier=consent.subject_identifier %}">dashboard</A></td>
-                <td><A href="{{ consent.get_absolute_url }}?next=section_search_url_name&section_name={{ section_name }}&search_name={{ search_name }}">{{ consent.subject_identifier|escape}}</A></td>
+                <td><A href="{% url subject_dashboard_url dashboard_type='maternal' dashboard_model='maternal_consent' dashboard_id=consent.pk show='appointments' %}">{{ consent.subject_identifier }}</A></td>            
               	<td>{{ consent.first_name|encrypted }}</td>
               	<td>{{ consent.initials }}</td>          	
                 <td>{{ consent.dob|date:'Y-m-d' }}</td>                      	            

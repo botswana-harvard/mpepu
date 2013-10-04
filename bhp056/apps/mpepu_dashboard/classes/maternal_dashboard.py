@@ -27,6 +27,9 @@ class MaternalDashboard(RegisteredSubjectDashboard):
             infants=self.get_infants(),
             )
 
+    def get_infant_dashboard_url(self):
+        return 'subject_dashboard_url'
+
     def set_dashboard_type_list(self):
         self._dashboard_type_list = ['subject']
 

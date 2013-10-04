@@ -1,11 +1,13 @@
 from django.contrib import admin
-from lab_packing.admin import BasePackingListAdmin, BasePackingListItemAdmin
-from base_infant_requisition_model_admin import BaseInfantRequisitionModelAdmin
-from base_maternal_requisition_model_admin import BaseMaternalRequisitionModelAdmin
-from mpepu_lab.models import InfantRequisition, MaternalRequisition
-from mpepu_lab.models import PackingList, PackingListItem
-from mpepu_lab.forms import InfantRequisitionForm, MaternalRequisitionForm
-from mpepu_lab.forms import PackingListForm, PackingListItemForm
+from edc.lab.lab_packing.admin import BasePackingListAdmin, BasePackingListItemAdmin
+
+from ..models import InfantRequisition, MaternalRequisition
+from ..models import PackingList, PackingListItem
+from ..forms import InfantRequisitionForm, MaternalRequisitionForm
+from ..forms import PackingListForm, PackingListItemForm
+
+from .base_infant_requisition_model_admin import BaseInfantRequisitionModelAdmin
+from .base_maternal_requisition_model_admin import BaseMaternalRequisitionModelAdmin
 
 
 # MaternalRequisition

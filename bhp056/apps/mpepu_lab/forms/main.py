@@ -1,7 +1,7 @@
-from lab_packing.forms import BasePackingListForm, BasePackingListItemForm
-from lab_requisition.forms import BaseRequisitionForm
-from models import InfantRequisition, MaternalRequisition
-from models import PackingList, PackingListItem
+from edc.lab.lab_packing.forms import BasePackingListForm, BasePackingListItemForm
+from edc.lab.lab_requisition.forms import BaseRequisitionForm
+from ..models import InfantRequisition, MaternalRequisition
+from ..models import PackingList, PackingListItem
 
 
 class InfantRequisitionForm (BaseRequisitionForm):

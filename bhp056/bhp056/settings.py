@@ -267,18 +267,16 @@ INSTALLED_APPS = (
     'edc.base.form',
     'edc.base.model',
 
-    'edc.device.inspector',
-    'edc.device.dispatch',
-    'edc.device.netbook',
-    'edc.device.device',
-    'edc.device.sync',
+#     'edc.device.inspector',
+#     'edc.device.dispatch',
+#     'edc.device.netbook',
+#     'edc.device.device',
+#     'edc.device.sync',
 
     'edc.dashboard.base',
     'edc.dashboard.search',
     'edc.dashboard.subject',
     'edc.dashboard.section',
-
-    'edc.map',
 
     'edc.testing',
 
@@ -358,8 +356,6 @@ EMAIL_USE_TLS = True
 SOUTH_LOGGING_FILE = os.path.join(os.path.dirname(__file__), "south.log")
 SOUTH_LOGGING_ON = True
 AUTH_PROFILE_MODULE = "bhp_userprofile.userprofile"
-# https://bitbucket.org/tyrion/django-autocomplete
-AUTOCOMPLETE_MEDIA_PREFIX = '/media/autocomplete/media/'
 DAJAXICE_MEDIA_PREFIX = "dajaxice"
 
 # only for community server
@@ -368,9 +364,9 @@ ALLOW_DELETE_MODEL_FROM_SERIALIZATION = False
 ALLOW_MODEL_SERIALIZATION = True
 
 # EDC GENERAL SETTINGS
-APP_NAME = 'bcpp'
+APP_NAME = 'mpepu'
 PROJECT_NUMBER = 'BHP056'
-PROJECT_IDENTIFIER_PREFIX = '066'
+PROJECT_IDENTIFIER_PREFIX = '056'
 PROJECT_IDENTIFIER_MODULUS = 7
 PROJECT_TITLE = 'Mpepu Study'
 PROTOCOL_REVISION = ''
@@ -385,7 +381,7 @@ LABDB = 'bhplab'
 SESSION_COOKIE_AGE = 3000
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 DEVICE_ID = '99'
-SUBJECT_TYPES = ['subject']
+SUBJECT_TYPES = ['infant', 'maternal']
 MAX_SUBJECTS = {'subject': 3000}
 APPOINTMENTS_PER_DAY_MAX = 20
 APPOINTMENTS_DAYS_FORWARD = 15
@@ -393,13 +389,10 @@ APPOINTMENTS_DAYS_FORWARD = 15
 SUBJECT_APP_LIST = ['mpepu_infant', 'mpepu_maternal']
 DISPATCH_APP_LABELS = []
 
-
 #BHP_CRYPTO_SETTINGS
 IS_SECURE_DEVICE = False
 MAY_CREATE_NEW_KEYS = True
 
-GPS_FILE_PATH = '/Volumes/GARMIN/GPX/Current.gpx'
-VERIFY_GPS = False
 FIELD_MAX_LENGTH = 'migration'
 
 # LAB REFERENCE AND GRADING
@@ -414,11 +407,3 @@ else:
                                    'DATABASE=BHPLAB')
 VAR_ROOT = '/var'
 LOGGING = logger.LOGGING
-CURRENT_COMMUNITY = 'mochudi'
-CURRENT_SURVEY = 'year-one'
-
-SUBJECT_IDENTIFIER_UNIQUE_ON_CONSENT = False  # set to False so that the constraint can be expanded to subject_identifier + survey
-
-#Middleman/node machine configurations
-#MIDDLE_MAN = True
-#MIDDLE_MAN_LIST = ['mpp78']

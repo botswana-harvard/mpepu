@@ -2,7 +2,7 @@ from django.contrib import admin
 
 from ..models import MaternalOffStudy
 from ..forms import MaternalOffStudyForm
-from .bhp_off_study.admin import BaseOffStudyModelAdmin
+from edc.subject.off_study.admin import BaseOffStudyModelAdmin
 
 
 class MaternalOffStudyAdmin(BaseOffStudyModelAdmin):
