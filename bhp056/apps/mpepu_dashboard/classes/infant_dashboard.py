@@ -23,7 +23,7 @@ class InfantDashboard(RegisteredSubjectDashboard):
         self.context.add(
             home='mpepu',
             search_name='infant',
-            maternal_dashboard_url=self.get_infant_dashboard_url(),
+            maternal_dashboard_url=self.get_maternal_dashboard_url(),
             title='Infant Dashboard',
             subject_consent=self.get_consent(),
             delivery_datetime=self.get_delivery_datetime(),
