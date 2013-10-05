@@ -1,6 +1,7 @@
 from django import forms
-from base_maternal_model_form import BaseMaternalModelForm
-from mpepu_maternal.models import (MaternalEnroll, MaternalEnrollDem, MaternalEnrollOb, MaternalEnrollMed, MaternalEnrollDx,
+
+from .base_maternal_model_form import BaseMaternalModelForm
+from ..models import (MaternalEnroll, MaternalEnrollDem, MaternalEnrollOb, MaternalEnrollMed, MaternalEnrollDx,
                                    MaternalEnrollClin, MaternalEnrollArv)
 
 

@@ -1,7 +1,8 @@
-from bhp_registration.models import BaseRegistrationModel
-from mpepu_maternal.managers import MaternalRegistrationModelManager
-from maternal_off_study_mixin import MaternalOffStudyMixin
-from maternal_off_study import MaternalOffStudy
+from edc.subject.registration.models import BaseRegistrationModel
+
+from ..managers import MaternalRegistrationModelManager
+from .maternal_off_study_mixin import MaternalOffStudyMixin
+from .maternal_off_study import MaternalOffStudy
 
 
 class BaseMaternalRegistrationModel(MaternalOffStudyMixin, BaseRegistrationModel):

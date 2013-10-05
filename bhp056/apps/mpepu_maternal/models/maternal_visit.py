@@ -1,8 +1,10 @@
 from django.core.urlresolvers import reverse
-from audit_trail.audit import AuditTrail
-from bhp_visit_tracking.models import BaseVisitTracking
-from maternal_off_study_mixin import MaternalOffStudyMixin
-from mpepu_maternal.choices import VISIT_REASON
+
+from edc.audit.audit_trail import AuditTrail
+from edc.subject.visit_tracking.models import BaseVisitTracking
+
+from .maternal_off_study_mixin import MaternalOffStudyMixin
+from ..choices import VISIT_REASON
 
 
 class MaternalVisit(MaternalOffStudyMixin, BaseVisitTracking):

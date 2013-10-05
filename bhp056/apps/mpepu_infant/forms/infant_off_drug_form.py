@@ -1,8 +1,8 @@
 from datetime import datetime
 from django import forms
 from django.db.models import Min, Max
-from mpepu_infant.models import InfantVisit, InfantOffDrug
-from base_infant_model_form import BaseInfantModelForm
+from apps.mpepu_infant.models import InfantVisit, InfantOffDrug
+from .base_infant_model_form import BaseInfantModelForm
 
 
 class InfantOffDrugForm (BaseInfantModelForm):

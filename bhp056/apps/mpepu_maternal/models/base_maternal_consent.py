@@ -1,5 +1,6 @@
-from bhp_botswana.models import BaseBwConsent
-from maternal_off_study_mixin import MaternalOffStudyMixin
+from edc.subject.local.bw.models import BaseBwConsent
+
+from .maternal_off_study_mixin import MaternalOffStudyMixin
 
 
 class BaseMaternalConsent(MaternalOffStudyMixin, BaseBwConsent):

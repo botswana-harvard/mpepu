@@ -1,7 +1,8 @@
 from django.contrib import admin
-from maternal_visit_model_admin import MaternalVisitModelAdmin
-from mpepu_maternal.forms import MaternalLocatorForm
-from mpepu_maternal.models import MaternalLocator
+
+from .maternal_visit_model_admin import MaternalVisitModelAdmin
+from ..forms import MaternalLocatorForm
+from ..models import MaternalLocator
 
 
 class MaternalLocatorAdmin(MaternalVisitModelAdmin):

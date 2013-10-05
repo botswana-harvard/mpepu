@@ -1,7 +1,8 @@
 from django.contrib import admin
-from mpepu_maternal.admin import RegisteredSubjectModelAdmin
-from mpepu_maternal.models import MaternalConsent, MaternalEligibilityAnte, MaternalEligibilityPost
-from mpepu_maternal.forms import MaternalEligibilityAnteForm, MaternalEligibilityPostForm
+
+from ..admin import RegisteredSubjectModelAdmin
+from ..models import MaternalConsent, MaternalEligibilityAnte, MaternalEligibilityPost
+from ..forms import MaternalEligibilityAnteForm, MaternalEligibilityPostForm
 
 
 class MaternalEligibilityAnteAdmin(RegisteredSubjectModelAdmin):

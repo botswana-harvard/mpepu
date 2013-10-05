@@ -1,6 +1,7 @@
 from django.db import models
-from infant_visit import InfantVisit
-from infant_base_uuid_model import InfantBaseUuidModel
+
+from .infant_visit import InfantVisit
+from .infant_base_uuid_model import InfantBaseUuidModel
 
 
 class BaseScheduledVisitModel(InfantBaseUuidModel):

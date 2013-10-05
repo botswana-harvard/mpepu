@@ -1,7 +1,9 @@
 from django.contrib import admin
-from bhp_consent.admin import BaseConsentModelAdmin, BaseConsentUpdateModelAdmin, BaseConsentUpdateInlineAdmin
-from mpepu_maternal.models import MaternalConsent, MaternalConsentUpdate
-from mpepu_maternal.forms import MaternalConsentForm, MaternalConsentUpdateForm
+
+from edc.subject.consent.admin import BaseConsentModelAdmin, BaseConsentUpdateModelAdmin, BaseConsentUpdateInlineAdmin
+
+from ..models import MaternalConsent, MaternalConsentUpdate
+from ..forms import MaternalConsentForm, MaternalConsentUpdateForm
 
 
 class MaternalConsentUpdateInlineAdmin(BaseConsentUpdateInlineAdmin):

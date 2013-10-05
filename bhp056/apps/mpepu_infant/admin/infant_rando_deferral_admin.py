@@ -1,8 +1,8 @@
 from django.contrib import admin
-from bhp_registration.models import RegisteredSubject
-from mpepu_infant.models import InfantRandoDeferral, InfantBirth
-from mpepu_infant.classes import RegisteredSubjectModelAdmin
-from mpepu_infant.forms import InfantRandoDeferralForm
+from edc.subject.registration.models import RegisteredSubject
+from ..models import InfantRandoDeferral, InfantBirth
+from ..forms import InfantRandoDeferralForm
+from .registered_subject_model_admin import RegisteredSubjectModelAdmin
 
 
 class InfantRandoDeferralAdmin(RegisteredSubjectModelAdmin):

@@ -1,8 +1,9 @@
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from infant_birth import InfantBirth
-from infant_eligibility import InfantEligibility
-from infant_pre_eligibility import InfantPreEligibility
+
+from .infant_birth import InfantBirth
+from .infant_eligibility import InfantEligibility
+from .infant_pre_eligibility import InfantPreEligibility
 
 
 @receiver(post_save, weak=False, dispatch_uid='infant_birth_data_on_post_save')

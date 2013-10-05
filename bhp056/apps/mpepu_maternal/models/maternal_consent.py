@@ -1,7 +1,9 @@
 from django.db import models
-from audit_trail.audit import AuditTrail
 from django.core.urlresolvers import reverse
-from base_maternal_consent import BaseMaternalConsent
+
+from edc.audit.audit_trail import AuditTrail
+
+from .base_maternal_consent import BaseMaternalConsent
 
 
 class MaternalConsent(BaseMaternalConsent):

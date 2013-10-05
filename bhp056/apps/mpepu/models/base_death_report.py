@@ -1,4 +1,4 @@
-from bhp_base_model.models import BaseListModel
+from edc.base.model.models.base_list_model import BaseListModel
 
 
 class DeathHaart (BaseListModel):

@@ -1,6 +1,6 @@
-from lab_requisition.classes import requisitions
-from models import InfantRequisition, MaternalRequisition
+from edc.lab.lab_requisition.classes import site_requisitions
+from .models import InfantRequisition, MaternalRequisition
 
 
-requisitions.register('infant', InfantRequisition)
-requisitions.register('maternal', MaternalRequisition)
+site_requisitions.register('infant', InfantRequisition)
+site_requisitions.register('maternal', MaternalRequisition)

@@ -1,9 +1,11 @@
 from django.db import models
 from django.core.urlresolvers import reverse
-from audit_trail.audit import AuditTrail
-from bhp_common.choices import YES_NO
-from bhp_haart.choices import ARV_STATUS_WITH_NEVER
-from mpepu_infant.models import BaseScheduledVisitModel
+
+from edc.audit.audit_trail import AuditTrail
+from edc.choices.common import YES_NO
+from edc.subject.haart.choices import ARV_STATUS_WITH_NEVER
+
+from apps.mpepu_infant.models import BaseScheduledVisitModel
 
 
 class InfantArvProph(BaseScheduledVisitModel):

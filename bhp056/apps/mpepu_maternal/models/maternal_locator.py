@@ -1,12 +1,14 @@
 from django.db import models
-from audit_trail.audit import AuditTrail
-from bhp_locator.models import BaseLocator
-from bhp_common.choices import YES_NO
-from bhp_base_model.fields import OtherCharField
-from bhp_base_model.validators import BWCellNumber, BWTelephoneNumber
-from mpepu_maternal.models import MaternalVisit
-from bhp_crypto.fields import EncryptedCharField
-from maternal_off_study_mixin import MaternalOffStudyMixin
+
+from edc.audit.audit_trail import AuditTrail
+from edc.subject.locator.models import BaseLocator
+from edc.choices.common import YES_NO
+from edc.base.model.fields.custom.custom_fields import OtherCharField
+from edc.base.model.validators import BWCellNumber, BWTelephoneNumber
+from edc.core.crypto_fields.fields import EncryptedCharField
+
+from .maternal_visit import MaternalVisit
+from .maternal_off_study_mixin import MaternalOffStudyMixin
 
 
 class MaternalLocator(MaternalOffStudyMixin, BaseLocator):

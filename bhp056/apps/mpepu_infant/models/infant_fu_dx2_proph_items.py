@@ -1,9 +1,12 @@
 from django.db import models
 from django.core.urlresolvers import reverse
-from audit_trail.audit import AuditTrail
-from mpepu.choices import DX_DRUG_RELATIONSHIP, DRUG_RELATIONSHIP
-from infant_base_uuid_model import InfantBaseUuidModel
-from infant_fu_dx2_proph import InfantFuDx2Proph
+
+from edc.audit.audit_trail import AuditTrail
+
+from apps.mpepu.choices import DX_DRUG_RELATIONSHIP, DRUG_RELATIONSHIP
+
+from .infant_base_uuid_model import InfantBaseUuidModel
+from .infant_fu_dx2_proph import InfantFuDx2Proph
 
 
 class InfantFuDx2ProphItems(InfantBaseUuidModel):

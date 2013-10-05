@@ -1,5 +1,6 @@
-from bhp_off_study.mixins import OffStudyMixin
-from infant_off_study import InfantOffStudy
+from edc.subject.off_study.mixins.off_study_mixin import OffStudyMixin
+
+from .infant_off_study import InfantOffStudy
 
 
 class InfantOffStudyMixin(OffStudyMixin):

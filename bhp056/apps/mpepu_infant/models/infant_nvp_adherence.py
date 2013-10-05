@@ -1,9 +1,11 @@
 from django.db import models
 from django.core.urlresolvers import reverse
-from audit_trail.audit import AuditTrail
-from mpepu_infant.choices import REASON_MISSED_PROPHYLAXIS
-from mpepu_infant.models import InfantArvProph
-from mpepu_infant.models import BaseScheduledVisitModel
+
+from edc.audit.audit_trail import AuditTrail
+
+from ..choices import REASON_MISSED_PROPHYLAXIS
+from .infant_arv_proph import InfantArvProph
+from .base_scheduled_visit_model import BaseScheduledVisitModel
 
 
 class InfantNvpAdherence(BaseScheduledVisitModel):

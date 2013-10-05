@@ -1,10 +1,11 @@
 from django.contrib import admin
-from bhp_identifier.classes import InfantIdentifier
-from bhp_base_admin.admin import BaseTabularInline, BaseModelAdmin
-from mpepu_maternal.models import MaternalLabDel, MaternalLabDelMed, MaternalLabDelDx, MaternalLabDelDxT, MaternalLabDelClinic
-from mpepu_maternal.forms import MaternalLabDelMedForm, MaternalLabDelClinicForm, MaternalLabDelDxForm, MaternalLabDelForm
-from mpepu_maternal.filters import GaListFilter
-from maternal_visit_model_admin import MaternalVisitModelAdmin
+
+from edc.base.admin.admin import BaseTabularInline, BaseModelAdmin
+
+from ..models import MaternalLabDel, MaternalLabDelMed, MaternalLabDelDx, MaternalLabDelDxT, MaternalLabDelClinic
+from ..forms import MaternalLabDelMedForm, MaternalLabDelClinicForm, MaternalLabDelDxForm, MaternalLabDelForm
+from ..filters import GaListFilter
+from .maternal_visit_model_admin import MaternalVisitModelAdmin
 
 
 class BaseMaternalLabDelModelAdmin (MaternalVisitModelAdmin):
@@ -23,34 +24,12 @@ class BaseMaternalLabDelModelAdmin (MaternalVisitModelAdmin):
 
 
 class MaternalLabDelAdmin(MaternalVisitModelAdmin):
-    
+
     form = MaternalLabDelForm
 
     def __init__(self, *args, **kwargs):
         super(MaternalLabDelAdmin, self).__init__(*args, **kwargs)
         self.list_filter.append(GaListFilter)
-
-# moved to post save signal
-#     def save_model(self, request, obj, form, change):
-#
-#         if not change:
-#             obj.user_created = request.user
-#             obj.save()
-#             if obj.live_infants_to_register > 0:
-#                 #Allocate Infant Identifier
-#                 infant_identifier = InfantIdentifier()
-#                 for self.infant_order in range(0, obj.live_infants_to_register):
-#                     infant_identifier.get_identifier(
-#                         add_check_digit=False,
-#                         is_derived=True,
-#                         maternal_identifier=obj.maternal_visit.appointment.registered_subject.subject_identifier,
-#                         maternal_study_site=obj.maternal_visit.appointment.registered_subject.study_site,
-#                         user=request.user,
-#                         birth_order=self.infant_order,
-#                         live_infants=obj.live_infants,
-#                         live_infants_to_register=obj.live_infants_to_register,
-#                         subject_type='infant')
-#         return super(MaternalLabDelAdmin, self).save_model(request, obj, form, change)
 
     def get_readonly_fields(self, request, obj=None):
         if obj:  # In edit mode

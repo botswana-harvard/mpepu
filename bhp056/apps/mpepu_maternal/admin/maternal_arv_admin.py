@@ -1,10 +1,12 @@
 from django.contrib import admin
-from bhp_base_admin.admin import BaseTabularInline, BaseModelAdmin
-from mpepu_maternal.models import MaternalArvPreg, MaternalArv, MaternalArvPregHistory
-from maternal_visit_model_admin import MaternalVisitModelAdmin
-from mpepu_maternal.forms import (MaternalArvPPHistoryForm, MaternalArvPregHistoryForm, MaternalArvPostModForm,
+
+from edc.base.admin.admin import BaseTabularInline, BaseModelAdmin
+
+from .maternal_visit_model_admin import MaternalVisitModelAdmin
+from ..models import MaternalArvPreg, MaternalArv, MaternalArvPregHistory
+from ..forms import (MaternalArvPPHistoryForm, MaternalArvPregHistoryForm, MaternalArvPostModForm,
                                   MaternalArvPostForm, MaternalArvPostAdhForm, MaternalArvPregForm)
-from mpepu_maternal.models import MaternalArvPPHistory, MaternalArvPostMod, MaternalArvPost, MaternalArvPostAdh
+from ..models import MaternalArvPPHistory, MaternalArvPostMod, MaternalArvPost, MaternalArvPostAdh
 
 
 class MyMaternalArvPPHistoryAdmin (MaternalVisitModelAdmin):

@@ -1,6 +1,6 @@
 from django.db import models
-from lab_packing.models import BasePackingListItem
-from packing_list import PackingList
+from edc.lab.lab_packing.models import BasePackingListItem
+from .packing_list import PackingList
 
 
 class PackingListItem(BasePackingListItem):

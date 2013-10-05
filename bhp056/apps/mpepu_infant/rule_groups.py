@@ -1,7 +1,7 @@
-from bhp_entry_rules.classes import RuleGroup, ScheduledDataRule, Logic, rule_groups, AdditionalDataRule
-from bhp_registration.models import RegisteredSubject
-from bhp_appointment.models import Appointment
-from mpepu_infant.models import (InfantVisit, InfantEligibility, InfantOffStudy, InfantArvProph, InfantFu, InfantStudyDrug, InfantHivStatus)
+from edc.subject.rule_groups.classes import RuleGroup, ScheduledDataRule, Logic, rule_groups, AdditionalDataRule
+from edc.subject.registration.models import RegisteredSubject
+from edc.subject.appointment.models import Appointment
+from .models import (InfantVisit, InfantArvProph, InfantFu, InfantStudyDrug)
 
 
 class InfantPrerandoLossRuleGroup(RuleGroup):

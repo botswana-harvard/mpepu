@@ -1,6 +1,7 @@
 from django import forms
-from base_maternal_model_form import BaseMaternalModelForm
-from mpepu_maternal.models import MaternalArvPost, MaternalArvPostMod, MaternalArvPostAdh, MaternalArvPregHistory, MaternalArvPPHistory, MaternalArvPreg
+
+from .base_maternal_model_form import BaseMaternalModelForm
+from ..models import MaternalArvPost, MaternalArvPostMod, MaternalArvPostAdh, MaternalArvPregHistory, MaternalArvPPHistory, MaternalArvPreg
 
 
 class MaternalArvPostForm (BaseMaternalModelForm):

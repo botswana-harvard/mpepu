@@ -1,6 +1,6 @@
 import factory
-from bhp_visit_tracking.tests.factories import BaseVisitTrackingFactory
-from mpepu_maternal.models import MaternalVisit
+from edc.subject.visit_tracking.tests.factories import BaseVisitTrackingFactory
+from ..models import MaternalVisit
 
 
 class MaternalVisitFactory(BaseVisitTrackingFactory):

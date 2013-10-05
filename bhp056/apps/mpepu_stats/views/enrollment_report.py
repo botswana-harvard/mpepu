@@ -7,11 +7,11 @@ from django.db.models import Count, Avg, Max, Min, StdDev, Variance
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
 from bhp_common.utils import os_variables
-from bhp_registration.models import RegisteredSubject
-from bhp_variables.models import StudySite
+from edc.subject.registration.models import RegisteredSubject
+from edc.core.bhp_variables.models import StudySite
 from mpepu_infant.models import InfantBirth
 from django.db import models
-from mpepu_maternal.models import MaternalConsent, MaternalEnroll
+from ..models import MaternalConsent, MaternalEnroll
 from mpepu_stats.forms import DateRangeForm
 
 @login_required

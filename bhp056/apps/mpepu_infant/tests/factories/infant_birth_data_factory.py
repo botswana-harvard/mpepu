@@ -1,6 +1,6 @@
 import factory
 from datetime import date
-from bhp_base_model.tests.factories import BaseUuidModelFactory
+from edc.base.model.tests.factories import BaseUuidModelFactory
 from mpepu_infant.tests.factories import InfantBirthFactory, InfantVisitFactory
 from mpepu_infant.models import InfantBirthData
 

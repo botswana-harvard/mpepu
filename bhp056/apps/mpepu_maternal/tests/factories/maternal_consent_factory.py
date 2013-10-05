@@ -1,6 +1,6 @@
 import factory
 from bhp_botswana.tests.factories import BaseBwConsentFactory
-from mpepu_maternal.models import MaternalConsent
+from ..models import MaternalConsent
 
 
 class MaternalConsentFactory(BaseBwConsentFactory):

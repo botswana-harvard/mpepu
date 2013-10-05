@@ -1,5 +1,5 @@
-from lab_requisition.admin import BaseRequisitionModelAdmin
-from mpepu_maternal.models import MaternalVisit
+from edc.lab.lab_requisition.admin import BaseRequisitionModelAdmin
+from apps.mpepu_maternal.models import MaternalVisit
 
 
 class BaseMaternalRequisitionModelAdmin (BaseRequisitionModelAdmin):

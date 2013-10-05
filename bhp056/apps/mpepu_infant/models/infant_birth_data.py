@@ -1,14 +1,14 @@
-from datetime import timedelta
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.core.urlresolvers import reverse
 from django.db.models import Q, get_model
-from audit_trail.audit import AuditTrail
-from bhp_common.choices import YES_NO
-from bhp_entry.models import AdditionalEntryBucket
-from mpepu_infant.models import BaseScheduledVisitModel
-from infant_birth import InfantBirth
-from infant_visit import InfantVisit
+
+from edc.audit.audit_trail import AuditTrail
+from edc.choices.common import YES_NO
+from edc.subject.entry.models import AdditionalEntryBucket
+
+from .base_scheduled_visit_model import BaseScheduledVisitModel
+from .infant_birth import InfantBirth
 
 
 class InfantBirthData(BaseScheduledVisitModel):

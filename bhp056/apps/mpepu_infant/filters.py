@@ -28,7 +28,7 @@ class FeedingChoiceListFilter(SimpleListFilter):
         provided in the query string and retrievable via
         `self.value()`.
         """
-        from mpepu_infant_rando.models import InfantRando
+        from ..mpepu_infant_rando.models import InfantRando
         if self.used_parameters.get('feeding_choice', None):
             if self.value == '(None)':
                 subject_identifiers = InfantRando.objects.exclude(feeding_choice__in=['BF', 'FF']).values('subject_identifier')
@@ -64,7 +64,7 @@ class FeedingDurationListFilter(SimpleListFilter):
         provided in the query string and retrievable via
         `self.value()`.
         """
-        from mpepu_infant_rando.models import InfantRando
+        from ..mpepu_infant_rando.models import InfantRando
         if self.used_parameters.get('feeding_duration', None):
             if self.value == '(None)':
                 subject_identifiers = InfantRando.objects.exclude(bf_duration__in=['12months', '6months']).values('subject_identifier')

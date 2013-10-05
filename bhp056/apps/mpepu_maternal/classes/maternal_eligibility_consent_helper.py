@@ -1,4 +1,4 @@
-from bhp_consent.classes import ConsentHelper
+from edc.subject.consent.classes import ConsentHelper
 
 
 class MaternalEligibilityConsentHelper(ConsentHelper):

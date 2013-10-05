@@ -3,7 +3,7 @@ from maternal_consent_v2 import *
 from maternal_consent_update import MaternalConsentUpdate
 from base_maternal_eligibility import *
 from maternal_visit import MaternalVisit
-from base_scheduled_visit_model import BaseScheduledVisitModel
+from .base_scheduled_visit_model import BaseScheduledVisitModel
 from maternal_arv_preg import *
 from maternal_enroll import MaternalEnroll
 from maternal_enroll_arv import MaternalEnrollArv

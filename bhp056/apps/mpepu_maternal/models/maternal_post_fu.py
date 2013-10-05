@@ -1,10 +1,10 @@
 from django.db import models
 from django.core.urlresolvers import reverse
-from bhp_base_model.fields import OtherCharField
-from bhp_common.choices import YES_NO
-from audit_trail.audit import AuditTrail
-from mpepu_list.models.maternal_post_fu import ChronicCond
-from mpepu_maternal.models import BaseScheduledVisitModel
+from edc.base.model.fields.custom.custom_fields import OtherCharField
+from edc.choices.common import YES_NO
+from edc.audit.audit_trail import AuditTrail
+from apps.mpepu_list.models.maternal_post_fu import ChronicCond
+from .base_scheduled_visit_model import BaseScheduledVisitModel
 
 
 class MaternalPostFu(BaseScheduledVisitModel):

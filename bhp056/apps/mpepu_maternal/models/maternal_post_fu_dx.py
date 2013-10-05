@@ -1,9 +1,9 @@
 from django.db import models
 from django.core.urlresolvers import reverse
-from bhp_common.choices import YES_NO
-from bhp_code_lists.models import WcsDxAdult
-from audit_trail.audit import AuditTrail
-from mpepu_maternal.models import BaseScheduledVisitModel
+from edc.choices.common import YES_NO
+from edc.subject.code_lists.models import WcsDxAdult
+from edc.audit.audit_trail import AuditTrail
+from .base_scheduled_visit_model import BaseScheduledVisitModel
 from maternal_post_fu import MaternalPostFu
 
 

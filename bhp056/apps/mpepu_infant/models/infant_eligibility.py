@@ -1,18 +1,17 @@
-import copy
-from datetime import datetime, time
 from django.db import models
 from django.core.urlresolvers import reverse
 from django.core.validators import RegexValidator
 from django.core.exceptions import ValidationError
-from audit_trail.audit import AuditTrail
-from bhp_consent.classes import ConsentHelper
-from bhp_common.choices import YES_NO, YES_NO_NA
-from bhp_base_model.validators import eligible_if_no
-from mpepu_infant_rando.classes import Eligibility
-from mpepu_infant.models import InfantBirth
-from mpepu_infant.choices import RANDOMIZATION_MATERNAL_ART_STATUS, RANDOMIZATION_MATERNAL_FEEDING_CHOICE, RANDOMIZATION_SITE
-from base_infant_registered_subject_model import BaseInfantRegisteredSubjectModel
-from infant_visit import InfantVisit
+
+from edc.audit.audit_trail import AuditTrail
+from edc.choices.common import YES_NO, YES_NO_NA
+from edc.base.model.validators import eligible_if_no
+
+from apps.mpepu_infant_rando.classes import Eligibility
+
+from ..choices import RANDOMIZATION_MATERNAL_ART_STATUS, RANDOMIZATION_MATERNAL_FEEDING_CHOICE, RANDOMIZATION_SITE
+from .infant_birth import InfantBirth
+from .base_infant_registered_subject_model import BaseInfantRegisteredSubjectModel
 
 
 class InfantEligibility(BaseInfantRegisteredSubjectModel):

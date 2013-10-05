@@ -1,8 +1,11 @@
 from django.contrib import admin
-from bhp_appointment.admin import BaseAppointmentModelAdmin
-from mpepu_lab.models import MaternalRequisition
-from mpepu_maternal.models import MaternalVisit
-from mpepu_maternal.forms import MaternalVisitForm
+
+from edc.subject.appointment.admin import BaseAppointmentModelAdmin
+
+from apps.mpepu_lab.models import MaternalRequisition
+
+from ..models import MaternalVisit
+from ..forms import MaternalVisitForm
 
 
 class MaternalVisitAdmin(BaseAppointmentModelAdmin):

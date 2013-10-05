@@ -1,7 +1,8 @@
 from django.contrib import admin
-from mpepu_maternal.models import PostNatalInfantFeedingSurvey
-from mpepu_maternal.forms import PostNatalInfantFeedingSurveyForm
-from maternal_enroll_admin import BaseMaternalEnrollAdmin
+
+from ..models import PostNatalInfantFeedingSurvey
+from ..forms import PostNatalInfantFeedingSurveyForm
+from .maternal_enroll_admin import BaseMaternalEnrollAdmin
 
 
 class PostNatalInfantFeedingSurveyAdmin(BaseMaternalEnrollAdmin):

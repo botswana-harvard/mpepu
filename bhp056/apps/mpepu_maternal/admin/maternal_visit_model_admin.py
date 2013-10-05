@@ -1,5 +1,6 @@
-from bhp_visit_tracking.admin import BaseVisitTrackingModelAdmin
-from mpepu_maternal.models import MaternalVisit
+from edc.subject.visit_tracking.admin import BaseVisitTrackingModelAdmin
+
+from ..models import MaternalVisit
 
 
 class MaternalVisitModelAdmin (BaseVisitTrackingModelAdmin):

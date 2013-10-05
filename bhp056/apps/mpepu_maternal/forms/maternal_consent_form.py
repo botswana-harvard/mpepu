@@ -1,5 +1,6 @@
-from bhp_consent.forms import BaseSubjectConsentForm, BaseConsentUpdateForm
-from mpepu_maternal.models import MaternalConsent, MaternalConsentUpdate
+from edc.subject.consent.forms import BaseSubjectConsentForm, BaseConsentUpdateForm
+
+from ..models import MaternalConsent, MaternalConsentUpdate
 
 
 class MaternalConsentForm (BaseSubjectConsentForm):

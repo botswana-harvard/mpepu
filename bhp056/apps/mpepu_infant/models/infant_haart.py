@@ -1,9 +1,11 @@
 from django.db import models
 from django.core.urlresolvers import reverse
-from audit_trail.audit import AuditTrail
-from bhp_common.choices import YES_NO
-from bhp_haart.models import BaseHaartModification
-from bhp_haart.choices import ARV_STATUS
+
+from edc.audit.audit_trail import AuditTrail
+from edc.choices import YES_NO
+
+from edc.subject.haart.models import BaseHaartModification
+from edc.subject.haart.choices import ARV_STATUS
 from base_infant_registered_subject_model import BaseInfantRegisteredSubjectModel
 from infant_off_study_mixin import InfantOffStudyMixin
 

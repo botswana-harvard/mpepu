@@ -1,6 +1,7 @@
 from django.core.urlresolvers import reverse
-from audit_trail.audit import AuditTrail
-from bhp_off_study.models import BaseOffStudy
+
+from edc.audit.audit_trail import AuditTrail
+from edc.subject.off_study.models.base_off_study import BaseOffStudy
 
 
 class MaternalOffStudy(BaseOffStudy):

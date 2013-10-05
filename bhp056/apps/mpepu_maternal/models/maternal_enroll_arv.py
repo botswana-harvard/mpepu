@@ -1,12 +1,15 @@
 from django.db import models
 from django.core.urlresolvers import reverse
-from audit_trail.audit import AuditTrail
-from bhp_common.choices import YES_NO
-from bhp_base_model.fields import OtherCharField, IsDateEstimatedField
-from mpepu_list.models.maternal_enroll import PriorArv
-from mpepu.choices import PRIOR_PREG_HAART_STATUS
-from mpepu_maternal.models import BaseScheduledVisitModel
-from maternal_enroll import MaternalEnroll
+
+from edc.audit.audit_trail import AuditTrail
+from edc.choices.common import YES_NO
+from edc.base.model.fields.custom.custom_fields import OtherCharField, IsDateEstimatedField
+
+from apps.mpepu_list.models.maternal_enroll import PriorArv
+from apps.mpepu.choices import PRIOR_PREG_HAART_STATUS
+
+from .base_scheduled_visit_model import BaseScheduledVisitModel
+from .maternal_enroll import MaternalEnroll
 
 
 class MaternalEnrollArv(BaseScheduledVisitModel):

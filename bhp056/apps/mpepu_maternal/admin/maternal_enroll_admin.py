@@ -1,10 +1,12 @@
 from django.contrib import admin
-from bhp_base_admin.admin import BaseTabularInline, BaseModelAdmin
-from mpepu_maternal.models import (MaternalEnroll, MaternalEnrollDem, MaternalEnrollOb, MaternalEnrollDx, MaternalEnrollMed,
+
+from edc.base.admin.admin import BaseTabularInline, BaseModelAdmin
+
+from ..models import (MaternalEnroll, MaternalEnrollDem, MaternalEnrollOb, MaternalEnrollDx, MaternalEnrollMed,
                                    MaternalEnrollArv, MaternalEnrollClin)
-from mpepu_maternal.forms import (MaternalEnrollForm, MaternalEnrollDemForm, MaternalEnrollClinForm, MaternalEnrollObForm,
+from ..forms import (MaternalEnrollForm, MaternalEnrollDemForm, MaternalEnrollClinForm, MaternalEnrollObForm,
                                   MaternalEnrollMedForm, MaternalEnrollDxForm, MaternalEnrollArvForm)
-from maternal_visit_model_admin import MaternalVisitModelAdmin
+from .maternal_visit_model_admin import MaternalVisitModelAdmin
 
 
 class BaseMaternalEnrollAdmin(MaternalVisitModelAdmin):

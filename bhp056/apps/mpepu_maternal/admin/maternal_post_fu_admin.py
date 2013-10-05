@@ -1,9 +1,11 @@
 from django.contrib import admin
-from bhp_base_admin.admin import BaseModelAdmin, BaseTabularInline
-from mpepu_maternal.admin import RegisteredSubjectModelAdmin
-from mpepu_maternal.models import (MaternalPostFu, MaternalPostFuDxT, MaternalPostFuDx, MaternalPostReg)
-from mpepu_maternal.forms import (MaternalPostFuForm, MaternalPostFuDxForm, MaternalPostRegForm)
-from maternal_visit_model_admin import MaternalVisitModelAdmin
+
+from edc.base.admin.admin import BaseModelAdmin, BaseTabularInline
+
+from ..admin import RegisteredSubjectModelAdmin
+from ..models import (MaternalPostFu, MaternalPostFuDxT, MaternalPostFuDx, MaternalPostReg)
+from ..forms import (MaternalPostFuForm, MaternalPostFuDxForm, MaternalPostRegForm)
+from .maternal_visit_model_admin import MaternalVisitModelAdmin
 
 
 class MyMaternalPostFuModelAdmin (MaternalVisitModelAdmin):
@@ -16,13 +18,6 @@ class MyMaternalPostFuModelAdmin (MaternalVisitModelAdmin):
                                                                maternal_visit__appointment__visit_definition__code=request.GET.get('visit_code', 0),
                                                                maternal_visit__appointment__visit_instance=request.GET.get('visit_instance', 0))
         return super(MyMaternalPostFuModelAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
-
-    # override to disallow subject to be changed
-#     def get_readonly_fields(self, request, obj=None):
-#         if obj:  # In edit mode
-#             return ('maternal_post_fu',) + self.readonly_fields
-#         else:
-#             return self.readonly_fields
 
 
 class MaternalPostFuAdmin(MaternalVisitModelAdmin):

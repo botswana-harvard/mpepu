@@ -1,6 +1,6 @@
 from infant_base_uuid_model import InfantBaseUuidModel
 from infant_visit import *
-from base_scheduled_visit_model import BaseScheduledVisitModel
+from .base_scheduled_visit_model import BaseScheduledVisitModel
 from infant_birth import *
 from infant_birth_data import *
 from infant_birth_exam import *

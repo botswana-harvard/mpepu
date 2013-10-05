@@ -1,5 +1,5 @@
-from base_maternal_model_form import BaseMaternalModelForm
-from mpepu_maternal.models import FeedingChoice, FeedingChoiceSectionOne, FeedingChoiceSectionTwo, FeedingChoiceSectionThree
+from .base_maternal_model_form import BaseMaternalModelForm
+from ..models import FeedingChoice, FeedingChoiceSectionOne, FeedingChoiceSectionTwo, FeedingChoiceSectionThree
 
 
 class FeedingChoiceForm (BaseMaternalModelForm):

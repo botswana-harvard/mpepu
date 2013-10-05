@@ -1,7 +1,7 @@
 from datetime import date, timedelta
 from django.test import TestCase
 from django import forms
-from mpepu_infant_rando.classes import Eligibility
+from ..classes import Eligibility
 
 
 class EligibilityTests(TestCase):

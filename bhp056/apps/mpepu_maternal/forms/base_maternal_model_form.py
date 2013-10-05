@@ -1,5 +1,6 @@
-from bhp_consent.forms import BaseConsentedModelForm
-from mpepu_maternal.models import MaternalVisit
+from edc.subject.consent.forms import BaseConsentedModelForm
+
+from ..models import MaternalVisit
 
 
 class BaseMaternalModelForm(BaseConsentedModelForm):

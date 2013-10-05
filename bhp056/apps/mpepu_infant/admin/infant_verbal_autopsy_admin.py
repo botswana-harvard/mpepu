@@ -1,8 +1,8 @@
 from django.contrib import admin
-from bhp_base_admin.admin import BaseTabularInline
-from mpepu_infant.classes import RegisteredSubjectModelAdmin
-from mpepu_infant.models import InfantVerbalAutopsyItems, InfantVerbalAutopsy
-from mpepu_infant.forms import InfantVerbalAutopsyForm
+from edc.base.admin.admin import BaseTabularInline
+from ..models import InfantVerbalAutopsyItems, InfantVerbalAutopsy
+from ..forms import InfantVerbalAutopsyForm
+from .registered_subject_model_admin import RegisteredSubjectModelAdmin
 
 
 class InfantVerbalAutopsyItemsInlineAdmin(BaseTabularInline):

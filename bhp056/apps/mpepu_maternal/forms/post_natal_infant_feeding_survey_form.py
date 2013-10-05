@@ -1,6 +1,7 @@
 from django import forms
-from base_maternal_model_form import BaseMaternalModelForm
-from mpepu_maternal.models import PostNatalInfantFeedingSurvey
+
+from .base_maternal_model_form import BaseMaternalModelForm
+from ..models import PostNatalInfantFeedingSurvey
 
 
 class PostNatalInfantFeedingSurveyForm (BaseMaternalModelForm):

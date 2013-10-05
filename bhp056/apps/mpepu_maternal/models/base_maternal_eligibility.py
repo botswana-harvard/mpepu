@@ -1,10 +1,12 @@
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
-from bhp_common.choices import YES_NO
-from bhp_base_model.validators import eligible_if_yes
-from mpepu_maternal.classes import MaternalEligibilityConsentHelper
-from base_maternal_registration_model import BaseMaternalRegistrationModel
-from maternal_consent import MaternalConsent
+
+from edc.choices.common import YES_NO
+from edc.base.model.validators import eligible_if_yes
+
+from ..classes import MaternalEligibilityConsentHelper
+from .maternal_consent import MaternalConsent
+from .base_maternal_registration_model import BaseMaternalRegistrationModel
 
 
 class BaseMaternalEligibility(BaseMaternalRegistrationModel):
