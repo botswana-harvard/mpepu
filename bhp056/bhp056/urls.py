@@ -1,12 +1,12 @@
+from dajaxice.core import dajaxice_autodiscover
+
 from django.conf.urls import patterns, include, url
 from django.contrib.auth.decorators import login_required
 from django.contrib import admin
 from django.conf import settings
 from django.views.generic import RedirectView
 from django.db.models import get_models
-
 import django_databrowse
-from dajaxice.core import dajaxice_autodiscover
 
 from edc.subject.rule_groups.classes import rule_groups
 from edc.subject.lab_tracker.classes import site_lab_tracker

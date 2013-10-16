@@ -1,5 +1,6 @@
 from datetime import timedelta, date
 from edc.dashboard.subject.classes import RegisteredSubjectDashboard
+
 from apps.mpepu_infant.models import InfantBirth, InfantVisit, InfantEligibility
 from apps.mpepu_infant_rando.models import InfantRando
 from apps.mpepu_maternal.models import MaternalConsent, MaternalLabDel, MaternalLocator
@@ -33,6 +34,12 @@ class InfantDashboard(RegisteredSubjectDashboard):
             maternal_consent=self.get_maternal_consent(),
             days_alive=self.get_days_alive(),
             )
+        
+    def set_membership_form_category(self):
+        self._membership_form_category = 'infant'
+        
+    def get_maternal_dashboard_url(self):
+        return 'subject_dashboard_url'
 
     def set_dashboard_type_list(self):
         self._dashboard_type_list = ['infant']
@@ -40,6 +47,10 @@ class InfantDashboard(RegisteredSubjectDashboard):
     def set_consent(self):
         """Sets to the subject consent, if it has been completed."""
         self._consent = self.get_maternal_consent()
+        
+    def get_delivery_datetime(self):
+        # get delivery date if delivered
+        return self.get_maternal_lab_del().delivery_datetime
 
     def get_visit_model(self):
         return InfantVisit
@@ -59,7 +70,7 @@ class InfantDashboard(RegisteredSubjectDashboard):
 
     def get_feeding_stratum(self):
         stratum = {'feeding_choice': '-', 'bf_duration': '-'}
-        if self.registered_subject:
+        if self.get_registered_subject():
             if InfantRando.objects.filter(subject_identifier=self.get_subject_identifier()):
                 infant_rando = InfantRando.objects.get(subject_identifier=self.get_subject_identifier())
                 stratum['randomization_datetime'] = infant_rando.randomization_datetime

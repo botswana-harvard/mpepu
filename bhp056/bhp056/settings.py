@@ -7,6 +7,7 @@ import logger
 
 
 DEBUG = True
+INTERNAL_IPS = ('127.0.0.1',)
 TEMPLATE_DEBUG = DEBUG
 DIRNAME = os.path.dirname(__file__)
 ADMINS = (
@@ -23,7 +24,7 @@ TEMPLATE_DIRS = (
 STATICFILES_DIRS = ()
 CONFIG_DIR = PROJECT_DIR.child('bhp056')
 KEY_PATH = PROJECT_DIR.child('keys')
-KEY_PATH = '/Volumes/bhp056/keys/'
+# KEY_PATH = '/Volumes/bhp056/keys/'
 MAP_DIR = STATIC_ROOT.child('img')
 
 MANAGERS = ADMINS
@@ -152,6 +153,11 @@ USE_I18N = True
 # calendars according to the current locale
 USE_L10N = True
 
+# Django debug settings
+DEBUG_TOOLBAR_CONFIG = {
+    'INTERCEPT_REDIRECTS': False,
+    }
+
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
 #MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'media')
@@ -206,7 +212,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    #'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = ("django.contrib.auth.context_processors.auth",
@@ -236,6 +242,7 @@ INSTALLED_APPS = (
     'dajaxice',
     'dajax',
     'south',
+    'debug_toolbar',
 
     'edc.audit',
 

@@ -1,6 +1,5 @@
-  {% load common_tags %}  {% load crypto_tags %}
- {% load url from future %}
-{% load admin_urls %}
+{% load crypto_tags %}
+{% load url from future %}
  
       <table>
     	<thead>
@@ -14,16 +13,17 @@
     	<th>User Created</th>
     	<th>Date Modified</th>    	    	
     	</thead>	
-        {% for consent in search_result.object_list %}
-            {% if consent.subject_identifier %}
+        {% for maternal_consent in search_result.object_list %}
+            {% if maternal_consent.subject_identifier %}
                 <tr class="{% cycle 'row1' 'row2' %}">
-                <td><A href="{% url subject_dashboard_url dashboard_type='maternal' dashboard_model='maternal_consent' dashboard_id=consent.pk show='appointments' %}">{{ consent.subject_identifier }}</A></td>            
-              	<td>{{ consent.first_name|encrypted }}</td>
-              	<td>{{ consent.initials }}</td>          	
-                <td>{{ consent.dob|date:'Y-m-d' }}</td>                      	            
-                <td>{{ consent.consent_datetime|date:'Y-m-d H:i' }}</td>                      	            
-                <td>{{ consent.user_created }}</td>
-              	<td>{{ consent.modified|date:"Y-m-d" }}</td>         	  
+                <td><A href="{% url subject_dashboard_url dashboard_type='maternal' dashboard_model='maternal_consent' dashboard_id=maternal_consent.pk show='appointments' %}">{{ maternal_consent.subject_identifier }}</A></td>
+                <td>{{maternal_consent.subject_identifier}}</td>            
+              	<td>{{ maternal_consent.first_name|encrypted }}</td>
+              	<td>{{ maternal_consent.initials }}</td>          	
+                <td>{{ maternal_consent.dob|date:'Y-m-d' }}</td>                      	            
+                <td>{{ maternal_consent.consent_datetime|date:'Y-m-d H:i' }}</td>                      	            
+                <td>{{ maternal_consent.user_created }}</td>
+              	<td>{{ maternal_consent.modified|date:"Y-m-d" }}</td>         	  
                 </tr>
             {% endif%}
         {% endfor %}

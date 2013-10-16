@@ -3,7 +3,8 @@ from django.core.urlresolvers import reverse
 
 from edc.audit.audit_trail import AuditTrail
 
-from .base_maternal_consent import BaseMaternalConsent
+
+from .base_maternal_consent import BaseMaternalConsent 
 
 
 class MaternalConsent(BaseMaternalConsent):
