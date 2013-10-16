@@ -22,14 +22,13 @@ class MaternalDashboard(RegisteredSubjectDashboard):
         self.context.add(
             home='mpepu',
             search_name='maternal',
-            subject_dashboard_url='subject_dashboard_url',
+#             subject_dashboard_url='subject_dashboard_url',
             infant_dashboard_url=self.get_infant_dashboard_url(),
             title='Maternal Dashboard',
-#             subject_consent=self.get_consent(),
-#             delivery_datetime=self.get_delivery_datetime(),
+            subject_consent=self.get_consent(),
+            delivery_datetime=self.get_delivery_datetime(),
 #             infants=self.get_infant_identifiers(),
             maternal_consent=self.get_consent(),
-
             infants=self.get_infants(),
             )
         

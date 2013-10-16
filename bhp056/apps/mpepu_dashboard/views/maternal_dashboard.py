@@ -16,8 +16,8 @@ def maternal_dashboard(request, **kwargs):
         dashboard_category=kwargs.get('dashboard_category'),
         registered_subject=kwargs.get('registered_subject'),
         show=kwargs.get('show'),
-        dashboard_type_list=['maternal'],
-        dashboard_models={'maternal_consent': MaternalConsent},
+        #dashboard_type_list=['maternal'],
+        #dashboard_models={'maternal_consent': MaternalConsent},
         )
     return render_to_response(
         'maternal_dashboard.html',
