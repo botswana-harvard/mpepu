@@ -278,7 +278,7 @@ INSTALLED_APPS = (
 #     'edc.device.dispatch',
 #     'edc.device.netbook',
 #     'edc.device.device',
-#     'edc.device.sync',
+    'edc.device.sync',
 
     'edc.dashboard.base',
     'edc.dashboard.search',
