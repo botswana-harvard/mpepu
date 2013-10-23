@@ -43,8 +43,8 @@ class InfantDeathRuleGroup(RuleGroup):
             predicate=(('reason', 'equals', 'death'), ('sid', 'equals', None, 'and')),
             consequence='required',
             alternative='not_required'),
-        target_model=['infantoffstudy', 'infantprerandoloss', 'infantdeath',
-                      'infantverbalautopsy', 'infantsurvival'])
+        target_model=[ 'infantprerandoloss', 'infantdeath',
+                      'infantverbalautopsy', 'infantsurvival','infantoffstudy'])
 
     class Meta:
         app_label = 'mpepu_infant'
