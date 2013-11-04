@@ -15,6 +15,8 @@ ADMINS = (
 )
 
 # Path
+SOURCE_DIR = Path(__file__).ancestor(3)
+# SOURCE_DIR = '/Users/fchilisa/source/bhp056_project'
 PROJECT_DIR = Path(__file__).ancestor(2)
 MEDIA_ROOT = PROJECT_DIR.child('media')
 STATIC_ROOT = PROJECT_DIR.child('static')
@@ -23,8 +25,10 @@ TEMPLATE_DIRS = (
     )
 STATICFILES_DIRS = ()
 CONFIG_DIR = PROJECT_DIR.child('bhp056')
-KEY_PATH = PROJECT_DIR.child('keys')
-# KEY_PATH = '/Volumes/bhp056/keys/'
+# KEY_PATH = PROJECT_DIR.child("keys")
+# print KEY_PATH
+KEY_PATH = '/Users/fchilisa/source/bhp056_project/bhp056/keys'
+
 MAP_DIR = STATIC_ROOT.child('img')
 
 MANAGERS = ADMINS
@@ -245,12 +249,13 @@ INSTALLED_APPS = (
     'debug_toolbar',
 
     'edc.audit',
+    
+    'edc.apps.admin_supplemental_fields',
 
     'edc.core.identifier',
     'edc.core.crypto_fields',
     'edc.core.model_describer',
     'edc.core.model_selector',
-    'edc.core.admin_supplemental_fields',
 
     'edc.core.bhp_templates',
     'edc.core.bhp_static',
@@ -267,6 +272,8 @@ INSTALLED_APPS = (
     'edc.core.bhp_context',
     'edc.core.bhp_using',
     'edc.core.bhp_export_data',
+    
+    'edc.export',
 
     'edc.pharma.dispenser',
 
