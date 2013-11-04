@@ -1,9 +1,12 @@
 from django import forms
 from django.contrib.admin.widgets import AdminRadioSelect, AdminRadioFieldRenderer
+
 from edc.subject.adverse_event.choices import GRADING_SCALE_234
+
 from apps.mpepu_infant.models import (InfantFu, InfantFuDx, InfantFuPhysical, InfantFuDxItems, InfantFuD,
                                  InfantFuDx2Proph, InfantFuDx2ProphItems, InfantFuMed, InfantFuNewMed,
                                  InfantFuNewMedItems)
+
 from .base_infant_model_form import BaseInfantModelForm
 
 
@@ -45,6 +48,8 @@ class InfantFuPhysicalForm (BaseInfantModelForm):
 
 
 class InfantFuDxForm (BaseInfantModelForm):
+    
+    
 
     class Meta:
         model = InfantFuDx
@@ -81,7 +86,6 @@ class InfantFuDxItemsForm (BaseInfantModelForm):
             if infant_fu_physical.was_hospitalized != cleaned_data.get('was_hospitalized'):
                 raise forms.ValidationError('Your response about hospitalization in InfantFuPhysical, and whether or not patient was hospitalized in this DX form are not the same. Please correct.')
         # validating that dx_onsetdate is not greater than the visit date
-#         print visit
         if visit and cleaned_data.get('onset_date') > visit.report_datetime.date():
             raise forms.ValidationError("Onset date cannot be greater than the visit date. Please correct")
 
@@ -93,9 +97,14 @@ class InfantFuDxItemsForm (BaseInfantModelForm):
 
 class InfantFuDx2ProphForm (BaseInfantModelForm):
     def clean(self):
-
         cleaned_data = self.cleaned_data
-        return cleaned_data
+        check_items = self.data.get('infantfudx2prophitems_set-0-dx')
+        #Validating that if new medication is indicated as given, then medication listing should be provided
+        if cleaned_data.get('has_dx') == 'Yes':
+            if not check_items:
+                raise forms.ValidationError('New Diagnosis is indicated to have occured. Please list')
+                
+        return super(InfantFuDx2ProphForm, self).clean()
 
     class Meta:
         model = InfantFuDx2Proph
@@ -107,8 +116,9 @@ class InfantFuDx2ProphItemsForm (BaseInfantModelForm):
         infant_fu_dx = cleaned_data.get('infant_fu_dx')
         
         # relation of medication to study ctx/placebo and infant nvp
-        if self.cleaned_data.get('dx') and not self.cleaned_data.get('ctx') and not self.cleaned_data.get('nvp'):
-            raise forms.ValidationError('If Diagnosis is given, provide information about relation to study ctx placebo and relation to infant nvp')
+        if self.cleaned_data.get('dx'):
+            if not self.cleaned_data.get('ctx') or not self.cleaned_data.get('nvp'):
+                raise forms.ValidationError('If Diagnosis is given, provide information about relation to study ctx placebo and relation to infant nvp')
 
         # validation for ensuring that diagnosis table is only filled when its confirmed that new diagnoses occurred.        
         if infant_fu_dx.has_dx == 'No':
@@ -143,12 +153,15 @@ class InfantFuMedForm (BaseInfantModelForm):
         model = InfantFuMed
 
 
-class InfantFuNewMedForm (BaseInfantModelForm):     
+class InfantFuNewMedForm (BaseInfantModelForm):          
     def clean(self):
         cleaned_data = self.cleaned_data
-        
-       
-    
+        check_items = self.data.get('infantfunewmeditems_set-0-medication')
+        #Validating that if new medication is indicated as given, then medication listing should be provided
+        if cleaned_data.get('new_medications') == 'Yes':
+            if not check_items:
+                raise forms.ValidationError('New medications is indicated as given. Please indicate them')
+                
         return super(InfantFuNewMedForm, self).clean()
 
     class Meta:
@@ -156,15 +169,22 @@ class InfantFuNewMedForm (BaseInfantModelForm):
 
 
 class InfantFuNewMedItemsForm (BaseInfantModelForm):
-
+            
     def clean(self):
-
         cleaned_data = self.cleaned_data
+        medication = cleaned_data.get('medication')
+        drug_route = cleaned_data.get('drug_route')
         # validating that the medication listing is only done when its identified that new meds are given
         infant_fu_med = cleaned_data.get('infant_fu_med')
         if infant_fu_med.new_medications == 'No':
             raise forms.ValidationError('Give new medication listing only when new medication has been received. You answered \'NO\',')
         
+        if medication and not drug_route:
+            raise forms.ValidationError('Please provide the drug route for the medication listed')
+        
+        if not medication and drug_route:
+            raise forms.ValidationError('You have not provided any medication for the drug route indicated. Please correct.')
+  
         return super(InfantFuNewMedItemsForm, self).clean()
 
     class Meta:

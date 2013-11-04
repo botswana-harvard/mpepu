@@ -1,4 +1,5 @@
 from edc.subject.consent.forms import BaseConsentedModelForm
+
 from apps.mpepu_infant.models import InfantVisit
 
 
@@ -10,3 +11,5 @@ class BaseInfantModelForm(BaseConsentedModelForm):
             self.fields['infant_visit'].queryset = InfantVisit.objects.filter(pk=self.instance.infant_visit.pk)
         except:
             pass
+
+        
