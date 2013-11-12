@@ -1,9 +1,9 @@
-from edc.subject.local.bw.models import BaseBwConsent
+from edc.subject.consent.models import BaseConsent
 
 from .maternal_off_study_mixin import MaternalOffStudyMixin
 
 
-class BaseMaternalConsent(MaternalOffStudyMixin, BaseBwConsent):
+class BaseMaternalConsent(MaternalOffStudyMixin, BaseConsent):
 
     """Model for maternal consent and registration model for mothers."""
 

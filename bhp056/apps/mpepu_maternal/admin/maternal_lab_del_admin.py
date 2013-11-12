@@ -29,7 +29,7 @@ class MaternalLabDelAdmin(MaternalVisitModelAdmin):
 
     def __init__(self, *args, **kwargs):
         super(MaternalLabDelAdmin, self).__init__(*args, **kwargs)
-        self.list_filter.append(GaListFilter)
+#         self.list_filter.append(GaListFilter)
 
     def get_readonly_fields(self, request, obj=None):
         if obj:  # In edit mode

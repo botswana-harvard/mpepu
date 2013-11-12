@@ -2,14 +2,14 @@ from django.core.exceptions import ValidationError
 from django.db import models
 
 from edc.audit.audit_trail import AuditTrail
-from edc.subject.local.bw.models import BaseBwConsent
+from edc.subject.consent.models import BaseConsent
 from edc.subject.registration.models import RegisteredSubject
 from edc.subject.appointment_helper.models import BaseAppointmentMixin
 
 from apps.mpepu_maternal.models import MaternalConsent
 
 
-class ArvResistanceConsent(BaseAppointmentMixin, BaseBwConsent):
+class ArvResistanceConsent(BaseAppointmentMixin, BaseConsent):
     """Model for ARV resistance sub study consent for mothers."""
     
     registered_subject = models.OneToOneField(RegisteredSubject,editable=False, null=True)

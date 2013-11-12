@@ -3,9 +3,11 @@ from django.contrib import admin
 from apps.mpepu_maternal.admin import MaternalVisitModelAdmin
 
 from ..models import ArvResistanceDiscontinuation
+from ..forms import ArvDiscontinuationForm
 
 
 class ArvResistanceDiscontinuationAdmin(MaternalVisitModelAdmin):
+    form = ArvDiscontinuationForm
     
     fields = (
         "maternal_visit",
