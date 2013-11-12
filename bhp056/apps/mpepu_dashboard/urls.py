@@ -19,4 +19,3 @@ regex = {}
 regex['dashboard_type'] = 'maternal'
 regex['dashboard_model'] = 'maternal_consent'
 urlpatterns += MaternalDashboard.get_urlpatterns('apps.mpepu_dashboard.views', regex, visit_field_names=['maternal_visit', ])
-
