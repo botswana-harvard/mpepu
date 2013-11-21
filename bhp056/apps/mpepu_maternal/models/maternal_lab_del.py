@@ -241,10 +241,10 @@ class MaternalLabDelMed(BaseScheduledVisitModel):
         verbose_name = "Maternal Labour & Delivery: MedHistory"
 
     def get_report_datetime(self):
-        return self.maternal_lab_del.get_report_datetime()
+        return self.maternal_visit.report_datetime
 
     def get_subject_identifier(self):
-        return self.maternal_lab_del.get_subject_identifier()
+        return self.maternal_visit.appointment.registered_subject.subject_identifier
 
     def get_absolute_url(self):
         return reverse('admin:mpepu_maternal_maternallabour&deliverymedhistory_change', args=(self.id,))
@@ -318,10 +318,10 @@ class MaternalLabDelClinic(BaseScheduledVisitModel):
         verbose_name = "Maternal Labour & Delivery: ClinHist"
 
     def get_report_datetime(self):
-        return self.maternal_lab_del.get_report_datetime()
+        return self.maternal_visit.get_report_datetime()
 
     def get_subject_identifier(self):
-        return self.maternal_lab_del.get_subject_identifier()
+        return self.maternal_visit.get_subject_identifier()
 
     def get_absolute_url(self):
         return reverse('admin:mpepu_maternal_maternallabour&deliverymedhistory_change', args=(self.id,))
@@ -355,10 +355,10 @@ class MaternalLabDelDx(BaseScheduledVisitModel):
         return reverse('admin:mpepu_maternal_maternallabour&deliverypregdx_change', args=(self.id,))
 
     def get_report_datetime(self):
-        return self.maternal_lab_del.get_report_datetime()
+        return self.maternal_visit.get_report_datetime()
 
     def get_subject_identifier(self):
-        return self.maternal_lab_del.get_subject_identifier()
+        return self.maternal_visit.get_subject_identifier()
 
     class Meta:
         app_label = "mpepu_maternal"
@@ -403,13 +403,13 @@ class MaternalLabDelDxT (MaternalBaseUuidModel):
         return (self.lab_del_dx, ) + self.maternal_lab_del_dx.natural_key()
 
     def get_visit(self):
-        return self.maternal_lab_del_dx.maternal_visit
+        return self.maternal_visit
 
     def get_report_datetime(self):
-        return self.maternal_lab_del_dx.get_report_datetime()
+        return self.maternal_visit.get_report_datetime()
 
     def get_subject_identifier(self):
-        return self.maternal_lab_del_dx.get_subject_identifier()
+        return self.maternal_visit.get_subject_identifier()
 
     def __unicode__(self):
         return unicode(self.get_visit())

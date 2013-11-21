@@ -60,7 +60,7 @@ admin.site.register(InfantOffDrug, InfantOffDrugAdmin)
 class InfantOffStudyAdmin(OffStudyModelAdmin):
 
     form = InfantOffStudyForm
-
+    
 admin.site.register(InfantOffStudy, InfantOffStudyAdmin)
 
 
@@ -137,6 +137,7 @@ class InfantArvProphAdmin(InfantVisitModelAdmin):
 
     fields = (
         "infant_visit",
+        "report_datetime",
         "prophylatic_nvp",
         "arv_status"
     )

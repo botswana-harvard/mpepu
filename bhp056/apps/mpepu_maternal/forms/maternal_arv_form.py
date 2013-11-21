@@ -52,6 +52,16 @@ class MaternalArvPregForm (BaseMaternalModelForm):
 
 
 class MaternalArvPregHistoryForm (BaseMaternalModelForm):
+    def clean(self):
+        cleaned_data = super(MaternalArvPregHistoryForm, self).clean()
+        
+        if cleaned_data.get('is_interrupt')=='Yes' and cleaned_data.get('interrupt')=='N/A':
+            raise forms.ValidationError("'You indicated there was an interruption in the ARVs received. Reason cannot be 'Not applicable'")
+        
+        if cleaned_data.get('is_interrupt')=='No' and cleaned_data.get('interrupt')!='N/A':
+            raise forms.ValidationError("'You indicated there was no interruption in the ARVs received. Reason cannot be 'Not applicable'")
+            
+        return cleaned_data
 
     class Meta:
         model = MaternalArvPregHistory

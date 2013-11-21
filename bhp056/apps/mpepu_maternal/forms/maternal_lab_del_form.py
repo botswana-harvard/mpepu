@@ -27,6 +27,14 @@ class MaternalLabDelForm (BaseMaternalModelForm):
         if cleaned_data.get('delivery_datetime'):
             if cleaned_data.get('delivery_datetime') > datetime.today():
                 raise forms.ValidationError('Maternal Labour Delivery date cannot be greater than today\'s date. Please correct.')
+            
+        #still born validations
+        if cleaned_data.get('still_borns') > 0 and cleaned_data.get('still_born_has_congen_abn')== 'N/A':
+            raise forms.ValidationError("You indicated there were still births yet selected 'Not applicable' for congenital abonormality. Please correct.")
+        if cleaned_data.get('still_born_has_congen_abn')=='Yes' and not cleaned_data.get('still_born_congen_abn'):
+            raise forms.ValidationError('You indicated that stillborns did have congenital abnormalities. Please specify.')
+        if cleaned_data.get('still_born_has_congen_abn')!='Yes' and cleaned_data.get('still_born_congen_abn'):
+            raise forms.ValidationError('You indicated that stillborns did not have congenital abnormalities and yet provided specifications. Please correct.')
         
         return super(MaternalLabDelForm, self).clean()
 

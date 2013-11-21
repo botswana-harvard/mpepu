@@ -1,6 +1,9 @@
+{% load common_tags %}
 {% load crypto_tags %}
+{% load admin_urls %}
 {% load url from future %}
- 
+
+  <div class="results"> 
       <table>
     	<thead>
 			<tr>
@@ -13,18 +16,19 @@
     	<th>User Created</th>
     	<th>Date Modified</th>    	    	
     	</thead>	
-        {% for maternal_consent in search_result.object_list %}
-            {% if maternal_consent.subject_identifier %}
+        {% for maternalconsent in search_result.object_list %}
+            {% if maternalconsent.subject_identifier %}
                 <tr class="{% cycle 'row1' 'row2' %}">
-                <td><A href="{% url subject_dashboard_url dashboard_type='maternal' dashboard_model='maternal_consent' dashboard_id=maternal_consent.pk show='appointments' %}">{{ maternal_consent.subject_identifier }}</A></td>
-                <td>{{maternal_consent.subject_identifier}}</td>            
-              	<td>{{ maternal_consent.first_name|encrypted }}</td>
-              	<td>{{ maternal_consent.initials }}</td>          	
-                <td>{{ maternal_consent.dob|date:'Y-m-d' }}</td>                      	            
-                <td>{{ maternal_consent.consent_datetime|date:'Y-m-d H:i' }}</td>                      	            
-                <td>{{ maternal_consent.user_created }}</td>
-              	<td>{{ maternal_consent.modified|date:"Y-m-d" }}</td>         	  
+                <td><A href="{% url subject_dashboard_url dashboard_type='maternal' dashboard_model='maternal_consent' dashboard_id=maternalconsent.pk show='appointments' %}">{{ maternalconsent.subject_identifier }}</A></td>
+                <td>{{maternalconsent.subject_identifier}}</td>            
+              	<td>{{ maternalconsent.first_name|encrypted }}</td>
+              	<td>{{ maternalconsent.initials }}</td>          	
+                <td>{{ maternalconsent.dob|date:'Y-m-d' }}</td>                      	            
+                <td>{{ maternalconsent.consent_datetime|date:'Y-m-d H:i' }}</td>                      	            
+                <td>{{ maternalconsent.user_created }}</td>
+              	<td>{{ maternalconsent.modified|date:"Y-m-d" }}</td>         	  
                 </tr>
             {% endif%}
         {% endfor %}
-    </table>    
+    </table> 
+    </div>   

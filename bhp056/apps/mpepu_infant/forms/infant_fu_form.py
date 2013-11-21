@@ -35,6 +35,12 @@ class InfantFuPhysicalForm (BaseInfantModelForm):
     def clean(self):
 
         cleaned_data = super(InfantFuPhysicalForm, self).clean()
+        
+        # validating abnormal findings
+        if cleaned_data.get('has_abnormalities') == 'Yes' and not cleaned_data.get('abnormalities'):
+            raise forms.ValidationError('You indicated infant has abnormalities. Please describe them.')
+        if cleaned_data.get('has_abnormalities') == 'No' and cleaned_data.get('abnormalities'):
+            raise forms.ValidationError('You indicated that infant does NOT have abnormalities but provided a description of abnormalities. Please correct.')
 
         # validating hospitalization
         if cleaned_data.get('was_hospitalized') == 'Yes' and not cleaned_data.get('days_hospitalized'):
@@ -48,7 +54,10 @@ class InfantFuPhysicalForm (BaseInfantModelForm):
 
 
 class InfantFuDxForm (BaseInfantModelForm):
-    
+    def clean(self):
+        cleaned_data = super(InfantFuDxForm,self).clean()
+        
+        return cleaned_data
     
 
     class Meta:
@@ -65,6 +74,9 @@ class InfantFuDxItemsForm (BaseInfantModelForm):
 
     def clean(self):
         cleaned_data = self.cleaned_data
+        infant_fu_dx = cleaned_data.get('infant_fu_dx')
+        visit = infant_fu_dx.infant_visit
+        
         if 'specify' in cleaned_data.get('fu_dx', None):
             if not cleaned_data.get('fu_dx_specify', None):
                 raise forms.ValidationError('please specify \'%s\'' % (cleaned_data.get('fu_dx').replace('specify', ''),))
@@ -73,22 +85,24 @@ class InfantFuDxItemsForm (BaseInfantModelForm):
             grade_2_reportable_dx = ['Hepatitis:Drug related', 'Rash']
             if cleaned_data.get('fu_dx') not in grade_2_reportable_dx and cleaned_data.get('grade', None) == '2':
                 raise forms.ValidationError('{dx} is not reportable at grade 2.'.format(dx=cleaned_data.get('fu_dx')))
+            
         # validating for eae report
         if cleaned_data.get('is_eae_required') == 'Yes' and not cleaned_data.get('eae_reference'):
             raise forms.ValidationError('If eae report is available, give the eae reference number.')
+        if cleaned_data.get('is_eae_required') == 'No' and cleaned_data.get('eae_reference'):
+            raise forms.ValidationError('The eae report is indicated as not required, yet the eae reference number is given. Please correct')
+        
+        # validating that dx_onsetdate is not greater than the visit date
+        if visit and cleaned_data.get('onset_date') > visit.report_datetime.date():
+            raise forms.ValidationError("Onset date cannot be greater than the visit date. Please correct")
 
         # if hospitalized, response about hospitalization in InfantPhysical and infantfudxitems should be same
-        infant_fu_dx = cleaned_data.get('infant_fu_dx')
-        visit = infant_fu_dx.infant_visit
         if InfantFuPhysical.objects.filter(infant_visit=visit).exists():
             infant_fu_physical = InfantFuPhysical.objects.get(infant_visit=visit)
 
             if infant_fu_physical.was_hospitalized != cleaned_data.get('was_hospitalized'):
                 raise forms.ValidationError('Your response about hospitalization in InfantFuPhysical, and whether or not patient was hospitalized in this DX form are not the same. Please correct.')
-        # validating that dx_onsetdate is not greater than the visit date
-        if visit and cleaned_data.get('onset_date') > visit.report_datetime.date():
-            raise forms.ValidationError("Onset date cannot be greater than the visit date. Please correct")
-
+        
         return cleaned_data
 
     class Meta:
@@ -99,7 +113,7 @@ class InfantFuDx2ProphForm (BaseInfantModelForm):
     def clean(self):
         cleaned_data = self.cleaned_data
         check_items = self.data.get('infantfudx2prophitems_set-0-dx')
-        #Validating that if new medication is indicated as given, then medication listing should be provided
+        #Validating that if new diagnosis is indicated as given, then diagnosis listing should be provided
         if cleaned_data.get('has_dx') == 'Yes':
             if not check_items:
                 raise forms.ValidationError('New Diagnosis is indicated to have occured. Please list')
@@ -132,7 +146,15 @@ class InfantFuDx2ProphItemsForm (BaseInfantModelForm):
 
 class InfantFuDForm (BaseInfantModelForm):
     def clean(self):
-        cleaned_data = self.cleaned_data
+        cleaned_data = super(InfantFuDForm,self).clean()
+        # if hospitalized, response about hospitalization in InfantPhysical and infantfudxitems should be same
+        infant_fu = cleaned_data.get('infant_fu')
+        visit = infant_fu.infant_visit
+        if InfantFuPhysical.objects.filter(infant_visit=visit).exists():
+            infant_fu_physical = InfantFuPhysical.objects.get(infant_visit=visit)
+
+            if infant_fu_physical.was_hospitalized != cleaned_data.get('hospitalized'):
+                raise forms.ValidationError('Your response about hospitalization in InfantFuPhysical, and whether or not patient was hospitalized in this Diarhoea form are not the same. Please correct.')
         return cleaned_data
 
     class Meta:
@@ -141,7 +163,7 @@ class InfantFuDForm (BaseInfantModelForm):
 
 class InfantFuMedForm (BaseInfantModelForm):
     def clean(self):
-        cleaned_data = self.cleaned_data
+        cleaned_data = super(InfantFuMedForm, self).clean()
         if 'vaccination' in cleaned_data:
             self.validate_m2m(
                     label=' infant vaccination',

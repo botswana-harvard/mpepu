@@ -1,4 +1,5 @@
 from django.db import models
+from datetime import datetime
 
 from edc.subject.consent.models import BaseConsentedUuidModel
 from edc.base.model.validators import datetime_not_before_study_start, datetime_not_future, datetime_is_after_consent
@@ -18,6 +19,7 @@ class MaternalBaseUuidModel(MaternalOffStudyMixin, BaseConsentedUuidModel):
             datetime_is_after_consent,
             datetime_not_future,
             ],
+        default=datetime.today(),
         )
 
     def get_off_study_cls(self):

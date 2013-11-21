@@ -13,6 +13,11 @@ class InfantOffStudyForm (BaseOffStudyForm):
         help_text="",
         widget=AdminRadioSelect(renderer=AdminRadioFieldRenderer),
         )
+    
+    def clean(self):
+        cleaned_data = super(InfantOffStudyForm, self).clean()
+        
+        return cleaned_data
 
     class Meta:
         model = InfantOffStudy

@@ -36,24 +36,28 @@ class ArvResistanceDiscontinuation(BaseScheduledVisitModel):
         verbose_name="If Yes, what was the last date antiretrovirals were taken?",
         null=True,
         blank=True,
+        help_text="Answer only if answered Yes, for question 5 above",
         )
     
     last_ftc_date = models.DateField(
         verbose_name="If No, what was the last date you took TDF/FTC?",
         null=True,
         blank=True,
+        help_text="Answer only if answered No, for question 5 above",
         )
     
     last_tdf_date = models.DateField(
         verbose_name="What was the last date you took TDF?",
         null=True,
         blank=True,
+        help_text="Answer only if answered No, for question 5 above",
         )
     
     last_3tc_date = models.DateField(
         verbose_name="What was the last date you took 3TC?",
         null=True,
         blank=True,
+        help_text="Answer only if answered No, for question 5 above",
         )
     
     as_prescribed = models.CharField(

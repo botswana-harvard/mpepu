@@ -4,7 +4,6 @@ from django.core.urlresolvers import reverse
 from edc.audit.audit_trail import AuditTrail
 from edc.subject.registration.models import RegisteredSubject
 
-
 from .base_maternal_consent import BaseMaternalConsent 
 
 

@@ -58,27 +58,28 @@ class MaternalArvPregHistory(BaseScheduledVisitModel):
     is_interrupt = models.CharField(
         max_length=3,
         choices=YES_NO,
-        verbose_name="3. Was there an interruption in the ARVs received during pregnancy through delivery of >/=3days?",
+        verbose_name="Was there an interruption in the ARVs received during pregnancy through delivery of >/=3days?",
         help_text="",
         )
+    
     interrupt = models.CharField(
-        verbose_name="3a. Please give reason for interruption",
+        verbose_name="Please give reason for interruption",
         choices=ARV_INTERRUPTION_REASON,
         max_length=50,
         help_text="",
         default='N/A',
-
         )
+    
     interrupt_other = models.TextField(
         max_length=250,
-        verbose_name="3b.Other, specify ",
+        verbose_name="Other, specify ",
         blank=True,
         null=True,
         )
 
     comment = models.TextField(
         max_length=250,
-        verbose_name="8. Comments on pregnancy regimens: ",
+        verbose_name="Comments on pregnancy regimens: ",
         blank=True,
         null=True,
         )

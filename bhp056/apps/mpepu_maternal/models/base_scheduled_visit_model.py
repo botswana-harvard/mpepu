@@ -14,7 +14,7 @@ class BaseScheduledVisitModel(MaternalBaseUuidModel):
     objects = ScheduledModelManager()
 
     def natural_key(self):
-        return self.subject_visit.natural_key()
+        return self.maternal_visit.natural_key()
 
     def __unicode__(self):
         return unicode(self.maternal_visit)

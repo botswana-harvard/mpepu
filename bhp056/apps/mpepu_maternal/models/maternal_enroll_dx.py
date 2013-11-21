@@ -21,10 +21,14 @@ class MaternalEnrollDx(MaternalBaseUuidModel):
         max_length=50,
         verbose_name="Diagnosis",
         help_text="",
+        null=True,
+        blank=True,
         )
     diagnosis_year = models.IntegerField(
         verbose_name="Year",
         validators=[MinValueValidator(1947), MaxValueValidator(datetime.today().year), ],
+        null=True,
+        blank=True,
         )
 
     history = AuditTrail()
