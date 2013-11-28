@@ -11,8 +11,10 @@ class MaternalEnrollForm (BaseMaternalModelForm):
         cleaned_data = self.cleaned_data
 
         # if recruit_source == OTHER, recruit_source_other may not be blank"""
-        if cleaned_data.get('recruit_source', None) == 'OTHER' and cleaned_data.get('recruit_source_other', None) == '':
-            raise forms.ValidationError("If recruitment source is 'OTHER', please specify. You wrote '%s'" % cleaned_data.get('recruit_source_other', None))
+        if cleaned_data.get('recruit_source', None) == 'OTHER' and not cleaned_data.get('recruit_source_other', None) :
+            raise forms.ValidationError("If recruitment source is 'OTHER', please specify.")
+        if cleaned_data.get('recruit_source', None) != 'OTHER' and cleaned_data.get('recruit_source_other', None):
+            raise forms.ValidationError("If recruitment source is not 'OTHER', you cannot specify. You wrote '%s'" % cleaned_data.get('recruit_source_other', None)+". Please correct.")
         # if prev_pregnancy super(MyModelForm, self).clean()es == 0, prev_pregnancy_arv must be N/A"""
         if cleaned_data.get('prev_pregnancies', None) == 0 and cleaned_data.get('prev_pregnancy_arv', None) != 'N/A':
             raise forms.ValidationError("If no previous pregnancies, question (4) refering to ARVs during previous pregnancies should be 'Not Applicable'. You wrote '%s'" % cleaned_data.get('prev_pregnancy_arv', None))
@@ -60,6 +62,10 @@ class MaternalEnrollDemForm (BaseMaternalModelForm):
 
 
 class MaternalEnrollObForm (BaseMaternalModelForm):
+    def clean(self):
+        cleaned_data = super(MaternalEnrollObForm, self).clean()
+      
+        return cleaned_data
 
     class Meta:
         model = MaternalEnrollOb

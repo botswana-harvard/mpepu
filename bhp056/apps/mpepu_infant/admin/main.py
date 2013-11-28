@@ -172,8 +172,8 @@ class InfantStudyDrugInitAdmin(InfantVisitModelAdmin):
         "initiated",
         "first_dose_date",
         "reason_not_init",
-        "reason_not_survive",
-        "reason_not_init_other"
+        "reason_not_init_other",
+        "reason_not_survive",       
     )
 
     radio_fields = {

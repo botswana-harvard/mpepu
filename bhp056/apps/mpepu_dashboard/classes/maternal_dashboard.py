@@ -62,15 +62,35 @@ class MaternalDashboard(RegisteredSubjectDashboard):
     def get_packing_list_model(self):
         return PackingList
 
+#     def get_infants(self):
+#         # list infant on the side bar. If InfantBirth information is available, use that
+#         infants = {}
+#         for infant_registered_subject in RegisteredSubject.objects.filter(subject_type='INFANT', relative_identifier__iexact=self.get_subject_identifier()):
+#             #look for infant birth record
+#             if InfantBirth.objects.filter(registered_subject__exact=infant_registered_subject):
+#                 infants[infant_registered_subject.subject_identifier] = InfantBirth.objects.get(registered_subject__exact=infant_registered_subject).__dict__
+#             else:
+#                 infants[infant_registered_subject.subject_identifier] = infant_registered_subject#{'subject_identifier': infant_registered_subject.subject_identifier}
+#         return infants
+
     def get_infants(self):
-        # list infant on the side bar. If InfantBirth information is available, use that
+        """Returns a list of infants identifiers asssociated with the maternal subject_identifier by querying the Birth model or RegisteredSubject."""
         infants = {}
-        for infant_registered_subject in RegisteredSubject.objects.filter(subject_type='INFANT', relative_identifier__iexact=self.get_subject_identifier()):
+        for infant_registered_subject in RegisteredSubject.objects.filter(subject_type='infant', relative_identifier__iexact=self.get_subject_identifier()):
             #look for infant birth record
-            if InfantBirth.objects.filter(registered_subject__exact=infant_registered_subject):
-                infants[infant_registered_subject.subject_identifier] = InfantBirth.objects.get(registered_subject__exact=infant_registered_subject).__dict__
+            if InfantBirth.objects.filter(registered_subject__exact=infant_registered_subject).exists():
+                infant_birth = InfantBirth.objects.get(registered_subject__exact=infant_registered_subject)
+                dct = infant_birth.__dict__
+                dct['dashboard_model'] = convert_from_camel(infant_birth._meta.object_name)
+                dct['dashboard_id'] = convert_from_camel(infant_birth.pk)
+                dct['dashboard_type'] = 'infant'
+                infants[infant_registered_subject.subject_identifier] = dct
             else:
-                infants[infant_registered_subject.subject_identifier] = {'subject_identifier': infant_registered_subject.subject_identifier}
+                dct = {'subject_identifier': infant_registered_subject.subject_identifier}
+                dct['dashboard_model'] = 'registered_subject'
+                dct['dashboard_id'] = infant_registered_subject.pk
+                dct['dashboard_type'] = 'infant'
+                infants[infant_registered_subject.subject_identifier] = dct
         return infants
 
     def get_delivery_datetime(self):

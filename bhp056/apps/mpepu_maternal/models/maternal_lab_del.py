@@ -1,23 +1,27 @@
-from django.db import models
+from datetime import datetime
+
 from django.core.exceptions import ValidationError
-from django.core.validators import MinValueValidator, MaxValueValidator
 from django.core.urlresolvers import reverse
+from django.core.validators import MinValueValidator, MaxValueValidator
+from django.db import models
 
 from edc.audit.audit_trail import AuditTrail
-from edc.subject.code_lists.models import WcsDxAdult
-from edc.core.identifier.classes import InfantIdentifier
 from edc.base.model.fields.custom.custom_fields import OtherCharField
+from edc.base.model.validators import datetime_not_future
 from edc.choices.common import YES_NO, YES_NO_NA_SPECIFY, YES_NO_UNKNOWN
-from edc.subject.adverse_event.choices import GRADING_SCALE
 from edc.core.crypto_fields.utils import mask_encrypted
+from edc.core.identifier.classes import InfantIdentifier
+from edc.subject.adverse_event.choices import GRADING_SCALE
+from edc.subject.code_lists.models import WcsDxAdult
 
-
-from apps.mpepu_list.models import HealthCond, DelComp, ObComp, Suppliment
 from apps.mpepu.choices import LABOUR_HOURS, LABOUR_MODE_OF_DELIVERY, DELIVERY_HOSPITAL, DX
+from apps.mpepu_list.models import HealthCond, DelComp, ObComp, Suppliment
+
+from ..managers import MaternalLabDelDxTManager
 
 from .base_scheduled_visit_model import BaseScheduledVisitModel
 from .maternal_base_uuid_model import MaternalBaseUuidModel
-from ..managers import MaternalLabDelDxTManager
+
 
 
 class MaternalLabDel(BaseScheduledVisitModel):
@@ -30,9 +34,8 @@ class MaternalLabDel(BaseScheduledVisitModel):
     delivery_datetime = models.DateTimeField(
         verbose_name="1. Date and time of delivery :",
         help_text="If TIME unknown, estimate",
-#        validators=[
-#            datetime_not_before_study_start,
-#            datetime_not_future,],
+        validators=[
+            datetime_not_future,],
         )
     del_time_is_est = models.CharField(
         verbose_name="1a. Is the delivery TIME estimated?",
@@ -130,6 +133,7 @@ class MaternalLabDel(BaseScheduledVisitModel):
         verbose_name="11. How many stillbirths did the mother deliver?  ",
         help_text="( if '>0' continue. Otherwise go to question 13 )",
         )
+    
     still_born_has_congen_abn = models.CharField(
         max_length=3,
         choices=YES_NO_NA_SPECIFY,
@@ -139,17 +143,20 @@ class MaternalLabDel(BaseScheduledVisitModel):
         null=True,
         default="N/A",
         )
+    
     still_born_congen_abn = OtherCharField(
         verbose_name="12a. If yes, specify;",
         blank=True,
         null=True,
         )
+    
     del_comment = models.TextField(
         max_length=250,
         verbose_name="13. List any addtional information about the labour and delivery (mother only) ",
         blank=True,
         null=True,
         )
+    
     comment = models.TextField(
         max_length=250,
         verbose_name="Comment if any additional pertinent information ",

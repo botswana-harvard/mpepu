@@ -1,16 +1,16 @@
-from django.db import models
 from django.core.exceptions import ImproperlyConfigured
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django.db import models
 
 from edc.audit.audit_trail import AuditTrail
 from edc.base.model.fields.custom.custom_fields import InitialsField
-from edc.choices.common import GENDER_UNDETERMINED
-from edc.subject.consent.classes import ConsentHelper
 from edc.base.model.validators import date_not_future
+from edc.choices.common import GENDER_UNDETERMINED
 from edc.core.crypto_fields.fields import EncryptedFirstnameField
+from edc.subject.consent.classes import ConsentHelper
 
-from apps.mpepu_maternal.models.maternal_lab_del import MaternalLabDel
 from apps.mpepu_infant_rando.mixins import InfantEligibilityMixin
+from apps.mpepu_maternal.models.maternal_lab_del import MaternalLabDel
 
 from .base_infant_registered_subject_model import BaseInfantRegisteredSubjectModel
 from .infant_visit import InfantVisit

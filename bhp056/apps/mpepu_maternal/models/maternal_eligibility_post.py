@@ -1,6 +1,6 @@
-from django.db import models
-from django.core.validators import MinValueValidator, MaxValueValidator
 from django.core.urlresolvers import reverse
+from django.core.validators import MinValueValidator, MaxValueValidator
+from django.db import models
 
 from edc.audit.audit_trail import AuditTrail
 
@@ -21,9 +21,6 @@ class MaternalEligibilityPost(BaseMaternalEligibility):
         )
 
     history = AuditTrail()
-
-    def get_registration_datetime(self):
-        return self.maternal_consent.consent_datetime
 
     def get_absolute_url(self):
         return reverse('admin:mpepu_maternal_maternaleligibilitypost_change', args=(self.id,))

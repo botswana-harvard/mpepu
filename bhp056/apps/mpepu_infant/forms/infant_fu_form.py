@@ -155,6 +155,10 @@ class InfantFuDForm (BaseInfantModelForm):
 
             if infant_fu_physical.was_hospitalized != cleaned_data.get('hospitalized'):
                 raise forms.ValidationError('Your response about hospitalization in InfantFuPhysical, and whether or not patient was hospitalized in this Diarhoea form are not the same. Please correct.')
+        
+        # validating that d_onsetdate is not greater than the visit date
+        if visit and cleaned_data.get('d_onset_date') > visit.report_datetime:
+            raise forms.ValidationError("Diarhoea onset date cannot be greater than the visit date. Please correct")
         return cleaned_data
 
     class Meta:
