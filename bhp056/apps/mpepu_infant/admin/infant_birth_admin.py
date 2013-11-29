@@ -22,15 +22,15 @@ class InfantBirthAdmin(RegisteredSubjectModelAdmin):
         registered_subject.save()
         return super(InfantBirthAdmin, self).save_model(request, obj, form, change)
 
-    def formfield_for_foreignkey(self, db_field, request, **kwargs):
-        if db_field.name == "maternal_lab_del":
-            if request.GET.get('subject_identifier'):
-                maternal_subject_identifier = RegisteredSubject.objects.get(subject_identifier=request.GET.get('subject_identifier')).relative_identifier
-                kwargs["queryset"] = MaternalLabDel.objects.filter(maternal_visit__appointment__registered_subject__subject_identifier=maternal_subject_identifier)
-            else:
-                kwargs["queryset"] = MaternalLabDel.objects.none()
-
-        return super(InfantBirthAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
+#     def formfield_for_foreignkey(self, db_field, request, **kwargs):
+#         if db_field.name == "maternal_lab_del":
+#             if request.GET.get('subject_identifier'):
+#                 maternal_subject_identifier = RegisteredSubject.objects.get(subject_identifier=request.GET.get('subject_identifier')).relative_identifier
+#                 kwargs["queryset"] = MaternalLabDel.objects.filter(maternal_visit__appointment__registered_subject__subject_identifier=maternal_subject_identifier)
+#             else:
+#                 kwargs["queryset"] = MaternalLabDel.objects.none()
+#  
+#         return super(InfantBirthAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
     fields = (
         "registered_subject",
@@ -39,7 +39,7 @@ class InfantBirthAdmin(RegisteredSubjectModelAdmin):
         "initials",
         "birth_order",
         "dob",
-        "gender"
+        "gender",
     )
 
     list_display = ('registered_subject', 'first_name', 'initials', 'dob', 'gender', 'created', 'modified')

@@ -65,6 +65,7 @@ class InfantVisit(InfantOffStudyMixin, BaseVisitTracking):
         for item in VISIT_REASON_NO_FOLLOW_UP_CHOICES:
             dct.update({item: item})
         dct.update({'deferred': 'deferred'})
+        dct.update({'vital status':'vital status'})
         return dct
 
     def get_absolute_url(self):
