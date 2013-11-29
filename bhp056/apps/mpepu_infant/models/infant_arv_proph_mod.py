@@ -11,6 +11,13 @@ from .infant_off_study_mixin import InfantOffStudyMixin
 class InfantArvProphMod(InfantOffStudyMixin, BaseHaartModification):
 
     infant_arv_proph = models.ForeignKey(InfantArvProph)
+    
+    other_reason=models.CharField(
+        verbose_name="Specify Other",
+        max_length=100,
+        null=True,
+        blank=True,
+        )
 
     history = AuditTrail()
 

@@ -212,7 +212,7 @@ VISIT_REASON = [
     ('death', '5. Death'),
     ('off study', '6. Subject has completed the study'),
     ('deferred', '7. Deferred (2010 only)'),
-    ('vital status','Vital Status'),
+    ('vital status','8. Vital Status'),
 ]
 
 WATER_USED = (
