@@ -22,15 +22,21 @@ class InfantBirthAdmin(RegisteredSubjectModelAdmin):
         registered_subject.save()
         return super(InfantBirthAdmin, self).save_model(request, obj, form, change)
 
-#     def formfield_for_foreignkey(self, db_field, request, **kwargs):
-#         if db_field.name == "maternal_lab_del":
-#             if request.GET.get('subject_identifier'):
-#                 maternal_subject_identifier = RegisteredSubject.objects.get(subject_identifier=request.GET.get('subject_identifier')).relative_identifier
-#                 kwargs["queryset"] = MaternalLabDel.objects.filter(maternal_visit__appointment__registered_subject__subject_identifier=maternal_subject_identifier)
-#             else:
-#                 kwargs["queryset"] = MaternalLabDel.objects.none()
-#  
-#         return super(InfantBirthAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if db_field.name == "maternal_lab_del":
+            if request.GET.get('registered_subject'):
+                maternal_subject_identifier = RegisteredSubject.objects.get(id=request.GET.get('registered_subject')).relative_identifier
+                kwargs["queryset"] = MaternalLabDel.objects.filter(maternal_visit__appointment__registered_subject__subject_identifier=maternal_subject_identifier)
+            else:
+                kwargs["queryset"] = MaternalLabDel.objects.none()
+    
+        return super(InfantBirthAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
+
+    def get_readonly_fields(self, request, obj=None):
+        if obj:  # In edit mode
+            return ('maternal_lab_del',) + self.readonly_fields
+        else:
+            return self.readonly_fields
 
     fields = (
         "registered_subject",
