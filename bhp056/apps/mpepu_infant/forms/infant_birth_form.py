@@ -48,11 +48,11 @@ class InfantBirthExamForm (BaseInfantModelForm):
 
         #physical exam normal, rash observation not required"""
         if cleaned_data.get('physical_exam_result', None) == 'NORMAL' and cleaned_data.get('macular_papular_rash', None) != 'N/A':
-            raise forms.ValidationError("If physical exam is normal then heent rash observation required, please correct. You wrote '%s'" % cleaned_data.get('macular_papular_rash', None))
+            raise forms.ValidationError("If physical exam is normal then heent rash observation not required, please correct. You wrote '%s'" % cleaned_data.get('macular_papular_rash', None))
 
         #physical exam normal, neurologic exam no required"""
         if cleaned_data.get('physical_exam_result', None) == 'NORMAL' and cleaned_data.get('neurologic_exam', None) != 'N/A':
-            raise forms.ValidationError("If physical exam is normal then heent neurological exam required, please correct. You wrote '%s'" % cleaned_data.get('neurologic_exam', None))
+            raise forms.ValidationError("If physical exam is normal then heent neurological exam not required, please correct. You wrote '%s'" % cleaned_data.get('neurologic_exam', None))
         return super(InfantBirthExamForm, self).clean()
 
     class Meta:

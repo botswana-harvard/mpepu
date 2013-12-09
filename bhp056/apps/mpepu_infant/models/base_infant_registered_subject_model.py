@@ -10,7 +10,7 @@ class BaseInfantRegisteredSubjectModel(InfantOffStudyMixin, BaseRegisteredSubjec
 
     def safe_delete_appointment(self, code):
         """Deletes an appointment as long as the visit tracking form does not exist."""
-        Appointment = models.get_model('bhp_appointment', 'Appointment')
+        Appointment = models.get_model('appointment', 'Appointment')
         for appointment in Appointment.objects.filter(registered_subject=self.registered_subject, visit_definition__code=code, visit_instance='0'):
             if not InfantVisit.objects.filter(appointment=appointment):
                 try:
