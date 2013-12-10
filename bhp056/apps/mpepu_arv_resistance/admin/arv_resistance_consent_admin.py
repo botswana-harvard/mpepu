@@ -62,11 +62,11 @@ class ArvResistanceConsentAdmin(BaseConsentModelAdmin):
                 raise ValidationError('Unable to locate Mpepu Maternal consent using the first_name, gender, dob and identity number provided.')
         super(ArvResistanceConsentAdmin, self).save_model(request, obj, form, change)
         
-#     def formfield_for_foreignkey(self, db_field, request, **kwargs):
-# 
-#         if db_field.name == "registered_subject":
-#             kwargs["queryset"] = RegisteredSubject.objects.filter(id__exact=request.GET.get('registered_subject', 0))
-#         return super(ArvResistanceConsentAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
-#     
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+ 
+        if db_field.name == "registered_subject":
+            kwargs["queryset"] = RegisteredSubject.objects.filter(id__exact=request.GET.get('registered_subject'))
+        return super(ArvResistanceConsentAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
+     
 admin.site.register(ArvResistanceConsent,ArvResistanceConsentAdmin)
 

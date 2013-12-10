@@ -2,9 +2,11 @@ from django.core.exceptions import ValidationError
 from django.db import models
 
 from edc.audit.audit_trail import AuditTrail
+from edc.subject.appointment_helper.models import BaseAppointmentMixin
+from edc.subject.consent.mixins import ReviewAndUnderstandingFieldsMixin
+from edc.subject.consent.mixins.bw import IdentityFieldsMixin
 from edc.subject.consent.models import BaseConsent
 from edc.subject.registration.models import RegisteredSubject
-from edc.subject.appointment_helper.models import BaseAppointmentMixin
 
 from apps.mpepu_maternal.models import MaternalConsent
 
@@ -45,4 +47,14 @@ class ArvResistanceConsent(BaseAppointmentMixin, BaseConsent):
     class Meta:
         app_label = 'mpepu_arv_resistance'
         verbose_name = 'ARV Resistance Consent'
+        
+# add Mixin fields to abstract class
+for field in IdentityFieldsMixin._meta.fields:
+    if field.name not in [fld.name for fld in ArvResistanceConsent._meta.fields]:
+        field.contribute_to_class(ArvResistanceConsent, field.name)
+
+for field in ReviewAndUnderstandingFieldsMixin._meta.fields:
+    if field.name not in [fld.name for fld in ArvResistanceConsent._meta.fields]:
+        field.contribute_to_class(ArvResistanceConsent, field.name)
+
             
