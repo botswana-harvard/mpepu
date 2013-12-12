@@ -107,7 +107,7 @@ class MaternalArvPPHistory(BaseScheduledVisitModel):
         null=True,
         )
 
-    history = AuditTrail()
+    history = AuditTrail()      
 
     def get_absolute_url(self):
         return reverse('admin:mpepu_maternal_maternalarvpphistory_change', args=(self.id,))
@@ -146,13 +146,13 @@ class MaternalArv (MaternalOffStudyMixin, BaseHaartHistory):
         return super(MaternalArv, self).natural_key() + self.maternal_arv_preg_history.natural_key()
 
     def get_report_datetime(self):
-        return self.maternal_arv_preg_history.get_report_datetime()
+        return self.maternal_arv_pp_history.report_datetime
 
     def get_subject_identifier(self):
-        return self.maternal_arv_preg_history.get_subject_identifier()
+        return self.maternal_arv_pp_history.get_subject_identifier()
 
     def get_visit(self):
-        return self.maternal_arv_preg_history.maternal_visit
+        return self.maternal_arv_pp_history.maternal_visit
 
     def __unicode__(self):
         return unicode(self.get_visit())

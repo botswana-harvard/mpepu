@@ -33,10 +33,12 @@ class MaternalLocatorAdmin(MaternalVisitModelAdmin):
         'caretaker_name',
         'caretaker_cell',
         'caretaker_tel')
+    
     radio_fields = {
         "home_visit_permission": admin.VERTICAL,
         "may_follow_up": admin.VERTICAL,
         "may_call_work": admin.VERTICAL,
         "may_contact_someone": admin.VERTICAL,
         "has_caretaker_alt": admin.VERTICAL}
+    
 admin.site.register(MaternalLocator, MaternalLocatorAdmin)

@@ -160,6 +160,7 @@ class MaternalArvPostModAdmin(BaseModelAdmin):
 
     form = MaternalArvPostModForm
     list_display = ('maternal_arv_post', 'arv_code', 'dose_status', 'modification_date', 'modification_code')
+
 admin.site.register(MaternalArvPostMod, MaternalArvPostModAdmin)
 
 

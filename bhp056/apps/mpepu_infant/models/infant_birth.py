@@ -78,7 +78,7 @@ class InfantBirth(InfantEligibilityMixin, BaseInfantRegisteredSubjectModel):
 
         Criteria are : if ga >= 36, set to 13 days from delivery_datetime, otherwise 27 days (+1 on each for days of life)"""
         if self.maternal_lab_del.ga:
-            Appointment = models.get_model('bhp_appointment', 'Appointment')
+            Appointment = models.get_model('appointment', 'Appointment')
             if not Appointment.objects.filter(registered_subject=self.registered_subject, visit_definition__code='2010', visit_instance='0'):
                 raise ImproperlyConfigured('Infant birth expects 2010 visit to exist. Check the visit definition.')
             appointment = Appointment.objects.get(registered_subject=self.registered_subject, visit_definition__code='2010', visit_instance='0')
