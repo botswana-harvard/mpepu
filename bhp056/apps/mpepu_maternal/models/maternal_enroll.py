@@ -77,6 +77,11 @@ class MaternalEnroll(BaseScheduledVisitModel):
         decimal_places=2,
         verbose_name="6. Mother's height? ",
         help_text="Measured in Centimeters (cm)",
+        )   
+    bp = models.CharField(
+        max_length=7,
+        verbose_name="Mother's blood pressure?",
+        help_text="E.G. 120/80",
         )
 
     history = AuditTrail()

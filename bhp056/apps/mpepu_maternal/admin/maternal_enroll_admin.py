@@ -37,6 +37,7 @@ class MaternalEnrollAdmin(MaternalVisitModelAdmin):
         "prev_pregnancy_arv",
         "weight",
         "height",
+        "bp",
         )
     radio_fields = {
         "recruit_source": admin.VERTICAL,

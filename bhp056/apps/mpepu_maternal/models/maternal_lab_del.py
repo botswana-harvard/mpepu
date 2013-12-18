@@ -32,25 +32,25 @@ class MaternalLabDel(BaseScheduledVisitModel):
               for bhp_identifier class access."""
 
     delivery_datetime = models.DateTimeField(
-        verbose_name="1. Date and time of delivery :",
+        verbose_name="Date and time of delivery :",
         help_text="If TIME unknown, estimate",
         validators=[
             datetime_not_future,],
         )
     del_time_is_est = models.CharField(
-        verbose_name="1a. Is the delivery TIME estimated?",
+        verbose_name="Is the delivery TIME estimated?",
         max_length=3,
         choices=YES_NO,
         help_text="",
         )
     labour_hrs = models.CharField(
-        verbose_name="2. How long prior to to delivery, in HRS, did labour begin? ",
+        verbose_name="How long prior to to delivery, in HRS, did labour begin? ",
         max_length=10,
         choices=LABOUR_HOURS,
         help_text="For multiple births, time of delivery = time first infant born",
         )
     del_mode = models.CharField(
-        verbose_name="3. Mode of delivery  ",
+        verbose_name="Mode of delivery  ",
         max_length=25,
         choices=LABOUR_MODE_OF_DELIVERY,
         help_text="",
@@ -64,7 +64,7 @@ class MaternalLabDel(BaseScheduledVisitModel):
         )
 
     ga = models.IntegerField(
-        verbose_name="3a. Gestational Age at Delivery  ",
+        verbose_name="Gestational Age at Delivery  ",
         validators=[MinValueValidator(20), MaxValueValidator(44), ],
         null=True,
         blank=True,
@@ -72,7 +72,7 @@ class MaternalLabDel(BaseScheduledVisitModel):
         )
 
     del_hosp = models.CharField(
-        verbose_name="4. Where did the participant deliver? ",
+        verbose_name="Where did the participant deliver? ",
         max_length=25,
         choices=DELIVERY_HOSPITAL,
         help_text="If 'Other health facility' or 'Other', specify below",
@@ -82,13 +82,13 @@ class MaternalLabDel(BaseScheduledVisitModel):
     has_urine_tender = models.CharField(
         max_length=10,
         choices=YES_NO_UNKNOWN,
-        verbose_name="5. Was uterine tenderness recorded? ",
+        verbose_name="Was uterine tenderness recorded? ",
         help_text="",
         )
     labr_max_temp = models.DecimalField(
         max_digits=3,
         decimal_places=1,
-        verbose_name="6. Indicate the maximum temperature of mother during labour",
+        verbose_name="Indicate the maximum temperature of mother during labour",
         help_text="In degrees Celcius. -1 = unknown",
         validators=[
             MinValueValidator(-1),
@@ -98,46 +98,46 @@ class MaternalLabDel(BaseScheduledVisitModel):
     has_chorioamnionitis = models.CharField(
         max_length=3,
         choices=YES_NO,
-        verbose_name="7. Was chorio-amnionitis suspected? ",
+        verbose_name="Was chorio-amnionitis suspected? ",
         help_text="",
         )
     has_del_comp = models.CharField(
         max_length=3,
         choices=YES_NO,
-        verbose_name="8. Were there other complications at delivery? ",
+        verbose_name="Were there other complications at delivery? ",
         help_text="( if 'YES' continue. Otherwise go to question 10 )",
         )
     del_comp = models.ManyToManyField(DelComp,
-        verbose_name="9. If so, select the complication ",
+        verbose_name="If so, select the complication ",
         help_text="",
 
         )
     del_comp_other = models.TextField(
         max_length=250,
-        verbose_name="9a. if other, describe the complication",
+        verbose_name="if other, describe the complication",
         blank=True,
         null=True,
         )
 
     live_infants = models.IntegerField(
-        verbose_name="10. How many live babies did the mother deliver? ",
+        verbose_name="How many live babies did the mother deliver? ",
         help_text="",
         )
 
     live_infants_to_register = models.IntegerField(
-        verbose_name="10a. How many babies are registering to the study? ",
+        verbose_name="How many babies are registering to the study? ",
         help_text="",
         )
 
     still_borns = models.IntegerField(
-        verbose_name="11. How many stillbirths did the mother deliver?  ",
+        verbose_name="How many stillbirths did the mother deliver?  ",
         help_text="( if '>0' continue. Otherwise go to question 13 )",
         )
     
     still_born_has_congen_abn = models.CharField(
         max_length=3,
         choices=YES_NO_NA_SPECIFY,
-        verbose_name="12. If any stillborns, did any have a congenital abnormality noted? ",
+        verbose_name="If any stillborns, did any have a congenital abnormality noted? ",
         help_text="",
         blank=True,
         null=True,
@@ -145,14 +145,14 @@ class MaternalLabDel(BaseScheduledVisitModel):
         )
     
     still_born_congen_abn = OtherCharField(
-        verbose_name="12a. If yes, specify;",
+        verbose_name="If yes, specify;",
         blank=True,
         null=True,
         )
     
     del_comment = models.TextField(
         max_length=250,
-        verbose_name="13. List any addtional information about the labour and delivery (mother only) ",
+        verbose_name="List any addtional information about the labour and delivery (mother only) ",
         blank=True,
         null=True,
         )
@@ -210,22 +210,22 @@ class MaternalLabDelMed(BaseScheduledVisitModel):
     has_health_cond = models.CharField(
         max_length=3,
         choices=YES_NO,
-        verbose_name="14. Has the mother been newly diagnosed (during this pregnancy) with any major chronic health condition(s) that remain ongoing?  ",
+        verbose_name="Has the mother been newly diagnosed (during this pregnancy) with any major chronic health condition(s) that remain ongoing?  ",
         help_text="if yes answer 14a, otherwise go to Question 15",
         )
     health_cond = models.ManyToManyField(HealthCond,
-        verbose_name="14a. Select all that apply ",
+        verbose_name="Select all that apply ",
         help_text="",
         )
     health_cond_other = OtherCharField()
     has_ob_comp = models.CharField(
         max_length=3,
         choices=YES_NO,
-        verbose_name="15. During this pregnancy, did the mother have any of the following obstetrical complications? (in 15a)",
+        verbose_name="During this pregnancy, did the mother have any of the following obstetrical complications? (in 15a)",
         help_text="",
         )
     ob_comp = models.ManyToManyField(ObComp,
-        verbose_name="15a. Select all that apply",
+        verbose_name="Select all that apply",
         help_text="",
         )
     ob_comp_other = models.TextField(
@@ -236,7 +236,7 @@ class MaternalLabDelMed(BaseScheduledVisitModel):
 
     comment = models.TextField(
         max_length=250,
-        verbose_name="16. Comment if any additional pertinent information ",
+        verbose_name="Comment if any additional pertinent information ",
         blank=True,
         null=True,
         )
@@ -266,36 +266,36 @@ class MaternalLabDelClinic(BaseScheduledVisitModel):
     has_cd4 = models.CharField(
         max_length=3,
         choices=YES_NO,
-        verbose_name="18. During this pregnancy did the mother have at least one CD4 count performed (outside the study)? ",
+        verbose_name="During this pregnancy did the mother have at least one CD4 count performed (outside the study)? ",
         help_text="( if 'YES' continue. Otherwise go to question 20 )",
         )
     cd4_date = models.DateField(
-        verbose_name="19a. 	Date of most recent CD4 test? ",
+        verbose_name="Date of most recent CD4 test? ",
         help_text="",
         blank=True,
         null=True
         )
     cd4_result = models.CharField(
         max_length=35,
-        verbose_name="19b. Result of most recent CD4 test",
+        verbose_name="Result of most recent CD4 test",
         blank=True,
         null=True
         )
     has_vl = models.CharField(
         max_length=3,
         choices=YES_NO,
-        verbose_name="20. During this pregnancy did the mother have a viral load perfomed (outside the study)? ",
+        verbose_name="During this pregnancy did the mother have a viral load perfomed (outside the study)? ",
         help_text="(if 'YES' continue. Otherwise go to question 2)",
         )
     vl_date = models.DateField(
-        verbose_name="21a. 	If yes, Date of most recent VL test? ",
+        verbose_name="If yes, Date of most recent VL test? ",
         help_text="",
         blank=True,
         null=True
         )
     vl_result = models.CharField(
         max_length=35,
-        verbose_name="21b.Result of most recent VL test",
+        verbose_name="Result of most recent VL test",
         blank=True,
         null=True
         )
@@ -303,17 +303,17 @@ class MaternalLabDelClinic(BaseScheduledVisitModel):
     took_suppliments = models.CharField(
         max_length=3,
         choices=YES_NO,
-        verbose_name="22. Did the mother take any of the following during this pregnancy?(in 23a)   ",
+        verbose_name="Did the mother take any of the following during this pregnancy?(in 23a)   ",
         help_text="( if 'YES' continue. Otherwise go to question 23 )",
         )
 
     suppliment = models.ManyToManyField(Suppliment,
-        verbose_name="22a. Select all that apply ",
+        verbose_name="Select all that apply ",
         help_text="",
         )
     comment = models.TextField(
         max_length=250,
-        verbose_name="23. Comment if any additional pertinent information ",
+        verbose_name="Comment if any additional pertinent information ",
         blank=True,
         null=True,
         )
@@ -343,17 +343,17 @@ class MaternalLabDelDx(BaseScheduledVisitModel):
     has_preg_dx = models.CharField(
         max_length=3,
         choices=YES_NO,
-        verbose_name="16. During this pregnancy, did the mother have any of the following (in 16a)? ",
+        verbose_name="During this pregnancy, did the mother have any of the following? ",
         help_text="If yes, Select all that apply in the table, only report grade 3 or 4 diagnoses",
         )
     has_who_dx = models.CharField(
         max_length=3,
         choices=YES_NO,
-        verbose_name="17. During this preganancy, did the mother have any new diagnoses listed in the WHO Adult/Adolescent HIV clinical staging document which is/are NOT reported above in Question 16? ",
+        verbose_name="During this pregnancy, did the mother have any new diagnoses listed in the WHO Adult/Adolescent HIV clinical staging document which is/are NOT reported below in Question 3 ",
         help_text="If yes, answer 17a, otherwise go to Question 18",
         )
     wcs_dx_adult = models.ManyToManyField(WcsDxAdult,
-        verbose_name="17a. List any new WHO Stage III/IV diagnoses that are not reported in Question 16 above:  ",
+        verbose_name="List any new WHO Stage III/IV diagnoses that are not reported in Question 3 below:  ",
         )
 
     history = AuditTrail()
@@ -410,13 +410,13 @@ class MaternalLabDelDxT (MaternalBaseUuidModel):
         return (self.lab_del_dx, ) + self.maternal_lab_del_dx.natural_key()
 
     def get_visit(self):
-        return self.maternal_visit
+        return self.maternal_lab_del_dx.maternal_visit
 
     def get_report_datetime(self):
-        return self.maternal_visit.get_report_datetime()
+        return self.maternal_lab_del_dx.maternal_visit.report_datetime
 
     def get_subject_identifier(self):
-        return self.maternal_visit.get_subject_identifier()
+        return self.maternal_lab_del_dx.maternal_visit.subject_identifier
 
     def __unicode__(self):
         return unicode(self.get_visit())
