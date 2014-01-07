@@ -1,9 +1,12 @@
 from django import forms
 from datetime import date
+
 from edc.subject.adverse_event.forms import BaseInfantDeathForm
+from edc.subject.consent.forms import BaseConsentedModelForm
+
 from apps.mpepu_infant.models import (InfantDeath, InfantPrerandoLoss, InfantStudyDrugInit, InfantNvpAdherence,
                                       InfantSurvival, InfantArvProph, InfantArvProphMod, InfantHaart, InfantHaartMod,
-                                      InfantCtxPlaceboAdh, InfantFeeding, InfantVerbalAutopsy, InfantCongenitalAnomalies)
+                                      InfantCtxPlaceboAdh, InfantFeeding, InfantVerbalAutopsy, InfantCongenitalAnomalies, InfantCnsAbnormalityItems, InfantFacialDefectItems)
 from .base_infant_model_form import BaseInfantModelForm
 
 
@@ -172,9 +175,3 @@ class InfantVerbalAutopsyForm (forms.ModelForm):
 
     class Meta:
         model = InfantVerbalAutopsy
-
-
-class InfantCongenitalAnomaliesForm (forms.ModelForm):
-
-    class Meta:
-        model = InfantCongenitalAnomalies
