@@ -134,6 +134,7 @@ admin.site.register(MaternalArvPPHistory, MaternalArvPPHistoryAdmin)
 class MaternalArvPostModInlineAdmin(BaseTabularInline):
 
     model = MaternalArvPostMod
+    form = MaternalArvPostModForm
 
 
 class MaternalArvPostAdmin(MaternalVisitModelAdmin):
