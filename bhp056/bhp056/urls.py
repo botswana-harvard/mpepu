@@ -8,13 +8,12 @@ from django.views.generic import RedirectView
 from django.db.models import get_models
 import django_databrowse
 
-from edc.subject.rule_groups.classes import rule_groups
+from edc.subject.rule_groups.classes import rule_group
 from edc.subject.lab_tracker.classes import site_lab_tracker
 from edc.core.bhp_data_manager.classes import data_manager
 from edc.dashboard.section.classes import site_sections
 
 dajaxice_autodiscover()
-rule_groups.autodiscover()
 site_lab_tracker.autodiscover()
 data_manager.prepare()
 admin.autodiscover()

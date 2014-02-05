@@ -133,7 +133,7 @@ class InfantEligibility(BaseInfantRegisteredSubjectModel):
             anemia_neutropenia=self.anemia_neutropenia,
             exception_cls=ValidationError,
             suppress_exception=False)
-        
+
         super(InfantEligibility, self).save(*args, **kwargs)
 
     def post_save_delete_appointment(self):

@@ -198,14 +198,14 @@ class InfantDeathAdmin(RegisteredSubjectModelAdmin):
 
     def __init__(self, *args, **kwargs):
         super(InfantDeathAdmin, self).__init__(*args, **kwargs)
-        self.list_filter.insert(0, 'death_date')
-        self.list_display = ('registered_subject', 'death_date', 'created', 'modified', 'user_created', 'user_modified')
+        self.list_filter.insert(0, 'registered_subject')
+        self.list_display = ('registered_subject', 'created', 'modified', 'user_created', 'user_modified')
         self.date_hierarchy = 'death_date'
     form = InfantDeathForm
 
     fields = (
         "registered_subject",
-        "death_date",
+#         "death_date",
         "death_cause_info",
         "death_cause_info_other",
         "perform_autopsy",
