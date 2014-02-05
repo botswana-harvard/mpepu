@@ -4,7 +4,7 @@ from edc.subject.registration.models import RegisteredSubject
 from apps.mpepu_infant_rando.models import InfantRando
 from ..models import InfantEligibility, InfantBirth
 from ..forms import InfantEligibilityForm
-from ..filters import FeedingChoiceListFilter, FeedingDurationListFilter
+from ..filters import FeedingChoiceListFilter, FeedingDurationListFilter, UnwillingToRandoListFilter
 from .registered_subject_model_admin import RegisteredSubjectModelAdmin
 
 
@@ -16,6 +16,8 @@ class InfantEligibilityAdmin(RegisteredSubjectModelAdmin):
         super(InfantEligibilityAdmin, self).__init__(*args, **kwargs)
         self.list_filter.insert(0, FeedingDurationListFilter)
         self.list_filter.insert(0, FeedingChoiceListFilter)
+        #added for v4
+        self.list_filter.insert(0, UnwillingToRandoListFilter)
         self.list_display = ('registered_subject', 'infant_birth', 'randomization_site', 'feeding', 'duration', 'created', 'modified', 'user_created', 'user_modified')
 
     def save_model(self, request, obj, form, change):
@@ -73,5 +75,7 @@ class InfantEligibilityAdmin(RegisteredSubjectModelAdmin):
         "clinical_jaundice": admin.VERTICAL,
         "anemia_neutropenia": admin.VERTICAL,
     }
+    #v4 added filter to enable users to find out which parents where willing/ unwilling to be randomized
+    #list_filter = ('rando_bf_duration',)
 
 admin.site.register(InfantEligibility, InfantEligibilityAdmin)

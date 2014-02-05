@@ -72,3 +72,40 @@ class FeedingDurationListFilter(SimpleListFilter):
                 subject_identifiers = InfantRando.objects.filter(bf_duration=self.value()).values('subject_identifier')
             queryset = queryset.filter(registered_subject__subject_identifier__in=subject_identifiers)
         return queryset
+
+#v4 added filter to enable users to find out which parents where willing/ unwilling to be randomized
+class UnwillingToRandoListFilter(SimpleListFilter):
+    title = _('Willingness to Randomize')
+
+    # Parameter for the filter that will be used in the URL query.
+    parameter_name = 'willingness_rando'
+
+    def lookups(self, request, model_admin):
+        """
+        Returns a list of tuples. The first element in each
+        tuple is the coded value for the option that will
+        appear in the URL query. The second element is the
+        human-readable name for the option that will appear
+        in the right sidebar.
+        """
+        return (
+            ('Yes', 'Yes'),
+            ('No', 'No'),
+            ('N/A', 'Not applicable'),
+            ('(None)', ('(None)')),
+        )
+
+    def queryset(self, request, queryset):
+        """
+        Returns the filtered queryset based on the value
+        provided in the query string and retrievable via
+        `self.value()`.
+        """
+        from ..mpepu_infant.models import InfantEligibility
+        if self.used_parameters.get('willingness_rando', None):
+            if self.value == '(None)':
+                subject_identifiers = InfantEligibility.objects.exclude(rando_bf_duration__in=['Yes', 'No', 'N/A']).values('subject_identifier')
+            else:
+                subject_identifiers = InfantEligibility.objects.filter(rando_bf_duration=self.value()).values('subject_identifier')
+            queryset = queryset.filter(registered_subject__subject_identifier__in=subject_identifiers)
+        return queryset

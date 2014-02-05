@@ -81,8 +81,9 @@ class InfantDashboard(RegisteredSubjectDashboard):
                     # TODO: v2 get rando_bf_duration from eligibility checklist and show along with BF duration
                     if InfantEligibility.objects.filter(registered_subject__subject_identifier=self.get_subject_identifier()).exists():
                         rando_bf_duration = InfantEligibility.objects.get(registered_subject__subject_identifier=self.get_subject_identifier()).rando_bf_duration
+                        #v4 changed to enable users to know which infants have mothers who were unwilling to be randomized NWR.
                         if rando_bf_duration == 'No':
-                            stratum['bf_duration'] = '{0} ({1})'.format(stratum['bf_duration'], rando_bf_duration)
+                            stratum['bf_duration'] = '{0} ({1})'.format(stratum['bf_duration'], 'NWR')
             else:
                 stratum = {'feeding_choice': 'pending', 'bf_duration': '-'}
         return stratum
