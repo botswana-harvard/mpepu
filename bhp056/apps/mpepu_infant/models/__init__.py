@@ -36,6 +36,6 @@ from infant_off_study import *
 from infant_verbal_autopsy import *
 from infant_congenital_anomalies import *
 from infant_rando_deferral import InfantRandoDeferral
-from infant_vital_status import InfantVitalStatus
 from infant_hiv_status import InfantHivStatus
 from signals import *
+from .off_study_vital_status import *

@@ -171,6 +171,11 @@ REASON_MISSED_PROPHYLAXIS = (
     ('OTHER', 'Other'),
 )
 
+STUDY_STATUS = (
+    ('followup','Lost can followup'),
+    ('no followup','Lost no followup'),
+    )
+
 TIMES_BREASTFED = (
     ('<1 per week', '1. Less than once per week'),
     ('<1 per day, but at least once per week', '2. Less than once per day, but at least once per week'),

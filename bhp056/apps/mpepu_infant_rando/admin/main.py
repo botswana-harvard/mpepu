@@ -1,6 +1,8 @@
 from django.contrib import admin
+
 from edc.base.admin.admin import BaseModelAdmin
-from models import InfantRando
+
+from ..models import InfantRando
 
 
 class InfantRandoAdmin(BaseModelAdmin):

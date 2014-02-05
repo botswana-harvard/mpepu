@@ -45,6 +45,7 @@ class InfantOffDrugAdmin(RegisteredSubjectModelAdmin):
 
     fields = (
         "registered_subject",
+        "report_datetime",
         "last_dose_date",
         "reason_off",
         "reason_off_other"
@@ -60,6 +61,16 @@ admin.site.register(InfantOffDrug, InfantOffDrugAdmin)
 class InfantOffStudyAdmin(OffStudyModelAdmin):
 
     form = InfantOffStudyForm
+    
+    fields = (
+        "registered_subject",
+        "report_datetime",
+        "offstudy_date",
+        "reason",
+        "reason_other",
+        "has_scheduled_data",
+        "comment",
+    )
     
 admin.site.register(InfantOffStudy, InfantOffStudyAdmin)
 
@@ -321,6 +332,7 @@ admin.site.register(InfantFuDx2Proph, InfantFuDx2ProphAdmin)
 
 class InfantFuDx2ProphItemsAdmin(BaseModelAdmin):
     form = InfantFuDx2ProphItemsForm
+    
 admin.site.register(InfantFuDx2ProphItems, InfantFuDx2ProphItemsAdmin)
 
 
