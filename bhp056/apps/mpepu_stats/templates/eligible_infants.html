@@ -1,0 +1,54 @@
+{% extends  "section_statistics.html"%}
+{% load common_tags %}
+
+{% block content %}
+
+<h2>Infants Eligible For Randomization</h2>
+
+<form action="{% url 'eligible_infants_path' %}" method="GET">
+    <label for="search_date">Search Date:</label>
+    <input type="date" value="{{today}}" name="search_date" id="search_date">
+    <label for="site">Site:</label>
+    <select id="site" name="site">
+        <option>Lobatse</option>
+        <option>Gaborone</option>
+        <option>Molepolole</option>
+    </select>
+    <button type="submit">Search</button>
+</form>
+
+{% if site %}
+  <h4>Search Results for:  Site = '{{site}}' and Date = '{{search_date}}'</h4>
+{% else %}
+  <h4>Search Result for:  All Sites  and Date = '{{search_date}}'</h4>
+{% endif%}
+
+<table class="eligibles">
+  <thead>
+    <th>#</th>
+    <th>Infant</th>
+    <th>Date of Birth</th>
+    <th>Age (in days)</th>
+    <th>Mother</th>
+    <th>Days Since being eligible</th>
+    <th>Days Until 34 days</th>
+    <th>Site</th>
+  </thead>
+  <tbody>
+    {% for eligible in infants %}
+      <tr>
+        <td>{{forloop.counter}}</td>
+        <td><a href="#">{{eligible.infant.subject_identifier}}</a></td>
+        <td>{{eligible.infant.dob}}</td>
+        <td align="center">{{eligible.age}} days</td>
+        <td><a href="#">{{eligible.infant.relative_identifier}}</a></td>
+        <td align="center">{{eligible.days_from_early_date}} days</td>
+        <td align="center">{{eligible.days_from_expiration}} days</td>
+        <td>{{eligible.infant.study_site.site_name}}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock content %}
+

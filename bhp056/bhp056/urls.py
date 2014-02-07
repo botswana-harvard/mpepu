@@ -51,10 +51,10 @@ urlpatterns += patterns('',
         include('edc.audit.urls'), name="section_url_name"),
 )
 
-# urlpatterns += patterns('',
-#     url(r'^{app_name}/(?P<section_name>statistics)/'.format(app_name=APP_NAME),
-#         include('{app_name}_stats.urls'.format(app_name=APP_NAME)), name="section_url_name"),
-# )
+urlpatterns += patterns('',
+    url(r'^{app_name}/statistics/'.format(app_name=APP_NAME),
+         include('apps.mpepu_stats.urls'), name="section_url_name"),
+ )
 
 urlpatterns += patterns('',
     url(r'^{app_name}/(?P<section_name>specimens)/'.format(app_name=APP_NAME),
