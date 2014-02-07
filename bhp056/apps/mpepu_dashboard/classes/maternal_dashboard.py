@@ -30,7 +30,7 @@ class MaternalDashboard(RegisteredSubjectDashboard):
             delivery_datetime=self.get_delivery_datetime(),
             maternal_consent=self.get_consent()
             )
-        
+
     def set_membership_form_category(self):
         self._membership_form_category = 'maternal'
 
@@ -100,4 +100,3 @@ class MaternalDashboard(RegisteredSubjectDashboard):
         else:
             delivery_datetime = None
         return delivery_datetime
-    
