@@ -59,6 +59,9 @@ class InfantVerbalAutopsy(BaseInfantRegisteredSubjectModel):
     def get_consenting_subject_identifier(self):
         """Returns mother's identifier."""
         return self.registered_subject.relative_identifier
+    
+    def get_registration_datetime(self):
+        return self.report_datetime
 
     class Meta:
         app_label = "mpepu_infant"

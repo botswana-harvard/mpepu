@@ -3,7 +3,7 @@ from django.core.urlresolvers import reverse
 from django.db.models import Q, get_model
 
 from edc.subject.haart.choices import DOSE_STATUS, ARV_MODIFICATION_REASON
-from edc.subject.entry.models import AdditionalEntryBucket
+# from edc.subject.entry.models import AdditionalEntryBucket
 from edc.audit.audit_trail import AuditTrail
 
 from .infant_base_uuid_model import InfantBaseUuidModel
@@ -32,14 +32,14 @@ class InfantStudyDrugItems(InfantBaseUuidModel):
 
     history = AuditTrail()
 
-    def save(self, *args, **kwargs):
-        super(InfantStudyDrugItems, self).save(*args, **kwargs)
-        if self.dose_status.lower() == 'permanently discontinued':
-            model = get_model('mpepu_infant', 'infantoffdrug')
-            AdditionalEntryBucket.objects.add_for(
-                registered_subject=self.inf_study_drug.infant_visit.appointment.registered_subject,
-                model=model,
-                qset=Q(registered_subject=self.inf_study_drug.infant_visit.appointment.registered_subject))
+#     def save(self, *args, **kwargs):
+#         super(InfantStudyDrugItems, self).save(*args, **kwargs)
+#         if self.dose_status.lower() == 'permanently discontinued':
+#             model = get_model('mpepu_infant', 'infantoffdrug')
+#             AdditionalEntryBucket.objects.add_for(
+#                 registered_subject=self.inf_study_drug.infant_visit.appointment.registered_subject,
+#                 model=model,
+#                 qset=Q(registered_subject=self.inf_study_drug.infant_visit.appointment.registered_subject))
 
     def get_visit(self):
         return  self.inf_study_drug.infant_visit

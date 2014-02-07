@@ -5,7 +5,7 @@ from django.db.models import Q, get_model
 
 from edc.audit.audit_trail import AuditTrail
 from edc.choices.common import YES_NO
-from edc.subject.entry.models import AdditionalEntryBucket
+# from edc.subject.entry.models import AdditionalEntryBucket
 
 from .base_scheduled_visit_model import BaseScheduledVisitModel
 from .infant_birth import InfantBirth
@@ -89,16 +89,16 @@ class InfantBirthData(BaseScheduledVisitModel):
 
     history = AuditTrail()
 
-    def save(self, *args, **kwargs):
-        super(InfantBirthData, self).save(*args, **kwargs)
-        if self.congenital_anomalities.lower() == 'yes':
-            model = get_model('mpepu_infant', 'infantcongenitalanomalies')
-            """add congenital anomalies form"""
-            AdditionalEntryBucket.objects.add_for(
-                registered_subject=self.infant_visit.appointment.registered_subject,
-                model=model,
-                qset=Q(registered_subject=self.infant_visit.appointment.registered_subject),
-                )
+#     def save(self, *args, **kwargs):
+#         super(InfantBirthData, self).save(*args, **kwargs)
+#         if self.congenital_anomalities.lower() == 'yes':
+#             model = get_model('mpepu_infant', 'infantcongenitalanomalies')
+#             """add congenital anomalies form"""
+#             AdditionalEntryBucket.objects.add_for(
+#                 registered_subject=self.infant_visit.appointment.registered_subject,
+#                 model=model,
+#                 qset=Q(registered_subject=self.infant_visit.appointment.registered_subject),
+#                 )
 
     def __unicode__(self):
         return unicode(self.infant_birth)

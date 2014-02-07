@@ -3,8 +3,8 @@ from django.contrib import admin
 from edc.base.admin.admin import BaseModelAdmin, BaseTabularInline
 
 from ..admin import RegisteredSubjectModelAdmin
+from ..forms import (MaternalPostFuForm, MaternalPostFuDxForm, MaternalPostRegForm, MaternalPostFuDxTForm)
 from ..models import (MaternalPostFu, MaternalPostFuDxT, MaternalPostFuDx, MaternalPostReg)
-from ..forms import (MaternalPostFuForm, MaternalPostFuDxForm, MaternalPostRegForm)
 from .maternal_visit_model_admin import MaternalVisitModelAdmin
 
 
@@ -12,11 +12,18 @@ class MyMaternalPostFuModelAdmin (MaternalVisitModelAdmin):
 
     """ For other sections of MaternalEnroll; that is, related to MaternalPostFu model. """
 
+#     def formfield_for_foreignkey(self, db_field, request, **kwargs):
+#         if db_field.name == "maternal_post_fu":
+#             kwargs["queryset"] = MaternalPostFu.objects.filter(maternal_visit__appointment__registered_subject__subject_identifier=request.GET.get('subject_identifier', 0),
+#                                                                maternal_visit__appointment__visit_definition__code=request.GET.get('visit_code', 0),
+#                                                                maternal_visit__appointment__visit_instance=request.GET.get('visit_instance', 0))
+#         return super(MyMaternalPostFuModelAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
+    
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == "maternal_post_fu":
-            kwargs["queryset"] = MaternalPostFu.objects.filter(maternal_visit__appointment__registered_subject__subject_identifier=request.GET.get('subject_identifier', 0),
-                                                               maternal_visit__appointment__visit_definition__code=request.GET.get('visit_code', 0),
-                                                               maternal_visit__appointment__visit_instance=request.GET.get('visit_instance', 0))
+            if request.GET.get('maternal_visit'):
+                kwargs["queryset"] = MaternalPostFu.objects.filter(maternal_visit=request.GET.get('maternal_visit'))
+                                                               
         return super(MyMaternalPostFuModelAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
 
@@ -47,9 +54,11 @@ admin.site.register(MaternalPostFu, MaternalPostFuAdmin)
 class MaternalPostFuDxTInlineAdmin(BaseTabularInline):
 
     model = MaternalPostFuDxT
+    form = MaternalPostFuDxTForm
 
 
 class MaternalPostFuDxTAdmin(BaseModelAdmin):
+    form = MaternalPostFuDxTForm
     fields = (
         'post_fu_dx',
         'post_fu_specify',

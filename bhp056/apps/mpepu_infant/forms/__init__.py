@@ -10,3 +10,4 @@ from infant_rando_deferral_form import InfantRandoDeferralForm
 from infant_vital_status_form import InfantVitalStatusForm
 from infant_hiv_status_form import InfantHivStatusForm
 from infant_off_study_form import InfantOffStudyForm
+from infant_congenital_anomalies_form import *

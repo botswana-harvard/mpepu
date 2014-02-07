@@ -1,15 +1,21 @@
-from django.db import models
+from datetime import datetime
+
 from django.core.urlresolvers import reverse
+from django.db import models
 
 from edc.base.model.fields.custom.custom_fields import OtherCharField
+from edc.base.model.validators import datetime_not_before_study_start, datetime_not_future, datetime_is_after_consent
 from edc.choices.common import CONFIRMED_SUSPECTED
+from edc.subject.consent.models.base_consented_uuid_model import BaseConsentedUuidModel
 
 from apps.mpepu.choices import (CNS_ABNORMALITIES, FACIAL_DEFECT, CLEFT_DISORDER, MOUTH_UP_GASTROINT_DISORDER,
                                 CARDIOVASCULAR_DISORDER, RESPIRATORY_DEFECT, LOWER_GASTROINTESTINAL_ABNORMALITY,
                                 FEM_GENITAL_ANOMALY, MALE_GENITAL_ANOMALY, RENAL_ANOMALY, MUSCULOSKELETAL_ABNORMALITY,
                                 SKIN_ABNORMALITY, TRISOME_CHROSOMESOME_ABNORMALITY, OTHER_DEFECT)
-from .infant_base_uuid_model import InfantBaseUuidModel
+
 from .base_infant_registered_subject_model import BaseInfantRegisteredSubjectModel
+from .infant_base_uuid_model import InfantBaseUuidModel
+from .infant_off_study_mixin import InfantOffStudyMixin
 
 
 class InfantCongenitalAnomalies(BaseInfantRegisteredSubjectModel):
@@ -17,6 +23,9 @@ class InfantCongenitalAnomalies(BaseInfantRegisteredSubjectModel):
     def get_consenting_subject_identifier(self):
         """Returns mother's identifier."""
         return self.registered_subject.relative_identifier
+    
+    def get_subject_identifier(self):
+        return self.registered_subject.subject_identifier
 
     def get_absolute_url(self):
         return reverse('admin:mpepu_infant_infantcongenitalanomalies__change', args=(self.id,))
@@ -29,12 +38,33 @@ class InfantCongenitalAnomalies(BaseInfantRegisteredSubjectModel):
         verbose_name = "Infant Congenital Anomalies"
 
 
-class BaseCnsItem(InfantBaseUuidModel):
+class BaseCnsItem(InfantOffStudyMixin, BaseConsentedUuidModel):
+# class BaseCnsItem(InfantBaseUuidModel):
     """Adds in method to get mother's subject_identifier for confirming the consent (see bhp_consent)."""
-
+        
+    report_datetime = models.DateTimeField(
+        verbose_name="Visit Date and Time",
+        validators=[
+            datetime_not_before_study_start,
+            datetime_is_after_consent,
+            datetime_not_future,
+            ],
+        default=datetime.today()
+        )
+    
+    def get_visit(self):
+        return '2000'
+    
     def get_consenting_subject_identifier(self):
         """Returns mother's identifier."""
         return self.congenital_anomalies.registered_subject.relative_identifier
+    
+    def get_report_datetime(self):
+        return self.report_datetime
+    
+    def get_subject_identifier(self):
+        """Returns subject identifier."""
+        return self.congenital_anomalies.registered_subject.subject_identifier
 
     class Meta:
         abstract = True
@@ -64,10 +94,11 @@ class InfantCnsAbnormalityItems(BaseCnsItem):
         blank=True,
         null=True,
         )
-
+    
+          
     def get_absolute_url(self):
         return reverse('admin:mpepu_infant_infantcnsabnormalityitems__change', args=(self.id,))
-
+    
     class Meta:
         app_label = "mpepu_infant"
         verbose_name = "Infant Congenital Anomalies:Cns"
@@ -165,12 +196,6 @@ class InfantMouthUpGastrointestinalItems(BaseCnsItem):
 
     def get_absolute_url(self):
         return reverse('admin:mpepu_infant_infantmouthupgastrointestinalitems__change', args=(self.id,))
-
-    def get_visit(self):
-        return self
-
-    def get_report_datetime(self):
-        return self.congenital_anomalies.get_report_datetime()
 
     class Meta:
         app_label = "mpepu_infant"

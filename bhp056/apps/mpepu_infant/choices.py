@@ -47,7 +47,7 @@ COWS_MILK = (
 
 CTX_PLACEBO_STATUS = (
     ('No modification' , 'No modifications made to CTX/Placebo since the last scheduled visit or today'),
-    ('Starting CTX/Placebo today', 'Starting CTX/Placebo today'),
+    ('Starting CTX/Placebo today', 'Starting CTX/Placebo today or since the last scheduled visit'),
     ('Permanently discontinued', 'Permanently discontinued CTX/Placebo at or before last scheduled visit'),
     ('Never started', 'Never started CTX/Placebo'),
     ('Change in CTX/Placebo since the last scheduled visit or today', 'Change in CTX/Placebo since the last scheduled visit or today (dose modification, permanent discontinuation, temporary hold, resumption / initiation after temporary hold)'),
@@ -212,6 +212,7 @@ VISIT_REASON = [
     ('death', '5. Death'),
     ('off study', '6. Subject has completed the study'),
     ('deferred', '7. Deferred (2010 only)'),
+    ('vital status','8. Vital Status'),
 ]
 
 WATER_USED = (

@@ -1,11 +1,12 @@
 from django.db import models
 from django.core.urlresolvers import reverse
+from datetime import datetime
 
 from edc.audit.audit_trail import AuditTrail
 from edc.choices.common import YES_NO
 from edc.subject.haart.choices import ARV_STATUS_WITH_NEVER
 
-from apps.mpepu_infant.models import BaseScheduledVisitModel
+from .base_scheduled_visit_model import BaseScheduledVisitModel
 
 
 class InfantArvProph(BaseScheduledVisitModel):
@@ -28,6 +29,9 @@ class InfantArvProph(BaseScheduledVisitModel):
 
     def __unicode__(self):
         return "%s" % (self.infant_visit)
+    
+    def report_datetime(self):
+        return datetime.today()
 
     def get_absolute_url(self):
         return reverse('admin:mpepu_infant_infantarvproph_change', args=(self.id,))

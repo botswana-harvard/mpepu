@@ -7,6 +7,7 @@ import logger
 
 
 DEBUG = True
+INTERNAL_IPS = ('127.0.0.1',)
 TEMPLATE_DEBUG = DEBUG
 DIRNAME = os.path.dirname(__file__)
 ADMINS = (
@@ -14,6 +15,7 @@ ADMINS = (
 )
 
 # Path
+SOURCE_DIR = Path(__file__).ancestor(3)
 PROJECT_DIR = Path(__file__).ancestor(2)
 MEDIA_ROOT = PROJECT_DIR.child('media')
 STATIC_ROOT = PROJECT_DIR.child('static')
@@ -22,8 +24,10 @@ TEMPLATE_DIRS = (
     )
 STATICFILES_DIRS = ()
 CONFIG_DIR = PROJECT_DIR.child('bhp056')
-KEY_PATH = PROJECT_DIR.child('keys')
-KEY_PATH = '/Volumes/bhp056/keys/'
+# print KEY_PATH
+# KEY_PATH = '/Users/fchilisa/source/bhp056_project/bhp056/keys'
+KEY_PATH = '/Users/melissa/Documents/git/bhp066/bhp066/keys'
+
 MAP_DIR = STATIC_ROOT.child('img')
 
 MANAGERS = ADMINS
@@ -131,14 +135,6 @@ TIME_ZONE = 'Africa/Gaborone'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
-#langauage setting
-ugettext = lambda s: s
-LANGUAGES = (
-    ('tn', 'Setswana'),
-    ('en', 'English'),
-)
-
-LOCALE_PATHS = PROJECT_DIR.child('locale')
 
 LANGUAGE_CODE = 'en'
 
@@ -151,6 +147,11 @@ USE_I18N = True
 # If you set this to False, Django will not format dates, numbers and
 # calendars according to the current locale
 USE_L10N = True
+
+# Django debug settings
+# DEBUG_TOOLBAR_CONFIG = {
+#     'INTERCEPT_REDIRECTS': False,
+#     }
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
@@ -206,7 +207,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    #'debug_toolbar.middleware.DebugToolbarMiddleware',
+#     'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = ("django.contrib.auth.context_processors.auth",
@@ -237,14 +238,19 @@ INSTALLED_APPS = (
     'dajax',
     'south',
 
+    'edc.apps.admin_supplemental_fields',
+    'edc.apps.app_configuration',
+
     'edc.audit',
+
+    'edc.base.admin',
+    'edc.base.form',
+    'edc.base.model',
 
     'edc.core.identifier',
     'edc.core.crypto_fields',
-    'edc.core.model_describer',
+    'edc.core.model_data_inspector',
     'edc.core.model_selector',
-    'edc.core.admin_supplemental_fields',
-
     'edc.core.bhp_templates',
     'edc.core.bhp_static',
     'edc.core.bhp_string',
@@ -260,12 +266,7 @@ INSTALLED_APPS = (
     'edc.core.bhp_context',
     'edc.core.bhp_using',
     'edc.core.bhp_export_data',
-
-    'edc.pharma.dispenser',
-
-    'edc.base.admin',
-    'edc.base.form',
-    'edc.base.model',
+    'edc.core.bhp_birt_reports',
 
 #     'edc.device.inspector',
 #     'edc.device.dispatch',
@@ -278,6 +279,14 @@ INSTALLED_APPS = (
     'edc.dashboard.subject',
     'edc.dashboard.section',
 
+    'edc.export',
+    'edc.import',
+    'edc.entry_meta_data',
+
+    'edc.data_dictionary',
+
+    'edc.map',
+
     'edc.testing',
 
     'edc.subject.lab_tracker',
@@ -285,7 +294,6 @@ INSTALLED_APPS = (
     'edc.subject.rule_groups',
     'edc.subject.actg',
     'edc.subject.entry',
-    'edc.subject.lab_entry',
     'edc.subject.consent',
     'edc.subject.contact',
     'edc.subject.locator',
@@ -299,9 +307,7 @@ INSTALLED_APPS = (
     'edc.subject.appointment',
     'edc.subject.subject',
     'edc.subject.subject_config',
-    'edc.subject.local.bw',
     'edc.subject.adverse_event',
-    'edc.subject.diagnosis',
 
     'edc.lab.lab_clinic_api',
     'edc.lab.lab_clinic_reference',
@@ -343,6 +349,7 @@ INSTALLED_APPS = (
     'apps.mpepu_dashboard',
     'apps.mpepu_stats',
     'apps.mpepu_reference',
+    'apps.mpepu_arv_resistance',
     #'tastypie',
 )
 
@@ -382,7 +389,7 @@ SESSION_COOKIE_AGE = 3000
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 DEVICE_ID = '99'
 SUBJECT_TYPES = ['infant', 'maternal']
-MAX_SUBJECTS = {'subject': 3000}
+MAX_SUBJECTS = {'maternal': 3274, 'infant': 4500}
 APPOINTMENTS_PER_DAY_MAX = 20
 APPOINTMENTS_DAYS_FORWARD = 15
 

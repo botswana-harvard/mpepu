@@ -3,7 +3,7 @@ from django.contrib import admin
 from edc.base.admin.admin import BaseTabularInline, BaseModelAdmin
 
 from ..models import MaternalLabDel, MaternalLabDelMed, MaternalLabDelDx, MaternalLabDelDxT, MaternalLabDelClinic
-from ..forms import MaternalLabDelMedForm, MaternalLabDelClinicForm, MaternalLabDelDxForm, MaternalLabDelForm
+from ..forms import MaternalLabDelMedForm, MaternalLabDelClinicForm, MaternalLabDelDxForm, MaternalLabDelForm, MaternalLabDelDxTForm
 from ..filters import GaListFilter
 from .maternal_visit_model_admin import MaternalVisitModelAdmin
 
@@ -29,7 +29,7 @@ class MaternalLabDelAdmin(MaternalVisitModelAdmin):
 
     def __init__(self, *args, **kwargs):
         super(MaternalLabDelAdmin, self).__init__(*args, **kwargs)
-        self.list_filter.append(GaListFilter)
+#         self.list_filter.append(GaListFilter)
 
     def get_readonly_fields(self, request, obj=None):
         if obj:  # In edit mode
@@ -97,9 +97,11 @@ admin.site.register(MaternalLabDelMed, MaternalLabDelMedAdmin)
 
 class MaternalLabDelDxTInlineAdmin(BaseTabularInline):
     model = MaternalLabDelDxT
+    form = MaternalLabDelDxTForm
 
 
 class MaternalLabDelDxTAdmin(BaseModelAdmin):
+    form = MaternalLabDelDxTForm
     fields = (
         'lab_del_dx',
         'lab_del_dx_specify',
@@ -113,10 +115,10 @@ class MaternalLabDelDxAdmin(BaseMaternalLabDelModelAdmin):
     form = MaternalLabDelDxForm
     fields = (
         "maternal_visit",
-        "maternal_lab_del",
-        "has_preg_dx",
+        "maternal_lab_del",   
         "has_who_dx",
-        "wcs_dx_adult")
+        "wcs_dx_adult",
+        "has_preg_dx",)
     radio_fields = {
         "has_preg_dx": admin.VERTICAL,
         "has_who_dx": admin.VERTICAL}

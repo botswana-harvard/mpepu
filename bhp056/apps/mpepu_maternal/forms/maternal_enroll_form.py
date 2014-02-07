@@ -11,8 +11,10 @@ class MaternalEnrollForm (BaseMaternalModelForm):
         cleaned_data = self.cleaned_data
 
         # if recruit_source == OTHER, recruit_source_other may not be blank"""
-        if cleaned_data.get('recruit_source', None) == 'OTHER' and cleaned_data.get('recruit_source_other', None) == '':
-            raise forms.ValidationError("If recruitment source is 'OTHER', please specify. You wrote '%s'" % cleaned_data.get('recruit_source_other', None))
+        if cleaned_data.get('recruit_source', None) == 'OTHER' and not cleaned_data.get('recruit_source_other', None) :
+            raise forms.ValidationError("If recruitment source is 'OTHER', please specify.")
+        if cleaned_data.get('recruit_source', None) != 'OTHER' and cleaned_data.get('recruit_source_other', None):
+            raise forms.ValidationError("If recruitment source is not 'OTHER', you cannot specify. You wrote '%s'" % cleaned_data.get('recruit_source_other', None)+". Please correct.")
         # if prev_pregnancy super(MyModelForm, self).clean()es == 0, prev_pregnancy_arv must be N/A"""
         if cleaned_data.get('prev_pregnancies', None) == 0 and cleaned_data.get('prev_pregnancy_arv', None) != 'N/A':
             raise forms.ValidationError("If no previous pregnancies, question (4) refering to ARVs during previous pregnancies should be 'Not Applicable'. You wrote '%s'" % cleaned_data.get('prev_pregnancy_arv', None))
@@ -60,6 +62,10 @@ class MaternalEnrollDemForm (BaseMaternalModelForm):
 
 
 class MaternalEnrollObForm (BaseMaternalModelForm):
+    def clean(self):
+        cleaned_data = super(MaternalEnrollObForm, self).clean()
+      
+        return cleaned_data
 
     class Meta:
         model = MaternalEnrollOb
@@ -70,6 +76,11 @@ class MaternalEnrollMedForm (BaseMaternalModelForm):
     def clean(self):
 
         cleaned_data = self.cleaned_data
+        check_dx = self.data.get('maternalenrolldx_set-0-diagnosis')
+        
+        #validate that if yes to WHO diagnosis then list
+        if cleaned_data.get('who_diagnosis') == 'Yes' and not check_dx:
+            raise forms.ValidationError('You indicated that the participant was diagnosed with stage 3 or 4 WHO illness. Please fill in diagnosis form.')
 
         if 'chronic_cond' in cleaned_data:
             self.validate_m2m(
@@ -85,12 +96,29 @@ class MaternalEnrollMedForm (BaseMaternalModelForm):
 
 
 class MaternalEnrollDxForm (BaseMaternalModelForm):
+    
+    def clean(self):
+        cleaned_data = super(MaternalEnrollDxForm, self).clean()
+        maternal_enroll_med = cleaned_data.get('maternal_enroll_med')
+        
+        #ensure that if stage 3 or 4 WHO diagnosis is indicated as No then list should not be filled in.
+        if maternal_enroll_med.who_diagnosis == 'No':
+            raise forms.ValidationError('You indicated that the participant did NOT have a stage 3 or 4 diagnosis yet provided a diagnosis. Please correct.')
+        
+        return cleaned_data
 
     class Meta:
         model = MaternalEnrollDx
 
 
 class MaternalEnrollArvForm (BaseMaternalModelForm):
+    def clean(self):
+        cleaned_data = super(MaternalEnrollArvForm, self).clean()
+        maternal_visit= cleaned_data.get('maternal_visit')
+        #validate HAART start date
+        if cleaned_data.get('haart_start_date') > maternal_visit.report_datetime.date():
+            raise forms.ValidationError('Date of HAART is greater than Visit Date. Please correct.')
+        return cleaned_data
 
     class Meta:
         model = MaternalEnrollArv

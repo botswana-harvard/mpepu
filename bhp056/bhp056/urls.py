@@ -1,20 +1,19 @@
+from dajaxice.core import dajaxice_autodiscover
+
 from django.conf.urls import patterns, include, url
 from django.contrib.auth.decorators import login_required
 from django.contrib import admin
 from django.conf import settings
 from django.views.generic import RedirectView
 from django.db.models import get_models
-
 import django_databrowse
-from dajaxice.core import dajaxice_autodiscover
 
-from edc.subject.rule_groups.classes import rule_groups
+from edc.subject.rule_groups.classes import rule_group
 from edc.subject.lab_tracker.classes import site_lab_tracker
 from edc.core.bhp_data_manager.classes import data_manager
 from edc.dashboard.section.classes import site_sections
 
 dajaxice_autodiscover()
-rule_groups.autodiscover()
 site_lab_tracker.autodiscover()
 data_manager.prepare()
 admin.autodiscover()
@@ -52,10 +51,10 @@ urlpatterns += patterns('',
         include('edc.audit.urls'), name="section_url_name"),
 )
 
-# urlpatterns += patterns('',
-#     url(r'^{app_name}/(?P<section_name>statistics)/'.format(app_name=APP_NAME),
-#         include('{app_name}_stats.urls'.format(app_name=APP_NAME)), name="section_url_name"),
-# )
+urlpatterns += patterns('',
+    url(r'^{app_name}/statistics/'.format(app_name=APP_NAME),
+         include('apps.mpepu_stats.urls'), name="section_url_name"),
+ )
 
 urlpatterns += patterns('',
     url(r'^{app_name}/(?P<section_name>specimens)/'.format(app_name=APP_NAME),

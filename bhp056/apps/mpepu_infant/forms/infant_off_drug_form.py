@@ -8,7 +8,7 @@ from .base_infant_model_form import BaseInfantModelForm
 class InfantOffDrugForm (BaseInfantModelForm):
 
     def clean(self):
-        cleaned_data = self.cleaned_data
+        cleaned_data = super(InfantOffDrugForm, self).clean()
         # confirm last_dose_date falls between visit date going off drug and the previous visit date
         last_dose_date = cleaned_data.get('last_dose_date')
         subject_identifier = cleaned_data.get('registered_subject').subject_identifier

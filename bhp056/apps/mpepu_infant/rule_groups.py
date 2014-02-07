@@ -11,7 +11,7 @@ class InfantPrerandoLossRuleGroup(RuleGroup):
             predicate=(('reason', 'equals', 'lost'), ('sid', 'equals', None, 'and')),
             consequence='required',
             alternative='not_required'),
-        target_model=['infantoffstudy', 'infantprerandoloss'])
+        target_model=['infantprerandoloss','infantoffstudy'])
 
     class Meta:
         app_label = 'mpepu_infant'
@@ -43,8 +43,8 @@ class InfantDeathRuleGroup(RuleGroup):
             predicate=(('reason', 'equals', 'death'), ('sid', 'equals', None, 'and')),
             consequence='required',
             alternative='not_required'),
-        target_model=['infantoffstudy', 'infantprerandoloss', 'infantdeath',
-                      'infantverbalautopsy', 'infantsurvival'])
+        target_model=[ 'infantprerandoloss', 'infantsurvival', 'infantdeath',
+                      'infantverbalautopsy','infantoffstudy'])
 
     class Meta:
         app_label = 'mpepu_infant'
@@ -60,8 +60,8 @@ class InfantDeathOffDrugRuleGroup(RuleGroup):
             predicate=(('reason', 'equals', 'death'), ('sid', 'ne', None, 'and')),
             consequence='required',
             alternative='not_required'),
-        target_model=['infantoffstudy', 'infantoffdrug', 'infantdeath',
-                      'infantverbalautopsy', 'infantsurvival'])
+        target_model=['infantoffdrug', 'infantsurvival', 'infantdeath',
+                      'infantverbalautopsy', 'infantoffstudy'])
 
     class Meta:
         app_label = 'mpepu_infant'

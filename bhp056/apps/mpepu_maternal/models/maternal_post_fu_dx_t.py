@@ -1,9 +1,9 @@
-from django.db import models
 from django.core.urlresolvers import reverse
+from django.db import models
 
+from edc.audit.audit_trail import AuditTrail
 from edc.choices.common import YES_NO
 from edc.subject.adverse_event.choices import GRADING_SCALE
-from edc.audit.audit_trail import AuditTrail
 
 from apps.mpepu.choices import DX
 
@@ -22,6 +22,8 @@ class MaternalPostFuDxT(MaternalBaseUuidModel):
         max_length=100,
         choices=DX,
         verbose_name="Diagnosis",
+        blank=True,
+        null=True,
         help_text="",
         )
     post_fu_specify = models.CharField(
@@ -35,11 +37,15 @@ class MaternalPostFuDxT(MaternalBaseUuidModel):
         max_length=3,
         choices=GRADING_SCALE,
         verbose_name="Grade",
+        blank=True,
+        null=True,
         )
     hospitalized = models.CharField(
         choices=YES_NO,
         max_length=3,
         verbose_name="Hospitalized",
+        blank=True,
+        null=True,
         help_text="",
         )
 

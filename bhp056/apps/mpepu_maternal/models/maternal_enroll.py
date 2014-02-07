@@ -5,7 +5,7 @@ from edc.audit.audit_trail import AuditTrail
 from edc.choices.common import YES_NO, YES_NO_NA
 from edc.base.model.fields.custom.custom_fields import OtherCharField
 
-from apps.mpepu.choices import RECRUIT_SOURCE
+from apps.mpepu.choices import RECRUIT_SOURCE, RECRUIT_CLINIC
 
 from .base_scheduled_visit_model import BaseScheduledVisitModel
 
@@ -30,6 +30,20 @@ class MaternalEnroll(BaseScheduledVisitModel):
     recruit_source_other = OtherCharField(
         max_length=35,
         verbose_name="1a. if other specify...",
+        blank=True,
+        null=True,
+        )
+    
+    recruitment_clinic = models.CharField(
+        max_length=100,
+        verbose_name="The mother was recruited from",
+        choices=RECRUIT_CLINIC,
+        
+        )
+    
+    recruitment_clinic_other = models.CharField(
+        max_length=100,
+        verbose_name="if other specify...",
         blank=True,
         null=True,
         )
@@ -63,6 +77,11 @@ class MaternalEnroll(BaseScheduledVisitModel):
         decimal_places=2,
         verbose_name="6. Mother's height? ",
         help_text="Measured in Centimeters (cm)",
+        )   
+    bp = models.CharField(
+        max_length=7,
+        verbose_name="Mother's blood pressure?",
+        help_text="E.G. 120/80",
         )
 
     history = AuditTrail()

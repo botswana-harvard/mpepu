@@ -3,6 +3,7 @@ from django.core.urlresolvers import reverse
 
 from edc.audit.audit_trail import AuditTrail
 from edc.choices.common import YES_NO_UNKNOWN, YES_NO_UNKNOWN_NA
+from edc.base.model.validators import date_not_future
 
 from .base_scheduled_visit_model import BaseScheduledVisitModel
 from .infant_birth import InfantBirth
@@ -23,6 +24,7 @@ class InfantBirthArv(BaseScheduledVisitModel):
     azt_dose_date = models.DateField(
         verbose_name="1a. If yes,date of first dose of AZT?",
         help_text="",
+        validators=[date_not_future, ],
         blank=True,
         null=True,
         )
@@ -41,6 +43,7 @@ class InfantBirthArv(BaseScheduledVisitModel):
     nvp_dose_date = models.DateField(
         verbose_name="2a. If yes Date of first Dose NVP? ",
         help_text="",
+        validators=[date_not_future, ],
         blank=True,
         null=True,
         )

@@ -3,7 +3,7 @@ from django.shortcuts import render_to_response
 from django.db.models import Count, Avg, Max, Min, StdDev, Variance
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
-from mpepu_infant.models import InfantBirth
+from apps.mpepu_infant.models import InfantBirth
 
 
 @login_required

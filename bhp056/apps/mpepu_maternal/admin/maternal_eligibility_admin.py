@@ -1,5 +1,7 @@
 from django.contrib import admin
 
+from edc.subject.registration.models import RegisteredSubject
+
 from ..admin import RegisteredSubjectModelAdmin
 from ..models import MaternalConsent, MaternalEligibilityAnte, MaternalEligibilityPost
 from ..forms import MaternalEligibilityAnteForm, MaternalEligibilityPostForm
@@ -11,8 +13,9 @@ class MaternalEligibilityAnteAdmin(RegisteredSubjectModelAdmin):
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == "maternal_consent":
-            if request.GET.get('subject_identifier'):
-                kwargs["queryset"] = MaternalConsent.objects.filter(subject_identifier=request.GET.get('subject_identifier'))
+            if request.GET.get('registered_subject'):
+                maternal_subject_identifier = RegisteredSubject.objects.get(id=request.GET.get('registered_subject')).subject_identifier
+                kwargs["queryset"] = MaternalConsent.objects.filter(subject_identifier=maternal_subject_identifier)
 
         return super(MaternalEligibilityAnteAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
@@ -42,8 +45,9 @@ class MaternalEligibilityPostAdmin(RegisteredSubjectModelAdmin):
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == "maternal_consent":
-            if request.GET.get('subject_identifier'):
-                kwargs["queryset"] = MaternalConsent.objects.filter(subject_identifier=request.GET.get('subject_identifier'))
+            if request.GET.get('registered_subject'):
+                maternal_subject_identifier = RegisteredSubject.objects.get(id=request.GET.get('registered_subject')).subject_identifier
+                kwargs["queryset"] = MaternalConsent.objects.filter(subject_identifier=maternal_subject_identifier)
 
         return super(MaternalEligibilityPostAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 

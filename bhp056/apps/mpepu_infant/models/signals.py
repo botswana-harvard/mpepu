@@ -10,8 +10,8 @@ from .infant_pre_eligibility import InfantPreEligibility
 def infant_birth_data_on_post_save(sender, instance, **kwargs):
     if isinstance(instance, (InfantBirth, InfantPreEligibility)):
         instance.post_save_recalculate_appt_date()
-
-
+ 
+ 
 @receiver(post_save, weak=False, dispatch_uid='infant_eligibility_post_save_delete_appointment')
 def infant_eligibility_post_save_delete_appointment(sender, instance, **kwargs):
     if isinstance(instance, (InfantEligibility)):

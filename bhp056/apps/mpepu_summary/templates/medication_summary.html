@@ -1,0 +1,121 @@
+{% load common_tags %}
+<table name="left" id="left" border=1 width="100%">
+<tr><td>You are viewing the Infant Medication Summary. To return to the dashboard <A href="">click here</a></td></tr>
+
+
+<tr><td>
+    <H4>Study Medication (CTX/Placebo)</H4>
+    {% if initiated %}&nbsp;<B>Initiated?</B> {{ initiated }}&nbsp;&nbsp;{% endif %}
+    {% if first_dose_date %}&nbsp;<B>First dose date?</B> {{ first_dose_date|date:"Y-m-d" }} {% endif %}              
+    <table width="100%">
+        <thead>
+        <th>Visit</th>
+        <th>Date</th>        
+        <th>Status</th>
+        <th>Mod.Date</th>
+        <th>Mod.Reason</th>                                                        
+        </thead>
+        <tbody>
+        {% for item in study_medications %}    
+            <tr class="{% cycle 'row1' 'row2' %}">
+            <td><A href="{% url dashboard_visit_url dashboard_type='infant' subject_identifier=subject_identifier visit_code=item.inf_study_drug.infant_visit.appointment.visit_definition.code visit_instance=item.inf_study_drug.infant_visit.appointment.visit_instance %}">{{ item.inf_study_drug.infant_visit.appointment.visit_definition.code }}</A></td>
+            <td>{{ item.inf_study_drug.infant_visit.report_datetime|date:"Y-m-d" }}</td>        
+            <td>{{ item.get_dose_status_display }}</td>
+            <td>{{ item.ingestion_date|date:"Y-m-d"  }}</td>
+            <td>{{ item.get_modification_reason_display }}</td>                
+            </tr>
+        {% endfor %}
+        </tbody>    
+    </table>
+</td></tr>
+
+<tr><td>
+    <H4>Prophylaxis (AZT/NVP)</H4>
+    {% if azt_discharge_supply %}&nbsp;<B>AZT supplied at discharge?</B> {{ azt_discharge_supply }} &nbsp;&nbsp;{% endif %}
+    {% if nvp_discharge_supply %}&nbsp;<B>NVP supplied at discharge?</B> {{ nvp_discharge_supply }} {% endif %}    
+    
+    <table width="100%">
+        <thead>
+        <th>Visit</th>
+        <th>Date</th>
+        <th>Code</TH>        
+        <th>Status</th>
+        <th>Mod.Date</th>
+        <th>Mod.Reason</th>                                                        
+        </thead>
+        <tbody>
+        {% for item in prophylaxis %}    
+            <tr class="{% cycle 'row1' 'row2' %}">
+            <td><A href="{% url dashboard_visit_url dashboard_type='infant' subject_identifier=subject_identifier visit_code=item.infant_arv_proph.infant_visit.appointment.visit_definition.code visit_instance=item.infant_arv_proph.infant_visit.appointment.visit_instance %}">{{ item.infant_arv_proph.infant_visit.appointment.visit_definition.code }}</A></td>
+            <td>{{ item.infant_arv_proph.infant_visit.report_datetime|date:"Y-m-d" }}</td>        
+            <td>{{ item.arv_code }}</td>            
+            <td>{{ item.get_dose_status_display }}</td>
+            <td>{{ item.modification_date|date:"Y-m-d"  }}</td>
+            <td>{{ item.get_modification_code_display }}</td>                
+            </tr>
+        {% endfor %}
+        </tbody>    
+    </table>
+</td></tr>
+
+<tr><td>
+    <H4>Concomitant</H4>
+    <table width="100%">
+        <thead>
+        <th>Visit</th>
+        <th>Date</th>        
+        <th>Med</th>
+        <th>Route</th>                                                        
+        </thead>
+        <tbody>
+        {% for item in concomitant %}    
+            <tr class="{% cycle 'row1' 'row2' %}">
+            <td><A href="{% url dashboard_visit_url dashboard_type='infant' subject_identifier=subject_identifier visit_code=item.infant_fu.infant_visit.appointment.visit_definition.code visit_instance=item.infant_fu.infant_visit.appointment.visit_instance %}">{{ item.infant_fu.infant_visit.appointment.visit_definition.code }}</A></td>
+            <td>{{ item.infant_fu.infant_visit.report_datetime|date:"Y-m-d" }}</td>        
+            <td>{% for v in item.medication.all %} {{ v }} {% endfor %}</td>
+            <td>{{ item.get_drug_route_display }}</td>                
+            </tr>
+        {% endfor %}
+        </tbody>    
+    </table>
+</td></tr>
+
+<tr><td>
+    <H4>Vaccines</H4>
+    <H5>Birth</H5>    
+    <table width="100%">
+        <thead>
+        <th>Visit</th>
+        <th>Date</th>        
+        <th>Vaccinations</th>
+        </thead>
+        <tbody>
+        {% for item in birth_vaccines %}    
+            <tr class="{% cycle 'row1' 'row2' %}">
+            <td><A href="{% url dashboard_visit_url dashboard_type='infant' subject_identifier=subject_identifier visit_code=item.infant_visit.appointment.visit_definition.code visit_instance=item.infant_visit.appointment.visit_instance %}">{{ item.infant_visit.appointment.visit_definition.code }}</A></td>
+            <td>{{ item.infant_visit.report_datetime|date:"Y-m-d" }}</td>        
+            <td>{% for v in item.vaccination.all %} {{v}} {% endfor %}</td>
+            </tr>
+        {% endfor %}
+        </tbody>    
+    </table>
+    <H5>Follow-up</H5>    
+    <table width="100%">
+        <thead>
+        <th>Visit</th>
+        <th>Date</th>        
+        <th>Vaccinations</th>
+        </thead>
+        <tbody>
+        {% for item in vaccines %}    
+            <tr class="{% cycle 'row1' 'row2' %}">
+            <td><A href="{% url dashboard_visit_url dashboard_type='infant' subject_identifier=subject_identifier visit_code=item.infant_fu.infant_visit.appointment.visit_definition.code visit_instance=item.infant_fu.infant_visit.appointment.visit_instance %}">{{ item.infant_fu.infant_visit.appointment.visit_definition.code }}</A></td>
+            <td>{{ item.infant_fu.infant_visit.report_datetime|date:"Y-m-d" }}</td>        
+            <td>{% for v in item.vaccination.all %} {{v}} {% endfor %}</td>
+            </tr>
+        {% endfor %}
+        </tbody>    
+    </table>
+</td></tr>
+
+</table>

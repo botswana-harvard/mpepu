@@ -30,9 +30,9 @@ class InfantEligibilityAdmin(RegisteredSubjectModelAdmin):
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == "infant_birth":
-            if request.GET.get('subject_identifier'):
-                registered_subject = RegisteredSubject.objects.get(subject_identifier=request.GET.get('subject_identifier'))
-                kwargs["queryset"] = InfantBirth.objects.filter(registered_subject=registered_subject)
+            if request.GET.get('registered_subject'):
+#                 registered_subject = RegisteredSubject.objects.get(subject_identifier=request.GET.get('subject_identifier'))
+                kwargs["queryset"] = InfantBirth.objects.filter(registered_subject=request.GET.get('registered_subject'))
             else:
                 kwargs["queryset"] = InfantBirth.objects.none()
 
