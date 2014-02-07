@@ -18,35 +18,35 @@ class InfantFuPhysical(BaseScheduledVisitModel):
     weight = models.DecimalField(
         max_digits=6,
         decimal_places=2,
-        verbose_name="1a. Weight ",
+        verbose_name="Weight ",
         help_text="Measured in kg.",
         )
     height = models.DecimalField(
         max_digits=6,
         decimal_places=2,
-        verbose_name="1b. Height ",
+        verbose_name="Height ",
         help_text="",
         )
     has_abnormalities = models.CharField(
         max_length=25,
         choices=YES_NO,
-        verbose_name="1c. Abnormal findings ",
+        verbose_name="Abnormal findings ",
         help_text="If 'YES', answer Question 1d, otherwise go to Question 2",
         )
     abnormalities = OtherCharField(
         max_length=100,
-        verbose_name="1d. Describe abnormal physical findings",
+        verbose_name="Describe abnormal physical findings",
         blank=True,
         null=True,
         )
     was_hospitalized = models.CharField(
         max_length=3,
         choices=YES_NO,
-        verbose_name="2. Has the child been hospitalized overnight since the last scheduled visit (or since discharge after birth,if this is the randomization visit)?",
+        verbose_name="Has the child been hospitalized overnight since the last scheduled visit (or since discharge after birth,if this is the randomization visit)?",
         help_text=" If 'Yes', the primary diagnosis(es) associated with the hospitalization(s) must be recorded in follow up diagnoses section.",
         )
     days_hospitalized = models.IntegerField(
-        verbose_name="2a. If 'Yes', total number of days of hospitalization since the last scheduled visit.",
+        verbose_name="If 'Yes', total number of days of hospitalization since the last scheduled visit.",
         help_text="",
         blank=True,
         null=True,

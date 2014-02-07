@@ -1,6 +1,7 @@
 from datetime import timedelta, date
 
 from edc.dashboard.subject.classes import RegisteredSubjectDashboard
+from edc.subject.registration.models import RegisteredSubject
 
 from apps.mpepu_infant.models import InfantBirth, InfantVisit, InfantEligibility
 from apps.mpepu_infant_rando.models import InfantRando
@@ -17,7 +18,10 @@ class InfantDashboard(RegisteredSubjectDashboard):
     def __init__(self, *args, **kwargs):
         self._infant_birth = None
         self._maternal_identifier = None
-        kwargs.update({'dashboard_models': {'infant_birth': InfantBirth}})
+        self._dashboard_type_list = self.set_dashboard_type_list()
+        self._visit_model = InfantVisit
+        kwargs.update({'dashboard_models': {'infant_birth': InfantBirth}, 'membership_form_category': 'infant'})
+        #self.extra_url_context = ""
         super(InfantDashboard, self).__init__(*args, **kwargs)
 
     def add_to_context(self):
@@ -35,10 +39,20 @@ class InfantDashboard(RegisteredSubjectDashboard):
             maternal_consent=self.get_maternal_consent(),
             days_alive=self.get_days_alive(),
             )
-        
+
+    def set_registered_subject(self, pk=None):
+        self._registered_subject = self.registered_subject
+        if RegisteredSubject.objects.filter(subject_identifier=self.subject_identifier):
+            self._registered_subject = RegisteredSubject.objects.get(subject_identifier=self.subject_identifier)
+
+    def get_registered_subject(self):
+        if not self._registered_subject:
+            self.set_registered_subject()
+        return self._registered_subject
+
     def set_membership_form_category(self):
         self._membership_form_category = 'infant'
-        
+
     def get_maternal_dashboard_url(self):
         return 'subject_dashboard_url'
 
@@ -48,7 +62,7 @@ class InfantDashboard(RegisteredSubjectDashboard):
     def set_consent(self):
         """Sets to the subject consent, if it has been completed."""
         self._consent = self.get_maternal_consent()
-        
+
     def get_delivery_datetime(self):
         # get delivery date if delivered
         return self.get_maternal_lab_del().delivery_datetime
@@ -81,8 +95,9 @@ class InfantDashboard(RegisteredSubjectDashboard):
                     # TODO: v2 get rando_bf_duration from eligibility checklist and show along with BF duration
                     if InfantEligibility.objects.filter(registered_subject__subject_identifier=self.get_subject_identifier()).exists():
                         rando_bf_duration = InfantEligibility.objects.get(registered_subject__subject_identifier=self.get_subject_identifier()).rando_bf_duration
+                        #v4 changed to enable users to know which infants have mothers who were unwilling to be randomized NWR.
                         if rando_bf_duration == 'No':
-                            stratum['bf_duration'] = '{0} ({1})'.format(stratum['bf_duration'], rando_bf_duration)
+                            stratum['bf_duration'] = '{0} ({1})'.format(stratum['bf_duration'], 'NWR')
             else:
                 stratum = {'feeding_choice': 'pending', 'bf_duration': '-'}
         return stratum

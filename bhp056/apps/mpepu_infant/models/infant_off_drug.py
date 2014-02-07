@@ -4,7 +4,7 @@ from django.core.urlresolvers import reverse
 
 from edc.audit.audit_trail import AuditTrail
 from edc.base.model.fields.custom.custom_fields import OtherCharField
-from edc.base.model.validators import date_not_future
+from edc.base.model.validators import datetime_not_before_study_start, datetime_not_future, datetime_is_after_consent, date_not_future
 
 from ..choices import INFANT_OFF_DRUG_REASON
 from .base_infant_registered_subject_model import BaseInfantRegisteredSubjectModel
@@ -12,6 +12,16 @@ from .base_infant_registered_subject_model import BaseInfantRegisteredSubjectMod
 
 class InfantOffDrug(BaseInfantRegisteredSubjectModel):
 
+    report_datetime = models.DateTimeField(
+        verbose_name="Visit Date and Time",
+        validators=[
+            datetime_not_before_study_start,
+            datetime_is_after_consent,
+            datetime_not_future,
+            ],
+        default=datetime.today()
+        )
+                                      
     last_dose_date = models.DateField(
         verbose_name="1. Date of last dose of CTX or placebo (Today's date if stopping today):",
         help_text="",
@@ -32,7 +42,7 @@ class InfantOffDrug(BaseInfantRegisteredSubjectModel):
     history = AuditTrail()
 
     def get_report_datetime(self):
-        return datetime.combine(self.last_dose_date, time(0, 0))
+        return self.report_datetime
 
     def get_consenting_subject_identifier(self):
         """Returns mother's identifier."""
