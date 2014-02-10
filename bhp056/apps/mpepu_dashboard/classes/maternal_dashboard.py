@@ -14,7 +14,12 @@ class MaternalDashboard(RegisteredSubjectDashboard):
     dashboard_url_name = 'subject_dashboard_url'
 
     def __init__(self, *args, **kwargs):
-        kwargs.update({'dashboard_models': {'maternal_consent': MaternalConsent}})
+        self._visit_model = MaternalVisit
+        self._dashboard_type_list = self.set_dashboard_type_list()
+        self.extra_url_context = ""
+        self._locator_model = None
+        self._requisition_model = None
+        kwargs.update({'dashboard_models': {'maternal_consent': MaternalConsent}, 'membership_form_category': 'maternal'})
         super(MaternalDashboard, self).__init__(*args, **kwargs)
 
     def add_to_context(self):
@@ -26,10 +31,20 @@ class MaternalDashboard(RegisteredSubjectDashboard):
 #             subject_dashboard_url='subject_dashboard_url',
             infant_dashboard_url=self.get_infant_dashboard_url(),
             title='Maternal Dashboard',
-            subject_consent=self.get_consent(),
+#             subject_consent=self.get_consent(),
             delivery_datetime=self.get_delivery_datetime(),
-            maternal_consent=self.get_consent()
+            maternal_consent=self.consent()
             )
+
+    def set_registered_subject(self, pk=None):
+        self._registered_subject = self.registered_subject
+        if RegisteredSubject.objects.filter(subject_identifier=self.subject_identifier):
+            self._registered_subject = RegisteredSubject.objects.get(subject_identifier=self.subject_identifier)
+
+    def get_registered_subject(self):
+        if not self._registered_subject:
+            self.set_registered_subject()
+        return self._registered_subject
 
     def set_membership_form_category(self):
         self._membership_form_category = 'maternal'
@@ -46,8 +61,18 @@ class MaternalDashboard(RegisteredSubjectDashboard):
         if MaternalConsent.objects.filter(subject_identifier=self.get_subject_identifier()):
             self._consent = MaternalConsent.objects.get(subject_identifier=self.get_subject_identifier())
 
+    @property
+    def consent(self):
+        self._consent = None
+        if MaternalConsent.objects.filter(subject_identifier=self.subject_identifier):
+            self._consent = MaternalConsent.objects.get(subject_identifier=self.subject_identifier)
+        return self._consent
+
     def get_visit_model(self):
         return MaternalVisit
+
+    def get_subject_identifier(self):
+        return self.subject_identifier
 
     def get_requisition_model(self):
         return MaternalRequisition

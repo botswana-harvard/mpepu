@@ -21,7 +21,9 @@ class InfantDashboard(RegisteredSubjectDashboard):
         self._dashboard_type_list = self.set_dashboard_type_list()
         self._visit_model = InfantVisit
         kwargs.update({'dashboard_models': {'infant_birth': InfantBirth}, 'membership_form_category': 'infant'})
-        #self.extra_url_context = ""
+        self.extra_url_context = ""
+        self._locator_model = None
+        self._requisition_model = None
         super(InfantDashboard, self).__init__(*args, **kwargs)
 
     def add_to_context(self):
@@ -31,7 +33,7 @@ class InfantDashboard(RegisteredSubjectDashboard):
             search_name='infant',
             maternal_dashboard_url=self.get_maternal_dashboard_url(),
             title='Infant Dashboard',
-            subject_consent=self.get_consent(),
+            #subject_consent=self.get_consent(),
             delivery_datetime=self.get_delivery_datetime(),
             stratum=self.get_feeding_stratum(),
             infant_birth=self.get_infant_birth(),
@@ -82,6 +84,9 @@ class InfantDashboard(RegisteredSubjectDashboard):
 
     def get_packing_list_model(self):
         return PackingList
+
+    def get_subject_identifier(self):
+        return self.subject_identifier
 
     def get_feeding_stratum(self):
         stratum = {'feeding_choice': '-', 'bf_duration': '-'}
