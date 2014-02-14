@@ -33,7 +33,6 @@ class InfantDashboard(RegisteredSubjectDashboard):
             search_name='infant',
             maternal_dashboard_url=self.get_maternal_dashboard_url(),
             title='Infant Dashboard',
-            #subject_consent=self.get_consent(),
             delivery_datetime=self.get_delivery_datetime(),
             stratum=self.get_feeding_stratum(),
             infant_birth=self.get_infant_birth(),
