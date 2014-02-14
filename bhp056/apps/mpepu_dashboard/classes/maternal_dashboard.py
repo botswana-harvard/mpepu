@@ -47,11 +47,6 @@ class MaternalDashboard(RegisteredSubjectDashboard):
         if RegisteredSubject.objects.filter(subject_identifier=self.subject_identifier):
             self._registered_subject = RegisteredSubject.objects.get(subject_identifier=self.subject_identifier)
 
-    def get_registered_subject(self):
-        if not self._registered_subject:
-            self.set_registered_subject()
-        return self._registered_subject
-
     def set_membership_form_category(self, category):
         self._membership_form_category = 'maternal'
 
