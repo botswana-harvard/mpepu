@@ -4,7 +4,7 @@ from django.core.urlresolvers import reverse
 from edc.audit.audit_trail import AuditTrail
 from edc.subject.registration.models import RegisteredSubject
 
-from .base_maternal_consent import BaseMaternalConsent 
+from .base_maternal_consent import BaseMaternalConsent
 
 
 class MaternalConsent(BaseMaternalConsent):
@@ -12,9 +12,14 @@ class MaternalConsent(BaseMaternalConsent):
     """Model for maternal consent and registration model for mothers."""
 
     history = AuditTrail()
-    
+
+    registered_subject = models.ForeignKey(RegisteredSubject,
+        editable=False,
+        null=True,
+        help_text='')
+
     def get_registered_subject(self):
-        return RegisteredSubject.objects.get(subject_identifier=self.subject_identifier)
+        return self._registered_subject
 
     def dispatch_container_lookup(self):
         return None
