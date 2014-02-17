@@ -8,6 +8,8 @@ from apps.mpepu_infant_rando.models import InfantRando
 from apps.mpepu_maternal.models import MaternalConsent, MaternalLabDel, MaternalLocator
 from apps.mpepu_lab.models import InfantRequisition, PackingList
 
+from edc.lab.lab_clinic_api.models import Panel
+
 
 class InfantDashboard(RegisteredSubjectDashboard):
 
@@ -28,6 +30,7 @@ class InfantDashboard(RegisteredSubjectDashboard):
 
     def add_to_context(self):
         super(InfantDashboard, self).add_to_context()
+        panels = Panel.objects.all()
         self.context.add(
             home='mpepu',
             search_name='infant',
@@ -39,6 +42,7 @@ class InfantDashboard(RegisteredSubjectDashboard):
             delivery_date=self.get_delivery_date(),
             maternal_consent=self.get_maternal_consent(),
             days_alive=self.get_days_alive(),
+            panels=panels
             )
 
     def set_registered_subject(self, pk=None):
