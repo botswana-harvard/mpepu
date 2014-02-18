@@ -9,7 +9,7 @@ class BaseScheduledVisitModel(InfantBaseUuidModel):
 
     infant_visit = models.OneToOneField(InfantVisit)
     
-    entry_meta_data_manager = EntryMetaDataManager(InfantVisit, visit_attr_name='infant_visit')
+    entry_meta_data_manager = EntryMetaDataManager(InfantVisit)
 
     def get_visit(self):
         return self.infant_visit
