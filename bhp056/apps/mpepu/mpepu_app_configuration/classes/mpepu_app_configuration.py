@@ -45,7 +45,7 @@ class MpepuAppConfiguration(BaseAppConfiguration):
 
     v2_consent_catalogue_setup = {
                 'name': 'mpepu',
-                'content_type_map': ContentTypeMap.objects.get(model='maternalconsent'),
+#                 'content_type_map': ContentTypeMap.objects.get(name='Maternal Consent'),
                 'consent_type': 'study',
                 'version': 2,
                 'start_datetime': datetime(2013, 01, 21, 07, 00, 00),
