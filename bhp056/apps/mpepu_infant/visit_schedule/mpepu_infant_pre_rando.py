@@ -49,7 +49,7 @@ class MpepuInfantPreRandoVisitSchedule(VisitScheduleConfiguration):
                 EntryTuple(10L, u'mpepu_infant', u'infantarvproph'),
                 EntryTuple(20L, u'mpepu_infant', u'infantnvpadherence'),
                 EntryTuple(30L, u'mpepu_infant', u'infantfu'),
-                EntryTuple(40L, u'mpepu_infant', u'infantfuphy'),
+                EntryTuple(40L, u'mpepu_infant', u'infantfuphysical'),
                 EntryTuple(50L, u'mpepu_infant', u'infantfudx'),
                 EntryTuple(60L, u'mpepu_infant', u'infantfud'),
                 EntryTuple(70L, u'mpepu_infant', u'infantfudx2proph'),
