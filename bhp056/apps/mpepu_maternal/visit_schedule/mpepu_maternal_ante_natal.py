@@ -7,7 +7,7 @@ from ..models import MaternalVisit, MaternalEligibilityAnte
 
 class MpepuMaternalAnteNatalVisitSchedule(VisitScheduleConfiguration):
 
-    name = 'visit schedule'
+    name = 'antenatal visit schedule'
     app_label = 'mpepu_maternal'
     # membership forms
     # (name, model, visible)
@@ -44,7 +44,6 @@ class MpepuMaternalAnteNatalVisitSchedule(VisitScheduleConfiguration):
                 RequisitionTuple(300L, u'mpepu_lab', u'maternalrequisition', 'CD4 (ARV)', 'CD4', 'TEST', 'WB'),
                 RequisitionTuple(400L, u'mpepu_lab', u'maternalrequisition', 'Plasma and Buffy Coat Storage', 'Plasma and Buffy Coat Storage', 'STORAGE', 'WB'),
                 RequisitionTuple(500L, u'mpepu_lab', u'maternalrequisition', 'PHS: Ultrasensetive Viral Load', 'Viral load (PHS)', 'TEST', 'WB'),
-
                 ),
             'entries': (
                 EntryTuple(10L, u'mpepu_maternal', u'maternalenroll'),

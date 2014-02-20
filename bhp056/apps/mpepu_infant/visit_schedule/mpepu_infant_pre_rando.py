@@ -9,7 +9,7 @@ from ..models import InfantVisit, InfantPreEligibility
 
 class MpepuInfantPreRandoVisitSchedule(VisitScheduleConfiguration):
 
-    name = 'visit schedule'
+    name = 'pre-rando visit schedule'
     app_label = 'mpepu_infant'
     # membership forms
     # (name, model, visible)

@@ -7,7 +7,7 @@ from ..models import MaternalVisit, MaternalEligibilityPost
 
 class MpepuMaternalPostNatalVisitSchedule(VisitScheduleConfiguration):
 
-    name = 'visit schedule'
+    name = 'postnatal visit schedule'
     app_label = 'mpepu_maternal'
     # membership forms
     # (name, model, visible)
