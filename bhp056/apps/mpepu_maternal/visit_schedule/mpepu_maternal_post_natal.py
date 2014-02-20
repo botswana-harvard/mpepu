@@ -2,7 +2,7 @@ from collections import OrderedDict
 
 from edc.subject.visit_schedule.classes import VisitScheduleConfiguration, site_visit_schedules, EntryTuple, MembershipFormTuple, ScheduleGroupTuple, RequisitionTuple
 
-from ..models import MaternalVisit, MaternalConsent
+from ..models import MaternalVisit, MaternalEligibilityPost
 
 
 class MpepuMaternalPostNatalVisitSchedule(VisitScheduleConfiguration):
@@ -12,13 +12,13 @@ class MpepuMaternalPostNatalVisitSchedule(VisitScheduleConfiguration):
     # membership forms
     # (name, model, visible)
     membership_forms = OrderedDict({
-        'maternal_eligibility_post': MembershipFormTuple('maternal_eligibility_post', MaternalConsent, True),
+        'maternal_eligible_postnatal': MembershipFormTuple('maternal_eligible_postnatal', MaternalEligibilityPost, True),
         })
 
     # schedule groups
     # (name, membership_form_name, grouping_key, comment)
     schedule_groups = OrderedDict({
-        'Maternal Post Partum Reg': ScheduleGroupTuple('Maternal Post Partum Reg', 'maternal_eligibility_post', None, None),
+        'Maternal Post Partum Reg': ScheduleGroupTuple('Maternal Post Partum Reg', 'maternal_eligible_postnatal', None, None),
         })
 
     # visit_schedule

@@ -4,7 +4,7 @@ from edc.subject.visit_schedule.classes import VisitScheduleConfiguration, site_
 
 from ..models import InfantVisit, InfantBirth
 
-from ...mpepu_maternal.models import MaternalConsent
+#from ...mpepu_maternal.models import MaternalConsent
 
 
 class MpepuInfantBirthVisitSchedule(VisitScheduleConfiguration):
