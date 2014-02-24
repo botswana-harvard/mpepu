@@ -9,7 +9,7 @@ from ..models import InfantVisit, InfantBirth
 
 class MpepuInfantBirthVisitSchedule(VisitScheduleConfiguration):
 
-    name = 'visit schedule'
+    name = 'birth visit schedule'
     app_label = 'mpepu_infant'
     # membership forms
     # (name, model, visible)

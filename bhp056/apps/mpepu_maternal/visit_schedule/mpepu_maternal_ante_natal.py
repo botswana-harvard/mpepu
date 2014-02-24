@@ -7,18 +7,18 @@ from ..models import MaternalVisit, MaternalEligibilityAnte
 
 class MpepuMaternalAnteNatalVisitSchedule(VisitScheduleConfiguration):
 
-    name = 'visit schedule'
+    name = 'antenatal visit schedule'
     app_label = 'mpepu_maternal'
     # membership forms
     # (name, model, visible)
     membership_forms = OrderedDict({
-        'maternal_eligible_antenatal': MembershipFormTuple('maternal_eligible_antenatal', MaternalEligibilityAnte, True),
+        'maternal_eligible_antenat': MembershipFormTuple('maternal_eligible_antenat', MaternalEligibilityAnte, True),
         })
 
     # schedule groups
     # (name, membership_form_name, grouping_key, comment)
     schedule_groups = OrderedDict({
-        'Maternal Ante Natal Reg': ScheduleGroupTuple('Maternal Ante Natal Reg', 'maternal_eligible_antenatal', None, None),
+        'Maternal Ante Natal Reg': ScheduleGroupTuple('Maternal Ante Natal Reg', 'maternal_eligible_antenat', None, None),
         })
 
     # visit_schedule
@@ -44,7 +44,6 @@ class MpepuMaternalAnteNatalVisitSchedule(VisitScheduleConfiguration):
                 RequisitionTuple(300L, u'mpepu_lab', u'maternalrequisition', 'CD4 (ARV)', 'CD4', 'TEST', 'WB'),
                 RequisitionTuple(400L, u'mpepu_lab', u'maternalrequisition', 'Plasma and Buffy Coat Storage', 'Plasma and Buffy Coat Storage', 'STORAGE', 'WB'),
                 RequisitionTuple(500L, u'mpepu_lab', u'maternalrequisition', 'PHS: Ultrasensetive Viral Load', 'Viral load (PHS)', 'TEST', 'WB'),
-
                 ),
             'entries': (
                 EntryTuple(10L, u'mpepu_maternal', u'maternalenroll'),

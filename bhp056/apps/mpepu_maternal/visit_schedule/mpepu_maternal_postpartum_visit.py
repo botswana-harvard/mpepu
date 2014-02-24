@@ -7,7 +7,7 @@ from ..models import MaternalVisit, MaternalPostReg
 
 class MpepuMaternalPostPartumVisitSchedule(VisitScheduleConfiguration):
 
-    name = 'visit schedule'
+    name = 'postreg visit schedule'
     app_label = 'mpepu_maternal'
     # membership forms
     # (name, model, visible)
@@ -20,11 +20,11 @@ class MpepuMaternalPostPartumVisitSchedule(VisitScheduleConfiguration):
     schedule_groups = OrderedDict({
         'Post Partum Follow-up': ScheduleGroupTuple('Post Partum Follow-up', 'maternal_postnatal_reg', None, None),
         })
-
     # visit_schedule
     # see edc.subject.visit_schedule.models.visit_defintion
-    visit_definitions = OrderedDict(
-        {'2010M': {
+    visit_definitions = OrderedDict()
+
+    visit_definitions['2010M'] = {
             'title': 'Maternal Post Natal Registration',
             'time_point': 10,
             'base_interval': 1,
@@ -48,8 +48,7 @@ class MpepuMaternalPostPartumVisitSchedule(VisitScheduleConfiguration):
                 EntryTuple(30L, u'mpepu_maternal', u'maternalarvpost'),
                 EntryTuple(40L, u'mpepu_maternal', u'maternalarvpostadh'),
             )}
-        },
-        {'2020M': {
+    visit_definitions['2020M'] = {
             'title': 'Maternal Post Natal Registration',
             'time_point': 20,
             'base_interval': 2,
@@ -71,8 +70,7 @@ class MpepuMaternalPostPartumVisitSchedule(VisitScheduleConfiguration):
                 EntryTuple(30L, u'mpepu_maternal', u'maternalarvpost'),
                 EntryTuple(40L, u'mpepu_maternal', u'maternalarvpostadh'),
             )}
-        },
-        {'2030M': {
+    visit_definitions['2030M'] = {
             'title': 'Maternal Post Natal Registration',
             'time_point': 30,
             'base_interval': 3,
@@ -95,8 +93,7 @@ class MpepuMaternalPostPartumVisitSchedule(VisitScheduleConfiguration):
                 EntryTuple(30L, u'mpepu_maternal', u'maternalarvpost'),
                 EntryTuple(40L, u'mpepu_maternal', u'maternalarvpostadh'),
             )}
-        },
-        {'2060M': {
+    visit_definitions['2060M'] = {
             'title': 'Maternal Post Natal Registration',
             'time_point': 60,
             'base_interval': 6,
@@ -118,8 +115,7 @@ class MpepuMaternalPostPartumVisitSchedule(VisitScheduleConfiguration):
                 EntryTuple(30L, u'mpepu_maternal', u'maternalarvpost'),
                 EntryTuple(40L, u'mpepu_maternal', u'maternalarvpostadh'),
             )}
-        },
-        {'2090M': {
+    visit_definitions['2090M'] = {
             'title': 'Maternal Post Natal Registration',
             'time_point': 10,
             'base_interval': 1,
@@ -142,8 +138,7 @@ class MpepuMaternalPostPartumVisitSchedule(VisitScheduleConfiguration):
                 EntryTuple(30L, u'mpepu_maternal', u'maternalarvpost'),
                 EntryTuple(40L, u'mpepu_maternal', u'maternalarvpostadh'),
             )}
-        },
-        {'2120M': {
+    visit_definitions['2120M'] = {
             'title': 'Maternal Post Natal Registration',
             'time_point': 120,
             'base_interval': 12,
@@ -165,8 +160,7 @@ class MpepuMaternalPostPartumVisitSchedule(VisitScheduleConfiguration):
                 EntryTuple(30L, u'mpepu_maternal', u'maternalarvpost'),
                 EntryTuple(40L, u'mpepu_maternal', u'maternalarvpostadh'),
             )}
-        },
-        {'2150M': {
+    visit_definitions['2150M'] = {
             'title': 'Maternal Post Natal Registration',
             'time_point': 150,
             'base_interval': 15,
@@ -188,8 +182,7 @@ class MpepuMaternalPostPartumVisitSchedule(VisitScheduleConfiguration):
                 EntryTuple(30L, u'mpepu_maternal', u'maternalarvpost'),
                 EntryTuple(40L, u'mpepu_maternal', u'maternalarvpostadh'),
             )}
-        },
-        {'2180M': {
+    visit_definitions['2180M'] = {
             'title': 'Maternal Post Natal Registration',
             'time_point': 10,
             'base_interval': 1,
@@ -212,7 +205,4 @@ class MpepuMaternalPostPartumVisitSchedule(VisitScheduleConfiguration):
                 EntryTuple(40L, u'mpepu_maternal', u'maternalarvpostadh'),
                 EntryTuple(50L, u'mpepu_maternal', u'postnatalinfantfeedingsurvey'),
             )}
-        },
-    )
-
 site_visit_schedules.register(MpepuMaternalPostPartumVisitSchedule)

@@ -9,7 +9,7 @@ from ..models import InfantVisit, InfantEligibility
 
 class MpepuInfantRandoMonthlyVisitSchedule(VisitScheduleConfiguration):
 
-    name = 'visit schedule'
+    name = 'monthly visit schedule'
     app_label = 'mpepu_infant'
     # membership forms
     # (name, model, visible)
@@ -25,8 +25,9 @@ class MpepuInfantRandoMonthlyVisitSchedule(VisitScheduleConfiguration):
 
     # visit_schedule
     # see edc.subject.visit_schedule.models.visit_defintion
-    visit_definitions = OrderedDict(
-        {'2010': {
+    visit_definitions = OrderedDict()
+
+    visit_definitions['2010'] = {
             'title': 'Randomization',
             'time_point': 10,
             'base_interval': 27,
@@ -60,8 +61,7 @@ class MpepuInfantRandoMonthlyVisitSchedule(VisitScheduleConfiguration):
                 EntryTuple(120L, u'mpepu_infant', u'infantfeeding'),
                 EntryTuple(130L, u'mpepu_infant', u'infantstudydruginit'),
             )}
-        },
-        {'2020': {
+    visit_definitions['2020'] = {
             'title': 'Infant 2 Months Visit',
             'time_point': 20,
             'base_interval': 2,
@@ -90,8 +90,7 @@ class MpepuInfantRandoMonthlyVisitSchedule(VisitScheduleConfiguration):
                 EntryTuple(110L, u'mpepu_infant', u'infantctxplaceboadh'),
                 EntryTuple(120L, u'mpepu_infant', u'infantfeeding'),
             )}
-        },
-        {'2030': {
+    visit_definitions['2030'] = {
             'title': 'Infant 3 Months Visit',
             'time_point': 30,
             'base_interval': 3,
@@ -122,8 +121,7 @@ class MpepuInfantRandoMonthlyVisitSchedule(VisitScheduleConfiguration):
                 EntryTuple(110L, u'mpepu_infant', u'infantctxplaceboadh'),
                 EntryTuple(120L, u'mpepu_infant', u'infantfeeding'),
             )}
-        },
-        {'2060': {
+    visit_definitions['2060'] = {
             'title': 'Infant 6 Months Visit',
             'time_point': 60,
             'base_interval': 6,
@@ -155,8 +153,7 @@ class MpepuInfantRandoMonthlyVisitSchedule(VisitScheduleConfiguration):
                 EntryTuple(110L, u'mpepu_infant', u'infantctxplaceboadh'),
                 EntryTuple(120L, u'mpepu_infant', u'infantfeeding'),
             )}
-        },
-        {'2090': {
+    visit_definitions['2090'] = {
             'title': 'Infant 9 Months Visit',
             'time_point': 90,
             'base_interval': 9,
@@ -186,8 +183,7 @@ class MpepuInfantRandoMonthlyVisitSchedule(VisitScheduleConfiguration):
                 EntryTuple(110L, u'mpepu_infant', u'infantctxplaceboadh'),
                 EntryTuple(120L, u'mpepu_infant', u'infantfeeding'),
             )}
-        },
-        {'2120': {
+    visit_definitions['2120'] = {
             'title': 'Infant 12 Months Visit',
             'time_point': 120,
             'base_interval': 12,
@@ -217,8 +213,7 @@ class MpepuInfantRandoMonthlyVisitSchedule(VisitScheduleConfiguration):
                 EntryTuple(110L, u'mpepu_infant', u'infantctxplaceboadh'),
                 EntryTuple(120L, u'mpepu_infant', u'infantfeeding'),
             )}
-        },
-        {'2150': {
+    visit_definitions['2150'] = {
             'title': 'Infant 15 Months Visit',
             'time_point': 150,
             'base_interval': 15,
@@ -250,8 +245,7 @@ class MpepuInfantRandoMonthlyVisitSchedule(VisitScheduleConfiguration):
                 EntryTuple(110L, u'mpepu_infant', u'infantctxplaceboadh'),
                 EntryTuple(120L, u'mpepu_infant', u'infantfeeding'),
             )}
-        },
-        {'2180': {
+    visit_definitions['2180'] = {
             'title': 'Infant18 Months Visit',
             'time_point': 180,
             'base_interval': 18,
@@ -279,7 +273,4 @@ class MpepuInfantRandoMonthlyVisitSchedule(VisitScheduleConfiguration):
                 EntryTuple(80L, u'mpepu_infant', u'infantstudydrug'),
                 EntryTuple(90L, u'mpepu_infant', u'infantctxplaceboadh'),
             )}
-        }
-    )
-
 site_visit_schedules.register(MpepuInfantRandoMonthlyVisitSchedule)

@@ -7,18 +7,18 @@ from ..models import MaternalVisit, MaternalEligibilityPost
 
 class MpepuMaternalPostNatalVisitSchedule(VisitScheduleConfiguration):
 
-    name = 'visit schedule'
+    name = 'postnatal visit schedule'
     app_label = 'mpepu_maternal'
     # membership forms
     # (name, model, visible)
     membership_forms = OrderedDict({
-        'maternal_eligible_postnatal': MembershipFormTuple('maternal_eligible_postnatal', MaternalEligibilityPost, True),
+        'maternal_eligible_postnat': MembershipFormTuple('maternal_eligible_postnat', MaternalEligibilityPost, True),
         })
 
     # schedule groups
     # (name, membership_form_name, grouping_key, comment)
     schedule_groups = OrderedDict({
-        'Maternal Post Partum Reg': ScheduleGroupTuple('Maternal Post Partum Reg', 'maternal_eligible_postnatal', None, None),
+        'Maternal Post Partum Reg': ScheduleGroupTuple('Maternal Post Partum Reg', 'maternal_eligible_postnat', None, None),
         })
 
     # visit_schedule
