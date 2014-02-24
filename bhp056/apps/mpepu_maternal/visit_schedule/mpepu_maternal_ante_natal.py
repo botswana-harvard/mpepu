@@ -12,13 +12,13 @@ class MpepuMaternalAnteNatalVisitSchedule(VisitScheduleConfiguration):
     # membership forms
     # (name, model, visible)
     membership_forms = OrderedDict({
-        'maternal_eligible_antenatal': MembershipFormTuple('maternal_eligible_antenatal', MaternalEligibilityAnte, True),
+        'maternal_eligible_antenat': MembershipFormTuple('maternal_eligible_antenat', MaternalEligibilityAnte, True),
         })
 
     # schedule groups
     # (name, membership_form_name, grouping_key, comment)
     schedule_groups = OrderedDict({
-        'Maternal Ante Natal Reg': ScheduleGroupTuple('Maternal Ante Natal Reg', 'maternal_eligible_antenatal', None, None),
+        'Maternal Ante Natal Reg': ScheduleGroupTuple('Maternal Ante Natal Reg', 'maternal_eligible_antenat', None, None),
         })
 
     # visit_schedule
