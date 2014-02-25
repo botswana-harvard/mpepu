@@ -22,7 +22,7 @@ class InfantDashboard(RegisteredSubjectDashboard):
         self._maternal_identifier = None
         self._dashboard_type_list = self.set_dashboard_type_list()
         self._visit_model = InfantVisit
-        kwargs.update({'dashboard_models': {'infant_birth': InfantBirth}, 'membership_form_category':['infant_rando_eligible','infant_pre_randomize','infant_birth_record']})
+        kwargs.update({'dashboard_models': {'infant_birth': InfantBirth}, 'membership_form_category': ['infant_rando_eligible', 'infant_pre_randomize', 'infant_birth_record']})
         self.extra_url_context = ""
         self._locator_model = None
         self._requisition_model = None
