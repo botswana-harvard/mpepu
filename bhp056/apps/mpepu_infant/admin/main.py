@@ -45,6 +45,7 @@ class InfantOffDrugAdmin(RegisteredSubjectModelAdmin):
 
     fields = (
         "registered_subject",
+        "report_datetime",
         "last_dose_date",
         "reason_off",
         "reason_off_other"
@@ -60,7 +61,17 @@ admin.site.register(InfantOffDrug, InfantOffDrugAdmin)
 class InfantOffStudyAdmin(OffStudyModelAdmin):
 
     form = InfantOffStudyForm
-
+    
+    fields = (
+        "registered_subject",
+        "report_datetime",
+        "offstudy_date",
+        "reason",
+        "reason_other",
+        "has_scheduled_data",
+        "comment",
+    )
+    
 admin.site.register(InfantOffStudy, InfantOffStudyAdmin)
 
 
@@ -137,6 +148,7 @@ class InfantArvProphAdmin(InfantVisitModelAdmin):
 
     fields = (
         "infant_visit",
+        "report_datetime",
         "prophylatic_nvp",
         "arv_status"
     )
@@ -171,8 +183,8 @@ class InfantStudyDrugInitAdmin(InfantVisitModelAdmin):
         "initiated",
         "first_dose_date",
         "reason_not_init",
-        "reason_not_survive",
-        "reason_not_init_other"
+        "reason_not_init_other",
+        "reason_not_survive",       
     )
 
     radio_fields = {
@@ -186,14 +198,14 @@ class InfantDeathAdmin(RegisteredSubjectModelAdmin):
 
     def __init__(self, *args, **kwargs):
         super(InfantDeathAdmin, self).__init__(*args, **kwargs)
-        self.list_filter.insert(0, 'death_date')
-        self.list_display = ('registered_subject', 'death_date', 'created', 'modified', 'user_created', 'user_modified')
+        self.list_filter.insert(0, 'registered_subject')
+        self.list_display = ('registered_subject', 'created', 'modified', 'user_created', 'user_modified')
         self.date_hierarchy = 'death_date'
     form = InfantDeathForm
 
     fields = (
         "registered_subject",
-        "death_date",
+#         "death_date",
         "death_cause_info",
         "death_cause_info_other",
         "perform_autopsy",
@@ -320,6 +332,7 @@ admin.site.register(InfantFuDx2Proph, InfantFuDx2ProphAdmin)
 
 class InfantFuDx2ProphItemsAdmin(BaseModelAdmin):
     form = InfantFuDx2ProphItemsForm
+    
 admin.site.register(InfantFuDx2ProphItems, InfantFuDx2ProphItemsAdmin)
 
 

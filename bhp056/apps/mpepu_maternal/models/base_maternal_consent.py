@@ -1,9 +1,11 @@
-from edc.subject.local.bw.models import BaseBwConsent
+from edc.subject.consent.models import BaseConsent
+from edc.subject.consent.mixins.bw import IdentityFieldsMixin
+from edc.subject.consent.mixins import ReviewAndUnderstandingFieldsMixin
 
 from .maternal_off_study_mixin import MaternalOffStudyMixin
 
 
-class BaseMaternalConsent(MaternalOffStudyMixin, BaseBwConsent):
+class BaseMaternalConsent(MaternalOffStudyMixin, BaseConsent):
 
     """Model for maternal consent and registration model for mothers."""
 
@@ -28,6 +30,17 @@ class BaseMaternalConsent(MaternalOffStudyMixin, BaseBwConsent):
             else:
                 retval = 'NEG'
         return retval
-
+    
     class Meta:
         abstract = True
+    
+# add Mixin fields to abstract class
+for field in IdentityFieldsMixin._meta.fields:
+    if field.name not in [fld.name for fld in BaseMaternalConsent._meta.fields]:
+        field.contribute_to_class(BaseMaternalConsent, field.name)
+
+for field in ReviewAndUnderstandingFieldsMixin._meta.fields:
+    if field.name not in [fld.name for fld in BaseMaternalConsent._meta.fields]:
+        field.contribute_to_class(BaseMaternalConsent, field.name)
+
+    

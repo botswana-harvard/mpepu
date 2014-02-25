@@ -11,10 +11,10 @@ class PostNatalInfantFeedingSurveyAdmin(BaseMaternalEnrollAdmin):
     fields = (
         "maternal_visit",
         "feeding_satisfaction",
-        "next_feeding_choice",
         "feeding_period",
-        "feeding_duration",
-        "correct_bf_duration")
+        "feeding_duration", 
+        "correct_bf_duration",
+        "next_feeding_choice", )
     radio_fields = {
         "feeding_satisfaction": admin.VERTICAL,
         "next_feeding_choice": admin.VERTICAL,

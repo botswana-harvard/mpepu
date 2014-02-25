@@ -1,5 +1,7 @@
 from django.db import models
 
+from edc.entry_meta_data.managers import EntryMetaDataManager
+
 from ..managers import ScheduledModelManager
 from .maternal_visit import MaternalVisit
 from .maternal_base_uuid_model import MaternalBaseUuidModel
@@ -12,9 +14,11 @@ class BaseScheduledVisitModel(MaternalBaseUuidModel):
     maternal_visit = models.OneToOneField(MaternalVisit)
 
     objects = ScheduledModelManager()
+    
+    entry_meta_data_manager = EntryMetaDataManager(MaternalVisit)
 
     def natural_key(self):
-        return self.subject_visit.natural_key()
+        return self.maternal_visit.natural_key()
 
     def __unicode__(self):
         return unicode(self.maternal_visit)

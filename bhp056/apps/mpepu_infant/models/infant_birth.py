@@ -1,16 +1,19 @@
-from django.db import models
 from django.core.exceptions import ImproperlyConfigured
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django.db import models
+
+from datetime import datetime
 
 from edc.audit.audit_trail import AuditTrail
 from edc.base.model.fields.custom.custom_fields import InitialsField
-from edc.choices.common import GENDER_UNDETERMINED
-from edc.subject.consent.classes import ConsentHelper
 from edc.base.model.validators import date_not_future
+from edc.base.model.validators import datetime_not_before_study_start, datetime_not_future, datetime_is_after_consent
+from edc.choices.common import GENDER_UNDETERMINED
 from edc.core.crypto_fields.fields import EncryptedFirstnameField
+from edc.subject.consent.classes import ConsentHelper
 
-from apps.mpepu_maternal.models.maternal_lab_del import MaternalLabDel
 from apps.mpepu_infant_rando.mixins import InfantEligibilityMixin
+from apps.mpepu_maternal.models.maternal_lab_del import MaternalLabDel
 
 from .base_infant_registered_subject_model import BaseInfantRegisteredSubjectModel
 from .infant_visit import InfantVisit
@@ -22,6 +25,7 @@ class InfantBirth(InfantEligibilityMixin, BaseInfantRegisteredSubjectModel):
 
     maternal_lab_del = models.ForeignKey(MaternalLabDel,
         verbose_name="Mother's delivery record")
+    
     first_name = EncryptedFirstnameField(
         #max_length = 250,
         verbose_name="Infant's first name",
@@ -46,7 +50,8 @@ class InfantBirth(InfantEligibilityMixin, BaseInfantRegisteredSubjectModel):
         return self.get_registration_datetime()
 
     def get_registration_datetime(self):
-        return self.maternal_lab_del.delivery_datetime
+#         return self.maternal_lab_del.delivery_datetime
+        return datetime.today()
 
     def get_consenting_subject_identifier(self):
         """Returns mother's identifier."""
@@ -77,8 +82,8 @@ class InfantBirth(InfantEligibilityMixin, BaseInfantRegisteredSubjectModel):
         backwards if it lands on a Saturday. Here we always want it to move forward.
 
         Criteria are : if ga >= 36, set to 13 days from delivery_datetime, otherwise 27 days (+1 on each for days of life)"""
-        if self.maternal_lab_del.has_ga:
-            Appointment = models.get_model('bhp_appointment', 'Appointment')
+        if self.maternal_lab_del.ga:
+            Appointment = models.get_model('appointment', 'Appointment')
             if not Appointment.objects.filter(registered_subject=self.registered_subject, visit_definition__code='2010', visit_instance='0'):
                 raise ImproperlyConfigured('Infant birth expects 2010 visit to exist. Check the visit definition.')
             appointment = Appointment.objects.get(registered_subject=self.registered_subject, visit_definition__code='2010', visit_instance='0')

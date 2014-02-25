@@ -6,3 +6,4 @@ from infant_pre_eligibility_factory import InfantPreEligibilityFactory
 from infant_off_study_factory import InfantOffStudyFactory
 from infant_arv_proph_factory import InfantArvProphFactory
 from infant_arv_proph_mod_factory import InfantArvProphModFactory
+from infant_fu_factory import InfantFuFactory

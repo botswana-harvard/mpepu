@@ -7,6 +7,6 @@ from infant_pre_eligibility_form import InfantPreEligibilityForm
 from infant_fu_form import *
 from infant_study_drug_form import *
 from infant_rando_deferral_form import InfantRandoDeferralForm
-from infant_vital_status_form import InfantVitalStatusForm
 from infant_hiv_status_form import InfantHivStatusForm
 from infant_off_study_form import InfantOffStudyForm
+from infant_congenital_anomalies_form import *

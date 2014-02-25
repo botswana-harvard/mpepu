@@ -2,14 +2,16 @@ from django.db import models
 from django.core.urlresolvers import reverse
 
 from edc.audit.audit_trail import AuditTrail
-
+from edc.subject.consent.models.base_consented_uuid_model import BaseConsentedUuidModel
 from apps.mpepu.choices import DX_DRUG_RELATIONSHIP, DRUG_RELATIONSHIP
 
 from .infant_base_uuid_model import InfantBaseUuidModel
 from .infant_fu_dx2_proph import InfantFuDx2Proph
+from .infant_off_study_mixin import InfantOffStudyMixin
 
 
-class InfantFuDx2ProphItems(InfantBaseUuidModel):
+# class InfantFuDx2ProphItems(InfantOffStudyMixin, BaseConsentedUuidModel):#me
+class InfantFuDx2ProphItems(InfantBaseUuidModel):# found
 
     infant_fu_dx = models.ForeignKey(InfantFuDx2Proph)
 

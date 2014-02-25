@@ -30,15 +30,21 @@ class MaternalEnrollAdmin(MaternalVisitModelAdmin):
         "maternal_visit",
         "recruit_source",
         "recruit_source_other",
+        "recruitment_clinic",
+        "recruitment_clinic_other",
         "prev_pregnancies",
         "prior_health_haart",
         "prev_pregnancy_arv",
         "weight",
-        "height")
+        "height",
+        "bp",
+        )
     radio_fields = {
         "recruit_source": admin.VERTICAL,
+        "recruitment_clinic": admin.VERTICAL,
         "prior_health_haart": admin.VERTICAL,
-        "prev_pregnancy_arv": admin.VERTICAL}
+        "prev_pregnancy_arv": admin.VERTICAL,
+        }
 admin.site.register(MaternalEnroll, MaternalEnrollAdmin)
 
 

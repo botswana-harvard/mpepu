@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render_to_response
 from django.template import RequestContext
+
 from ..classes import MaternalDashboard
 
 
@@ -13,8 +14,10 @@ def maternal_dashboard(request, **kwargs):
         dashboard_category=kwargs.get('dashboard_category'),
         registered_subject=kwargs.get('registered_subject'),
         show=kwargs.get('show'),
+        dashboard_type_list=['maternal'],
         )
+    dashboard.set_context()
     return render_to_response(
         'maternal_dashboard.html',
-        dashboard.get_context().get(),
+        dashboard.context.get(),
         context_instance=RequestContext(request))

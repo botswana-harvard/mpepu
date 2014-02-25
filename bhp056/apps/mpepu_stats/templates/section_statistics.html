@@ -8,14 +8,14 @@
         use the name and pass the url parameter to 
         successfully reverse 
     {%endcomment %}
-    {% url statistics_url_name section_name as section %}
-    {% url report_url_name section_name report_name as url_report_url_name %}
-    {% url section_search_url_name section_name search_name search_by_name as section_search_by_name %}    
+    {% url "statistics_url_name" section_name as section %}
+    {% url "report_url_name" section_name report_name as url_report_url_name %}
+    {% url "section_search_url_name" section_name search_name search_by_name as section_search_by_name %}    
 
     <div class="breadcrumbs">
         <a href="/mpepu">Home</a>
         {% if section_name  %}
-            &rsaquo; <a href="{% url section_url_name section_name='statistics' %}">{{ section_name|capfirst }}</a>
+            &rsaquo; <a href="{% url 'section_url_name' section_name='statistics' %}">{{ section_name|capfirst }}</a>
         {% endif %}        
         {% if report_name %}
             &rsaquo; <a  href="{{ url_report_url_name }}">{{ report_name|capfirst }}</a>    

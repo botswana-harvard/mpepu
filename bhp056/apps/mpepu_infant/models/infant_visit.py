@@ -65,7 +65,12 @@ class InfantVisit(InfantOffStudyMixin, BaseVisitTracking):
         for item in VISIT_REASON_NO_FOLLOW_UP_CHOICES:
             dct.update({item: item})
         dct.update({'deferred': 'deferred'})
+        dct.update({'vital status': 'vital status'})
         return dct
+
+    @property
+    def registered_subject(self):
+        return self.get_registered_subject()
 
     def get_absolute_url(self):
         return reverse('admin:mpepu_infant_infantvisit_change', args=(self.id,))

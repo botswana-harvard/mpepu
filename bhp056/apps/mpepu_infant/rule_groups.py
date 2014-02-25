@@ -1,4 +1,4 @@
-from edc.subject.rule_groups.classes import RuleGroup, ScheduledDataRule, Logic, rule_groups, AdditionalDataRule
+from edc.subject.rule_groups.classes import RuleGroup, ScheduledDataRule, Logic, site_rule_groups, AdditionalDataRule
 from edc.subject.registration.models import RegisteredSubject
 from edc.subject.appointment.models import Appointment
 from .models import (InfantVisit, InfantArvProph, InfantFu, InfantStudyDrug)
@@ -11,13 +11,13 @@ class InfantPrerandoLossRuleGroup(RuleGroup):
             predicate=(('reason', 'equals', 'lost'), ('sid', 'equals', None, 'and')),
             consequence='required',
             alternative='not_required'),
-        target_model=['infantoffstudy', 'infantprerandoloss'])
+        target_model=['infantprerandoloss','infantoffstudy'])
 
     class Meta:
         app_label = 'mpepu_infant'
         source_model = InfantVisit
         filter_model = (RegisteredSubject, 'registered_subject')
-rule_groups.register(InfantPrerandoLossRuleGroup)
+site_rule_groups.register(InfantPrerandoLossRuleGroup)
 
 
 class InfantPrerandoLossOffDrugRuleGroup(RuleGroup):
@@ -33,7 +33,7 @@ class InfantPrerandoLossOffDrugRuleGroup(RuleGroup):
         app_label = 'mpepu_infant'
         source_model = InfantVisit
         filter_model = (RegisteredSubject, 'registered_subject')
-rule_groups.register(InfantPrerandoLossOffDrugRuleGroup)
+site_rule_groups.register(InfantPrerandoLossOffDrugRuleGroup)
 
 
 class InfantDeathRuleGroup(RuleGroup):
@@ -43,14 +43,14 @@ class InfantDeathRuleGroup(RuleGroup):
             predicate=(('reason', 'equals', 'death'), ('sid', 'equals', None, 'and')),
             consequence='required',
             alternative='not_required'),
-        target_model=['infantoffstudy', 'infantprerandoloss', 'infantdeath',
-                      'infantverbalautopsy', 'infantsurvival'])
+        target_model=[ 'infantprerandoloss', 'infantsurvival', 'infantdeath',
+                      'infantverbalautopsy','infantoffstudy'])
 
     class Meta:
         app_label = 'mpepu_infant'
         source_model = InfantVisit
         filter_model = (RegisteredSubject, 'registered_subject')
-rule_groups.register(InfantDeathRuleGroup)
+site_rule_groups.register(InfantDeathRuleGroup)
 
 
 class InfantDeathOffDrugRuleGroup(RuleGroup):
@@ -60,14 +60,14 @@ class InfantDeathOffDrugRuleGroup(RuleGroup):
             predicate=(('reason', 'equals', 'death'), ('sid', 'ne', None, 'and')),
             consequence='required',
             alternative='not_required'),
-        target_model=['infantoffstudy', 'infantoffdrug', 'infantdeath',
-                      'infantverbalautopsy', 'infantsurvival'])
+        target_model=['infantoffdrug', 'infantsurvival', 'infantdeath',
+                      'infantverbalautopsy', 'infantoffstudy'])
 
     class Meta:
         app_label = 'mpepu_infant'
         source_model = InfantVisit
         filter_model = (Appointment, 'appointment')
-rule_groups.register(InfantDeathOffDrugRuleGroup)
+site_rule_groups.register(InfantDeathOffDrugRuleGroup)
 
 
 class InfantOffDrugRuleGroup(RuleGroup):
@@ -83,7 +83,7 @@ class InfantOffDrugRuleGroup(RuleGroup):
         app_label = 'mpepu_infant'
         source_model = InfantVisit
         filter_model = (Appointment, 'appointment')
-rule_groups.register(InfantOffDrugRuleGroup)
+site_rule_groups.register(InfantOffDrugRuleGroup)
 
 
 class InfantOffStudyRuleGroup(RuleGroup):
@@ -99,7 +99,7 @@ class InfantOffStudyRuleGroup(RuleGroup):
         app_label = 'mpepu_infant'
         source_model = InfantVisit
         filter_model = (Appointment, 'appointment')
-rule_groups.register(InfantOffStudyRuleGroup)
+site_rule_groups.register(InfantOffStudyRuleGroup)
 
 
 #class InfantBirthDataRuleGroup(RuleGroup):
@@ -115,7 +115,7 @@ rule_groups.register(InfantOffStudyRuleGroup)
 #        app_label = 'mpepu_infant'
 #        source_model = InfantBirthData
 #        filter_model = (InfantVisit, 'infant_visit')
-#rule_groups.register(InfantBirthDataRuleGroup)
+#site_rule_groups.register(InfantBirthDataRuleGroup)
 
 
 #class InfantBirthDataRuleGroup(RuleGroup):
@@ -131,7 +131,7 @@ rule_groups.register(InfantOffStudyRuleGroup)
 #        app_label = 'mpepu_infant'
 #        source_model = InfantBirthData
 #        filter_model = (InfantVisit, 'infant_visit')
-#rule_groups.register(InfantBirthDataRuleGroup)
+#site_rule_groups.register(InfantBirthDataRuleGroup)
 
 
 class InfantArvProphRuleGroup(RuleGroup):
@@ -147,7 +147,7 @@ class InfantArvProphRuleGroup(RuleGroup):
         app_label = 'mpepu_infant'
         filter_model = (InfantVisit, 'infant_visit')
         source_model = InfantArvProph
-rule_groups.register(InfantArvProphRuleGroup)
+site_rule_groups.register(InfantArvProphRuleGroup)
 
 
 class InfantFuRuleGroup(RuleGroup):
@@ -170,7 +170,7 @@ class InfantFuRuleGroup(RuleGroup):
         app_label = 'mpepu_infant'
         filter_model = (InfantVisit, 'infant_visit')
         source_model = InfantFu
-rule_groups.register(InfantFuRuleGroup)
+site_rule_groups.register(InfantFuRuleGroup)
 
 
 class InfantStudyDrugRuleGroup(RuleGroup):
@@ -186,7 +186,7 @@ class InfantStudyDrugRuleGroup(RuleGroup):
         app_label = 'mpepu_infant'
         filter_model = (InfantVisit, 'infant_visit')
         source_model = InfantStudyDrug
-rule_groups.register(InfantStudyDrugRuleGroup)
+site_rule_groups.register(InfantStudyDrugRuleGroup)
 
 
 #class InfantOffStudyDrugRuleGroup(RuleGroup):
@@ -202,7 +202,7 @@ rule_groups.register(InfantStudyDrugRuleGroup)
 #        app_label = 'mpepu_infant'
 #        filter_model = (InfantVisit, 'infant_visit')
 #        source_model = InfantStudyDrug
-#rule_groups.register(InfantOffStudyDrugRuleGroup)
+#site_rule_groups.register(InfantOffStudyDrugRuleGroup)
 
 
 class InfantVisitSurvivalRuleGroup(RuleGroup):
@@ -218,7 +218,7 @@ class InfantVisitSurvivalRuleGroup(RuleGroup):
         app_label = 'mpepu_infant'
         source_model = InfantVisit
         filter_model = (Appointment, 'appointment')
-rule_groups.register(InfantVisitSurvivalRuleGroup)
+site_rule_groups.register(InfantVisitSurvivalRuleGroup)
 
 
 class InfantVisitTelephoneRuleGroup(RuleGroup):
@@ -234,4 +234,4 @@ class InfantVisitTelephoneRuleGroup(RuleGroup):
         app_label = 'mpepu_infant'
         source_model = InfantVisit
         filter_model = (Appointment, 'appointment')
-rule_groups.register(InfantVisitTelephoneRuleGroup)
+site_rule_groups.register(InfantVisitTelephoneRuleGroup)

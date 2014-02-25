@@ -13,6 +13,10 @@ class MaternalVisit(MaternalOffStudyMixin, BaseVisitTracking):
 
     history = AuditTrail()
 
+    @property
+    def registered_subject(self):
+        return self.get_registered_subject()
+
     def __unicode__(self):
         return unicode(self.appointment)
 

@@ -1,24 +1,29 @@
+from dajaxice.core import dajaxice_autodiscover
+
 from django.conf.urls import patterns, include, url
 from django.contrib.auth.decorators import login_required
 from django.contrib import admin
 from django.conf import settings
 from django.views.generic import RedirectView
 from django.db.models import get_models
-
 import django_databrowse
-from dajaxice.core import dajaxice_autodiscover
 
-from edc.subject.rule_groups.classes import rule_groups
+# from edc.subject.rule_groups.classes import site_rule_groups
 from edc.subject.lab_tracker.classes import site_lab_tracker
 from edc.core.bhp_data_manager.classes import data_manager
 from edc.dashboard.section.classes import site_sections
+from edc.subject.visit_schedule.classes import site_visit_schedules
+from apps.mpepu.mpepu_app_configuration.classes import MpepuAppConfiguration
 
 dajaxice_autodiscover()
-rule_groups.autodiscover()
 site_lab_tracker.autodiscover()
 data_manager.prepare()
 admin.autodiscover()
+# site_rule_groups.autodiscover()
 site_sections.autodiscover()
+site_visit_schedules.autodiscover()
+site_visit_schedules.build_all()
+MpepuAppConfiguration()
 
 APP_NAME = settings.APP_NAME
 
@@ -52,10 +57,10 @@ urlpatterns += patterns('',
         include('edc.audit.urls'), name="section_url_name"),
 )
 
-# urlpatterns += patterns('',
-#     url(r'^{app_name}/(?P<section_name>statistics)/'.format(app_name=APP_NAME),
-#         include('{app_name}_stats.urls'.format(app_name=APP_NAME)), name="section_url_name"),
-# )
+urlpatterns += patterns('',
+    url(r'^{app_name}/statistics/'.format(app_name=APP_NAME),
+         include('apps.mpepu_stats.urls'), name="section_url_name"),
+ )
 
 urlpatterns += patterns('',
     url(r'^{app_name}/(?P<section_name>specimens)/'.format(app_name=APP_NAME),
@@ -88,8 +93,14 @@ urlpatterns += patterns('',
     url(r'^{app_name}/$'.format(app_name=APP_NAME), RedirectView.as_view(url='/{app_name}/section/'.format(app_name=APP_NAME))),
     url(r'', RedirectView.as_view(url='/{app_name}/section/'.format(app_name=APP_NAME))),
     )
+from django.conf import settings
+from django.conf.urls import include, patterns, url
 
 if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns += patterns('',
+        url(r'^__debug__/', include(debug_toolbar.urls)),
+    )
     urlpatterns += patterns('django.contrib.staticfiles.views',
         url(r'^static/(?P<path>.*)$', 'serve'),
     )
