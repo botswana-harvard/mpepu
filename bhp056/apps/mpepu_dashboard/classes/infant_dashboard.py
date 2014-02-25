@@ -8,6 +8,8 @@ from apps.mpepu_infant_rando.models import InfantRando
 from apps.mpepu_maternal.models import MaternalConsent, MaternalLabDel, MaternalLocator
 from apps.mpepu_lab.models import InfantRequisition, PackingList
 
+from edc.lab.lab_clinic_api.models import Panel
+
 
 class InfantDashboard(RegisteredSubjectDashboard):
 
@@ -20,7 +22,7 @@ class InfantDashboard(RegisteredSubjectDashboard):
         self._maternal_identifier = None
         self._dashboard_type_list = self.set_dashboard_type_list()
         self._visit_model = InfantVisit
-        kwargs.update({'dashboard_models': {'infant_birth': InfantBirth}, 'membership_form_category': 'infant'})
+        kwargs.update({'dashboard_models': {'infant_birth': InfantBirth}, 'membership_form_category': ['infant_rando_eligible', 'infant_pre_randomize', 'infant_birth_record']})
         self.extra_url_context = ""
         self._locator_model = None
         self._requisition_model = None
@@ -28,6 +30,7 @@ class InfantDashboard(RegisteredSubjectDashboard):
 
     def add_to_context(self):
         super(InfantDashboard, self).add_to_context()
+        panels = Panel.objects.all()
         self.context.add(
             home='mpepu',
             search_name='infant',
@@ -39,6 +42,7 @@ class InfantDashboard(RegisteredSubjectDashboard):
             delivery_date=self.get_delivery_date(),
             maternal_consent=self.get_maternal_consent(),
             days_alive=self.get_days_alive(),
+            panels=panels
             )
 
     def set_registered_subject(self, pk=None):
@@ -51,8 +55,8 @@ class InfantDashboard(RegisteredSubjectDashboard):
             self.set_registered_subject()
         return self._registered_subject
 
-    def set_membership_form_category(self):
-        self._membership_form_category = 'infant'
+#     def set_membership_form_category(self):
+#         self._membership_form_category = 'infant'
 
     def get_maternal_dashboard_url(self):
         return 'subject_dashboard_url'

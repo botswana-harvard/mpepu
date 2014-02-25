@@ -3,9 +3,11 @@ from django.core.urlresolvers import reverse
 from django.core.validators import RegexValidator
 from django.core.exceptions import ValidationError
 
+from datetime import datetime
+
 from edc.audit.audit_trail import AuditTrail
-from edc.choices.common import YES_NO, YES_NO_NA
 from edc.base.model.validators import eligible_if_no
+from edc.choices.common import YES_NO, YES_NO_NA
 
 from apps.mpepu_infant_rando.classes import Eligibility
 
@@ -150,7 +152,8 @@ class InfantEligibility(BaseInfantRegisteredSubjectModel):
         return self.get_registration_datetime()
 
     def get_registration_datetime(self):
-        return self.infant_birth.maternal_lab_del.delivery_datetime
+#         return self.infant_birth.maternal_lab_del.delivery_datetime
+        return datetime.today()
 
     def get_consenting_subject_identifier(self):
         """Returns mother's identifier."""

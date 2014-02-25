@@ -1,0 +1,1 @@
+from .mpepu_app_configuration import MpepuAppConfiguration
