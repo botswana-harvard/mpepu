@@ -1,4 +1,4 @@
-from edc.subject.rule_groups.classes import RuleGroup, ScheduledDataRule, Logic, rule_groups
+from edc.subject.rule_groups.classes import RuleGroup, site_rule_groups, ScheduledDataRule, Logic
 from edc.subject.registration.models import RegisteredSubject
 
 from .models import (MaternalVisit, MaternalArvPreg, MaternalArvPost,
@@ -19,7 +19,7 @@ class ConsentRuleGroup(RuleGroup):
         app_label = 'mpepu_maternal'
         filter_model = (MaternalVisit, 'maternal_visit')
         source_model = RegisteredSubject
-rule_groups.register(ConsentRuleGroup)
+site_rule_groups.register(ConsentRuleGroup)
 
 
 class MaternalEnrollRuleGroup(RuleGroup):
@@ -50,7 +50,7 @@ class MaternalEnrollRuleGroup(RuleGroup):
         app_label = 'mpepu_maternal'
         filter_model = (MaternalVisit, 'maternal_visit')
         source_model = MaternalEnroll
-rule_groups.register(MaternalEnrollRuleGroup)
+site_rule_groups.register(MaternalEnrollRuleGroup)
 
 
 class MaternalArvPregRuleGroup(RuleGroup):
@@ -73,7 +73,7 @@ class MaternalArvPregRuleGroup(RuleGroup):
         app_label = 'mpepu_maternal'
         filter_model = (MaternalVisit, 'maternal_visit')
         source_model = MaternalArvPreg
-rule_groups.register(MaternalArvPregRuleGroup)
+site_rule_groups.register(MaternalArvPregRuleGroup)
 
 
 class MaternalArvPostRuleGroup(RuleGroup):
@@ -89,7 +89,7 @@ class MaternalArvPostRuleGroup(RuleGroup):
         app_label = 'mpepu_maternal'
         filter_model = (MaternalVisit, 'maternal_visit')
         source_model = MaternalArvPost
-rule_groups.register(MaternalArvPostRuleGroup)
+site_rule_groups.register(MaternalArvPostRuleGroup)
 
 
 class FeedingChoiceRuleGroup(RuleGroup):
@@ -112,4 +112,4 @@ class FeedingChoiceRuleGroup(RuleGroup):
         app_label = 'mpepu_maternal'
         filter_model = (MaternalVisit, 'maternal_visit')
         source_model = FeedingChoice
-rule_groups.register(FeedingChoiceRuleGroup)
+site_rule_groups.register(FeedingChoiceRuleGroup)

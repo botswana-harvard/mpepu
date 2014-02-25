@@ -15,6 +15,7 @@ class Randomization(object):
         if infant_eligibility:
             maternal_feeding_choice = infant_eligibility.maternal_feeding_choice
             maternal_art_status = infant_eligibility.maternal_art_status
+            rando_bf_duration = infant_eligibility.rando_bf_duration
             site = infant_eligibility.randomization_site
             registered_subject = infant_eligibility.registered_subject
         user = ""
@@ -36,6 +37,7 @@ class Randomization(object):
                                             (Q(subject_identifier__isnull=True) |
                                             Q(subject_identifier=''))
                                             ).order_by('sid')
+
         if infant_rando:
             # TODO: handle twins + so they all have same assignment
             # if registered_subject.subject_identifier[0:-2]+'-25'

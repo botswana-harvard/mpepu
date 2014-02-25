@@ -10,8 +10,8 @@ from .infant_fu_dx2_proph import InfantFuDx2Proph
 from .infant_off_study_mixin import InfantOffStudyMixin
 
 
-class InfantFuDx2ProphItems(InfantOffStudyMixin, BaseConsentedUuidModel):#me
-# class InfantFuDx2ProphItems(InfantBaseUuidModel):# found
+# class InfantFuDx2ProphItems(InfantOffStudyMixin, BaseConsentedUuidModel):#me
+class InfantFuDx2ProphItems(InfantBaseUuidModel):# found
 
     infant_fu_dx = models.ForeignKey(InfantFuDx2Proph)
 

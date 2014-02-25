@@ -17,6 +17,8 @@ class InfantOffDrugForm (BaseInfantModelForm):
         off_drug_visit_datetime = InfantVisit.objects.filter(
             appointment__registered_subject__subject_identifier=subject_identifier,
             study_status='onstudy rando offdrug').aggregate(Min('report_datetime'))
+        missed_2150_visit = InfantVisit.objects.filter(
+            appointment__registered_subject__subject_identifier=subject_identifier,reason='missed', appointment__visit_definition__code='2150')
         if not off_drug_visit_datetime['report_datetime__min']:
             off_drug_visit_datetime = InfantVisit.objects.filter(
                 appointment__registered_subject__subject_identifier=subject_identifier,
@@ -26,7 +28,7 @@ class InfantOffDrugForm (BaseInfantModelForm):
         previous_visit_datetime = InfantVisit.objects.filter(
             report_datetime__lt=off_drug_visit_datetime['report_datetime__min'],
             appointment__registered_subject__subject_identifier=subject_identifier).aggregate(Max('report_datetime'))
-        if last_dose_datetime < previous_visit_datetime['report_datetime__max']:
+        if last_dose_datetime < previous_visit_datetime['report_datetime__max'] and not missed_2150_visit:
             raise forms.ValidationError('Last dose date must be greater than or equal to report date of last visit before going off drug ({0}). '
                                         'Got {1}'.format(previous_visit_datetime['report_datetime__max'].strftime('%Y-%m-%d'), last_dose_datetime.strftime('%Y-%m-%d')))
         if last_dose_datetime > off_drug_visit_datetime['report_datetime__min']:

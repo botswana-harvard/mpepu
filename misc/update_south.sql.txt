@@ -46,3 +46,4 @@ drop table `bhp056`.`bhp_base_test_testsubjectvisitthree`;
 drop table `bhp056`.`bhp_base_test_testsubjectvisittwo`;
 drop table `bhp056`.`bhp_base_test_testrequisition`;
 drop table `bhp056`.`bhp_base_test_testvisit`;
+SET FOREIGN_KEY_CHECKS = 1;

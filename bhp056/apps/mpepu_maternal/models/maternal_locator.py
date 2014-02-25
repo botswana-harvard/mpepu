@@ -6,6 +6,7 @@ from edc.choices.common import YES_NO
 from edc.base.model.fields.custom.custom_fields import OtherCharField
 from edc.base.model.validators import BWCellNumber, BWTelephoneNumber
 from edc.core.crypto_fields.fields import EncryptedCharField
+from edc.entry_meta_data.managers import EntryMetaDataManager
 
 from .maternal_visit import MaternalVisit
 from .maternal_off_study_mixin import MaternalOffStudyMixin
@@ -55,6 +56,8 @@ class MaternalLocator(MaternalOffStudyMixin, BaseLocator):
         )
 
     history = AuditTrail()
+    
+    entry_meta_data_manager = EntryMetaDataManager(MaternalVisit)
 
     def get_subject_identifier(self):
         return self.maternal_visit.appointment.registered_subject.subject_identifier

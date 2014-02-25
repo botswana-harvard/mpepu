@@ -14,7 +14,13 @@ class MaternalDashboard(RegisteredSubjectDashboard):
     dashboard_url_name = 'subject_dashboard_url'
 
     def __init__(self, *args, **kwargs):
-        kwargs.update({'dashboard_models': {'maternal_consent': MaternalConsent}})
+        self._visit_model = MaternalVisit
+        self._registered_subject = None
+        self._dashboard_type_list = ['maternal']
+        self.extra_url_context = ""
+        kwargs.update({'dashboard_models': {'maternal_consent': MaternalConsent}, 'membership_form_category': ['maternal_eligible_antenat', 'maternal_eligible_postnat', 'maternal_postnatal_reg']})
+        self._locator_model = None
+        self._requisition_model = None
         super(MaternalDashboard, self).__init__(*args, **kwargs)
 
     def add_to_context(self):
@@ -23,16 +29,26 @@ class MaternalDashboard(RegisteredSubjectDashboard):
             home='mpepu',
             infants=self.get_infants(),
             search_name='maternal',
-#             subject_dashboard_url='subject_dashboard_url',
             infant_dashboard_url=self.get_infant_dashboard_url(),
             title='Maternal Dashboard',
-            subject_consent=self.get_consent(),
             delivery_datetime=self.get_delivery_datetime(),
-            maternal_consent=self.get_consent()
+            maternal_consent=self.consent
             )
-        
-    def set_membership_form_category(self):
-        self._membership_form_category = 'maternal'
+
+    @property
+    def consent(self):
+        self._consent = None
+        if MaternalConsent.objects.filter(subject_identifier=self.subject_identifier):
+            self._consent = MaternalConsent.objects.get(subject_identifier=self.subject_identifier)
+        return self._consent
+
+    def set_registered_subject(self, pk=None):
+        self._registered_subject = self.registered_subject
+        if RegisteredSubject.objects.filter(subject_identifier=self.subject_identifier):
+            self._registered_subject = RegisteredSubject.objects.get(subject_identifier=self.subject_identifier)
+
+#     def set_membership_form_category(self, category):
+#         self._membership_form_category = 'maternal'
 
     def get_infant_dashboard_url(self):
         return 'subject_dashboard_url'
@@ -40,11 +56,8 @@ class MaternalDashboard(RegisteredSubjectDashboard):
     def set_dashboard_type_list(self):
         self._dashboard_type_list = ['maternal']
 
-    def set_consent(self):
-        """Sets to the subject consent, if it has been completed."""
-        self._consent = None
-        if MaternalConsent.objects.filter(subject_identifier=self.get_subject_identifier()):
-            self._consent = MaternalConsent.objects.get(subject_identifier=self.get_subject_identifier())
+    def get_subject_identifier(self):
+        return self.subject_identifier
 
     def get_visit_model(self):
         return MaternalVisit
@@ -61,17 +74,6 @@ class MaternalDashboard(RegisteredSubjectDashboard):
 
     def get_packing_list_model(self):
         return PackingList
-
-#     def get_infants(self):
-#         # list infant on the side bar. If InfantBirth information is available, use that
-#         infants = {}
-#         for infant_registered_subject in RegisteredSubject.objects.filter(subject_type='INFANT', relative_identifier__iexact=self.get_subject_identifier()):
-#             #look for infant birth record
-#             if InfantBirth.objects.filter(registered_subject__exact=infant_registered_subject):
-#                 infants[infant_registered_subject.subject_identifier] = InfantBirth.objects.get(registered_subject__exact=infant_registered_subject).__dict__
-#             else:
-#                 infants[infant_registered_subject.subject_identifier] = infant_registered_subject#{'subject_identifier': infant_registered_subject.subject_identifier}
-#         return infants
 
     def get_infants(self):
         """Returns a list of infants identifiers asssociated with the maternal subject_identifier by querying the Birth model or RegisteredSubject."""
@@ -100,4 +102,3 @@ class MaternalDashboard(RegisteredSubjectDashboard):
         else:
             delivery_datetime = None
         return delivery_datetime
-    

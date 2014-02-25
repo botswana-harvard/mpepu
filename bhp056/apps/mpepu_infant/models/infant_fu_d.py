@@ -27,7 +27,7 @@ class InfantFuD(BaseScheduledVisitModel):
         )
     
     d_onset_date = models.DateTimeField(
-        verbose_name="Visit Date and Time",
+        verbose_name="Onset Date and Time",
         validators=[
             datetime_not_before_study_start,
             datetime_not_future,

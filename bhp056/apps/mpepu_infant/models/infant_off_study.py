@@ -1,14 +1,26 @@
 from datetime import datetime, time
 
 from django.core.urlresolvers import reverse
+from django.db import models
 
 from edc.audit.audit_trail import AuditTrail
+from edc.base.model.validators import datetime_not_before_study_start, datetime_not_future, datetime_is_after_consent
 from edc.subject.off_study.models.base_off_study import BaseOffStudy
 
 
 class InfantOffStudy(BaseOffStudy):
 
     history = AuditTrail()
+    
+    report_datetime = models.DateTimeField(
+        verbose_name="Visit Date and Time",
+        validators=[
+            datetime_not_before_study_start,
+            datetime_is_after_consent,
+            datetime_not_future,
+            ],
+        default=datetime.today()
+        )
 
     def __unicode__(self):
         return "%s" % (self.registered_subject.subject_identifier)
@@ -25,7 +37,7 @@ class InfantOffStudy(BaseOffStudy):
         return 'offstudy_date'
 
     def get_report_datetime(self):
-        return datetime.combine(self.offstudy_date, time(0, 0))
+        return self.report_datetime
 
     class Meta:
         verbose_name = "Infant Off-Study"
