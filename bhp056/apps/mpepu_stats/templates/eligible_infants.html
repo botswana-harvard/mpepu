@@ -38,7 +38,11 @@
     {% for eligible in infants %}
       <tr>
         <td>{{forloop.counter}}</td>
-        <td><a href="#">{{eligible.infant.subject_identifier}}</a></td>
+        <td>
+          <a href="{% url 'dashboard_url' dashboard_type='infant' subject_identifier=eligible.infant.subject_identifier %}">
+            {{eligible.infant.subject_identifier}}
+          </a>
+        </td>
         <td>{{eligible.infant.dob}}</td>
         <td align="center">{{eligible.age}} days</td>
         <td><a href="#">{{eligible.infant.relative_identifier}}</a></td>

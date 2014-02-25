@@ -87,8 +87,14 @@ urlpatterns += patterns('',
     url(r'^{app_name}/$'.format(app_name=APP_NAME), RedirectView.as_view(url='/{app_name}/section/'.format(app_name=APP_NAME))),
     url(r'', RedirectView.as_view(url='/{app_name}/section/'.format(app_name=APP_NAME))),
     )
+from django.conf import settings
+from django.conf.urls import include, patterns, url
 
 if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns += patterns('',
+        url(r'^__debug__/', include(debug_toolbar.urls)),
+    )
     urlpatterns += patterns('django.contrib.staticfiles.views',
         url(r'^static/(?P<path>.*)$', 'serve'),
     )
