@@ -1,125 +1,31 @@
-# Django settings for bhp project.
-from unipath import Path
-import os
 import platform
 import sys
-import logger
+from os.path import realpath, abspath, join, dirname
+
+from unipath import Path
+
+from .logger import LOGGING
+
+from ._utils import *
 
 
-DEBUG = True
-INTERNAL_IPS = ('127.0.0.1',)
-TEMPLATE_DEBUG = DEBUG
-DIRNAME = os.path.dirname(__file__)
-ADMINS = (
-    ('erikvw', 'ew@2789@gmail.com'),
-)
+ADMINS = (('erikvw', 'ew@2789@gmail.com'),)
 
 # Path
-SOURCE_DIR = Path(__file__).ancestor(3)
-PROJECT_DIR = Path(__file__).ancestor(2)
+SETTINGS_DIR = dirname(realpath(__file__))
+SOURCE_DIR = Path(__file__).ancestor(4)
+PROJECT_DIR = Path(__file__).ancestor(3)
 MEDIA_ROOT = PROJECT_DIR.child('media')
 STATIC_ROOT = PROJECT_DIR.child('static')
 TEMPLATE_DIRS = (
     PROJECT_DIR.child('templates'),
-    )
+)
 STATICFILES_DIRS = ()
 CONFIG_DIR = PROJECT_DIR.child('bhp056')
-# print KEY_PATH
-# KEY_PATH = '/Users/fchilisa/source/bhp056_project/bhp056/keys'
-# KEY_PATH = '/Users/melissa/Documents/git/bhp066/bhp066/keys'
-KEY_PATH = '/Users/twicet/dev/bhp/projs/git/bhp056_project/bhp056/keys'
-
 MAP_DIR = STATIC_ROOT.child('img')
+DEFAULT_FILE_STORAGE = 'database_files.storage.DatabaseStorage'
 
 MANAGERS = ADMINS
-testing_db_name = 'sqlite'
-if 'test' in sys.argv:
-    # make tests faster
-    SOUTH_TESTS_MIGRATE = False
-    if testing_db_name == 'sqlite':
-        DATABASES = {
-            'default': {
-                'ENGINE': 'django.db.backends.sqlite3',
-                'NAME': 'default',
-                'USER': 'root',
-                'PASSWORD': 'cc3721b',
-                'HOST': '',
-                'PORT': ''},
-            'lab_api': {
-                'ENGINE': 'django.db.backends.sqlite3',
-                'NAME': 'lab',
-                'USER': 'root',
-                'PASSWORD': 'cc3721b',
-                'HOST': '',
-                'PORT': '',
-            },
-#             'survey': {
-#                 'ENGINE': 'django.db.backends.sqlite3',
-#                 'NAME': 'survey',
-#                 'USER': 'root',
-#                 'PASSWORD': 'cc3721b',
-#                 'HOST': '',
-#                 'PORT': '',
-#             },
-            'dispatch_destination': {
-                'ENGINE': 'django.db.backends.sqlite3',
-                'NAME': 'producer',
-                'USER': 'root',
-                'PASSWORD': 'cc3721b',
-                'HOST': '',
-                'PORT': '',
-            },
-        }
-    else:
-        DATABASES = {
-            'default': {
-                'ENGINE': 'django.db.backends.mysql',
-                'OPTIONS': {
-                    'init_command': 'SET storage_engine=INNODB',
-                },
-                'NAME': 'test_default',
-                'USER': 'root',
-                'PASSWORD': 'cc3721b',
-                'HOST': '',
-                'PORT': '',
-            },
-            'dispatch_destination': {
-                'ENGINE': 'django.db.backends.mysql',
-                'OPTIONS': {
-                    'init_command': 'SET storage_engine=INNODB',
-                },
-                'NAME': 'test_destination',
-                'USER': 'root',
-                'PASSWORD': 'cc3721b',
-                'HOST': '',
-                'PORT': '',
-            },
-        }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'OPTIONS': {
-                'init_command': 'SET storage_engine=INNODB',
-            },
-            'NAME': 'bhp056',
-            'USER': 'root',
-            'PASSWORD': 'cc3721b',
-            'HOST': '',
-            'PORT': '',
-        },
-        'lab_api': {
-            'ENGINE': 'django.db.backends.mysql',
-            'OPTIONS': {
-                'init_command': 'SET storage_engine=INNODB',
-            },
-            'NAME': 'lab',
-            'USER': 'root',
-            'PASSWORD': 'cc3721b',
-            'HOST': '192.168.1.50',
-            'PORT': '3306',
-        },
-    }
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
@@ -136,6 +42,10 @@ TIME_ZONE = 'Africa/Gaborone'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
+#langauage setting
+ugettext = lambda s: s
+
+#LOCALE_PATHS = ('locale', )
 
 LANGUAGE_CODE = 'en'
 
@@ -148,11 +58,6 @@ USE_I18N = True
 # If you set this to False, Django will not format dates, numbers and
 # calendars according to the current locale
 USE_L10N = True
-
-# Django debug settings
-# DEBUG_TOOLBAR_CONFIG = {
-#     'INTERCEPT_REDIRECTS': False,
-#     }
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
@@ -185,13 +90,12 @@ STATICFILES_DIRS = ()
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+#   'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = '0$q&@p=jz(+_r^+phzenyqi49#y2^3ot3h#jru+32z&+cm&j51'
 
-# List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
     ('django.template.loaders.cached.Loader', (
      'django.template.loaders.filesystem.Loader',
@@ -208,7 +112,6 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-#     'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = ("django.contrib.auth.context_processors.auth",
@@ -240,7 +143,6 @@ INSTALLED_APPS = (
     'south',
 
     'edc.apps.admin_supplemental_fields',
-    'edc.apps.app_configuration',
 
     'edc.audit',
 
@@ -268,12 +170,6 @@ INSTALLED_APPS = (
     'edc.core.bhp_using',
     'edc.core.bhp_export_data',
     'edc.core.bhp_birt_reports',
-
-#     'edc.device.inspector',
-#     'edc.device.dispatch',
-#     'edc.device.netbook',
-#     'edc.device.device',
-#     'edc.device.sync',
 
     'edc.dashboard.base',
     'edc.dashboard.search',
@@ -351,17 +247,17 @@ INSTALLED_APPS = (
     'apps.mpepu_stats',
     'apps.mpepu_reference',
     'apps.mpepu_arv_resistance',
-    #'tastypie',
 )
 
-# email settings
+# django email settings
 EMAIL_HOST = '192.168.1.48'
 EMAIL_PORT = '25'
 EMAIL_HOST_USER = 'django'
 EMAIL_HOST_PASSWORD = 'paeH#ie9'
 EMAIL_USE_TLS = True
+EMAIL_AFTER_CONSUME = False
 
-SOUTH_LOGGING_FILE = os.path.join(os.path.dirname(__file__), "south.log")
+SOUTH_LOGGING_FILE = join(dirname(__file__), "south.log")
 SOUTH_LOGGING_ON = True
 AUTH_PROFILE_MODULE = "bhp_userprofile.userprofile"
 DAJAXICE_MEDIA_PREFIX = "dajaxice"
@@ -370,6 +266,9 @@ DAJAXICE_MEDIA_PREFIX = "dajaxice"
 IS_COMMUNITY_SERVER = True
 ALLOW_DELETE_MODEL_FROM_SERIALIZATION = False
 ALLOW_MODEL_SERIALIZATION = True
+
+# django auth
+AUTH_PROFILE_MODULE = "bhp_userprofile.userprofile"
 
 # EDC GENERAL SETTINGS
 APP_NAME = 'mpepu'
@@ -409,9 +308,9 @@ GRADING_LIST = 'DAIDS_2004'
 # for bhp_import_dmis
 if platform.system() == 'Darwin':
     LAB_IMPORT_DMIS_DATA_SOURCE = ('DRIVER=/usr/local/lib/libtdsodbc.so;SERVER=192.168.1.141;'
-                                  'PORT=1433;UID=sa;PWD=cc3721b;DATABASE=BHPLAB')
+                                   'PORT=1433;UID=sa;PWD=cc3721b;DATABASE=BHPLAB')
 else:
     LAB_IMPORT_DMIS_DATA_SOURCE = ('DRIVER={FreeTDS};SERVER=192.168.1.141;UID=sa;PWD=cc3721b;'
                                    'DATABASE=BHPLAB')
 VAR_ROOT = '/var'
-LOGGING = logger.LOGGING
+LOGGING = LOGGING

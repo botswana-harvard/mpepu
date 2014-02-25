@@ -10,3 +10,5 @@ south.log
 .DS_Store
 bhp056/edc
 bhp056/lis
+.ropeproject/
+revision_alter.txt
