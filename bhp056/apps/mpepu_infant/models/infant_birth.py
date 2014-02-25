@@ -2,9 +2,12 @@ from django.core.exceptions import ImproperlyConfigured
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 
+from datetime import datetime
+
 from edc.audit.audit_trail import AuditTrail
 from edc.base.model.fields.custom.custom_fields import InitialsField
 from edc.base.model.validators import date_not_future
+from edc.base.model.validators import datetime_not_before_study_start, datetime_not_future, datetime_is_after_consent
 from edc.choices.common import GENDER_UNDETERMINED
 from edc.core.crypto_fields.fields import EncryptedFirstnameField
 from edc.subject.consent.classes import ConsentHelper
@@ -22,6 +25,7 @@ class InfantBirth(InfantEligibilityMixin, BaseInfantRegisteredSubjectModel):
 
     maternal_lab_del = models.ForeignKey(MaternalLabDel,
         verbose_name="Mother's delivery record")
+    
     first_name = EncryptedFirstnameField(
         #max_length = 250,
         verbose_name="Infant's first name",
@@ -46,7 +50,8 @@ class InfantBirth(InfantEligibilityMixin, BaseInfantRegisteredSubjectModel):
         return self.get_registration_datetime()
 
     def get_registration_datetime(self):
-        return self.maternal_lab_del.delivery_datetime
+#         return self.maternal_lab_del.delivery_datetime
+        return datetime.today()
 
     def get_consenting_subject_identifier(self):
         """Returns mother's identifier."""
