@@ -25,7 +25,7 @@ class InfantDashboard(RegisteredSubjectDashboard):
         kwargs.update({'dashboard_models': {'infant_birth': InfantBirth}, 'membership_form_category': ['infant_rando_eligible', 'infant_pre_randomize', 'infant_birth_record']})
         self.extra_url_context = ""
         self._locator_model = None
-        self._requisition_model = None
+        self._requisition_model = InfantRequisition
         super(InfantDashboard, self).__init__(*args, **kwargs)
 
     def add_to_context(self):
