@@ -50,10 +50,10 @@ class MaternalEnrollDemForm (BaseMaternalModelForm):
         #if employed then personal earn cannot be none"""
         #if cleaned_data.get('current_occupation', None) <> 'Unemployed' and cleaned_data.get('money_earned', None) == 'None':
             #raise forms.ValidationError("The participant is employed, indicate her personal earn. You wrote '%s'" %  cleaned_data.get('money_earned', None))
+
         #if 'non of the above is selected, then no other option should be selected """
-        #if 'non of the above is selected, then no other option should be selected """
-        if cleaned_data.get('hh_goods', None) == 'None of the above' and len(cleaned_data.get('hh_goods', None)) != 1:
-            raise forms.ValidationError("if they have none of these goods, they cannot have any of other listed items. Please correct")
+        if 'None of the above' in str(cleaned_data.get('hh_goods', None))   and len(cleaned_data.get('hh_goods', None)) > 1:
+            raise forms.ValidationError("If they have none of these goods, they cannot have any of other listed items. Please correct")
 
         return super(MaternalEnrollDemForm, self).clean()
 
@@ -118,6 +118,7 @@ class MaternalEnrollArvForm (BaseMaternalModelForm):
         #validate HAART start date
         if cleaned_data.get('haart_start_date') > maternal_visit.report_datetime.date():
             raise forms.ValidationError('Date of HAART is greater than Visit Date. Please correct.')
+        
         return cleaned_data
 
     class Meta:
