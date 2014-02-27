@@ -83,6 +83,10 @@ class MaternalLabDelClinicForm (BaseMaternalModelForm):
         # cd4 was done, enter cd4 date
         if cleaned_data['has_cd4'] == 'Yes' and cleaned_data['cd4_date'] == 'blank' or cleaned_data['cd4_date'] == 'null':
             raise forms.ValidationError("the cd4 test was done, enter cd4 date. You wrote '%s'" % cleaned_data['cd4_date'])
+        
+        # if viral load was done, date and result must be provided
+        if cleaned_data.get('has_vl') == 'Yes' and not cleaned_data.get('vl_date') or not cleaned_data.get('vl_result'):
+            raise forms.ValidationError("The Viral Load test was done. Enter date and result.")
         return super(MaternalLabDelClinicForm, self).clean()
 
     class Meta:
@@ -105,7 +109,8 @@ class MaternalLabDelDxForm (BaseMaternalModelForm):
         if cleaned_data.get('has_preg_dx')=='Yes' and not check_dx:
             raise forms.ValidationError('You indicated that participant had diagnosis. Please list them.')
         
-        return super(MaternalLabDelDxForm,self).clean()
+#         return super(MaternalLabDelDxForm,self).clean()
+        return cleaned_data
 
     class Meta:
         model = MaternalLabDelDx

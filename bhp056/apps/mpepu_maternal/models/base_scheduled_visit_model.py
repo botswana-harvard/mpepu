@@ -24,10 +24,10 @@ class BaseScheduledVisitModel(MaternalBaseUuidModel):
         return unicode(self.maternal_visit)
 
     def get_report_datetime(self):
-        return self.maternal_visit.report_datetime
+        return self.get_visit().report_datetime
 
     def get_subject_identifier(self):
-        return self.maternal_visit.appointment.registered_subject.subject_identifier
+        return self.get_visit().appointment.registered_subject.subject_identifier
 
     def get_visit(self):
         return self.maternal_visit

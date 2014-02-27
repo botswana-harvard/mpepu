@@ -25,9 +25,9 @@ TEMPLATE_DIRS = (
 STATICFILES_DIRS = ()
 CONFIG_DIR = PROJECT_DIR.child('bhp056')
 # print KEY_PATH
-# KEY_PATH = '/Users/fchilisa/source/bhp056_project/bhp056/keys'
+KEY_PATH = '/Users/fchilisa/source/bhp056_project/bhp056/keys'
 # KEY_PATH = '/Users/melissa/Documents/git/bhp066/bhp066/keys'
-KEY_PATH = '/Users/twicet/dev/bhp/projs/git/bhp056_project/bhp056/keys'
+#KEY_PATH = '/Users/twicet/dev/bhp/projs/git/bhp056_project/bhp056/keys'
 
 MAP_DIR = STATIC_ROOT.child('img')
 

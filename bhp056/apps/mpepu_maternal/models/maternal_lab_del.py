@@ -247,12 +247,6 @@ class MaternalLabDelMed(BaseScheduledVisitModel):
         app_label = "mpepu_maternal"
         verbose_name = "Maternal Labour & Delivery: MedHistory"
 
-    def get_report_datetime(self):
-        return self.maternal_visit.report_datetime
-
-    def get_subject_identifier(self):
-        return self.maternal_visit.appointment.registered_subject.subject_identifier
-
     def get_absolute_url(self):
         return reverse('admin:mpepu_maternal_maternallabour&deliverymedhistory_change', args=(self.id,))
 
@@ -324,12 +318,6 @@ class MaternalLabDelClinic(BaseScheduledVisitModel):
         app_label = "mpepu_maternal"
         verbose_name = "Maternal Labour & Delivery: ClinHist"
 
-    def get_report_datetime(self):
-        return self.maternal_visit.get_report_datetime()
-
-    def get_subject_identifier(self):
-        return self.maternal_visit.get_subject_identifier()
-
     def get_absolute_url(self):
         return reverse('admin:mpepu_maternal_maternallabour&deliverymedhistory_change', args=(self.id,))
 
@@ -361,12 +349,6 @@ class MaternalLabDelDx(BaseScheduledVisitModel):
     def get_absolute_url(self):
         return reverse('admin:mpepu_maternal_maternallabour&deliverypregdx_change', args=(self.id,))
 
-    def get_report_datetime(self):
-        return self.maternal_visit.get_report_datetime()
-
-    def get_subject_identifier(self):
-        return self.maternal_visit.get_subject_identifier()
-
     class Meta:
         app_label = "mpepu_maternal"
         verbose_name = "Maternal Labour & Delivery: Preg Dx"
@@ -379,7 +361,7 @@ class MaternalLabDelDxT (MaternalBaseUuidModel):
     maternal_lab_del_dx = models.ForeignKey(MaternalLabDelDx)
 
     lab_del_dx = models.CharField(
-        max_length=100,
+        max_length=175,
         choices=DX,
         verbose_name="Diagnosis",
         help_text="",

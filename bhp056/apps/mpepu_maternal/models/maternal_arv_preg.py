@@ -20,14 +20,14 @@ class MaternalArvPreg (BaseScheduledVisitModel):
     took_arv = models.CharField(
         max_length=3,
         choices=YES_NO,
-        verbose_name="1. Did the mother receive any ARVs during this pregnancy?",
+        verbose_name="Did the mother receive any ARVs during this pregnancy?",
         help_text="(NOT including single -dose NVP in labour)",
         )
 
     sd_nvp = models.CharField(
         max_length=10,
         choices=YES_NO_UNKNOWN,
-        verbose_name="4. Was single-dose NVP received by the mother during labour(or false labour)? ",
+        verbose_name="Was single-dose NVP received by the mother during labour(or false labour)? ",
         help_text="",
         )
 
@@ -35,7 +35,7 @@ class MaternalArvPreg (BaseScheduledVisitModel):
     start_pp = models.CharField(
         max_length=3,
         choices=YES_NO,
-        verbose_name="6. Did the mother START any antiretroviral drugs during the immediate postpartum period (before discharge from maternity)?",
+        verbose_name="Did the mother START any antiretroviral drugs during the immediate postpartum period (before discharge from maternity)?",
         help_text="",
         )
 
