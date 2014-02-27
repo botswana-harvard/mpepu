@@ -39,8 +39,14 @@
 
 
 {% block section_links%}
-<H3>Reports</H3>
+<h3> Randomization</h3>
+<ul>
+  <li>
+    <h4><a href="{% url 'eligible_infants_path' %}">Eligible Unrandomized Infants</a></h4>
+  </li>
+</ul>
 
+<H3>Reports</H3>
 <ul class="list_of_reports">
 <LI><A href="/mpepu/statistics/model_describer/">Model Description and Data Summary</A>
 <LI>Model Summaries by Site and Gender
@@ -52,8 +58,9 @@
 <LI><A href="/mpepu/statistics/potential_randos_report/">Potential vs Missed Infant Randomizations (34 day cutoff)</A>
 <LI><A href="/mpepu/statistics/infant_death_report/">Infant Deaths</A>
 <LI><A href="/mpepu/statistics/infant_hospitalization/">Infant Hospitalizations</A>
-<LI><A href="/mpepu/statistics/infant_diagnoses/">Infant Diagnoses</A>
+  <li><A href="/mpepu/statistics/infant_diagnoses/">Infant Diagnoses</A>
 </ul>
+
 {% endblock%}
 
 
