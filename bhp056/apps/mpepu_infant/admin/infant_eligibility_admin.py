@@ -28,12 +28,23 @@ class InfantEligibilityAdmin(RegisteredSubjectModelAdmin):
         """Saves and randomizes."""
         if not change:
             # if no record in InfantRando "claimed" by this infant, run the randomization
+            # check for multiple births and ensure radnomize to same arm
             if not InfantRando.objects.filter(subject_identifier=obj.registered_subject.subject_identifier):
                 maternal_lab_del = MaternalLabDel.objects.filter(maternal_visit__subject_identifier=obj.registered_subject.relative_identifier)
                 if maternal_lab_del:
                     if maternal_lab_del[0].live_infants_to_register > 1:
                         infants = RegisteredSubject.objects.filter(relative_identifier=obj.registered_subject.relative_identifier) 
-                
+                        for infant in infants:
+                            if infant.subject_identifier !=  obj.registered_subject.subject_identifier: 
+                                rando_infant = InfantRando.objects.filter(subject_identifier=infant.subject_identifier)
+                                eligible_infant = InfantEligibility.objects.filter(registered_subject__subject_identifier=infant.subject_identifier)
+                                if rando_infant and eligible_infant:
+                                    obj.feeding_choice = rando_infant[0].feeding_choice
+                                    obj.bf_duration = rando_infant[0].bf_duration
+                                    obj.stratum=rando_infant[0].stratum
+                                    obj.rx = rando_infant[0].rx
+                                    obj.rando_bf_duration = eligible_infant[0].rando_bf_duration
+                                    
                 infant_rando = InfantRando.objects.randomize(infant_eligibility=obj)
                 
                 
