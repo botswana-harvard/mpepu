@@ -36,7 +36,7 @@ class MpepuAppConfiguration(BaseAppConfiguration):
     v1_consent_catalogue_setup = {
                 'name': 'mpepu',
                 # TO DO: how do we call a ContentTypeMap here???
-#                 'content_type_map': '',
+#                 'content_type_map': 'Maternal Consent',
                 'consent_type': 'study',
                 'version': 1,
                 'start_datetime': study_start_datetime,

@@ -58,8 +58,8 @@ urlpatterns += patterns('',
 )
 
 urlpatterns += patterns('',
-    url(r'^{app_name}/statistics/'.format(app_name=APP_NAME),
-         include('apps.mpepu_stats.urls'), name="section_url_name"),
+    url(r'^{app_name}/section/statistics/'.format(app_name=APP_NAME),
+         include('apps.mpepu_stats.urls'), name="stats_url_name"),
  )
 
 urlpatterns += patterns('',
