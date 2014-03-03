@@ -24,6 +24,7 @@ TEMPLATE_DIRS = (
     )
 STATICFILES_DIRS = ()
 CONFIG_DIR = PROJECT_DIR.child('bhp056')
+
 #Key Path
 KEY_PATH = '/Users/fchilisa/source/bhp056_project/bhp056/keys'
 # KEY_PATH = '/Users/melissa/Documents/git/bhp066/bhp066/keys'
@@ -103,7 +104,7 @@ else:
             'OPTIONS': {
                 'init_command': 'SET storage_engine=INNODB',
             },
-            'NAME': 'bhp056',
+            'NAME': 'bhp056_updated',
             'USER': 'root',
             'PASSWORD': 'cc3721b',
             'HOST': '',
