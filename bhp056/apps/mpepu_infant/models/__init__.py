@@ -39,3 +39,4 @@ from infant_rando_deferral import InfantRandoDeferral
 from infant_hiv_status import InfantHivStatus
 from signals import *
 from .off_study_vital_status import *
+from infant_stool_collection import InfantStoolCollection

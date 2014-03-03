@@ -18,10 +18,9 @@ class MaternalRequisition(BaseClinicRequisition):
     history = AuditTrail()
 
     def get_visit(self):
+        if not self.id:
+            return None
         return self.maternal_visit
-
-    def get_subject_identifier(self):
-        return self.get_visit().subject_identifier
 
     class Meta:
         app_label = 'mpepu_lab'

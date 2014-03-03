@@ -8,6 +8,7 @@ urlpatterns = patterns('edc.core.model_data_inspector.views.model_group_describe
     )
 
 urlpatterns += patterns('apps.mpepu_stats.views',
+    url(r'^$', 'index', name="stats_home_url" ),
     url(r'^potential_randos_report/', 'potential_randos_report', name="report_url_name"),
     url(r'^infant_death_report/', 'infant_death_report', name="report_url_name"),
     url(r'^infant_hospitalization/', 'infant_hospitalization', name="report_url_name"),
