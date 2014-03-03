@@ -13,3 +13,4 @@ from .infant_congenital_anomalies_admin import *
 from .infant_rando_deferral_admin import InfantRandoDeferralAdmin
 from .infant_verbal_autopsy_admin import InfantVerbalAutopsyAdmin
 from .infant_hiv_status_admin import InfantHivStatusAdmin
+from .infant_stool_collection_admin import InfantStoolCollectionAdmin
