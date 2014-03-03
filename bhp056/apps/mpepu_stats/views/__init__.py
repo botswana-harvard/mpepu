@@ -4,3 +4,4 @@ from infant_hospitalization import infant_hospitalization
 from infant_diagnoses import infant_diagnoses
 from model_group_describer import model_group_describer
 from eligible_infants import eligible_infants
+from index import index

@@ -1,3 +1,4 @@
+from apps.mpepu_maternal.models.maternal_consent import MaternalConsent
 from edc.subject.registration.models.registered_subject import RegisteredSubject
 from datetime import date, timedelta
 
@@ -46,5 +47,8 @@ class NonRandomizedInfants(object):
             def age(self):
                 diff = self.search_date - self.infant.dob
                 return diff.days
+
+            def maternalconsent(self):
+                return MaternalConsent.objects.filter(subject_identifier=self.infant.relative_identifier)[0]
 
         return EligibleInfant(registered_subject, self.earliest, self.cutoff, self.search_date)
