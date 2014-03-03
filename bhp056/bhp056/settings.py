@@ -351,7 +351,7 @@ INSTALLED_APPS = (
     'apps.mpepu_dashboard',
     'apps.mpepu_stats',
     'apps.mpepu_reference',
-    'apps.mpepu_arv_resistance',
+#     'apps.mpepu_arv_resistance',
     #'tastypie',
 )
 

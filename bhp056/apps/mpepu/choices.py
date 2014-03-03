@@ -647,3 +647,24 @@ DECIDED_FEEDING_CHOICE = (
     ('At the labour and delivery ward prior to delivery ', 'At the labour and delivery ward prior to delivery '),
     ('At the maternity ward after delivery ', 'At the maternity ward after delivery '),
 )
+
+#FOR THE TAB STUDY
+ARV_REGIMEN = [
+    ('ftc', '1TDF/FTC/EFV'),
+    ('3tc', 'TDF+3TC+EFV'),
+]
+
+DRUG_TAKE = [
+    ('very_poor', 'Very Poor'),
+    ('poor', 'Poor'),
+    ('fair', 'Fair'),
+    ('good', 'Good'),
+    ('very_good', 'Very_Good'),
+    ('excellent', 'Excellent'),
+]
+
+INFO_SOURCE = [
+    ('self', 'Self report'),
+    ('idcc', 'IDCC record'),
+    ('other', 'Other'),
+]

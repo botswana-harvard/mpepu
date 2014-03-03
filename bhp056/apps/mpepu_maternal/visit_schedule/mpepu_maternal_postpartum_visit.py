@@ -92,6 +92,10 @@ class MpepuMaternalPostPartumVisitSchedule(VisitScheduleConfiguration):
                 EntryTuple(20L, u'mpepu_maternal', u'maternalpostfudx'),
                 EntryTuple(30L, u'mpepu_maternal', u'maternalarvpost'),
                 EntryTuple(40L, u'mpepu_maternal', u'maternalarvpostadh'),
+                #additional forms for the TAB study
+                EntryTuple(50L, u'mpepu_maternal', u'resistanceconsent'),
+                EntryTuple(60L, u'mpepu_maternal', u'resistanceeligibility'),
+                EntryTuple(70L, u'mpepu_maternal', u'resistancedisc'),
             )}
     visit_definitions['2060M'] = {
             'title': 'Maternal Post Natal Registration',
