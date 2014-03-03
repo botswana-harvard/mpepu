@@ -21,13 +21,19 @@ Infant births: {{ infantbirth_aggregates.dob__count }} ( min: {{ infantbirth_agg
 </thead>
 <tbody>
 
-{% for infantbirth in potential_randos %}
+{% for decorator in potential_randos %}
 <tr>
 <td>{{ forloop.counter }}</td>
-<td><A href="{% url dashboard_url dashboard_type='infant' subject_identifier=infantbirth.registered_subject.subject_identifier %}">{{ infantbirth.registered_subject.subject_identifier }}</A></td> 
-<td>{{ infantbirth.dob|date:"Y-m-d" }}</td>
-<td>{{ infantbirth.dob|age }}</td>
-<td><A href="{% url dashboard_url dashboard_type='maternal' subject_identifier=infantbirth.registered_subject.relative_identifier %}">{{ infantbirth.registered_subject.relative_identifier }}</A></td>
+<td>
+  <A href="{% url 'subject_dashboard_url' dashboard_type='infant' dashboard_model='infant_birth' dashboard_id=decorator.pk show='appointments' show='appointments' %}">
+    {{ decorator.subject_identifier }}</A></td> 
+<td>{{ decorator.infant.dob|date:"Y-m-d" }}</td>
+<td>{{ decorator.infant.dob|age }}</td>
+<td>
+  <A href="{% url 'subject_dashboard_url' dashboard_type='maternal' dashboard_model='maternal_consent' dashboard_id=decorator.maternalconsent.pk show='appointments' show='appointments' %}">
+    {{ decorator.relative_identifier }}
+  </A>
+</td>
 </tr>
 {% endfor %}
 
@@ -48,13 +54,18 @@ Infant births: {{ infantbirth_aggregates.dob__count }} ( min: {{ infantbirth_agg
 </thead>
 <tbody>
 
-{% for infantbirth in missed_randos %}
+{% for decorator in missed_randos %}
 <tr>
 <td>{{ forloop.counter }}</td>
-<td><A href="{% url dashboard_url dashboard_type='infant' subject_identifier=infantbirth.registered_subject.subject_identifier %}">{{ infantbirth.registered_subject.subject_identifier }}</A></td> 
-<td>{{ infantbirth.dob|date:"Y-m-d" }}</td>
-<td>{{ infantbirth.dob|age }}</td>
-<td><A href="{% url dashboard_url dashboard_type='maternal' subject_identifier=infantbirth.registered_subject.relative_identifier %}">{{ infantbirth.registered_subject.relative_identifier }}</A></td>
+<td>
+  <A href="{% url 'subject_dashboard_url' dashboard_type='infant' dashboard_model='infant_birth' dashboard_id=decorator.pk show='appointments' show='appointments' %}">{{ decorator.subject_identifier }}</A></td> 
+<td>{{ decorator.infant.dob|date:"Y-m-d" }}</td>
+<td>{{ decorator.infant.dob|age }}</td>
+<td>
+  <A href="{% url 'subject_dashboard_url' dashboard_type='maternal' dashboard_model='maternal_consent' dashboard_id=decorator.maternalconsent.pk show='appointments' show='appointments' %}">
+    {{ decorator.relative_identifier }}
+  </A>
+</td>
 </tr>
 {% endfor %}
 

@@ -53,15 +53,15 @@
 <th>Mother</th>
 </thead>
 <tbody>
-{% for infant_death in infant_death_not_randomized %}
+{% for decorator in infant_death_not_randomized %}
 <tr>
 <td>{{ forloop.counter }}</td>
-<td><A href="{% url dashboard_url dashboard_type='infant' subject_identifier=infant_death.registered_subject.subject_identifier %}">{{ infant_death.registered_subject.subject_identifier }}</A></td> 
-<td>{{ infant_death.death_date|date:"Y-m-d" }}</td>
-<td>{{ infant_death.registered_subject.dob|age }}</td>
-<td>{{ infant_death.registered_subject.sid }}</td>
-<td><A href="{% url dashboard_url dashboard_type='maternal' subject_identifier=infant_death.registered_subject.relative_identifier %}">{{ infant_death.registered_subject.relative_identifier }}</A></td>
-</tr>
+<td><A href="{% url 'subject_dashboard_url' dashboard_type='infant' dashboard_model='infant_birth' dashboard_id=decorator.infant_birth_id show='appointments' show='appointments' %}">{{ decorator.subject_identifier }}</A></td> 
+<td>{{ decorator.infant.death_date|date:"Y-m-d" }}</td>
+<td>{{ decorator.registered_subject.dob|age }}</td>
+<td>{{ decorator.registered_subject.sid }}</td>
+<td><A href="{% url 'subject_dashboard_url' dashboard_type='maternal' dashboard_model='maternal_consent' dashboard_id=decorator.maternalconsent.pk show='appointments' show='appointments' %}">{{ decorator.relative_identifier }}</A>
+</td> </tr>
 {% endfor %}
 </tbody>
 </table>
@@ -81,14 +81,14 @@
 <th>Mother</th>
 </thead>
 <tbody>
-{% for infant_death in infant_death_randomized %}
+{% for decorator in infant_death_randomized %}
 <tr>
 <td>{{ forloop.counter }}</td>
-<td><A href="{% url dashboard_url dashboard_type='infant' subject_identifier=infant_death.registered_subject.subject_identifier %}">{{ infant_death.registered_subject.subject_identifier }}</A></td> 
-<td>{{ infant_death.death_date|date:"Y-m-d" }}</td>
-<td>{{ infant_death.registered_subject.dob|age }}</td>
-<td>{{ infant_death.registered_subject.sid }}</td>
-<td><A href="{% url dashboard_url dashboard_type='maternal' subject_identifier=infant_death.registered_subject.relative_identifier %}">{{ infant_death.registered_subject.relative_identifier }}</A></td>
+<td><A href="{% url 'subject_dashboard_url' dashboard_type='infant' dashboard_model='infant_birth' dashboard_id=decorator.infant_birth_id show='appointments' show='appointments' %}">{{ decorator.subject_identifier }}</A></td> 
+<td>{{ decorator.infant.death_date|date:"Y-m-d" }}</td>
+<td>{{ decorator.registered_subject.dob|age }}</td>
+<td>{{ decorator.registered_subject.sid }}</td>
+<td><A href="{% url 'subject_dashboard_url' dashboard_type='maternal' dashboard_model='maternal_consent' dashboard_id=decorator.maternalconsent.pk show='appointments' show='appointments' %}">{{ decorator.relative_identifier }}</A></td>
 </tr>
 {% endfor %}
 </tbody>
