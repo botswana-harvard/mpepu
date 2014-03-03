@@ -29,7 +29,7 @@ class BaseMaternalConsent(MaternalOffStudyMixin, BaseConsent):
                 retval = 'POS'
             else:
                 retval = 'NEG'
-        return retval
+        return retval    
     
     class Meta:
         abstract = True

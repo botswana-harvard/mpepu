@@ -5,6 +5,8 @@ from .base_infant_eligibility_form import BaseInfantEligibilityForm
 class InfantEligibilityForm (BaseInfantEligibilityForm):
 
     suppress_eligibility_exception = False
+    def clean(self):
+        return super(InfantEligibilityForm, self).clean()
 
     class Meta:
         model = InfantEligibility

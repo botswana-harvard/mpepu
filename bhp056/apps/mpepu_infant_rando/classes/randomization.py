@@ -1,6 +1,10 @@
 from datetime import datetime
 from django.db.models import Q, get_model
 
+from edc.subject.registration.models import RegisteredSubject
+
+from apps.mpepu_infant.models import InfantEligibility
+
 
 class Randomization(object):
 
@@ -38,21 +42,50 @@ class Randomization(object):
                                             Q(subject_identifier=''))
                                             ).order_by('sid')
 
+        infants = RegisteredSubject.objects.filter(relative_identifier=infant_eligibility.registered_subject.relative_identifier).order_by('subject_identifier')
+
         if infant_rando:
-            # TODO: handle twins + so they all have same assignment
+
             # if registered_subject.subject_identifier[0:-2]+'-25'
             # get sid for first twin, triplet
             # modify this sid so that feeding and rx are the same as first
             dte = datetime.today()
-            infant_rando[0].subject_identifier = registered_subject.subject_identifier
-            infant_rando[0].haart_status = maternal_art_status
-            infant_rando[0].feeding_choice = maternal_feeding_choice
+            
+            #Handle randomization for multiple births
+            if infants:           
+                for infant in infants:
+                    rando = InfantRando.objects.filter(subject_identifier=infant.subject_identifier)
+                    eligibility = InfantEligibility.objects.filter(registered_subject__subject_identifier=infant.subject_identifier)
+                    if rando and eligibility:  
+
+                        maternal_feeding_choice = rando[0].feeding_choice
+                        maternal_art_status = rando[0].haart_status
+                        rando_bf_duration = rando[0].bf_duration
+                        site = rando[0].site
+                        
+                        infant_rando[0].haart_status = rando[0].haart_status
+                        infant_rando[0].feeding_choice = rando[0].feeding_choice
+                        infant_rando[0].rx = rando[0].rx
+                        infant_rando[0].bf_duration = rando[0].bf_duration
+                        infant_rando[0].stratum = rando[0].stratum
+                        infant_rando[0].site = rando[0].site
+                        
+                        infant_eligibility.maternal_art_status = rando[0].haart_status
+                        infant_eligibility.maternal_feeding_choice = rando[0].feeding_choice
+                        infant_eligibility.rando_bf_duration = rando[0].bf_duration
+                        infant_eligibility.randomization_site = rando[0].site
+
+                    else:             
+                        infant_rando[0].haart_status = maternal_art_status
+                        infant_rando[0].feeding_choice = maternal_feeding_choice
+                
+            infant_rando[0].subject_identifier = registered_subject.subject_identifier    
             infant_rando[0].randomization_datetime = dte
             infant_rando[0].infant_initials = infant_initials
             infant_rando[0].dispensed = 'NO'
             infant_rando[0].user_modified = user
-            infant_rando[0].modified = dte
-            infant_rando[0].save()
+            infant_rando[0].modified = dte    
+            infant_rando[0].save() 
             registered_subject.sid = infant_rando[0].sid
             registered_subject.user_modified = user
             registered_subject.first_name = InfantBirth.objects.get(registered_subject=registered_subject).first_name
