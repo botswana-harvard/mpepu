@@ -45,6 +45,7 @@ class MpepuInfantRandoMonthlyVisitSchedule(VisitScheduleConfiguration):
                 RequisitionTuple(100L, u'mpepu_lab', u'infantrequisition', 'Hematology (ARV)', 'Hematology', 'TEST', 'WB'),
                 RequisitionTuple(200L, u'mpepu_lab', u'infantrequisition', 'PBMC Plasma (STORE ONLY)', 'PBMC Plasma Storage', 'STORAGE', 'WB'),
                 RequisitionTuple(300L, u'mpepu_lab', u'infantrequisition', 'DNA PCR', 'Infant PCR', 'TEST', 'WB'),
+                RequisitionTuple(400L, u'mpepu_lab', u'infantrequisition', 'Stool storage', 'Stool storage', 'STORAGE', 'ST'),
                 ),
             'entries': (
                 EntryTuple(10L, u'mpepu_infant', u'infantarvproph'),
@@ -60,6 +61,7 @@ class MpepuInfantRandoMonthlyVisitSchedule(VisitScheduleConfiguration):
                 EntryTuple(110L, u'mpepu_infant', u'infantctxplaceboadh'),
                 EntryTuple(120L, u'mpepu_infant', u'infantfeeding'),
                 EntryTuple(130L, u'mpepu_infant', u'infantstudydruginit'),
+                EntryTuple(140L, u'mpepu_infant', u'infantstoolcollection'),
             )}
     visit_definitions['2020'] = {
             'title': 'Infant 2 Months Visit',
@@ -106,6 +108,7 @@ class MpepuInfantRandoMonthlyVisitSchedule(VisitScheduleConfiguration):
             'requisitions': (
                 RequisitionTuple(100L, u'mpepu_lab', u'infantrequisition', 'Hematology (ARV)', 'Hematology', 'TEST', 'WB'),
                 RequisitionTuple(200L, u'mpepu_lab', u'infantrequisition', 'DNA PCR', 'Infant PCR', 'TEST', 'WB'),
+                RequisitionTuple(300L, u'mpepu_lab', u'infantrequisition', 'Stool storage', 'Stool storage', 'STORAGE', 'ST'),
                 ),
             'entries': (
                 EntryTuple(10L, u'mpepu_infant', u'infantarvproph'),
@@ -120,6 +123,7 @@ class MpepuInfantRandoMonthlyVisitSchedule(VisitScheduleConfiguration):
                 EntryTuple(100L, u'mpepu_infant', u'infantstudydrug'),
                 EntryTuple(110L, u'mpepu_infant', u'infantctxplaceboadh'),
                 EntryTuple(120L, u'mpepu_infant', u'infantfeeding'),
+                EntryTuple(130L, u'mpepu_infant', u'infantstoolcollection'),
             )}
     visit_definitions['2060'] = {
             'title': 'Infant 6 Months Visit',
@@ -138,6 +142,7 @@ class MpepuInfantRandoMonthlyVisitSchedule(VisitScheduleConfiguration):
                 RequisitionTuple(100L, u'mpepu_lab', u'infantrequisition', 'Hematology (ARV)', 'Hematology', 'TEST', 'WB'),
                 RequisitionTuple(200L, u'mpepu_lab', u'infantrequisition', 'DNA PCR', 'Infant PCR', 'TEST', 'WB'),
                 RequisitionTuple(300L, u'mpepu_lab', u'infantrequisition', 'PBMC Plasma (STORE ONLY)', 'PBMC Plasma Storage', 'STORAGE', 'WB'),
+                RequisitionTuple(400L, u'mpepu_lab', u'infantrequisition', 'Stool storage', 'Stool storage', 'STORAGE', 'ST'),
                 ),
             'entries': (
                 EntryTuple(10L, u'mpepu_infant', u'infantarvproph'),
@@ -152,6 +157,7 @@ class MpepuInfantRandoMonthlyVisitSchedule(VisitScheduleConfiguration):
                 EntryTuple(100L, u'mpepu_infant', u'infantstudydrug'),
                 EntryTuple(110L, u'mpepu_infant', u'infantctxplaceboadh'),
                 EntryTuple(120L, u'mpepu_infant', u'infantfeeding'),
+                EntryTuple(130L, u'mpepu_infant', u'infantstoolcollection'),
             )}
     visit_definitions['2090'] = {
             'title': 'Infant 9 Months Visit',
@@ -261,6 +267,7 @@ class MpepuInfantRandoMonthlyVisitSchedule(VisitScheduleConfiguration):
             'requisitions': (
                 RequisitionTuple(100L, u'mpepu_lab', u'infantrequisition', 'PBMC Plasma (STORE ONLY)', 'PBMC Plasma Storage', 'STORAGE', 'WB'),
                 RequisitionTuple(200L, u'mpepu_lab', u'infantrequisition', 'ELISA', 'ELISA', 'TEST', 'WB'),
+                RequisitionTuple(300L, u'mpepu_lab', u'infantrequisition', 'Stool storage', 'Stool storage', 'STORAGE', 'ST'),
                 ),
             'entries': (
                 EntryTuple(10L, u'mpepu_infant', u'infantfu'),
@@ -272,5 +279,6 @@ class MpepuInfantRandoMonthlyVisitSchedule(VisitScheduleConfiguration):
                 EntryTuple(70L, u'mpepu_infant', u'infantfumed'),
                 EntryTuple(80L, u'mpepu_infant', u'infantstudydrug'),
                 EntryTuple(90L, u'mpepu_infant', u'infantctxplaceboadh'),
+                EntryTuple(100L, u'mpepu_infant', u'infantstoolcollection'),
             )}
 site_visit_schedules.register(MpepuInfantRandoMonthlyVisitSchedule)

@@ -29,3 +29,7 @@ from feeding_choice_section_one import FeedingChoiceSectionOne
 from feeding_choice_section_two import FeedingChoiceSectionTwo
 from feeding_choice_section_three import FeedingChoiceSectionThree
 from signals import *
+
+from resistance_consent import ResistanceConsent
+from resistance_disc import ResistanceDisc
+from resistance_eligibility import ResistanceEligibility
