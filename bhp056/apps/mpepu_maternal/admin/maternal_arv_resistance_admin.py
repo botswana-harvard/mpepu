@@ -36,7 +36,7 @@ class ResistanceConsentAdmin(BaseConsentModelAdmin):
             'is_dob_estimated',
             'identity',
             'identity_type',
-            'confirm_identity',
+#             'confirm_identity',
             'may_store_samples',
             'comment', ]
         self.radio_fields = {
@@ -44,7 +44,7 @@ class ResistanceConsentAdmin(BaseConsentModelAdmin):
             "study_site": admin.VERTICAL,
             "is_dob_estimated": admin.VERTICAL,
             "identity_type": admin.VERTICAL,
-            'confirm_identity': admin.VERTICAL,
+#             'confirm_identity': admin.VERTICAL,
             "may_store_samples": admin.VERTICAL,
             }
 

@@ -1,4 +1,5 @@
-from django.core.exceptions import ValidationError
+from django.core.exceptions import ValidationError, ObjectDoesNotExist
+
 from django.db import models
 
 from edc.audit.audit_trail import AuditTrail
@@ -18,13 +19,11 @@ class ResistanceConsent(BaseAppointmentMixin, BaseConsent):
 
     def save_new_consent(self, using=None, subject_identifier=None):
         """Confirms if Maternal Consent instance exists"""
-        maternal_consent = MaternalConsent.objects.filter(first_name=self.first_name, identity=self.identity)
-        if not maternal_consent.exists():
-            raise ValidationError('Cannot locate maternal consent with first_name={0} and identity={1}'.format(self.first_name, self.identity))
-        else:
+        try:
             maternal_consent = MaternalConsent.objects.get(first_name=self.first_name, identity=self.identity)
-            subject_identifier = maternal_consent.subject_identifier
-        return subject_identifier
+            return maternal_consent.subject_identifier
+        except ObjectDoesNotExist:
+            raise  ValidationError('Cannot locate maternal consent with first_name={0} and identity={1}'.format(self.first_name, self.identity))
 
     def get_registration_datetime(self):
         return self.consent_datetime
