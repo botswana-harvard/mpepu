@@ -13,12 +13,14 @@ class MpepuMaternalPostPartumVisitSchedule(VisitScheduleConfiguration):
     # (name, model, visible)
     membership_forms = OrderedDict({
         'maternal_postnatal_reg': MembershipFormTuple('maternal_postnatal_reg', MaternalPostReg, True),
+#         'maternal_resistance': MembershipFormTuple('maternal_resistance', ResistanceConsent, True),
         })
 
     # schedule groups
     # (name, membership_form_name, grouping_key, comment)
     schedule_groups = OrderedDict({
         'Post Partum Follow-up': ScheduleGroupTuple('Post Partum Follow-up', 'maternal_postnatal_reg', None, None),
+#         'Resistance Study': ScheduleGroupTuple('Resistance Study', 'maternal_resistance', None, None),
         })
     # visit_schedule
     # see edc.subject.visit_schedule.models.visit_defintion
@@ -92,11 +94,27 @@ class MpepuMaternalPostPartumVisitSchedule(VisitScheduleConfiguration):
                 EntryTuple(20L, u'mpepu_maternal', u'maternalpostfudx'),
                 EntryTuple(30L, u'mpepu_maternal', u'maternalarvpost'),
                 EntryTuple(40L, u'mpepu_maternal', u'maternalarvpostadh'),
-                #additional forms for the TAB study
-                EntryTuple(50L, u'mpepu_maternal', u'resistanceconsent'),
-                EntryTuple(60L, u'mpepu_maternal', u'resistanceeligibility'),
-                EntryTuple(70L, u'mpepu_maternal', u'resistancedisc'),
             )}
+#     visit_definitions['2030R'] = {
+#             'title': 'Maternal ARV Resistance',
+#             'time_point': 30,
+#             'base_interval': 3,
+#             'base_interval_unit': 'M',
+#             'window_lower_bound': 0,
+#             'window_lower_bound_unit': 'D',
+#             'window_upper_bound': 0,
+#             'window_upper_bound_unit': 'D',
+#             'grouping': 'maternal',
+#             'visit_tracking_model': MaternalVisit,
+#             'schedule_group': 'Resistance Study',
+#             'instructions': None,
+#             'requisitions': (
+#                              ),
+#             'entries': (
+#                 #additional forms for the TAB study
+#                 EntryTuple(10L, u'mpepu_maternal', u'resistanceeligibility'),
+#                 EntryTuple(20L, u'mpepu_maternal', u'resistancedisc'),
+#             )}
     visit_definitions['2060M'] = {
             'title': 'Maternal Post Natal Registration',
             'time_point': 60,

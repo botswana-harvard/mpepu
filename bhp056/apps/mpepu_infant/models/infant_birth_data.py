@@ -1,6 +1,6 @@
-from django.db import models
-from django.core.validators import MinValueValidator, MaxValueValidator
 from django.core.urlresolvers import reverse
+from django.core.validators import MinValueValidator, MaxValueValidator
+from django.db import models
 from django.db.models import Q, get_model
 
 from edc.audit.audit_trail import AuditTrail

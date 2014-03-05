@@ -27,6 +27,12 @@ class InfantFuPhysical(BaseScheduledVisitModel):
         verbose_name="Height ",
         help_text="",
         )
+    head_circumference = models.DecimalField(
+        max_digits=5,
+        decimal_places=2,
+        verbose_name="What was the head circumference in centimeters? ",
+        help_text="Measured in centimeters, (cm)",
+        )
     has_abnormalities = models.CharField(
         max_length=25,
         choices=YES_NO,

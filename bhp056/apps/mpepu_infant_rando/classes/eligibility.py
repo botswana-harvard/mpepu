@@ -21,7 +21,7 @@ class Eligibility(object):
                     raise exception_cls('Randomization failed for version 1. Infant must be aged between 28 and 34 days inclusive. Got %s days.' % td.days)
             else:
                 allow_rando = True
-        elif current_consent_version == 2:
+        elif current_consent_version >= 2:
             if (date.today() - dob).days < 0:
                 if not suppress_exception:
                     raise exception_cls('Randomization failed. dob is in the future or system time is wrong!. Got {0}'.format(date.today() - dob).days)

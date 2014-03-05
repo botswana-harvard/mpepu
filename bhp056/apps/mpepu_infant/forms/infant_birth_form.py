@@ -63,7 +63,31 @@ class InfantBirthExamForm (BaseInfantModelForm):
         if cleaned_data.get('physical_exam_result') == 'ABNORMAL':
             if (cleaned_data.get('heent_exam')!='Yes' and cleaned_data.get('resp_exam')!='Yes' and cleaned_data.get('cardiac_exam')!='Yes' and cleaned_data.get('abdominal_exam')!='Yes' 
                 and cleaned_data.get('skin_exam')!='Yes' and cleaned_data.get('macular_papular_rash')!='Yes' and cleaned_data.get('neurologic_exam')!='Yes'):
-                raise forms.ValidationError('You indicated that participant had abnormal findings for the physical exam. Please indicate at least.')  
+                raise forms.ValidationError('You indicated that participant had abnormal findings for the physical exam. Please indicate at least one.')  
+            
+        #HEENT exam abnormal, specify abnormality
+        if cleaned_data.get('heent_exam', None) == 'Yes' and not cleaned_data.get('heent_no_other'):
+            raise forms.ValidationError('You indicated HEENT exam was abnormal. Please specify.')
+        
+        #Respiratory exam  abnormal, specify abnormality
+        if cleaned_data.get('resp_exam', None) == 'Yes' and not cleaned_data.get('resp_exam_other'):
+            raise forms.ValidationError('You indicated Respiratory exam was abnormal. Please specify.')
+        
+        #Cardiac exam  abnormal, specify abnormality
+        if cleaned_data.get('cardiac_exam', None) == 'Yes' and not cleaned_data.get('cardiac_exam_other'):
+            raise forms.ValidationError('You indicated Cardiac exam was abnormal. Please specify.')
+        
+        #Abdominal exam  abnormal, specify abnormality
+        if cleaned_data.get('abdominal_exam', None) == 'Yes' and not cleaned_data.get('abdominal_exam_other'):
+            raise forms.ValidationError('You indicated Abdominal exam was abnormal. Please specify.')
+        
+        #Skin exam  abnormal, specify abnormality
+        if cleaned_data.get('skin_exam', None) == 'Yes' and not cleaned_data.get('skin_exam_other'):
+            raise forms.ValidationError('You indicated Skin exam was abnormal. Please specify.')
+        
+        #Neurological exam  abnormal, specify abnormality
+        if cleaned_data.get('neurologic_exam', None) == 'Yes' and not cleaned_data.get('neuro_exam_other'):
+            raise forms.ValidationError('You indicated neurological exam was abnormal. Please specify.')
         
         #validate gender with Infant Birth        
         if birth.gender !='U' or cleaned_data.get('gender')!='U':

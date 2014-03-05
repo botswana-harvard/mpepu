@@ -73,12 +73,12 @@ class MpepuAppConfiguration(BaseAppConfiguration):
                 'add_for_app': 'mpepu_maternal'}
 
     v4_1_consent_catalogue_setup = {
-                'name': 'mpepu_arv_sd',
+                'name': 'mpepu_arv',
                 # TO DO: how do we call a ContentTypeMap here???
 #                 'content_type_map': '',
                 'consent_type': 'sub-study',
                 'version': 1,
-                'start_datetime': datetime(2014, 03, 10, 07, 00, 00),
+                'start_datetime': datetime(2014, 03, 03, 07, 00, 00),
                 'end_datetime': datetime(2016, 01, 20, 23, 51, 06),
                 'add_for_app': 'mpepu_maternal'}
 

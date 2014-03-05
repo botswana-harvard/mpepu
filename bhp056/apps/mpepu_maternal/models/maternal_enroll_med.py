@@ -2,8 +2,8 @@ from django.db import models
 from django.core.urlresolvers import reverse
 
 from edc.audit.audit_trail import AuditTrail
-from edc.choices.common import YES_NO
 from edc.base.model.fields.custom.custom_fields import OtherCharField
+from edc.choices.common import YES_NO
 
 from apps.mpepu_list.models.maternal_enroll import ChronicCond
 
@@ -20,22 +20,22 @@ class MaternalEnrollMed(BaseScheduledVisitModel):
     has_chronic_cond = models.CharField(
         max_length=25,
         choices=YES_NO,
-        verbose_name="4.Does the mother have any significant chronic condition(s) that were diagnosed prior to the current pregnancy and that remain ongoing?",
+        verbose_name="Does the mother have any significant chronic condition(s) that were diagnosed prior to the current pregnancy and that remain ongoing?",
         )
     chronic_cond = models.ManyToManyField(ChronicCond,
-        verbose_name="4a. Tick all that apply?",
+        verbose_name="Chronic Diagnosis. Tick all that apply",
         help_text="",
         )
     chronic_cond_other = OtherCharField(
         max_length=35,
-        verbose_name="4b. if other specify...",
+        verbose_name="if other specify...",
         blank=True,
         null=True,
         )
     who_diagnosis = models.CharField(
         max_length=25,
         choices=YES_NO,
-        verbose_name="5.     Prior to the current pregnancy, was the participant ever diagnosed with a WHO Stage III or IV illness?",
+        verbose_name="Prior to the current pregnancy, was the participant ever diagnosed with a WHO Stage III or IV illness?",
         help_text="Please use the WHO Staging Guidelines. if 'YES' complete table below",
         )
 

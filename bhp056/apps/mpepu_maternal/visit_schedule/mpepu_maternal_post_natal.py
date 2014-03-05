@@ -18,7 +18,7 @@ class MpepuMaternalPostNatalVisitSchedule(VisitScheduleConfiguration):
     # schedule groups
     # (name, membership_form_name, grouping_key, comment)
     schedule_groups = OrderedDict({
-        'Maternal Post Partum Reg': ScheduleGroupTuple('Maternal Post Partum Reg', 'maternal_eligible_postnat', None, None),
+        'Maternal Post Partum Reg': ScheduleGroupTuple('Maternal Post Partum Reg', 'maternal_eligible_postnat', 'ELIGIBILITY', None),
         })
 
     # visit_schedule

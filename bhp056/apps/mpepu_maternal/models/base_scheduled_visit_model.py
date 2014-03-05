@@ -2,7 +2,6 @@ from django.db import models
 
 from edc.entry_meta_data.managers import EntryMetaDataManager
 
-from ..managers import ScheduledModelManager
 from .maternal_visit import MaternalVisit
 from .maternal_base_uuid_model import MaternalBaseUuidModel
 
@@ -13,7 +12,7 @@ class BaseScheduledVisitModel(MaternalBaseUuidModel):
 
     maternal_visit = models.OneToOneField(MaternalVisit)
 
-    objects = ScheduledModelManager()
+    objects = models.Manager()
     
     entry_meta_data_manager = EntryMetaDataManager(MaternalVisit)
 
@@ -24,10 +23,10 @@ class BaseScheduledVisitModel(MaternalBaseUuidModel):
         return unicode(self.maternal_visit)
 
     def get_report_datetime(self):
-        return self.maternal_visit.report_datetime
+        return self.get_visit().report_datetime
 
     def get_subject_identifier(self):
-        return self.maternal_visit.appointment.registered_subject.subject_identifier
+        return self.get_visit().appointment.registered_subject.subject_identifier
 
     def get_visit(self):
         return self.maternal_visit

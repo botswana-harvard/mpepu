@@ -148,7 +148,6 @@ class InfantArvProphAdmin(InfantVisitModelAdmin):
 
     fields = (
         "infant_visit",
-        "report_datetime",
         "prophylatic_nvp",
         "arv_status"
     )
@@ -269,6 +268,7 @@ class InfantFuPhysicalAdmin(MyInfantFuModelAdmin):
         "infant_fu",
         "weight",
         "height",
+        "head_circumference",
         "has_abnormalities",
         "abnormalities",
         "was_hospitalized",

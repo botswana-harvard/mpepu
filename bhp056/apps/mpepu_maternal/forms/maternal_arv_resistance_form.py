@@ -2,7 +2,7 @@ from django import forms
 from django.core.exceptions import ValidationError
 
 from edc.subject.consent.forms import BaseSubjectConsentForm
-from ..models import ResistanceDisc, ResistanceConsent, ResistanceEligibility
+from ..models import ResistanceDisc, ResistanceConsent, ResistanceEligibility, MaternalConsent
 from .base_maternal_model_form import BaseMaternalModelForm
 from edc.subject.consent.forms import BaseConsentedModelForm
 
@@ -12,11 +12,11 @@ class ResistanceConsentForm(BaseSubjectConsentForm):
     def clean(self):
 
         cleaned_data = self.cleaned_data
-
-        if not MaternalConsent.objects.filter(first_name=cleaned_data.get('first_name'), last_name=cleaned_data.get('last_name'), identity=cleaned_data.get('identity')).exists():
-            raise forms.ValidationError('Unable to locate Post Survey consent using the first_name, '
+        maternal_consent = MaternalConsent.objects.filter(first_name=cleaned_data.get('first_name'), last_name=cleaned_data.get('last_name'), identity=cleaned_data.get('identity'))
+        if not maternal_consent.exists():
+            raise forms.ValidationError('Unable to locate Maternal Consent using the first_name, '
                                         'last_name and identity number provided. '
-                                        'Enter the Post Survey consent first or check your criteria.')
+                                        'Enter the Maternal Consent first or check your criteria.')
         return cleaned_data
 
     class Meta:

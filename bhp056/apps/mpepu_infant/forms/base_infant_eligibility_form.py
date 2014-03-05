@@ -29,6 +29,12 @@ class BaseInfantEligibilityForm (BaseInfantModelForm):
         anemia_neutropenia = None
         if 'anemia_neutropenia' in cleaned_data:
             anemia_neutropenia = cleaned_data.get('anemia_neutropenia', None)
+        if not cleaned_data.get('maternal_feeding_choice'):
+            raise forms.ValidationError('Breast Feeding duration cannot be None')
+        if cleaned_data.get('maternal_feeding_choice') == 'FF':
+            if cleaned_data.get('rando_bf_duration') != 'N/A':
+                raise forms.ValidationError('Feeding Choice is Formula Feeding. Breast Feeding duration should be Not Applicable. Please correct')
+        
         MaternalLabDel = get_model('mpepu_maternal', 'MaternalLabDel')
         maternal_lab_del = MaternalLabDel.objects.get(maternal_visit__appointment__registered_subject__subject_identifier=registered_subject.relative_identifier)
         #if abs((date.today() - dob).days) < 13:
