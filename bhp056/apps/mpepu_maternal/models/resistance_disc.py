@@ -73,7 +73,7 @@ class ResistanceDisc(BaseScheduledVisitModel):
             self.report_datetime = self.maternal_visit.report_datetime
         else:
             self.report_datetime = datetime.today()
-        super(ArvResistanceDisc, self).save(*args, **kwargs)
+        super(ResistanceDisc, self).save(*args, **kwargs)
 
     class Meta:
         app_label = 'mpepu_maternal'
