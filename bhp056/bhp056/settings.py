@@ -108,7 +108,7 @@ else:
             'OPTIONS': {
                 'init_command': 'SET storage_engine=INNODB',
             },
-            'NAME': 'bhp056',
+            'NAME': 'bhp056_updated',
             'USER': 'root',
             'PASSWORD': 'cc3721b',
             'HOST': '',

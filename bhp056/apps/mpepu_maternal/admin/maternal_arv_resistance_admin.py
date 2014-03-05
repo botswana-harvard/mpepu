@@ -44,7 +44,6 @@ class ResistanceConsentAdmin(BaseConsentModelAdmin):
             "study_site": admin.VERTICAL,
             "is_dob_estimated": admin.VERTICAL,
             "identity_type": admin.VERTICAL,
-            'confirm_identity': admin.VERTICAL,
             "may_store_samples": admin.VERTICAL,
             }
 
@@ -55,8 +54,6 @@ class ResistanceConsentAdmin(BaseConsentModelAdmin):
             if MaternalConsent.objects.filter(first_name=obj.first_name, gender=obj.gender, identity=obj.identity, dob=obj.dob).exists():
                 maternal_consent = MaternalConsent.objects.get(first_name=obj.first_name, gender=obj.gender, identity=obj.identity, dob=obj.dob)
                 obj.subject_identifier = maternal_consent.subject_identifier
-                if RegisteredSubject.objects.filter(subject_identifier=obj.subject_identifier).exists():
-                    obj.registered_subject = RegisteredSubject.objects.get(subject_identifier=obj.subject_identifier)
             else:
                 raise ValidationError('Unable to locate Mpepu Maternal consent using the first_name, gender, dob and identity number provided.')
         super(ResistanceConsentAdmin, self).save_model(request, obj, form, change)
@@ -114,5 +111,6 @@ class ResistanceDiscAdmin(MaternalVisitModelAdmin):
     radio_fields = {'regimen': admin.VERTICAL,
                      'discontinued_by': admin.VERTICAL,
                      'stopped_once': admin.VERTICAL,
-                     'as_prescribed': admin.VERTICAL}
+                     'as_prescribed': admin.VERTICAL,
+                     'info_source': admin.VERTICAL}
 admin.site.register(ResistanceDisc, ResistanceDiscAdmin)
