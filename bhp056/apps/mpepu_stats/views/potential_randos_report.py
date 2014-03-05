@@ -19,10 +19,10 @@ def potential_randos_report(request, **kwargs):
     cutoff_dob = datetime.today() - timedelta(34)
 
     mrandos = InfantBirth.objects.filter(dob__lt=cutoff_dob, registered_subject__sid__isnull=True).order_by('dob')
-    missed_randos = [InfantDataDecorator(ib) for ib in mrandos]
+    missed_randos = (InfantDataDecorator(ib) for ib in mrandos)
 
     prandos = InfantBirth.objects.filter(dob__gte=cutoff_dob, registered_subject__sid__isnull=True).order_by('dob')
-    potential_randos = [InfantDataDecorator(ib) for ib in prandos]
+    potential_randos = (InfantDataDecorator(ib) for ib in prandos)
 
     return render_to_response(template, {
         'infantbirth_aggregates': infantbirth_aggregates,

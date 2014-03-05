@@ -35,14 +35,14 @@ def infant_death_report(request, **kwargs):
                                             death_date__lte=end_date,
                                             registered_subject__sid__isnull=False
                                             ).order_by('registered_subject__dob')
-            infant_death_randomized = [InfantDataDecorator(id) for id in randomized]
+            infant_death_randomized = (InfantDataDecorator(id) for id in randomized)
 
             not_randomized = InfantDeath.objects.filter(
                                             death_date__gt=start_date,
                                             death_date__lte=end_date,
                                             registered_subject__sid__isnull=True
                                             ).order_by('registered_subject__dob')
-            infant_death_not_randomized = [InfantDataDecorator(id) for id in not_randomized]
+            infant_death_not_randomized = (InfantDataDecorator(id) for id in not_randomized)
     else:
         form = DateRangeSearchForm()
         form.date_start = date.today()
