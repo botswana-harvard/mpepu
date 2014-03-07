@@ -1,7 +1,7 @@
 import factory
 from edc.base.model.tests.factories import BaseUuidModelFactory
-from mpepu_infant.tests.factories import InfantVisitFactory
-from mpepu_infant.models import InfantArvProph
+from apps.mpepu_infant.tests.factories import InfantVisitFactory
+from apps.mpepu_infant.models import InfantArvProph
 from edc.subject.haart.choices import ARV_STATUS_WITH_NEVER
 
 

@@ -3,12 +3,11 @@ from django.db.models import Q, get_model
 
 from edc.subject.registration.models import RegisteredSubject
 
-from apps.mpepu_infant.models import InfantEligibility
-
 
 class Randomization(object):
 
     def randomize(self, infant_eligibility):
+        from apps.mpepu_infant.models import InfantEligibility
 
         """Selects the next available record from the infant_rando model that matches the given criteria.
 
