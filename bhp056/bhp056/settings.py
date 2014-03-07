@@ -46,14 +46,14 @@ if 'test' in sys.argv:
                 'PASSWORD': 'cc3721b',
                 'HOST': '',
                 'PORT': ''},
-            'lab_api': {
-                'ENGINE': 'django.db.backends.sqlite3',
-                'NAME': 'lab',
-                'USER': 'root',
-                'PASSWORD': 'cc3721b',
-                'HOST': '',
-                'PORT': '',
-            },
+#             'lab_api': {
+#                 'ENGINE': 'django.db.backends.sqlite3',
+#                 'NAME': 'lab',
+#                 'USER': 'root',
+#                 'PASSWORD': 'cc3721b',
+#                 'HOST': '',
+#                 'PORT': '',
+#             },
 #             'survey': {
 #                 'ENGINE': 'django.db.backends.sqlite3',
 #                 'NAME': 'survey',
@@ -62,14 +62,14 @@ if 'test' in sys.argv:
 #                 'HOST': '',
 #                 'PORT': '',
 #             },
-            'dispatch_destination': {
-                'ENGINE': 'django.db.backends.sqlite3',
-                'NAME': 'producer',
-                'USER': 'root',
-                'PASSWORD': 'cc3721b',
-                'HOST': '',
-                'PORT': '',
-            },
+#             'dispatch_destination': {
+#                 'ENGINE': 'django.db.backends.sqlite3',
+#                 'NAME': 'producer',
+#                 'USER': 'root',
+#                 'PASSWORD': 'cc3721b',
+#                 'HOST': '',
+#                 'PORT': '',
+#             },
         }
     else:
         DATABASES = {
