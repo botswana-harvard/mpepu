@@ -1,6 +1,7 @@
 from collections import OrderedDict
 
 from edc.subject.visit_schedule.classes import VisitScheduleConfiguration, site_visit_schedules, EntryTuple, MembershipFormTuple, ScheduleGroupTuple, RequisitionTuple
+from edc.utils.constants import SHOW_FORM, HIDE_FORM
 
 from ..models import InfantVisit, InfantBirth
 
@@ -41,13 +42,13 @@ class MpepuInfantBirthVisitSchedule(VisitScheduleConfiguration):
             'instructions': None,
             'requisitions': (
                 # (entry_order, app_label, model_name, panel.name, panel.edc_name, panel.panel_type, aliquot_type)
-                RequisitionTuple(100L, u'mpepu_lab', u'infantrequisition', 'DNA PCR', 'Infant PCR', 'TEST', 'WB'),
+                RequisitionTuple(100L, u'mpepu_lab', u'infantrequisition', 'DNA PCR', 'Infant PCR', 'TEST', 'WB', SHOW_FORM),
                 ),
             'entries': (
-                EntryTuple(10L, u'mpepu_infant', u'infantbirthdata'),
-                EntryTuple(20L, u'mpepu_infant', u'infantbirthexam'),
-                EntryTuple(30L, u'mpepu_infant', u'infantbirtharv'),
-                EntryTuple(40L, u'mpepu_infant', u'infantbirthfeed'),
+                EntryTuple(10L, u'mpepu_infant', u'infantbirthdata', SHOW_FORM),
+                EntryTuple(20L, u'mpepu_infant', u'infantbirthexam', SHOW_FORM),
+                EntryTuple(30L, u'mpepu_infant', u'infantbirtharv', SHOW_FORM),
+                EntryTuple(40L, u'mpepu_infant', u'infantbirthfeed', SHOW_FORM),
             )}
         }
     )

@@ -1,6 +1,7 @@
 from collections import OrderedDict
 
 from edc.subject.visit_schedule.classes import VisitScheduleConfiguration, site_visit_schedules, EntryTuple, MembershipFormTuple, ScheduleGroupTuple, RequisitionTuple
+from edc.utils.constants import SHOW_FORM, HIDE_FORM
 
 from ..models import MaternalVisit, MaternalPostReg
 
@@ -41,14 +42,14 @@ class MpepuMaternalPostPartumVisitSchedule(VisitScheduleConfiguration):
             'instructions': None,
             'requisitions': (
                 # (entry_order, app_label, model_name, panel.name, panel.edc_name, panel.panel_type, aliquot_type)
-                RequisitionTuple(100L, u'mpepu_lab', u'maternalrequisition', 'Breast Milk (Storage)', 'Breast Milk', 'STORAGE', 'BM'),
-                RequisitionTuple(200L, u'mpepu_lab', u'maternalrequisition', 'PBMC Plasma (STORE ONLY)', 'PBMC Plasma Storage', 'STORAGE', 'WB'),
+                RequisitionTuple(100L, u'mpepu_lab', u'maternalrequisition', 'Breast Milk (Storage)', 'Breast Milk', 'STORAGE', 'BM', SHOW_FORM),
+                RequisitionTuple(200L, u'mpepu_lab', u'maternalrequisition', 'PBMC Plasma (STORE ONLY)', 'PBMC Plasma Storage', 'STORAGE', 'WB', SHOW_FORM),
                 ),
             'entries': (
-                EntryTuple(10L, u'mpepu_maternal', u'maternalpostfu'),
-                EntryTuple(20L, u'mpepu_maternal', u'maternalpostfudx'),
-                EntryTuple(30L, u'mpepu_maternal', u'maternalarvpost'),
-                EntryTuple(40L, u'mpepu_maternal', u'maternalarvpostadh'),
+                EntryTuple(10L, u'mpepu_maternal', u'maternalpostfu', SHOW_FORM),
+                EntryTuple(20L, u'mpepu_maternal', u'maternalpostfudx', SHOW_FORM),
+                EntryTuple(30L, u'mpepu_maternal', u'maternalarvpost', SHOW_FORM),
+                EntryTuple(40L, u'mpepu_maternal', u'maternalarvpostadh', SHOW_FORM),
             )}
     visit_definitions['2020M'] = {
             'title': 'Maternal Post Natal Registration',
@@ -67,10 +68,10 @@ class MpepuMaternalPostPartumVisitSchedule(VisitScheduleConfiguration):
                 # (entry_order, app_label, model_name, panel.name, panel.edc_name, panel.panel_type, aliquot_type)
                 ),
             'entries': (
-                EntryTuple(10L, u'mpepu_maternal', u'maternalpostfu'),
-                EntryTuple(20L, u'mpepu_maternal', u'maternalpostfudx'),
-                EntryTuple(30L, u'mpepu_maternal', u'maternalarvpost'),
-                EntryTuple(40L, u'mpepu_maternal', u'maternalarvpostadh'),
+                EntryTuple(10L, u'mpepu_maternal', u'maternalpostfu', SHOW_FORM),
+                EntryTuple(20L, u'mpepu_maternal', u'maternalpostfudx', SHOW_FORM),
+                EntryTuple(30L, u'mpepu_maternal', u'maternalarvpost', SHOW_FORM),
+                EntryTuple(40L, u'mpepu_maternal', u'maternalarvpostadh', SHOW_FORM),
             )}
     visit_definitions['2030M'] = {
             'title': 'Maternal Post Natal Registration',
@@ -87,13 +88,13 @@ class MpepuMaternalPostPartumVisitSchedule(VisitScheduleConfiguration):
             'instructions': None,
             'requisitions': (
                 # (entry_order, app_label, model_name, panel.name, panel.edc_name, panel.panel_type, aliquot_type)
-                RequisitionTuple(10L, u'mpepu_lab', u'maternalrequisition', 'PHS: Ultrasensetive Viral Load', 'Viral load (PHS)', 'TEST', 'WB'),
+                RequisitionTuple(10L, u'mpepu_lab', u'maternalrequisition', 'PHS: Ultrasensetive Viral Load', 'Viral load (PHS)', 'TEST', 'WB', SHOW_FORM),
                 ),
             'entries': (
-                EntryTuple(10L, u'mpepu_maternal', u'maternalpostfu'),
-                EntryTuple(20L, u'mpepu_maternal', u'maternalpostfudx'),
-                EntryTuple(30L, u'mpepu_maternal', u'maternalarvpost'),
-                EntryTuple(40L, u'mpepu_maternal', u'maternalarvpostadh'),
+                EntryTuple(10L, u'mpepu_maternal', u'maternalpostfu', SHOW_FORM),
+                EntryTuple(20L, u'mpepu_maternal', u'maternalpostfudx', SHOW_FORM),
+                EntryTuple(30L, u'mpepu_maternal', u'maternalarvpost', SHOW_FORM),
+                EntryTuple(40L, u'mpepu_maternal', u'maternalarvpostadh', SHOW_FORM),
             )}
 #     visit_definitions['2030R'] = {
 #             'title': 'Maternal ARV Resistance',
@@ -112,8 +113,8 @@ class MpepuMaternalPostPartumVisitSchedule(VisitScheduleConfiguration):
 #                              ),
 #             'entries': (
 #                 #additional forms for the TAB study
-#                 EntryTuple(10L, u'mpepu_maternal', u'resistanceeligibility'),
-#                 EntryTuple(20L, u'mpepu_maternal', u'resistancedisc'),
+#                 EntryTuple(10L, u'mpepu_maternal', u'resistanceeligibility', SHOW_FORM),
+#                 EntryTuple(20L, u'mpepu_maternal', u'resistancedisc', SHOW_FORM),
 #             )}
     visit_definitions['2060M'] = {
             'title': 'Maternal Post Natal Registration',
@@ -132,10 +133,10 @@ class MpepuMaternalPostPartumVisitSchedule(VisitScheduleConfiguration):
                 # (entry_order, app_label, model_name, panel.name, panel.edc_name, panel.panel_type, aliquot_type)
                 ),
             'entries': (
-                EntryTuple(10L, u'mpepu_maternal', u'maternalpostfu'),
-                EntryTuple(20L, u'mpepu_maternal', u'maternalpostfudx'),
-                EntryTuple(30L, u'mpepu_maternal', u'maternalarvpost'),
-                EntryTuple(40L, u'mpepu_maternal', u'maternalarvpostadh'),
+                EntryTuple(10L, u'mpepu_maternal', u'maternalpostfu', SHOW_FORM),
+                EntryTuple(20L, u'mpepu_maternal', u'maternalpostfudx', SHOW_FORM),
+                EntryTuple(30L, u'mpepu_maternal', u'maternalarvpost', SHOW_FORM),
+                EntryTuple(40L, u'mpepu_maternal', u'maternalarvpostadh', SHOW_FORM),
             )}
     visit_definitions['2090M'] = {
             'title': 'Maternal Post Natal Registration',
@@ -152,13 +153,13 @@ class MpepuMaternalPostPartumVisitSchedule(VisitScheduleConfiguration):
             'instructions': None,
             'requisitions': (
                 # (entry_order, app_label, model_name, panel.name, panel.edc_name, panel.panel_type, aliquot_type)
-                RequisitionTuple(10L, u'mpepu_lab', u'maternalrequisition', 'PHS: Ultrasensetive Viral Load', 'Viral load (PHS)', 'TEST', 'WB'),
+                RequisitionTuple(10L, u'mpepu_lab', u'maternalrequisition', 'PHS: Ultrasensetive Viral Load', 'Viral load (PHS)', 'TEST', 'WB', SHOW_FORM),
                 ),
             'entries': (
-                EntryTuple(10L, u'mpepu_maternal', u'maternalpostfu'),
-                EntryTuple(20L, u'mpepu_maternal', u'maternalpostfudx'),
-                EntryTuple(30L, u'mpepu_maternal', u'maternalarvpost'),
-                EntryTuple(40L, u'mpepu_maternal', u'maternalarvpostadh'),
+                EntryTuple(10L, u'mpepu_maternal', u'maternalpostfu', SHOW_FORM),
+                EntryTuple(20L, u'mpepu_maternal', u'maternalpostfudx', SHOW_FORM),
+                EntryTuple(30L, u'mpepu_maternal', u'maternalarvpost', SHOW_FORM),
+                EntryTuple(40L, u'mpepu_maternal', u'maternalarvpostadh', SHOW_FORM),
             )}
     visit_definitions['2120M'] = {
             'title': 'Maternal Post Natal Registration',
@@ -177,10 +178,10 @@ class MpepuMaternalPostPartumVisitSchedule(VisitScheduleConfiguration):
                 # (entry_order, app_label, model_name, panel.name, panel.edc_name, panel.panel_type, aliquot_type)
                 ),
             'entries': (
-                EntryTuple(10L, u'mpepu_maternal', u'maternalpostfu'),
-                EntryTuple(20L, u'mpepu_maternal', u'maternalpostfudx'),
-                EntryTuple(30L, u'mpepu_maternal', u'maternalarvpost'),
-                EntryTuple(40L, u'mpepu_maternal', u'maternalarvpostadh'),
+                EntryTuple(10L, u'mpepu_maternal', u'maternalpostfu', SHOW_FORM),
+                EntryTuple(20L, u'mpepu_maternal', u'maternalpostfudx', SHOW_FORM),
+                EntryTuple(30L, u'mpepu_maternal', u'maternalarvpost', SHOW_FORM),
+                EntryTuple(40L, u'mpepu_maternal', u'maternalarvpostadh', SHOW_FORM),
             )}
     visit_definitions['2150M'] = {
             'title': 'Maternal Post Natal Registration',
@@ -199,10 +200,10 @@ class MpepuMaternalPostPartumVisitSchedule(VisitScheduleConfiguration):
                 # (entry_order, app_label, model_name, panel.name, panel.edc_name, panel.panel_type, aliquot_type)
                 ),
             'entries': (
-                EntryTuple(10L, u'mpepu_maternal', u'maternalpostfu'),
-                EntryTuple(20L, u'mpepu_maternal', u'maternalpostfudx'),
-                EntryTuple(30L, u'mpepu_maternal', u'maternalarvpost'),
-                EntryTuple(40L, u'mpepu_maternal', u'maternalarvpostadh'),
+                EntryTuple(10L, u'mpepu_maternal', u'maternalpostfu', SHOW_FORM),
+                EntryTuple(20L, u'mpepu_maternal', u'maternalpostfudx', SHOW_FORM),
+                EntryTuple(30L, u'mpepu_maternal', u'maternalarvpost', SHOW_FORM),
+                EntryTuple(40L, u'mpepu_maternal', u'maternalarvpostadh', SHOW_FORM),
             )}
     visit_definitions['2180M'] = {
             'title': 'Maternal Post Natal Registration',
@@ -221,10 +222,10 @@ class MpepuMaternalPostPartumVisitSchedule(VisitScheduleConfiguration):
                 # (entry_order, app_label, model_name, panel.name, panel.edc_name, panel.panel_type, aliquot_type)
                 ),
             'entries': (
-                EntryTuple(10L, u'mpepu_maternal', u'maternalpostfu'),
-                EntryTuple(20L, u'mpepu_maternal', u'maternalpostfudx'),
-                EntryTuple(30L, u'mpepu_maternal', u'maternalarvpost'),
-                EntryTuple(40L, u'mpepu_maternal', u'maternalarvpostadh'),
-                EntryTuple(50L, u'mpepu_maternal', u'postnatalinfantfeedingsurvey'),
+                EntryTuple(10L, u'mpepu_maternal', u'maternalpostfu', SHOW_FORM),
+                EntryTuple(20L, u'mpepu_maternal', u'maternalpostfudx', SHOW_FORM),
+                EntryTuple(30L, u'mpepu_maternal', u'maternalarvpost', SHOW_FORM),
+                EntryTuple(40L, u'mpepu_maternal', u'maternalarvpostadh', SHOW_FORM),
+                EntryTuple(50L, u'mpepu_maternal', u'postnatalinfantfeedingsurvey', SHOW_FORM),
             )}
 site_visit_schedules.register(MpepuMaternalPostPartumVisitSchedule)
