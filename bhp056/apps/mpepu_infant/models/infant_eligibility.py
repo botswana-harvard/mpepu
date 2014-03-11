@@ -92,7 +92,6 @@ class InfantEligibility(BaseInfantRegisteredSubjectModel):
             eligible_if_no,
             ]
         )
-
     maternal_art_status = models.CharField(
         max_length=10,
         verbose_name="Maternal ART Status",
