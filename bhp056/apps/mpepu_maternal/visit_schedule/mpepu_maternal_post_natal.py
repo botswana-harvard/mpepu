@@ -46,6 +46,7 @@ class MpepuMaternalPostNatalVisitSchedule(VisitScheduleConfiguration):
                 RequisitionTuple(400L, u'mpepu_lab', u'maternalrequisition', 'Plasma and Buffy Coat Storage', 'Plasma and Buffy Coat Storage', 'STORAGE', 'WB', SHOW_FORM),
                 RequisitionTuple(500L, u'mpepu_lab', u'maternalrequisition', 'PHS: Ultrasensetive Viral Load', 'Viral load (PHS)', 'TEST', 'WB', SHOW_FORM),
                 RequisitionTuple(600L, u'mpepu_lab', u'maternalrequisition', 'Breast Milk (Storage)', 'Breast Milk', 'STORAGE', 'BM', HIDE_FORM),
+                RequisitionTuple(700L, u'mpepu_lab', u'maternalrequisition', 'PHS: Ultrasensetive Viral Load', 'Viral load (PHS)', 'TEST', 'WB', HIDE_FORM),
                 ),
             'entries': (
                 #EntryTuple = namedtuple('EntryTuple', 'order app_label model_name form_status')
