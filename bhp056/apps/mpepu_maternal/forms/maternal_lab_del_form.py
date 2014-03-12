@@ -81,12 +81,24 @@ class MaternalLabDelClinicForm (BaseMaternalModelForm):
                     m2m=cleaned_data['suppliment'])
             
         # cd4 was done, enter cd4 date
-        if cleaned_data['has_cd4'] == 'Yes' and cleaned_data['cd4_date'] == 'blank' or cleaned_data['cd4_date'] == 'null':
-            raise forms.ValidationError("the cd4 test was done, enter cd4 date. You wrote '%s'" % cleaned_data['cd4_date'])
+        if cleaned_data['has_cd4'] == 'Yes':
+            if not cleaned_data.get('cd4_date') or not cleaned_data.get('cd4_result'):
+                raise forms.ValidationError("You indicated CD4 test was done, enter cd4 date and result.")
+            
+        # cd4 was not done, you cannot enter cd4 date
+        if cleaned_data['has_cd4'] == 'No':
+            if cleaned_data.get('cd4_date') or cleaned_data.get('cd4_result'):
+                raise forms.ValidationError("You indicated CD4 test was NOT done, you cannot enter cd4 date and result.")
         
-        # if viral load was done, date and result must be provided
-        if cleaned_data.get('has_vl') == 'Yes' and not cleaned_data.get('vl_date') or not cleaned_data.get('vl_result'):
-            raise forms.ValidationError("The Viral Load test was done. Enter date and result.")
+        # if viral load was done, date and result should be provided
+        if cleaned_data.get('has_vl') == 'Yes':
+            if not cleaned_data.get('vl_date') or not cleaned_data.get('vl_result'):
+                raise forms.ValidationError("You indicated that the Viral Load test was done. Enter date and result.")
+            
+        # if viral load was not done, date and result should be not be provided
+        if cleaned_data.get('has_vl') == 'No':
+            if cleaned_data.get('vl_date') or cleaned_data.get('vl_result'):
+                raise forms.ValidationError("You indicated that the Viral Load test was NOT done. You cannot enter date and result.")
         return super(MaternalLabDelClinicForm, self).clean()
 
     class Meta:

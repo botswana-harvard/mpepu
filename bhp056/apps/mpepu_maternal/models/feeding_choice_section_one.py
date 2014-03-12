@@ -16,7 +16,7 @@ class FeedingChoiceSectionOne (BaseScheduledVisitModel):
                       "birth through the first six months of life: "),
         max_length=35,
         choices=SIX_MONTHS_FEEDING,
-        help_text="If answer =2, go to Q3 .Otherwise skip to Q4")
+        help_text="If answer =BF, go to Q3 .Otherwise skip to Q4")
     
     baby_weaned_age = models.IntegerField(
         verbose_name=("How many months old was your last baby when you weaned him/her from"
@@ -31,7 +31,7 @@ class FeedingChoiceSectionOne (BaseScheduledVisitModel):
                       "the infant described in Q2 above:: "),
         max_length=3,
         choices=YES_NO,
-        help_text="If 'Yes' go to Q4, otherwise skip Q4")
+        help_text="If 'Yes' go to Q5, otherwise skip Q5")
     
     hiv_status = models.CharField(
         verbose_name=("My HIV status was:"),

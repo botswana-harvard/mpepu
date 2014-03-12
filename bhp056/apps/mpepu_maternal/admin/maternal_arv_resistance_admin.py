@@ -56,7 +56,7 @@ class ResistanceConsentAdmin(BaseConsentModelAdmin):
                 obj.subject_identifier = maternal_consent.subject_identifier
             else:
                 raise ValidationError('Unable to locate Mpepu Maternal consent using the first_name, gender, dob and identity number provided.')
-        super(ResistanceConsentAdmin, self).save_model(request, obj, form, change)
+        super(ResistanceConsentAdmin, self).save_model(request, obj, form, change, sub_study_flag=True)
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
 
