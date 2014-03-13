@@ -11,15 +11,13 @@ from edc.subject.appointment.tests.factories import ConfigurationFactory
 from edc.subject.visit_schedule.tests.factories import MembershipFormFactory, ScheduleGroupFactory, VisitDefinitionFactory
 from edc.core.bhp_content_type_map.classes import ContentTypeMapHelper
 from edc.core.bhp_content_type_map.models import ContentTypeMap
-from apps.mpepu_maternal.models import MaternalConsent, MaternalEligibilityAnte, MaternalEligibilityPost, MaternalPostReg
-from apps.mpepu_maternal.tests.factories import MaternalConsentFactory, MaternalVisitFactory, MaternalEligibilityAnteFactory, MaternalLabDelFactory
-from edc.core.identifier.models import SubjectIdentifier
-from ..models import InfantBirth, InfantEligibility, InfantPreEligibility, InfantFu, InfantFeeding
+from ..models import InfantBirth, InfantEligibility, InfantPreEligibility
 from factories import InfantVisitFactory, InfantBirthFactory, InfantEligibilityFactory, InfantPreEligibilityFactory
-from apps.mpepu_infant_rando.classes import Eligibility
 
 
 class InfantEligibilityTests(TestCase):
 
     def create_only_2010_visit_when_eligibility_saved(self):
-        eligibility = InfantEligibility
+        infant_birth_factory = InfantBirthFactory()
+        infant_eligibility_factory = InfantEligibilityFactory()
+        infant_visit_factory = InfantVisitFactory()
