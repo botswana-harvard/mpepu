@@ -92,7 +92,6 @@ class InfantEligibility(BaseInfantRegisteredSubjectModel):
             eligible_if_no,
             ]
         )
-
     maternal_art_status = models.CharField(
         max_length=10,
         verbose_name="Maternal ART Status",
@@ -138,8 +137,8 @@ class InfantEligibility(BaseInfantRegisteredSubjectModel):
 
         super(InfantEligibility, self).save(*args, **kwargs)
 
-    def post_save_delete_appointment(self):
-        self.safe_delete_appointment('2015')
+#     def post_save_delete_appointment(self):
+#         self.safe_delete_appointment('2015')
 
     def get_versioned_field_names(self, version_number):
         """Returns a list of field names by version number."""
