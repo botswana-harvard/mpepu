@@ -6,8 +6,7 @@ from .models import MaternalEligibilityPost, MaternalEligibilityAnte, MaternalCo
 class MaternalHivLabTracker(HivLabTracker):
     subject_type = 'maternal'
     models = [
-        (MaternalConsent, 'is_hiv_positive', 'consent_datetime'),
-        (MaternalEligibilityPost, 'is_hiv_positive', 'registration_datetime'),
-        (MaternalEligibilityAnte, 'is_hiv_positive', 'registration_datetime')
-        ]
+        (MaternalConsent, 'is_hiv_positive', 'consent_datetime', ),
+        (MaternalEligibilityPost, 'is_hiv_positive', 'registration_datetime', ),
+        (MaternalEligibilityAnte, 'is_hiv_positive', 'registration_datetime', )]
 site_lab_tracker.register(MaternalHivLabTracker)
