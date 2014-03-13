@@ -599,6 +599,7 @@ FEEDING_DURATION = (
 
 CORRECT_BF_DURATION = (
     ('Less than 6 months ', 'Less than 6 months '),
+    ('6 months','6 months'),
     ('Between 6 and 12 months ', 'Between 6 and 12 months '),
     ('12 months ', '12 months '),
     ('Greater than 12 months ', 'Greater than 12 months '),

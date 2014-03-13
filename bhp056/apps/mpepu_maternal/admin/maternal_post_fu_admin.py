@@ -34,6 +34,7 @@ class MaternalPostFuAdmin(MaternalVisitModelAdmin):
         "maternal_visit",
         "mother_weight",
         "enter_weight",
+        "bp",
         "breastfeeding",
         "had_mastitis",
         "has_chronic_cond",

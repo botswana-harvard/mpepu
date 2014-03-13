@@ -17,10 +17,10 @@ class PostNatalInfantFeedingSurveyForm (BaseMaternalModelForm):
         cleaned_data = super(PostNatalInfantFeedingSurveyForm, self).clean()  
       
         #validate feeding duration
-        if cleaned_data.get('feeding_period') == 'Yes' and not cleaned_data.get('feeding_duration'):
+        if cleaned_data.get('feeding_period') == 'Yes' and cleaned_data.get('feeding_duration'):
+            raise forms.ValidationError("Breast feeding duration should be 'None' if participant was satisfied with breastfeeding duration. Please correct.")
+        if cleaned_data.get('feeding_period') == 'No' and not cleaned_data.get('feeding_duration'):
             raise forms.ValidationError("Breast feeding duration CANNOT be 'None' if participant was dissatisfied with breastfeeding duration. Please correct.")
-        if cleaned_data.get('feeding_period') == 'No' and cleaned_data.get('feeding_duration'):
-            raise forms.ValidationError("Breast feeding duration must be 'None' if participant was satisfied with breastfeeding duration. Please correct.")
         if cleaned_data.get('feeding_period') == 'N/A' and cleaned_data.get('feeding_duration'):
             raise forms.ValidationError("Breast feeding duration must be 'None' as participant formula fed. Please correct.")
             

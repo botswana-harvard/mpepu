@@ -15,7 +15,7 @@ class MaternalPostFu(BaseScheduledVisitModel):
         max_length=3,
         choices=YES_NO,
         verbose_name="Was the mother's weight measured at this visit?",
-        help_text="(If Yes,complete 2a.If No,go to question 3)",
+        help_text="(If Yes,complete 3.If No,go to question 4)",
         )
     enter_weight = models.DecimalField(
         max_digits=4,
@@ -25,11 +25,16 @@ class MaternalPostFu(BaseScheduledVisitModel):
         blank=True,
         null=True,
         )
+    bp = models.CharField(
+        max_length=7,
+        verbose_name="Mother's blood pressure?",
+        help_text="in mm/hg E.G. 120/80 ",
+        )
     breastfeeding = models.CharField(
         max_length=3,
         choices=YES_NO,
         verbose_name="Has the mother breastfed since the last attended visit? ",
-        help_text="(If no,skip to question 6)",
+        help_text="(If no,skip to question 7)",
         )
     had_mastitis = models.CharField(
         max_length=3,
