@@ -27,7 +27,7 @@ class MaternalConsentAdmin(BaseConsentModelAdmin):
     def __init__(self, *args, **kwargs):
         super(MaternalConsentAdmin, self).__init__(*args, **kwargs)
         # remove these fields from admin fields list, default values should apply
-        for fld in ['witness_name', 'is_literate', 'guardian_name']:
+        for fld in ['witness_name', 'is_literate', 'guardian_name', 'language']:
             self.fields.remove(fld)
 
 admin.site.register(MaternalConsent, MaternalConsentAdmin)
