@@ -1,4 +1,5 @@
 from collections import OrderedDict
+from edc.utils.constants import SHOW_FORM, HIDE_FORM
 
 from edc.subject.visit_schedule.classes import VisitScheduleConfiguration, site_visit_schedules, EntryTuple, MembershipFormTuple, ScheduleGroupTuple, RequisitionTuple
 
@@ -39,30 +40,34 @@ class MpepuMaternalPostNatalVisitSchedule(VisitScheduleConfiguration):
             'instructions': 'As of 2012-11-26, submit requisition for Viral Load (storage only) instead of PHS Ultrasensitive Viral Load (<50)',
             'requisitions': (
                 # (entry_order, app_label, model_name, panel.name, panel.edc_name, panel.panel_type, aliquot_type)
-                RequisitionTuple(100L, u'mpepu_lab', u'maternalrequisition', 'Hematology (ARV)', 'Hematology', 'TEST', 'WB'),
-                RequisitionTuple(200L, u'mpepu_lab', u'maternalrequisition', 'Viral load (storage only)', 'Viral load (storage)', 'STORAGE', 'WB'),
-                RequisitionTuple(300L, u'mpepu_lab', u'maternalrequisition', 'CD4 (ARV)', 'CD4', 'TEST', 'WB'),
-                RequisitionTuple(400L, u'mpepu_lab', u'maternalrequisition', 'Plasma and Buffy Coat Storage', 'Plasma and Buffy Coat Storage', 'STORAGE', 'WB'),
-                RequisitionTuple(500L, u'mpepu_lab', u'maternalrequisition', 'PHS: Ultrasensetive Viral Load', 'Viral load (PHS)', 'TEST', 'WB'),
+                RequisitionTuple(100L, u'mpepu_lab', u'maternalrequisition', 'Hematology (ARV)', 'Hematology', 'TEST', 'WB', SHOW_FORM),
+                RequisitionTuple(200L, u'mpepu_lab', u'maternalrequisition', 'Viral load (storage only)', 'Viral load (storage)', 'STORAGE', 'WB', SHOW_FORM),
+                RequisitionTuple(300L, u'mpepu_lab', u'maternalrequisition', 'CD4 (ARV)', 'CD4', 'TEST', 'WB', SHOW_FORM),
+                RequisitionTuple(400L, u'mpepu_lab', u'maternalrequisition', 'Plasma and Buffy Coat Storage', 'Plasma and Buffy Coat Storage', 'STORAGE', 'WB', SHOW_FORM),
+                RequisitionTuple(500L, u'mpepu_lab', u'maternalrequisition', 'PHS: Ultrasensetive Viral Load', 'Viral load (PHS)', 'TEST', 'WB', SHOW_FORM),
+                RequisitionTuple(600L, u'mpepu_lab', u'maternalrequisition', 'Breast Milk (Storage)', 'Breast Milk', 'STORAGE', 'BM', HIDE_FORM),
+                RequisitionTuple(700L, u'mpepu_lab', u'maternalrequisition', 'PHS: Ultrasensetive Viral Load', 'Viral load (PHS)', 'TEST', 'WB', HIDE_FORM),
                 ),
             'entries': (
-                EntryTuple(10L, u'mpepu_maternal', u'maternalenroll'),
-                EntryTuple(20L, u'mpepu_maternal', u'maternalenrolldem'),
-                EntryTuple(30L, u'mpepu_maternal', u'maternalenrollmed'),
-                EntryTuple(40L, u'mpepu_maternal', u'maternalenrollob'),
-                EntryTuple(50L, u'mpepu_maternal', u'maternalenrollclin'),
-                EntryTuple(60L, u'mpepu_maternal', u'maternalenrollarv'),
-                EntryTuple(70L, u'mpepu_maternal', u'maternalarvpreg'),
-                EntryTuple(80L, u'mpepu_maternal', u'maternalarvpreghistory'),
-                EntryTuple(90L, u'mpepu_maternal', u'maternalarvpphistory'),
-                EntryTuple(100L, u'mpepu_maternal', u'maternallabdel'),
-                EntryTuple(110L, u'mpepu_maternal', u'maternallabdelmed'),
-                EntryTuple(120L, u'mpepu_maternal', u'maternallabdeldx'),
-                EntryTuple(130L, u'mpepu_maternal', u'maternallabdelclinic'),
-                EntryTuple(140L, u'mpepu_maternal', u'maternallocator'),
-                EntryTuple(150L, u'mpepu_maternal', u'feedingchoice'),
-                EntryTuple(160L, u'mpepu_maternal', u'feedingchoicesectionone'),
-                EntryTuple(170L, u'mpepu_maternal', u'feedingchoicesectiontwo'),
+                #EntryTuple = namedtuple('EntryTuple', 'order app_label model_name form_status')
+                EntryTuple(1L, u'mpepu_maternal', u'maternalpostfu', HIDE_FORM),
+                EntryTuple(10L, u'mpepu_maternal', u'maternalenroll', SHOW_FORM),
+                EntryTuple(20L, u'mpepu_maternal', u'maternalenrolldem', SHOW_FORM),
+                EntryTuple(30L, u'mpepu_maternal', u'maternalenrollmed', SHOW_FORM),
+                EntryTuple(40L, u'mpepu_maternal', u'maternalenrollob', SHOW_FORM),
+                EntryTuple(50L, u'mpepu_maternal', u'maternalenrollclin', SHOW_FORM),
+                EntryTuple(60L, u'mpepu_maternal', u'maternalenrollarv', SHOW_FORM),
+                EntryTuple(70L, u'mpepu_maternal', u'maternalarvpreg', SHOW_FORM),
+                EntryTuple(80L, u'mpepu_maternal', u'maternalarvpreghistory', SHOW_FORM),
+                EntryTuple(90L, u'mpepu_maternal', u'maternalarvpphistory', SHOW_FORM),
+                EntryTuple(100L, u'mpepu_maternal', u'maternallabdel', SHOW_FORM),
+                EntryTuple(110L, u'mpepu_maternal', u'maternallabdelmed', SHOW_FORM),
+                EntryTuple(120L, u'mpepu_maternal', u'maternallabdeldx', SHOW_FORM),
+                EntryTuple(130L, u'mpepu_maternal', u'maternallabdelclinic', SHOW_FORM),
+                EntryTuple(140L, u'mpepu_maternal', u'maternallocator', SHOW_FORM),
+                EntryTuple(150L, u'mpepu_maternal', u'feedingchoice', SHOW_FORM),
+                EntryTuple(160L, u'mpepu_maternal', u'feedingchoicesectionone', SHOW_FORM),
+                EntryTuple(170L, u'mpepu_maternal', u'feedingchoicesectiontwo', SHOW_FORM),
             )}
         }
     )
