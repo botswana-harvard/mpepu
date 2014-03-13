@@ -34,6 +34,8 @@ class BaseInfantEligibilityForm (BaseInfantModelForm):
         if cleaned_data.get('maternal_feeding_choice') == 'FF':
             if cleaned_data.get('rando_bf_duration') != 'N/A':
                 raise forms.ValidationError("Feeding Choice is Formula Feeding. Breast Feeding duration should be 'Not Applicable'. Please correct")
+        if cleaned_data.get('maternal_feeding_choice') == 'BF' and cleaned_data.get('rando_bf_duration') == 'N/A':
+            raise forms.ValidationError("Breast Feeding duration cannot be 'Not Applicable' as you indicated Feeding Choice to be Breast Feeding.")
         
         MaternalLabDel = get_model('mpepu_maternal', 'MaternalLabDel')
         maternal_lab_del = MaternalLabDel.objects.get(maternal_visit__appointment__registered_subject__subject_identifier=registered_subject.relative_identifier)
