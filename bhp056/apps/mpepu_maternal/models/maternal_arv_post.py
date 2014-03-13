@@ -20,11 +20,11 @@ class MaternalArvPost (BaseScheduledVisitModel):
     haart_last_visit = models.CharField(
         max_length=25,
         choices=YES_NO,
-        verbose_name="1. Was the mother supposed to be on HAART any time since the last attended scheduled visit?",
+        verbose_name="Was the mother supposed to be on HAART any time since the last attended scheduled visit?",
         help_text="If 'NO' End. Otherwise continue go to section one",
         )
     haart_reason = models.CharField(
-        verbose_name="2. Reason for HAART ",
+        verbose_name="Reason for HAART ",
         max_length=25,
         choices=REASON_FOR_HAART,
         default='N/A',
@@ -32,12 +32,12 @@ class MaternalArvPost (BaseScheduledVisitModel):
         )
     haart_reason_other = models.TextField(
         max_length=35,
-        verbose_name="2a. if other, specify",
+        verbose_name="if other, specify",
         blank=True,
         null=True,
         )
     arv_status = models.CharField(
-        verbose_name="3.What is the status of the participant's antiretroviral treatment / prophylaxis at this visit or since the last visit? ",
+        verbose_name="What is the status of the participant's antiretroviral treatment / prophylaxis at this visit or since the last visit? ",
         max_length=25,
         choices=ARV_STATUS_WITH_NEVER,
         help_text="",

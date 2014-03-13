@@ -105,7 +105,7 @@ class MaternalLabDel(BaseScheduledVisitModel):
         max_length=3,
         choices=YES_NO,
         verbose_name="Were there other complications at delivery? ",
-        help_text="( if 'YES' continue. Otherwise go to question 10 )",
+        help_text="( if 'YES' continue. Otherwise go to question 16 )",
         )
     del_comp = models.ManyToManyField(DelComp,
         verbose_name="If so, select the complication ",
@@ -131,7 +131,7 @@ class MaternalLabDel(BaseScheduledVisitModel):
 
     still_borns = models.IntegerField(
         verbose_name="How many stillbirths did the mother deliver?  ",
-        help_text="( if '>0' continue. Otherwise go to question 13 )",
+        help_text="( if '>0' continue. Otherwise go to question 21 )",
         )
     
     still_born_has_congen_abn = models.CharField(
@@ -211,7 +211,7 @@ class MaternalLabDelMed(BaseScheduledVisitModel):
         max_length=3,
         choices=YES_NO,
         verbose_name="Has the mother been newly diagnosed (during this pregnancy) with any major chronic health condition(s) that remain ongoing?  ",
-        help_text="if yes answer 14a, otherwise go to Question 15",
+        help_text="if yes answer Question 4, otherwise go to Question 6",
         )
     health_cond = models.ManyToManyField(HealthCond,
         verbose_name="Select all that apply ",
@@ -221,7 +221,7 @@ class MaternalLabDelMed(BaseScheduledVisitModel):
     has_ob_comp = models.CharField(
         max_length=3,
         choices=YES_NO,
-        verbose_name="During this pregnancy, did the mother have any of the following obstetrical complications? (in 15a)",
+        verbose_name="During this pregnancy, did the mother have any of the following obstetrical complications? (in 7)",
         help_text="",
         )
     ob_comp = models.ManyToManyField(ObComp,
@@ -261,7 +261,7 @@ class MaternalLabDelClinic(BaseScheduledVisitModel):
         max_length=3,
         choices=YES_NO,
         verbose_name="During this pregnancy did the mother have at least one CD4 count performed (outside the study)? ",
-        help_text="( if 'YES' continue. Otherwise go to question 20 )",
+        help_text="( if 'YES' continue. Otherwise go to question 6 )",
         )
     cd4_date = models.DateField(
         verbose_name="Date of most recent CD4 test? ",
@@ -279,7 +279,7 @@ class MaternalLabDelClinic(BaseScheduledVisitModel):
         max_length=3,
         choices=YES_NO,
         verbose_name="During this pregnancy did the mother have a viral load perfomed (outside the study)? ",
-        help_text="(if 'YES' continue. Otherwise go to question 2)",
+        help_text="(if 'YES' continue. Otherwise go to question 9)",
         )
     vl_date = models.DateField(
         verbose_name="If yes, Date of most recent VL test? ",
@@ -297,8 +297,8 @@ class MaternalLabDelClinic(BaseScheduledVisitModel):
     took_suppliments = models.CharField(
         max_length=3,
         choices=YES_NO,
-        verbose_name="Did the mother take any of the following during this pregnancy?(in 23a)   ",
-        help_text="( if 'YES' continue. Otherwise go to question 23 )",
+        verbose_name="Did the mother take any of the following during this pregnancy?(in 10)   ",
+        help_text="( if 'YES' continue. Otherwise go to question 11 )",
         )
 
     suppliment = models.ManyToManyField(Suppliment,
@@ -337,8 +337,8 @@ class MaternalLabDelDx(BaseScheduledVisitModel):
     has_who_dx = models.CharField(
         max_length=3,
         choices=YES_NO,
-        verbose_name="During this pregnancy, did the mother have any new diagnoses listed in the WHO Adult/Adolescent HIV clinical staging document which is/are NOT reported below in Question 3 ",
-        help_text="If yes, answer 17a, otherwise go to Question 18",
+        verbose_name="During this pregnancy, did the mother have any new diagnoses listed in the WHO Adult/Adolescent HIV clinical staging document which is/are NOT reported below in Question 5 ",
+        help_text="If yes, answer 4, otherwise go to Question 5",
         )
     wcs_dx_adult = models.ManyToManyField(WcsDxAdult,
         verbose_name="List any new WHO Stage III/IV diagnoses that are not reported in Question 3 below:  ",

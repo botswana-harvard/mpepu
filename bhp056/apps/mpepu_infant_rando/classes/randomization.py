@@ -16,6 +16,20 @@ class Randomization(object):
         """
         InfantRando = get_model('mpepu_infant_rando', 'InfantRando')
         InfantBirth = get_model('mpepu_infant', 'InfantBirth')
+        #multiple births
+        infants = RegisteredSubject.objects.filter(relative_identifier=infant_eligibility.registered_subject.relative_identifier).order_by('subject_identifier')
+        
+        if infants:
+            for infant in infants:
+                rando = InfantRando.objects.filter(subject_identifier=infant.subject_identifier) 
+                eligibility = InfantEligibility.objects.filter(registered_subject__subject_identifier=infant.subject_identifier)  
+                if rando and eligibility:
+                    infant_eligibility.maternal_art_status = eligibility[0].maternal_art_status
+                    infant_eligibility.maternal_feeding_choice = eligibility[0].maternal_feeding_choice
+                    infant_eligibility.rando_bf_duration = eligibility[0].rando_bf_duration
+                    infant_eligibility.randomization_site = eligibility[0].randomization_site  
+                    break      
+       
         if infant_eligibility:
             maternal_feeding_choice = infant_eligibility.maternal_feeding_choice
             maternal_art_status = infant_eligibility.maternal_art_status
@@ -42,7 +56,7 @@ class Randomization(object):
                                             Q(subject_identifier=''))
                                             ).order_by('sid')
 
-        infants = RegisteredSubject.objects.filter(relative_identifier=infant_eligibility.registered_subject.relative_identifier).order_by('subject_identifier')
+        
 
         if infant_rando:
 
@@ -50,35 +64,13 @@ class Randomization(object):
             # get sid for first twin, triplet
             # modify this sid so that feeding and rx are the same as first
             dte = datetime.today()
-            
-            #Handle randomization for multiple births
-            if infants:           
-                for infant in infants:
-                    rando = InfantRando.objects.filter(subject_identifier=infant.subject_identifier)
-                    eligibility = InfantEligibility.objects.filter(registered_subject__subject_identifier=infant.subject_identifier)
-                    if rando and eligibility:  
 
-                        maternal_feeding_choice = rando[0].feeding_choice
-                        maternal_art_status = rando[0].haart_status
-                        rando_bf_duration = rando[0].bf_duration
-                        site = rando[0].site
-                        
-                        infant_rando[0].haart_status = rando[0].haart_status
-                        infant_rando[0].feeding_choice = rando[0].feeding_choice
-                        infant_rando[0].rx = rando[0].rx
-                        infant_rando[0].bf_duration = rando[0].bf_duration
-                        infant_rando[0].stratum = rando[0].stratum
-                        infant_rando[0].site = rando[0].site
-                        
-                        infant_eligibility.maternal_art_status = rando[0].haart_status
-                        infant_eligibility.maternal_feeding_choice = rando[0].feeding_choice
-                        infant_eligibility.rando_bf_duration = rando[0].bf_duration
-                        infant_eligibility.randomization_site = rando[0].site
-
-                    else:             
-                        infant_rando[0].haart_status = maternal_art_status
-                        infant_rando[0].feeding_choice = maternal_feeding_choice
-                
+            if rando and eligibility:                
+                infant_rando[0].rx = rando[0].rx
+                infant_rando[0].bf_duration = rando[0].bf_duration
+                                
+            infant_rando[0].haart_status = maternal_art_status
+            infant_rando[0].feeding_choice = maternal_feeding_choice             
             infant_rando[0].subject_identifier = registered_subject.subject_identifier    
             infant_rando[0].randomization_datetime = dte
             infant_rando[0].infant_initials = infant_initials

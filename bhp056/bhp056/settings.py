@@ -30,8 +30,8 @@ CONFIG_DIR = PROJECT_DIR.child('bhp056')
 # KEY_PATH = '/Users/melissa/Documents/git/bhp066/bhp066/keys'
 #KEY_PATH = '/Users/twicet/dev/bhp/projs/git/bhp056_project/bhp056/keys'
 # print KEY_PATH
-# KEY_PATH = '/Users/fchilisa/source/bhp056_project/bhp056/keys'
-KEY_PATH = '/Users/melissa/Documents/git/bhp056_updated/bhp056/keys'
+KEY_PATH = '/Users/fchilisa/source/bhp056_project/bhp056/keys'
+#KEY_PATH = '/Users/melissa/Documents/git/bhp056_updated/bhp056/keys'
 # KEY_PATH = '/Users/twicet/dev/bhp/projs/git/bhp056_project/bhp056/keys'
 
 
@@ -108,7 +108,7 @@ else:
             'OPTIONS': {
                 'init_command': 'SET storage_engine=INNODB',
             },
-            'NAME': 'bhp056_updated',
+            'NAME': 'bhp056',
             'USER': 'root',
             'PASSWORD': 'cc3721b',
             'HOST': '',

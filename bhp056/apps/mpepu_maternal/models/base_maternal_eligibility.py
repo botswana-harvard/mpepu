@@ -20,7 +20,7 @@ class BaseMaternalEligibility(BaseMaternalRegistrationModel):
     is_hiv_positive = models.CharField(
         max_length=3,
         choices=YES_NO,
-        verbose_name="4. Evidence of confirmed HIV positive status",
+        verbose_name="Evidence of confirmed HIV positive status",
         help_text="By indicating YES, you confirm that you  have copied such evidence for the patient chart",
         validators=[
             eligible_if_yes,
@@ -29,7 +29,7 @@ class BaseMaternalEligibility(BaseMaternalRegistrationModel):
     agree_follow_up = models.CharField(
         max_length=3,
         choices=YES_NO,
-        verbose_name="5. Is the participant willing to be followed up until the baby is 18 months of age?",
+        verbose_name="Is the participant willing to be followed up until the baby is 18 months of age?",
         help_text="if no ,INELIGIBLE",
         validators=[
             eligible_if_yes,
@@ -37,7 +37,7 @@ class BaseMaternalEligibility(BaseMaternalRegistrationModel):
         )
     # added for v2
     is_cd4_low = models.IntegerField(
-        verbose_name="6. What is the mother's lowest known CD4 count?",
+        verbose_name="What is the mother's lowest known CD4 count?",
         max_length=4,
         validators=[MinValueValidator(0), MaxValueValidator(3000)],
         null=True,
@@ -46,7 +46,7 @@ class BaseMaternalEligibility(BaseMaternalRegistrationModel):
         )
     # added for v2
     feeding_choice = models.CharField(
-        verbose_name="7. Does the mother plan to breastfeed?",
+        verbose_name="Does the mother plan to breastfeed?",
         max_length=3,
         null=True,
         blank=True,
@@ -55,7 +55,7 @@ class BaseMaternalEligibility(BaseMaternalRegistrationModel):
         )
     # added for v2
     maternal_haart = models.CharField(
-        verbose_name="8. Is the mother willing to initiate HAART or currently on HAART?",
+        verbose_name="Is the mother willing to initiate HAART or currently on HAART?",
         max_length=3,
         null=True,
         #blank=True,

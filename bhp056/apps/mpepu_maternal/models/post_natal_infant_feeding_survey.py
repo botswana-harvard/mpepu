@@ -23,6 +23,8 @@ class PostNatalInfantFeedingSurvey(BaseScheduledVisitModel):
         verbose_name="Do you think your infant breastfed for the right number of months:",
         max_length=3,
         choices=YES_NO_FF,
+        help_text='If formula feeding skip to question 5. If breast feeding continue'
+
         )
     feeding_duration = models.CharField(
         verbose_name="If No to Q3 above, the duration of breastfeeding of my infant was:",

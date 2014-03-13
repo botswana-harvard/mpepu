@@ -99,6 +99,8 @@ class InfantVisit(InfantOffStudyMixin, BaseVisitTracking):
         if self.reason == 'deferred':
             if self.appointment.visit_definition.code != '2010':
                 raise ValidationError('Reason option \'deferred\' may only be used for the 2010 visit')
+        if self.reason == 'vital status':
+            self.appointment.appt_type = 'telephone'
         self.requires_infant_eligibility()
         super(InfantVisit, self).save(*args, **kwargs)
 

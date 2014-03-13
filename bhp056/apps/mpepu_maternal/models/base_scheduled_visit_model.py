@@ -1,4 +1,5 @@
 from django.db import models
+from datetime import datetime
 
 from edc.entry_meta_data.managers import EntryMetaDataManager
 
@@ -23,7 +24,7 @@ class BaseScheduledVisitModel(MaternalBaseUuidModel):
         return unicode(self.maternal_visit)
 
     def get_report_datetime(self):
-        return self.get_visit().report_datetime
+        return datetime.today()
 
     def get_subject_identifier(self):
         return self.get_visit().appointment.registered_subject.subject_identifier

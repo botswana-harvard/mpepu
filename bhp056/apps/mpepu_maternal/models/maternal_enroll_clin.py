@@ -18,28 +18,28 @@ class MaternalEnrollClin(BaseScheduledVisitModel):
     prev_preg_azt = models.CharField(
         max_length=25,
         choices=YES_NO,
-        verbose_name="2a. Did she ever receive AZT monotherapy in a previous pregnancy?  ",
+        verbose_name="Did she ever receive AZT monotherapy in a previous pregnancy?  ",
         help_text="",
         )
     prev_sdnvp_labour = models.CharField(
         max_length=25,
         choices=YES_NO,
-        verbose_name="2b. Did she ever receive single-dose NVP in labour during a previous pregnancy?",
+        verbose_name="Did she ever receive single-dose NVP in labour during a previous pregnancy?",
         help_text="",
         )
     prev_preg_haart = models.CharField(
         max_length=25,
         choices=YES_NO,
-        verbose_name="2c. Did she ever receive HAART (for PMTCT purposes only) during a previous pregnancy? ",
+        verbose_name="Did she ever receive HAART (for PMTCT purposes only) during a previous pregnancy? ",
         help_text="",
         )
 
     cd4_count = models.IntegerField(
-        verbose_name="3. What was the mother's lowest known (nadir) CD4 cell count(cells/mm3) at any time in the past?",
+        verbose_name="What was the mother's lowest known (nadir) CD4 cell count(cells/mm3) at any time in the past?",
         help_text="",
         )
     cd4_date = models.DateField(
-        verbose_name="3a. Year/Month of CD4 test ",
+        verbose_name="Year/Month of CD4 test ",
         help_text="Format is YYYY-MM-DD. Use 01 for Day",
         blank=True,
         null=True,
@@ -49,7 +49,7 @@ class MaternalEnrollClin(BaseScheduledVisitModel):
         )
     comment = models.TextField(
         max_length=250,
-        verbose_name="4CommentS",
+        verbose_name="Comments",
         blank=True,
         null=True,
         )
