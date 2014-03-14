@@ -6,7 +6,7 @@ from django.test import TestCase
 from django.db.models import get_app, get_models
 
 from edc.core.identifier.exceptions import IdentifierError
-from edc.subject.lab_tracker.classes import lab_tracker
+from edc.subject.lab_tracker.classes import site_lab_tracker
 from edc.core.bhp_variables.models import StudySpecific, StudySite
 from edc.core.bhp_variables.tests.factories import StudySpecificFactory, StudySiteFactory
 from edc.subject.registration.models import RegisteredSubject
@@ -14,8 +14,8 @@ from edc.subject.consent.tests.factories import ConsentCatalogueFactory
 from edc.subject.appointment.models import Appointment
 from edc.subject.appointment.tests.factories import ConfigurationFactory
 from edc.subject.visit_schedule.tests.factories import MembershipFormFactory, ScheduleGroupFactory, VisitDefinitionFactory
-from bhp_content_type_map.classes import ContentTypeMapHelper
-from bhp_content_type_map.models import ContentTypeMap
+from edc.core.bhp_content_type_map.classes import ContentTypeMapHelper
+from edc.core.bhp_content_type_map.models import ContentTypeMap
 from ..models import MaternalVisit, MaternalConsent, MaternalOffStudy, MaternalEligibilityAnte, MaternalEligibilityPost, MaternalPostReg
 from ..tests.factories import MaternalConsentFactory, MaternalOffStudyFactory, MaternalVisitFactory, MaternalEligibilityAnteFactory, MaternalLabDelFactory
 from edc.core.identifier.models import SubjectIdentifier, Sequence
@@ -40,7 +40,7 @@ class MaternalOffStudyTests(TestCase):
                 self.assertTrue('get_subject_identifier' in dir(model), 'Method \'get_subject_identifier\' not found on model {0}'.format(model._meta.object_name))
 
     def test_p1(self):
-        lab_tracker.autodiscover()
+        site_lab_tracker.autodiscover()
         StudySpecificFactory()
         study_site = StudySiteFactory()
         ConfigurationFactory()
