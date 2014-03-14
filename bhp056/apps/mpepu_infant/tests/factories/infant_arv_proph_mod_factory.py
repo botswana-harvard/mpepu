@@ -1,7 +1,7 @@
 import factory
 from edc.base.model.tests.factories import BaseUuidModelFactory
-from bhp_haart.tests.factories import BaseHaartModificationFactory
-from mpepu_infant.models import InfantArvProphMod
+from edc.subject.haart.tests.factories import BaseHaartModificationFactory
+from apps.mpepu_infant.models import InfantArvProphMod
 from infant_arv_proph_factory import InfantArvProphFactory
 
 

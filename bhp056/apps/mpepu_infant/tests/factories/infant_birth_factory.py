@@ -2,8 +2,8 @@ import factory
 from datetime import date
 from edc.base.model.tests.factories import BaseUuidModelFactory
 from edc.subject.registration.tests.factories import RegisteredSubjectFactory
-from ..tests.factories import MaternalLabDelFactory
-from mpepu_infant.models import InfantBirth
+from apps.mpepu_maternal.tests.factories import MaternalLabDelFactory
+from apps.mpepu_infant.models import InfantBirth
 
 
 class InfantBirthFactory(BaseUuidModelFactory):

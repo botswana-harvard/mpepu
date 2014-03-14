@@ -1,7 +1,7 @@
 from datetime import datetime, date, timedelta
 from django.test import TestCase
 from django.core.exceptions import ValidationError
-from edc.subject.rule_groups.classes import rule_groups
+from edc.subject.rule_groups.classes import site_rule_groups
 from edc.core.bhp_variables.tests.factories import StudySpecificFactory, StudySiteFactory
 from edc.subject.lab_tracker.classes import site_lab_tracker
 from edc.subject.registration.models import RegisteredSubject
@@ -16,7 +16,7 @@ from apps.mpepu_maternal.models import MaternalConsent, MaternalEligibilityAnte,
 from apps.mpepu_maternal.tests.factories import MaternalConsentFactory, MaternalVisitFactory, MaternalEligibilityAnteFactory, MaternalLabDelFactory
 from edc.core.identifier.models import SubjectIdentifier
 from ..models import InfantBirth, InfantPreEligibility, InfantFu, InfantFeeding
-from factories import InfantVisitFactory, InfantBirthFactory, InfantEligibilityFactory, InfantPreEligibilityFactory
+from .factories import InfantVisitFactory, InfantBirthFactory, InfantEligibilityFactory, InfantPreEligibilityFactory
 from apps.mpepu_infant_rando.classes import Eligibility
 
 
@@ -26,7 +26,7 @@ class InfantBirthTests(TestCase):
 
     def test_p1(self):
         site_lab_tracker.autodiscover()
-        rule_groups.autodiscover()
+        site_rule_groups.autodiscover()
         StudySpecificFactory()
         study_site = StudySiteFactory()
         ConfigurationFactory()

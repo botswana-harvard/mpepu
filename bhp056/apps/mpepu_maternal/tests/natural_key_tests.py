@@ -4,9 +4,9 @@ from datetime import datetime
 from django.core import serializers
 from edc.core.crypto_fields.classes import FieldCryptor
 from django.db.models import get_app, get_models
-from bhp_base_test.classes import BaseNaturalKeyTests
-from edc.subject.lab_tracker.classes import lab_tracker
-from bhp_sync.classes import SerializeToTransaction, DeserializeFromTransaction
+from edc.testing.classes import BaseNaturalKeyTests
+from edc.subject.lab_tracker.classes import site_lab_tracker
+from edc.device.sync.classes import SerializeToTransaction, DeserializeFromTransaction
 from edc.core.bhp_variables.models import StudySpecific, StudySite
 from edc.core.bhp_variables.tests.factories import StudySpecificFactory, StudySiteFactory
 from edc.subject.registration.models import RegisteredSubject
@@ -14,8 +14,8 @@ from edc.subject.consent.tests.factories import ConsentCatalogueFactory
 from edc.subject.appointment.models import Appointment
 from edc.subject.appointment.tests.factories import ConfigurationFactory
 from edc.subject.visit_schedule.tests.factories import MembershipFormFactory, ScheduleGroupFactory, VisitDefinitionFactory
-from bhp_content_type_map.classes import ContentTypeMapHelper
-from bhp_content_type_map.models import ContentTypeMap
+from edc.core.bhp_content_type_map.classes import ContentTypeMapHelper
+from edc.core.bhp_content_type_map.models import ContentTypeMap
 from ..models import MaternalVisit, MaternalConsent, MaternalEligibilityAnte, MaternalEligibilityPost, MaternalPostReg
 from ..tests.factories import MaternalConsentFactory, MaternalVisitFactory, MaternalEligibilityAnteFactory
 
@@ -28,7 +28,7 @@ class NaturalKeyTests(BaseNaturalKeyTests):
     visit_model = MaternalVisit
 
     def test_p3(self):
-        lab_tracker.autodiscover()
+        site_lab_tracker.autodiscover()
         StudySpecificFactory()
         study_site = StudySiteFactory()
         ConfigurationFactory()
