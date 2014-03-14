@@ -28,8 +28,8 @@ class InfantEligibilityAdmin(RegisteredSubjectModelAdmin):
         """Saves and randomizes."""
         if not change:
             # if no record in InfantRando "claimed" by this infant, run the randomization
-            if not InfantRando.objects.filter(subject_identifier=obj.registered_subject.subject_identifier):                                   
-                infant_rando = InfantRando.objects.randomize(infant_eligibility=obj)                    
+            if not InfantRando.objects.filter(subject_identifier=obj.registered_subject.subject_identifier):
+                infant_rando = InfantRando.objects.randomize(infant_eligibility=obj)
                 if not infant_rando:
                     raise forms.ValidationError('Randomization failed. Unable to fetch record from infant_rando list with given criteria.')
         return super(InfantEligibilityAdmin, self).save_model(request, obj, form, change)
