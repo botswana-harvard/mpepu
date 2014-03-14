@@ -211,7 +211,7 @@ INSTALLED_APPS = (
     'edc.lab.lab_requisition',
     'edc.lab.lab_packing',
 
-    'lis.core.lab_barcode',
+    #'lis.core.lab_barcode',
     'lis.core.lab_common',
     'lis.core.lab_flag',
     'lis.core.lab_grading',
