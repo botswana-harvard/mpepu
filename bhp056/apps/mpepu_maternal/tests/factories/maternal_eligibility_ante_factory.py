@@ -2,8 +2,8 @@ import factory
 from datetime import datetime
 from edc.subject.registration.tests.factories import RegisteredSubjectFactory
 from edc.base.model.tests.factories import BaseUuidModelFactory
-from ..models import MaternalEligibilityAnte
-from ..tests.factories import MaternalConsentFactory
+from apps.mpepu_maternal.models import MaternalEligibilityAnte
+from apps.mpepu_maternal.tests.factories import MaternalConsentFactory
 
 
 class MaternalEligibilityAnteFactory(BaseUuidModelFactory):

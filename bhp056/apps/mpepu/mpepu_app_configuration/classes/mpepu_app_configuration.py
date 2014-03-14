@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from edc.apps.app_configuration.classes import BaseAppConfiguration
-from edc.core.bhp_content_type_map.models import ContentTypeMap
+
 study_start_datetime = datetime(2011, 05, 10, 8, 00, 00)
 study_end_datetime = datetime(2016, 01, 20, 23, 49, 40)
 
@@ -35,8 +35,7 @@ class MpepuAppConfiguration(BaseAppConfiguration):
 
     v1_consent_catalogue_setup = {
                 'name': 'mpepu',
-                # TO DO: how do we call a ContentTypeMap here???
-#                 'content_type_map': 'Maternal Consent',
+                'content_type_map': 'maternalconsent',
                 'consent_type': 'study',
                 'version': 1,
                 'start_datetime': study_start_datetime,
@@ -45,7 +44,7 @@ class MpepuAppConfiguration(BaseAppConfiguration):
 
     v2_consent_catalogue_setup = {
                 'name': 'mpepu',
-#                 'content_type_map': ContentTypeMap.objects.get(name='Maternal Consent'),
+                'content_type_map': 'maternalconsent',
                 'consent_type': 'study',
                 'version': 2,
                 'start_datetime': datetime(2013, 01, 21, 07, 00, 00),
@@ -54,8 +53,7 @@ class MpepuAppConfiguration(BaseAppConfiguration):
 
     v3_consent_catalogue_setup = {
                 'name': 'mpepu',
-                # TO DO: how do we call a ContentTypeMap here???
-#                 'content_type_map': '',
+                'content_type_map': 'maternalconsent',
                 'consent_type': 'study',
                 'version': 3,
                 'start_datetime': datetime(2013, 8, 24, 07, 00, 00),
@@ -64,8 +62,7 @@ class MpepuAppConfiguration(BaseAppConfiguration):
 
     v4_consent_catalogue_setup = {
                 'name': 'mpepu_v4',
-                # TO DO: how do we call a ContentTypeMap here???
-#                 'content_type_map': '',
+                'content_type_map': 'maternalconsent',
                 'consent_type': 'study',
                 'version': 4,
                 'start_datetime': datetime(2014, 03, 10, 07, 00, 00),
@@ -74,12 +71,13 @@ class MpepuAppConfiguration(BaseAppConfiguration):
 
     v4_1_consent_catalogue_setup = {
                 'name': 'mpepu_arv',
-                # TO DO: how do we call a ContentTypeMap here???
-#                 'content_type_map': '',
+                'content_type_map': 'resistanceconsent',
                 'consent_type': 'sub-study',
                 'version': 1,
                 'start_datetime': datetime(2014, 03, 03, 07, 00, 00),
                 'end_datetime': datetime(2016, 01, 20, 23, 51, 06),
                 'add_for_app': 'mpepu_maternal'}
+
+    lab_clinic_api_setup = {}
 
     consent_catalogue_list = [v1_consent_catalogue_setup, v2_consent_catalogue_setup, v3_consent_catalogue_setup, v4_consent_catalogue_setup, v4_1_consent_catalogue_setup]
