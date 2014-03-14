@@ -1,7 +1,7 @@
 import factory
 from edc.base.model.tests.factories import BaseUuidModelFactory
-from mpepu_infant.tests.factories import InfantBirthFactory
-from mpepu_infant.models import InfantPreEligibility
+from apps.mpepu_infant.tests.factories import InfantBirthFactory
+from apps.mpepu_infant.models import InfantPreEligibility
 
 
 class InfantPreEligibilityFactory(BaseUuidModelFactory):
