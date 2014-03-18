@@ -11,23 +11,17 @@ class InfantStoolCollectionAdmin(InfantVisitModelAdmin):
     fields = (
         "infant_visit",
         "sample_obtained",
-        "stool_texture",
         "axi_temp",
-        "past_illness",
-        "currently_ill",
-        "illness_classification",
-        "stools_past_24hrs",
-        "diarrhoea_bloody",
-        "continuous_loose_stools",
+        "past_diarrhea",
+        "diarrhea_past_24hrs",
+        "antibiotics_7days",
+        "antibiotic_dose_24hrs",
     )
     radio_fields = {
         "sample_obtained": admin.VERTICAL,
-        "stool_texture": admin.VERTICAL,
-        "past_illness": admin.VERTICAL,
-        "currently_ill": admin.VERTICAL,
-        "illness_classification": admin.VERTICAL,
-        "stools_past_24hrs": admin.VERTICAL,
-        "diarrhoea_bloody": admin.VERTICAL,
-        "continuous_loose_stools": admin.VERTICAL,
+        "past_diarrhea": admin.VERTICAL,
+        "diarrhea_past_24hrs": admin.VERTICAL,
+        "antibiotics_7days": admin.VERTICAL,
+        "antibiotic_dose_24hrs": admin.VERTICAL,
     }
 admin.site.register(InfantStoolCollection, InfantStoolCollectionAdmin)

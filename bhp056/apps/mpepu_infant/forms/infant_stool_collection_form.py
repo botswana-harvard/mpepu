@@ -7,25 +7,32 @@ class InfantStoolCollectionForm(BaseInfantModelForm):
 
     def clean(self):
         cleaned_data = super(InfantStoolCollectionForm, self).clean()
+        # validating no sample collection
+        if cleaned_data.get('sample_obtained', None) == 'No' and cleaned_data.get('axi_temp', None):
+            raise forms.ValidationError('If no sample is obtained, do not give temp')
+        if cleaned_data.get('sample_obtained', None) == 'No' and cleaned_data.get('past_diarrhea', None) or cleaned_data.get('past_diarrhea', None):
+            raise forms.ValidationError('If no sample is obtained, do not give diarrhea info')
+        if cleaned_data.get('sample_obtained', None) == 'No' and cleaned_data.get('antibiotics_7days', None) or cleaned_data.get('antibiotic_dose_24hrs', None):
+            raise forms.ValidationError('If no sample is obtained, do not give antibiotic details')
+
         # validating collection of sample
-        if cleaned_data.get('sample_obtained', None) == 'Yes' and not cleaned_data.get('stool_texture', None):
-            raise forms.ValidationError('If you were able to collect stool sample, please describe the texture')
         if cleaned_data.get('sample_obtained', None) == 'Yes' and not cleaned_data.get('axi_temp', None):
-            raise forms.ValidationError('If you were able to collect stool sample, please give auxillary temperature')
-        if cleaned_data.get('sample_obtained', None) == 'Yes' and not cleaned_data.get('past_illness', None):
-            raise forms.ValidationError('If you were able to collect stool sample, has the child been ill in the past days?')
-        #validating past illness
-        if cleaned_data.get('past_illness', None) == 'Yes' and not cleaned_data.get('currently_ill', None):
-            raise forms.ValidationError('If the child has been ill for the past 7days, is the child currently ill?')
-        if cleaned_data.get('past_illness', None) == 'Yes' and not cleaned_data.get('illness_classification', None):
-            raise forms.ValidationError('If the child has been ill for the past 7days, please classify the illness')
-        #validation gastro illness
-        if cleaned_data.get('illness_classification', None) == 'gastro_illness' and not cleaned_data.get('stools_past_24hrs', None):
-            raise forms.ValidationError('If the illness classified is gastro_illness, and child currently has diarrhoea, how many stools has the child passed in the last 24hours?')
-        if cleaned_data.get('illness_classification', None) == 'gastro_illness' and not cleaned_data.get('diarrhoea_bloody', None):
-            raise forms.ValidationError('If the illness classified is gastro_illness, and child currently has diarrhoea, is there blood in the diarrhoea?')
-        if cleaned_data.get('illness_classification', None) == 'gastro_illness' and not cleaned_data.get('continuous_loose_stools', None):
-            raise forms.ValidationError('If the illness classified is gastro_illness, and child currently has diarrhoea and it has been continuous, let the mother give an estimate of the number of loose stools passed per day')
+            raise forms.ValidationError('If you were able to collect stool sample, please give axillary temperature')
+
+        #validating past diarrhea
+        if cleaned_data.get('past_diarrhea', None) == 'Yes' and not cleaned_data.get('diarrhea_past_24hrs', None):
+            raise forms.ValidationError('If the child had diarrhea for the past 7days, has the child\'s diarrhea continued in the past 24hours?')
+        if cleaned_data.get('past_diarrhea', None) == 'Yes' and cleaned_data.get('diarrhea_past_24hrs', None) == 'N/A':
+            raise forms.ValidationError('If the child had diarrhea for the past 7days, info about diarrhea in the past 24hours CANNOT be N/A')
+        if cleaned_data.get('past_diarrhea', None) == 'No' and cleaned_data.get('diarrhea_past_24hrs', None) != 'N/A':
+            raise forms.ValidationError('If the child did not have diarrhea for the past 7days, info about diarrhea in the past 24hours SHOULD BE NOT APPLICABLE')
+
+        #validation antibiotics
+        if cleaned_data.get('antibiotics_7days', None) == 'Yes' and cleaned_data.get('antibiotic_dose_24hrs', None) == 'N/A':
+            raise forms.ValidationError('If the child took antibiotics in the past 7days, info about antibiotics in the past 24hours CANNOT be N/A')
+        if cleaned_data.get('antibiotics_7days', None) == 'No' and cleaned_data.get('antibiotic_dose_24hrs', None) != 'N/A':
+            raise forms.ValidationError('If the child took antibiotics in the past 7days, info about antibiotics in the past 24hours MUST BE NOT APPLICABLE')
+
         return cleaned_data
 
     class Meta:
