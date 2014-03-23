@@ -14,20 +14,16 @@ class ResistanceEligibility(BaseScheduledVisitModel):
         max_length=3,
         choices=YES_NO,
         verbose_name="Is participant co-enrolled in the Mpepu study?",
-        help_text='',
-        validators=[
-            eligible_if_yes,
-            ]
+        help_text='if no, INELIGIBLE',
+        validators=[eligible_if_yes]
         )
     status_evidence = models.CharField(
         max_length=3,
         choices=YES_NO,
         verbose_name="Evidence of confirmed HIV positive status",
-        help_text=("By indicating YES, you confirm that you  have copied such evidence for the"
+        help_text=("By indicating YES, you confirm that you have copied such evidence for the"
                    " patient chart"),
-        validators=[
-            eligible_if_yes,
-            ]
+        validators=[eligible_if_yes]
         )
     lates_cd4 = models.IntegerField(
         max_length=4,
@@ -38,6 +34,8 @@ class ResistanceEligibility(BaseScheduledVisitModel):
         max_length=3,
         choices=YES_NO,
         verbose_name="Has the mother ever experienced a WHO stage 3 or 4 illness?",
+        validators=[eligible_if_no],
+        help_text='if yes, INELIGIBLE',
         )
     stopped_arv = models.CharField(
         max_length=3,
@@ -49,9 +47,7 @@ class ResistanceEligibility(BaseScheduledVisitModel):
         max_length=3,
         choices=YES_NO,
         verbose_name="Is participant currently involuntarily incarcerated?",
-        validators=[
-            eligible_if_no,
-            ]
+        validators=[eligible_if_no]
         )
 
     history = AuditTrail()
