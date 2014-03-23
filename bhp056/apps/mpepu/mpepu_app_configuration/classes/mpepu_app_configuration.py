@@ -84,6 +84,9 @@ class MpepuAppConfiguration(BaseAppConfiguration):
                 'end_datetime': datetime(2016, 01, 20, 23, 51, 06),
                 'add_for_app': 'mpepu_maternal'}
 
+    study_site_setup = {'site_name': 'Gaborone',
+                        'site_code': '040'}
+
     lab_clinic_api_setup = {
         'panel': [PanelTuple('BHP023  HEMATOLOGY', 'TEST', 'WB'),
                   PanelTuple('Chromosonal Analysis', 'TEST', 'WB'),
@@ -106,7 +109,7 @@ class MpepuAppConfiguration(BaseAppConfiguration):
                   PanelTuple('PHS: Ultrasensetive Viral Load', 'TEST', 'WB'),
                   PanelTuple('Plasma and Buffy Coat Storage', 'STORAGE', 'WB'),
                   PanelTuple('HIV Western Blot', 'TEST', 'WB'),
-                  PanelTuple('Stool storage', 'STORAGE', 'WB')],
+                  PanelTuple('Stool storage', 'STORAGE', 'ST')],
         'aliquot_type': [AliquotTypeTuple('Whole Blood', 'WB', '02'),
                          AliquotTypeTuple('Plasma', 'PL', '32'),
                          AliquotTypeTuple('Serum', 'SERUM', '06'),
@@ -135,7 +138,7 @@ class MpepuAppConfiguration(BaseAppConfiguration):
                               PanelTuple('PHS: Ultrasensetive Viral Load', 'TEST', 'WB'),
                               PanelTuple('Plasma and Buffy Coat Storage', 'STORAGE', 'WB'),
                               PanelTuple('HIV Western Blot', 'TEST', 'WB'),
-                              PanelTuple('Stool storage', 'STORAGE', 'WB')],
+                              PanelTuple('Stool storage', 'STORAGE', 'ST')],
                     'aliquot_type': [AliquotTypeTuple('Whole Blood', 'WB', '02'),
                                      AliquotTypeTuple('Plasma', 'PL', '32'),
                                      AliquotTypeTuple('Serum', 'SERUM', '06'),
@@ -143,9 +146,7 @@ class MpepuAppConfiguration(BaseAppConfiguration):
                                      AliquotTypeTuple('Stool', 'ST', '01')],
                      'profile': [ProfileTuple('PBMC Plasma (STORE ONLY)', 'WB'), ProfileTuple('Plasma and Buffy Coat Storage', 'WB')],
                      'profile_item': [ProfileItemTuple('PBMC Plasma (STORE ONLY)', 'PL', 0.1, 3),
-                                      ProfileItemTuple('PBMC Plasma (STORE ONLY)', 'BC', 0.1, 3),
-                                      ProfileItemTuple('Plasma and Buffy Coat Storage', 'PL', 0.1, 3),
-                                      ProfileItemTuple('Plasma and Buffy Coat Storage', 'BC', 0.1, 3)]}}
+                                      ProfileItemTuple('Plasma and Buffy Coat Storage', 'PL', 0.1, 3)]}}
 
     labeling = {'label_printer': [LabelPrinterTuple('Zebra_Technologies_ZTC_GK420t', '127.0.0.1', True), ], }
 

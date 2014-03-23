@@ -108,7 +108,7 @@ else:
             'OPTIONS': {
                 'init_command': 'SET storage_engine=INNODB',
             },
-            'NAME': 'bhp056_testing',
+            'NAME': 'bhp056_mpepu',
             'USER': 'root',
             'PASSWORD': 'cc3721b',
             'HOST': '',
@@ -345,6 +345,8 @@ INSTALLED_APPS = (
     'lis.exim.lab_import',
     'lis.exim.lab_import_lis',
     'lis.exim.lab_import_dmis',
+
+    'lis.labeling',
 
     'apps.mpepu',
     'apps.mpepu_lab',

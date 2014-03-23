@@ -13,18 +13,21 @@ from edc.subject.lab_tracker.classes import site_lab_tracker
 from edc.core.bhp_data_manager.classes import data_manager
 from edc.dashboard.section.classes import site_sections
 from edc.subject.visit_schedule.classes import site_visit_schedules
-from edc.dashboard.subject.views import additional_requisition
+from edc.lab.lab_profile.classes import site_lab_profiles
+# from edc.dashboard.subject.views import additional_requisition
 from apps.mpepu.mpepu_app_configuration.classes import MpepuAppConfiguration
 
 dajaxice_autodiscover()
-site_lab_tracker.autodiscover()
-data_manager.prepare()
+site_lab_profiles.autodiscover()
 admin.autodiscover()
+MpepuAppConfiguration()
 # site_rule_groups.autodiscover()
 site_sections.autodiscover()
 site_visit_schedules.autodiscover()
 site_visit_schedules.build_all()
-MpepuAppConfiguration()
+site_lab_tracker.autodiscover()
+data_manager.prepare()
+
 
 APP_NAME = settings.APP_NAME
 
@@ -44,9 +47,9 @@ urlpatterns += patterns('',
     (r'^%s/' % settings.DAJAXICE_MEDIA_PREFIX, include('dajaxice.urls')),
 )
 
-urlpatterns += patterns('',
-                       url(r'^mpepu/dashboard/visit/add_requisition/', additional_requisition, name="add_requisition"),
-                       )
+# urlpatterns += patterns('',
+#                        url(r'^mpepu/dashboard/visit/add_requisition/', additional_requisition, name="add_requisition"),
+#                        )
 
 urlpatterns += patterns('',
     url(r'^databrowse/(.*)', login_required(django_databrowse.site.root)),
