@@ -6,6 +6,10 @@ from edc.lab.lab_requisition.models import BaseClinicRequisition
 
 from apps.mpepu_maternal.models import MaternalVisit
 
+from .aliquot_type import AliquotType
+from .packing_list import PackingList
+from .panel import Panel
+
 from ..managers import RequisitionManager
 
 
@@ -14,6 +18,12 @@ class MaternalRequisition(BaseClinicRequisition):
     maternal_visit = models.ForeignKey(MaternalVisit)
 
     entry_meta_data_manager = RequisitionManager(MaternalVisit)
+
+    packing_list = models.ForeignKey(PackingList, null=True, blank=True)
+
+    aliquot_type = models.ForeignKey(AliquotType)
+
+    panel = models.ForeignKey(Panel)
 
     history = AuditTrail()
 
@@ -25,3 +35,4 @@ class MaternalRequisition(BaseClinicRequisition):
     class Meta:
         app_label = 'mpepu_lab'
         verbose_name = 'Maternal Laboratory Requisition'
+        unique_together = ('maternal_visit', 'panel', 'is_drawn')
