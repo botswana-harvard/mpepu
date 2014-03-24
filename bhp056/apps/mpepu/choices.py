@@ -667,5 +667,5 @@ DRUG_TAKE = [
 INFO_SOURCE = [
     ('self', 'Self report'),
     ('idcc', 'IDCC record'),
-    ('other', 'Other'),
+    ('OTHER', 'Other, specify'),
 ]

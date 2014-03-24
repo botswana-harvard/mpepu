@@ -2,6 +2,7 @@ from django.db import models
 from datetime import datetime
 
 from edc.audit.audit_trail import AuditTrail
+from edc.base.model.fields import OtherCharField
 from edc.choices.common import YES_NO
 
 from apps.mpepu_maternal.models import BaseScheduledVisitModel
@@ -53,6 +54,18 @@ class ResistanceDisc(BaseScheduledVisitModel):
         blank=True,
         help_text="Answer only if answered No, for question 5 above",
         )
+#     last_ftc_date = models.DateField(
+#         verbose_name="What was the last date you took FTC?",
+#         null=True,
+#         blank=True,
+#         help_text="Answer only if answered No, for question 5 above",
+#         )
+    last_efv_date = models.DateField(
+        verbose_name="What was the last date you took EFV?",
+        null=True,
+        blank=True,
+        help_text="Answer only if answered No, for question 5 above",
+        )
     as_prescribed = models.CharField(
         verbose_name=("On average, how would you rate your ability to take all your"
                       " anti-retrovirals as prescribed, before they were stopped?"),
@@ -65,6 +78,7 @@ class ResistanceDisc(BaseScheduledVisitModel):
         help_text='Tick all that applies',
         max_length=15,
         )
+    info_source_other = OtherCharField()
 
     history = AuditTrail()
 

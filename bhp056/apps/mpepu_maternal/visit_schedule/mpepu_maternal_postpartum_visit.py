@@ -150,8 +150,8 @@ class MpepuMaternalPostPartumVisitSchedule(VisitScheduleConfiguration):
             )}
     visit_definitions['2090M'] = {
             'title': '9 Months Postpartum Visit',
-            'time_point': 10,
-            'base_interval': 1,
+            'time_point': 90,
+            'base_interval': 9,
             'base_interval_unit': 'M',
             'window_lower_bound': 0,
             'window_lower_bound_unit': 'D',
@@ -240,8 +240,8 @@ class MpepuMaternalPostPartumVisitSchedule(VisitScheduleConfiguration):
             )}
     visit_definitions['2180M'] = {
             'title': '18 Months Postpartum Visit',
-            'time_point': 10,
-            'base_interval': 1,
+            'time_point': 180,
+            'base_interval': 18,
             'base_interval_unit': 'M',
             'window_lower_bound': 0,
             'window_lower_bound_unit': 'D',

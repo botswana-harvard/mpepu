@@ -105,8 +105,10 @@ class ResistanceDiscAdmin(MaternalVisitModelAdmin):
         "last_ftc_date",
         "last_tdf_date",
         "last_3tc_date",
+        'last_efv_date',
         "as_prescribed",
         "info_source",
+        'info_source_other',
     )
     radio_fields = {'regimen': admin.VERTICAL,
                      'discontinued_by': admin.VERTICAL,
