@@ -85,7 +85,13 @@ class MpepuAppConfiguration(BaseAppConfiguration):
                 'add_for_app': 'mpepu_maternal'}
 
     study_site_setup = {'site_name': 'Gaborone',
-                        'site_code': '040'}
+                        'site_code': '4'}
+#                         {'site_name': 'Lobatse',
+#                          'site_code': '3'},
+#                         {'site_name': 'Mochudi',
+#                          'site_code': '2'},
+#                         {'site_name': 'Molepolole',
+#                          'site_code': '1'}
 
     lab_clinic_api_setup = {
         'panel': [PanelTuple('BHP023  HEMATOLOGY', 'TEST', 'WB'),
@@ -109,7 +115,8 @@ class MpepuAppConfiguration(BaseAppConfiguration):
                   PanelTuple('PHS: Ultrasensetive Viral Load', 'TEST', 'WB'),
                   PanelTuple('Plasma and Buffy Coat Storage', 'STORAGE', 'WB'),
                   PanelTuple('HIV Western Blot', 'TEST', 'WB'),
-                  PanelTuple('Stool storage', 'STORAGE', 'ST')],
+                  PanelTuple('Stool storage', 'STORAGE', 'ST'),
+                  PanelTuple('ARV Resistance Testing', 'TEST', 'WB')],
         'aliquot_type': [AliquotTypeTuple('Whole Blood', 'WB', '02'),
                          AliquotTypeTuple('Plasma', 'PL', '32'),
                          AliquotTypeTuple('Serum', 'SERUM', '06'),
@@ -138,7 +145,8 @@ class MpepuAppConfiguration(BaseAppConfiguration):
                               PanelTuple('PHS: Ultrasensetive Viral Load', 'TEST', 'WB'),
                               PanelTuple('Plasma and Buffy Coat Storage', 'STORAGE', 'WB'),
                               PanelTuple('HIV Western Blot', 'TEST', 'WB'),
-                              PanelTuple('Stool storage', 'STORAGE', 'ST')],
+                              PanelTuple('Stool storage', 'STORAGE', 'ST'),
+                              PanelTuple('ARV Resistance Testing', 'TEST', 'WB')],
                     'aliquot_type': [AliquotTypeTuple('Whole Blood', 'WB', '02'),
                                      AliquotTypeTuple('Plasma', 'PL', '32'),
                                      AliquotTypeTuple('Serum', 'SERUM', '06'),

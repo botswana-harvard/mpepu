@@ -1,3 +1,4 @@
+from django.core.urlresolvers import reverse
 from django.db import models
 
 from edc.audit.audit_trail import AuditTrail
@@ -31,6 +32,11 @@ class MaternalRequisition(BaseClinicRequisition):
         if not self.id:
             return None
         return self.maternal_visit
+
+    def aliquot(self):
+        url = reverse('admin:mpepu_lab_aliquot_changelist')
+        return """<a href="{url}?q={requisition_identifier}" />aliquot</a>""".format(url=url, requisition_identifier=self.requisition_identifier)
+    aliquot.allow_tags = True
 
     class Meta:
         app_label = 'mpepu_lab'

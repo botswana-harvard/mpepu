@@ -1,7 +1,7 @@
 from collections import OrderedDict
 
 from edc.subject.visit_schedule.classes import VisitScheduleConfiguration, site_visit_schedules, EntryTuple, MembershipFormTuple, ScheduleGroupTuple, RequisitionPanelTuple
-# from edc.utils.constants import SHOW_FORM, HIDE_FORM
+from edc.utils.constants import SHOW_FORM, HIDE_FORM
 
 from ..models import MaternalVisit, MaternalPostReg
 
@@ -14,14 +14,12 @@ class MpepuMaternalPostPartumVisitSchedule(VisitScheduleConfiguration):
     # (name, model, visible)
     membership_forms = OrderedDict({
         'maternal_postnatal_reg': MembershipFormTuple('maternal_postnatal_reg', MaternalPostReg, True),
-#         'maternal_resistance': MembershipFormTuple('maternal_resistance', ResistanceConsent, True),
         })
 
     # schedule groups
     # (name, membership_form_name, grouping_key, comment)
     schedule_groups = OrderedDict({
         'Post Partum Follow-up': ScheduleGroupTuple('Post Partum Follow-up', 'maternal_postnatal_reg', None, None),
-#         'Resistance Study': ScheduleGroupTuple('Resistance Study', 'maternal_resistance', None, None),
         })
     # visit_schedule
     # see edc.subject.visit_schedule.models.visit_defintion
@@ -42,21 +40,21 @@ class MpepuMaternalPostPartumVisitSchedule(VisitScheduleConfiguration):
             'instructions': None,
             'requisitions': (
                 # (entry_order, app_label, model_name, panel.name, panel.edc_name, panel.panel_type, aliquot_type)
-                RequisitionPanelTuple(100L, u'mpepu_lab', u'maternalrequisition', 'Breast Milk (Storage)', 'STORAGE', 'BM'),
-                RequisitionPanelTuple(200L, u'mpepu_lab', u'maternalrequisition', 'PBMC Plasma (STORE ONLY)', 'STORAGE', 'WB'),
-                RequisitionPanelTuple(300L, u'mpepu_lab', u'maternalrequisition', 'Hematology (ARV)', 'TEST', 'WB'),
-                RequisitionPanelTuple(400L, u'mpepu_lab', u'maternalrequisition', 'Viral load (storage only)', 'STORAGE', 'WB'),
-                RequisitionPanelTuple(500L, u'mpepu_lab', u'maternalrequisition', 'CD4 (ARV)', 'TEST', 'WB'),
-                RequisitionPanelTuple(600L, u'mpepu_lab', u'maternalrequisition', 'Plasma and Buffy Coat Storage', 'STORAGE', 'WB'),
-                RequisitionPanelTuple(700L, u'mpepu_lab', u'maternalrequisition', 'PHS: Ultrasensetive Viral Load', 'TEST', 'WB'),
-                RequisitionPanelTuple(800L, u'mpepu_lab', u'maternalrequisition', 'Breast Milk (Storage)', 'TEST', 'WB'),
-                RequisitionPanelTuple(900L, u'mpepu_lab', u'maternalrequisition', 'PHS: Ultrasensetive Viral Load', 'TEST', 'WB'),
+                RequisitionPanelTuple(100L, u'mpepu_lab', u'maternalrequisition', 'Breast Milk (Storage)', 'STORAGE', 'BM', SHOW_FORM),
+                RequisitionPanelTuple(200L, u'mpepu_lab', u'maternalrequisition', 'PBMC Plasma (STORE ONLY)', 'STORAGE', 'WB', SHOW_FORM),
+                RequisitionPanelTuple(300L, u'mpepu_lab', u'maternalrequisition', 'Hematology (ARV)', 'TEST', 'WB', HIDE_FORM),
+                RequisitionPanelTuple(400L, u'mpepu_lab', u'maternalrequisition', 'Viral load (storage only)', 'STORAGE', 'WB', HIDE_FORM),
+                RequisitionPanelTuple(500L, u'mpepu_lab', u'maternalrequisition', 'CD4 (ARV)', 'TEST', 'WB', HIDE_FORM),
+                RequisitionPanelTuple(600L, u'mpepu_lab', u'maternalrequisition', 'Plasma and Buffy Coat Storage', 'STORAGE', 'WB', HIDE_FORM),
+                RequisitionPanelTuple(700L, u'mpepu_lab', u'maternalrequisition', 'PHS: Ultrasensetive Viral Load', 'TEST', 'WB', HIDE_FORM),
+                RequisitionPanelTuple(800L, u'mpepu_lab', u'maternalrequisition', 'Breast Milk (Storage)', 'TEST', 'WB', HIDE_FORM),
+                RequisitionPanelTuple(900L, u'mpepu_lab', u'maternalrequisition', 'PHS: Ultrasensetive Viral Load', 'TEST', 'WB', HIDE_FORM),
                 ),
             'entries': (
-                EntryTuple(10L, u'mpepu_maternal', u'maternalpostfu'),
-                EntryTuple(20L, u'mpepu_maternal', u'maternalpostfudx'),
-                EntryTuple(30L, u'mpepu_maternal', u'maternalarvpost'),
-                EntryTuple(40L, u'mpepu_maternal', u'maternalarvpostadh'),
+                EntryTuple(10L, u'mpepu_maternal', u'maternalpostfu', SHOW_FORM),
+                EntryTuple(20L, u'mpepu_maternal', u'maternalpostfudx', SHOW_FORM),
+                EntryTuple(30L, u'mpepu_maternal', u'maternalarvpost', SHOW_FORM),
+                EntryTuple(40L, u'mpepu_maternal', u'maternalarvpostadh', SHOW_FORM),
             )}
     visit_definitions['2020M'] = {
             'title': '2 Months Postpartum Visit',
@@ -73,20 +71,20 @@ class MpepuMaternalPostPartumVisitSchedule(VisitScheduleConfiguration):
             'instructions': None,
             'requisitions': (
                 # (entry_order, app_label, model_name, requisition_panel_name, panel.panel_type, aliquot_type)
-                RequisitionPanelTuple(100L, u'mpepu_lab', u'maternalrequisition', 'Breast Milk (Storage)', 'STORAGE', 'BM'),
-                RequisitionPanelTuple(200L, u'mpepu_lab', u'maternalrequisition', 'PBMC Plasma (STORE ONLY)', 'STORAGE', 'WB'),
-                RequisitionPanelTuple(300L, u'mpepu_lab', u'maternalrequisition', 'Hematology (ARV)', 'TEST', 'WB'),
-                RequisitionPanelTuple(400L, u'mpepu_lab', u'maternalrequisition', 'Viral load (storage only)', 'STORAGE', 'WB'),
-                RequisitionPanelTuple(500L, u'mpepu_lab', u'maternalrequisition', 'CD4 (ARV)', 'TEST', 'WB'),
-                RequisitionPanelTuple(600L, u'mpepu_lab', u'maternalrequisition', 'Plasma and Buffy Coat Storage', 'STORAGE', 'WB'),
-                RequisitionPanelTuple(700L, u'mpepu_lab', u'maternalrequisition', 'PHS: Ultrasensetive Viral Load', 'TEST', 'WB'),
-                RequisitionPanelTuple(800L, u'mpepu_lab', u'maternalrequisition', 'Breast Milk (Storage)', 'TEST', 'WB'),
+                RequisitionPanelTuple(100L, u'mpepu_lab', u'maternalrequisition', 'Breast Milk (Storage)', 'STORAGE', 'BM', HIDE_FORM),
+                RequisitionPanelTuple(200L, u'mpepu_lab', u'maternalrequisition', 'PBMC Plasma (STORE ONLY)', 'STORAGE', 'WB', HIDE_FORM),
+                RequisitionPanelTuple(300L, u'mpepu_lab', u'maternalrequisition', 'Hematology (ARV)', 'TEST', 'WB', HIDE_FORM),
+                RequisitionPanelTuple(400L, u'mpepu_lab', u'maternalrequisition', 'Viral load (storage only)', 'STORAGE', 'WB', HIDE_FORM),
+                RequisitionPanelTuple(500L, u'mpepu_lab', u'maternalrequisition', 'CD4 (ARV)', 'TEST', 'WB', HIDE_FORM),
+                RequisitionPanelTuple(600L, u'mpepu_lab', u'maternalrequisition', 'Plasma and Buffy Coat Storage', 'STORAGE', 'WB', HIDE_FORM),
+                RequisitionPanelTuple(700L, u'mpepu_lab', u'maternalrequisition', 'PHS: Ultrasensetive Viral Load', 'TEST', 'WB', HIDE_FORM),
+                RequisitionPanelTuple(800L, u'mpepu_lab', u'maternalrequisition', 'Breast Milk (Storage)', 'TEST', 'WB', HIDE_FORM),
                 ),
             'entries': (
-                EntryTuple(10L, u'mpepu_maternal', u'maternalpostfu'),
-                EntryTuple(20L, u'mpepu_maternal', u'maternalpostfudx'),
-                EntryTuple(30L, u'mpepu_maternal', u'maternalarvpost'),
-                EntryTuple(40L, u'mpepu_maternal', u'maternalarvpostadh'),
+                EntryTuple(10L, u'mpepu_maternal', u'maternalpostfu', SHOW_FORM),
+                EntryTuple(20L, u'mpepu_maternal', u'maternalpostfudx', SHOW_FORM),
+                EntryTuple(30L, u'mpepu_maternal', u'maternalarvpost', SHOW_FORM),
+                EntryTuple(40L, u'mpepu_maternal', u'maternalarvpostadh', SHOW_FORM),
             )}
     visit_definitions['2030M'] = {
             'title': '3 Months Postpartum Visit',
@@ -103,20 +101,20 @@ class MpepuMaternalPostPartumVisitSchedule(VisitScheduleConfiguration):
             'instructions': None,
             'requisitions': (
                 # (entry_order, app_label, model_name, panel.name, panel.edc_name, panel.panel_type, aliquot_type)
-                RequisitionPanelTuple(10L, u'mpepu_lab', u'maternalrequisition', 'PHS: Ultrasensetive Viral Load', 'TEST', 'WB'),
-                RequisitionPanelTuple(100L, u'mpepu_lab', u'maternalrequisition', 'Breast Milk (Storage)', 'STORAGE', 'BM'),
-                RequisitionPanelTuple(200L, u'mpepu_lab', u'maternalrequisition', 'PBMC Plasma (STORE ONLY)', 'STORAGE', 'WB'),
-                RequisitionPanelTuple(300L, u'mpepu_lab', u'maternalrequisition', 'Hematology (ARV)', 'TEST', 'WB'),
-                RequisitionPanelTuple(400L, u'mpepu_lab', u'maternalrequisition', 'Viral load (storage only)', 'STORAGE', 'WB'),
-                RequisitionPanelTuple(500L, u'mpepu_lab', u'maternalrequisition', 'CD4 (ARV)', 'TEST', 'WB'),
-                RequisitionPanelTuple(600L, u'mpepu_lab', u'maternalrequisition', 'Plasma and Buffy Coat Storage', 'STORAGE', 'WB'),
-                RequisitionPanelTuple(800L, u'mpepu_lab', u'maternalrequisition', 'Breast Milk (Storage)', 'TEST', 'WB'),
+                RequisitionPanelTuple(10L, u'mpepu_lab', u'maternalrequisition', 'PHS: Ultrasensetive Viral Load', 'TEST', 'WB', SHOW_FORM),
+                RequisitionPanelTuple(100L, u'mpepu_lab', u'maternalrequisition', 'Breast Milk (Storage)', 'STORAGE', 'BM', HIDE_FORM),
+                RequisitionPanelTuple(200L, u'mpepu_lab', u'maternalrequisition', 'PBMC Plasma (STORE ONLY)', 'STORAGE', 'WB', HIDE_FORM),
+                RequisitionPanelTuple(300L, u'mpepu_lab', u'maternalrequisition', 'Hematology (ARV)', 'TEST', 'WB', HIDE_FORM),
+                RequisitionPanelTuple(400L, u'mpepu_lab', u'maternalrequisition', 'Viral load (storage only)', 'STORAGE', 'WB', HIDE_FORM),
+                RequisitionPanelTuple(500L, u'mpepu_lab', u'maternalrequisition', 'CD4 (ARV)', 'TEST', 'WB', HIDE_FORM),
+                RequisitionPanelTuple(600L, u'mpepu_lab', u'maternalrequisition', 'Plasma and Buffy Coat Storage', 'STORAGE', 'WB', HIDE_FORM),
+                RequisitionPanelTuple(800L, u'mpepu_lab', u'maternalrequisition', 'Breast Milk (Storage)', 'TEST', 'WB', HIDE_FORM),
                 ),
             'entries': (
-                EntryTuple(10L, u'mpepu_maternal', u'maternalpostfu'),
-                EntryTuple(20L, u'mpepu_maternal', u'maternalpostfudx'),
-                EntryTuple(30L, u'mpepu_maternal', u'maternalarvpost'),
-                EntryTuple(40L, u'mpepu_maternal', u'maternalarvpostadh'),
+                EntryTuple(10L, u'mpepu_maternal', u'maternalpostfu', SHOW_FORM),
+                EntryTuple(20L, u'mpepu_maternal', u'maternalpostfudx', SHOW_FORM),
+                EntryTuple(30L, u'mpepu_maternal', u'maternalarvpost', SHOW_FORM),
+                EntryTuple(40L, u'mpepu_maternal', u'maternalarvpostadh', SHOW_FORM),
             )}
     visit_definitions['2060M'] = {
             'title': '6 Months Postpartum Visit',
@@ -133,20 +131,20 @@ class MpepuMaternalPostPartumVisitSchedule(VisitScheduleConfiguration):
             'instructions': None,
             'requisitions': (
                 # (entry_order, app_label, model_name, panel.name, panel.edc_name, panel.panel_type, aliquot_type)
-                RequisitionPanelTuple(10L, u'mpepu_lab', u'maternalrequisition', 'PHS: Ultrasensetive Viral Load', 'TEST', 'WB'),
-                RequisitionPanelTuple(100L, u'mpepu_lab', u'maternalrequisition', 'Breast Milk (Storage)', 'STORAGE', 'BM'),
-                RequisitionPanelTuple(200L, u'mpepu_lab', u'maternalrequisition', 'PBMC Plasma (STORE ONLY)', 'STORAGE', 'WB'),
-                RequisitionPanelTuple(300L, u'mpepu_lab', u'maternalrequisition', 'Hematology (ARV)', 'TEST', 'WB'),
-                RequisitionPanelTuple(400L, u'mpepu_lab', u'maternalrequisition', 'Viral load (storage only)', 'STORAGE', 'WB'),
-                RequisitionPanelTuple(500L, u'mpepu_lab', u'maternalrequisition', 'CD4 (ARV)', 'TEST', 'WB'),
-                RequisitionPanelTuple(600L, u'mpepu_lab', u'maternalrequisition', 'Plasma and Buffy Coat Storage', 'STORAGE', 'WB'),
-                RequisitionPanelTuple(800L, u'mpepu_lab', u'maternalrequisition', 'Breast Milk (Storage)', 'TEST', 'WB'),
+                RequisitionPanelTuple(10L, u'mpepu_lab', u'maternalrequisition', 'PHS: Ultrasensetive Viral Load', 'TEST', 'WB', HIDE_FORM),
+                RequisitionPanelTuple(100L, u'mpepu_lab', u'maternalrequisition', 'Breast Milk (Storage)', 'STORAGE', 'BM', HIDE_FORM),
+                RequisitionPanelTuple(200L, u'mpepu_lab', u'maternalrequisition', 'PBMC Plasma (STORE ONLY)', 'STORAGE', 'WB', HIDE_FORM),
+                RequisitionPanelTuple(300L, u'mpepu_lab', u'maternalrequisition', 'Hematology (ARV)', 'TEST', 'WB', HIDE_FORM),
+                RequisitionPanelTuple(400L, u'mpepu_lab', u'maternalrequisition', 'Viral load (storage only)', 'STORAGE', 'WB', HIDE_FORM),
+                RequisitionPanelTuple(500L, u'mpepu_lab', u'maternalrequisition', 'CD4 (ARV)', 'TEST', 'WB', HIDE_FORM),
+                RequisitionPanelTuple(600L, u'mpepu_lab', u'maternalrequisition', 'Plasma and Buffy Coat Storage', 'STORAGE', 'WB', HIDE_FORM),
+                RequisitionPanelTuple(800L, u'mpepu_lab', u'maternalrequisition', 'Breast Milk (Storage)', 'TEST', 'WB', HIDE_FORM),
                 ),
             'entries': (
-                EntryTuple(10L, u'mpepu_maternal', u'maternalpostfu'),
-                EntryTuple(20L, u'mpepu_maternal', u'maternalpostfudx'),
-                EntryTuple(30L, u'mpepu_maternal', u'maternalarvpost'),
-                EntryTuple(40L, u'mpepu_maternal', u'maternalarvpostadh'),
+                EntryTuple(10L, u'mpepu_maternal', u'maternalpostfu', SHOW_FORM),
+                EntryTuple(20L, u'mpepu_maternal', u'maternalpostfudx', SHOW_FORM),
+                EntryTuple(30L, u'mpepu_maternal', u'maternalarvpost', SHOW_FORM),
+                EntryTuple(40L, u'mpepu_maternal', u'maternalarvpostadh', SHOW_FORM),
             )}
     visit_definitions['2090M'] = {
             'title': '9 Months Postpartum Visit',
@@ -163,20 +161,20 @@ class MpepuMaternalPostPartumVisitSchedule(VisitScheduleConfiguration):
             'instructions': None,
             'requisitions': (
                 # (entry_order, app_label, model_name, panel.name, panel.edc_name, panel.panel_type, aliquot_type)
-                RequisitionPanelTuple(10L, u'mpepu_lab', u'maternalrequisition', 'PHS: Ultrasensetive Viral Load', 'TEST', 'WB'),
-                RequisitionPanelTuple(100L, u'mpepu_lab', u'maternalrequisition', 'Breast Milk (Storage)', 'STORAGE', 'BM'),
-                RequisitionPanelTuple(200L, u'mpepu_lab', u'maternalrequisition', 'PBMC Plasma (STORE ONLY)', 'STORAGE', 'WB'),
-                RequisitionPanelTuple(300L, u'mpepu_lab', u'maternalrequisition', 'Hematology (ARV)', 'TEST', 'WB'),
-                RequisitionPanelTuple(400L, u'mpepu_lab', u'maternalrequisition', 'Viral load (storage only)', 'STORAGE', 'WB'),
-                RequisitionPanelTuple(500L, u'mpepu_lab', u'maternalrequisition', 'CD4 (ARV)', 'TEST', 'WB'),
-                RequisitionPanelTuple(600L, u'mpepu_lab', u'maternalrequisition', 'Plasma and Buffy Coat Storage', 'STORAGE', 'WB'),
-                RequisitionPanelTuple(800L, u'mpepu_lab', u'maternalrequisition', 'Breast Milk (Storage)', 'TEST', 'WB'),
+                RequisitionPanelTuple(10L, u'mpepu_lab', u'maternalrequisition', 'PHS: Ultrasensetive Viral Load', 'TEST', 'WB', SHOW_FORM),
+                RequisitionPanelTuple(100L, u'mpepu_lab', u'maternalrequisition', 'Breast Milk (Storage)', 'STORAGE', 'BM', HIDE_FORM),
+                RequisitionPanelTuple(200L, u'mpepu_lab', u'maternalrequisition', 'PBMC Plasma (STORE ONLY)', 'STORAGE', 'WB', HIDE_FORM),
+                RequisitionPanelTuple(300L, u'mpepu_lab', u'maternalrequisition', 'Hematology (ARV)', 'TEST', 'WB', HIDE_FORM),
+                RequisitionPanelTuple(400L, u'mpepu_lab', u'maternalrequisition', 'Viral load (storage only)', 'STORAGE', 'WB', HIDE_FORM),
+                RequisitionPanelTuple(500L, u'mpepu_lab', u'maternalrequisition', 'CD4 (ARV)', 'TEST', 'WB', HIDE_FORM),
+                RequisitionPanelTuple(600L, u'mpepu_lab', u'maternalrequisition', 'Plasma and Buffy Coat Storage', 'STORAGE', 'WB', HIDE_FORM),
+                RequisitionPanelTuple(800L, u'mpepu_lab', u'maternalrequisition', 'Breast Milk (Storage)', 'TEST', 'WB', HIDE_FORM),
                 ),
             'entries': (
-                EntryTuple(10L, u'mpepu_maternal', u'maternalpostfu'),
-                EntryTuple(20L, u'mpepu_maternal', u'maternalpostfudx'),
-                EntryTuple(30L, u'mpepu_maternal', u'maternalarvpost'),
-                EntryTuple(40L, u'mpepu_maternal', u'maternalarvpostadh'),
+                EntryTuple(10L, u'mpepu_maternal', u'maternalpostfu', SHOW_FORM),
+                EntryTuple(20L, u'mpepu_maternal', u'maternalpostfudx', SHOW_FORM),
+                EntryTuple(30L, u'mpepu_maternal', u'maternalarvpost', SHOW_FORM),
+                EntryTuple(40L, u'mpepu_maternal', u'maternalarvpostadh', SHOW_FORM),
             )}
     visit_definitions['2120M'] = {
             'title': '12 Months Postpartum Visit',
@@ -193,20 +191,20 @@ class MpepuMaternalPostPartumVisitSchedule(VisitScheduleConfiguration):
             'instructions': None,
             'requisitions': (
                 # (entry_order, app_label, model_name, panel.name, panel.edc_name, panel.panel_type, aliquot_type)
-                RequisitionPanelTuple(10L, u'mpepu_lab', u'maternalrequisition', 'PHS: Ultrasensetive Viral Load', 'TEST', 'WB'),
-                RequisitionPanelTuple(100L, u'mpepu_lab', u'maternalrequisition', 'Breast Milk (Storage)', 'STORAGE', 'BM'),
-                RequisitionPanelTuple(200L, u'mpepu_lab', u'maternalrequisition', 'PBMC Plasma (STORE ONLY)', 'STORAGE', 'WB'),
-                RequisitionPanelTuple(300L, u'mpepu_lab', u'maternalrequisition', 'Hematology (ARV)', 'TEST', 'WB'),
-                RequisitionPanelTuple(400L, u'mpepu_lab', u'maternalrequisition', 'Viral load (storage only)', 'STORAGE', 'WB'),
-                RequisitionPanelTuple(500L, u'mpepu_lab', u'maternalrequisition', 'CD4 (ARV)', 'TEST', 'WB'),
-                RequisitionPanelTuple(600L, u'mpepu_lab', u'maternalrequisition', 'Plasma and Buffy Coat Storage', 'STORAGE', 'WB'),
-                RequisitionPanelTuple(800L, u'mpepu_lab', u'maternalrequisition', 'Breast Milk (Storage)', 'TEST', 'WB'),
+                RequisitionPanelTuple(10L, u'mpepu_lab', u'maternalrequisition', 'PHS: Ultrasensetive Viral Load', 'TEST', 'WB', HIDE_FORM),
+                RequisitionPanelTuple(100L, u'mpepu_lab', u'maternalrequisition', 'Breast Milk (Storage)', 'STORAGE', 'BM', HIDE_FORM),
+                RequisitionPanelTuple(200L, u'mpepu_lab', u'maternalrequisition', 'PBMC Plasma (STORE ONLY)', 'STORAGE', 'WB', HIDE_FORM),
+                RequisitionPanelTuple(300L, u'mpepu_lab', u'maternalrequisition', 'Hematology (ARV)', 'TEST', 'WB', HIDE_FORM),
+                RequisitionPanelTuple(400L, u'mpepu_lab', u'maternalrequisition', 'Viral load (storage only)', 'STORAGE', 'WB', HIDE_FORM),
+                RequisitionPanelTuple(500L, u'mpepu_lab', u'maternalrequisition', 'CD4 (ARV)', 'TEST', 'WB', HIDE_FORM),
+                RequisitionPanelTuple(600L, u'mpepu_lab', u'maternalrequisition', 'Plasma and Buffy Coat Storage', 'STORAGE', 'WB', HIDE_FORM),
+                RequisitionPanelTuple(800L, u'mpepu_lab', u'maternalrequisition', 'Breast Milk (Storage)', 'TEST', 'WB', HIDE_FORM),
                 ),
             'entries': (
-                EntryTuple(10L, u'mpepu_maternal', u'maternalpostfu'),
-                EntryTuple(20L, u'mpepu_maternal', u'maternalpostfudx'),
-                EntryTuple(30L, u'mpepu_maternal', u'maternalarvpost'),
-                EntryTuple(40L, u'mpepu_maternal', u'maternalarvpostadh'),
+                EntryTuple(10L, u'mpepu_maternal', u'maternalpostfu', SHOW_FORM),
+                EntryTuple(20L, u'mpepu_maternal', u'maternalpostfudx', SHOW_FORM),
+                EntryTuple(30L, u'mpepu_maternal', u'maternalarvpost', SHOW_FORM),
+                EntryTuple(40L, u'mpepu_maternal', u'maternalarvpostadh', SHOW_FORM),
             )}
     visit_definitions['2150M'] = {
             'title': '15 Months Postpartum Visit',
@@ -223,20 +221,20 @@ class MpepuMaternalPostPartumVisitSchedule(VisitScheduleConfiguration):
             'instructions': None,
             'requisitions': (
                 # (entry_order, app_label, model_name, panel.name, panel.edc_name, panel.panel_type, aliquot_type)
-                RequisitionPanelTuple(10L, u'mpepu_lab', u'maternalrequisition', 'PHS: Ultrasensetive Viral Load', 'TEST', 'WB'),
-                RequisitionPanelTuple(100L, u'mpepu_lab', u'maternalrequisition', 'Breast Milk (Storage)', 'STORAGE', 'BM'),
-                RequisitionPanelTuple(200L, u'mpepu_lab', u'maternalrequisition', 'PBMC Plasma (STORE ONLY)', 'STORAGE', 'WB'),
-                RequisitionPanelTuple(300L, u'mpepu_lab', u'maternalrequisition', 'Hematology (ARV)', 'TEST', 'WB'),
-                RequisitionPanelTuple(400L, u'mpepu_lab', u'maternalrequisition', 'Viral load (storage only)', 'STORAGE', 'WB'),
-                RequisitionPanelTuple(500L, u'mpepu_lab', u'maternalrequisition', 'CD4 (ARV)', 'TEST', 'WB'),
-                RequisitionPanelTuple(600L, u'mpepu_lab', u'maternalrequisition', 'Plasma and Buffy Coat Storage', 'STORAGE', 'WB'),
-                RequisitionPanelTuple(800L, u'mpepu_lab', u'maternalrequisition', 'Breast Milk (Storage)', 'TEST', 'WB'),
+                RequisitionPanelTuple(10L, u'mpepu_lab', u'maternalrequisition', 'PHS: Ultrasensetive Viral Load', 'TEST', 'WB', HIDE_FORM),
+                RequisitionPanelTuple(100L, u'mpepu_lab', u'maternalrequisition', 'Breast Milk (Storage)', 'STORAGE', 'BM', HIDE_FORM),
+                RequisitionPanelTuple(200L, u'mpepu_lab', u'maternalrequisition', 'PBMC Plasma (STORE ONLY)', 'STORAGE', 'WB', HIDE_FORM),
+                RequisitionPanelTuple(300L, u'mpepu_lab', u'maternalrequisition', 'Hematology (ARV)', 'TEST', 'WB', HIDE_FORM),
+                RequisitionPanelTuple(400L, u'mpepu_lab', u'maternalrequisition', 'Viral load (storage only)', 'STORAGE', 'WB', HIDE_FORM),
+                RequisitionPanelTuple(500L, u'mpepu_lab', u'maternalrequisition', 'CD4 (ARV)', 'TEST', 'WB', HIDE_FORM),
+                RequisitionPanelTuple(600L, u'mpepu_lab', u'maternalrequisition', 'Plasma and Buffy Coat Storage', 'STORAGE', 'WB', HIDE_FORM),
+                RequisitionPanelTuple(800L, u'mpepu_lab', u'maternalrequisition', 'Breast Milk (Storage)', 'TEST', 'WB', HIDE_FORM),
                 ),
             'entries': (
-                EntryTuple(10L, u'mpepu_maternal', u'maternalpostfu'),
-                EntryTuple(20L, u'mpepu_maternal', u'maternalpostfudx'),
-                EntryTuple(30L, u'mpepu_maternal', u'maternalarvpost'),
-                EntryTuple(40L, u'mpepu_maternal', u'maternalarvpostadh'),
+                EntryTuple(10L, u'mpepu_maternal', u'maternalpostfu', SHOW_FORM),
+                EntryTuple(20L, u'mpepu_maternal', u'maternalpostfudx', SHOW_FORM),
+                EntryTuple(30L, u'mpepu_maternal', u'maternalarvpost', SHOW_FORM),
+                EntryTuple(40L, u'mpepu_maternal', u'maternalarvpostadh', SHOW_FORM),
             )}
     visit_definitions['2180M'] = {
             'title': '18 Months Postpartum Visit',
@@ -253,20 +251,20 @@ class MpepuMaternalPostPartumVisitSchedule(VisitScheduleConfiguration):
             'instructions': None,
             'requisitions': (
                 # (entry_order, app_label, model_name, panel.name, panel.edc_name, panel.panel_type, aliquot_type)
-                RequisitionPanelTuple(10L, u'mpepu_lab', u'maternalrequisition', 'PHS: Ultrasensetive Viral Load', 'TEST', 'WB'),
-                RequisitionPanelTuple(100L, u'mpepu_lab', u'maternalrequisition', 'Breast Milk (Storage)', 'STORAGE', 'BM'),
-                RequisitionPanelTuple(200L, u'mpepu_lab', u'maternalrequisition', 'PBMC Plasma (STORE ONLY)', 'STORAGE', 'WB'),
-                RequisitionPanelTuple(300L, u'mpepu_lab', u'maternalrequisition', 'Hematology (ARV)', 'TEST', 'WB'),
-                RequisitionPanelTuple(400L, u'mpepu_lab', u'maternalrequisition', 'Viral load (storage only)', 'STORAGE', 'WB'),
-                RequisitionPanelTuple(500L, u'mpepu_lab', u'maternalrequisition', 'CD4 (ARV)', 'TEST', 'WB'),
-                RequisitionPanelTuple(600L, u'mpepu_lab', u'maternalrequisition', 'Plasma and Buffy Coat Storage', 'STORAGE', 'WB'),
-                RequisitionPanelTuple(800L, u'mpepu_lab', u'maternalrequisition', 'Breast Milk (Storage)', 'TEST', 'WB'),
+                RequisitionPanelTuple(10L, u'mpepu_lab', u'maternalrequisition', 'PHS: Ultrasensetive Viral Load', 'TEST', 'WB', HIDE_FORM),
+                RequisitionPanelTuple(100L, u'mpepu_lab', u'maternalrequisition', 'Breast Milk (Storage)', 'STORAGE', 'BM', HIDE_FORM),
+                RequisitionPanelTuple(200L, u'mpepu_lab', u'maternalrequisition', 'PBMC Plasma (STORE ONLY)', 'STORAGE', 'WB', HIDE_FORM),
+                RequisitionPanelTuple(300L, u'mpepu_lab', u'maternalrequisition', 'Hematology (ARV)', 'TEST', 'WB', HIDE_FORM),
+                RequisitionPanelTuple(400L, u'mpepu_lab', u'maternalrequisition', 'Viral load (storage only)', 'STORAGE', 'WB', HIDE_FORM),
+                RequisitionPanelTuple(500L, u'mpepu_lab', u'maternalrequisition', 'CD4 (ARV)', 'TEST', 'WB', HIDE_FORM),
+                RequisitionPanelTuple(600L, u'mpepu_lab', u'maternalrequisition', 'Plasma and Buffy Coat Storage', 'STORAGE', 'WB', HIDE_FORM),
+                RequisitionPanelTuple(800L, u'mpepu_lab', u'maternalrequisition', 'Breast Milk (Storage)', 'TEST', 'WB', HIDE_FORM),
                 ),
             'entries': (
-                EntryTuple(10L, u'mpepu_maternal', u'maternalpostfu'),
-                EntryTuple(20L, u'mpepu_maternal', u'maternalpostfudx'),
-                EntryTuple(30L, u'mpepu_maternal', u'maternalarvpost'),
-                EntryTuple(40L, u'mpepu_maternal', u'maternalarvpostadh'),
-                EntryTuple(50L, u'mpepu_maternal', u'postnatalinfantfeedingsurvey'),
+                EntryTuple(10L, u'mpepu_maternal', u'maternalpostfu', SHOW_FORM),
+                EntryTuple(20L, u'mpepu_maternal', u'maternalpostfudx', SHOW_FORM),
+                EntryTuple(30L, u'mpepu_maternal', u'maternalarvpost', SHOW_FORM),
+                EntryTuple(40L, u'mpepu_maternal', u'maternalarvpostadh', SHOW_FORM),
+                EntryTuple(50L, u'mpepu_maternal', u'postnatalinfantfeedingsurvey', SHOW_FORM),
             )}
 site_visit_schedules.register(MpepuMaternalPostPartumVisitSchedule)
