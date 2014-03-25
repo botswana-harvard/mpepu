@@ -39,6 +39,7 @@ class MpepuResistanceStudyVisitSchedule(VisitScheduleConfiguration):
             'schedule_group': 'Resistance Study',
             'instructions': None,
             'requisitions': (
+          #'RequisitionPanelTuple', 'entry_order app_label model_name requisition_panel_name panel_type aliquot_type_alpha_code form_visible
                 RequisitionPanelTuple(10L, u'mpepu_lab', u'maternalrequisition', 'ARV Resistance Testing', 'TEST', 'WB', SHOW_FORM),
                              ),
             'entries': (

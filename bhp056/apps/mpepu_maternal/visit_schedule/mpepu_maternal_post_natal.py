@@ -44,7 +44,7 @@ class MpepuMaternalPostNatalVisitSchedule(VisitScheduleConfiguration):
                 RequisitionPanelTuple(200L, u'mpepu_lab', u'maternalrequisition', 'Viral load (storage only)', 'STORAGE', 'WB', SHOW_FORM),
                 RequisitionPanelTuple(300L, u'mpepu_lab', u'maternalrequisition', 'CD4 (ARV)', 'TEST', 'WB', SHOW_FORM),
                 RequisitionPanelTuple(400L, u'mpepu_lab', u'maternalrequisition', 'Plasma and Buffy Coat Storage', 'STORAGE', 'WB', SHOW_FORM),
-                RequisitionPanelTuple(500L, u'mpepu_lab', u'maternalrequisition', 'PHS: Ultrasensetive Viral Load', 'TEST', 'WB', SHOW_FORM),
+                RequisitionPanelTuple(500L, u'mpepu_lab', u'maternalrequisition', 'PHS Ultrasensitive Viral Load (>50)', 'TEST', 'WB', SHOW_FORM),
                 RequisitionPanelTuple(600L, u'mpepu_lab', u'maternalrequisition', 'Breast Milk (Storage)', 'STORAGE', 'BM', HIDE_FORM),
                 RequisitionPanelTuple(700L, u'mpepu_lab', u'maternalrequisition', 'PHS: Ultrasensetive Viral Load', 'TEST', 'WB', HIDE_FORM),
                 ),
