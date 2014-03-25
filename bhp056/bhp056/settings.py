@@ -208,7 +208,7 @@ INSTALLED_APPS = (
     'django_databrowse',
     'dajaxice',
     'dajax',
-#     'south',
+    'south',
 
     'edc.apps.admin_supplemental_fields',
     'edc.apps.app_configuration',

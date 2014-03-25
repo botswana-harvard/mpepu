@@ -9,9 +9,9 @@ from edc.subject.consent.tests.factories import ConsentCatalogueFactory
 from edc.subject.lab_tracker.classes import site_lab_tracker
 from edc.subject.registration.models import RegisteredSubject
 
-from apps.mpepu_maternal.tests.factories import ResistanceConsentFactory
+from apps.mpepu_maternal.tests.factories import ResistanceConsentFactory, MaternalConsentFactory
 
-from ..models import ResistanceConsent
+from ..models import ResistanceConsent, MaternalConsent
 
 
 class ResistanceConsentTests(TestCase):
@@ -37,13 +37,21 @@ class ResistanceConsentTests(TestCase):
             end_datetime=datetime(datetime.today().year + 5, 1, 1),
             add_for_app=self.app_label)
 
-        print 'consent first mother'
-        consent1 = ResistanceConsentFactory(first_name='MELISSA', gender='F', dob='1994-03-25', omang='111121111')
+        print 'confirming that a maternal consent exists'
+        consent = MaternalConsentFactory(first_name='MELISSA', gender='F', dob='1994-03-25', identity='111121111')
+        self.assertEqual(MaternalConsent.objects.all().count(), 1)
+        print consent.subject_identifier
+
+        print 'assert one maternal consent registers one registered_subject'
+        self.assertEqual(MaternalConsent.objects.all().count(), RegisteredSubject.objects.all().count())
+
+        print 'consent first resistance mother'
+        consent1 = ResistanceConsentFactory(first_name='MELISSA', gender='F', dob='1994-03-25', identity='111121111')
         self.assertEqual(ResistanceConsent.objects.all().count(), 1)
         print consent1.subject_identifier
 
-        print 'assert one consent registers one registered_subject'
-        self.assertEqual(ResistanceConsent.objects.all().count(), RegisteredSubject.objects.all().count())
+        print 'assert that the subject identifier of both consents remains the same'
+        self.assertEqual(consent.subject_identifier, consent1.subject_identifier)
 
         print 'assert that the subject identifier on consent1 == subject identifier in registered_subject'
         self.assertEqual(consent1.subject_identifier, RegisteredSubject.objects.get(subject_identifier=consent1.subject_identifier).subject_identifier)
