@@ -23,19 +23,19 @@ class InfantOffDrug(BaseInfantRegisteredSubjectModel):
         )
                                       
     last_dose_date = models.DateField(
-        verbose_name="1. Date of last dose of CTX or placebo (Today's date if stopping today):",
+        verbose_name="Date of last dose of CTX or placebo (Today's date if stopping today):",
         help_text="",
         validators=[
             date_not_future, ],
         )
     reason_off = models.CharField(
-        verbose_name="2. Reason for permanently discontinuing study drug (CTX or placebo): ",
+        verbose_name="Reason for permanently discontinuing study drug (CTX or placebo): ",
         max_length=25,
         choices=INFANT_OFF_DRUG_REASON,
         help_text="")
     reason_off_other = OtherCharField(
         max_length=35,
-        verbose_name="2a. if other specify...",
+        verbose_name="if other specify...",
         blank=True,
         null=True)
 
