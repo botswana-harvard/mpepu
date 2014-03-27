@@ -1,11 +1,5 @@
-from django.contrib import admin
 from datetime import datetime
-
-from django.core.exceptions import ValidationError
 from django.test import TestCase
-
-from ..models import ResistanceEligibility, ResistanceConsent, MaternalConsent
-from .factories import ResistanceEligibilityFactory
 
 from edc.core.bhp_content_type_map.classes import ContentTypeMapHelper
 from edc.core.bhp_content_type_map.models import ContentTypeMap
@@ -13,16 +7,18 @@ from edc.core.bhp_variables.tests.factories import StudySpecificFactory, StudySi
 from edc.subject.appointment.tests.factories import ConfigurationFactory
 from edc.subject.consent.tests.factories import ConsentCatalogueFactory
 from edc.subject.lab_tracker.classes import site_lab_tracker
+from edc.subject.registration.models import RegisteredSubject
 
 from apps.mpepu_maternal.tests.factories import ResistanceConsentFactory, MaternalConsentFactory
 
+from ..models import ResistanceConsent, MaternalConsent
 
-class ResistanceEligibilityTests(TestCase):
+
+class ResistanceConsentTests(TestCase):
 
     app_label = 'mpepu_maternal'
 
-    def test_maternal_eligibility(self):
-
+    def test_p1(self):
         site_lab_tracker.autodiscover()
         study_specific = StudySpecificFactory()
         StudySiteFactory()
@@ -41,18 +37,21 @@ class ResistanceEligibilityTests(TestCase):
             end_datetime=datetime(datetime.today().year + 5, 1, 1),
             add_for_app=self.app_label)
 
-        maternal_consent = MaternalConsentFactory(first_name='MELISSA', gender='F', dob='1994-03-25', identity='111121111')
+        print 'confirming that a maternal consent exists'
+        consent = MaternalConsentFactory(first_name='MELISSA', gender='F', dob='1994-03-25', identity='111121111')
         self.assertEqual(MaternalConsent.objects.all().count(), 1)
-        print maternal_consent.subject_identifier
-        resistance_consent = ResistanceConsentFactory(first_name='MELISSA', gender='F', dob='1994-03-25', identity='111121111')
+        print consent.subject_identifier
+
+        print 'assert one maternal consent registers one registered_subject'
+        self.assertEqual(MaternalConsent.objects.all().count(), RegisteredSubject.objects.all().count())
+
+        print 'consent first resistance mother'
+        consent1 = ResistanceConsentFactory(first_name='MELISSA', gender='F', dob='1994-03-25', identity='111121111')
         self.assertEqual(ResistanceConsent.objects.all().count(), 1)
-        print resistance_consent.subject_identifier
-        print 'resistance consent does exists'
+        print consent1.subject_identifier
 
-        print 'assert there is no eligibility'
-        self.assertEqual(ResistanceEligibility.objects.all().count(), 0)
+        print 'assert that the subject identifier of both consents remains the same'
+        self.assertEqual(consent.subject_identifier, consent1.subject_identifier)
 
-        print 'create eligibility for mother'
-        eligibility = ResistanceEligibilityFactory(co_enrolled='Yes', status_evidence='Yes', lates_cd4=250, who_illness='No')
-        self.assertEqual(ResistanceEligibility.objects.all().count(), 1)
-        print eligibility
+        print 'assert that the subject identifier on consent1 == subject identifier in registered_subject'
+        self.assertEqual(consent1.subject_identifier, RegisteredSubject.objects.get(subject_identifier=consent1.subject_identifier).subject_identifier)

@@ -51,30 +51,6 @@ if 'test' in sys.argv:
                 'PASSWORD': 'cc3721b',
                 'HOST': '',
                 'PORT': ''},
-#             'lab_api': {
-#                 'ENGINE': 'django.db.backends.sqlite3',
-#                 'NAME': 'lab',
-#                 'USER': 'root',
-#                 'PASSWORD': 'cc3721b',
-#                 'HOST': '',
-#                 'PORT': '',
-#             },
-#             'survey': {
-#                 'ENGINE': 'django.db.backends.sqlite3',
-#                 'NAME': 'survey',
-#                 'USER': 'root',
-#                 'PASSWORD': 'cc3721b',
-#                 'HOST': '',
-#                 'PORT': '',
-#             },
-#             'dispatch_destination': {
-#                 'ENGINE': 'django.db.backends.sqlite3',
-#                 'NAME': 'producer',
-#                 'USER': 'root',
-#                 'PASSWORD': 'cc3721b',
-#                 'HOST': '',
-#                 'PORT': '',
-#             },
         }
     else:
         DATABASES = {
@@ -84,17 +60,6 @@ if 'test' in sys.argv:
                     'init_command': 'SET storage_engine=INNODB',
                 },
                 'NAME': 'test_default',
-                'USER': 'root',
-                'PASSWORD': 'cc3721b',
-                'HOST': '',
-                'PORT': '',
-            },
-            'dispatch_destination': {
-                'ENGINE': 'django.db.backends.mysql',
-                'OPTIONS': {
-                    'init_command': 'SET storage_engine=INNODB',
-                },
-                'NAME': 'test_destination',
                 'USER': 'root',
                 'PASSWORD': 'cc3721b',
                 'HOST': '',
@@ -243,7 +208,7 @@ INSTALLED_APPS = (
     'django_databrowse',
     'dajaxice',
     'dajax',
-#     'south',
+    'south',
 
     'edc.apps.admin_supplemental_fields',
     'edc.apps.app_configuration',
@@ -274,12 +239,6 @@ INSTALLED_APPS = (
     'edc.core.bhp_using',
     'edc.core.bhp_export_data',
     'edc.core.bhp_birt_reports',
-
-#     'edc.device.inspector',
-#     'edc.device.dispatch',
-#     'edc.device.netbook',
-#     'edc.device.device',
-#     'edc.device.sync',
 
     'edc.dashboard.base',
     'edc.dashboard.search',
@@ -357,7 +316,6 @@ INSTALLED_APPS = (
     'apps.mpepu_dashboard',
     'apps.mpepu_stats',
     'apps.mpepu_reference',
-#     'apps.mpepu_arv_resistance',
     #'tastypie',
 )
 

@@ -17,10 +17,9 @@ class MpepuAppConfiguration(BaseAppConfiguration):
     def __init__(self):
         super(MpepuAppConfiguration, self).__init__()
 
-    appointment_configuration = {
-                'allowed_iso_weekdays': '12345',
-                'use_same_weekday': True,
-                'default_appt_type': 'default'}
+    global_configuration = {'dashboard': {'show_not_required_metadata': True, 'allow_additional_requisitions': False},
+                            'appointment': {'allowed_iso_weekdays': '1234567', 'use_same_weekday': True, 'default_appt_type': 'default'},
+                                 }
 
     study_variables_setup = {
                 'protocol_number': 'BHP056',

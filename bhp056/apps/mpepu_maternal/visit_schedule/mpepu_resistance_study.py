@@ -1,7 +1,7 @@
 from collections import OrderedDict
 
 from edc.subject.visit_schedule.classes import VisitScheduleConfiguration, site_visit_schedules, EntryTuple, MembershipFormTuple, ScheduleGroupTuple, RequisitionPanelTuple
-from edc.utils.constants import SHOW_FORM
+from edc.utils.constants import REQUIRED, NOT_ADDITIONAL
 
 from ..models import MaternalVisit, ResistanceConsent
 
@@ -39,11 +39,12 @@ class MpepuResistanceStudyVisitSchedule(VisitScheduleConfiguration):
             'schedule_group': 'Resistance Study',
             'instructions': None,
             'requisitions': (
-                RequisitionPanelTuple(10L, u'mpepu_lab', u'maternalrequisition', 'ARV Resistance Testing', 'TEST', 'WB', SHOW_FORM),
+          #'RequisitionPanelTuple', 'entry_order app_label model_name requisition_panel_name panel_type aliquot_type_alpha_code form_visible
+                RequisitionPanelTuple(10L, u'mpepu_lab', u'maternalrequisition', 'ARV Resistance Testing', 'TEST', 'WB', REQUIRED, NOT_ADDITIONAL),
                              ),
             'entries': (
                 #additional forms for the TAB study
-                EntryTuple(10L, u'mpepu_maternal', u'resistanceeligibility', SHOW_FORM),
-                EntryTuple(20L, u'mpepu_maternal', u'resistancedisc', SHOW_FORM),
+                EntryTuple(10L, u'mpepu_maternal', u'resistanceeligibility', REQUIRED, NOT_ADDITIONAL),
+                EntryTuple(20L, u'mpepu_maternal', u'resistancedisc', REQUIRED, NOT_ADDITIONAL),
             )}
 site_visit_schedules.register(MpepuResistanceStudyVisitSchedule)
