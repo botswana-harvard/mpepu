@@ -1,3 +1,5 @@
+from collections import OrderedDict
+
 from edc.core.bhp_common.utils import convert_from_camel
 from edc.dashboard.subject.classes import RegisteredSubjectDashboard
 from edc.subject.registration.models import RegisteredSubject
@@ -77,7 +79,7 @@ class MaternalDashboard(RegisteredSubjectDashboard):
 
     def get_infants(self):
         """Returns a list of infants identifiers asssociated with the maternal subject_identifier by querying the Birth model or RegisteredSubject."""
-        infants = {}
+        infants = OrderedDict
         for infant_registered_subject in RegisteredSubject.objects.filter(subject_type='infant', relative_identifier__iexact=self.get_subject_identifier()):
             #look for infant birth record
             if InfantBirth.objects.filter(registered_subject__exact=infant_registered_subject).exists():
