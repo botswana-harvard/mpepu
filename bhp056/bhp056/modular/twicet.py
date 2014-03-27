@@ -11,7 +11,7 @@ KEY_PATH = join(SETTINGS_DIR, '..', '..', 'keys')
 LOCALE_PATHS = ('locale',)
 
 DATABASES = {
-    'default': mysql_db(NAME='bhp056'),
+    'default': mysql_db(NAME='bhp056_new'),
     'lab_api': mysql_db(NAME='lab', HOST='192.168.1.50'),
 }
 
@@ -19,8 +19,15 @@ INSTALLED_APPS += ('debug_toolbar',)
 
 INTERNAL_IPS = ('127.0.0.1', )
 
-DEBUG_TOOLBAR_CONFIG = {'INTERCEPT_REDIRECTS': False, }
+DEBUG_TOOLBAR_CONFIG = {
+    'INTERCEPT_REDIRECTS': False,
+    'SHOW_TOOLBAR_CALLBACK': 'show_toolbar',
+}
 
 MIDDLEWARE_CLASSES += (
     'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
+
+
+def show_toolbar(request):
+    return True
