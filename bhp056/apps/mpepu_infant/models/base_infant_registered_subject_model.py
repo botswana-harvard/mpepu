@@ -1,4 +1,4 @@
-from django.db import models
+from django.db import models, IntegrityError
 
 from edc.subject.registration.models import BaseRegisteredSubjectModel
 

@@ -30,8 +30,8 @@ CONFIG_DIR = PROJECT_DIR.child('bhp056')
 # KEY_PATH = '/Users/melissa/Documents/git/bhp066/bhp066/keys'
 #KEY_PATH = '/Users/twicet/dev/bhp/projs/git/bhp056_project/bhp056/keys'
 # print KEY_PATH
-# KEY_PATH = '/Users/fchilisa/source/bhp056_project/bhp056/keys'
-KEY_PATH = '/Users/melissa/Documents/git/bhp056_mpepu/bhp056/keys'
+KEY_PATH = '/Users/fchilisa/source/bhp056_project/bhp056/keys'
+# KEY_PATH = '/Users/melissa/Documents/git/bhp056_mpepu/bhp056/keys'
 # KEY_PATH = '/Users/twicet/dev/bhp/projs/git/bhp056_project/bhp056/keys'
 
 
@@ -243,7 +243,7 @@ INSTALLED_APPS = (
     'django_databrowse',
     'dajaxice',
     'dajax',
-    'south',
+#     'south',
 
     'edc.apps.admin_supplemental_fields',
     'edc.apps.app_configuration',

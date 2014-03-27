@@ -1,4 +1,4 @@
-from natural_key_tests import NaturalKeyTests
-from maternal_registration_tests import MaternalRegistrationTests
-from maternal_off_study_tests import MaternalOffStudyTests
-from resistance_eligibility_tests import ResistanceEligibilityTests
+# from natural_key_tests import NaturalKeyTests
+from test_maternal_registration import MaternalRegistrationTests
+# from maternal_off_study_tests import MaternalOffStudyTests
+# from resistance_eligibility_tests import ResistanceEligibilityTests
