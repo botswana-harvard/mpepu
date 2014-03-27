@@ -25,7 +25,7 @@ class InfantDashboard(RegisteredSubjectDashboard):
         kwargs.update({'dashboard_models': {'infant_birth': InfantBirth}, 'membership_form_category': ['infant_rando_eligible', 'infant_pre_randomize', 'infant_birth_record']})
         self.extra_url_context = ""
         self._locator_model = None
-        self._requisition_model = None
+        self._requisition_model = InfantRequisition
         super(InfantDashboard, self).__init__(*args, **kwargs)
 
     def add_to_context(self):
@@ -103,9 +103,11 @@ class InfantDashboard(RegisteredSubjectDashboard):
                     # TODO: v2 get rando_bf_duration from eligibility checklist and show along with BF duration
                     if InfantEligibility.objects.filter(registered_subject__subject_identifier=self.get_subject_identifier()).exists():
                         rando_bf_duration = InfantEligibility.objects.get(registered_subject__subject_identifier=self.get_subject_identifier()).rando_bf_duration
-                        #v4 changed to enable users to know which infants have mothers who were unwilling to be randomized NWR.
+
+                        #v4 changed to enable users to know which infants have mothers who were unwilling to be randomized [Opt-out]
+
                         if rando_bf_duration == 'No':
-                            stratum['bf_duration'] = '{0} ({1})'.format(stratum['bf_duration'], 'NWR')
+                            stratum['bf_duration'] = '{0} ({1})'.format(stratum['bf_duration'], 'Opt-out')
             else:
                 stratum = {'feeding_choice': 'pending', 'bf_duration': '-'}
         return stratum

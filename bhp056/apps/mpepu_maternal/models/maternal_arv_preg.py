@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.urlresolvers import reverse
+from datetime import datetime
 
 from edc.audit.audit_trail import AuditTrail
 from edc.choices.common import YES_NO, YES_NO_UNKNOWN
@@ -20,14 +21,14 @@ class MaternalArvPreg (BaseScheduledVisitModel):
     took_arv = models.CharField(
         max_length=3,
         choices=YES_NO,
-        verbose_name="1. Did the mother receive any ARVs during this pregnancy?",
+        verbose_name="Did the mother receive any ARVs during this pregnancy?",
         help_text="(NOT including single -dose NVP in labour)",
         )
 
     sd_nvp = models.CharField(
         max_length=10,
         choices=YES_NO_UNKNOWN,
-        verbose_name="4. Was single-dose NVP received by the mother during labour(or false labour)? ",
+        verbose_name="Was single-dose NVP received by the mother during labour(or false labour)? ",
         help_text="",
         )
 
@@ -35,7 +36,7 @@ class MaternalArvPreg (BaseScheduledVisitModel):
     start_pp = models.CharField(
         max_length=3,
         choices=YES_NO,
-        verbose_name="6. Did the mother START any antiretroviral drugs during the immediate postpartum period (before discharge from maternity)?",
+        verbose_name="Did the mother START any antiretroviral drugs during the immediate postpartum period (before discharge from maternity)?",
         help_text="",
         )
 
@@ -102,7 +103,7 @@ class MaternalArvPPHistory(BaseScheduledVisitModel):
 
     comment = models.CharField(
         max_length=35,
-        verbose_name="8. Comments postpartum regimens: ",
+        verbose_name="Comments postpartum regimens: ",
         blank=True,
         null=True,
         )
@@ -143,16 +144,25 @@ class MaternalArv (MaternalOffStudyMixin, BaseHaartHistory):
     objects = MaternalArvManager()
 
     def natural_key(self):
-        return super(MaternalArv, self).natural_key() + self.maternal_arv_preg_history.natural_key()
+        if self.maternal_arv_pp_history:
+            return super(MaternalArv, self).natural_key() + self.maternal_arv_pp_history.natural_key()
+        elif self.maternal_arv_preg_history:
+            return super(MaternalArv, self).natural_key() + self.maternal_arv_preg_history.natural_key()
 
     def get_report_datetime(self):
-        return self.maternal_arv_pp_history.report_datetime
+        return datetime.today()
 
     def get_subject_identifier(self):
-        return self.maternal_arv_pp_history.get_subject_identifier()
+        if self.maternal_arv_pp_history:
+            return self.maternal_arv_pp_history.maternal_arv_preg.get_subject_identifier()
+        elif self.maternal_arv_preg_history:
+            return self.maternal_arv_preg_history.maternal_arv_preg.get_subject_identifier()
 
     def get_visit(self):
-        return self.maternal_arv_pp_history.maternal_visit
+        if self.maternal_arv_pp_history:
+            return self.maternal_arv_pp_history.maternal_arv_preg.maternal_visit
+        elif self.maternal_arv_preg_history:
+            return self.maternal_arv_preg_history.maternal_arv_preg.maternal_visit
 
     def __unicode__(self):
         return unicode(self.get_visit())

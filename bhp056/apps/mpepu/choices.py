@@ -599,6 +599,7 @@ FEEDING_DURATION = (
 
 CORRECT_BF_DURATION = (
     ('Less than 6 months ', 'Less than 6 months '),
+    ('6 months','6 months'),
     ('Between 6 and 12 months ', 'Between 6 and 12 months '),
     ('12 months ', '12 months '),
     ('Greater than 12 months ', 'Greater than 12 months '),
@@ -647,3 +648,24 @@ DECIDED_FEEDING_CHOICE = (
     ('At the labour and delivery ward prior to delivery ', 'At the labour and delivery ward prior to delivery '),
     ('At the maternity ward after delivery ', 'At the maternity ward after delivery '),
 )
+
+#FOR THE TAB STUDY
+ARV_REGIMEN = [
+    ('ftc', '1TDF/FTC/EFV'),
+    ('3tc', 'TDF+3TC+EFV'),
+]
+
+DRUG_TAKE = [
+    ('very_poor', 'Very Poor'),
+    ('poor', 'Poor'),
+    ('fair', 'Fair'),
+    ('good', 'Good'),
+    ('very_good', 'Very_Good'),
+    ('excellent', 'Excellent'),
+]
+
+INFO_SOURCE = [
+    ('self', 'Self report'),
+    ('idcc', 'IDCC record'),
+    ('OTHER', 'Other, specify'),
+]

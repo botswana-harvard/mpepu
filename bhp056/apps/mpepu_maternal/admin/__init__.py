@@ -12,3 +12,4 @@ from maternal_post_fu_admin import *
 from my_base_registration_model_admin import MyBaseRegistrationModelAdmin
 from maternal_off_study_admin import MaternalOffStudyAdmin
 from post_natal_infant_feeding_survey_admin import PostNatalInfantFeedingSurveyAdmin
+from maternal_arv_resistance_admin import ResistanceConsentAdmin, ResistanceDiscAdmin, ResistanceEligibilityAdmin

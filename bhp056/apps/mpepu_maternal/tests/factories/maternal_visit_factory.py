@@ -1,6 +1,6 @@
 import factory
 from edc.subject.visit_tracking.tests.factories import BaseVisitTrackingFactory
-from ..models import MaternalVisit
+from apps.mpepu_maternal.models import MaternalVisit
 
 
 class MaternalVisitFactory(BaseVisitTrackingFactory):

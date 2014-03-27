@@ -41,6 +41,8 @@ class MaternalVisitForm (BaseConsentedModelForm):
             raise forms.ValidationError("Reason for visit is NOT 'missed' but you provided a reason missed. Please correct.")
         if cleaned_data['info_source'] == 'OTHER' and not cleaned_data['info_source_other']:
             raise forms.ValidationError("Source of information is 'OTHER', please provide details below your choice")
+        if cleaned_data.get('vital status') and not cleaned_data.get('survival_status') and not cleaned_data.get('date_last_alive'):
+            raise forms.ValidationError("Visit reason is 'Vital Status', please enter Survival Status and Date Last Alive.")
 
         cleaned_data = super(MaternalVisitForm, self).clean()
 

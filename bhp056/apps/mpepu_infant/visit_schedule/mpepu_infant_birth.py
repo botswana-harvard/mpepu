@@ -1,6 +1,7 @@
 from collections import OrderedDict
 
-from edc.subject.visit_schedule.classes import VisitScheduleConfiguration, site_visit_schedules, EntryTuple, MembershipFormTuple, ScheduleGroupTuple, RequisitionTuple
+from edc.subject.visit_schedule.classes import VisitScheduleConfiguration, site_visit_schedules, EntryTuple, MembershipFormTuple, ScheduleGroupTuple, RequisitionPanelTuple
+from edc.utils.constants import REQUIRED, NOT_REQUIRED, ADDITIONAL, NOT_ADDITIONAL
 
 from ..models import InfantVisit, InfantBirth
 
@@ -40,14 +41,21 @@ class MpepuInfantBirthVisitSchedule(VisitScheduleConfiguration):
             'schedule_group': 'Infant Birth',
             'instructions': None,
             'requisitions': (
-                # (entry_order, app_label, model_name, panel.name, panel.edc_name, panel.panel_type, aliquot_type)
-                RequisitionTuple(100L, u'mpepu_lab', u'infantrequisition', 'DNA PCR', 'Infant PCR', 'TEST', 'WB'),
+                # (entry_order, app_label, model_name, requisition_panel_name, panel_type, aliquot_type_alpha_code, form_visible)
+                RequisitionPanelTuple(100L, u'mpepu_lab', u'infantrequisition', 'DNA PCR', 'TEST', 'WB', REQUIRED, NOT_ADDITIONAL),
+                RequisitionPanelTuple(200L, u'mpepu_lab', u'infantrequisition', 'Plasma and Buffy Coat Storage', 'STORAGE', 'WB', NOT_REQUIRED, ADDITIONAL),
+                RequisitionPanelTuple(300L, u'mpepu_lab', u'infantrequisition', 'Hematology (ARV)', 'TEST', 'WB', NOT_REQUIRED, ADDITIONAL),
+                RequisitionPanelTuple(400L, u'mpepu_lab', u'infantrequisition', 'ELISA', 'TEST', 'WB', NOT_REQUIRED, ADDITIONAL),
+                RequisitionPanelTuple(500L, u'mpepu_lab', u'infantrequisition', 'Bana 01 Chemistry', 'TEST', 'WB', NOT_REQUIRED, ADDITIONAL),
+                RequisitionPanelTuple(600L, u'mpepu_lab', u'infantrequisition', 'Hepatitis B only', 'TEST', 'WB', NOT_REQUIRED, ADDITIONAL),
+                RequisitionPanelTuple(700L, u'mpepu_lab', u'infantrequisition', 'HIV Western Blot', 'TEST', 'WB', NOT_REQUIRED, ADDITIONAL),
+                RequisitionPanelTuple(800L, u'mpepu_lab', u'infantrequisition', 'PBMC Plasma (STORE ONLY)', 'STORAGE', 'WB', NOT_REQUIRED, ADDITIONAL),
                 ),
             'entries': (
-                EntryTuple(10L, u'mpepu_infant', u'infantbirthdata'),
-                EntryTuple(20L, u'mpepu_infant', u'infantbirthexam'),
-                EntryTuple(30L, u'mpepu_infant', u'infantbirtharv'),
-                EntryTuple(40L, u'mpepu_infant', u'infantbirthfeed'),
+                EntryTuple(10L, u'mpepu_infant', u'infantbirthdata', REQUIRED, NOT_ADDITIONAL),
+                EntryTuple(20L, u'mpepu_infant', u'infantbirthexam', REQUIRED, NOT_ADDITIONAL),
+                EntryTuple(30L, u'mpepu_infant', u'infantbirtharv', REQUIRED, NOT_ADDITIONAL),
+                EntryTuple(40L, u'mpepu_infant', u'infantbirthfeed', REQUIRED, NOT_ADDITIONAL),
             )}
         }
     )

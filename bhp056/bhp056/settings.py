@@ -24,10 +24,16 @@ TEMPLATE_DIRS = (
     )
 STATICFILES_DIRS = ()
 CONFIG_DIR = PROJECT_DIR.child('bhp056')
+
+
+#Key Path
+# KEY_PATH = '/Users/melissa/Documents/git/bhp066/bhp066/keys'
+#KEY_PATH = '/Users/twicet/dev/bhp/projs/git/bhp056_project/bhp056/keys'
 # print KEY_PATH
 # KEY_PATH = '/Users/fchilisa/source/bhp056_project/bhp056/keys'
-# KEY_PATH = '/Users/melissa/Documents/git/bhp066/bhp066/keys'
-KEY_PATH = '/Users/twicet/dev/bhp/projs/git/bhp056_project/bhp056/keys'
+KEY_PATH = '/Users/melissa/Documents/git/bhp056_mpepu/bhp056/keys'
+# KEY_PATH = '/Users/twicet/dev/bhp/projs/git/bhp056_project/bhp056/keys'
+
 
 MAP_DIR = STATIC_ROOT.child('img')
 
@@ -45,30 +51,6 @@ if 'test' in sys.argv:
                 'PASSWORD': 'cc3721b',
                 'HOST': '',
                 'PORT': ''},
-            'lab_api': {
-                'ENGINE': 'django.db.backends.sqlite3',
-                'NAME': 'lab',
-                'USER': 'root',
-                'PASSWORD': 'cc3721b',
-                'HOST': '',
-                'PORT': '',
-            },
-#             'survey': {
-#                 'ENGINE': 'django.db.backends.sqlite3',
-#                 'NAME': 'survey',
-#                 'USER': 'root',
-#                 'PASSWORD': 'cc3721b',
-#                 'HOST': '',
-#                 'PORT': '',
-#             },
-            'dispatch_destination': {
-                'ENGINE': 'django.db.backends.sqlite3',
-                'NAME': 'producer',
-                'USER': 'root',
-                'PASSWORD': 'cc3721b',
-                'HOST': '',
-                'PORT': '',
-            },
         }
     else:
         DATABASES = {
@@ -83,17 +65,6 @@ if 'test' in sys.argv:
                 'HOST': '',
                 'PORT': '',
             },
-            'dispatch_destination': {
-                'ENGINE': 'django.db.backends.mysql',
-                'OPTIONS': {
-                    'init_command': 'SET storage_engine=INNODB',
-                },
-                'NAME': 'test_destination',
-                'USER': 'root',
-                'PASSWORD': 'cc3721b',
-                'HOST': '',
-                'PORT': '',
-            },
         }
 else:
     DATABASES = {
@@ -102,7 +73,7 @@ else:
             'OPTIONS': {
                 'init_command': 'SET storage_engine=INNODB',
             },
-            'NAME': 'bhp056',
+            'NAME': 'bhp056_mpepu',
             'USER': 'root',
             'PASSWORD': 'cc3721b',
             'HOST': '',
@@ -269,12 +240,6 @@ INSTALLED_APPS = (
     'edc.core.bhp_export_data',
     'edc.core.bhp_birt_reports',
 
-#     'edc.device.inspector',
-#     'edc.device.dispatch',
-#     'edc.device.netbook',
-#     'edc.device.device',
-#     'edc.device.sync',
-
     'edc.dashboard.base',
     'edc.dashboard.search',
     'edc.dashboard.subject',
@@ -315,7 +280,6 @@ INSTALLED_APPS = (
     'edc.lab.lab_requisition',
     'edc.lab.lab_packing',
 
-    'lis.core.lab_barcode',
     'lis.core.lab_common',
     'lis.core.lab_flag',
     'lis.core.lab_grading',
@@ -341,6 +305,8 @@ INSTALLED_APPS = (
     'lis.exim.lab_import_lis',
     'lis.exim.lab_import_dmis',
 
+    'lis.labeling',
+
     'apps.mpepu',
     'apps.mpepu_lab',
     'apps.mpepu_list',
@@ -350,7 +316,6 @@ INSTALLED_APPS = (
     'apps.mpepu_dashboard',
     'apps.mpepu_stats',
     'apps.mpepu_reference',
-    'apps.mpepu_arv_resistance',
     #'tastypie',
 )
 

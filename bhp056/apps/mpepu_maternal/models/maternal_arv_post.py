@@ -20,11 +20,11 @@ class MaternalArvPost (BaseScheduledVisitModel):
     haart_last_visit = models.CharField(
         max_length=25,
         choices=YES_NO,
-        verbose_name="1. Was the mother supposed to be on HAART any time since the last attended scheduled visit?",
+        verbose_name="Was the mother supposed to be on HAART any time since the last attended scheduled visit?",
         help_text="If 'NO' End. Otherwise continue go to section one",
         )
     haart_reason = models.CharField(
-        verbose_name="2. Reason for HAART ",
+        verbose_name="Reason for HAART ",
         max_length=25,
         choices=REASON_FOR_HAART,
         default='N/A',
@@ -32,12 +32,12 @@ class MaternalArvPost (BaseScheduledVisitModel):
         )
     haart_reason_other = models.TextField(
         max_length=35,
-        verbose_name="2a. if other, specify",
+        verbose_name="if other, specify",
         blank=True,
         null=True,
         )
     arv_status = models.CharField(
-        verbose_name="3.What is the status of the participant's antiretroviral treatment / prophylaxis at this visit or since the last visit? ",
+        verbose_name="What is the status of the participant's antiretroviral treatment / prophylaxis at this visit or since the last visit? ",
         max_length=25,
         choices=ARV_STATUS_WITH_NEVER,
         help_text="",
@@ -76,10 +76,10 @@ class MaternalArvPostMod(MaternalOffStudyMixin, BaseHaartModification):
         return "%s" % (self.maternal_arv_post)
 
     def get_report_datetime(self):
-        return self.maternal_arv_post.get_report_datetime()
+        return self.get_visit().get_report_datetime()
 
     def get_subject_identifier(self):
-        return self.maternal_arv_post.get_subject_identifier()
+        return self.get_visit().get_subject_identifier()
 
     def get_absolute_url(self):
         return reverse('admin:mpepu_maternal_maternalarvpostmod_change', args=(self.id,))
@@ -102,22 +102,22 @@ class MaternalArvPostAdh(BaseScheduledVisitModel):
     maternal_arv_post = models.OneToOneField(MaternalArvPost)
 
     missed_doses = models.IntegerField(
-        verbose_name="4. Since the last attended last scheduled visit, how many doses of HAART were missed? ",
+        verbose_name="Since the last attended last scheduled visit, how many doses of HAART were missed? ",
         help_text="",
         )
     missed_days = models.IntegerField(
-        verbose_name="5. Since the last attended scheduled visit, how many entire days was HAART not taken?  ",
+        verbose_name="Since the last attended scheduled visit, how many entire days was HAART not taken?  ",
         help_text="",
         default='0',
         )
     missed_days_discnt = models.IntegerField(
-        verbose_name="6. If HAART discontinued by health provider, how many days was HAART missed prior to HAART discontinuation?  ",
+        verbose_name="If HAART discontinued by health provider, how many days was HAART missed prior to HAART discontinuation?  ",
         help_text="",
         default='0',
         )
     comment = models.TextField(
         max_length=250,
-        verbose_name="7. Comment",
+        verbose_name="Comment",
         blank=True,
         null=True,
         )

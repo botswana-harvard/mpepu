@@ -1,5 +1,9 @@
 from django import forms
+
 from apps.mpepu_infant.models import InfantBirth, InfantBirthExam, InfantBirthArv, InfantBirthFeed, InfantBirthData
+
+from edc.subject.registration.models import RegisteredSubject
+
 from ..models import MaternalLabDel
 from .base_infant_model_form import BaseInfantModelForm
 
@@ -16,6 +20,11 @@ class InfantBirthForm (BaseInfantModelForm):
                 raise forms.ValidationError('Infant dob must match maternal delivery date of %s. You wrote %s' % (maternal_lab_del.delivery_datetime.date(), cleaned_data.get('dob', None),))
         else:
             raise forms.ValidationError('Cannot find maternal labour and delivery form for this infant! This is not expected.')
+        # if multiple birth, cannot have the same birth order
+        births = InfantBirth.objects.filter(maternal_lab_del= cleaned_data.get('maternal_lab_del'))
+        for birth in births:
+            if birth.birth_order == cleaned_data.get('birth_order'):
+                raise forms.ValidationError('Birth order cannot be %s. Already indicated that %s was born %s. Please correct.' % (cleaned_data.get('birth_order'),birth.registered_subject.subject_identifier,cleaned_data.get('birth_order'),))
         return cleaned_data
 
     class Meta:
@@ -63,7 +72,31 @@ class InfantBirthExamForm (BaseInfantModelForm):
         if cleaned_data.get('physical_exam_result') == 'ABNORMAL':
             if (cleaned_data.get('heent_exam')!='Yes' and cleaned_data.get('resp_exam')!='Yes' and cleaned_data.get('cardiac_exam')!='Yes' and cleaned_data.get('abdominal_exam')!='Yes' 
                 and cleaned_data.get('skin_exam')!='Yes' and cleaned_data.get('macular_papular_rash')!='Yes' and cleaned_data.get('neurologic_exam')!='Yes'):
-                raise forms.ValidationError('You indicated that participant had abnormal findings for the physical exam. Please indicate at least.')  
+                raise forms.ValidationError('You indicated that participant had abnormal findings for the physical exam. Please indicate at least one.')  
+            
+        #HEENT exam abnormal, specify abnormality
+        if cleaned_data.get('heent_exam', None) == 'Yes' and not cleaned_data.get('heent_no_other'):
+            raise forms.ValidationError('You indicated HEENT exam was abnormal. Please specify.')
+        
+        #Respiratory exam  abnormal, specify abnormality
+        if cleaned_data.get('resp_exam', None) == 'Yes' and not cleaned_data.get('resp_exam_other'):
+            raise forms.ValidationError('You indicated Respiratory exam was abnormal. Please specify.')
+        
+        #Cardiac exam  abnormal, specify abnormality
+        if cleaned_data.get('cardiac_exam', None) == 'Yes' and not cleaned_data.get('cardiac_exam_other'):
+            raise forms.ValidationError('You indicated Cardiac exam was abnormal. Please specify.')
+        
+        #Abdominal exam  abnormal, specify abnormality
+        if cleaned_data.get('abdominal_exam', None) == 'Yes' and not cleaned_data.get('abdominal_exam_other'):
+            raise forms.ValidationError('You indicated Abdominal exam was abnormal. Please specify.')
+        
+        #Skin exam  abnormal, specify abnormality
+        if cleaned_data.get('skin_exam', None) == 'Yes' and not cleaned_data.get('skin_exam_other'):
+            raise forms.ValidationError('You indicated Skin exam was abnormal. Please specify.')
+        
+        #Neurological exam  abnormal, specify abnormality
+        if cleaned_data.get('neurologic_exam', None) == 'Yes' and not cleaned_data.get('neuro_exam_other'):
+            raise forms.ValidationError('You indicated neurological exam was abnormal. Please specify.')
         
         #validate gender with Infant Birth        
         if birth.gender !='U' or cleaned_data.get('gender')!='U':

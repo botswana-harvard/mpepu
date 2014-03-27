@@ -1,10 +1,12 @@
 from django.core.urlresolvers import reverse
+from django.db import models
 
 from edc.audit.audit_trail import AuditTrail
 from edc.subject.visit_tracking.models import BaseVisitTracking
+from edc.subject.visit_tracking.settings import VISIT_REASON_NO_FOLLOW_UP_CHOICES
 
 from .maternal_off_study_mixin import MaternalOffStudyMixin
-from ..choices import VISIT_REASON
+from ..choices import VISIT_REASON, ALIVE_DEAD_UNKNOWN
 
 
 class MaternalVisit(MaternalOffStudyMixin, BaseVisitTracking):
@@ -12,6 +14,20 @@ class MaternalVisit(MaternalOffStudyMixin, BaseVisitTracking):
     """ Maternal visit form that links all follow-up forms """
 
     history = AuditTrail()
+    
+    survival_status = models.CharField(
+        max_length=10,
+        verbose_name="Survival status",
+        choices=ALIVE_DEAD_UNKNOWN,
+        null=True,
+        blank=False)
+
+    date_last_alive = models.DateField(
+        verbose_name="Date last known alive",
+        help_text="",
+        null=True,
+        blank=True
+        )
 
     @property
     def registered_subject(self):
@@ -22,6 +38,19 @@ class MaternalVisit(MaternalOffStudyMixin, BaseVisitTracking):
 
     def get_visit_reason_choices(self):
         return VISIT_REASON
+    
+    def get_visit_reason_no_follow_up_choices(self):
+        """Returns the visit reasons that do not imply any data collection; that is, the subject is not available."""
+        dct = {}
+        for item in VISIT_REASON_NO_FOLLOW_UP_CHOICES:
+            dct.update({item: item})
+        dct.update({'vital status': 'vital status'})
+        return dct
+    
+    def save(self, *args, **kwargs):
+        if self.reason == 'vital status':
+            self.appointment.appt_type = 'telephone'
+        super(MaternalVisit, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
         return reverse('admin:mpepu_maternal_maternalvisit_change', args=(self.id,))

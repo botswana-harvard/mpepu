@@ -18,9 +18,9 @@ class MaternalDashboard(RegisteredSubjectDashboard):
         self._registered_subject = None
         self._dashboard_type_list = ['maternal']
         self.extra_url_context = ""
-        kwargs.update({'dashboard_models': {'maternal_consent': MaternalConsent}, 'membership_form_category': ['maternal_eligible_antenat', 'maternal_eligible_postnat', 'maternal_postnatal_reg']})
+        kwargs.update({'dashboard_models': {'maternal_consent': MaternalConsent}, 'membership_form_category': ['maternal_eligible_antenatal', 'maternal_eligible_postnatal', 'maternal_postnatal_reg', 'maternal_resistance']})
         self._locator_model = None
-        self._requisition_model = None
+        self._requisition_model = MaternalRequisition
         super(MaternalDashboard, self).__init__(*args, **kwargs)
 
     def add_to_context(self):

@@ -1,6 +1,6 @@
 import factory
 from edc.subject.off_study.tests.factories import BaseOffStudyFactory
-from ..models import MaternalOffStudy
+from apps.mpepu_maternal.models import MaternalOffStudy
 
 
 class MaternalOffStudyFactory(BaseOffStudyFactory):

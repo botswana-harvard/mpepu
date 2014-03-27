@@ -234,3 +234,43 @@ ALIVE_DEAD_UNKNOWN = (
     ('DEAD', 'Deceased'),
     ('UNKNOWN', 'Unknown'),
     )
+
+STOOL_TEXTURE_DESC = (
+    ('formed_with_blood', 'Formed without blood'),
+    ('formed_without_blood', 'Formed with blood'),
+    ('loose_without_blood', 'Loose but not watery and without blood'),
+    ('loose_with_blood', 'Loose but not watery and with blood'),
+    ('watery_without_blood', 'Watery without blood'),
+    ('watery_with_blood', 'Watery with blood'),
+    )
+
+ILLNESS_CLASSIFICATION = (
+    ('N/A', 'Not applicable'),
+    ('respi_illness', 'Respiratory Illness'),
+    ('gastro_illness', 'Gastrointestinal illness (examples including vomiting, diarrhea or both)'),
+    ('OTHER', 'Other'),
+    )
+
+STOOLS_PAST_24HOURS = (
+    ('1', '1'),
+    ('2', '2'),
+    ('3', '3'),
+    ('4', '4'),
+    ('5', '5'),
+    ('6', '6'),
+    ('7', '7'),
+    ('>7', '>7'),
+    ('UNKNOWN', 'Unknown')
+    )
+
+CONTINUOUS_LOOSE_STOOLS = (
+    ('1day', '1 day'),
+    ('2days', '2 days'),
+    ('3days', '3 days'),
+    ('4days', '4 days'),
+    ('5days', '5 days'),
+    ('6days', '6 days'),
+    ('7days', '7 days'),
+    ('>7days', 'Greater than 7 days but not more than 13 days'),
+    ('>14days', '14 days or greater')
+    )

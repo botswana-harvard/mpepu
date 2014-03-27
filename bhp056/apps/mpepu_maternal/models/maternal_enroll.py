@@ -24,12 +24,12 @@ class MaternalEnroll(BaseScheduledVisitModel):
     recruit_source = models.CharField(
         max_length=75,
         choices=RECRUIT_SOURCE,
-        verbose_name="1. The mother first learned about the Mpepu study from ",
+        verbose_name="The mother first learned about the Mpepu study from ",
         help_text="",
         )
     recruit_source_other = OtherCharField(
         max_length=35,
-        verbose_name="1a. if other specify...",
+        verbose_name="if other specify...",
         blank=True,
         null=True,
         )
@@ -49,39 +49,39 @@ class MaternalEnroll(BaseScheduledVisitModel):
         )
 
     prev_pregnancies = models.IntegerField(
-        verbose_name="2. Not including this pregnancy, how many previous pregnancies for this participant?",
+        verbose_name="Not including this pregnancy, how many previous pregnancies for this participant?",
         help_text="",
         )
 
     prior_health_haart = models.CharField(
         max_length=25,
         choices=YES_NO,
-        verbose_name="3. Before this pregnancy, was the mother on HAART for her own health",
+        verbose_name="Before this pregnancy, was the mother on HAART for her own health",
         help_text="For her own health and not just PMTCT for an earlier pregnancy or breastfeeding.",
         )
 
     prev_pregnancy_arv = models.CharField(
         max_length=25,
         choices=YES_NO_NA,
-        verbose_name="4. Was the mother on any ARVs during previous pregnancies (or immediately following delivery) for PMTCT purposes (and not for her own health)? ",
+        verbose_name="Was the mother on any ARVs during previous pregnancies (or immediately following delivery) for PMTCT purposes (and not for her own health)? ",
         help_text="not including this pregnancy",
         )
     weight = models.DecimalField(
         max_digits=5,
         decimal_places=2,
-        verbose_name="5. Mother's weight? ",
+        verbose_name="Mother's weight? ",
         help_text="Measured in Kilograms (kg)",
         )
     height = models.DecimalField(
         max_digits=5,
         decimal_places=2,
-        verbose_name="6. Mother's height? ",
+        verbose_name="Mother's height? ",
         help_text="Measured in Centimeters (cm)",
         )   
     bp = models.CharField(
         max_length=7,
         verbose_name="Mother's blood pressure?",
-        help_text="E.G. 120/80",
+        help_text="in mm/hg E.G. 120/80 ",
         )
 
     history = AuditTrail()

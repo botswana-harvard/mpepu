@@ -14,27 +14,32 @@ class MaternalPostFu(BaseScheduledVisitModel):
     mother_weight = models.CharField(
         max_length=3,
         choices=YES_NO,
-        verbose_name="1. Was the mother's weight measured at this visit?",
-        help_text="(If Yes,complete 2a.If No,go to question 3)",
+        verbose_name="Was the mother's weight measured at this visit?",
+        help_text="(If Yes,complete 3.If No,go to question 4)",
         )
     enter_weight = models.DecimalField(
         max_digits=4,
         decimal_places=1,
-        verbose_name="1a.Enter mother's weight  ",
+        verbose_name="Enter mother's weight  ",
         help_text="kg",
         blank=True,
         null=True,
         )
+    bp = models.CharField(
+        max_length=7,
+        verbose_name="Mother's blood pressure?",
+        help_text="in mm/hg E.G. 120/80 ",
+        )
     breastfeeding = models.CharField(
         max_length=3,
         choices=YES_NO,
-        verbose_name="2. Has the mother breastfed since the last attended visit? ",
-        help_text="(If no,skip to question 4)",
+        verbose_name="Has the mother breastfed since the last attended visit? ",
+        help_text="(If no,skip to question 7)",
         )
     had_mastitis = models.CharField(
         max_length=3,
         choices=YES_NO,
-        verbose_name="2a. If yes,since the last attended scheduled visit,has the mother had mastitis at any time? ",
+        verbose_name="If yes,since the last attended scheduled visit,has the mother had mastitis at any time? ",
         help_text="",
         blank=True,
         null=True,
@@ -43,7 +48,7 @@ class MaternalPostFu(BaseScheduledVisitModel):
     has_chronic_cond = models.CharField(
         max_length=3,
         choices=YES_NO,
-        verbose_name="4.Since the last attended scheduled visit, has the mother had any of the following chronic health conditions, which were NEW diagnoses (never previously reported)?",
+        verbose_name="Since the last attended scheduled visit, has the mother had any of the following chronic health conditions, which were NEW diagnoses (never previously reported)?",
         help_text="",
         )
 
@@ -56,13 +61,13 @@ class MaternalPostFu(BaseScheduledVisitModel):
     started_ctx = models.CharField(
         max_length=3,
         choices=YES_NO,
-        verbose_name="7.Since the last attended scheduled visit, has the mother started CTX? ",
+        verbose_name="Since the last attended scheduled visit, has the mother started CTX? ",
         help_text="",
         )
 
     comment = models.CharField(
         max_length=350,
-        verbose_name="8.Comment if any additional pertinent information: ",
+        verbose_name="Comment if any additional pertinent information: ",
         blank=True,
         null=True,
         )

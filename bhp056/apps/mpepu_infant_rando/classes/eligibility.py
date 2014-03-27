@@ -21,7 +21,7 @@ class Eligibility(object):
                     raise exception_cls('Randomization failed for version 1. Infant must be aged between 28 and 34 days inclusive. Got %s days.' % td.days)
             else:
                 allow_rando = True
-        elif current_consent_version == 2:
+        elif current_consent_version >= 2:
             if (date.today() - dob).days < 0:
                 if not suppress_exception:
                     raise exception_cls('Randomization failed. dob is in the future or system time is wrong!. Got {0}'.format(date.today() - dob).days)
@@ -34,7 +34,7 @@ class Eligibility(object):
                 if not suppress_exception:
                     raise exception_cls('Randomization failed. Infant must be 34 days of life or younger to verify eligibility. Got {0}'.format(abs((date.today() - dob).days)))
             else:
-                if ga >= 36:
+                if not ga or ga >= 36:
                     msg.append('maternal GA must be >= 36 weeks')
                     if td.days >= 13 and td.days < 27:
                         msg.append('infant aged between 14 and 28 days')
@@ -48,7 +48,7 @@ class Eligibility(object):
                     else:
                         if not suppress_exception:
                             raise exception_cls('Randomization failed. Infant must be aged between 28 and 34 days. Got {0} days. Correct or complete Pre-eligibility form.'.format(td.days))
-                elif ga < 36:
+                elif not ga or ga < 36:
                     msg.append('maternal GA must be < 36 weeks')
                     if td.days >= 27 and td.days <= 33 and clinical_jaundice == 'No' and anemia_neutropenia == 'No':
                         allow_rando = True

@@ -22,6 +22,7 @@ class MaternalVisitAdmin(BaseAppointmentModelAdmin):
         "info_source",
         'created',
         'user_created',
+        
     )
 
     list_filter = (
@@ -45,7 +46,9 @@ class MaternalVisitAdmin(BaseAppointmentModelAdmin):
         "info_source_other",
         "reason",
         "reason_missed",
-        "comments"
+        'survival_status',
+        'date_last_alive',
+        "comments",
         )
 
 admin.site.register(MaternalVisit, MaternalVisitAdmin)
