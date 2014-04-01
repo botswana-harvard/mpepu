@@ -149,3 +149,9 @@ class InfantDashboard(RegisteredSubjectDashboard):
             if date.today() - self.get_infant_birth().dob <= timedelta(days=60):
                 days_alive = (date.today() - self.get_infant_birth().dob + timedelta(days=1)).days
         return days_alive
+    
+    def subject_hiv_status(self):
+        super(InfantDashboard, self).subject_hiv_status
+        if not self._subject_hiv_status:
+            self._subject_hiv_status = 'UNK'
+        return self._subject_hiv_status
