@@ -48,7 +48,7 @@ urlpatterns += patterns('',
 )
 
 urlpatterns += patterns('',
-                        url(r'^mpepu/dashboard/visit/add_requisition/', additional_requisition, name="add_requisition"),
+                        url(r'^{app_name}/dashboard/visit/add_requisition/'.format(app_name=APP_NAME), additional_requisition, name="add_requisition"),
                         )
 
 urlpatterns += patterns('',

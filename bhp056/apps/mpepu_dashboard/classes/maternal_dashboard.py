@@ -105,14 +105,14 @@ class MaternalDashboard(RegisteredSubjectDashboard):
             delivery_datetime = None
         return delivery_datetime
 
-    def filter_not_required_requisitions(self, scheduled_requisitions):
-        not_required_requisitions = []
-        for requisition in scheduled_requisitions:
-            lab_entry = requisition['lab_entry']
-            status = requisition['status']
-            required = status != 'NOT_REQUIRED'
-            if lab_entry.not_required and not lab_entry.additional:
-                continue
-            if not required:
-                not_required_requisitions.append(requisition)
-        return not_required_requisitions
+#     def filter_not_required_requisitions(self, scheduled_requisitions):
+#         not_required_requisitions = []
+#         for requisition in scheduled_requisitions:
+#             lab_entry = requisition['lab_entry']
+#             status = requisition['status']
+#             required = status != 'NOT_REQUIRED'
+#             if lab_entry.not_required and not lab_entry.additional:
+#                 continue
+#             if not required:
+#                 not_required_requisitions.append(requisition)
+#         return not_required_requisitions
