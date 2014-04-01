@@ -5,7 +5,7 @@ from edc.dashboard.subject.classes import RegisteredSubjectDashboard
 from edc.subject.registration.models import RegisteredSubject
 
 from apps.mpepu_infant.models import InfantBirth
-from apps.mpepu_maternal.models import MaternalConsent, MaternalVisit, MaternalLabDel, MaternalLocator
+from apps.mpepu_maternal.models import MaternalConsent, MaternalVisit, MaternalLabDel, MaternalLocator, MaternalEligibilityAnte, MaternalEligibilityPost
 from apps.mpepu_lab.models import MaternalRequisition, PackingList
 
 
@@ -104,3 +104,18 @@ class MaternalDashboard(RegisteredSubjectDashboard):
         else:
             delivery_datetime = None
         return delivery_datetime
+    
+    def subject_hiv_status(self):
+        super(MaternalDashboard, self).subject_hiv_status
+        eligible_ante = MaternalEligibilityAnte.objects.filter(registered_subject=self.registered_subject)
+        eligible_post = MaternalEligibilityPost.objects.filter(registered_subject=self.registered_subject)
+        if eligible_ante:
+            if eligible_ante[0].is_hiv_positive == 'Yes':
+                self._subject_hiv_status = 'POS'
+        elif eligible_post:
+            if eligible_post[0].is_hiv_positive == 'Yes':
+                self._subject_hiv_status = 'POS'
+        elif not self._subject_hiv_status:
+            self._subject_hiv_status = 'UNK'
+        return self._subject_hiv_status
+            
