@@ -37,7 +37,7 @@ class InfantFuPhysical(BaseScheduledVisitModel):
         max_length=25,
         choices=YES_NO,
         verbose_name="Abnormal findings ",
-        help_text="If 'YES', answer Question 1d, otherwise go to Question 2",
+        help_text="If 'YES', continue, otherwise go to Question 8",
         )
     abnormalities = OtherCharField(
         max_length=100,

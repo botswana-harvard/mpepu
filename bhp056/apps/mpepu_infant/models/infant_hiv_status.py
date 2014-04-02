@@ -12,41 +12,41 @@ class InfantHivStatus(BaseScheduledVisitModel):
     """New form - Infant HIV status - added to 2180 infant visit ONLY """
 
     recent_hiv_result = models.CharField(
-        verbose_name="1. Most recent HIV test result",
+        verbose_name="Most recent HIV test result",
         choices=POS_NEG,
         max_length=15,
-        help_text="if positive answer Q2, 2a, 2b",
+        help_text="if positive answer 7-9",
         )
     recent_hiv_date = models.DateField(
-        verbose_name="1a. Date of most recent HIV test result",
+        verbose_name="Date of most recent HIV test result",
         )
     recent_hiv_date_est = models.CharField(
-        verbose_name="1a)i. Is date of most recent HIV test result ESTIMATED?",
+        verbose_name="Is date of most recent HIV test result ESTIMATED?",
         choices=YES_NO,
         max_length=3,
         )
     test_place = models.TextField(
-        verbose_name="1b. Place where HIV test was done:",
+        verbose_name="Place where HIV test was done:",
         max_length=35,
         )
     result_record = models.CharField(
-        verbose_name="1c. Is result written in participants medical record?",
+        verbose_name="Is result written in participants medical record?",
         choices=YES_NO,
         max_length=3,
         )
     date_first_pos = models.DateField(
-        verbose_name="2. Date of first positive test",
-        help_text="Can only be answered if answer to Q1 is positive",
+        verbose_name="Date of first positive test",
+        help_text="Can only be answered if answer to Q2 is positive",
         null=True,
         blank=True,
         )
     infant_haart = models.CharField(
-        verbose_name="2a. Is infant on HAART?",
+        verbose_name="Is infant on HAART?",
         choices=YES_NO,
         max_length=3,
         )
     infant_haart_date = models.DateField(
-        verbose_name="2b. Date infant started HAART?",
+        verbose_name="Date infant started HAART?",
         null=True,
         blank=True,
         )

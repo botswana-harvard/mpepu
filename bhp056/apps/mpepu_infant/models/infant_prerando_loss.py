@@ -17,22 +17,22 @@ class InfantPrerandoLoss(BaseInfantRegisteredSubjectModel):
 
     reason_loss = models.TextField(
         max_length=250,
-        verbose_name="1. Describe the reason that the infant who consented did not undergo randomization",
+        verbose_name="Describe the reason that the infant who consented did not undergo randomization",
         )
     loss_code = models.CharField(
-        verbose_name="2. Please code the primary reason for pre- randomization loss to follow up:",
+        verbose_name="Please code the primary reason for pre- randomization loss to follow up:",
         max_length=25,
         choices=INFANT_PRE_RANDO_LOSS_REASON,
         help_text="See Study Protocol for definition of 'Loss to follow up'. If \'refused\', explain in comments below",
         )
     reason_loss_other = OtherCharField(
-        verbose_name="2a. if other specify...",
+        verbose_name="if other specify...",
         blank=True,
         null=True,
         )
     comment = models.TextField(
         max_length=250,
-        verbose_name="3. Comments (Please provide any additional information pertinent to the response given in  question 2)",
+        verbose_name="Comments (Please provide any additional information pertinent to the response given in  question 3)",
         blank=True,
         null=True,
         )
