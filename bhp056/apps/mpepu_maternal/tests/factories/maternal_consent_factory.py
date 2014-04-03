@@ -12,3 +12,4 @@ class MaternalConsentFactory(BaseConsentFactory):
 
     identity = factory.Sequence(lambda n: 'identity{0}'.format(n))
     gender = 'F'
+    subject_type = 'maternal'
