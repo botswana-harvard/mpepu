@@ -4,8 +4,10 @@ from django.core.urlresolvers import reverse
 
 from edc.audit.audit_trail import AuditTrail
 from edc.subject.adverse_event.models import BaseDeathReport
+from edc.entry_meta_data.managers import EntryMetaDataManager
 
 from .maternal_off_study_mixin import MaternalOffStudyMixin
+from .maternal_visit import MaternalVisit
 
 
 class MaternalDeath (MaternalOffStudyMixin, BaseDeathReport):
@@ -13,6 +15,8 @@ class MaternalDeath (MaternalOffStudyMixin, BaseDeathReport):
     #registered_subject = models.OneToOneField(RegisteredSubject)
 
     history = AuditTrail()
+
+    entry_meta_data_manager = EntryMetaDataManager(MaternalVisit)
 
     def get_absolute_url(self):
         return reverse('admin:mpepu_maternal_maternaldeath_change', args=(self.id,))

@@ -9,6 +9,7 @@ from edc.subject.adverse_event.models import BaseDeathReport
 from apps.mpepu.choices import DRUG_RELATIONSHIP
 
 from .infant_off_study_mixin import InfantOffStudyMixin
+from .infant_visit import InfantVisit
 
 
 class InfantDeath (InfantOffStudyMixin, BaseDeathReport):
@@ -41,6 +42,8 @@ class InfantDeath (InfantOffStudyMixin, BaseDeathReport):
         )
 
     history = AuditTrail()
+
+    entry_meta_data_manager = EntryMetaDataManager(InfantVisit)
 
     def get_consenting_subject_identifier(self):
         """Returns mother's identifier."""

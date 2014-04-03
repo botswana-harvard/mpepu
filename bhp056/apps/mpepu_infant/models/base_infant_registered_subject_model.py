@@ -1,6 +1,7 @@
 from django.db import models, IntegrityError
 
 from edc.subject.registration.models import BaseRegisteredSubjectModel
+from edc.entry_meta_data.managers import EntryMetaDataManager
 
 from .infant_off_study_mixin import InfantOffStudyMixin
 from .infant_visit import InfantVisit
@@ -20,6 +21,8 @@ class BaseInfantRegisteredSubjectModel(InfantOffStudyMixin, BaseRegisteredSubjec
 
     def get_report_datetime(self):
         return self.get_registration_datetime()
+
+    entry_meta_data_manager = EntryMetaDataManager(InfantVisit)
 
     class Meta:
         abstract = True

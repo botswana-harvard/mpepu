@@ -21,7 +21,7 @@ class InfantOffDrug(BaseInfantRegisteredSubjectModel):
             ],
         default=datetime.today()
         )
-                                      
+
     last_dose_date = models.DateField(
         verbose_name="Date of last dose of CTX or placebo (Today's date if stopping today):",
         help_text="",

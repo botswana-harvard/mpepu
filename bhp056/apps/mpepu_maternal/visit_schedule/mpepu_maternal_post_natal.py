@@ -50,7 +50,8 @@ class MpepuMaternalPostNatalVisitSchedule(VisitScheduleConfiguration):
                 ),
             'entries': (
                 #EntryTuple = namedtuple('EntryTuple', 'order app_label model_name form_status')
-                EntryTuple(1L, u'mpepu_maternal', u'maternalpostfu', NOT_REQUIRED, NOT_ADDITIONAL),
+                EntryTuple(1L, u'mpepu_maternal', u'maternaldeath', NOT_REQUIRED, ADDITIONAL),
+                EntryTuple(2L, u'mpepu_maternal', u'maternaloffstudy', NOT_REQUIRED, ADDITIONAL),
                 EntryTuple(10L, u'mpepu_maternal', u'maternalenroll', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(20L, u'mpepu_maternal', u'maternalenrolldem', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(30L, u'mpepu_maternal', u'maternalenrollmed', REQUIRED, NOT_ADDITIONAL),
