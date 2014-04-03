@@ -29,7 +29,7 @@ class InfantArvProph(BaseScheduledVisitModel):
 
     def __unicode__(self):
         return "%s" % (self.infant_visit)
-    
+
     def report_datetime(self):
         return datetime.today()
 

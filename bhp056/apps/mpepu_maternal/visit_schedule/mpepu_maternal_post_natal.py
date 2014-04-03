@@ -25,7 +25,7 @@ class MpepuMaternalPostNatalVisitSchedule(VisitScheduleConfiguration):
     # visit_schedule
     # see edc.subject.visit_schedule.models.visit_defintion
     visit_definitions = OrderedDict()
-    
+
     visit_definitions['2000M'] = {
             'title': 'Maternal Post Natal Registration',
             'time_point': 0,
@@ -97,6 +97,8 @@ class MpepuMaternalPostNatalVisitSchedule(VisitScheduleConfiguration):
                 RequisitionPanelTuple(900L, u'mpepu_lab', u'maternalrequisition', 'PHS: Ultrasensetive Viral Load', 'TEST', 'WB', NOT_REQUIRED, ADDITIONAL),
                 ),
             'entries': (
+                EntryTuple(1L, u'mpepu_maternal', u'maternaldeath', NOT_REQUIRED, ADDITIONAL),
+                EntryTuple(2L, u'mpepu_maternal', u'maternaloffstudy', NOT_REQUIRED, ADDITIONAL),
                 EntryTuple(10L, u'mpepu_maternal', u'maternalpostfu', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(20L, u'mpepu_maternal', u'maternalpostfudx', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(30L, u'mpepu_maternal', u'maternalarvpost', REQUIRED, NOT_ADDITIONAL),
@@ -127,6 +129,8 @@ class MpepuMaternalPostNatalVisitSchedule(VisitScheduleConfiguration):
                 RequisitionPanelTuple(800L, u'mpepu_lab', u'maternalrequisition', 'Breast Milk (Storage)', 'TEST', 'WB', NOT_REQUIRED, ADDITIONAL),
                 ),
             'entries': (
+                EntryTuple(1L, u'mpepu_maternal', u'maternaldeath', NOT_REQUIRED, ADDITIONAL),
+                EntryTuple(2L, u'mpepu_maternal', u'maternaloffstudy', NOT_REQUIRED, ADDITIONAL),
                 EntryTuple(10L, u'mpepu_maternal', u'maternalpostfu', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(20L, u'mpepu_maternal', u'maternalpostfudx', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(30L, u'mpepu_maternal', u'maternalarvpost', REQUIRED, NOT_ADDITIONAL),
@@ -157,6 +161,8 @@ class MpepuMaternalPostNatalVisitSchedule(VisitScheduleConfiguration):
                 RequisitionPanelTuple(800L, u'mpepu_lab', u'maternalrequisition', 'Breast Milk (Storage)', 'TEST', 'WB', NOT_REQUIRED, ADDITIONAL),
                 ),
             'entries': (
+                EntryTuple(1L, u'mpepu_maternal', u'maternaldeath', NOT_REQUIRED, ADDITIONAL),
+                EntryTuple(2L, u'mpepu_maternal', u'maternaloffstudy', NOT_REQUIRED, ADDITIONAL),
                 EntryTuple(10L, u'mpepu_maternal', u'maternalpostfu', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(20L, u'mpepu_maternal', u'maternalpostfudx', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(30L, u'mpepu_maternal', u'maternalarvpost', REQUIRED, NOT_ADDITIONAL),
@@ -187,6 +193,8 @@ class MpepuMaternalPostNatalVisitSchedule(VisitScheduleConfiguration):
                 RequisitionPanelTuple(800L, u'mpepu_lab', u'maternalrequisition', 'Breast Milk (Storage)', 'TEST', 'WB', NOT_REQUIRED, ADDITIONAL),
                 ),
             'entries': (
+                EntryTuple(1L, u'mpepu_maternal', u'maternaldeath', NOT_REQUIRED, ADDITIONAL),
+                EntryTuple(2L, u'mpepu_maternal', u'maternaloffstudy', NOT_REQUIRED, ADDITIONAL),
                 EntryTuple(10L, u'mpepu_maternal', u'maternalpostfu', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(20L, u'mpepu_maternal', u'maternalpostfudx', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(30L, u'mpepu_maternal', u'maternalarvpost', REQUIRED, NOT_ADDITIONAL),
@@ -217,6 +225,8 @@ class MpepuMaternalPostNatalVisitSchedule(VisitScheduleConfiguration):
                 RequisitionPanelTuple(800L, u'mpepu_lab', u'maternalrequisition', 'Breast Milk (Storage)', 'TEST', 'WB', NOT_REQUIRED, ADDITIONAL),
                 ),
             'entries': (
+                EntryTuple(1L, u'mpepu_maternal', u'maternaldeath', NOT_REQUIRED, ADDITIONAL),
+                EntryTuple(2L, u'mpepu_maternal', u'maternaloffstudy', NOT_REQUIRED, ADDITIONAL),
                 EntryTuple(10L, u'mpepu_maternal', u'maternalpostfu', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(20L, u'mpepu_maternal', u'maternalpostfudx', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(30L, u'mpepu_maternal', u'maternalarvpost', REQUIRED, NOT_ADDITIONAL),
@@ -247,6 +257,8 @@ class MpepuMaternalPostNatalVisitSchedule(VisitScheduleConfiguration):
                 RequisitionPanelTuple(800L, u'mpepu_lab', u'maternalrequisition', 'Breast Milk (Storage)', 'TEST', 'WB', NOT_REQUIRED, ADDITIONAL),
                 ),
             'entries': (
+                EntryTuple(1L, u'mpepu_maternal', u'maternaldeath', NOT_REQUIRED, ADDITIONAL),
+                EntryTuple(2L, u'mpepu_maternal', u'maternaloffstudy', NOT_REQUIRED, ADDITIONAL),
                 EntryTuple(10L, u'mpepu_maternal', u'maternalpostfu', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(20L, u'mpepu_maternal', u'maternalpostfudx', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(30L, u'mpepu_maternal', u'maternalarvpost', REQUIRED, NOT_ADDITIONAL),
@@ -277,6 +289,8 @@ class MpepuMaternalPostNatalVisitSchedule(VisitScheduleConfiguration):
                 RequisitionPanelTuple(800L, u'mpepu_lab', u'maternalrequisition', 'Breast Milk (Storage)', 'TEST', 'WB', NOT_REQUIRED, ADDITIONAL),
                 ),
             'entries': (
+                EntryTuple(1L, u'mpepu_maternal', u'maternaldeath', NOT_REQUIRED, ADDITIONAL),
+                EntryTuple(2L, u'mpepu_maternal', u'maternaloffstudy', NOT_REQUIRED, ADDITIONAL),
                 EntryTuple(10L, u'mpepu_maternal', u'maternalpostfu', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(20L, u'mpepu_maternal', u'maternalpostfudx', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(30L, u'mpepu_maternal', u'maternalarvpost', REQUIRED, NOT_ADDITIONAL),
@@ -307,6 +321,8 @@ class MpepuMaternalPostNatalVisitSchedule(VisitScheduleConfiguration):
                 RequisitionPanelTuple(800L, u'mpepu_lab', u'maternalrequisition', 'Breast Milk (Storage)', 'TEST', 'WB', NOT_REQUIRED, ADDITIONAL),
                 ),
             'entries': (
+                EntryTuple(1L, u'mpepu_maternal', u'maternaldeath', NOT_REQUIRED, ADDITIONAL),
+                EntryTuple(2L, u'mpepu_maternal', u'maternaloffstudy', NOT_REQUIRED, ADDITIONAL),
                 EntryTuple(10L, u'mpepu_maternal', u'maternalpostfu', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(20L, u'mpepu_maternal', u'maternalpostfudx', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(30L, u'mpepu_maternal', u'maternalarvpost', REQUIRED, NOT_ADDITIONAL),

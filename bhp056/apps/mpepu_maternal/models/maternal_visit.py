@@ -14,7 +14,7 @@ class MaternalVisit(MaternalOffStudyMixin, BaseVisitTracking):
     """ Maternal visit form that links all follow-up forms """
 
     history = AuditTrail()
-    
+
     survival_status = models.CharField(
         max_length=10,
         verbose_name="Survival status",
@@ -38,7 +38,7 @@ class MaternalVisit(MaternalOffStudyMixin, BaseVisitTracking):
 
     def get_visit_reason_choices(self):
         return VISIT_REASON
-    
+
     def get_visit_reason_no_follow_up_choices(self):
         """Returns the visit reasons that do not imply any data collection; that is, the subject is not available."""
         dct = {}
@@ -46,11 +46,11 @@ class MaternalVisit(MaternalOffStudyMixin, BaseVisitTracking):
             dct.update({item: item})
         dct.update({'vital status': 'vital status'})
         return dct
-    
+
     def save(self, *args, **kwargs):
         if self.reason == 'vital status':
             self.appointment.appt_type = 'telephone'
-        
+
         super(MaternalVisit, self).save(*args, **kwargs)
 
     def get_absolute_url(self):

@@ -5,6 +5,7 @@ from django.core.urlresolvers import reverse
 
 from edc.audit.audit_trail import AuditTrail
 from edc.subject.adverse_event.models import BaseDeathReport
+from edc.entry_meta_data.managers import EntryMetaDataManager
 
 from apps.mpepu.choices import DRUG_RELATIONSHIP
 
