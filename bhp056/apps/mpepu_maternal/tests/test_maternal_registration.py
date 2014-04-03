@@ -3,6 +3,7 @@ from django.test import TestCase
 from django.db import transaction
 from django.contrib.contenttypes.models import ContentType
 
+
 from edc.lab.lab_profile.exceptions import AlreadyRegistered
 from edc.lab.lab_profile.classes import site_lab_profiles
 from edc.subject.lab_tracker.classes import site_lab_tracker
@@ -13,52 +14,36 @@ from edc.core.bhp_variables.tests.factories import StudySiteFactory
 from edc.core.bhp_content_type_map.models import ContentTypeMap
 from edc.subject.consent.tests.factories import ConsentCatalogueFactory
 from edc.core.bhp_content_type_map.classes import ContentTypeMapHelper
-from edc.subject.appointment.tests.factories import ConfigurationFactory
 from edc.subject.visit_schedule.classes import site_visit_schedules
+from edc.subject.registration.tests.factories import RegisteredSubjectFactory
+from edc.subject.appointment.models import Appointment
+
 
 from apps.mpepu.mpepu_app_configuration.classes import MpepuAppConfiguration
 from apps.mpepu_lab.lab_profiles import MpepuMaternalProfile
 from apps.mpepu_maternal.models import MaternalConsent, MaternalVisit, MaternalEligibilityPost
-from apps.mpepu_maternal.visit_schedule import MpepuMaternalPostNatalVisitSchedule
+from apps.mpepu_maternal.visit_schedule import MpepuMaternalPostNatalVisitSchedule, MpepuMaternalAnteNatalVisitSchedule, MpepuMaternalPostPartumVisitSchedule
+from apps.mpepu_maternal.forms import MaternalEligibilityPostForm, MaternalEligibilityAnteForm
 
-from .factories import MaternalConsentFactory, MaternalEligibilityPostFactory
+from .factories import( MaternalConsentFactory, MaternalEligibilityPostFactory, MaternalEligibilityAnteFactory, MaternalPostRegFactory,
+                        MaternalVisitFactory, MaternalLabDelFactory)
 
 
 class MaternalRegistrationTests(TestCase):
-
-    app_label = 'mpepu_maternal'
-    subject_consent = MaternalConsent
-    consent_catalogue_name = 'mpepu V1'
-    visit_model = MaternalVisit
     
     def setUp(self):
         try:
             site_lab_profiles.register(MpepuMaternalProfile())
-            ConfigurationFactory()
-            content_type_map_helper = ContentTypeMapHelper()
-            content_type_map_helper.populate()
-
-            content_type_map_helper.sync()
-            content_type_map = ContentTypeMap.objects.all()
-            print content_type_map
-            MpepuAppConfiguration()
         except AlreadyRegistered:
-            print "failed"
+            pass
+        MpepuAppConfiguration()
         site_lab_tracker.autodiscover()
-        site_visit_schedules.autodiscover()
-        
-        try:
-            with transaction.atomic():
-                site_visit_schedules.build_all()
-                MpepuMaternalPostNatalVisitSchedule().build()
-        except Exception:
-            print "failed 2"
 
     def test_maternal_consent(self):
         print '******************************matern consent tests****************************************'
         MaternalConsent.objects.all().delete()
-        maternal_consent = MaternalConsentFactory(first_name='Carmen')
-        print "Maternal Consent: "+str(maternal_consent)
+        maternal_consent = MaternalConsentFactory()
+        print "Maternal Consent: {}".format(maternal_consent)
         print "Maternal Consent subject identifier: {}".format(maternal_consent.subject_identifier)
         print 'confirm maternal subject identifier in bhp_identifier.models.SubjectIdentifier'
         self.assertIsNotNone(SubjectIdentifier.objects.filter(identifier=maternal_consent.subject_identifier))
@@ -128,28 +113,62 @@ class MaternalRegistrationTests(TestCase):
             MaternalConsentFactory(consent_copy='No')
             print "Failed to throw exception"
         except:
+
             print "Exception thrown as excepted." 
             
-            
+             
     def test_post_partum_enroll(self):
         print "********************PostPartumEligibility*****************************"
+        MpepuMaternalPostNatalVisitSchedule().build()
         MaternalConsent.objects.all().delete()
-        maternal_consent = MaternalConsentFactory(first_name='Carmen')
-        m = MaternalEligibilityPostFactory(maternal_consent=maternal_consent)
+        print "consent a mother"
+        consent = MaternalConsentFactory()
+        print consent.registered_subject
+        print "check if mother is eligible"
+        post_elibility = MaternalEligibilityPostFactory(maternal_consent=consent, registered_subject=consent.registered_subject)
+        print "assert that 2000M appointment was created"
+        appointment = Appointment.objects.get(registered_subject=consent.registered_subject, visit_definition__code='2000M')
+        self.assertEqual(appointment.visit_definition.code, '2000M')
+        all_appointments = Appointment.objects.all()
+        print "assert that 8 appointments were created, i.e. 2000M, 2010M,2020M,2030M,2060M,2090M,2120M,2150M and 2180ME"
+        self.assertEqual(all_appointments.count(),9)
+        print "set up a maternal visit for this mother"
+        visit = MaternalVisitFactory(appointment=appointment)
+        print"create a maternallabdel: registering 1 of 1 infants"
+        maternal_lab_del = MaternalLabDelFactory(maternal_visit=visit, live_infants=1, live_infants_to_register=1)
+        print maternal_lab_del
+        print 'confirm infant subject identifier in bhp_identifier.models.SubjectIdentifier and follows derived format {0}'.format('{0}-10'.format(consent.subject_identifier))
+        self.assertIsNotNone(SubjectIdentifier.objects.filter(identifier='{0}-10'.format(consent.subject_identifier)))
+
+
+    def test_ante_natal_enroll(self): 
+        print "********************AntePartumEligibility*****************************"
+        MpepuMaternalAnteNatalVisitSchedule().build()
+        MaternalConsent.objects.all().delete()
+        print "consent a mother"
+        consent = MaternalConsentFactory()
+        print "check if mother is eligible "
+        ante_eligibility = MaternalEligibilityAnteFactory(maternal_consent=consent, registered_subject=consent.registered_subject)
+        print "assert that 1000M appointment was created"
+        appointment = Appointment.objects.get(registered_subject=consent.registered_subject, visit_definition__code='1000M')
+        self.assertEqual(appointment.visit_definition.code, '1000M')
+        all_appointments = Appointment.objects.all()
+        print "assert that only one appointment was created, i.e. 1000M"
+        self.assertEqual(all_appointments.count(),1)
+        print "set up a maternal visit for this mother"
+        visit = MaternalVisitFactory(appointment=appointment)
+        print"create a maternallabdel: registering 1 of 1 infants"
+        maternal_lab_del = MaternalLabDelFactory(maternal_visit=visit, live_infants=1, live_infants_to_register=1)
+        print maternal_lab_del
+        print 'confirm infant subject identifier in bhp_identifier.models.SubjectIdentifier and follows derived format {0}'.format('{0}-10'.format(consent.subject_identifier))
+        self.assertIsNotNone(SubjectIdentifier.objects.filter(identifier='{0}-10'.format(consent.subject_identifier)))      
+
+#         MpepuMaternalPostPartumVisitSchedule().build()
+#         print "Post partum registration"
+#         MaternalPostRegFactory(registered_subject=consent.registered_subject)
         
-#         content_type = ContentType.objects.all()
-#         ConfigurationFactory()
-#         content_type_map_helper = ContentTypeMapHelper()
-#         try:
-#             with transaction.atomic():
-#                 content_type_map_helper.populate()
-#         except:
-#             pass
-#         content_type_map_helper.sync()
-#         content_type_map = ContentTypeMap.objects.all()
-#         print content_type_map
-#         print content_type
-#         consent_catalogue = ConsentCatalogueFactory(add_for_app = 'mpepu_maternal')
+        
+
 
 #     def test_p1(self):
 #         site_lab_tracker.autodiscover()

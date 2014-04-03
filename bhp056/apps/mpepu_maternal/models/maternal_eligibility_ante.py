@@ -12,7 +12,7 @@ class MaternalEligibilityAnte(BaseMaternalEligibility):
     """Model for Maternal Eligiblity Ante-Natal"""
 
     gestational_age = models.IntegerField(
-        verbose_name="3. Gestational age",
+        verbose_name="Gestational age",
         help_text="if <26 weeks,ineligible",
         validators=[
             MaxValueValidator(43),

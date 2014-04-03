@@ -151,19 +151,19 @@ class InfantFeedingForm (BaseInfantModelForm):
         # Other feeding validaions
         if cleaned_data.get('other_feeding') == 'No':
             if cleaned_data.get('juice') == 'Yes':
-                raise forms.ValidationError("You indicated that infant has not received other foods or liquids other than breast milk(Q2) and yet selected infant received juice. Please correct")
+                raise forms.ValidationError("You indicated that infant has not received other foods or liquids other than breast milk(Q3) and yet selected infant received juice. Please correct")
             if cleaned_data.get('cow_milk') == 'Yes':
-                raise forms.ValidationError("You indicated that infant has not received other foods or liquids other than breast milk(Q2) and yet selected infant received cows milk. Please correct")
+                raise forms.ValidationError("You indicated that infant has not received other foods or liquids other than breast milk(Q3) and yet selected infant received cows milk. Please correct")
             if cleaned_data.get('other_milk') == 'Yes':
-                raise forms.ValidationError("You indicated that infant has not received other foods or liquids other than breast milk(Q2) and yet selected infant received other animal milk. Please correct")
+                raise forms.ValidationError("You indicated that infant has not received other foods or liquids other than breast milk(Q3) and yet selected infant received other animal milk. Please correct")
             if cleaned_data.get('fruits_veg') == 'Yes':
-                raise forms.ValidationError("You indicated that infant has not received other foods or liquids other than breast milk(Q2) and yet selected infant received fruits and veggies. Please correct")
+                raise forms.ValidationError("You indicated that infant has not received other foods or liquids other than breast milk(Q3) and yet selected infant received fruits and veggies. Please correct")
             if cleaned_data.get('cereal_porridge') =='Yes':
-                raise forms.ValidationError("You indicated that infant has not received other foods or liquids other than breast milk(Q2) and yet selected infant received cereal and porridge. Please correct")
+                raise forms.ValidationError("You indicated that infant has not received other foods or liquids other than breast milk(Q3) and yet selected infant received cereal and porridge. Please correct")
             if cleaned_data.get('solid_liquid') == 'Yes':
-                raise forms.ValidationError("You indicated that infant has not received other foods or liquids other than breast milk(Q2) and yet selected infant received cereal and porridge. Please correct")
+                raise forms.ValidationError("You indicated that infant has not received other foods or liquids other than breast milk(Q3) and yet selected infant received cereal and porridge. Please correct")
             if cleaned_data.get('rehydration_salts') == 'Yes':
-                raise forms.ValidationError("You indicated that infant has not received other foods or liquids other than breast milk(Q2) and yet selected infant received rehydration salts. Please correct")
+                raise forms.ValidationError("You indicated that infant has not received other foods or liquids other than breast milk(Q3) and yet selected infant received rehydration salts. Please correct")
         
         return cleaned_data
 

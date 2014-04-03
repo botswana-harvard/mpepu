@@ -55,15 +55,15 @@ class MaternalArvPostAdhForm (BaseMaternalModelForm):
 
 class MaternalArvPregForm (BaseMaternalModelForm):
     def clean(self):
-#         cleaned_data = self.cleaned_data
-#         if cleaned_data['took_arv'].lower() == 'no':
-#             if MaternalArvPPHistory.objects.filter(maternal_visit=cleaned_data.get('maternal_visit')):
-#                 raise forms.ValidationError("ARV history exists. You wrote mother did NOT receive ARVs in this pregnancy. "
-#                                             "Please correct '%s' first." % MaternalArvPregHistory._meta.verbose_name)
-#         if cleaned_data.get('start_pp').lower() == 'no':
-#             if MaternalArvPPHistory.objects.filter(maternal_visit=cleaned_data.get('maternal_visit')):
-#                 raise forms.ValidationError("ARV history exists. You wrote mother did NOT start ARVs "
-#                                             "post partum. Please correct '%s' first." % MaternalArvPPHistory._meta.verbose_name)
+        cleaned_data = self.cleaned_data
+        if cleaned_data['took_arv'].lower() == 'no':
+            if MaternalArvPPHistory.objects.filter(maternal_visit=cleaned_data.get('maternal_visit')):
+                raise forms.ValidationError("ARV history exists. You wrote mother did NOT receive ARVs in this pregnancy. "
+                                            "Please correct '%s' first." % MaternalArvPregHistory._meta.verbose_name)
+        if cleaned_data.get('start_pp').lower() == 'no':
+            if MaternalArvPPHistory.objects.filter(maternal_visit=cleaned_data.get('maternal_visit')):
+                raise forms.ValidationError("ARV history exists. You wrote mother did NOT start ARVs "
+                                            "post partum. Please correct '%s' first." % MaternalArvPPHistory._meta.verbose_name)
         return super(MaternalArvPregForm, self).clean()
 
     class Meta:

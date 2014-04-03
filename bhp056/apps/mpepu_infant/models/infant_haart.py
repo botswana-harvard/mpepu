@@ -15,17 +15,17 @@ class InfantHaart (BaseInfantRegisteredSubjectModel):
     """ mp016 """
 
     hiv_positive_date = models.DateField(
-        verbose_name="1. Date infant tested HIV-positive",
+        verbose_name="Date infant tested HIV-positive",
         help_text="",
         )
     haart_initiated = models.CharField(
         max_length=25,
         choices=YES_NO,
-        verbose_name="2. Has patient been initiated on HAART? ",
-        help_text="If no, go to question 5,and indicate the reason HAART has not yet been initiated,otherwise answer question 3",
+        verbose_name="Has patient been initiated on HAART? ",
+        help_text="If no, fill out comment,and indicate the reason HAART has not yet been initiated,otherwise answer question 4",
         )
     haart_date = models.DateField(
-        verbose_name="3. Date of HAART initiation ",
+        verbose_name="Date of HAART initiation ",
         help_text="",
         blank=True,
         null=True,
@@ -33,12 +33,12 @@ class InfantHaart (BaseInfantRegisteredSubjectModel):
     arv_status = models.CharField(
         max_length=15,
         choices=ARV_STATUS,
-        verbose_name="4. What is the status of the participant's antiretroviral treatment / prophylaxis at this visit or since the last visit?",
+        verbose_name="What is the status of the participant's antiretroviral treatment / prophylaxis at this visit or since the last visit?",
         help_text="",
         )
     comment = models.CharField(
         max_length=35,
-        verbose_name="5. Comments",
+        verbose_name="Comments",
         blank=True,
         null=True,
         )

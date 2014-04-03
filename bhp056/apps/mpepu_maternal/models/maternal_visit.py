@@ -50,6 +50,7 @@ class MaternalVisit(MaternalOffStudyMixin, BaseVisitTracking):
     def save(self, *args, **kwargs):
         if self.reason == 'vital status':
             self.appointment.appt_type = 'telephone'
+        
         super(MaternalVisit, self).save(*args, **kwargs)
 
     def get_absolute_url(self):

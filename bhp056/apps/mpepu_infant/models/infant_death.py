@@ -15,28 +15,28 @@ from .infant_visit import InfantVisit
 class InfantDeath (InfantOffStudyMixin, BaseDeathReport):
 
     death_reason_hospitalized_other = models.TextField(
-        verbose_name="6a.i. if other illness or pathogen specify or non infectious reason, please specify below:",
+        verbose_name="if other illness or pathogen specify or non infectious reason, please specify below:",
         max_length=250,
         blank=True,
         null=True,
         )
     study_drug_relate = models.CharField(
-        verbose_name="7a. Relationship between the participant death and study drug (CTX vs Placebo)",
+        verbose_name="Relationship between the participant death and study drug (CTX vs Placebo)",
         max_length=25,
         choices=DRUG_RELATIONSHIP,
         )
     infant_nvp_relate = models.CharField(
-        verbose_name="7b. Relationship between the participant death and infant extended nevirapine prophylaxis ",
+        verbose_name="Relationship between the participant death and infant extended nevirapine prophylaxis ",
         max_length=25,
         choices=DRUG_RELATIONSHIP,
         )
     haart_relate = models.CharField(
-        verbose_name="7c. Relationship between the participant death and HAART",
+        verbose_name="Relationship between the participant death and HAART",
         max_length=25,
         choices=DRUG_RELATIONSHIP,
         )
     trad_med_relate = models.CharField(
-        verbose_name="7d. Relationship between the participant death and traditional medicine use",
+        verbose_name="Relationship between the participant death and traditional medicine use",
         max_length=25,
         choices=DRUG_RELATIONSHIP,
         )

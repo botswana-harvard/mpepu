@@ -15,7 +15,7 @@ class MaternalLabDelFactory(BaseUuidModelFactory):
     labour_hrs = LABOUR_HOURS[0][0]
     del_mode = LABOUR_MODE_OF_DELIVERY[0][0]
     has_ga = 'Yes'
-    ga = 27
+    ga = 36
     del_hosp = DELIVERY_HOSPITAL[0][0]
     has_urine_tender = 'No'
     labr_max_temp = 36

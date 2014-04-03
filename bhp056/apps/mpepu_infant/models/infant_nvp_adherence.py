@@ -18,11 +18,11 @@ class InfantNvpAdherence(BaseScheduledVisitModel):
 
     days_missed = models.IntegerField(
         max_length=2,
-        verbose_name="1. Since the last attended scheduled visit, how many entire days of scheduled prophylactic NVP were missed ",
+        verbose_name="Since the last attended scheduled visit, how many entire days of scheduled prophylactic NVP were missed ",
         help_text="Enter '0' if no entire days missed",
         )
     reason_missed = models.CharField(
-        verbose_name="2. If at least one day of prophylactic NVP was missed,list the primary reason that a day was missed:",
+        verbose_name="If at least one day of prophylactic NVP was missed,list the primary reason that a day was missed:",
         max_length=25,
         choices=REASON_MISSED_PROPHYLAXIS,
         blank=True,
@@ -31,7 +31,7 @@ class InfantNvpAdherence(BaseScheduledVisitModel):
         )
     reason_missed_other = models.TextField(
         max_length=200,
-        verbose_name="2a. Other, specify",
+        verbose_name="Other, specify",
         blank=True,
         null=True,
         )
