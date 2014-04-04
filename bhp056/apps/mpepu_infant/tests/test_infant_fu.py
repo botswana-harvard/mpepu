@@ -3,9 +3,16 @@ from django.test import TestCase
 from django.db import transaction
 
 from edc.lab.lab_profile.exceptions import AlreadyRegistered
-from edc.lab.lab_profile.classes import site_lab_profiles
 from edc.subject.lab_tracker.classes import site_lab_tracker
-
+from django.core.exceptions import ValidationError
+from edc.subject.rule_groups.classes import site_rule_groups
+from edc.core.bhp_variables.tests.factories import StudySpecificFactory, StudySiteFactory
+from apps.mpepu_infant.models import InfantVisit
+from edc.lab.lab_profile.classes import site_lab_profiles
+from edc.lab.lab_profile.exceptions import AlreadyRegistered
+from apps.mpepu.mpepu_app_configuration.classes import MpepuAppConfiguration
+from apps.mpepu_maternal.tests.factories import( MaternalConsentFactory, MaternalEligibilityPostFactory)
+from edc.subject.visit_schedule.classes import site_visit_schedules
 from apps.mpepu_lab.lab_profiles import MpepuInfantProfile
 from apps.mpepu.mpepu_app_configuration.classes import MpepuAppConfiguration
 from apps.mpepu_infant.visit_schedule import MpepuInfantRandoMonthlyVisitSchedule
@@ -17,15 +24,12 @@ class InfantFuTests(TestCase):
     def setUp(self):
         try:
             site_lab_profiles.register(MpepuInfantProfile())
-            MpepuAppConfiguration()
         except AlreadyRegistered:
             pass
+        MpepuAppConfiguration()
         site_lab_tracker.autodiscover()
-        try:
-            with transaction.atomic():
-                MpepuInfantRandoMonthlyVisitSchedule().build()
-        except Exception:
-            pass
+        site_visit_schedules.autodiscover()
+        site_visit_schedules.build_all()
         
 #     def test_infant_fu(self):
 #         birth = InfantBirthFactory()
@@ -60,12 +64,7 @@ class InfantFuTests(TestCase):
 #         visit_tracking_content_type_map = ContentTypeMap.objects.get(content_type__model='infantvisit')
 #         visit_definition = VisitDefinitionFactory(grouping='infant', visit_tracking_content_type_map=visit_tracking_content_type_map)
 #         visit_definition.schedule_group.add(schedule_group)
-#         
-#         
-#     def test_save_get_infant_fu(self):   
-#         #self.assertTrue(InfantFuFactory(infant_visit = InfantVisit.objects.all()[0]))
-#         infant_fu = InfantFuFactory() 
-#         self.assertTrue(infant_fu)                  
+#                         
 #            
 #     def test_saving_infant_fu(self):
 #         
