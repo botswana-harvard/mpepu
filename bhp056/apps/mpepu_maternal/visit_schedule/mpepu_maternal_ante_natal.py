@@ -66,6 +66,7 @@ class MpepuMaternalAnteNatalVisitSchedule(VisitScheduleConfiguration):
                 EntryTuple(150L, u'mpepu_maternal', u'feedingchoice', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(160L, u'mpepu_maternal', u'feedingchoicesectionone', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(170L, u'mpepu_maternal', u'feedingchoicesectiontwo', REQUIRED, NOT_ADDITIONAL),
+                EntryTuple(180L, u'mpepu_maternal', u'feedingchoicesectionthree', REQUIRED, NOT_ADDITIONAL),
                 #following are additional forms
                 EntryTuple(200L, u'mpepu_maternal', u'maternaldeath', NOT_REQUIRED, ADDITIONAL),
                 EntryTuple(210L, u'mpepu_maternal', u'maternaloffstudy', NOT_REQUIRED, ADDITIONAL),

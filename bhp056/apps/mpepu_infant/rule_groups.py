@@ -15,8 +15,8 @@ class InfantPrerandoLossRuleGroup(RuleGroup):
 
     class Meta:
         app_label = 'mpepu_infant'
-        source_model = InfantVisit
         source_fk = (RegisteredSubject, 'registered_subject')
+        source_model = InfantVisit
 site_rule_groups.register(InfantPrerandoLossRuleGroup)
 
 
@@ -31,8 +31,8 @@ class InfantPrerandoLossOffDrugRuleGroup(RuleGroup):
 
     class Meta:
         app_label = 'mpepu_infant'
-        source_model = InfantVisit
         source_fk = (RegisteredSubject, 'registered_subject')
+        source_model = InfantVisit
 site_rule_groups.register(InfantPrerandoLossOffDrugRuleGroup)
 
 
@@ -48,8 +48,8 @@ class InfantDeathRuleGroup(RuleGroup):
 
     class Meta:
         app_label = 'mpepu_infant'
-        source_model = InfantVisit
         source_fk = (RegisteredSubject, 'registered_subject')
+        source_model = InfantVisit
 site_rule_groups.register(InfantDeathRuleGroup)
 
 
@@ -65,8 +65,8 @@ class InfantDeathOffDrugRuleGroup(RuleGroup):
 
     class Meta:
         app_label = 'mpepu_infant'
-        source_model = InfantVisit
         source_fk = (Appointment, 'appointment')
+        source_model = InfantVisit
 site_rule_groups.register(InfantDeathOffDrugRuleGroup)
 
 
@@ -81,8 +81,8 @@ class InfantOffDrugRuleGroup(RuleGroup):
 
     class Meta:
         app_label = 'mpepu_infant'
-        source_model = InfantVisit
         source_fk = (Appointment, 'appointment')
+        source_model = InfantVisit
 site_rule_groups.register(InfantOffDrugRuleGroup)
 
 
@@ -97,8 +97,8 @@ class InfantOffStudyRuleGroup(RuleGroup):
 
     class Meta:
         app_label = 'mpepu_infant'
-        source_model = InfantVisit
         source_fk = (Appointment, 'appointment')
+        source_model = InfantVisit
 site_rule_groups.register(InfantOffStudyRuleGroup)
 
 
@@ -113,8 +113,8 @@ class InfantBirthDataRuleGroup(RuleGroup):
 
     class Meta:
         app_label = 'mpepu_infant'
-        source_model = InfantBirthData
         source_fk = (InfantVisit, 'infant_visit')
+        source_model = InfantBirthData
 site_rule_groups.register(InfantBirthDataRuleGroup)
 
 
@@ -200,8 +200,8 @@ class InfantVisitSurvivalRuleGroup(RuleGroup):
 
     class Meta:
         app_label = 'mpepu_infant'
-        source_model = InfantVisit
         source_fk = (Appointment, 'appointment')
+        source_model = InfantVisit
 site_rule_groups.register(InfantVisitSurvivalRuleGroup)
 
 
@@ -216,6 +216,6 @@ class InfantVisitTelephoneRuleGroup(RuleGroup):
 
     class Meta:
         app_label = 'mpepu_infant'
-        source_model = InfantVisit
         source_fk = (Appointment, 'appointment')
+        source_model = InfantVisit
 site_rule_groups.register(InfantVisitTelephoneRuleGroup)

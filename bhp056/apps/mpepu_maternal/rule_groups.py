@@ -35,8 +35,7 @@ class MaternalEnrollRuleGroup(RuleGroup):
         logic=Logic(
             predicate=('prior_health_haart', 'equals', 'yes'),
             consequence='new',
-            alternative='not_required',
-            ),
+            alternative='not_required'),
         target_model=['maternalenrollarv'])
 
     prev_pregnancy_arv = ScheduledDataRule(
@@ -114,34 +113,33 @@ class FeedingChoiceRuleGroup(RuleGroup):
         source_model = FeedingChoice
 site_rule_groups.register(FeedingChoiceRuleGroup)
 
-
-class MaternalDeathRuleGroup(RuleGroup):
-
-    death = ScheduledDataRule(
-        logic=Logic(
-            predicate=('reason', 'equals', 'death'),
-            consequence='new',
-            alternative='not_required'),
-        target_model=['maternaldeath', 'maternaloffstudy'])
-
-    class Meta:
-        app_label = 'mpepu_maternal'
-        source_model = MaternalVisit
-        source_fk = (RegisteredSubject, 'registered_subject')
-site_rule_groups.register(MaternalDeathRuleGroup)
-
-
-class MaternalOffStudyRuleGroup(RuleGroup):
-
-    off_study = ScheduledDataRule(
-        logic=Logic(
-            predicate=('reason', 'equals', 'off study'),
-            consequence='new',
-            alternative='not_required'),
-        target_model=['maternaloffstudy'])
-
-    class Meta:
-        app_label = 'mpepu_maternal'
-        source_model = MaternalVisit
-        source_fk = (RegisteredSubject, 'registered_subject')
-site_rule_groups.register(MaternalOffStudyRuleGroup)
+# class MaternalDeathRuleGroup(RuleGroup):
+#
+#     death = ScheduledDataRule(
+#         logic=Logic(
+#             predicate=('reason', 'equals', 'death'),
+#             consequence='new',
+#             alternative='not_required'),
+#         target_model=['maternaldeath', 'maternaloffstudy'])
+#
+#     class Meta:
+#         app_label = 'mpepu_maternal'
+#         source_fk = None
+#         source_model = RegisteredSubject
+# site_rule_groups.register(MaternalDeathRuleGroup)
+#
+#
+# class MaternalOffStudyRuleGroup(RuleGroup):
+#
+#     off_study = ScheduledDataRule(
+#         logic=Logic(
+#             predicate=('reason', 'equals', 'off study'),
+#             consequence='new',
+#             alternative='not_required'),
+#         target_model=['maternaloffstudy'])
+#
+#     class Meta:
+#         app_label = 'mpepu_maternal'
+#         source_fk = None
+#         source_model = RegisteredSubject
+# site_rule_groups.register(MaternalOffStudyRuleGroup)
