@@ -1,3 +1,4 @@
+from django.db import models
 from datetime import datetime, time
 
 from django.core.urlresolvers import reverse
@@ -13,6 +14,7 @@ from .maternal_visit import MaternalVisit
 class MaternalDeath (MaternalOffStudyMixin, BaseDeathReport):
 
     #registered_subject = models.OneToOneField(RegisteredSubject)
+    maternal_visit = models.OneToOneField(MaternalVisit)
 
     history = AuditTrail()
 

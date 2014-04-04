@@ -113,3 +113,35 @@ class FeedingChoiceRuleGroup(RuleGroup):
         filter_model = (MaternalVisit, 'maternal_visit')
         source_model = FeedingChoice
 site_rule_groups.register(FeedingChoiceRuleGroup)
+
+
+class MaternalDeathRuleGroup(RuleGroup):
+
+    death = ScheduledDataRule(
+        logic=Logic(
+            predicate=('reason', 'equals', 'death'),
+            consequence='required',
+            alternative='not_required'),
+        target_model=['maternaldeath', 'maternaloffstudy'])
+
+    class Meta:
+        app_label = 'mpepu_maternal'
+        source_model = MaternalVisit
+        filter_model = (RegisteredSubject, 'registered_subject')
+site_rule_groups.register(MaternalDeathRuleGroup)
+
+
+class MaternalOffStudyRuleGroup(RuleGroup):
+
+    off_study = ScheduledDataRule(
+        logic=Logic(
+            predicate=('reason', 'equals', 'off study'),
+            consequence='required',
+            alternative='not_required'),
+        target_model=['maternaloffstudy'])
+
+    class Meta:
+        app_label = 'mpepu_maternal'
+        source_model = MaternalVisit
+        filter_model = (RegisteredSubject, 'registered_subject')
+site_rule_groups.register(MaternalOffStudyRuleGroup)

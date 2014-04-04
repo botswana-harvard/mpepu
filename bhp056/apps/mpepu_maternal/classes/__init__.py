@@ -1,1 +1,1 @@
-from maternal_eligibility_consent_helper import MaternalEligibilityConsentHelper
+from .maternal_eligibility_consent_helper import MaternalEligibilityConsentHelper

@@ -51,8 +51,6 @@ class MpepuMaternalPostNatalVisitSchedule(VisitScheduleConfiguration):
                 ),
             'entries': (
                 #EntryTuple = namedtuple('EntryTuple', 'order app_label model_name form_status')
-                EntryTuple(1L, u'mpepu_maternal', u'maternaldeath', NOT_REQUIRED, ADDITIONAL),
-                EntryTuple(2L, u'mpepu_maternal', u'maternaloffstudy', NOT_REQUIRED, ADDITIONAL),
                 EntryTuple(10L, u'mpepu_maternal', u'maternalenroll', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(20L, u'mpepu_maternal', u'maternalenrolldem', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(30L, u'mpepu_maternal', u'maternalenrollmed', REQUIRED, NOT_ADDITIONAL),
@@ -70,6 +68,9 @@ class MpepuMaternalPostNatalVisitSchedule(VisitScheduleConfiguration):
                 EntryTuple(150L, u'mpepu_maternal', u'feedingchoice', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(160L, u'mpepu_maternal', u'feedingchoicesectionone', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(170L, u'mpepu_maternal', u'feedingchoicesectiontwo', REQUIRED, NOT_ADDITIONAL),
+                #following are additional forms
+                EntryTuple(200L, u'mpepu_maternal', u'maternaldeath', NOT_REQUIRED, ADDITIONAL),
+                EntryTuple(210L, u'mpepu_maternal', u'maternaloffstudy', NOT_REQUIRED, ADDITIONAL),
             )}
     visit_definitions['2010M'] = {
             'title': 'Infant Randomization',
@@ -97,12 +98,13 @@ class MpepuMaternalPostNatalVisitSchedule(VisitScheduleConfiguration):
                 RequisitionPanelTuple(900L, u'mpepu_lab', u'maternalrequisition', 'PHS: Ultrasensetive Viral Load', 'TEST', 'WB', NOT_REQUIRED, ADDITIONAL),
                 ),
             'entries': (
-                EntryTuple(1L, u'mpepu_maternal', u'maternaldeath', NOT_REQUIRED, ADDITIONAL),
-                EntryTuple(2L, u'mpepu_maternal', u'maternaloffstudy', NOT_REQUIRED, ADDITIONAL),
                 EntryTuple(10L, u'mpepu_maternal', u'maternalpostfu', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(20L, u'mpepu_maternal', u'maternalpostfudx', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(30L, u'mpepu_maternal', u'maternalarvpost', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(40L, u'mpepu_maternal', u'maternalarvpostadh', REQUIRED, NOT_ADDITIONAL),
+                #following are additional forms
+                EntryTuple(200L, u'mpepu_maternal', u'maternaldeath', NOT_REQUIRED, ADDITIONAL),
+                EntryTuple(210L, u'mpepu_maternal', u'maternaloffstudy', NOT_REQUIRED, ADDITIONAL),
             )}
     visit_definitions['2020M'] = {
             'title': '2 Months Postpartum Visit',
@@ -129,12 +131,13 @@ class MpepuMaternalPostNatalVisitSchedule(VisitScheduleConfiguration):
                 RequisitionPanelTuple(800L, u'mpepu_lab', u'maternalrequisition', 'Breast Milk (Storage)', 'TEST', 'WB', NOT_REQUIRED, ADDITIONAL),
                 ),
             'entries': (
-                EntryTuple(1L, u'mpepu_maternal', u'maternaldeath', NOT_REQUIRED, ADDITIONAL),
-                EntryTuple(2L, u'mpepu_maternal', u'maternaloffstudy', NOT_REQUIRED, ADDITIONAL),
                 EntryTuple(10L, u'mpepu_maternal', u'maternalpostfu', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(20L, u'mpepu_maternal', u'maternalpostfudx', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(30L, u'mpepu_maternal', u'maternalarvpost', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(40L, u'mpepu_maternal', u'maternalarvpostadh', REQUIRED, NOT_ADDITIONAL),
+                #following are additional forms
+                EntryTuple(200L, u'mpepu_maternal', u'maternaldeath', NOT_REQUIRED, ADDITIONAL),
+                EntryTuple(210L, u'mpepu_maternal', u'maternaloffstudy', NOT_REQUIRED, ADDITIONAL),
             )}
     visit_definitions['2030M'] = {
             'title': '3 Months Postpartum Visit',
@@ -161,12 +164,13 @@ class MpepuMaternalPostNatalVisitSchedule(VisitScheduleConfiguration):
                 RequisitionPanelTuple(800L, u'mpepu_lab', u'maternalrequisition', 'Breast Milk (Storage)', 'TEST', 'WB', NOT_REQUIRED, ADDITIONAL),
                 ),
             'entries': (
-                EntryTuple(1L, u'mpepu_maternal', u'maternaldeath', NOT_REQUIRED, ADDITIONAL),
-                EntryTuple(2L, u'mpepu_maternal', u'maternaloffstudy', NOT_REQUIRED, ADDITIONAL),
                 EntryTuple(10L, u'mpepu_maternal', u'maternalpostfu', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(20L, u'mpepu_maternal', u'maternalpostfudx', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(30L, u'mpepu_maternal', u'maternalarvpost', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(40L, u'mpepu_maternal', u'maternalarvpostadh', REQUIRED, NOT_ADDITIONAL),
+                #following are additional forms
+                EntryTuple(200L, u'mpepu_maternal', u'maternaldeath', NOT_REQUIRED, ADDITIONAL),
+                EntryTuple(210L, u'mpepu_maternal', u'maternaloffstudy', NOT_REQUIRED, ADDITIONAL),
             )}
     visit_definitions['2060M'] = {
             'title': '6 Months Postpartum Visit',
@@ -193,12 +197,13 @@ class MpepuMaternalPostNatalVisitSchedule(VisitScheduleConfiguration):
                 RequisitionPanelTuple(800L, u'mpepu_lab', u'maternalrequisition', 'Breast Milk (Storage)', 'TEST', 'WB', NOT_REQUIRED, ADDITIONAL),
                 ),
             'entries': (
-                EntryTuple(1L, u'mpepu_maternal', u'maternaldeath', NOT_REQUIRED, ADDITIONAL),
-                EntryTuple(2L, u'mpepu_maternal', u'maternaloffstudy', NOT_REQUIRED, ADDITIONAL),
                 EntryTuple(10L, u'mpepu_maternal', u'maternalpostfu', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(20L, u'mpepu_maternal', u'maternalpostfudx', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(30L, u'mpepu_maternal', u'maternalarvpost', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(40L, u'mpepu_maternal', u'maternalarvpostadh', REQUIRED, NOT_ADDITIONAL),
+                #following are additional forms
+                EntryTuple(200L, u'mpepu_maternal', u'maternaldeath', NOT_REQUIRED, ADDITIONAL),
+                EntryTuple(210L, u'mpepu_maternal', u'maternaloffstudy', NOT_REQUIRED, ADDITIONAL),
             )}
     visit_definitions['2090M'] = {
             'title': '9 Months Postpartum Visit',
@@ -225,12 +230,13 @@ class MpepuMaternalPostNatalVisitSchedule(VisitScheduleConfiguration):
                 RequisitionPanelTuple(800L, u'mpepu_lab', u'maternalrequisition', 'Breast Milk (Storage)', 'TEST', 'WB', NOT_REQUIRED, ADDITIONAL),
                 ),
             'entries': (
-                EntryTuple(1L, u'mpepu_maternal', u'maternaldeath', NOT_REQUIRED, ADDITIONAL),
-                EntryTuple(2L, u'mpepu_maternal', u'maternaloffstudy', NOT_REQUIRED, ADDITIONAL),
                 EntryTuple(10L, u'mpepu_maternal', u'maternalpostfu', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(20L, u'mpepu_maternal', u'maternalpostfudx', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(30L, u'mpepu_maternal', u'maternalarvpost', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(40L, u'mpepu_maternal', u'maternalarvpostadh', REQUIRED, NOT_ADDITIONAL),
+                #following are additional forms
+                EntryTuple(200L, u'mpepu_maternal', u'maternaldeath', NOT_REQUIRED, ADDITIONAL),
+                EntryTuple(210L, u'mpepu_maternal', u'maternaloffstudy', NOT_REQUIRED, ADDITIONAL),
             )}
     visit_definitions['2120M'] = {
             'title': '12 Months Postpartum Visit',
@@ -257,12 +263,13 @@ class MpepuMaternalPostNatalVisitSchedule(VisitScheduleConfiguration):
                 RequisitionPanelTuple(800L, u'mpepu_lab', u'maternalrequisition', 'Breast Milk (Storage)', 'TEST', 'WB', NOT_REQUIRED, ADDITIONAL),
                 ),
             'entries': (
-                EntryTuple(1L, u'mpepu_maternal', u'maternaldeath', NOT_REQUIRED, ADDITIONAL),
-                EntryTuple(2L, u'mpepu_maternal', u'maternaloffstudy', NOT_REQUIRED, ADDITIONAL),
                 EntryTuple(10L, u'mpepu_maternal', u'maternalpostfu', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(20L, u'mpepu_maternal', u'maternalpostfudx', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(30L, u'mpepu_maternal', u'maternalarvpost', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(40L, u'mpepu_maternal', u'maternalarvpostadh', REQUIRED, NOT_ADDITIONAL),
+                #following are additional forms
+                EntryTuple(200L, u'mpepu_maternal', u'maternaldeath', NOT_REQUIRED, ADDITIONAL),
+                EntryTuple(210L, u'mpepu_maternal', u'maternaloffstudy', NOT_REQUIRED, ADDITIONAL),
             )}
     visit_definitions['2150M'] = {
             'title': '15 Months Postpartum Visit',
@@ -289,12 +296,13 @@ class MpepuMaternalPostNatalVisitSchedule(VisitScheduleConfiguration):
                 RequisitionPanelTuple(800L, u'mpepu_lab', u'maternalrequisition', 'Breast Milk (Storage)', 'TEST', 'WB', NOT_REQUIRED, ADDITIONAL),
                 ),
             'entries': (
-                EntryTuple(1L, u'mpepu_maternal', u'maternaldeath', NOT_REQUIRED, ADDITIONAL),
-                EntryTuple(2L, u'mpepu_maternal', u'maternaloffstudy', NOT_REQUIRED, ADDITIONAL),
                 EntryTuple(10L, u'mpepu_maternal', u'maternalpostfu', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(20L, u'mpepu_maternal', u'maternalpostfudx', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(30L, u'mpepu_maternal', u'maternalarvpost', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(40L, u'mpepu_maternal', u'maternalarvpostadh', REQUIRED, NOT_ADDITIONAL),
+                #following are additional forms
+                EntryTuple(200L, u'mpepu_maternal', u'maternaldeath', NOT_REQUIRED, ADDITIONAL),
+                EntryTuple(210L, u'mpepu_maternal', u'maternaloffstudy', NOT_REQUIRED, ADDITIONAL),
             )}
     visit_definitions['2180M'] = {
             'title': '18 Months Postpartum Visit',
@@ -321,13 +329,14 @@ class MpepuMaternalPostNatalVisitSchedule(VisitScheduleConfiguration):
                 RequisitionPanelTuple(800L, u'mpepu_lab', u'maternalrequisition', 'Breast Milk (Storage)', 'TEST', 'WB', NOT_REQUIRED, ADDITIONAL),
                 ),
             'entries': (
-                EntryTuple(1L, u'mpepu_maternal', u'maternaldeath', NOT_REQUIRED, ADDITIONAL),
-                EntryTuple(2L, u'mpepu_maternal', u'maternaloffstudy', NOT_REQUIRED, ADDITIONAL),
                 EntryTuple(10L, u'mpepu_maternal', u'maternalpostfu', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(20L, u'mpepu_maternal', u'maternalpostfudx', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(30L, u'mpepu_maternal', u'maternalarvpost', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(40L, u'mpepu_maternal', u'maternalarvpostadh', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(50L, u'mpepu_maternal', u'postnatalinfantfeedingsurvey', REQUIRED, NOT_ADDITIONAL),
+                #following are additional forms
+                EntryTuple(200L, u'mpepu_maternal', u'maternaldeath', NOT_REQUIRED, ADDITIONAL),
+                EntryTuple(210L, u'mpepu_maternal', u'maternaloffstudy', NOT_REQUIRED, ADDITIONAL),
             )}
 
 site_visit_schedules.register(MpepuMaternalPostNatalVisitSchedule)

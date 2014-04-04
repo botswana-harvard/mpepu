@@ -44,6 +44,8 @@ class InfantDeath (InfantOffStudyMixin, BaseDeathReport):
 
     history = AuditTrail()
 
+    infant_visit = models.OneToOneField(InfantVisit)
+
     entry_meta_data_manager = EntryMetaDataManager(InfantVisit)
 
     def get_consenting_subject_identifier(self):

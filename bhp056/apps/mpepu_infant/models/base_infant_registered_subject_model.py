@@ -22,6 +22,8 @@ class BaseInfantRegisteredSubjectModel(InfantOffStudyMixin, BaseRegisteredSubjec
     def get_report_datetime(self):
         return self.get_registration_datetime()
 
+    infant_visit = models.OneToOneField(InfantVisit)
+
     entry_meta_data_manager = EntryMetaDataManager(InfantVisit)
 
     class Meta:

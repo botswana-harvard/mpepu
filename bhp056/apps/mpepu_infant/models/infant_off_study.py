@@ -15,6 +15,8 @@ class InfantOffStudy(BaseOffStudy):
 
     history = AuditTrail()
 
+    infant_visit = models.OneToOneField(InfantVisit)
+
     report_datetime = models.DateTimeField(
         verbose_name="Visit Date and Time",
         validators=[

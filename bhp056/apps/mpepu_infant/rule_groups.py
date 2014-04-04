@@ -1,4 +1,4 @@
-from edc.subject.rule_groups.classes import RuleGroup, ScheduledDataRule, Logic, site_rule_groups, AdditionalDataRule
+from edc.subject.rule_groups.classes import RuleGroup, ScheduledDataRule, Logic, site_rule_groups
 from edc.subject.registration.models import RegisteredSubject
 from edc.subject.appointment.models import Appointment
 from .models import (InfantVisit, InfantArvProph, InfantFu, InfantStudyDrug)
@@ -6,12 +6,12 @@ from .models import (InfantVisit, InfantArvProph, InfantFu, InfantStudyDrug)
 
 class InfantPrerandoLossRuleGroup(RuleGroup):
 
-    lost = AdditionalDataRule(
+    lost = ScheduledDataRule(
         logic=Logic(
             predicate=(('reason', 'equals', 'lost'), ('sid', 'equals', None, 'and')),
             consequence='required',
             alternative='not_required'),
-        target_model=['infantprerandoloss','infantoffstudy'])
+        target_model=['infantprerandoloss', 'infantoffstudy'])
 
     class Meta:
         app_label = 'mpepu_infant'
@@ -22,7 +22,7 @@ site_rule_groups.register(InfantPrerandoLossRuleGroup)
 
 class InfantPrerandoLossOffDrugRuleGroup(RuleGroup):
 
-    lost_off_drug = AdditionalDataRule(
+    lost_off_drug = ScheduledDataRule(
         logic=Logic(
             predicate=(('reason', 'equals', 'lost'), ('sid', 'ne', None, 'and')),
             consequence='required',
@@ -38,13 +38,13 @@ site_rule_groups.register(InfantPrerandoLossOffDrugRuleGroup)
 
 class InfantDeathRuleGroup(RuleGroup):
 
-    death = AdditionalDataRule(
+    death = ScheduledDataRule(
         logic=Logic(
             predicate=(('reason', 'equals', 'death'), ('sid', 'equals', None, 'and')),
             consequence='required',
             alternative='not_required'),
-        target_model=[ 'infantprerandoloss', 'infantsurvival', 'infantdeath',
-                      'infantverbalautopsy','infantoffstudy'])
+        target_model=['infantprerandoloss', 'infantsurvival', 'infantdeath',
+                      'infantverbalautopsy', 'infantoffstudy'])
 
     class Meta:
         app_label = 'mpepu_infant'
@@ -55,7 +55,7 @@ site_rule_groups.register(InfantDeathRuleGroup)
 
 class InfantDeathOffDrugRuleGroup(RuleGroup):
 
-    death_off_drug = AdditionalDataRule(
+    death_off_drug = ScheduledDataRule(
         logic=Logic(
             predicate=(('reason', 'equals', 'death'), ('sid', 'ne', None, 'and')),
             consequence='required',
@@ -72,7 +72,7 @@ site_rule_groups.register(InfantDeathOffDrugRuleGroup)
 
 class InfantOffDrugRuleGroup(RuleGroup):
 
-    off_drug = AdditionalDataRule(
+    off_drug = ScheduledDataRule(
         logic=Logic(
             predicate=('study_status', 'equals', 'onstudy rando offdrug'),
             consequence='required',
@@ -88,7 +88,7 @@ site_rule_groups.register(InfantOffDrugRuleGroup)
 
 class InfantOffStudyRuleGroup(RuleGroup):
 
-    off_study = AdditionalDataRule(
+    off_study = ScheduledDataRule(
         logic=Logic(
             predicate=('study_status', 'equals', 'offstudy'),
             consequence='required',
@@ -207,7 +207,7 @@ site_rule_groups.register(InfantStudyDrugRuleGroup)
 
 class InfantVisitSurvivalRuleGroup(RuleGroup):
 
-    survival_status = AdditionalDataRule(
+    survival_status = ScheduledDataRule(
         logic=Logic(
             predicate=('survival_status', 'equals', 'DEAD'),
             consequence='required',

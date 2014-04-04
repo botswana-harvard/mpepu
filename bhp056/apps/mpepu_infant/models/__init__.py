@@ -16,7 +16,7 @@ from .infant_off_drug import *
 from .infant_survival import *
 from .infant_nvp_adherence import *
 from .infant_prerando_loss import *
-from .infant_study_drug_.init import *
+from .infant_study_drug_init import *
 from .infant_study_drug import *
 from .infant_study_drug_items import *
 from .infant_ctx_placebo_adh import *
@@ -30,10 +30,9 @@ from .infant_fu_dx2_proph_items import *
 from .infant_fu_med import *
 from .infant_fu_new_med import *
 from .infant_fu_new_med_items import *
-from .infant_feed.ing import *
+from .infant_feeding import *
 from .infant_death import *
-from .infant_off_study import *
-from .infant_off_study_mixin import *
+from .infant_off_study import InfantOffStudy
 from .infant_verbal_autopsy import *
 from .infant_congenital_anomalies import *
 from .infant_rando_deferral import InfantRandoDeferral
