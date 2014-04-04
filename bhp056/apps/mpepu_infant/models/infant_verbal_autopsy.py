@@ -12,6 +12,9 @@ from ..choices import AUTOPSY_SIGNS
 from .infant_base_uuid_model import InfantBaseUuidModel
 from .base_infant_registered_subject_model import BaseInfantRegisteredSubjectModel
 
+from .infant_visit import InfantVisit
+from edc.entry_meta_data.managers import EntryMetaDataManager
+
 
 class InfantVerbalAutopsy(BaseInfantRegisteredSubjectModel):
 
@@ -49,6 +52,10 @@ class InfantVerbalAutopsy(BaseInfantRegisteredSubjectModel):
         )
 
     history = AuditTrail()
+
+    infant_visit = models.OneToOneField(InfantVisit)
+
+    entry_meta_data_manager = EntryMetaDataManager(InfantVisit)
 
     def __unicode__(self):
         return self.registered_subject.subject_identifier

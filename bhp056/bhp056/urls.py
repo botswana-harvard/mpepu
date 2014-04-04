@@ -8,25 +8,25 @@ from django.views.generic import RedirectView
 from django.db.models import get_models
 import django_databrowse
 
-# from edc.subject.rule_groups.classes import site_rule_groups
+from edc.subject.rule_groups.classes import site_rule_groups
 from edc.subject.lab_tracker.classes import site_lab_tracker
 from edc.core.bhp_data_manager.classes import data_manager
 from edc.dashboard.section.classes import site_sections
 from edc.subject.visit_schedule.classes import site_visit_schedules
 from edc.lab.lab_profile.classes import site_lab_profiles
 from edc.dashboard.subject.views import additional_requisition, additional_entry_form
-from apps.mpepu.mpepu_app_configuration.classes import MpepuAppConfiguration
 
-dajaxice_autodiscover()
-site_lab_profiles.autodiscover()
 admin.autodiscover()
+site_lab_profiles.autodiscover()
+dajaxice_autodiscover()
+from apps.mpepu.mpepu_app_configuration.classes import MpepuAppConfiguration
 MpepuAppConfiguration()
-# site_rule_groups.autodiscover()
-site_sections.autodiscover()
 site_visit_schedules.autodiscover()
 site_visit_schedules.build_all()
+site_rule_groups.autodiscover()
 site_lab_tracker.autodiscover()
 data_manager.prepare()
+site_sections.autodiscover()
 
 
 APP_NAME = settings.APP_NAME

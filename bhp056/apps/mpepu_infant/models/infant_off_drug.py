@@ -5,7 +5,9 @@ from django.core.urlresolvers import reverse
 from edc.audit.audit_trail import AuditTrail
 from edc.base.model.fields.custom.custom_fields import OtherCharField
 from edc.base.model.validators import datetime_not_before_study_start, datetime_not_future, datetime_is_after_consent, date_not_future
+from edc.entry_meta_data.managers import EntryMetaDataManager
 
+from .infant_visit import InfantVisit
 from ..choices import INFANT_OFF_DRUG_REASON
 from .base_infant_registered_subject_model import BaseInfantRegisteredSubjectModel
 
@@ -40,6 +42,10 @@ class InfantOffDrug(BaseInfantRegisteredSubjectModel):
         null=True)
 
     history = AuditTrail()
+
+    infant_visit = models.OneToOneField(InfantVisit)
+
+    entry_meta_data_manager = EntryMetaDataManager(InfantVisit)
 
     def get_report_datetime(self):
         return self.report_datetime
