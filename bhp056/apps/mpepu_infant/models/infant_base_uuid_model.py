@@ -10,7 +10,7 @@ from .infant_off_study_mixin import InfantOffStudyMixin
 class InfantBaseUuidModel(InfantOffStudyMixin, BaseConsentedUuidModel):
 
     """ Base model for all infant models """
-    
+
     report_datetime = models.DateTimeField(
         verbose_name="Visit Date and Time",
         validators=[

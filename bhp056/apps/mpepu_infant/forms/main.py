@@ -6,7 +6,7 @@ from edc.subject.consent.forms import BaseConsentedModelForm
 
 from apps.mpepu_infant.models import (InfantDeath, InfantPrerandoLoss, InfantStudyDrugInit, InfantNvpAdherence,
                                       InfantSurvival, InfantArvProph, InfantArvProphMod, InfantHaart, InfantHaartMod,
-                                      InfantCtxPlaceboAdh, InfantFeeding, InfantVerbalAutopsy, InfantCongenitalAnomalies, InfantCnsAbnormalityItems, InfantFacialDefectItems)
+                                      InfantCtxPlaceboAdh, InfantFeeding, InfantVerbalAutopsy)
 from .base_infant_model_form import BaseInfantModelForm
 
 
@@ -47,14 +47,14 @@ class InfantArvProphForm (BaseInfantModelForm):
         arv_status = cleaned_data.get('arv_status')
         check_mod = self.data.get('infantarvprophmod_set-0-arv_code')
         if cleaned_data.get('prophylatic_nvp') == 'No':
-            if arv_status== 'no_mod' or 'arv_status' =='modified':
+            if arv_status == 'no_mod' or 'arv_status' == 'modified':
                 raise forms.ValidationError("You have indicated that the infant is not on NVP yet the status is ' %s. Please correct'"
                                         % arv_status)
-        
-        if cleaned_data.get('arv_status')=='start' or cleaned_data.get('arv_status')=='modified':
+
+        if cleaned_data.get('arv_status') == 'start' or cleaned_data.get('arv_status') == 'modified':
             if not check_mod:
-                raise forms.ValidationError('Please fill in the NVP/AZT Prop modification form as it is required or change the arv status.')   
-        
+                raise forms.ValidationError('Please fill in the NVP/AZT Prop modification form as it is required or change the arv status.')
+
         # if baby is not supposed to be on prophylactic NVP,then the InfantNvpAdherence is not required """
         # if infant had no diarrheal illness, InfantFuD is not required """
         if cleaned_data.get('prophylatic_nvp') == 'No':
@@ -78,8 +78,6 @@ class InfantArvProphModForm (forms.ModelForm):
 
         return cleaned_data
 
-            
-
     class Meta:
         model = InfantArvProphMod
 
@@ -101,10 +99,10 @@ class InfantNvpAdherenceForm (BaseInfantModelForm):
         cleaned_data = super(InfantNvpAdherenceForm, self).clean()
         if cleaned_data.get('days_missed') > 0 and not cleaned_data.get('reason_missed'):
             raise forms.ValidationError('You indicated that days of NVP were missed. Please provide a reason.')
-        
+
         if cleaned_data.get('days_missed') == 0 and cleaned_data.get('reason_missed') is not None:
             raise forms.ValidationError('You indicated that no entire days of NVP were missed and provided a reason missed. Please correct.')
-            
+
         return cleaned_data
 
     class Meta:
@@ -147,7 +145,7 @@ class InfantFeedingForm (BaseInfantModelForm):
         # infants should either be FF or BF they cannot be neither
         if cleaned_data.get('other_feeding', None) != 'Yes' and cleaned_data.get('ever_breastfeed', None) != 'Yes':
             raise forms.ValidationError('Its impossible for infant to neither FF/liquids/BF. Infant has to either formula feed (2) or breast feed (8) Please correct')
-        
+
         # Other feeding validaions
         if cleaned_data.get('other_feeding') == 'No':
             if cleaned_data.get('juice') == 'Yes':
@@ -158,13 +156,13 @@ class InfantFeedingForm (BaseInfantModelForm):
                 raise forms.ValidationError("You indicated that infant has not received other foods or liquids other than breast milk(Q3) and yet selected infant received other animal milk. Please correct")
             if cleaned_data.get('fruits_veg') == 'Yes':
                 raise forms.ValidationError("You indicated that infant has not received other foods or liquids other than breast milk(Q3) and yet selected infant received fruits and veggies. Please correct")
-            if cleaned_data.get('cereal_porridge') =='Yes':
+            if cleaned_data.get('cereal_porridge') == 'Yes':
                 raise forms.ValidationError("You indicated that infant has not received other foods or liquids other than breast milk(Q3) and yet selected infant received cereal and porridge. Please correct")
             if cleaned_data.get('solid_liquid') == 'Yes':
                 raise forms.ValidationError("You indicated that infant has not received other foods or liquids other than breast milk(Q3) and yet selected infant received cereal and porridge. Please correct")
             if cleaned_data.get('rehydration_salts') == 'Yes':
                 raise forms.ValidationError("You indicated that infant has not received other foods or liquids other than breast milk(Q3) and yet selected infant received rehydration salts. Please correct")
-        
+
         return cleaned_data
 
     class Meta:

@@ -62,7 +62,7 @@ class MaternalArvPregHistory(BaseScheduledVisitModel):
         verbose_name="Was there an interruption in the ARVs received during pregnancy through delivery of >/=3days?",
         help_text="",
         )
-    
+
     interrupt = models.CharField(
         verbose_name="Please give reason for interruption",
         choices=ARV_INTERRUPTION_REASON,
@@ -70,7 +70,7 @@ class MaternalArvPregHistory(BaseScheduledVisitModel):
         help_text="",
         default='N/A',
         )
-    
+
     interrupt_other = models.TextField(
         max_length=250,
         verbose_name="Other, specify ",
@@ -108,7 +108,7 @@ class MaternalArvPPHistory(BaseScheduledVisitModel):
         null=True,
         )
 
-    history = AuditTrail()      
+    history = AuditTrail()
 
     def get_absolute_url(self):
         return reverse('admin:mpepu_maternal_maternalarvpphistory_change', args=(self.id,))

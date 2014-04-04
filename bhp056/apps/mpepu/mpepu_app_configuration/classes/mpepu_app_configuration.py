@@ -17,7 +17,7 @@ class MpepuAppConfiguration(BaseAppConfiguration):
     def __init__(self):
         super(MpepuAppConfiguration, self).__init__()
 
-    global_configuration = {'dashboard': {'show_not_required_metadata': True, 'allow_additional_requisitions': False, 'show_drop_down': True},
+    global_configuration = {'dashboard': {'show_not_required_metadata': True, 'allow_additional_requisitions': False, 'show_drop_down_requisitions': True, 'show_drop_down_entries': True},
                             'appointment': {'allowed_iso_weekdays': '1234567', 'use_same_weekday': True, 'default_appt_type': 'default'},
                                  }
 

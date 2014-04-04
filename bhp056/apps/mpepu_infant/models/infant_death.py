@@ -5,10 +5,12 @@ from django.core.urlresolvers import reverse
 
 from edc.audit.audit_trail import AuditTrail
 from edc.subject.adverse_event.models import BaseDeathReport
+from edc.entry_meta_data.managers import EntryMetaDataManager
 
 from apps.mpepu.choices import DRUG_RELATIONSHIP
 
 from .infant_off_study_mixin import InfantOffStudyMixin
+from .infant_visit import InfantVisit
 
 
 class InfantDeath (InfantOffStudyMixin, BaseDeathReport):
@@ -41,6 +43,10 @@ class InfantDeath (InfantOffStudyMixin, BaseDeathReport):
         )
 
     history = AuditTrail()
+
+    infant_visit = models.OneToOneField(InfantVisit)
+
+    entry_meta_data_manager = EntryMetaDataManager(InfantVisit)
 
     def get_consenting_subject_identifier(self):
         """Returns mother's identifier."""
