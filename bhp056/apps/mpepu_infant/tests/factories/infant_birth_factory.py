@@ -15,5 +15,4 @@ class InfantBirthFactory(BaseUuidModelFactory):
     initials = factory.Sequence(lambda n: 'E{0}V'.format(n))
     dob = date.today()
     gender = 'M'
-
-    birth_order=1
+    birth_order = 1

@@ -25,12 +25,12 @@ class MaternalLabDelForm (BaseMaternalModelForm):
                     m2m=cleaned_data['del_comp'],
                     other=cleaned_data['del_comp_other'],
             )
-        
+
         #to ensure that maternal labour delivery is not greater than today
         if cleaned_data.get('delivery_datetime'):
             if cleaned_data.get('delivery_datetime') > datetime.today():
                 raise forms.ValidationError('Maternal Labour Delivery date cannot be greater than today\'s date. Please correct.')
-            
+
         #still born validations
         if cleaned_data.get('still_borns') > 0 and cleaned_data.get('still_born_has_congen_abn')== 'N/A':
             raise forms.ValidationError("You indicated there were still births yet selected 'Not applicable' for congenital abonormality. Please correct.")
@@ -38,11 +38,15 @@ class MaternalLabDelForm (BaseMaternalModelForm):
             raise forms.ValidationError('You indicated that stillborns did have congenital abnormalities. Please specify.')
         if cleaned_data.get('still_born_has_congen_abn')!='Yes' and cleaned_data.get('still_born_congen_abn'):
             raise forms.ValidationError('You indicated that stillborns did not have congenital abnormalities and yet provided specifications. Please correct.')
-        
+
+        #validate that number of live_infants_to_register cannot be 0
+        if cleaned_data.get('live_infants_to_register') == 0:
+            raise forms.ValidationError('Number of live infants to register may not be 0!.')
+
         #validate birth number vs registerning number
         if cleaned_data.get('live_infants_to_register') > cleaned_data.get('live_infants'):
             raise forms.ValidationError("You indicated that you are registering "+repr(cleaned_data.get('live_infants_to_register')) +" Yet there are "+repr(cleaned_data.get('live_infants'))+" live births. Please correct.")
-        
+
         return super(MaternalLabDelForm, self).clean()
 
     class Meta:

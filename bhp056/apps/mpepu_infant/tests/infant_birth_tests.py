@@ -24,6 +24,8 @@ from apps.mpepu_infant.models import InfantVisit
 from edc.lab.lab_profile.classes import site_lab_profiles
 from edc.lab.lab_profile.exceptions import AlreadyRegistered
 from apps.mpepu.mpepu_app_configuration.classes import MpepuAppConfiguration
+from apps.mpepu_maternal.tests.factories import( MaternalConsentFactory, MaternalEligibilityPostFactory)
+from edc.subject.visit_schedule.classes import site_visit_schedules
 
 
 class InfantBirthTests(TestCase):
@@ -31,26 +33,101 @@ class InfantBirthTests(TestCase):
     subject_consent = MaternalConsent
     consent_catalogue_name = 'mpepu V1'
     visit_model = InfantVisit
-    
+
     def setUp(self):
         try:
             site_lab_profiles.register(MpepuInfantProfile())
-#             content_type_map_helper = ContentTypeMapHelper()
-#             content_type_map_helper.populate()
-# 
-#             content_type_map_helper.sync()
-#             content_type_map = ContentTypeMap.objects.all()
-#             print content_type_map
         except AlreadyRegistered:
-            print "failed"
+            pass
         MpepuAppConfiguration()
         site_lab_tracker.autodiscover()
-        #site_visit_schedules.autodiscover()
-        MpepuInfantBirthVisitSchedule().build()
-        
+        site_visit_schedules.autodiscover()
+        site_visit_schedules.build_all()
+
     def test_p1(self):
-        InfantBirthFactory()
-    
+        study_site = StudySiteFactory(site_code=2)
+        content_type_map = ContentTypeMap.objects.get(model='maternalconsent', app_label='mpepu_maternal')
+        consent_catalogue = ConsentCatalogueFactory(content_type_map=content_type_map)
+        consent_catalogue.add_for_app = 'mpepu_infant'
+        consent_catalogue.save()
+        consent = MaternalConsentFactory(study_site=study_site)
+        print consent
+        post_elibility = MaternalEligibilityPostFactory(maternal_consent=consent, registered_subject=consent.registered_subject)
+        print "assert that 2000M appointment was created"
+        appointment = Appointment.objects.get(registered_subject=consent.registered_subject, visit_definition__code='2000M')
+        self.assertEqual(appointment.visit_definition.code, '2000M')
+        all_appointments = Appointment.objects.all()
+        print "assert that 8 appointments were created, i.e. 2000M, 2010M,2020M,2030M,2060M,2090M,2120M,2150M and 2180ME"
+        self.assertEqual(all_appointments.count(),9)
+        print "set up a maternal visit for this mother"
+        visit = MaternalVisitFactory(appointment=appointment)
+        print"create a maternallabdel: registering 1 of 1 infants"
+        maternal_lab_del = MaternalLabDelFactory(maternal_visit=visit, live_infants=1, live_infants_to_register=1, delivery_datetime=datetime(2014,3,15,22,30))
+        infant_subject = RegisteredSubject.objects.get(relative_identifier = consent.registered_subject.subject_identifier)
+        print infant_subject
+        birth = InfantBirthFactory(registered_subject = infant_subject, maternal_lab_del = maternal_lab_del, dob=date(2014,3,15))
+        print birth
+        print '    add infant birth'
+#         infant_birth = InfantBirthFactory(registered_subject=infant_subject, maternal_lab_del=maternal_lab_del)
+#         print '    {0}'.format(infant_birth)
+        print '    confirm infant appointments exist, 2000, 2010 were created'
+        self.assertEquals([appointment.visit_definition.code for appointment in Appointment.objects.filter(registered_subject=infant_subject).order_by('visit_definition__code')], ['2000', '2010'])
+        #print 'Infant 2000 at {0}'.format(Appointment.objects.get(registered_subject=registered_subject, visit_definition__code='2000').appt_datetime)
+        #print 'Infant 2010 at {0}'.format(Appointment.objects.get(registered_subject=registered_subject, visit_definition__code='2010').appt_datetime)
+        #print '    add an infant visit'
+        GA = 0
+        DAYS = 1
+        DAYS_UPPER = 2
+        for delivery_days_ago in range(30, 42):
+            for criteria in [(33, 27, 34)]:#, (34, 27, 34), (35, 27, 34), (36, 13, 27), (37, 13, 27), (38, 13, 27), (39, 13, 27)]:
+                delivery_datetime = datetime.today() - timedelta(days=delivery_days_ago - 3)
+                maternal_consent = MaternalConsentFactory(study_site=study_site, consent_datetime=datetime.today() - timedelta(days=delivery_days_ago))
+                registered_subject = RegisteredSubject.objects.get(subject_identifier=maternal_consent.subject_identifier)
+                maternal_eligibility = MaternalEligibilityAnteFactory(maternal_consent=maternal_consent, registered_subject=registered_subject, registration_datetime=datetime.today() - timedelta(days=delivery_days_ago))
+                appointment = Appointment.objects.get(registered_subject=registered_subject, visit_definition__code='1000M')
+                maternal_visit = MaternalVisitFactory(appointment=appointment, report_datetime=datetime.today() - timedelta(days=delivery_days_ago))
+                print 'create a maternal lab-del: registering 2 of 1 infant'
+                print '    GA={0}, DAYS={1}, UPPER={2}, DELIVERY_DAYS_AGO={3}'.format(criteria[GA], criteria[DAYS], criteria[DAYS_UPPER], delivery_days_ago)
+                maternal_lab_del = MaternalLabDelFactory(maternal_visit=maternal_visit,
+                                                         live_infants=2,
+                                                         live_infants_to_register=1,
+                                                         delivery_datetime=delivery_datetime,
+                                                         has_ga='Yes',
+                                                         ga=criteria[GA],
+                                                         )
+                print '    {0}'.format(maternal_lab_del)
+                self.assertIsNotNone(SubjectIdentifier.objects.get(identifier='{0}-25'.format(maternal_consent.subject_identifier)))
+                registered_subject = RegisteredSubject.objects.get(relative_identifier=maternal_consent.subject_identifier)
+                print '    confirm not appointments exist for infant'
+                self.assertEquals([appointment.visit_definition.code for appointment in Appointment.objects.filter(registered_subject=registered_subject).order_by('visit_definition__code')], [])
+
+        print registered_subject
+        appointment = Appointment.objects.get(registered_subject=infant_subject, visit_definition__code='2000')
+        infant_visit = InfantVisitFactory(appointment=appointment, report_datetime=datetime.today(), reason='scheduled')
+        print '    {0}'.format(infant_visit)
+        appt_2000 = Appointment.objects.get(registered_subject=infant_subject, visit_definition__code='2000').appt_datetime
+        appt_2010 = Appointment.objects.get(registered_subject=infant_subject, visit_definition__code='2010').appt_datetime
+#         print '    confirm {1}-{2} days between appointments for GA={0}'.format(*criteria)
+#         self.assertTrue((date(appt_2010.year, appt_2010.month, appt_2010.day) - date(appt_2000.year, appt_2000.month, appt_2000.day)).days in range(criteria[DAYS], criteria[DAYS_UPPER]),
+#                         '{0} is not in {1}. using {2}, {3}'.format((date(appt_2010.year, appt_2010.month, appt_2010.day) - date(appt_2000.year, appt_2000.month, appt_2000.day)).days, range(criteria[DAYS], criteria[DAYS_UPPER]), appt_2000, appt_2010))
+#         appt_date = date(appt_2010.year, appt_2010.month, appt_2010.day)
+#         delivery_date = date(delivery_datetime.year, delivery_datetime.month, delivery_datetime.day)
+#         diffdays = (appt_date - delivery_date).days
+#         print '    GOT {0} days for a {1}'.format(diffdays, appt_date.strftime("%A"))
+#         print '    confirm days calculated from delivery date'
+#         print '    raw calc puts appt on {0} {1}'.format((delivery_date + timedelta(days=criteria[DAYS])).strftime("%A"), delivery_date + timedelta(days=criteria[DAYS]))
+#         while True:
+#             if (delivery_date + timedelta(days=criteria[DAYS])).strftime("%A") == 'Saturday':
+#                 print '        appt date would have fallen on {0}, advance +2 days'.format(delivery_date.strftime("%A"))
+#                 delivery_date = delivery_date + timedelta(days=2)
+#             elif (delivery_date + timedelta(days=criteria[DAYS])).strftime("%A") == 'Sunday':
+#                 print '        appt date would have fallen on {0}, advance +1 days'.format(delivery_date.strftime("%A"))
+#                 delivery_date = delivery_date + timedelta(days=1)
+#             else:
+#                 break
+#         self.assertEqual(delivery_date + timedelta(days=criteria[DAYS]), appt_date)
+
+
 #     subject_consent = MaternalConsent
 #     consent_catalogue_name = 'mpepu V1'
 # 
