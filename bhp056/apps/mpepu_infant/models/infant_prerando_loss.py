@@ -3,7 +3,9 @@ from django.core.urlresolvers import reverse
 
 from edc.base.model.fields.custom.custom_fields import OtherCharField
 from edc.audit.audit_trail import AuditTrail
+from edc.entry_meta_data.managers import EntryMetaDataManager
 
+from .infant_visit import InfantVisit
 from apps.mpepu.choices import INFANT_PRE_RANDO_LOSS_REASON
 
 from .base_infant_registered_subject_model import BaseInfantRegisteredSubjectModel
@@ -38,6 +40,10 @@ class InfantPrerandoLoss(BaseInfantRegisteredSubjectModel):
         )
 
     history = AuditTrail()
+
+    infant_visit = models.OneToOneField(InfantVisit)
+
+    entry_meta_data_manager = EntryMetaDataManager(InfantVisit)
 
     def __unicode__(self):
         return unicode(self.registered_subject)

@@ -56,6 +56,12 @@ class MpepuInfantBirthVisitSchedule(VisitScheduleConfiguration):
                 EntryTuple(20L, u'mpepu_infant', u'infantbirthexam', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(30L, u'mpepu_infant', u'infantbirtharv', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(40L, u'mpepu_infant', u'infantbirthfeed', REQUIRED, NOT_ADDITIONAL),
+                #following are additional forms
+                EntryTuple(100L, u'mpepu_infant', u'infantcongenitalanomalies', NOT_REQUIRED, ADDITIONAL),
+                EntryTuple(200L, u'mpepu_infant', u'infantdeath', NOT_REQUIRED, ADDITIONAL),
+                EntryTuple(210L, u'mpepu_infant', u'infantverbalautopsy', NOT_REQUIRED, ADDITIONAL),
+                EntryTuple(220L, u'mpepu_infant', u'infantprerandoloss', NOT_REQUIRED, ADDITIONAL),
+                EntryTuple(230L, u'mpepu_infant', u'infantoffstudy', NOT_REQUIRED, ADDITIONAL),
             )}
     visit_definitions['2010'] = {
             'title': 'Randomization',
@@ -97,6 +103,10 @@ class MpepuInfantBirthVisitSchedule(VisitScheduleConfiguration):
                 EntryTuple(120L, u'mpepu_infant', u'infantfeeding', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(130L, u'mpepu_infant', u'infantstudydruginit', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(140L, u'mpepu_infant', u'infantstoolcollection', REQUIRED, NOT_ADDITIONAL),
+                #following are additional forms
+                EntryTuple(200L, u'mpepu_infant', u'infantdeath', NOT_REQUIRED, ADDITIONAL),
+                EntryTuple(210L, u'mpepu_infant', u'infantverbalautopsy', NOT_REQUIRED, ADDITIONAL),
+                EntryTuple(230L, u'mpepu_infant', u'infantoffstudy', NOT_REQUIRED, ADDITIONAL),
             )}
 
 site_visit_schedules.register(MpepuInfantBirthVisitSchedule)

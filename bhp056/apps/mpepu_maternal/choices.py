@@ -21,7 +21,7 @@ VISIT_REASON = [
     ('death', '5. Death'),
     ('off study', '6. Subject has completed the study'),
     ('deferred', '7. Deferred (not available for maternal visits)'),
-    ('vital status','8. Vital Status'),
+    ('vital status', '8. Vital Status'),
 ]
 
 OFF_STUDY_REASON = [

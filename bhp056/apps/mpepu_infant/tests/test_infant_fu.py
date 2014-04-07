@@ -5,7 +5,6 @@ from django.db import transaction
 from django.core.exceptions import ValidationError
 
 from edc.lab.lab_profile.exceptions import AlreadyRegistered
-from edc.lab.lab_profile.classes import site_lab_profiles
 from edc.subject.lab_tracker.classes import site_lab_tracker
 from edc.subject.rule_groups.classes import site_rule_groups
 from edc.subject.visit_schedule.classes import site_visit_schedules
@@ -13,6 +12,7 @@ from edc.core.bhp_variables.tests.factories import StudySpecificFactory, StudySi
 from edc.core.bhp_content_type_map.models import ContentTypeMap
 from edc.subject.consent.tests.factories import ConsentCatalogueFactory
 from edc.subject.appointment.models import Appointment
+from edc.lab.lab_profile.classes import site_lab_profiles
 
 from apps.mpepu_lab.lab_profiles import MpepuInfantProfile
 from apps.mpepu_infant_rando.models import InfantRando

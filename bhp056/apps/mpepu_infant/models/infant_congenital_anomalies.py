@@ -7,6 +7,7 @@ from edc.base.model.fields.custom.custom_fields import OtherCharField
 from edc.base.model.validators import datetime_not_before_study_start, datetime_not_future, datetime_is_after_consent
 from edc.choices.common import CONFIRMED_SUSPECTED
 from edc.subject.consent.models.base_consented_uuid_model import BaseConsentedUuidModel
+from edc.entry_meta_data.managers import EntryMetaDataManager
 
 from apps.mpepu.choices import (CNS_ABNORMALITIES, FACIAL_DEFECT, CLEFT_DISORDER, MOUTH_UP_GASTROINT_DISORDER,
                                 CARDIOVASCULAR_DISORDER, RESPIRATORY_DEFECT, LOWER_GASTROINTESTINAL_ABNORMALITY,
@@ -16,14 +17,19 @@ from apps.mpepu.choices import (CNS_ABNORMALITIES, FACIAL_DEFECT, CLEFT_DISORDER
 from .base_infant_registered_subject_model import BaseInfantRegisteredSubjectModel
 from .infant_base_uuid_model import InfantBaseUuidModel
 from .infant_off_study_mixin import InfantOffStudyMixin
+from .infant_visit import InfantVisit
 
 
 class InfantCongenitalAnomalies(BaseInfantRegisteredSubjectModel):
 
+    infant_visit = models.OneToOneField(InfantVisit)
+
+    entry_meta_data_manager = EntryMetaDataManager(InfantVisit)
+
     def get_consenting_subject_identifier(self):
         """Returns mother's identifier."""
         return self.registered_subject.relative_identifier
-    
+
     def get_subject_identifier(self):
         return self.registered_subject.subject_identifier
 
@@ -41,7 +47,7 @@ class InfantCongenitalAnomalies(BaseInfantRegisteredSubjectModel):
 class BaseCnsItem(InfantOffStudyMixin, BaseConsentedUuidModel):
 # class BaseCnsItem(InfantBaseUuidModel):
     """Adds in method to get mother's subject_identifier for confirming the consent (see bhp_consent)."""
-        
+
     report_datetime = models.DateTimeField(
         verbose_name="Visit Date and Time",
         validators=[
@@ -51,17 +57,21 @@ class BaseCnsItem(InfantOffStudyMixin, BaseConsentedUuidModel):
             ],
         default=datetime.today()
         )
-    
+
+    infant_visit = models.OneToOneField(InfantVisit)
+
+    entry_meta_data_manager = EntryMetaDataManager(InfantVisit)
+
     def get_visit(self):
         return '2000'
-    
+
     def get_consenting_subject_identifier(self):
         """Returns mother's identifier."""
         return self.congenital_anomalies.registered_subject.relative_identifier
-    
+
     def get_report_datetime(self):
         return self.report_datetime
-    
+
     def get_subject_identifier(self):
         """Returns subject identifier."""
         return self.congenital_anomalies.registered_subject.subject_identifier
@@ -94,11 +104,10 @@ class InfantCnsAbnormalityItems(BaseCnsItem):
         blank=True,
         null=True,
         )
-    
-          
+
     def get_absolute_url(self):
         return reverse('admin:mpepu_infant_infantcnsabnormalityitems__change', args=(self.id,))
-    
+
     class Meta:
         app_label = "mpepu_infant"
         verbose_name = "Infant Congenital Anomalies:Cns"

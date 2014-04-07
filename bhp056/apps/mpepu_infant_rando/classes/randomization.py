@@ -19,9 +19,8 @@ class Randomization(object):
         infants = RegisteredSubject.objects.filter(relative_identifier=infant_eligibility.registered_subject.relative_identifier).order_by('subject_identifier')
         rando = None
         if infants.count() > 1:
-
             for infant in infants:
-                rando = InfantRando.objects.filter(subject_identifier=infant.subject_identifier) 
+                rando = InfantRando.objects.filter(subject_identifier=infant.subject_identifier)
                 eligibility = InfantEligibility.objects.filter(registered_subject__subject_identifier=infant.subject_identifier)  
                 if rando and eligibility:
                     infant_eligibility.maternal_art_status = eligibility[0].maternal_art_status
@@ -29,7 +28,7 @@ class Randomization(object):
                     infant_eligibility.rando_bf_duration = eligibility[0].rando_bf_duration
                     infant_eligibility.randomization_site = eligibility[0].randomization_site  
                     break
-       
+
         if infant_eligibility:
             maternal_feeding_choice = infant_eligibility.maternal_feeding_choice
             maternal_art_status = infant_eligibility.maternal_art_status
@@ -67,7 +66,6 @@ class Randomization(object):
                                                 (Q(subject_identifier__isnull=True) |
                                                 Q(subject_identifier=''))
                                                 ).order_by('sid')
-
 
         if infant_rando:
 

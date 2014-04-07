@@ -119,7 +119,6 @@ class InfantBirthTests(TestCase):
         consent_catalogue.add_for_app = 'mpepu_infant'
         consent_catalogue.save()
         consent = MaternalConsentFactory(study_site=study_site)
-
         AGE = 0
         DAYS = 2
         DAYS_UPPER = 3
@@ -302,4 +301,3 @@ class InfantBirthTests(TestCase):
         print 'confirm appt date was changed to __. (Criteria are : ga >=36, weight >=2.5, clinical_jaundice=No, anemia_neutropenia=No)'
         infant_birth_data = InfantBirthDataFactory(infant_visit=infant_visit, infant_birth=infant_birth, infant_birth_weight=3.5, )
         print 'Infant 2010 at {0}'.format(Appointment.objects.get(registered_subject=registered_subject, visit_definition__code='2010').appt_datetime)
- 

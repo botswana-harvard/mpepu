@@ -21,10 +21,10 @@ class InfantBirthForm (BaseInfantModelForm):
         else:
             raise forms.ValidationError('Cannot find maternal labour and delivery form for this infant! This is not expected.')
         # if multiple birth, cannot have the same birth order
-        births = InfantBirth.objects.filter(maternal_lab_del= cleaned_data.get('maternal_lab_del'))
+        births = InfantBirth.objects.filter(maternal_lab_del=cleaned_data.get('maternal_lab_del'))
         for birth in births:
             if birth.birth_order == cleaned_data.get('birth_order'):
-                raise forms.ValidationError('Birth order cannot be %s. Already indicated that %s was born %s. Please correct.' % (cleaned_data.get('birth_order'),birth.registered_subject.subject_identifier,cleaned_data.get('birth_order'),))
+                raise forms.ValidationError('Birth order cannot be %s. Already indicated that %s was born %s. Please correct.' % (cleaned_data.get('birth_order'), birth.registered_subject.subject_identifier, cleaned_data.get('birth_order'),))
         return cleaned_data
 
     class Meta:
@@ -36,11 +36,11 @@ class InfantBirthExamForm (BaseInfantModelForm):
     def clean(self):
         cleaned_data = super(InfantBirthExamForm, self).clean()
         birth = cleaned_data.get('infant_birth')
-        
+
         #validate other general activity
-        if cleaned_data.get('general_activity')=='ABNORMAL' and not cleaned_data.get('abnormal_activity'):
+        if cleaned_data.get('general_activity') == 'ABNORMAL' and not cleaned_data.get('abnormal_activity'):
             raise forms.ValidationError('You indicated that the general activity was abnormal. Please specify abnormality.')
-        
+
         # physical exam normal, heet exam no required"""
         if cleaned_data.get('physical_exam_result', None) == 'NORMAL' and cleaned_data.get('heent_exam', None) != 'N/A':
             raise forms.ValidationError("If physical exam is normal then heent exam is not required, please correct. You wrote '%s'" % cleaned_data.get('heent_exam', None))
@@ -67,42 +67,42 @@ class InfantBirthExamForm (BaseInfantModelForm):
         #physical exam normal, neurologic exam no required"""
         if cleaned_data.get('physical_exam_result', None) == 'NORMAL' and cleaned_data.get('neurologic_exam', None) != 'N/A':
             raise forms.ValidationError("If physical exam is normal then heent neurological exam not required, please correct. You wrote '%s'" % cleaned_data.get('neurologic_exam', None))
-        
+
         #physical exam abnormal and no abnormalities indicated
         if cleaned_data.get('physical_exam_result') == 'ABNORMAL':
-            if (cleaned_data.get('heent_exam')!='Yes' and cleaned_data.get('resp_exam')!='Yes' and cleaned_data.get('cardiac_exam')!='Yes' and cleaned_data.get('abdominal_exam')!='Yes' 
-                and cleaned_data.get('skin_exam')!='Yes' and cleaned_data.get('macular_papular_rash')!='Yes' and cleaned_data.get('neurologic_exam')!='Yes'):
-                raise forms.ValidationError('You indicated that participant had abnormal findings for the physical exam. Please indicate at least one.')  
-            
+            if (cleaned_data.get('heent_exam') != 'Yes' and cleaned_data.get('resp_exam') != 'Yes' and cleaned_data.get('cardiac_exam') != 'Yes' and cleaned_data.get('abdominal_exam') != 'Yes'
+                and cleaned_data.get('skin_exam') != 'Yes' and cleaned_data.get('macular_papular_rash') != 'Yes' and cleaned_data.get('neurologic_exam') != 'Yes'):
+                raise forms.ValidationError('You indicated that participant had abnormal findings for the physical exam. Please indicate at least one.')
+
         #HEENT exam abnormal, specify abnormality
         if cleaned_data.get('heent_exam', None) == 'Yes' and not cleaned_data.get('heent_no_other'):
             raise forms.ValidationError('You indicated HEENT exam was abnormal. Please specify.')
-        
+
         #Respiratory exam  abnormal, specify abnormality
         if cleaned_data.get('resp_exam', None) == 'Yes' and not cleaned_data.get('resp_exam_other'):
             raise forms.ValidationError('You indicated Respiratory exam was abnormal. Please specify.')
-        
+
         #Cardiac exam  abnormal, specify abnormality
         if cleaned_data.get('cardiac_exam', None) == 'Yes' and not cleaned_data.get('cardiac_exam_other'):
             raise forms.ValidationError('You indicated Cardiac exam was abnormal. Please specify.')
-        
+
         #Abdominal exam  abnormal, specify abnormality
         if cleaned_data.get('abdominal_exam', None) == 'Yes' and not cleaned_data.get('abdominal_exam_other'):
             raise forms.ValidationError('You indicated Abdominal exam was abnormal. Please specify.')
-        
+
         #Skin exam  abnormal, specify abnormality
         if cleaned_data.get('skin_exam', None) == 'Yes' and not cleaned_data.get('skin_exam_other'):
             raise forms.ValidationError('You indicated Skin exam was abnormal. Please specify.')
-        
+
         #Neurological exam  abnormal, specify abnormality
         if cleaned_data.get('neurologic_exam', None) == 'Yes' and not cleaned_data.get('neuro_exam_other'):
             raise forms.ValidationError('You indicated neurological exam was abnormal. Please specify.')
-        
-        #validate gender with Infant Birth        
-        if birth.gender !='U' or cleaned_data.get('gender')!='U':
+
+        #validate gender with Infant Birth
+        if birth.gender != 'U' or cleaned_data.get('gender') != 'U':
             if birth.gender != cleaned_data.get('gender'):
                 raise forms.ValidationError('The gender does not correspond to gender as indicated in Infant Birth. Please correct Infant Birth first. ')
-        
+
         return cleaned_data
 
     class Meta:
@@ -116,7 +116,7 @@ class InfantBirthDataForm (BaseInfantModelForm):
         if cleaned_data.get('apgar_score') == 'Yes':
             if not cleaned_data.get('apgar_score_min_1') or not cleaned_data.get('apgar_score_min_5') or not cleaned_data.get('apgar_score_min_10'):
                 raise forms.ValidationError("You indicated that apgar score was performed. Please provide the results.")
-        
+
         #apgar score results should not be entered
         if cleaned_data.get('apgar_score') == 'No':
             if cleaned_data.get('apgar_score_min_1') or cleaned_data.get('apgar_score_min_5') or cleaned_data.get('apgar_score_min_10'):
@@ -129,26 +129,26 @@ class InfantBirthDataForm (BaseInfantModelForm):
 
 class InfantBirthArvForm (BaseInfantModelForm):
     def clean(self):
-        cleaned_data = super(InfantBirthArvForm,self).clean()
+        cleaned_data = super(InfantBirthArvForm, self).clean()
         birth = cleaned_data.get('infant_birth')
         #validate azt
-        if cleaned_data.get('azt_after_birth')=='Yes' and not cleaned_data.get('azt_dose_date'):
+        if cleaned_data.get('azt_after_birth') == 'Yes' and not cleaned_data.get('azt_dose_date'):
             raise forms.ValidationError('You indicated that AZT was given after birth, please provide the date it was administered')
-        
-        if cleaned_data.get('azt_after_birth')=='No' and cleaned_data.get('azt_dose_date'):
+
+        if cleaned_data.get('azt_after_birth') == 'No' and cleaned_data.get('azt_dose_date'):
             raise forms.ValidationError('You indicated that AZT was NOT given after birth and yet provided the date it was administered. Please correct.')
         #validate nvp
-        if cleaned_data.get('sdnvp_after_birth')=='Yes' and not cleaned_data.get('nvp_dose_date'):
+        if cleaned_data.get('sdnvp_after_birth') == 'Yes' and not cleaned_data.get('nvp_dose_date'):
             raise forms.ValidationError('You indicated that NVP was given after birth, please provide the date it was administered')
-        
-        if cleaned_data.get('sdnvp_after_birth')=='No' and cleaned_data.get('nvp_dose_date'):
+
+        if cleaned_data.get('sdnvp_after_birth') == 'No' and cleaned_data.get('nvp_dose_date'):
             raise forms.ValidationError('You indicated that NVP was NOT given after birth and yet provided the date it was administered. Please correct.')
-        
+
         #ensure dates given not before dob
         if cleaned_data.get('azt_dose_date'):
             if cleaned_data.get('azt_dose_date') < birth.dob:
                 raise forms.ValidationError('AZT dose date is before Date of Birth. Please correct.')
-            
+
         if cleaned_data.get('nvp_dose_date'):
             if cleaned_data.get('nvp_dose_date') < birth.dob:
                 raise forms.ValidationError('NVP dose date is before Date of Birth. Please correct.')

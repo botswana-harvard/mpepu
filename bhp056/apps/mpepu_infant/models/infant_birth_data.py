@@ -89,17 +89,6 @@ class InfantBirthData(BaseScheduledVisitModel):
 
     history = AuditTrail()
 
-#     def save(self, *args, **kwargs):
-#         super(InfantBirthData, self).save(*args, **kwargs)
-#         if self.congenital_anomalities.lower() == 'yes':
-#             model = get_model('mpepu_infant', 'infantcongenitalanomalies')
-#             """add congenital anomalies form"""
-#             AdditionalEntryBucket.objects.add_for(
-#                 registered_subject=self.infant_visit.appointment.registered_subject,
-#                 model=model,
-#                 qset=Q(registered_subject=self.infant_visit.appointment.registered_subject),
-#                 )
-
     def __unicode__(self):
         return unicode(self.infant_birth)
 

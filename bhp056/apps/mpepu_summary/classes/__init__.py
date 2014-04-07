@@ -1,1 +1,1 @@
-from medication_summary import MedicationSummary
+from .medication_summary import MedicationSummary

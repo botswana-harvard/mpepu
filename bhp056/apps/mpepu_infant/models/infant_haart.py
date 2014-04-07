@@ -6,8 +6,8 @@ from edc.choices import YES_NO
 
 from edc.subject.haart.models import BaseHaartModification
 from edc.subject.haart.choices import ARV_STATUS
-from base_infant_registered_subject_model import BaseInfantRegisteredSubjectModel
-from infant_off_study_mixin import InfantOffStudyMixin
+from .base_infant_registered_subject_model import BaseInfantRegisteredSubjectModel
+from .infant_off_study_mixin import InfantOffStudyMixin
 
 
 class InfantHaart (BaseInfantRegisteredSubjectModel):
