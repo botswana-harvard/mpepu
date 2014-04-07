@@ -25,7 +25,7 @@ class MpepuMaternalPostNatalVisitSchedule(VisitScheduleConfiguration):
     # visit_schedule
     # see edc.subject.visit_schedule.models.visit_defintion
     visit_definitions = OrderedDict()
-    
+
     visit_definitions['2000M'] = {
             'title': 'Maternal Post Natal Registration',
             'time_point': 0,
@@ -51,7 +51,6 @@ class MpepuMaternalPostNatalVisitSchedule(VisitScheduleConfiguration):
                 ),
             'entries': (
                 #EntryTuple = namedtuple('EntryTuple', 'order app_label model_name form_status')
-                EntryTuple(1L, u'mpepu_maternal', u'maternalpostfu', NOT_REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(10L, u'mpepu_maternal', u'maternalenroll', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(20L, u'mpepu_maternal', u'maternalenrolldem', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(30L, u'mpepu_maternal', u'maternalenrollmed', REQUIRED, NOT_ADDITIONAL),
@@ -69,6 +68,10 @@ class MpepuMaternalPostNatalVisitSchedule(VisitScheduleConfiguration):
                 EntryTuple(150L, u'mpepu_maternal', u'feedingchoice', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(160L, u'mpepu_maternal', u'feedingchoicesectionone', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(170L, u'mpepu_maternal', u'feedingchoicesectiontwo', REQUIRED, NOT_ADDITIONAL),
+                EntryTuple(180L, u'mpepu_maternal', u'feedingchoicesectionthree', REQUIRED, NOT_ADDITIONAL),
+                #following are additional forms
+                EntryTuple(200L, u'mpepu_maternal', u'maternaldeath', NOT_REQUIRED, ADDITIONAL),
+                EntryTuple(210L, u'mpepu_maternal', u'maternaloffstudy', NOT_REQUIRED, ADDITIONAL),
             )}
     visit_definitions['2010M'] = {
             'title': 'Infant Randomization',
@@ -100,6 +103,9 @@ class MpepuMaternalPostNatalVisitSchedule(VisitScheduleConfiguration):
                 EntryTuple(20L, u'mpepu_maternal', u'maternalpostfudx', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(30L, u'mpepu_maternal', u'maternalarvpost', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(40L, u'mpepu_maternal', u'maternalarvpostadh', REQUIRED, NOT_ADDITIONAL),
+                #following are additional forms
+                EntryTuple(200L, u'mpepu_maternal', u'maternaldeath', NOT_REQUIRED, ADDITIONAL),
+                EntryTuple(210L, u'mpepu_maternal', u'maternaloffstudy', NOT_REQUIRED, ADDITIONAL),
             )}
     visit_definitions['2020M'] = {
             'title': '2 Months Postpartum Visit',
@@ -130,6 +136,9 @@ class MpepuMaternalPostNatalVisitSchedule(VisitScheduleConfiguration):
                 EntryTuple(20L, u'mpepu_maternal', u'maternalpostfudx', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(30L, u'mpepu_maternal', u'maternalarvpost', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(40L, u'mpepu_maternal', u'maternalarvpostadh', REQUIRED, NOT_ADDITIONAL),
+                #following are additional forms
+                EntryTuple(200L, u'mpepu_maternal', u'maternaldeath', NOT_REQUIRED, ADDITIONAL),
+                EntryTuple(210L, u'mpepu_maternal', u'maternaloffstudy', NOT_REQUIRED, ADDITIONAL),
             )}
     visit_definitions['2030M'] = {
             'title': '3 Months Postpartum Visit',
@@ -160,6 +169,9 @@ class MpepuMaternalPostNatalVisitSchedule(VisitScheduleConfiguration):
                 EntryTuple(20L, u'mpepu_maternal', u'maternalpostfudx', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(30L, u'mpepu_maternal', u'maternalarvpost', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(40L, u'mpepu_maternal', u'maternalarvpostadh', REQUIRED, NOT_ADDITIONAL),
+                #following are additional forms
+                EntryTuple(200L, u'mpepu_maternal', u'maternaldeath', NOT_REQUIRED, ADDITIONAL),
+                EntryTuple(210L, u'mpepu_maternal', u'maternaloffstudy', NOT_REQUIRED, ADDITIONAL),
             )}
     visit_definitions['2060M'] = {
             'title': '6 Months Postpartum Visit',
@@ -190,6 +202,9 @@ class MpepuMaternalPostNatalVisitSchedule(VisitScheduleConfiguration):
                 EntryTuple(20L, u'mpepu_maternal', u'maternalpostfudx', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(30L, u'mpepu_maternal', u'maternalarvpost', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(40L, u'mpepu_maternal', u'maternalarvpostadh', REQUIRED, NOT_ADDITIONAL),
+                #following are additional forms
+                EntryTuple(200L, u'mpepu_maternal', u'maternaldeath', NOT_REQUIRED, ADDITIONAL),
+                EntryTuple(210L, u'mpepu_maternal', u'maternaloffstudy', NOT_REQUIRED, ADDITIONAL),
             )}
     visit_definitions['2090M'] = {
             'title': '9 Months Postpartum Visit',
@@ -220,6 +235,9 @@ class MpepuMaternalPostNatalVisitSchedule(VisitScheduleConfiguration):
                 EntryTuple(20L, u'mpepu_maternal', u'maternalpostfudx', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(30L, u'mpepu_maternal', u'maternalarvpost', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(40L, u'mpepu_maternal', u'maternalarvpostadh', REQUIRED, NOT_ADDITIONAL),
+                #following are additional forms
+                EntryTuple(200L, u'mpepu_maternal', u'maternaldeath', NOT_REQUIRED, ADDITIONAL),
+                EntryTuple(210L, u'mpepu_maternal', u'maternaloffstudy', NOT_REQUIRED, ADDITIONAL),
             )}
     visit_definitions['2120M'] = {
             'title': '12 Months Postpartum Visit',
@@ -250,6 +268,9 @@ class MpepuMaternalPostNatalVisitSchedule(VisitScheduleConfiguration):
                 EntryTuple(20L, u'mpepu_maternal', u'maternalpostfudx', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(30L, u'mpepu_maternal', u'maternalarvpost', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(40L, u'mpepu_maternal', u'maternalarvpostadh', REQUIRED, NOT_ADDITIONAL),
+                #following are additional forms
+                EntryTuple(200L, u'mpepu_maternal', u'maternaldeath', NOT_REQUIRED, ADDITIONAL),
+                EntryTuple(210L, u'mpepu_maternal', u'maternaloffstudy', NOT_REQUIRED, ADDITIONAL),
             )}
     visit_definitions['2150M'] = {
             'title': '15 Months Postpartum Visit',
@@ -280,6 +301,9 @@ class MpepuMaternalPostNatalVisitSchedule(VisitScheduleConfiguration):
                 EntryTuple(20L, u'mpepu_maternal', u'maternalpostfudx', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(30L, u'mpepu_maternal', u'maternalarvpost', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(40L, u'mpepu_maternal', u'maternalarvpostadh', REQUIRED, NOT_ADDITIONAL),
+                #following are additional forms
+                EntryTuple(200L, u'mpepu_maternal', u'maternaldeath', NOT_REQUIRED, ADDITIONAL),
+                EntryTuple(210L, u'mpepu_maternal', u'maternaloffstudy', NOT_REQUIRED, ADDITIONAL),
             )}
     visit_definitions['2180M'] = {
             'title': '18 Months Postpartum Visit',
@@ -311,6 +335,9 @@ class MpepuMaternalPostNatalVisitSchedule(VisitScheduleConfiguration):
                 EntryTuple(30L, u'mpepu_maternal', u'maternalarvpost', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(40L, u'mpepu_maternal', u'maternalarvpostadh', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(50L, u'mpepu_maternal', u'postnatalinfantfeedingsurvey', REQUIRED, NOT_ADDITIONAL),
+                #following are additional forms
+                EntryTuple(200L, u'mpepu_maternal', u'maternaldeath', NOT_REQUIRED, ADDITIONAL),
+                EntryTuple(210L, u'mpepu_maternal', u'maternaloffstudy', NOT_REQUIRED, ADDITIONAL),
             )}
 
 site_visit_schedules.register(MpepuMaternalPostNatalVisitSchedule)

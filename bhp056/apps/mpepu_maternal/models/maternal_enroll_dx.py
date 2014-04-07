@@ -40,13 +40,13 @@ class MaternalEnrollDx(MaternalBaseUuidModel):
 
     def get_report_datetime(self):
         return self.get_visit().get_report_datetime()
- 
+
     def get_subject_identifier(self):
         return self.get_visit().get_subject_identifier()
- 
+
     def get_visit(self):
         return self.maternal_enroll_med.maternal_visit
- 
+
     def __unicode__(self):
         return unicode(self.get_visit())
 

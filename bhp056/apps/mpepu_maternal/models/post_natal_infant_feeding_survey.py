@@ -18,7 +18,7 @@ class PostNatalInfantFeedingSurvey(BaseScheduledVisitModel):
         max_length=3,
         choices=YES_NO,
         )
-    
+
     feeding_period = models.CharField(
         verbose_name="Do you think your infant breastfed for the right number of months:",
         max_length=3,
@@ -46,7 +46,7 @@ class PostNatalInfantFeedingSurvey(BaseScheduledVisitModel):
         max_length=30,
         choices=NEXT_FEEDING_CHOICE,
         )
- 
+
     history = AuditTrail()
 
     class Meta:

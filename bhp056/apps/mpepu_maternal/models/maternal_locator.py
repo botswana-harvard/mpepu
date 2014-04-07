@@ -56,7 +56,7 @@ class MaternalLocator(MaternalOffStudyMixin, BaseLocator):
         )
 
     history = AuditTrail()
-    
+
     entry_meta_data_manager = EntryMetaDataManager(MaternalVisit)
 
     def get_subject_identifier(self):
