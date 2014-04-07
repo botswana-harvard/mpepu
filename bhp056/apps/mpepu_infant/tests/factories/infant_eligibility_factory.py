@@ -11,7 +11,7 @@ class InfantEligibilityFactory(BaseUuidModelFactory):
     FACTORY_FOR = InfantEligibility
 
     infant_birth = factory.SubFactory(InfantBirthFactory)
-    hiv_status = 'Yes'
+    hiv_status = 'No'
     weight = 4
     clinical_jaundice = 'No'
     anemia_neutropenia = 'No'
