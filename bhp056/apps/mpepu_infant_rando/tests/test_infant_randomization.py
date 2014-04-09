@@ -85,11 +85,8 @@ class InfantRandomizationTests(TestCase):
             self.populate_rando(site='Lobatse', stratum='FF', sid=idx+59, rx='Placebo', bf_duration='NA')
             self.populate_rando(stratum='FF', sid=idx+64, rx='Placebo', bf_duration='')
             self.populate_rando(stratum='FF', sid=idx+104, rx='Placebo', bf_duration='')
-            self.populate_rando(stratum='FF', sid=idx+124, rx='Placebo', bf_duration='')
 
         original_sids = InfantRando.objects.all()
-#         for i in original_sids: 
-#             print list(i.__dict__)
 
         allow_rando1 = Eligibility().check(
                 current_consent_version=2,
@@ -174,7 +171,8 @@ class InfantRandomizationTests(TestCase):
         print "assert that for sid assined twin 1, stratum remained unchanged"
         self.assertEqual(og.stratum, rando1.stratum)
         print "assert that for sid assined twin 1, bf_duration remained unchanged"
-#         self.assertEqual(og.bf_duration, rando1.bf_duration)
+        if infant_eligibility1.maternal_feeding_choice =='BF':
+            self.assertEqual(og.bf_duration, rando1.bf_duration)
         og = original_sids.get(sid=rando2.sid)
         print "assert that for sid assigned twin 2, rx remained unchanged"
         self.assertEqual(og.rx, rando2.rx)
@@ -183,7 +181,8 @@ class InfantRandomizationTests(TestCase):
         print "assert that for sid assined twin 2, stratum remained unchanged"
         self.assertEqual(og.stratum, rando2.stratum)
         print "assert that for sid assined twin 2, bf_duration remained unchanged"
-#         self.assertEqual(og.bf_duration, rando2.bf_duration)
+        if infant_eligibility2.maternal_feeding_choice =='BF':
+            self.assertEqual(og.bf_duration, rando2.bf_duration)
 
     def populate_rando(self,site='Gaborone', stratum='BF,HAART', sid=1,rx='Placebo',bf_duration='6months'):
         _sid = 110140 + sid

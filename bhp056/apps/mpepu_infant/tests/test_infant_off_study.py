@@ -4,21 +4,25 @@ from datetime import datetime, date, timedelta
 from django.test import TestCase
 from django.db.models import get_app, get_models
 from edc.core.identifier.exceptions import IdentifierError
-from edc.subject.lab_tracker.classes import lab_tracker
+from edc.subject.lab_tracker.classes import site_lab_tracker
 from edc.core.bhp_variables.models import StudySpecific, StudySite
 from edc.core.bhp_variables.tests.factories import StudySpecificFactory, StudySiteFactory
 from edc.subject.registration.models import RegisteredSubject
 from edc.subject.consent.tests.factories import ConsentCatalogueFactory
 from edc.subject.appointment.models import Appointment
-from edc.subject.appointment.tests.factories import ConfigurationFactory
 from edc.subject.visit_schedule.tests.factories import MembershipFormFactory, ScheduleGroupFactory, VisitDefinitionFactory
-from bhp_content_type_map.classes import ContentTypeMapHelper
-from bhp_content_type_map.models import ContentTypeMap
-from ..models import MaternalVisit, MaternalConsent, MaternalOffStudy, MaternalEligibilityAnte, MaternalEligibilityPost, MaternalPostReg
-from ..tests.factories import MaternalConsentFactory, MaternalOffStudyFactory, MaternalVisitFactory, MaternalEligibilityAnteFactory, MaternalLabDelFactory
+from edc.core.bhp_content_type_map.classes import ContentTypeMapHelper
+from edc.core.bhp_content_type_map.models import ContentTypeMap
+from edc.subject.visit_schedule.classes import site_visit_schedules
+from edc.lab.lab_profile.classes import site_lab_profiles
+from apps.mpepu.mpepu_app_configuration.classes import MpepuAppConfiguration
+from apps.mpepu_lab.lab_profiles import MpepuInfantProfile
+from edc.lab.lab_profile.exceptions import AlreadyRegistered
+from apps.mpepu_maternal.models import MaternalVisit, MaternalConsent, MaternalOffStudy, MaternalEligibilityAnte, MaternalEligibilityPost, MaternalPostReg
+from apps.mpepu_maternal.tests.factories import MaternalConsentFactory, MaternalOffStudyFactory, MaternalVisitFactory, MaternalEligibilityAnteFactory, MaternalLabDelFactory
 from edc.core.identifier.models import SubjectIdentifier, Sequence
 from edc.subject.off_study.exceptions import SubjectOffStudyError, SubjectOffStudyDateError
-from mpepu_infant.models import InfantBirth, InfantVisit
+from apps.mpepu_infant.models import InfantBirth, InfantVisit
 from factories import InfantVisitFactory, InfantBirthFactory, InfantBirthDataFactory, InfantEligibilityFactory, InfantOffStudyFactory, InfantArvProphFactory, InfantArvProphModFactory
 
 
@@ -27,6 +31,16 @@ class InfantOffStudyTests(TestCase):
     subject_consent = MaternalConsent
     consent_catalogue_name = 'mpepu V1'
     visit_model = MaternalVisit
+
+    def setUp(self):
+        try:
+            site_lab_profiles.register(MpepuInfantProfile())
+        except AlreadyRegistered:
+            pass
+        MpepuAppConfiguration()
+        site_lab_tracker.autodiscover()
+        site_visit_schedules.autodiscover()
+        site_visit_schedules.build_all()
 
     def test_off_study_mixin(self):
         print 'check each model has off study methods from mixin'
@@ -40,53 +54,11 @@ class InfantOffStudyTests(TestCase):
                 self.assertTrue('get_subject_identifier' in dir(model), 'Method \'get_subject_identifier\' not found on model {0}'.format(model._meta.object_name))
 
     def test_p1(self):
-        lab_tracker.autodiscover()
-        StudySpecificFactory()
-        study_site = StudySiteFactory()
-        ConfigurationFactory()
-        content_type_map_helper = ContentTypeMapHelper()
-        content_type_map_helper.populate()
-        content_type_map_helper.sync()
-        print 'setup the consent catalogue for app {0}'.format(self.app_label)
-        content_type_map = ContentTypeMap.objects.get(content_type__model=self.subject_consent._meta.object_name.lower())
-        consent_catalogue = ConsentCatalogueFactory(name=self.consent_catalogue_name, content_type_map=content_type_map)
-        consent_catalogue.add_for_app = 'mpepu_maternal'
-        consent_catalogue.save()
+        study_site = StudySiteFactory(site_code=2)
+        content_type_map = ContentTypeMap.objects.get(model='maternalconsent', app_label='mpepu_maternal')
+        consent_catalogue = ConsentCatalogueFactory(content_type_map=content_type_map)
         consent_catalogue.add_for_app = 'mpepu_infant'
         consent_catalogue.save()
-
-        maternal_visit_tracking_content_type_map = ContentTypeMap.objects.get(content_type__model='maternalvisit')
-
-        print 'setup bhp_visit'
-        content_type_map = ContentTypeMap.objects.get(content_type__model=MaternalEligibilityAnte._meta.object_name.lower())
-        membership_form = MembershipFormFactory(content_type_map=content_type_map)
-        schedule_group = ScheduleGroupFactory(membership_form=membership_form, group_name='Maternal Ante Natal Reg', grouping_key='ELIGIBILITY')
-        visit_definition = VisitDefinitionFactory(code='1000M', title='Maternal Ante Natal Registration', grouping='maternal', visit_tracking_content_type_map=maternal_visit_tracking_content_type_map)
-        visit_definition.schedule_group.add(schedule_group)
-
-        content_type_map = ContentTypeMap.objects.get(content_type__model=MaternalEligibilityPost._meta.object_name.lower())
-        membership_form = MembershipFormFactory(content_type_map=content_type_map)
-        schedule_group = ScheduleGroupFactory(membership_form=membership_form, group_name='Maternal Post Partum Reg', grouping_key='ELIGIBILITY')
-        visit_definition = VisitDefinitionFactory(code='2000M', title='Maternal Post Natal Registration', grouping='maternal', visit_tracking_content_type_map=maternal_visit_tracking_content_type_map)
-        visit_definition.schedule_group.add(schedule_group)
-
-        content_type_map = ContentTypeMap.objects.get(content_type__model=MaternalPostReg._meta.object_name.lower())
-        membership_form = MembershipFormFactory(content_type_map=content_type_map)
-        schedule_group = ScheduleGroupFactory(membership_form=membership_form, group_name='Post Partum Follow-up')
-        visit_definition = VisitDefinitionFactory(code='2010M', title='Infant Randomization', grouping='maternal', visit_tracking_content_type_map=maternal_visit_tracking_content_type_map)
-        visit_definition.schedule_group.add(schedule_group)
-
-        infant_visit_tracking_content_type_map = ContentTypeMap.objects.get(content_type__model='infantvisit')
-
-        content_type_map = ContentTypeMap.objects.get(content_type__model=InfantBirth._meta.object_name.lower())
-        membership_form = MembershipFormFactory(content_type_map=content_type_map)
-        schedule_group = ScheduleGroupFactory(membership_form=membership_form, group_name='Infant Birth')
-        visit_definition = VisitDefinitionFactory(code='2000', title='Infant Birth', grouping='infant', time_point=0, base_interval=0, base_interval_unit='D', visit_tracking_content_type_map=infant_visit_tracking_content_type_map)
-        visit_definition.schedule_group.add(schedule_group)
-        visit_definition = VisitDefinitionFactory(code='2010', title='Randomization', grouping='infant', time_point=10, base_interval=27, base_interval_unit='D', visit_tracking_content_type_map=infant_visit_tracking_content_type_map)
-        visit_definition.schedule_group.add(schedule_group)
-        
-        #entry = 
 
         print 'consent a mother (30 days ago)'
         maternal_consent = MaternalConsentFactory(study_site=study_site, consent_datetime=datetime.today() - timedelta(days=30))
@@ -118,7 +90,7 @@ class InfantOffStudyTests(TestCase):
         print 'complete infant birth data'
         infant_birth_data = InfantBirthDataFactory(infant_visit=infant_visit, infant_birth=infant_birth)
         print 'complete off study model'
-        infant_off_study = InfantOffStudyFactory(registered_subject=registered_subject, offstudy_date=date.today() - timedelta(days=0))
+        infant_off_study = InfantOffStudyFactory(registered_subject=registered_subject, offstudy_date=date.today() - timedelta(days=0), infant_visit=infant_visit)
         print 'confirm can still save scheduled model'
         infant_birth_data.save()
 
@@ -144,29 +116,24 @@ class InfantOffStudyTests(TestCase):
         print 'complete infant birth'
         infant_birth = InfantBirthFactory(registered_subject=registered_subject, maternal_lab_del=maternal_lab_del, dob=date(delivery_datetime.year, delivery_datetime.month, delivery_datetime.day))
         print infant_birth
+        print 'add a visit 1 day ago'
+        appointment = Appointment.objects.get(registered_subject=registered_subject, visit_definition__code='2000')
+        infant_visit = InfantVisitFactory(appointment=appointment, report_datetime=datetime.today() - timedelta(days=1), reason='scheduled')
         print 'complete off study model'
-        infant_off_study = InfantOffStudyFactory(registered_subject=registered_subject, offstudy_date=date.today() - timedelta(days=1))
+        infant_off_study = InfantOffStudyFactory(registered_subject=registered_subject, offstudy_date=date.today() - timedelta(days=1), infant_visit=infant_visit)
         print 'confirm cannot add a visit'
         appointment = Appointment.objects.get(registered_subject=registered_subject, visit_definition__code='2000')
         self.assertRaises(SubjectOffStudyError, InfantVisitFactory, appointment=appointment, report_datetime=datetime.today(), reason='scheduled')
-        print 'remove remove off study'
+        print 'remove off study'
         infant_off_study.delete()
-        print 'add a visit (1 day ago)'
-        infant_visit = InfantVisitFactory(appointment=appointment, report_datetime=datetime.today() - timedelta(days=1), reason='scheduled')
-        print 'complete off study model (1 day ago)'
-        infant_off_study = InfantOffStudyFactory(registered_subject=registered_subject, offstudy_date=date.today() - timedelta(days=1))
-        print 'confirm cannot complete infant eligibility for today'
-        infant_eligibility = InfantEligibilityFactory(infant_birth=infant_birth, registered_subject=registered_subject)
+        infant_off_study = InfantOffStudyFactory(registered_subject=registered_subject, offstudy_date=date.today() - timedelta(days=1),infant_visit=infant_visit)
+        print 'assert cannot complete infant eligibility for today'
+        self.assertRaises(SubjectOffStudyError, InfantEligibilityFactory,infant_birth=infant_birth, registered_subject=registered_subject)
+        print 'remove off study'
+        infant_off_study.delete()
         print 'complete infant birth data'
         infant_birth_data = InfantBirthDataFactory(infant_visit=infant_visit, infant_birth=infant_birth)
-        print 'complete infant_arv_proh'
-        infant_arv_proph = InfantArvProphFactory(infant_visit=infant_visit)
-        infant_arv_proph_mode = InfantArvProphModFactory(infant_arv_proph=infant_arv_proph)
-
         print 'complete off study model'
-        print 'delete off study model'
-        infant_off_study.delete()
+        infant_off_study = InfantOffStudyFactory(registered_subject=registered_subject, offstudy_date=date.today() - timedelta(days=1),infant_visit=infant_visit)
         print 'confirm cannot add an off study with younger data already entered (3 days ago)'
         self.assertRaises(SubjectOffStudyDateError, InfantOffStudyFactory, registered_subject=registered_subject, offstudy_date=date.today() - timedelta(days=3))
-        print 'complete off study model for today'
-        infant_off_study = InfantOffStudyFactory(registered_subject=registered_subject, offstudy_date=date.today() - timedelta(days=1))

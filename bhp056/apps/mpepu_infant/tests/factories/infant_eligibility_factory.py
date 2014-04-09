@@ -17,3 +17,4 @@ class InfantEligibilityFactory(BaseUuidModelFactory):
     anemia_neutropenia = 'No'
     hiv_result_reference = 'PENDING'
     maternal_feeding_choice = 'BF'
+    rando_bf_duration = 'No'
