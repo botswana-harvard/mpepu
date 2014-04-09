@@ -170,7 +170,7 @@ class InfantFeeding(BaseScheduledVisitModel):
         max_length=3,
         choices=YES_NO_NA,
         verbose_name="Is the participant currently completely weaned from breast milk (at least 72 hours without breastfeeding,no intention to re-start)?",
-        help_text="If formula fed from birth ,answer as N/A and go to question 12, otherwise continue",
+        help_text="If formula fed from birth ,answer as N/A and go to question 26, otherwise continue",
         default='N/A',
         )
     most_recent_bm = models.DateField(
