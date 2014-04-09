@@ -48,24 +48,26 @@ class Randomization(object):
             stratum = 'BF,notHAART'
         else:
             raise TypeError('Cannot determine stratum. Got %s and %s' % (maternal_feeding_choice, maternal_art_status))
+
+        infant_rando = InfantRando.objects.filter(
+                                                Q(site__exact=site),
+                                                Q(stratum__exact=stratum),
+                                                (Q(subject_identifier__isnull=True) |
+                                                Q(subject_identifier=''))
+                                                ).order_by('sid')
+        #ensure multiple births are randomised to same rx and bf_duration
         if infants and rando:
             rx = rando[0].rx
             bf_duration = rando[0].bf_duration
-            infant_rando = InfantRando.objects.filter(
-                                                Q(site__exact=site),
-                                                Q(stratum__exact=stratum),
-                                                Q(rx__exact=rx),
-                                                Q(bf_duration__exact=bf_duration),
-                                                (Q(subject_identifier__isnull=True) |
-                                                Q(subject_identifier=''))
-                                                ).order_by('sid')
-        else:
-            infant_rando = InfantRando.objects.filter(
-                                                Q(site__exact=site),
-                                                Q(stratum__exact=stratum),
-                                                (Q(subject_identifier__isnull=True) |
-                                                Q(subject_identifier=''))
-                                                ).order_by('sid')
+            #filter on BF for bf_duration only
+            if maternal_feeding_choice == 'BF':
+                infant_rando = infant_rando.filter(bf_duration__exact=bf_duration).order_by('sid')
+            count = infant_rando.count()
+            rando_list=[]
+            for ir in infant_rando:
+                if ir.rx == rx:
+                    rando_list.append(ir)
+            infant_rando = rando_list
 
         if infant_rando:
 
@@ -73,11 +75,6 @@ class Randomization(object):
             # get sid for first twin, triplet
             # modify this sid so that feeding and rx are the same as first
             dte = datetime.today()
-
-#             if rando and eligibility:
-#                 infant_rando[0].rx = rando[0].rx
-#                 infant_rando[0].bf_duration = rando[0].bf_duration
-
             infant_rando[0].haart_status = maternal_art_status
             infant_rando[0].feeding_choice = maternal_feeding_choice
             infant_rando[0].subject_identifier = registered_subject.subject_identifier

@@ -16,3 +16,4 @@ class InfantEligibilityFactory(BaseUuidModelFactory):
     clinical_jaundice = 'No'
     anemia_neutropenia = 'No'
     hiv_result_reference = 'PENDING'
+    maternal_feeding_choice = 'BF'
