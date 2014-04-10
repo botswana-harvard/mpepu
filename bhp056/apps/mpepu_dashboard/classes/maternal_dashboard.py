@@ -5,9 +5,10 @@ from edc.subject.registration.models import RegisteredSubject
 from apps.mpepu_infant.models import InfantBirth
 from apps.mpepu_maternal.models import MaternalConsent, MaternalVisit, MaternalLabDel, MaternalLocator
 from apps.mpepu_lab.models import MaternalRequisition, PackingList
+from .dashboard_mixin import DashboardMixin
 
 
-class MaternalDashboard(RegisteredSubjectDashboard):
+class MaternalDashboard(DashboardMixin, RegisteredSubjectDashboard):
 
     view = 'maternal_dashboard'
     dashboard_name = 'Maternal Dashboard'
@@ -102,3 +103,15 @@ class MaternalDashboard(RegisteredSubjectDashboard):
         else:
             delivery_datetime = None
         return delivery_datetime
+
+    def filter_not_required_requistions(self, requisitions):
+        not_required_requisitions = []
+        for requisition in requisitions:
+            lab_entry = requisition['lab_entry']
+            status = requisition['status']
+            required = status != 'NOT_REQUIRED'
+            if lab_entry.is_not_required() and not lab_entry.additional:
+                continue
+            if not required:
+                not_required_requisitions.append(requisition)
+        return not_required_requisitions
