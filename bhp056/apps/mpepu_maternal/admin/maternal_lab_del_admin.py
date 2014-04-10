@@ -64,6 +64,7 @@ class MaternalLabDelAdmin(MaternalVisitModelAdmin):
         "del_time_is_est": admin.VERTICAL,
         "labour_hrs": admin.VERTICAL,
         "del_mode": admin.VERTICAL,
+        "has_ga": admin.VERTICAL,
         "del_hosp": admin.VERTICAL,
         "has_urine_tender": admin.VERTICAL,
         "has_chorioamnionitis": admin.VERTICAL,
