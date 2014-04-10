@@ -5,7 +5,9 @@ from django.core.urlresolvers import reverse
 from edc.audit.audit_trail import AuditTrail
 from edc.base.model.fields.custom.custom_fields import OtherCharField
 from edc.base.model.validators import datetime_not_before_study_start, datetime_not_future, datetime_is_after_consent, date_not_future
+from edc.entry_meta_data.managers import EntryMetaDataManager
 
+from .infant_visit import InfantVisit
 from ..choices import INFANT_OFF_DRUG_REASON
 from .base_infant_registered_subject_model import BaseInfantRegisteredSubjectModel
 
@@ -21,25 +23,29 @@ class InfantOffDrug(BaseInfantRegisteredSubjectModel):
             ],
         default=datetime.today()
         )
-                                      
+
     last_dose_date = models.DateField(
-        verbose_name="1. Date of last dose of CTX or placebo (Today's date if stopping today):",
+        verbose_name="Date of last dose of CTX or placebo (Today's date if stopping today):",
         help_text="",
         validators=[
             date_not_future, ],
         )
     reason_off = models.CharField(
-        verbose_name="2. Reason for permanently discontinuing study drug (CTX or placebo): ",
+        verbose_name="Reason for permanently discontinuing study drug (CTX or placebo): ",
         max_length=25,
         choices=INFANT_OFF_DRUG_REASON,
         help_text="")
     reason_off_other = OtherCharField(
         max_length=35,
-        verbose_name="2a. if other specify...",
+        verbose_name="if other specify...",
         blank=True,
         null=True)
 
     history = AuditTrail()
+
+    infant_visit = models.OneToOneField(InfantVisit)
+
+    entry_meta_data_manager = EntryMetaDataManager(InfantVisit)
 
     def get_report_datetime(self):
         return self.report_datetime

@@ -22,7 +22,7 @@ class MaternalVisitAdmin(BaseAppointmentModelAdmin):
         "info_source",
         'created',
         'user_created',
-        
+
     )
 
     list_filter = (

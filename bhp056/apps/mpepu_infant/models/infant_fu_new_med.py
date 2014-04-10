@@ -16,12 +16,12 @@ class InfantFuNewMed(BaseScheduledVisitModel):
     new_medications = models.CharField(
         max_length=25,
         choices=YES_NO,
-        verbose_name="6.Has the child recieved a NEW course of any of the following medications since the last attended scheduled visit",
+        verbose_name="Has the child recieved a NEW course of any of the following medications since the last attended scheduled visit",
         help_text="do not report if the same course was recorded at previous visit. only report oral and intravenous meds",
         )
     other_medications = OtherCharField(
         max_length=35,
-        verbose_name="6a.Other medication that is important to report,in the view of the investigator(either because of potential overlapping toxicity with study CTX/placebo or NVP,or for some other reason(specify medication)",
+        verbose_name="Other medication that is important to report,in the view of the investigator(either because of potential overlapping toxicity with study CTX/placebo or NVP,or for some other reason(specify medication)",
         help_text="",
         )
 

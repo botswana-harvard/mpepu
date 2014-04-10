@@ -11,7 +11,7 @@ from .base_scheduled_visit_model import BaseScheduledVisitModel
 class InfantStudyDrug(BaseScheduledVisitModel):
 
     on_placebo_status = models.CharField(
-        verbose_name="3. Was the baby supposed to be taking CTX/Placebo for any period since the last attended scheduled visit?",
+        verbose_name="Was the baby supposed to be taking CTX/Placebo for any period since the last attended scheduled visit?",
         max_length=3,
         choices=YES_NO,
         help_text="",

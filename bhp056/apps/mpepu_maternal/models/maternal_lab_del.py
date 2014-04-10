@@ -23,7 +23,6 @@ from .base_scheduled_visit_model import BaseScheduledVisitModel
 from .maternal_base_uuid_model import MaternalBaseUuidModel
 
 
-
 class MaternalLabDel(BaseScheduledVisitModel):
 
     """ Maternal Labor and Delivery which triggers registration of infants.
@@ -35,7 +34,7 @@ class MaternalLabDel(BaseScheduledVisitModel):
         verbose_name="Date and time of delivery :",
         help_text="If TIME unknown, estimate",
         validators=[
-            datetime_not_future,],
+            datetime_not_future, ],
         )
     del_time_is_est = models.CharField(
         verbose_name="Is the delivery TIME estimated?",
@@ -133,7 +132,7 @@ class MaternalLabDel(BaseScheduledVisitModel):
         verbose_name="How many stillbirths did the mother deliver?  ",
         help_text="( if '>0' continue. Otherwise go to question 21 )",
         )
-    
+
     still_born_has_congen_abn = models.CharField(
         max_length=3,
         choices=YES_NO_NA_SPECIFY,
@@ -143,20 +142,20 @@ class MaternalLabDel(BaseScheduledVisitModel):
         null=True,
         default="N/A",
         )
-    
+
     still_born_congen_abn = OtherCharField(
         verbose_name="If yes, specify;",
         blank=True,
         null=True,
         )
-    
+
     del_comment = models.TextField(
         max_length=250,
         verbose_name="List any addtional information about the labour and delivery (mother only) ",
         blank=True,
         null=True,
         )
-    
+
     comment = models.TextField(
         max_length=250,
         verbose_name="Comment if any additional pertinent information ",

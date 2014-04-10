@@ -26,7 +26,7 @@ class InfantFeeding(BaseScheduledVisitModel):
         choices=YES_NO,
         verbose_name="Since the last attended scheduled visit where an infant feeding form was completed, has the participant received any formula milk or other foods or liquids other than breastmilk? ",
         help_text=("If Formula Feeding or received any other foods or liquids answer YES. "
-                     "If Breast Feeding answer is NO, then go to Q8"),
+                     "If Breast Feeding answer is NO, then go to Q22"),
         )
 
     formula_intro_occur = models.CharField(
@@ -87,14 +87,14 @@ class InfantFeeding(BaseScheduledVisitModel):
         max_length=10,
         choices=YES_NO_UNSURE_NA,
         verbose_name="Since the last attended scheduled visit where an infant feeding form was completed did the participant take Juice?",
-        help_text="If you answered YES to Q2 you must answer YES or NO to this question, you may not answer N/A",
+        help_text="If you answered YES to Q3 you must answer YES, NO or NOT SURE to this question, you may not answer N/A ",
         default='N/A',
         )
     cow_milk = models.CharField(
         max_length=15,
         choices=YES_NO_UNSURE_NA,
         verbose_name="Since the last attended scheduled visit where an infant feeding form was completed did the participant take Cow's milk?",
-        help_text="If you answered YES to Q2 you must answer YES or NO to this question, you may not answer N/A ",
+        help_text="If you answered YES to Q3 you must answer YES, NO or NOT SURE to this question, you may not answer N/A ",
         default='N/A',
         )
     cow_milk_yes = models.CharField(
@@ -108,19 +108,20 @@ class InfantFeeding(BaseScheduledVisitModel):
         max_length=15,
         choices=YES_NO_UNSURE_NA,
         verbose_name="Since the last attended scheduled visit where an infant feeding form was completed did the participant take Other animal milk?",
-        help_text="If you answered YES to Q2 you must answer YES or NO to this question, you may not answer N/A ",
+        help_text="If you answered YES to Q3 you must answer YES, NO or NOT SURE to this question, you may not answer N/A ",
         default='N/A',
         )
     other_milk_animal = OtherCharField(
         max_length=35,
         verbose_name="If 'Yes' specify which animal:",
+        help_text="If you answered YES to Q3 you must answer YES, NO or NOT SURE to this question, you may not answer N/A ",
         blank=True,
         null=True,
         )
     milk_boiled = models.CharField(
         max_length=10,
         choices=YES_NO_UNSURE_NA,
-        verbose_name="5h. Was milk boiled?",
+        verbose_name="Was milk boiled?",
         help_text="",
         default='N/A',
         )
@@ -128,28 +129,28 @@ class InfantFeeding(BaseScheduledVisitModel):
         max_length=10,
         choices=YES_NO_UNSURE_NA,
         verbose_name="Since the last attended scheduled visit where an infant feeding form was completed did the participant take Fruits/vegetables",
-        help_text="If you answered YES to Q2 you must answer YES or NO to this question, you may not answer N/A ",
+        help_text="If you answered YES to Q3 you must answer YES, NO or NOT SURE to this question, you may not answer N/A ",
         default='N/A',
         )
     cereal_porridge = models.CharField(
         max_length=12,
         choices=YES_NO_UNSURE_NA,
         verbose_name="Since the last attended scheduled visit where an infant feeding form was completed did the participant take Cereal/porridge?",
-        help_text="If you answered YES to Q2 you must answer YES or NO to this question, you may not answer N/A ",
+        help_text="If you answered YES to Q3 you must answer YES, NO or NOT SURE to this question, you may not answer N/A ",
         default='N/A',
         )
     solid_liquid = models.CharField(
         max_length=10,
         choices=YES_NO_UNSURE_NA,
         verbose_name="Since the last attended scheduled visit where an infant feeding form was completed did the participant take Other solids and liquids",
-        help_text="If you answered YES to Q2 you must answer YES or NO to this question, you may not answer N/A ",
+        help_text="If you answered YES to Q3 you must answer YES, NO or NOT SURE to this question, you may not answer N/A ",
         default='N/A',
         )
     rehydration_salts = models.CharField(
         max_length=3,
         choices=YES_NO_UNSURE_NA,
         verbose_name="Since the last attended scheduled visit where an infant feeding form was completed did the participant take Oral rehydaration salts",
-        help_text="If you answered YES to Q2 you must answer YES or NO to this question, you may not answer N/A ",
+        help_text="If you answered YES to Q3 you must answer YES, NO or NOT SURE to this question, you may not answer N/A ",
         default='N/A',
         )
     ever_breastfeed = models.CharField(
@@ -162,14 +163,14 @@ class InfantFeeding(BaseScheduledVisitModel):
         max_length=3,
         choices=YES_NO_NA,
         verbose_name="If 'NO', did complete weaning from breast milk take place before the last attended scheduled visit?",
-        help_text="If formula fed from birth,answer as yes. If YES, go to question 12. Otherwise continue.",
+        help_text="If formula fed from birth,answer as N/A. If YES, go to question 26. Otherwise continue.",
         default='N/A',
         )
     weaned_completely = models.CharField(
         max_length=3,
         choices=YES_NO_NA,
         verbose_name="Is the participant currently completely weaned from breast milk (at least 72 hours without breastfeeding,no intention to re-start)?",
-        help_text="If formula fed from birth ,answer as N/A and go to question 12, otherwise continue",
+        help_text="If formula fed from birth ,answer as N/A and go to question 26, otherwise continue",
         default='N/A',
         )
     most_recent_bm = models.DateField(

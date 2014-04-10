@@ -17,12 +17,12 @@ class InfantStudyDrugInit(BaseScheduledVisitModel):
     initiated = models.CharField(
         max_length=25,
         choices=YES_NO,
-        verbose_name="1. Did the participant start CTX or placebo study drug? ",
-        help_text="If 'No' skip to question 3",
+        verbose_name="Did the participant start CTX or placebo study drug? ",
+        help_text="If 'No' skip to question 4",
         )
 
     first_dose_date = models.DateField(
-        verbose_name="2. Date of first known dose",
+        verbose_name="Date of first known dose",
         blank=True,
         null=True,
         help_text="",
@@ -31,7 +31,7 @@ class InfantStudyDrugInit(BaseScheduledVisitModel):
         )
 
     reason_not_init = models.CharField(
-        verbose_name="3. Reason for not starting CTX or placebo Study Drug?",
+        verbose_name="Reason for not starting CTX or placebo Study Drug?",
         max_length=25,
         choices=INFANT_DRUG_INITIATION,
         help_text="If contra-indicated please complete Off Study Form (AF004)",

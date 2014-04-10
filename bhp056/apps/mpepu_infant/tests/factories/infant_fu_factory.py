@@ -1,4 +1,5 @@
 import factory
+from datetime import datetime
 
 from edc.base.model.tests.factories import BaseUuidModelFactory
 
@@ -14,3 +15,4 @@ class InfantFuFactory(BaseUuidModelFactory):
     physical_assessment = 'No'
     diarrhea_illness = 'No'
     has_dx = 'No'
+    report_datetime =datetime.today()

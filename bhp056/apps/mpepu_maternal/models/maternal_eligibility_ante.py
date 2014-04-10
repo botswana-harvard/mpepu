@@ -12,7 +12,7 @@ class MaternalEligibilityAnte(BaseMaternalEligibility):
     """Model for Maternal Eligiblity Ante-Natal"""
 
     gestational_age = models.IntegerField(
-        verbose_name="3. Gestational age",
+        verbose_name="Gestational age",
         help_text="if <26 weeks,ineligible",
         validators=[
             MaxValueValidator(43),
@@ -24,6 +24,12 @@ class MaternalEligibilityAnte(BaseMaternalEligibility):
 
     def get_registration_datetime(self):
         return self.registration_datetime
+
+    def get_result_datetime(self):
+        return self.registration_datetime
+
+    def get_test_code(self):
+        return 'HIV'
 
     def __unicode__(self):
         return unicode(self.registered_subject)

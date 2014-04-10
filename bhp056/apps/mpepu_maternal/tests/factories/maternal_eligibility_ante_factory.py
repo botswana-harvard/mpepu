@@ -10,6 +10,8 @@ class MaternalEligibilityAnteFactory(BaseUuidModelFactory):
     FACTORY_FOR = MaternalEligibilityAnte
 
     maternal_consent = factory.SubFactory(MaternalConsentFactory)
+#     registered_subject = factory.SubFactory(RegisteredSubjectFactory)
     registration_datetime = datetime.today()
     gestational_age = 27
-    registered_subject = factory.SubFactory(RegisteredSubjectFactory)
+    is_hiv_positive = 'Yes'
+    agree_follow_up = 'Yes'

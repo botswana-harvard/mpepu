@@ -1,7 +1,7 @@
 from collections import OrderedDict
 
 from edc.subject.visit_schedule.classes import VisitScheduleConfiguration, site_visit_schedules, EntryTuple, MembershipFormTuple, ScheduleGroupTuple, RequisitionPanelTuple
-from edc.utils.constants import REQUIRED, NOT_ADDITIONAL, NOT_REQUIRED, ADDITIONAL
+from edc.constants import REQUIRED, NOT_ADDITIONAL, NOT_REQUIRED, ADDITIONAL
 
 from ..models import InfantVisit, InfantPreEligibility
 
@@ -67,6 +67,11 @@ class MpepuInfantPreRandoVisitSchedule(VisitScheduleConfiguration):
                 EntryTuple(110L, u'mpepu_infant', u'infantctxplaceboadh', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(120L, u'mpepu_infant', u'infantfeeding', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(130L, u'mpepu_infant', u'infantstudydruginit', REQUIRED, NOT_ADDITIONAL),
+                #following are additional forms
+                EntryTuple(200L, u'mpepu_infant', u'infantdeath', NOT_REQUIRED, ADDITIONAL),
+                EntryTuple(201L, u'mpepu_infant', u'infantsurvival', NOT_REQUIRED, ADDITIONAL),
+                EntryTuple(210L, u'mpepu_infant', u'infantverbalautopsy', NOT_REQUIRED, ADDITIONAL),
+                EntryTuple(230L, u'mpepu_infant', u'infantoffstudy', NOT_REQUIRED, ADDITIONAL),
             )}
         }
     )

@@ -14,7 +14,7 @@ class BaseScheduledVisitModel(MaternalBaseUuidModel):
     maternal_visit = models.OneToOneField(MaternalVisit)
 
     objects = models.Manager()
-    
+
     entry_meta_data_manager = EntryMetaDataManager(MaternalVisit)
 
     def natural_key(self):

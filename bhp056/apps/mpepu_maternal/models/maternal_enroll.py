@@ -33,33 +33,27 @@ class MaternalEnroll(BaseScheduledVisitModel):
         blank=True,
         null=True,
         )
-    
     recruitment_clinic = models.CharField(
         max_length=100,
         verbose_name="The mother was recruited from",
         choices=RECRUIT_CLINIC,
-        
         )
-    
     recruitment_clinic_other = models.CharField(
         max_length=100,
         verbose_name="if other specify...",
         blank=True,
         null=True,
         )
-
     prev_pregnancies = models.IntegerField(
         verbose_name="Not including this pregnancy, how many previous pregnancies for this participant?",
         help_text="",
         )
-
     prior_health_haart = models.CharField(
         max_length=25,
         choices=YES_NO,
         verbose_name="Before this pregnancy, was the mother on HAART for her own health",
         help_text="For her own health and not just PMTCT for an earlier pregnancy or breastfeeding.",
         )
-
     prev_pregnancy_arv = models.CharField(
         max_length=25,
         choices=YES_NO_NA,
@@ -77,7 +71,7 @@ class MaternalEnroll(BaseScheduledVisitModel):
         decimal_places=2,
         verbose_name="Mother's height? ",
         help_text="Measured in Centimeters (cm)",
-        )   
+        )
     bp = models.CharField(
         max_length=7,
         verbose_name="Mother's blood pressure?",

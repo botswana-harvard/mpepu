@@ -17,18 +17,18 @@ class InfantFuMed(BaseScheduledVisitModel):
     vaccines_received = models.CharField(
         max_length=25,
         choices=YES_NO,
-        verbose_name="7.Since the last attended scheduled visit,did the child recieve any of the following vaccinations",
+        verbose_name="since the last attended scheduled visit,did the child recieve any of the following vaccinations",
         help_text="",
         )
 
     vaccination = models.ManyToManyField(InfantVaccines,
-        verbose_name="7a. Vaccines received",
+        verbose_name="Vaccines received",
         help_text="Select all the vaccines that were received",
         )
 
     comments = models.TextField(
         max_length=500,
-        verbose_name="8.Comment",
+        verbose_name="Comment",
         blank=True,
         null=True,
         )

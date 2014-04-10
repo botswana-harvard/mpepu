@@ -87,6 +87,10 @@ class InfantDashboard(DashboardMixin, RegisteredSubjectDashboard):
         """ Returns visit where the locator is scheduled, TODO: maybe search visit definition for this?."""
         return '1000M'
 
+    @RegisteredSubjectDashboard.locator_model.getter
+    def locator_model(self):
+        return self.get_locator_model()
+
     def get_packing_list_model(self):
         return PackingList
 
@@ -151,3 +155,9 @@ class InfantDashboard(DashboardMixin, RegisteredSubjectDashboard):
             if date.today() - self.get_infant_birth().dob <= timedelta(days=60):
                 days_alive = (date.today() - self.get_infant_birth().dob + timedelta(days=1)).days
         return days_alive
+    
+    def subject_hiv_status(self):
+        super(InfantDashboard, self).subject_hiv_status
+        if not self._subject_hiv_status:
+            self._subject_hiv_status = 'UNK'
+        return self._subject_hiv_status

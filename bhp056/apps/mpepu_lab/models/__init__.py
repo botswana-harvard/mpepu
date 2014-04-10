@@ -1,7 +1,7 @@
-from infant_requisition import InfantRequisition
-from maternal_requisition import MaternalRequisition
-from packing_list import PackingList
-from packing_list_item import PackingListItem
+from .infant_requisition import InfantRequisition
+from .maternal_requisition import MaternalRequisition
+from .packing_list import PackingList
+from .packing_list_item import PackingListItem
 
 from .aliquot import Aliquot
 from .aliquot_type import AliquotType

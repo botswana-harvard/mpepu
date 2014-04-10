@@ -17,7 +17,7 @@ class FeedingChoiceSectionOne (BaseScheduledVisitModel):
         max_length=35,
         choices=SIX_MONTHS_FEEDING,
         help_text="If answer =BF, go to Q3 .Otherwise skip to Q4")
-    
+
     baby_weaned_age = models.IntegerField(
         verbose_name=("How many months old was your last baby when you weaned him/her from"
                       " breast milk? (Completely stopped providing breast milk): "),
@@ -25,14 +25,14 @@ class FeedingChoiceSectionOne (BaseScheduledVisitModel):
         null=True,
         blank=True,
         help_text="")
-    
+
     hiv_aware_feeding = models.CharField(
         verbose_name=("I was aware of my HIV status when I made the feeding decision for "
                       "the infant described in Q2 above:: "),
         max_length=3,
         choices=YES_NO,
-        help_text="If 'Yes' go to Q5, otherwise skip Q5")
-    
+        help_text="If 'Yes' continue, otherwise do not answer Q5")
+
     hiv_status = models.CharField(
         verbose_name=("My HIV status was:"),
         max_length=8,

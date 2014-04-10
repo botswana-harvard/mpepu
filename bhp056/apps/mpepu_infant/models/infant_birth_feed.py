@@ -19,12 +19,12 @@ class InfantBirthFeed(BaseScheduledVisitModel):
     feeding_after_delivery = models.CharField(
         max_length=50,
         choices=FEEDING_CHOICES,
-        verbose_name="1. How was the infant being fed immediately after delivery? ",
+        verbose_name="How was the infant being fed immediately after delivery? ",
         help_text=" ...before discharge from maternity",
         )
 
     vaccination = models.ManyToManyField(InfantVaccines,
-        verbose_name="2. Since delivery, did the child receive any of the following vaccinations",
+        verbose_name="Since delivery, did the child receive any of the following vaccinations",
         help_text="Select all that apply",
         )
 
