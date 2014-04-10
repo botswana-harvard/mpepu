@@ -22,6 +22,12 @@ class MaternalEligibilityPost(BaseMaternalEligibility):
 
     history = AuditTrail()
 
+    def get_result_datetime(self):
+        return self.registration_datetime
+
+    def get_test_code(self):
+        return 'HIV'
+
     def get_absolute_url(self):
         return reverse('admin:mpepu_maternal_maternaleligibilitypost_change', args=(self.id,))
 

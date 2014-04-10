@@ -107,7 +107,7 @@ class InfantBirthDataRuleGroup(RuleGroup):
 
     congenital_anomalities = ScheduledDataRule(
         logic=Logic(
-            predicate=('congenital_anomalities', 'equals', 'Yes'),
+            predicate=('congenital_anomalities', 'equals', 'yes'),
             consequence='new',
             alternative='not_required'),
         target_model=['infantcongenitalanomalies'])
@@ -190,20 +190,20 @@ class InfantOffStudyDrugRuleGroup(RuleGroup):
 site_rule_groups.register(InfantOffStudyDrugRuleGroup)
 
 
-class InfantVisitSurvivalRuleGroup(RuleGroup):
- 
-    survival_status = ScheduledDataRule(
-        logic=Logic(
-            predicate=('survival_status', 'equals', 'DEAD'),
-            consequence='new',
-            alternative='not_required'),
-        target_model=['infantdeath'])
- 
-    class Meta:
-        app_label = 'mpepu_infant'
-        source_fk = (Appointment, 'appointment')
-        source_model = InfantVisit
-site_rule_groups.register(InfantVisitSurvivalRuleGroup)
+# class InfantVisitSurvivalRuleGroup(RuleGroup):
+#  
+#     survival_status = ScheduledDataRule(
+#         logic=Logic(
+#             predicate=('survival_status', 'equals', 'DEAD'),
+#             consequence='new',
+#             alternative='not_required'),
+#         target_model=['infantdeath'])
+#  
+#     class Meta:
+#         app_label = 'mpepu_infant'
+#         source_fk = (Appointment, 'appointment')
+#         source_model = InfantVisit
+# site_rule_groups.register(InfantVisitSurvivalRuleGroup)
 # 
 # 
 # class InfantVisitTelephoneRuleGroup(RuleGroup):

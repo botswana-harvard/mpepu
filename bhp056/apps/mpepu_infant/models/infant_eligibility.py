@@ -137,8 +137,8 @@ class InfantEligibility(BaseInfantRegisteredSubjectModel):
 
         super(InfantEligibility, self).save(*args, **kwargs)
 
-#     def post_save_delete_appointment(self):
-#         self.safe_delete_appointment('2015')
+    def post_save_delete_appointment(self):
+        self.safe_delete_appointment('2015')
 
     def get_versioned_field_names(self, version_number):
         """Returns a list of field names by version number."""
@@ -153,6 +153,12 @@ class InfantEligibility(BaseInfantRegisteredSubjectModel):
     def get_registration_datetime(self):
 #         return self.infant_birth.maternal_lab_del.delivery_datetime
         return datetime.today()
+
+    def get_result_datetime(self):
+        return self.get_registration_datetime()
+
+    def get_test_code(self):
+        return 'HIV'
 
     def get_consenting_subject_identifier(self):
         """Returns mother's identifier."""
