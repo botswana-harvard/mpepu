@@ -114,7 +114,8 @@ class InfantPreEligibility(InfantEligibilityMixin, BaseInfantRegisteredSubjectMo
         Calculations are days NOT days of life.
         """
         if abs((date.today() - self.infant_birth.dob).days) >= 13 and abs((date.today() - self.infant_birth.dob).days) <= 33:
-            if self.infant_birth.maternal_lab_del.has_ga:
+            #allowing this 2015 visit to be created whether or not the gestational age is known
+            if self.infant_birth.maternal_lab_del.has_ga == 'no' or self.infant_birth.maternal_lab_del.has_ga == 'yes':
                 Appointment = models.get_model('bhp_appointment', 'Appointment')
                 if not Appointment.objects.filter(registered_subject=self.registered_subject, visit_definition__code='2015', visit_instance='0'):
                     raise ImproperlyConfigured('Infant pre-eligibility expects 2015 appointment to exist. Check the visit definition.')

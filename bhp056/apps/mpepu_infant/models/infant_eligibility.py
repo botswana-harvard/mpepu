@@ -138,7 +138,7 @@ class InfantEligibility(BaseInfantRegisteredSubjectModel):
         super(InfantEligibility, self).save(*args, **kwargs)
 
     def post_save_delete_appointment(self):
-        self.safe_delete_appointment('2015')
+        self.safe_delete_appointment(None)
 
     def get_versioned_field_names(self, version_number):
         """Returns a list of field names by version number."""
