@@ -7,11 +7,12 @@ from apps.mpepu_infant.models import InfantBirth, InfantVisit, InfantEligibility
 from apps.mpepu_infant_rando.models import InfantRando
 from apps.mpepu_maternal.models import MaternalConsent, MaternalLabDel, MaternalLocator
 from apps.mpepu_lab.models import InfantRequisition, PackingList
+from .dashboard_mixin import DashboardMixin
 
 from edc.lab.lab_clinic_api.models import Panel
 
 
-class InfantDashboard(RegisteredSubjectDashboard):
+class InfantDashboard(DashboardMixin, RegisteredSubjectDashboard):
 
     view = 'infant_dashboard'
     dashboard_name = 'Infant Dashboard'
@@ -71,6 +72,7 @@ class InfantDashboard(RegisteredSubjectDashboard):
     def get_delivery_datetime(self):
         # get delivery date if delivered
         return self.get_maternal_lab_del().delivery_datetime
+
 
     def get_visit_model(self):
         return InfantVisit

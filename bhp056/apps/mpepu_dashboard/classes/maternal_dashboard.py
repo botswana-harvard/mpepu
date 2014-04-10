@@ -7,9 +7,10 @@ from edc.subject.registration.models import RegisteredSubject
 from apps.mpepu_infant.models import InfantBirth
 from apps.mpepu_maternal.models import MaternalConsent, MaternalVisit, MaternalLabDel, MaternalLocator, MaternalEligibilityAnte, MaternalEligibilityPost
 from apps.mpepu_lab.models import MaternalRequisition, PackingList
+from .dashboard_mixin import DashboardMixin
 
 
-class MaternalDashboard(RegisteredSubjectDashboard):
+class MaternalDashboard(DashboardMixin, RegisteredSubjectDashboard):
 
     view = 'maternal_dashboard'
     dashboard_name = 'Maternal Dashboard'
