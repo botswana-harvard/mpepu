@@ -36,7 +36,7 @@ class ResistanceDisc(BaseScheduledVisitModel):
         blank=True,
         help_text="Answer only if answered Yes, for question 5 above",
         )
-    last_ftc_date = models.DateField(
+    last_tdf_ftc_date = models.DateField(
         verbose_name="If No, what was the last date you took TDF/FTC?",
         null=True,
         blank=True,
@@ -48,18 +48,18 @@ class ResistanceDisc(BaseScheduledVisitModel):
         blank=True,
         help_text="Answer only if answered No, for question 5 above",
         )
+    last_ftc_date = models.DateField(
+        verbose_name="What was the last date you took FTC?",
+        null=True,
+        blank=True,
+        help_text="Answer only if answered No, for question 5 above",
+        )
     last_3tc_date = models.DateField(
         verbose_name="What was the last date you took 3TC?",
         null=True,
         blank=True,
         help_text="Answer only if answered No, for question 5 above",
         )
-#     last_ftc_date = models.DateField(
-#         verbose_name="What was the last date you took FTC?",
-#         null=True,
-#         blank=True,
-#         help_text="Answer only if answered No, for question 5 above",
-#         )
     last_efv_date = models.DateField(
         verbose_name="What was the last date you took EFV?",
         null=True,

@@ -23,7 +23,7 @@ class InfantStoolCollection(BaseScheduledVisitModel):
         max_digits=3,
         decimal_places=1,
         null=True,
-        blank=False,
+        blank=True,
         help_text="degrees celcius",
         )
     past_diarrhea = models.CharField(
@@ -31,7 +31,7 @@ class InfantStoolCollection(BaseScheduledVisitModel):
         choices=YES_NO,
         max_length=3,
         null=True,
-        blank=False,
+        blank=True,
         help_text=("Diarrhea is defined as 3 or more loose or watery stools with or without blood"
                    " over a 24 hour period and the stool pattern is a change from the"
                    " infant's/child's normal stool pattern"),
@@ -42,7 +42,7 @@ class InfantStoolCollection(BaseScheduledVisitModel):
         max_length=15,
         choices=YES_NO_NA,
         null=True,
-        blank=False,
+        blank=True,
         help_text="",
         )
     antibiotics_7days = models.CharField(
@@ -50,7 +50,7 @@ class InfantStoolCollection(BaseScheduledVisitModel):
         choices=YES_NO,
         max_length=3,
         null=True,
-        blank=False,
+        blank=True,
         help_text=("If the answer to this question is yes, please ensure that antibiotic"
                    " information is recorded on NEW MEDICATIONS EDC form"),
         )
@@ -60,7 +60,7 @@ class InfantStoolCollection(BaseScheduledVisitModel):
         max_length=15,
         choices=YES_NO_NA,
         null=True,
-        blank=False,
+        blank=True,
         help_text="",
         )
 

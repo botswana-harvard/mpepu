@@ -11,5 +11,5 @@ class SectionMaternalView(BaseSectionForDashboardView):
     dashboard_url_name = 'subject_dashboard_url'
     add_model = MaternalConsent
     search = [MaternalSearchByWord]
-    
+
 site_sections.register(SectionMaternalView)

@@ -140,7 +140,7 @@ INSTALLED_APPS = (
     'django_databrowse',
     'dajaxice',
     'dajax',
-    'south',
+    #'south',
 
     'edc.apps.admin_supplemental_fields',
 
@@ -314,3 +314,4 @@ else:
                                    'DATABASE=BHPLAB')
 VAR_ROOT = '/var'
 LOGGING = LOGGING
+

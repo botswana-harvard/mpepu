@@ -29,8 +29,6 @@ class MaternalRequisition(BaseClinicRequisition):
     history = AuditTrail()
 
     def get_visit(self):
-        if not self.id:
-            return None
         return self.maternal_visit
 
     def aliquot(self):

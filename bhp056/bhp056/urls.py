@@ -14,7 +14,7 @@ from edc.core.bhp_data_manager.classes import data_manager
 from edc.dashboard.section.classes import site_sections
 from edc.subject.visit_schedule.classes import site_visit_schedules
 from edc.lab.lab_profile.classes import site_lab_profiles
-from edc.dashboard.subject.views import additional_requisition, additional_entry_form
+from edc.dashboard.subject.views import additional_requisition
 
 admin.autodiscover()
 site_lab_profiles.autodiscover()
@@ -50,11 +50,6 @@ urlpatterns += patterns('',
 urlpatterns += patterns('',
                         url(r'^{app_name}/dashboard/visit/add_requisition/'.format(app_name=APP_NAME), additional_requisition, name="add_requisition"),
                         )
-#this is for additional_forms
-urlpatterns += patterns('',
-                        url(r'^{app_name}/dashboard/visit/add_additional_form/'.format(app_name=APP_NAME), additional_entry_form, name="add_additional_form"),
-                        )
-
 
 urlpatterns += patterns('',
     url(r'^databrowse/(.*)', login_required(django_databrowse.site.root)),

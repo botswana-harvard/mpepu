@@ -25,6 +25,12 @@ class MaternalEligibilityAnte(BaseMaternalEligibility):
     def get_registration_datetime(self):
         return self.registration_datetime
 
+    def get_result_datetime(self):
+        return self.registration_datetime
+
+    def get_test_code(self):
+        return 'HIV'
+
     def __unicode__(self):
         return unicode(self.registered_subject)
 
