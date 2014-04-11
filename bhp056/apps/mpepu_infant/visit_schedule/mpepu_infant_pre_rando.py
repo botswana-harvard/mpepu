@@ -69,6 +69,7 @@ class MpepuInfantPreRandoVisitSchedule(VisitScheduleConfiguration):
                 EntryTuple(130L, u'mpepu_infant', u'infantstudydruginit', REQUIRED, NOT_ADDITIONAL),
                 #following are additional forms
                 EntryTuple(200L, u'mpepu_infant', u'infantdeath', NOT_REQUIRED, ADDITIONAL),
+                EntryTuple(201L, u'mpepu_infant', u'infantsurvival', NOT_REQUIRED, ADDITIONAL),
                 EntryTuple(210L, u'mpepu_infant', u'infantverbalautopsy', NOT_REQUIRED, ADDITIONAL),
                 EntryTuple(230L, u'mpepu_infant', u'infantoffstudy', NOT_REQUIRED, ADDITIONAL),
             )}

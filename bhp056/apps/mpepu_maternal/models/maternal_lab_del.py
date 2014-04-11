@@ -148,7 +148,7 @@ class MaternalLabDel(BaseScheduledVisitModel):
         blank=True,
         null=True,
         )
-    
+
     del_comment = models.TextField(
         max_length=250,
         verbose_name="List any addtional information about the labour and delivery (mother only) ",

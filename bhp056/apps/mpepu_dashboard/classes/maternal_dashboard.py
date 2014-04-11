@@ -7,9 +7,10 @@ from edc.subject.registration.models import RegisteredSubject
 from apps.mpepu_infant.models import InfantBirth
 from apps.mpepu_maternal.models import MaternalConsent, MaternalVisit, MaternalLabDel, MaternalLocator, MaternalEligibilityAnte, MaternalEligibilityPost
 from apps.mpepu_lab.models import MaternalRequisition, PackingList
+from .dashboard_mixin import DashboardMixin
 
 
-class MaternalDashboard(RegisteredSubjectDashboard):
+class MaternalDashboard(DashboardMixin, RegisteredSubjectDashboard):
 
     view = 'maternal_dashboard'
     dashboard_name = 'Maternal Dashboard'
@@ -73,6 +74,10 @@ class MaternalDashboard(RegisteredSubjectDashboard):
     def get_locator_scheduled_visit_code(self):
         """ Returns visit where the locator is scheduled, TODO: maybe search visit definition for this?."""
         return '1000M'
+
+    @RegisteredSubjectDashboard.locator_model.getter
+    def locator_model(self):
+        return self.get_locator_model()
 
     def get_packing_list_model(self):
         return PackingList

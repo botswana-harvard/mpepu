@@ -59,6 +59,7 @@ class MpepuInfantBirthVisitSchedule(VisitScheduleConfiguration):
                 #following are additional forms
                 EntryTuple(100L, u'mpepu_infant', u'infantcongenitalanomalies', NOT_REQUIRED, ADDITIONAL),
                 EntryTuple(200L, u'mpepu_infant', u'infantdeath', NOT_REQUIRED, ADDITIONAL),
+                EntryTuple(201L, u'mpepu_infant', u'infantsurvival', NOT_REQUIRED, ADDITIONAL),
                 EntryTuple(210L, u'mpepu_infant', u'infantverbalautopsy', NOT_REQUIRED, ADDITIONAL),
                 EntryTuple(220L, u'mpepu_infant', u'infantprerandoloss', NOT_REQUIRED, ADDITIONAL),
                 EntryTuple(230L, u'mpepu_infant', u'infantoffstudy', NOT_REQUIRED, ADDITIONAL),
@@ -105,6 +106,7 @@ class MpepuInfantBirthVisitSchedule(VisitScheduleConfiguration):
                 EntryTuple(140L, u'mpepu_infant', u'infantstoolcollection', REQUIRED, NOT_ADDITIONAL),
                 #following are additional forms
                 EntryTuple(200L, u'mpepu_infant', u'infantdeath', NOT_REQUIRED, ADDITIONAL),
+                EntryTuple(201L, u'mpepu_infant', u'infantsurvival', NOT_REQUIRED, ADDITIONAL),
                 EntryTuple(210L, u'mpepu_infant', u'infantverbalautopsy', NOT_REQUIRED, ADDITIONAL),
                 EntryTuple(230L, u'mpepu_infant', u'infantoffstudy', NOT_REQUIRED, ADDITIONAL),
             )}

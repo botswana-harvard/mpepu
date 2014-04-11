@@ -3,10 +3,13 @@ from django.core.urlresolvers import reverse
 
 from edc.audit.audit_trail import AuditTrail
 from edc.base.model.fields.custom.custom_fields import OtherCharField
+from edc.entry_meta_data.managers import EntryMetaDataManager
 
 from apps.mpepu.choices import ALIVE_DECEASED, INFO_PROVIDER
 
 from .base_infant_registered_subject_model import BaseInfantRegisteredSubjectModel
+
+from .infant_visit import InfantVisit
 
 
 class InfantSurvival(BaseInfantRegisteredSubjectModel):
@@ -37,6 +40,10 @@ class InfantSurvival(BaseInfantRegisteredSubjectModel):
         )
 
     history = AuditTrail()
+
+    infant_visit = models.OneToOneField(InfantVisit)
+
+    entry_meta_data_manager = EntryMetaDataManager(InfantVisit)
 
     def __unicode__(self):
         return self.registered_subject.subject_identifier

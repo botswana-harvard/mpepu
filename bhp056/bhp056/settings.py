@@ -109,6 +109,10 @@ TIME_ZONE = 'Africa/Gaborone'
 # http://www.i18nguy.com/unicode/language-identifiers.html
 
 LANGUAGE_CODE = 'en'
+LANGUAGES = (
+             ('en', 'English'),
+             ('tn', 'Setswana'),
+)
 
 SITE_ID = 1
 
