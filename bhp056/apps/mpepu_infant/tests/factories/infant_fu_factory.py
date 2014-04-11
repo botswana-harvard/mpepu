@@ -3,7 +3,7 @@ from datetime import datetime
 
 from edc.base.model.tests.factories import BaseUuidModelFactory
 
-from apps.mpepu_infant.models import InfantFu, InfantFuPhysical
+from apps.mpepu_infant.models import InfantFu, InfantFuPhysical, InfantFuDx
 
 from .infant_visit_factory import InfantVisitFactory
 
@@ -28,3 +28,9 @@ class InfantFuPhysicalFactory(BaseUuidModelFactory):
     head_circumference = 15
     has_abnormalities = 'No'
     was_hospitalized = 'Yes'
+
+
+class InfantFuDxFactory(BaseUuidModelFactory):
+    FACTORY_FOR =InfantFuDx
+
+    infant_fu = factory.SubFactory(InfantFu)

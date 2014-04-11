@@ -12,14 +12,16 @@ from edc.core.bhp_content_type_map.models import ContentTypeMap
 from edc.subject.consent.tests.factories import ConsentCatalogueFactory
 from edc.subject.appointment.models import Appointment
 from edc.lab.lab_profile.classes import site_lab_profiles
+from edc.subject.registration.models import RegisteredSubject
 
 from apps.mpepu_lab.lab_profiles import MpepuInfantProfile
 from apps.mpepu.mpepu_app_configuration.classes import MpepuAppConfiguration
-from edc.subject.registration.models import RegisteredSubject
 from apps.mpepu_maternal.tests.factories import (MaternalConsentFactory, MaternalEligibilityPostFactory,
                                                  MaternalVisitFactory, MaternalLabDelFactory)
 from apps.mpepu_infant.tests.factories import InfantBirthFactory, InfantVisitFactory, InfantEligibilityFactory
 from apps.mpepu_infant.forms import InfantEligibilityForm
+from apps.mpepu_maternal.models import MaternalConsent, MaternalLabDel, MaternalEligibilityPost, MaternalVisit
+from apps.mpepu_infant.models import InfantBirth, InfantVisit
 
 from ..models import InfantRando
 from ..classes import Eligibility
@@ -36,59 +38,77 @@ class InfantRandomizationTests(TestCase):
         site_visit_schedules.autodiscover()
         site_visit_schedules.build_all()
         admin.autodiscover()
-
-    def test_multiple_birth_rando(self):
         study_site = StudySiteFactory(site_code=2)
         content_type_map = ContentTypeMap.objects.get(model='maternalconsent', app_label='mpepu_maternal')
         consent_catalogue = ConsentCatalogueFactory(content_type_map=content_type_map)
         consent_catalogue.add_for_app = 'mpepu_infant'
         consent_catalogue.save()
 
-        delivery_days_ago = 20
-        delivery_datetime = datetime.today() - timedelta(days=delivery_days_ago - 3)
+        self.delivery_days_ago = 20
+        self.delivery_datetime = datetime.today() - timedelta(days=self.delivery_days_ago - 3)
         print "Consent a mother"
-        maternal_consent = MaternalConsentFactory(study_site=study_site, consent_datetime=datetime.today() - timedelta(days=delivery_days_ago))
-        print "Consent: {}".format(maternal_consent)
-        registered_subject = RegisteredSubject.objects.get(subject_identifier=maternal_consent.subject_identifier)
+        self.maternal_consent = MaternalConsentFactory(study_site=study_site, consent_datetime=datetime.today() - timedelta(days=self.delivery_days_ago))
+        print "Consent: {}".format(self.maternal_consent)
+        registered_subject = RegisteredSubject.objects.get(subject_identifier=self.maternal_consent.subject_identifier)
         print 'check if mother is eligible'
-        maternal_eligibility = MaternalEligibilityPostFactory(maternal_consent=maternal_consent, registered_subject=registered_subject, registration_datetime=datetime.today() - timedelta(days=delivery_days_ago))
+        maternal_eligibility = MaternalEligibilityPostFactory(maternal_consent=self.maternal_consent, registered_subject=registered_subject, registration_datetime=datetime.today() - timedelta(days=self.delivery_days_ago))
         print 'get the 2000M visit'
         appointment = Appointment.objects.get(registered_subject=registered_subject, visit_definition__code='2000M')
         print 'create a maternal visit for the 2000M visit'
-        maternal_visit = MaternalVisitFactory(appointment=appointment, report_datetime=datetime.today() - timedelta(days=delivery_days_ago))
+        maternal_visit = MaternalVisitFactory(appointment=appointment, report_datetime=datetime.today() - timedelta(days=self.delivery_days_ago))
         print 'create a maternal_lab_del registering 2 of 2 infants'
-        maternal_lab_del = MaternalLabDelFactory(maternal_visit=maternal_visit,
+        self.maternal_lab_del = MaternalLabDelFactory(maternal_visit=maternal_visit,
                                                          live_infants=2,
                                                          live_infants_to_register=2,
-                                                         delivery_datetime=delivery_datetime,
+                                                         delivery_datetime=self.delivery_datetime,
                                                          has_ga='Yes',
                                                          ga=37,
 
                                                          )
-        print 'maternal lab del: {}'.format(maternal_lab_del)
+        print 'maternal lab del: {}'.format(self.maternal_lab_del)
         print 'get registered subject of the first infant'
-        registered_subject1 = RegisteredSubject.objects.filter(relative_identifier=maternal_consent.subject_identifier).order_by('subject_identifier')[0]
-        print 'first registered subject {}'.format(registered_subject1)
-        infant_birth1 = InfantBirthFactory(registered_subject=registered_subject1, maternal_lab_del=maternal_lab_del, dob=delivery_datetime.date())
-        print 'first infant birth {}'.format(infant_birth1)
-        appointment1 = Appointment.objects.get(registered_subject=registered_subject1, visit_definition__code='2000')
+        self.registered_subject1 = RegisteredSubject.objects.filter(relative_identifier=self.maternal_consent.subject_identifier).order_by('subject_identifier')[0]
+        print 'first registered subject {}'.format(self.registered_subject1)
+        self.infant_birth1 = InfantBirthFactory(registered_subject=self.registered_subject1, maternal_lab_del=self.maternal_lab_del, dob=self.delivery_datetime.date())
+        print 'first infant birth {}'.format(self.infant_birth1)
+        appointment1 = Appointment.objects.get(registered_subject=self.registered_subject1, visit_definition__code='2000')
         infant_visit1 = InfantVisitFactory(appointment=appointment1, report_datetime=datetime.today(), reason='scheduled')
+        print 'get registered subject of the second infant'
+        self.registered_subject2 = RegisteredSubject.objects.filter(relative_identifier=self.maternal_consent.subject_identifier).order_by('subject_identifier')[1]
+        print 'second registered subject {}'.format(self.registered_subject2)
+        self.infant_birth2 = InfantBirthFactory(registered_subject=self.registered_subject2, maternal_lab_del=self.maternal_lab_del, dob=self.delivery_datetime.date())
+        print 'second infant birth {}'.format(self.infant_birth2)
+        appointment2 = Appointment.objects.get(registered_subject=self.registered_subject2, visit_definition__code='2000')
+        infant_visit2 = InfantVisitFactory(appointment=appointment2, report_datetime=datetime.today(), reason='scheduled')
+
+    def teardown(self):
+        RegisteredSubject.objects.all().delete()
+        MaternalConsent.objects.all().delete()
+        InfantBirth.objects.all().delete()
+        InfantVisit.objects.all().delete()
+        Appointment.objects.all().delete()
+        MaternalLabDel.objects.all().delete()
+        MaternalEligibilityPost.objects.all().delete()
+        MaternalVisit.objects.all().delete()
+
+    def test_multiple_birth_rando(self):
 
         original_sids = self.populate_rando()
 
+        print "assert that infant 1 is eligible to be randomised"
         allow_rando1 = Eligibility().check(
                 current_consent_version=2,
-                dob=delivery_datetime.date(),
+                dob=self.delivery_datetime.date(),
                 ga=37,
                 weight=4,
                 clinical_jaundice='No',
                 anemia_neutropenia='No',
                 exception_cls=ValidationError,
                 suppress_exception=False)
-        print 'allow rando {}'.format(allow_rando1)
+        self.assertTrue(allow_rando1, "Infant Cannot be randomized")
         infant_eligibility1 = InfantEligibilityFactory(
-                    infant_birth=infant_birth1,
-                    registered_subject=infant_birth1.registered_subject,
+                    infant_birth=self.infant_birth1,
+                    registered_subject=self.infant_birth1.registered_subject,
                     rando_bf_duration = 'N/A',
                     congen_anomaly = 'No',
                     maternal_art_status = 'ON',
@@ -98,31 +118,25 @@ class InfantRandomizationTests(TestCase):
                     )
         print 'Infant Eligibility {}'.format(infant_eligibility1)
         print 'assert that the rest of the appointments were created, i.e. 2000,2010,2020,2030,2060,2090,2120,2150,2180'
-        all_appointments = Appointment.objects.filter(registered_subject=registered_subject1)
+        all_appointments = Appointment.objects.filter(registered_subject=self.registered_subject1)
         self.assertEqual(all_appointments.count(), 9)
         print 'confirm infant 1 was randomized'
         print InfantRando.objects.randomize(infant_eligibility=infant_eligibility1)
-        print InfantRando.objects.get(subject_identifier=registered_subject1.subject_identifier)
-        print 'get registered subject of the second infant'
-        registered_subject2 = RegisteredSubject.objects.filter(relative_identifier=maternal_consent.subject_identifier).order_by('subject_identifier')[1]
-        print 'second registered subject {}'.format(registered_subject2)
-        infant_birth2 = InfantBirthFactory(registered_subject=registered_subject2, maternal_lab_del=maternal_lab_del, dob=delivery_datetime.date())
-        print 'second infant birth {}'.format(infant_birth2)
-        appointment2 = Appointment.objects.get(registered_subject=registered_subject2, visit_definition__code='2000')
-        infant_visit2 = InfantVisitFactory(appointment=appointment2, report_datetime=datetime.today(), reason='scheduled')
+        print "Infant 1 Rando {}".format(InfantRando.objects.get(subject_identifier=self.registered_subject1.subject_identifier))
+        print "assert that infant 2 is eligible to be randomised"
         allow_rando2 = Eligibility().check(
                 current_consent_version=2,
-                dob=delivery_datetime.date(),
+                dob=self.delivery_datetime.date(),
                 ga=37,
                 weight=3.9,
                 clinical_jaundice='No',
                 anemia_neutropenia='No',
                 exception_cls=ValidationError,
                 suppress_exception=False)
-        print 'allow rando {}'.format(allow_rando2)
+        self.assertTrue(allow_rando2, "Infant Cannot be randomized")
         infant_eligibility2 = InfantEligibilityFactory(
-                    infant_birth=infant_birth2,
-                    registered_subject=infant_birth2.registered_subject,
+                    infant_birth=self.infant_birth2,
+                    registered_subject=self.infant_birth2.registered_subject,
                     rando_bf_duration = 'No',
                     congen_anomaly = 'No',
                     maternal_art_status = 'ON',
@@ -132,13 +146,13 @@ class InfantRandomizationTests(TestCase):
                     )
         print infant_eligibility2
         print 'assert that the rest of the appointments were created, i.e. 2000,2010,2020,2030,2060,2090,2120,2150,2180'
-        all_appointments = Appointment.objects.filter(registered_subject=registered_subject2)
+        all_appointments = Appointment.objects.filter(registered_subject=self.registered_subject2)
         self.assertEqual(all_appointments.count(), 9)
         print 'confirm infant 2 was randomized'
         InfantRando.objects.randomize(infant_eligibility=infant_eligibility2)
-        print InfantRando.objects.get(subject_identifier=registered_subject2.subject_identifier)
-        rando1 = InfantRando.objects.get(subject_identifier=registered_subject1.subject_identifier)
-        rando2 = InfantRando.objects.get(subject_identifier=registered_subject1.subject_identifier)
+        print "Inafnt 2 Rando {}".format(InfantRando.objects.get(subject_identifier=self.registered_subject2.subject_identifier))
+        rando1 = InfantRando.objects.get(subject_identifier=self.registered_subject1.subject_identifier)
+        rando2 = InfantRando.objects.get(subject_identifier=self.registered_subject1.subject_identifier)
         print "assert that the twins were randomized to the same feeding arm"
         self.assertEquals(rando1.feeding_choice, rando2.feeding_choice)
         print "assert that the twins were randomized to the same breast feeding duration"
@@ -172,84 +186,85 @@ class InfantRandomizationTests(TestCase):
         if infant_eligibility2.maternal_feeding_choice =='BF':
             self.assertEqual(og.bf_duration, rando2.bf_duration)
 
-    def test_rando_fails(self):
-        study_site = StudySiteFactory(site_code=2)
-        content_type_map = ContentTypeMap.objects.get(model='maternalconsent', app_label='mpepu_maternal')
-        consent_catalogue = ConsentCatalogueFactory(content_type_map=content_type_map)
-        consent_catalogue.add_for_app = 'mpepu_infant'
-        consent_catalogue.save()
+    def test_check(self):
 
-        delivery_days_ago = 20
-        delivery_datetime = datetime.today() - timedelta(days=delivery_days_ago - 3)
-        print "Consent a mother"
-        maternal_consent = MaternalConsentFactory(study_site=study_site, consent_datetime=datetime.today() - timedelta(days=delivery_days_ago))
-        print "Consent: {}".format(maternal_consent)
-        registered_subject = RegisteredSubject.objects.get(subject_identifier=maternal_consent.subject_identifier)
-        print 'check if mother is eligible'
-        maternal_eligibility = MaternalEligibilityPostFactory(maternal_consent=maternal_consent, registered_subject=registered_subject, registration_datetime=datetime.today() - timedelta(days=delivery_days_ago))
-        print 'get the 2000M visit'
-        appointment = Appointment.objects.get(registered_subject=registered_subject, visit_definition__code='2000M')
-        print 'create a maternal visit for the 2000M visit'
-        maternal_visit = MaternalVisitFactory(appointment=appointment, report_datetime=datetime.today() - timedelta(days=delivery_days_ago))
-        print 'create a maternal_lab_del registering 2 of 2 infants'
-        maternal_lab_del = MaternalLabDelFactory(maternal_visit=maternal_visit,
-                                                         live_infants=2,
-                                                         live_infants_to_register=2,
-                                                         delivery_datetime=delivery_datetime,
-                                                         has_ga='Yes',
-                                                         ga=37,
-
-                                                         )
-        print 'maternal lab del: {}'.format(maternal_lab_del)
-        print 'get registered subject of the first infant'
-        registered_subject = RegisteredSubject.objects.filter(relative_identifier=maternal_consent.subject_identifier).order_by('subject_identifier')[0]
-        print 'first registered subject {}'.format(registered_subject)
-        infant_birth = InfantBirthFactory(registered_subject=registered_subject, maternal_lab_del=maternal_lab_del, dob=date.today())
-        print 'first infant birth {}'.format(infant_birth)
-        print "update registered subject the as in admin of InfantBirth"
-        registered_subject.dob = infant_birth.dob
-        registered_subject.gender = infant_birth.gender
-        registered_subject.initials = infant_birth.initials
-        registered_subject.save()
-        appointment = Appointment.objects.get(registered_subject=registered_subject, visit_definition__code='2000')
-        infant_visit = InfantVisitFactory(appointment=appointment, report_datetime=datetime.today(), reason='scheduled')
-        original_sids = self.populate_rando()
-
+        print "assert that if weight is less than 2.5 randomization check will return false"
         allow_rando = Eligibility().check(
                 current_consent_version=2,
-                dob=delivery_datetime.date(),
+                dob=self.delivery_datetime.date(),
                 ga=37,
-                weight=4,
+                weight=2.1,
                 clinical_jaundice='No',
                 anemia_neutropenia='No',
                 exception_cls=ValidationError,
-                suppress_exception=False)
-        print 'allow rando {}'.format(allow_rando)
-        infant_eligibility = InfantEligibilityFactory.build(
-                    infant_birth=infant_birth,
-                    registered_subject=registered_subject,
-                    rando_bf_duration = 'No',
-                    congen_anomaly = 'Yes',
-                    maternal_art_status = 'ON',
-                    maternal_feeding_choice = 'BF',
-                    randomization_site = 'Gaborone',
-                    ctx_contra = 'No',
-                    )
-        form = InfantEligibilityForm(instance=infant_eligibility)
-        form.cleaned_data = {'infant_birth':infant_birth,
-                    'registered_subject':registered_subject,
-                    'rando_bf_duration' : 'No',
-                    'congen_anomaly' : 'Yes',
-                    'maternal_art_status' : 'ON',
-                    'maternal_feeding_choice' : 'BF',
-                    'randomization_site' : 'Gaborone',
-                    'ctx_contra' : 'No',
-                    'weight':3.9,
-                    'clinical_jaundice':'No',
-                    'anemia_neutropenia':'No',
-                             }
-        print "assert that if infant is less than 14 days, randomization will fail"
-        self.assertRaisesMessage(ValidationError,"'Randomization failed. Infant must be 14 days of life or older to verify eligibility.",form.clean)
+                suppress_exception=True
+                )
+        self.assertFalse(allow_rando, "method check failed to recognise infant is underweight")
+
+        print "assert that if infant days alive is less than 14 then check will return false"
+        allow_rando = Eligibility().check(
+                current_consent_version=2,
+                dob=date.today(),
+                ga=37,
+                weight=3.9,
+                clinical_jaundice='No',
+                anemia_neutropenia='No',
+                exception_cls=ValidationError,
+                suppress_exception=True
+                )
+        self.assertFalse(allow_rando, "method check failed to recognise infant days of alive < 14")
+
+        print "assert that if infant days alive is greater than 14 then check will return false"
+        allow_rando = Eligibility().check(
+                current_consent_version=2,
+                dob=date.today()+timedelta(365),
+                ga=37,
+                weight=3.9,
+                clinical_jaundice='No',
+                anemia_neutropenia='No',
+                exception_cls=ValidationError,
+                suppress_exception=True
+                )
+        self.assertFalse(allow_rando, "method check failed to recognise infant days of alive > 14")
+
+        print "assert that if infant is jaundiced then check will return false"
+        allow_rando = Eligibility().check(
+                current_consent_version=2,
+                dob=self.delivery_datetime.date(),
+                ga=37,
+                weight=3.9,
+                clinical_jaundice='Yes',
+                anemia_neutropenia='No',
+                exception_cls=ValidationError,
+                suppress_exception=True
+                )
+        self.assertFalse(allow_rando, "method check failed to recognise infant is jaundiced")
+
+        print "assert that if infant has aneimaia then check will return false"
+        allow_rando = Eligibility().check(
+                current_consent_version=2,
+                dob=self.delivery_datetime.date(),
+                ga=37,
+                weight=3.9,
+                clinical_jaundice='No',
+                anemia_neutropenia='Yes',
+                exception_cls=ValidationError,
+                suppress_exception=True
+                )
+        self.assertFalse(allow_rando, "method check failed to recognise infant has anemia")
+
+        print "assert that if mother has ga less than 36 then check will return false"
+        allow_rando = Eligibility().check(
+                current_consent_version=2,
+                dob=self.delivery_datetime.date(),
+                ga=30,
+                weight=3.9,
+                clinical_jaundice='No',
+                anemia_neutropenia='No',
+                exception_cls=ValidationError,
+                suppress_exception=True
+                )
+        self.assertFalse(allow_rando, "method check failed to recognise mother's ga is less than 36")
 
     def populate_rando(self):
 
