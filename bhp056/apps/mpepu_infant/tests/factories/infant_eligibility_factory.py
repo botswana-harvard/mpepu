@@ -17,6 +17,8 @@ class InfantEligibilityFactory(BaseUuidModelFactory):
     anemia_neutropenia = 'No'
     hiv_result_reference = 'PENDING'
     maternal_feeding_choice = 'BF'
-    rando_bf_duration = 'No'
+    maternal_art_status = 'ON',
+    rando_bf_duration = 'Yes'
     ctx_contra = 'No'
     congen_anomaly = 'No'
+    randomization_site = 'Gaborone'

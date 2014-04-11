@@ -28,4 +28,3 @@ class InfantFuPhysicalFactory(BaseUuidModelFactory):
     head_circumference = 15
     has_abnormalities = 'No'
     was_hospitalized = 'Yes'
-
