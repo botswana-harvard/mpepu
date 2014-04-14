@@ -1,7 +1,8 @@
 from collections import OrderedDict
 from edc.constants import REQUIRED, NOT_REQUIRED, ADDITIONAL, NOT_ADDITIONAL
 
-from edc.subject.visit_schedule.classes import VisitScheduleConfiguration, site_visit_schedules, EntryTuple, MembershipFormTuple, ScheduleGroupTuple, RequisitionPanelTuple
+from edc.subject.visit_schedule.classes import (VisitScheduleConfiguration, site_visit_schedules, EntryTuple,
+                                                 MembershipFormTuple, ScheduleGroupTuple, RequisitionPanelTuple)
 
 from ..models import MaternalVisit, MaternalEligibilityPost
 

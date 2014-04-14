@@ -11,8 +11,14 @@ class InfantEligibilityFactory(BaseUuidModelFactory):
     FACTORY_FOR = InfantEligibility
 
     infant_birth = factory.SubFactory(InfantBirthFactory)
-    hiv_status = 'Yes'
+    hiv_status = 'No'
     weight = 4
     clinical_jaundice = 'No'
     anemia_neutropenia = 'No'
     hiv_result_reference = 'PENDING'
+    maternal_feeding_choice = 'BF'
+    maternal_art_status = 'ON',
+    rando_bf_duration = 'Yes'
+    ctx_contra = 'No'
+    congen_anomaly = 'No'
+    randomization_site = 'Gaborone'

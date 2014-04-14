@@ -17,17 +17,11 @@ class Randomization(object):
         InfantBirth = get_model('mpepu_infant', 'InfantBirth')
         #multiple births
         infants = RegisteredSubject.objects.filter(relative_identifier=infant_eligibility.registered_subject.relative_identifier).order_by('subject_identifier')
-
-        if infants:
+        rando = None
+        if infants.count() > 1:
             for infant in infants:
                 rando = InfantRando.objects.filter(subject_identifier=infant.subject_identifier)
-                eligibility = InfantEligibility.objects.filter(registered_subject__subject_identifier=infant.subject_identifier)  
-                if rando and eligibility:
-                    infant_eligibility.maternal_art_status = eligibility[0].maternal_art_status
-                    infant_eligibility.maternal_feeding_choice = eligibility[0].maternal_feeding_choice
-                    infant_eligibility.rando_bf_duration = eligibility[0].rando_bf_duration
-                    infant_eligibility.randomization_site = eligibility[0].randomization_site
-                    break
+                break
 
         if infant_eligibility:
             maternal_feeding_choice = infant_eligibility.maternal_feeding_choice
@@ -48,12 +42,25 @@ class Randomization(object):
             stratum = 'BF,notHAART'
         else:
             raise TypeError('Cannot determine stratum. Got %s and %s' % (maternal_feeding_choice, maternal_art_status))
+
         infant_rando = InfantRando.objects.filter(
-                                            Q(site__exact=site),
-                                            Q(stratum__exact=stratum),
-                                            (Q(subject_identifier__isnull=True) |
-                                            Q(subject_identifier=''))
-                                            ).order_by('sid')
+                                                Q(site__exact=site),
+                                                Q(stratum__exact=stratum),
+                                                (Q(subject_identifier__isnull=True) |
+                                                Q(subject_identifier=''))
+                                                ).order_by('sid')
+        #ensure multiple births are randomised to same rx and bf_duration
+        if infants and rando:
+            rx = rando[0].rx
+            bf_duration = rando[0].bf_duration
+            #filter on BF for bf_duration only
+            if maternal_feeding_choice == 'BF':
+                infant_rando = infant_rando.filter(bf_duration__exact=bf_duration).order_by('sid')
+            rando_list=[]
+            for ir in infant_rando:
+                if ir.rx == rx:
+                    rando_list.append(ir)
+            infant_rando = rando_list
 
         if infant_rando:
 
@@ -61,11 +68,6 @@ class Randomization(object):
             # get sid for first twin, triplet
             # modify this sid so that feeding and rx are the same as first
             dte = datetime.today()
-
-            if rando and eligibility:
-                infant_rando[0].rx = rando[0].rx
-                infant_rando[0].bf_duration = rando[0].bf_duration
-
             infant_rando[0].haart_status = maternal_art_status
             infant_rando[0].feeding_choice = maternal_feeding_choice
             infant_rando[0].subject_identifier = registered_subject.subject_identifier

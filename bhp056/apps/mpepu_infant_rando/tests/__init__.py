@@ -1,1 +1,2 @@
 from eligibility_tests import EligibilityTests
+from .test_infant_randomization import InfantRandomizationTests
