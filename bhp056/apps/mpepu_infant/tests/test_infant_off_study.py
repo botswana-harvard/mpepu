@@ -3,27 +3,27 @@ import pprint
 from datetime import datetime, date, timedelta
 from django.test import TestCase
 from django.db.models import get_app, get_models
-from edc.core.identifier.exceptions import IdentifierError
-from edc.subject.lab_tracker.classes import site_lab_tracker
-from edc.core.bhp_variables.models import StudySpecific, StudySite
-from edc.core.bhp_variables.tests.factories import StudySpecificFactory, StudySiteFactory
-from edc.subject.registration.models import RegisteredSubject
-from edc.subject.consent.tests.factories import ConsentCatalogueFactory
-from edc.subject.appointment.models import Appointment
-from edc.subject.visit_schedule.tests.factories import MembershipFormFactory, ScheduleGroupFactory, VisitDefinitionFactory
-from edc.core.bhp_content_type_map.classes import ContentTypeMapHelper
+
 from edc.core.bhp_content_type_map.models import ContentTypeMap
-from edc.subject.visit_schedule.classes import site_visit_schedules
+from edc.core.bhp_variables.tests.factories import StudySiteFactory
+from edc.core.identifier.exceptions import IdentifierError
+from edc.core.identifier.models import SubjectIdentifier
 from edc.lab.lab_profile.classes import site_lab_profiles
-from apps.mpepu.mpepu_app_configuration.classes import MpepuAppConfiguration
-from apps.mpepu_lab.lab_profiles import MpepuInfantProfile
 from edc.lab.lab_profile.exceptions import AlreadyRegistered
+from edc.subject.appointment.models import Appointment
+from edc.subject.consent.tests.factories import ConsentCatalogueFactory
+from edc.subject.lab_tracker.classes import site_lab_tracker
+from edc.subject.off_study.exceptions import SubjectOffStudyError, SubjectOffStudyDateError
+from edc.subject.registration.models import RegisteredSubject
+from edc.subject.visit_schedule.classes import site_visit_schedules
+
+from apps.mpepu.mpepu_app_configuration.classes import MpepuAppConfiguration
+from apps.mpepu_infant.models import InfantBirth, InfantVisit
+from apps.mpepu_lab.lab_profiles import MpepuInfantProfile
 from apps.mpepu_maternal.models import MaternalVisit, MaternalConsent, MaternalOffStudy, MaternalEligibilityAnte, MaternalEligibilityPost, MaternalPostReg
 from apps.mpepu_maternal.tests.factories import MaternalConsentFactory, MaternalOffStudyFactory, MaternalVisitFactory, MaternalEligibilityAnteFactory, MaternalLabDelFactory
-from edc.core.identifier.models import SubjectIdentifier, Sequence
-from edc.subject.off_study.exceptions import SubjectOffStudyError, SubjectOffStudyDateError
-from apps.mpepu_infant.models import InfantBirth, InfantVisit
-from factories import InfantVisitFactory, InfantBirthFactory, InfantBirthDataFactory, InfantEligibilityFactory, InfantOffStudyFactory, InfantArvProphFactory, InfantArvProphModFactory
+
+from .factories import InfantVisitFactory, InfantBirthFactory, InfantBirthDataFactory, InfantEligibilityFactory, InfantOffStudyFactory, InfantArvProphFactory, InfantArvProphModFactory
 
 
 class InfantOffStudyTests(TestCase):

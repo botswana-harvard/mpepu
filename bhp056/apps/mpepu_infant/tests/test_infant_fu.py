@@ -52,8 +52,8 @@ class InfantFuTests(TestCase):
         self.maternal_visit = MaternalVisitFactory(appointment=self.m_appointment, report_datetime=datetime.today() - timedelta(days=delivery_days_ago))
         print 'create a maternal_lab_del registering 2 of 2 infants'
         self.maternal_lab_del = MaternalLabDelFactory(maternal_visit=self.maternal_visit,
-                                                         live_infants=2,
-                                                         live_infants_to_register=2,
+                                                         live_infants=1,
+                                                         live_infants_to_register=1,
                                                          delivery_datetime=delivery_datetime,
                                                          has_ga='Yes',
                                                          ga=37,
@@ -74,7 +74,7 @@ class InfantFuTests(TestCase):
         self.fu_physical = InfantFuPhysicalFactory(infant_fu=self.fu, infant_visit=visit_2010)
         self.fu_dx = InfantFuDxFactory(infant_fu=self.fu, infant_visit=visit_2010)
 
-    def test_infant_fu_dx_items(self):
+    def test_infant_fu_dx_items_validations(self):
         form = InfantFuDxItemsForm()
 
         print "assert that if onset date is greater than the visit date" 
