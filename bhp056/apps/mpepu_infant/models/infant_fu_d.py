@@ -3,9 +3,9 @@ from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 
 from edc.audit.audit_trail import AuditTrail
-from edc.subject.adverse_event.choices import GRADING_SCALE_34
-from edc.choices.common import YES_NO
 from edc.base.model.validators import datetime_not_before_study_start, datetime_not_future, datetime_is_after_consent
+from edc.choices.common import YES_NO
+from edc.subject.adverse_event.choices import GRADING_SCALE_34
 
 from .base_scheduled_visit_model import BaseScheduledVisitModel
 from .infant_fu import InfantFu
@@ -25,7 +25,7 @@ class InfantFuD(BaseScheduledVisitModel):
             MaxValueValidator(4),
             ]
         )
-    
+
     d_onset_date = models.DateTimeField(
         verbose_name="Onset Date and Time",
         validators=[
@@ -33,35 +33,35 @@ class InfantFuD(BaseScheduledVisitModel):
             datetime_not_future,
             ],
         )
-    
+
     health_facility = models.CharField(
         verbose_name="Was the infant seen at the health facility for this diagnosis?",
         max_length=3,
         choices=YES_NO,
         help_text="",
         )
-    
+
     hospitalized = models.CharField(
         verbose_name="Was the infant hospitalized?",
         max_length=3,
         choices=YES_NO,
         help_text="",
         )
-    
+
     bloody_diarrhea = models.CharField(
         verbose_name="Was it bloody?",
         max_length=3,
         choices=YES_NO,
         help_text="",
         )
-    
+
     fever_present = models.CharField(
         verbose_name="Was fever present?",
         max_length=3,
         choices=YES_NO,
         help_text="",
         )
-    
+
     diarrhea_episodes = models.CharField(
         verbose_name="Number of separate episodes of diarrhea since last attended visit",
         max_length=3,

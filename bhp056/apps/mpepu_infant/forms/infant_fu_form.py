@@ -76,22 +76,22 @@ class InfantFuDxItemsForm (BaseInfantModelForm):
         cleaned_data = self.cleaned_data
         infant_fu_dx = cleaned_data.get('infant_fu_dx')
         visit = infant_fu_dx.infant_visit
-        
+
         if 'specify' in cleaned_data.get('fu_dx', None):
             if not cleaned_data.get('fu_dx_specify', None):
                 raise forms.ValidationError('please specify \'%s\'' % (cleaned_data.get('fu_dx').replace('specify', ''),))
         if cleaned_data.get('fu_dx', None):
             # check for grade 2 dx codes
             grade_2_reportable_dx = ['Hepatitis:Drug related', 'Rash']
-            if cleaned_data.get('fu_dx') not in grade_2_reportable_dx and cleaned_data.get('grade', None) == '2':
+            if cleaned_data.get('fu_dx') not in grade_2_reportable_dx and cleaned_data.get('grade', None) == 2:
                 raise forms.ValidationError('{dx} is not reportable at grade 2.'.format(dx=cleaned_data.get('fu_dx')))
-            
+
         # validating for eae report
         if cleaned_data.get('is_eae_required') == 'Yes' and not cleaned_data.get('eae_reference'):
             raise forms.ValidationError('If eae report is available, give the eae reference number.')
         if cleaned_data.get('is_eae_required') == 'No' and cleaned_data.get('eae_reference'):
             raise forms.ValidationError('The eae report is indicated as not required, yet the eae reference number is given. Please correct')
-        
+
         # validating that dx_onsetdate is not greater than the visit date
         if visit and cleaned_data.get('onset_date') > visit.report_datetime.date():
             raise forms.ValidationError("Onset date cannot be greater than the visit date. Please correct")
@@ -102,7 +102,7 @@ class InfantFuDxItemsForm (BaseInfantModelForm):
 
             if infant_fu_physical.was_hospitalized != cleaned_data.get('was_hospitalized'):
                 raise forms.ValidationError('Your response about hospitalization in InfantFuPhysical, and whether or not patient was hospitalized in this DX form are not the same. Please correct.')
-        
+
         return cleaned_data
 
     class Meta:
@@ -117,7 +117,7 @@ class InfantFuDx2ProphForm (BaseInfantModelForm):
         if cleaned_data.get('has_dx') == 'Yes':
             if not check_items:
                 raise forms.ValidationError('New Diagnosis is indicated to have occured. Please list')
-                
+
         return cleaned_data
 #         return super(InfantFuDx2ProphForm, self).clean()
 
@@ -129,7 +129,7 @@ class InfantFuDx2ProphItemsForm (BaseInfantModelForm):
     def clean(self):
         cleaned_data = self.cleaned_data
         infant_fu_dx = cleaned_data.get('infant_fu_dx')
-        
+
         # relation of medication to study ctx/placebo and infant nvp
         if self.cleaned_data.get('dx'):
             if not self.cleaned_data.get('ctx') or not self.cleaned_data.get('nvp'):
@@ -138,7 +138,7 @@ class InfantFuDx2ProphItemsForm (BaseInfantModelForm):
         # validation for ensuring that diagnosis table is only filled when its confirmed that new diagnoses occurred.        
         if infant_fu_dx.has_dx == 'No':
             raise forms.ValidationError('You are listing diagnosis relation details yet answered \'NO\', to new diagnosis for this patient.')                 
-       
+
         return super(InfantFuDx2ProphItemsForm, self).clean()
 
     class Meta:
@@ -156,7 +156,7 @@ class InfantFuDForm (BaseInfantModelForm):
 
             if infant_fu_physical.was_hospitalized != cleaned_data.get('hospitalized'):
                 raise forms.ValidationError('Your response about hospitalization in InfantFuPhysical, and whether or not patient was hospitalized in this Diarhoea form are not the same. Please correct.')
-        
+
         # validating that d_onsetdate is not greater than the visit date
         if visit and cleaned_data.get('d_onset_date') > visit.report_datetime:
             raise forms.ValidationError("Diarhoea onset date cannot be greater than the visit date. Please correct")

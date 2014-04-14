@@ -39,9 +39,13 @@ class MaternalLabDelForm (BaseMaternalModelForm):
         if cleaned_data.get('still_born_has_congen_abn') != 'Yes' and cleaned_data.get('still_born_congen_abn'):
             raise forms.ValidationError('You indicated that stillborns did not have congenital abnormalities and yet provided specifications. Please correct.')
 
+        #validate that number of live_infants_to_register cannot be 0
+        if cleaned_data.get('live_infants_to_register') == 0:
+            raise forms.ValidationError('Number of live infants to register may not be 0!.')
+
         #validate birth number vs registerning number
         if cleaned_data.get('live_infants_to_register') > cleaned_data.get('live_infants'):
-            raise forms.ValidationError("You indicated that you are registering " + repr(cleaned_data.get('live_infants_to_register')) + " Yet there are " + repr(cleaned_data.get('live_infants')) + " live births. Please correct.")
+            raise forms.ValidationError("You indicated that you are registering "+repr(cleaned_data.get('live_infants_to_register')) +" Yet there are "+repr(cleaned_data.get('live_infants'))+" live births. Please correct.")
 
         return super(MaternalLabDelForm, self).clean()
 
