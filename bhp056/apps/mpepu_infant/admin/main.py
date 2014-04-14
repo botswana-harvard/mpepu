@@ -140,6 +140,7 @@ admin.site.register(InfantNvpAdherence, InfantNvpAdherenceAdmin)
 class InfantArvProphModInlineAdmin(BaseTabularInline):
     model = InfantArvProphMod
     form = InfantArvProphModForm
+    extra = 1
 
 
 class InfantArvProphAdmin(InfantVisitModelAdmin):
@@ -289,6 +290,7 @@ class InfantFuDxItemsInlineAdmin(BaseTabularInline):
 
     model = InfantFuDxItems
     form = InfantFuDxItemsForm
+    extra = 1
 
 
 class InfantFuDxAdmin(MyInfantFuModelAdmin):
@@ -308,6 +310,7 @@ admin.site.register(InfantFuDxItems, InfantFuDxItemsAdmin)
 class InfantFuDx2ProphItemsInlineAdmin(BaseTabularInline):
     model = InfantFuDx2ProphItems
     form = InfantFuDx2ProphItemsForm
+    extra = 1
 
 
 class InfantFuDx2ProphAdmin(MyInfantFuModelAdmin):
@@ -332,7 +335,7 @@ admin.site.register(InfantFuDx2Proph, InfantFuDx2ProphAdmin)
 
 class InfantFuDx2ProphItemsAdmin(BaseModelAdmin):
     form = InfantFuDx2ProphItemsForm
-    
+
 admin.site.register(InfantFuDx2ProphItems, InfantFuDx2ProphItemsAdmin)
 
 
@@ -362,6 +365,7 @@ admin.site.register(InfantFuMed, InfantFuMedAdmin)
 class InfantFuNewMedItemsInlineAdmin(BaseTabularInline):
     model = InfantFuNewMedItems
     form = InfantFuNewMedItemsForm
+    extra = 1
 
 
 class InfantFuNewMedAdmin(MyInfantFuModelAdmin):
@@ -387,6 +391,7 @@ admin.site.register(InfantStudyDrugItems, InfantStudyDrugItemsAdmin)
 class InfantStudyDrugItemsInlineAdmin(BaseTabularInline):
     model = InfantStudyDrugItems
     form = InfantStudyDrugItemsForm
+    extra = 1
 
 
 class InfantStudyDrugAdmin(InfantVisitModelAdmin):

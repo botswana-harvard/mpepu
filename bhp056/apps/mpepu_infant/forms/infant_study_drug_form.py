@@ -16,7 +16,6 @@ class InfantStudyDrugForm (BaseInfantModelForm):
         if cleaned_data.get('drug_status')=='Starting CTX/Placebo today' or cleaned_data.get('drug_status')=='Change in CTX/Placebo since the last scheduled visit or today':
             if not check_drugs:
                 raise forms.ValidationError("Please fill out the study drug items as you indicated 'Starting' or 'Change' in CTX/Placebo.")
-            
         return cleaned_data
 
     class Meta:
@@ -34,6 +33,13 @@ class InfantStudyDrugItemsForm (BaseInfantModelForm):
         # status is starting dose shouls be new
         if inf_study_drug.drug_status == 'Starting CTX/Placebo today' and cleaned_data.get('dose_status')!='New':
             raise forms.ValidationError("Drug status is indicated 'Starting CTX/Placebo', dose status must be 'New'. Please correct.")
+
+        reasons = ['Initial dose','Never started', 'Scheduled dose increase', 'completed protocol', 'Death', 'Rash resolved' ]
+        if cleaned_data.get('dose_status') == 'Temporarily held':
+            for reason in reasons:
+                if cleaned_data.get('modification_reason') == reason:
+                    raise forms.ValidationError("Dose status is 'Temporarily Held', modification reason cannot be {}.".format(reason))
+
         return cleaned_data
 
     class Meta:
