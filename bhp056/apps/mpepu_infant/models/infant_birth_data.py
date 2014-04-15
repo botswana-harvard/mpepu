@@ -5,7 +5,8 @@ from django.db.models import Q, get_model
 
 from edc.audit.audit_trail import AuditTrail
 from edc.choices.common import YES_NO
-# from edc.subject.entry.models import AdditionalEntryBucket
+from edc.entry_meta_data.models import ScheduledEntryMetaData
+from edc.subject.entry.models import Entry
 
 from .base_scheduled_visit_model import BaseScheduledVisitModel
 from .infant_birth import InfantBirth
@@ -91,6 +92,12 @@ class InfantBirthData(BaseScheduledVisitModel):
 
     def __unicode__(self):
         return unicode(self.infant_birth)
+
+    def change_meta_status_if_there_are_anomalies_identified(self):
+        if self.congenital_anomalities == 'yes':
+            entry = Entry.objects.get(model_name='infantcongenitalanomalies', visit_definition_id=self.appointment.visit_definition_id)
+            scheduled_meta_data = ScheduledEntryMetaData.objects.get(appointment=self.appointment, entry=entry, registered_subject=self.registered_subject, entry_status='NEW')
+            return scheduled_meta_data
 
     def get_absolute_url(self):
         return reverse('admin:mpepu_infant_infantbirthdata_change', args=(self.id,))
