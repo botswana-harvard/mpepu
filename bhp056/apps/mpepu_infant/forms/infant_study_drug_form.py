@@ -1,5 +1,5 @@
 from django import forms
-from apps.mpepu_infant.models import InfantStudyDrug, InfantStudyDrugItems, InfantCtxPlaceboAdh
+from apps.mpepu_infant.models import InfantStudyDrug, InfantStudyDrugItems, InfantCtxPlaceboAdh, InfantStudyDrugInit
 from .base_infant_model_form import BaseInfantModelForm
 
 
@@ -34,13 +34,54 @@ class InfantStudyDrugItemsForm (BaseInfantModelForm):
         if inf_study_drug.drug_status == 'Starting CTX/Placebo today' and cleaned_data.get('dose_status')!='New':
             raise forms.ValidationError("Drug status is indicated 'Starting CTX/Placebo', dose status must be 'New'. Please correct.")
 
+        if cleaned_data.get('dose_status') == 'New' and cleaned_data.get('modification_reason') != 'Initial dose':
+            raise forms.ValidationError("You indicated that the dose status is 'New', modification reason should be 'Initial dose'. Please correct.")
+
         reasons = ['Initial dose','Never started', 'Scheduled dose increase', 'completed protocol', 'Death', 'Rash resolved' ]
         if cleaned_data.get('dose_status') == 'Temporarily held':
             for reason in reasons:
                 if cleaned_data.get('modification_reason') == reason:
                     raise forms.ValidationError("Dose status is 'Temporarily Held', modification reason cannot be {}.".format(reason))
 
+        if cleaned_data.get('dose_status') == 'Permanently discontinued' and cleaned_data.get('modification_reason') == 'completed protocol':
+            if inf_study_drug.infant_visit.appointment.visit_definition.code != '2150' or inf_study_drug.infant_visit.appointment.visit_definition.code != '2180':
+                raise forms.ValidationError("You indicated Completion of protocol as reason study drug is permanently discontinued yet this is visit {}."
+                                            .format(inf_study_drug.infant_visit.appointment.visit_definition.code))
+
         return cleaned_data
 
     class Meta:
         model = InfantStudyDrugItems
+
+
+class InfantStudyDrugInitForm(BaseInfantModelForm):
+
+    def clean(self):
+        cleaned_data = super(InfantStudyDrugInitForm, self).clean()
+
+        #validate initiation date and wether infant was indicated to start drug
+        if cleaned_data.get('initiated') == 'No' and cleaned_data.get('first_dose_date'):
+            raise forms.ValidationError("You indicated that Study Drug was not initiated yet you provided an initiation date. Please correct.")
+        if cleaned_data.get('initiated') == 'Yes' and not cleaned_data.get('first_dose_date'):
+            raise forms.ValidationError("You indicated that Study Drug was initiated yet you did not provide the initiation date. Please correct.")
+
+        #ensure that reason not initiated is filled if study drug not initiated and vice versa
+        if cleaned_data.get('initiated') == 'Yes' and cleaned_data.get('reason_not_init')!= 'N/A':
+            raise forms.ValidationError("You indicated that Study Drug was initiated. Reason not initiated should be 'Not Applicable.' Please correct.")
+        if cleaned_data.get('initiated') == 'No' and cleaned_data.get('reason_not_init') == 'N/A':
+            raise forms.ValidationError("You indicated that Study Drug was NOT initiated. Reason not initiated cannot be 'Not Applicable.' Please provide a reason.")
+
+        #validate against form MP011
+        study_drug = InfantStudyDrug.objects.filter(infant_visit = cleaned_data.get('infant_visit'))
+        study_drug_items = InfantStudyDrugItems.objects.filter(inf_study_drug=study_drug)
+        if study_drug:
+            if study_drug[0].drug_status == 'Starting CTX/Placebo today' and cleaned_data.get('initiated') == 'No':
+                raise forms.ValidationError("You indicated that Study Drug was being initiated on {}. Please correct".format(study_drug[0]._meta.verbose_name))
+        if study_drug_items:
+            if study_drug_items[0].ingestion_date != cleaned_data.get('first_dose_date'):
+                raise forms.ValidationError("You indicated that Study Drug initiation date was {0}, yet indicated {1} on {2}. Please correct"
+                    .format(cleaned_data.get('first_dose_date'), study_drug_items[0].ingestion_date,study_drug_items[0]._meta.verbose_name))
+        return cleaned_data
+
+    class Meta:
+        model = InfantStudyDrugInit
