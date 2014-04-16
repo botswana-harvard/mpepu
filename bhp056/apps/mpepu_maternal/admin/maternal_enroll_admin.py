@@ -110,6 +110,7 @@ admin.site.register(MaternalEnrollOb, MaternalEnrollObAdmin)
 class MaternalEnrollDxInlineAdmin(BaseTabularInline):
 
     model = MaternalEnrollDx
+    extra = 1
 
 
 class MaternalEnrollMedAdmin(BaseMaternalEnrollAdmin):

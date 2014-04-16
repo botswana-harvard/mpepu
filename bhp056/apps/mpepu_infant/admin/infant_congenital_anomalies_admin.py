@@ -17,31 +17,34 @@ from .registered_subject_model_admin import RegisteredSubjectModelAdmin
 class InfantCnsAbnormalityItemsAdmin(BaseModelAdmin):
     form = InfantCnsAbnormalityItemsForm
 admin.site.register(InfantCnsAbnormalityItems, InfantCnsAbnormalityItemsAdmin)
-  
-    
+
+
 class InfantCnsAbnormalityItemsInlineAdmin(BaseTabularInline):
 
     model = InfantCnsAbnormalityItems
     form = InfantCnsAbnormalityItemsForm
+    extra = 1
 
 
 class InfantFacialDefectItemsAdmin(BaseModelAdmin):
     form = InfantFacialDefectItemsForm
 admin.site.register(InfantFacialDefectItems, InfantFacialDefectItemsAdmin)
-   
-    
+
+
 class InfantFacialDefectItemsInlineAdmin(BaseTabularInline):
 
     model = InfantFacialDefectItems
     form = InfantFacialDefectItemsForm
+    extra = 1
 
 
 class InfantCleftDisorderItemsInlineAdmin(BaseTabularInline):
 
     model = InfantCleftDisorderItems
     form = InfantCleftDisorderItemsForm
-    
-    
+    extra = 1
+
+
 class InfantCleftDisorderItemsAdmin(BaseModelAdmin):
     form = InfantCleftDisorderItemsForm
 admin.site.register(InfantCleftDisorderItems, InfantCleftDisorderItemsAdmin)
@@ -56,6 +59,7 @@ class InfantMouthUpGastrointestinalItemsInlineAdmin(BaseTabularInline):
 
     model = InfantMouthUpGastrointestinalItems
     form = InfantMouthUpGastrointestinalItemsForm
+    extra = 1
 
 
 class InfantCardiovascularDisorderItemsAdmin(BaseModelAdmin):
@@ -67,6 +71,7 @@ class InfantCardiovascularDisorderItemsInlineAdmin(BaseTabularInline):
 
     model = InfantCardiovascularDisorderItems
     form = InfantCardiovascularDisorderItemsForm
+    extra = 1
 
 
 class InfantRespiratoryDefectItemsAdmin(BaseModelAdmin):
@@ -78,6 +83,7 @@ class InfantRespiratoryDefectItemsInlineAdmin(BaseTabularInline):
 
     model = InfantRespiratoryDefectItems
     form = InfantRespiratoryDefectItemsForm
+    extra = 1
 
 
 class InfantLowerGastrointestinalItemsAdmin(BaseModelAdmin):
@@ -89,6 +95,7 @@ class InfantLowerGastrointestinalItemsInlineAdmin(BaseTabularInline):
 
     model = InfantLowerGastrointestinalItems
     form = InfantLowerGastrointestinalItemsForm
+    extra = 1
 
 
 class InfantFemaleGenitalAnomalyItemsAdmin(BaseModelAdmin):
@@ -100,6 +107,7 @@ class InfantFemaleGenitalAnomalyItemsInlineAdmin(BaseTabularInline):
 
     model = InfantFemaleGenitalAnomalyItems
     form = InfantFemaleGenitalAnomalyItemsForm
+    extra = 1
 
 
 class InfantMaleGenitalAnomalyItemsAdmin(BaseModelAdmin):
@@ -111,6 +119,7 @@ class InfantMaleGenitalAnomalyItemsInlineAdmin(BaseTabularInline):
 
     model = InfantMaleGenitalAnomalyItems
     form = InfantMaleGenitalAnomalyItemsForm
+    extra = 1
 
 
 class InfantRenalAnomalyItemsAdmin(BaseModelAdmin):
@@ -122,6 +131,7 @@ class InfantRenalAnomalyItemsInlineAdmin(BaseTabularInline):
 
     model = InfantRenalAnomalyItems
     form = InfantRenalAnomalyItemsForm
+    extra = 1
 
 
 class InfantMusculoskeletalAbnormalItemsAdmin(BaseModelAdmin):
@@ -133,6 +143,7 @@ class InfantMusculoskeletalAbnormalItemsInlineAdmin(BaseTabularInline):
 
     model = InfantMusculoskeletalAbnormalItems
     form = InfantMusculoskeletalAbnormalItemsForm
+    extra = 1
 
 
 class InfantSkinAbnormalItemsAdmin(BaseModelAdmin):
@@ -144,6 +155,7 @@ class InfantSkinAbnormalItemsInlineAdmin(BaseTabularInline):
 
     model = InfantSkinAbnormalItems
     form = InfantSkinAbnormalItemsForm
+    extra = 1
 
 
 class InfantTrisomiesChromosomeItemsAdmin(BaseModelAdmin):
@@ -155,6 +167,7 @@ class InfantTrisomiesChromosomeItemsInlineAdmin(BaseTabularInline):
 
     model = InfantTrisomiesChromosomeItems
     form = InfantTrisomiesChromosomeItemsForm
+    extra = 1
 
 
 class InfantOtherAbnormalityItemsAdmin(BaseModelAdmin):
@@ -166,6 +179,7 @@ class InfantOtherAbnormalityItemsInlineAdmin(BaseTabularInline):
 
     model = InfantOtherAbnormalityItems
     form = InfantOtherAbnormalityItemsForm
+    extra = 1
 
 
 class InfantCongenitalAnomaliesAdmin(RegisteredSubjectModelAdmin):

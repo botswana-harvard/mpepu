@@ -56,6 +56,7 @@ class MaternalPostFuDxTInlineAdmin(BaseTabularInline):
 
     model = MaternalPostFuDxT
     form = MaternalPostFuDxTForm
+    extra = 1
 
 
 class MaternalPostFuDxTAdmin(BaseModelAdmin):

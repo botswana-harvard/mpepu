@@ -70,6 +70,7 @@ class MaternalArvInlineAdmin(BaseTabularInline):
 
     model = MaternalArv
     fields = ('arv_code', 'date_start', 'date_stop',)
+    extra = 1
 
 
 class MaternalArvAdmin(BaseModelAdmin):
@@ -135,6 +136,7 @@ class MaternalArvPostModInlineAdmin(BaseTabularInline):
 
     model = MaternalArvPostMod
     form = MaternalArvPostModForm
+    extra = 1
 
 
 class MaternalArvPostAdmin(MaternalVisitModelAdmin):
