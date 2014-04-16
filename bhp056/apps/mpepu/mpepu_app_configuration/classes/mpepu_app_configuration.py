@@ -166,6 +166,6 @@ class MpepuAppConfiguration(BaseAppConfiguration):
     def _setup_study_sites(self):
         for site in self.study_site_setup:
             try:
-                StudySite.objects.get(site_code=site.get(**site))
+                StudySite.objects.get(**site)
             except StudySite.DoesNotExist:
                 StudySite.objects.create(**site)
