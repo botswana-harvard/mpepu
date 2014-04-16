@@ -111,15 +111,16 @@ class MaternalLabDelClinicForm (BaseMaternalModelForm):
 
 class MaternalLabDelDxForm (BaseMaternalModelForm):
     def clean(self):
-        cleaned_data = self.cleaned_data
+        cleaned_data = self.cleaned_data #super(MaternalLabDelDxForm,self).clean()
         check_dx = self.data.get('maternallabdeldxt_set-0-lab_del_dx')
 
         #WHO validations
-        if cleaned_data.get('has_who_dx') == 'Yes' and cleaned_data.get('wcs_dx_adult')[0].short_name == 'Not applicable':
-            raise forms.ValidationError("You indicated that participant had a WHO illness. You cannot select 'Not applicable'. Please correct.")
-
-        if cleaned_data.get('has_who_dx') == 'No' and (cleaned_data.get('wcs_dx_adult')[0].short_name != 'Not applicable' or cleaned_data.get('wcs_dx_adult')[0].short_name != 'Asymptomatic'):
-            raise forms.ValidationError("You indicated that participant did NOT have a WHO illness. You should select 'Not applicable' or 'Asymptomatic'. Please correct.")
+        if not cleaned_data.get('wcs_dx_adult'):
+            raise forms.ValidationError("You cannot leave WHO diagnosis blank. Please selct an option")
+        if cleaned_data.get('has_who_dx') == 'Yes' and [True for item in cleaned_data.get('wcs_dx_adult') if (item.short_name.lower() == 'not applicable' or item.short_name.lower() == 'asymptomatic')]:
+            raise forms.ValidationError("You stated there are ARE WHO diagnoses. Please indicate them.")
+        if cleaned_data.get('has_who_dx') == 'No' and not [True for item in cleaned_data.get('wcs_dx_adult') if (item.short_name.lower() == 'not applicable' or item.short_name.lower() == 'asymptomatic')]:
+            raise forms.ValidationError("You stated there are NO WHO diagnoses. Please correct.")
 
         #Validate diagnosis
         if cleaned_data.get('has_preg_dx') == 'Yes' and not check_dx:

@@ -2,18 +2,18 @@ from datetime import datetime, timedelta, date
 from django.test import TestCase
 from django.core.exceptions import ValidationError
 
-from edc.lab.lab_profile.exceptions import AlreadyRegistered
-from edc.subject.lab_tracker.classes import site_lab_tracker
-from edc.subject.visit_schedule.classes import site_visit_schedules
-from edc.core.bhp_variables.tests.factories import StudySiteFactory
 from edc.core.bhp_content_type_map.models import ContentTypeMap
-from edc.subject.consent.tests.factories import ConsentCatalogueFactory
-from edc.subject.appointment.models import Appointment
+from edc.core.bhp_variables.tests.factories import StudySiteFactory
 from edc.lab.lab_profile.classes import site_lab_profiles
+from edc.lab.lab_profile.exceptions import AlreadyRegistered
+from edc.subject.appointment.models import Appointment
+from edc.subject.consent.tests.factories import ConsentCatalogueFactory
+from edc.subject.lab_tracker.classes import site_lab_tracker
+from edc.subject.registration.models import RegisteredSubject
+from edc.subject.visit_schedule.classes import site_visit_schedules
 
 from apps.mpepu_lab.lab_profiles import MpepuInfantProfile
 from apps.mpepu.mpepu_app_configuration.classes import MpepuAppConfiguration
-from edc.subject.registration.models import RegisteredSubject
 from apps.mpepu_maternal.tests.factories import (MaternalConsentFactory, MaternalEligibilityPostFactory,
                                                  MaternalVisitFactory, MaternalLabDelFactory)
 from apps.mpepu_infant.tests.factories import (InfantBirthFactory, InfantVisitFactory, InfantEligibilityFactory,
