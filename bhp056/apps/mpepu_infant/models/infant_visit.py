@@ -124,7 +124,7 @@ class InfantVisit(InfantOffStudyMixin, BaseVisitTracking):
         self.create_meta_if_visit_reason_is_lost_when_sid_is_none()
         self.create_meta_if_visit_reason_is_lost_when_sid_is_not_none()
         self.change_meta_data_status_if_visit_reason_is_off_study()
-#         self.change_meta_data_status_if_study_status_is_onstudy_rando_offdrug()
+        self.change_meta_data_status_if_study_status_is_onstudy_rando_offdrug()
         self.change_meta_data_status_if_survial_status_is_dead()
         self.change_meta_data_status_if_info_source_is_telephone()
         self.change_meta_data_status_on_2180_if_visit_is_missed_at_2150()
