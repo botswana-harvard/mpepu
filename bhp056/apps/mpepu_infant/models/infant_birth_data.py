@@ -96,7 +96,9 @@ class InfantBirthData(BaseScheduledVisitModel):
     def change_meta_status_if_there_are_anomalies_identified(self):
         if self.congenital_anomalities == 'yes':
             entry = Entry.objects.get(model_name='infantcongenitalanomalies', visit_definition_id=self.appointment.visit_definition_id)
-            scheduled_meta_data = ScheduledEntryMetaData.objects.get(appointment=self.appointment, entry=entry, registered_subject=self.registered_subject, entry_status='NEW')
+            scheduled_meta_data = ScheduledEntryMetaData.objects.get(appointment=self.appointment, entry=entry, registered_subject=self.registered_subject)
+            scheduled_meta_data.entry_status = 'NEW'
+            scheduled_meta_data.save()
             return scheduled_meta_data
 
     def get_absolute_url(self):

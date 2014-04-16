@@ -4,104 +4,6 @@ from edc.subject.rule_groups.classes import RuleGroup, ScheduledDataRule, Logic,
 from .models import (InfantVisit, InfantArvProph, InfantFu, InfantStudyDrug, InfantBirthData, InfantStoolCollection)
 
 
-# class InfantPrerandoLossRuleGroup(RuleGroup):
-#
-#     lost = ScheduledDataRule(
-#         logic=Logic(
-#             predicate=(('reason', 'equals', 'lost'), ('sid', 'equals', None, 'and')),
-#             consequence='new',
-#             alternative='not_required'),
-#         target_model=['infantprerandoloss', 'infantoffstudy'])
-#
-#     class Meta:
-#         app_label = 'mpepu_infant'
-#         source_fk = (RegisteredSubject, 'registered_subject')
-#         source_model = InfantVisit
-# site_rule_groups.register(InfantPrerandoLossRuleGroup)
-#
-#
-# class InfantPrerandoLossOffDrugRuleGroup(RuleGroup):
-#
-#     lost_off_drug = ScheduledDataRule(
-#         logic=Logic(
-#             predicate=(('reason', 'equals', 'lost'), ('sid', 'ne', None, 'and')),
-#             consequence='new',
-#             alternative='not_required'),
-#         target_model=['infantoffdrug', 'infantoffstudy'])
-#
-#     class Meta:
-#         app_label = 'mpepu_infant'
-#         source_fk = (RegisteredSubject, 'registered_subject')
-#         source_model = InfantVisit
-# site_rule_groups.register(InfantPrerandoLossOffDrugRuleGroup)
-
-
-# class InfantDeathRuleGroup(RuleGroup):
-#
-#     death = ScheduledDataRule(
-#         logic=Logic(
-#             predicate=(('reason', 'equals', 'death'), ('sid', 'equals', None, 'and')),
-#             consequence='new',
-#             alternative='not_required'),
-#         target_model=['infantprerandoloss', 'infantsurvival', 'infantdeath',
-#                       'infantverbalautopsy', 'infantoffstudy'])
-#
-#     class Meta:
-#         app_label = 'mpepu_infant'
-#         source_fk = (RegisteredSubject, 'registered_subject')
-#         source_model = InfantVisit
-# site_rule_groups.register(InfantDeathRuleGroup)
-#
-#
-# class InfantDeathOffDrugRuleGroup(RuleGroup):
-#
-#     death_off_drug = ScheduledDataRule(
-#         logic=Logic(
-#             predicate=(('reason', 'equals', 'death'), ('sid', 'ne', None, 'and')),
-#             consequence='new',
-#             alternative='not_required'),
-#         target_model=['infantoffdrug', 'infantsurvival', 'infantdeath',
-#                       'infantverbalautopsy', 'infantoffstudy'])
-#
-#     class Meta:
-#         app_label = 'mpepu_infant'
-#         source_fk = (Appointment, 'appointment')
-#         source_model = InfantVisit
-# site_rule_groups.register(InfantDeathOffDrugRuleGroup)
-
-
-# class InfantOffDrugRuleGroup(RuleGroup):
-#
-#     off_drug = ScheduledDataRule(
-#         logic=Logic(
-#             predicate=('study_status', 'equals', 'onstudy rando offdrug'),
-#             consequence='new',
-#             alternative='not_required'),
-#         target_model=['infantoffdrug'])
-#
-#     class Meta:
-#         app_label = 'mpepu_infant'
-#         source_fk = (Appointment, 'appointment')
-#         source_model = InfantVisit
-# site_rule_groups.register(InfantOffDrugRuleGroup)
-#
-#
-# class InfantOffStudyRuleGroup(RuleGroup):
-#
-#     off_study = ScheduledDataRule(
-#         logic=Logic(
-#             predicate=('study_status', 'equals', 'offstudy'),
-#             consequence='new',
-#             alternative='not_required'),
-#         target_model=['infantoffstudy'])
-#
-#     class Meta:
-#         app_label = 'mpepu_infant'
-#         source_fk = (Appointment, 'appointment')
-#         source_model = InfantVisit
-# site_rule_groups.register(InfantOffStudyRuleGroup)
-
-
 class InfantBirthDataRuleGroup(RuleGroup):
 
     congenital_anomalities = ScheduledDataRule(
@@ -204,6 +106,104 @@ class StoolSamplingRuleGroup(RuleGroup):
         source_fk = (InfantVisit, 'infant_visit')
         source_model = InfantStoolCollection
 site_rule_groups.register(StoolSamplingRuleGroup)
+
+
+# class InfantPrerandoLossRuleGroup(RuleGroup):
+#
+#     lost = ScheduledDataRule(
+#         logic=Logic(
+#             predicate=(('reason', 'equals', 'lost'), ('sid', 'equals', None, 'and')),
+#             consequence='new',
+#             alternative='not_required'),
+#         target_model=['infantprerandoloss', 'infantoffstudy'])
+#
+#     class Meta:
+#         app_label = 'mpepu_infant'
+#         source_fk = (RegisteredSubject, 'registered_subject')
+#         source_model = InfantVisit
+# site_rule_groups.register(InfantPrerandoLossRuleGroup)
+#
+#
+# class InfantPrerandoLossOffDrugRuleGroup(RuleGroup):
+#
+#     lost_off_drug = ScheduledDataRule(
+#         logic=Logic(
+#             predicate=(('reason', 'equals', 'lost'), ('sid', 'ne', None, 'and')),
+#             consequence='new',
+#             alternative='not_required'),
+#         target_model=['infantoffdrug', 'infantoffstudy'])
+#
+#     class Meta:
+#         app_label = 'mpepu_infant'
+#         source_fk = (RegisteredSubject, 'registered_subject')
+#         source_model = InfantVisit
+# site_rule_groups.register(InfantPrerandoLossOffDrugRuleGroup)
+
+
+# class InfantDeathRuleGroup(RuleGroup):
+#
+#     death = ScheduledDataRule(
+#         logic=Logic(
+#             predicate=(('reason', 'equals', 'death'), ('sid', 'equals', None, 'and')),
+#             consequence='new',
+#             alternative='not_required'),
+#         target_model=['infantprerandoloss', 'infantsurvival', 'infantdeath',
+#                       'infantverbalautopsy', 'infantoffstudy'])
+#
+#     class Meta:
+#         app_label = 'mpepu_infant'
+#         source_fk = (RegisteredSubject, 'registered_subject')
+#         source_model = InfantVisit
+# site_rule_groups.register(InfantDeathRuleGroup)
+#
+#
+# class InfantDeathOffDrugRuleGroup(RuleGroup):
+#
+#     death_off_drug = ScheduledDataRule(
+#         logic=Logic(
+#             predicate=(('reason', 'equals', 'death'), ('sid', 'ne', None, 'and')),
+#             consequence='new',
+#             alternative='not_required'),
+#         target_model=['infantoffdrug', 'infantsurvival', 'infantdeath',
+#                       'infantverbalautopsy', 'infantoffstudy'])
+#
+#     class Meta:
+#         app_label = 'mpepu_infant'
+#         source_fk = (Appointment, 'appointment')
+#         source_model = InfantVisit
+# site_rule_groups.register(InfantDeathOffDrugRuleGroup)
+
+
+# class InfantOffDrugRuleGroup(RuleGroup):
+#
+#     off_drug = ScheduledDataRule(
+#         logic=Logic(
+#             predicate=('study_status', 'equals', 'onstudy rando offdrug'),
+#             consequence='new',
+#             alternative='not_required'),
+#         target_model=['infantoffdrug'])
+#
+#     class Meta:
+#         app_label = 'mpepu_infant'
+#         source_fk = (Appointment, 'appointment')
+#         source_model = InfantVisit
+# site_rule_groups.register(InfantOffDrugRuleGroup)
+#
+#
+# class InfantOffStudyRuleGroup(RuleGroup):
+#
+#     off_study = ScheduledDataRule(
+#         logic=Logic(
+#             predicate=('study_status', 'equals', 'offstudy'),
+#             consequence='new',
+#             alternative='not_required'),
+#         target_model=['infantoffstudy'])
+#
+#     class Meta:
+#         app_label = 'mpepu_infant'
+#         source_fk = (Appointment, 'appointment')
+#         source_model = InfantVisit
+# site_rule_groups.register(InfantOffStudyRuleGroup)
 
 
 # class InfantVisitSurvivalRuleGroup(RuleGroup):

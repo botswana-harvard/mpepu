@@ -54,10 +54,10 @@ class MaternalVisit(MaternalOffStudyMixin, BaseVisitTracking):
     def save(self, *args, **kwargs):
         if self.reason == 'vital status':
             self.appointment.appt_type = 'telephone'
-        self.change_meta_status_if_visit_reason_is_death()
+        self.create_meta_status_if_visit_reason_is_death()
         super(MaternalVisit, self).save(*args, **kwargs)
 
-    def change_meta_status_if_visit_reason_is_death(self):
+    def create_meta_status_if_visit_reason_is_death(self):
         if self.reason == 'death':
             entry = Entry.objects.get(model_name='maternaldeath', visit_definition_id=self.appointment.visit_definition_id)
             scheduled_meta_data = ScheduledEntryMetaData.objects.create(appointment=self.appointment, entry=entry, registered_subject=self.registered_subject, entry_status='NEW')
