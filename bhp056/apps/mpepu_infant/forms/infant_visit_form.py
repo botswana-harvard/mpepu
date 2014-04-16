@@ -1,5 +1,6 @@
 import re
 from django import forms
+from django.db import models
 from django.contrib.admin.widgets import AdminRadioSelect, AdminRadioFieldRenderer
 from apps.mpepu_infant.choices import VISIT_INFO_SOURCE, VISIT_REASON
 from apps.mpepu_infant.models import InfantVisit, InfantBirth
@@ -60,6 +61,9 @@ class InfantVisitForm (BaseInfantModelForm):
                 if registered_subject.sid:
                     # is rando'ed, so no...
                     raise forms.ValidationError("Infant is randomized. Please choose the correct study status. You wrote %s" % study_status_display)
+
+        #validate that you cant save infant visit if previous visit has not been saved.
+#         self.instance.check_previous_visit_keyed(InfantVisit(**cleaned_data), forms.ValidationError)
         return cleaned_data
 
     class Meta:

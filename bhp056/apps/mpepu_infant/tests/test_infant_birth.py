@@ -2,9 +2,8 @@ from datetime import datetime, date, timedelta
 from django.test import TestCase
 from django.core.exceptions import ValidationError
 
-from edc.core.bhp_content_type_map.classes import ContentTypeMapHelper
 from edc.core.bhp_content_type_map.models import ContentTypeMap
-from edc.core.bhp_variables.tests.factories import StudySpecificFactory, StudySiteFactory
+from edc.core.bhp_variables.tests.factories import StudySiteFactory
 from edc.core.identifier.models import SubjectIdentifier
 from edc.lab.lab_profile.classes import site_lab_profiles
 from edc.lab.lab_profile.exceptions import AlreadyRegistered

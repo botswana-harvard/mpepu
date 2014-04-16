@@ -100,6 +100,26 @@ class InfantVisit(InfantOffStudyMixin, BaseVisitTracking):
             if self.appointment.visit_definition.code not in ['2000', '2010'] and self.reason in ['scheduled', 'unscheduled']:
                 raise exception_cls('Please complete the Infant Eligibility or Infant Pre-eligibility before conducting scheduled visits beyond visit 2000.')
 
+#     def check_previous_visit_keyed(self, infant_visit, exception_cls=None):
+#         """Check that previous visit has been keyed before allowing saving of current visit"""
+#         if not exception_cls:
+#             exception_cls = ValidationError
+#         e_codes = ['2000','2010','2020','2030','2060','2090','2120','2150','2180']
+#         pre_codes = ['2000','2010','2015','2020','2030','2060','2090','2120','2150','2180']
+#         InfantPreEligibility = models.get_model('mpepu_infant', 'InfantPreEligibility')
+#         has_infant_pre_eligibility = InfantPreEligibility.objects.filter(registered_subject=self.appointment.registered_subject)
+# 
+#         if has_infant_pre_eligibility:
+#             index = pre_codes.index(self.appointment.visit_definition.code)
+#             prev_visit = InfantVisit.objects.filter(subject_identifier=self.registered_subject.subject_identifier, appointment__visit_definition__code=pre_codes.pop(index-1))
+#         else:
+#             index = e_codes.index(self.appointment.visit_definition.code)
+#             prev_visit = InfantVisit.objects.filter(subject_identifier=self.registered_subject.subject_identifier, appointment__visit_definition__code=e_codes.pop(index-1))
+# 
+#         if not prev_visit and index != 0:
+#             raise exception_cls('You cannot complete an Infant Visit, when previous visit has not been keyed. Please go back and key it in.')
+#         return True
+
     def change_meta_data_status_on_2180_if_visit_is_missed_at_2150(self):
         check = InfantVisit.objects.filter(appointment__registered_subject=self.registered_subject, appointment__visit_definition__code='2180').exists()
         if check:
@@ -119,6 +139,7 @@ class InfantVisit(InfantOffStudyMixin, BaseVisitTracking):
         if self.reason == 'vital status':
             self.appointment.appt_type = 'telephone'
         self.requires_infant_eligibility()
+    #    self.check_previous_visit_keyed()
         self.create_meta_if_visit_reason_is_death_when_sid_is_none()
         self.create_meta_if_visit_reason_is_death_when_sid_is_not_none()
         self.create_meta_if_visit_reason_is_lost_when_sid_is_none()

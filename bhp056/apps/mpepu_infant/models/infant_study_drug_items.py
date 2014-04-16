@@ -1,10 +1,10 @@
-from django.db import models
 from django.core.urlresolvers import reverse
+from django.db import models
 from django.db.models import Q, get_model
 
-from edc.subject.haart.choices import DOSE_STATUS, ARV_MODIFICATION_REASON
 # from edc.subject.entry.models import AdditionalEntryBucket
 from edc.audit.audit_trail import AuditTrail
+from edc.subject.haart.choices import DOSE_STATUS, ARV_MODIFICATION_REASON
 
 from .infant_base_uuid_model import InfantBaseUuidModel
 from .infant_study_drug import InfantStudyDrug

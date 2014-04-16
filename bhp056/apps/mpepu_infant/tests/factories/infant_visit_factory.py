@@ -8,7 +8,7 @@ from apps.mpepu_infant.models import InfantVisit
 
 class InfantVisitFactory(BaseVisitTrackingFactory):
     FACTORY_FOR = InfantVisit
-    
+
     appointment = factory.SubFactory(AppointmentFactory)
     information_provider = 'Mother'
     study_status = 'onstudy rando ondrug'

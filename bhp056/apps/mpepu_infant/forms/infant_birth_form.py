@@ -1,8 +1,8 @@
 from django import forms
 
-from apps.mpepu_infant.models import InfantBirth, InfantBirthExam, InfantBirthArv, InfantBirthFeed, InfantBirthData
-
 from edc.subject.registration.models import RegisteredSubject
+
+from apps.mpepu_infant.models import InfantBirth, InfantBirthExam, InfantBirthArv, InfantBirthFeed, InfantBirthData
 
 from ..models import MaternalLabDel
 from .base_infant_model_form import BaseInfantModelForm
@@ -21,10 +21,13 @@ class InfantBirthForm (BaseInfantModelForm):
         else:
             raise forms.ValidationError('Cannot find maternal labour and delivery form for this infant! This is not expected.')
         # if multiple birth, cannot have the same birth order
-        births = InfantBirth.objects.filter(maternal_lab_del=cleaned_data.get('maternal_lab_del'))
-        for birth in births:
-            if birth.birth_order == cleaned_data.get('birth_order'):
-                raise forms.ValidationError('Birth order cannot be %s. Already indicated that %s was born %s. Please correct.' % (cleaned_data.get('birth_order'), birth.registered_subject.subject_identifier, cleaned_data.get('birth_order'),))
+        infants = RegisteredSubject.objects.filter(relative_identifier=cleaned_data.get('registered_subject').relative_identifier).order_by('subject_identifier')
+        index = 0
+        for infant in infants:
+            index = index+1
+            if infant == cleaned_data.get('registered_subject'):
+                if cleaned_data.get('birth_order') != index:
+                    raise forms.ValidationError('Birth order for this infant can only be {0}, you indicated {1}. Please correct'.format(index, cleaned_data.get('birth_order')))
         return cleaned_data
 
     class Meta:

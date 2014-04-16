@@ -113,6 +113,14 @@ class InfantFuDx2ProphForm (BaseInfantModelForm):
     def clean(self):
         cleaned_data = self.cleaned_data
         check_items = self.data.get('infantfudx2prophitems_set-0-dx')
+        
+        #WHO validations
+        if not cleaned_data.get('wcs_dx_ped'):
+            raise forms.ValidationError("You cannot leave WHO diagnosis blank. Please selct an option")
+        if cleaned_data.get('who_diagnosis') == 'Yes' and [True for item in cleaned_data.get('wcs_dx_ped') if (item.short_name.lower() == 'not applicable' or item.short_name.lower() == 'asymptomatic')]:
+            raise forms.ValidationError("You stated there are ARE WHO diagnoses. Please indicate them.")
+        if cleaned_data.get('who_diagnosis') == 'No' and not [True for item in cleaned_data.get('wcs_dx_ped') if (item.short_name.lower() == 'not applicable' or item.short_name.lower() == 'asymptomatic')]:
+            raise forms.ValidationError("You stated there are NO WHO diagnoses. Please correct.")
         #Validating that if new diagnosis is indicated as given, then diagnosis listing should be provided
         if cleaned_data.get('has_dx') == 'Yes':
             if not check_items:

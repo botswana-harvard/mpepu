@@ -8,6 +8,7 @@ from .registered_subject_model_admin import RegisteredSubjectModelAdmin
 class InfantVerbalAutopsyItemsInlineAdmin(BaseTabularInline):
 
     model = InfantVerbalAutopsyItems
+    extra = 1
 
 
 class InfantVerbalAutopsyAdmin(RegisteredSubjectModelAdmin):
