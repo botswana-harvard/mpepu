@@ -27,9 +27,7 @@ AUTOPSY_SIGNS = (
     ('accident', 'Accident'),
     ('infection_genitals', 'Local infection (genitals)'),
     ('infect_other_area', 'Local infection (other than genitals'),
-)    
-    
-
+)
 
 FEEDING_CHOICES = (
     ('Breastfeeding only', 'Breastfeeding only'),
@@ -46,7 +44,7 @@ COWS_MILK = (
 )
 
 CTX_PLACEBO_STATUS = (
-    ('No modification' , 'No modifications made to CTX/Placebo since the last scheduled visit or today'),
+    ('No modification', 'No modifications made to CTX/Placebo since the last scheduled visit or today'),
     ('Starting CTX/Placebo today', 'Starting CTX/Placebo today or since the last scheduled visit'),
     ('Permanently discontinued', 'Permanently discontinued CTX/Placebo at or before last scheduled visit'),
     ('Never started', 'Never started CTX/Placebo'),
@@ -85,7 +83,7 @@ DX_INFANT = (
     ('Other serious (grade 3 or 4) non-infectious(not listed above),specify', 'Other serious (grade 3 or 4)non-infectious(not listed above),specify'),
 
 )
- 
+
 INFANT_OFF_DRUG_REASON = (
     ('completed protocol', '1. Completion of protocol-required period of study treatment'),
     ('off-study', '2. Participant going off-study for any reason, including death or lost to follow-up'),
@@ -172,8 +170,8 @@ REASON_MISSED_PROPHYLAXIS = (
 )
 
 STUDY_STATUS = (
-    ('followup','Lost can followup'),
-    ('no followup','Lost no followup'),
+    ('followup', 'Lost can followup'),
+    ('no followup', 'Lost no followup'),
     )
 
 TIMES_BREASTFED = (
@@ -217,7 +215,7 @@ VISIT_REASON = [
     ('death', '5. Death'),
     ('off study', '6. Subject has completed the study'),
     ('deferred', '7. Deferred (2010 only)'),
-    ('vital status','8. Vital Status'),
+    ('vital status', '8. Vital Status'),
 ]
 
 WATER_USED = (

@@ -18,7 +18,7 @@ class MpepuAppConfiguration(BaseAppConfiguration):
         super(MpepuAppConfiguration, self).__init__()
 
     global_configuration = {'dashboard': {'show_not_required_metadata': False, 'allow_additional_requisitions': False, 'show_drop_down_requisitions': True},
-                            'appointment': {'allowed_iso_weekdays': '1234567', 'use_same_weekday': True, 'default_appt_type': 'default'},
+                            'appointment': {'allowed_iso_weekdays': '12345', 'use_same_weekday': True, 'default_appt_type': 'default'},
                                  }
 
     study_variables_setup = {
