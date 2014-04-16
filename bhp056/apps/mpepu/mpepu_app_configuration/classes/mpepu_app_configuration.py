@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from edc.apps.app_configuration.classes import BaseAppConfiguration
-
+from edc.core.bhp_variables.models import StudySpecific, StudySite
 from edc.lab.lab_profile.classes import ProfileItemTuple, ProfileTuple
 
 from lis.specimen.lab_aliquot_list.classes import AliquotTypeTuple
@@ -83,14 +83,11 @@ class MpepuAppConfiguration(BaseAppConfiguration):
                 'end_datetime': datetime(2016, 01, 20, 23, 51, 06),
                 'add_for_app': 'mpepu_maternal'}
 
-    study_site_setup = {'site_name': 'Gaborone',
-                        'site_code': '4'}
-#                         {'site_name': 'Lobatse',
-#                          'site_code': '3'},
-#                         {'site_name': 'Mochudi',
-#                          'site_code': '2'},
-#                         {'site_name': 'Molepolole',
-#                          'site_code': '1'}
+    study_site_setup = [{'site_name': 'Gaborone', 'site_code': '4'},
+                        {'site_name': 'Lobatse', 'site_code': '3'},
+                        {'site_name': 'Mochudi', 'site_code': '2'},
+                        {'site_name': 'Molepolole', 'site_code': '1'},
+                        ]
 
     lab_clinic_api_setup = {
         'panel': [PanelTuple('BHP023  HEMATOLOGY', 'TEST', 'WB'),
@@ -158,3 +155,17 @@ class MpepuAppConfiguration(BaseAppConfiguration):
     labeling = {'label_printer': [LabelPrinterTuple('Zebra_Technologies_ZTC_GK420t', '127.0.0.1', True), ], }
 
     consent_catalogue_list = [v1_consent_catalogue_setup, v2_consent_catalogue_setup, v3_consent_catalogue_setup, v4_consent_catalogue_setup, v4_1_consent_catalogue_setup]
+
+    def update_or_create_study_variables(self):
+        if StudySpecific.objects.all().count() == 0:
+            StudySpecific.objects.create(**self.study_variables_setup)
+        else:
+            StudySpecific.objects.all().update(**self.study_variables_setup)
+        self._setup_study_sites()
+
+    def _setup_study_sites(self):
+        for site in self.study_site_setup:
+            try:
+                StudySite.objects.get(**site)
+            except StudySite.DoesNotExist:
+                StudySite.objects.create(**site)
