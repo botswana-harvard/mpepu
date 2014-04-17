@@ -63,7 +63,7 @@ class InfantVisitForm (BaseInfantModelForm):
                     raise forms.ValidationError("Infant is randomized. Please choose the correct study status. You wrote %s" % study_status_display)
 
         #validate that you cant save infant visit if previous visit has not been saved.
-#         self.instance.check_previous_visit_keyed(InfantVisit(**cleaned_data), forms.ValidationError)
+        self.instance.check_previous_visit_keyed(InfantVisit(**cleaned_data), forms.ValidationError)
         return cleaned_data
 
     class Meta:
