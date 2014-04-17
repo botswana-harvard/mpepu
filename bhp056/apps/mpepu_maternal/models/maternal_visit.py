@@ -55,6 +55,7 @@ class MaternalVisit(MaternalOffStudyMixin, BaseVisitTracking):
         if self.reason == 'vital status':
             self.appointment.appt_type = 'telephone'
         self.create_meta_status_if_visit_reason_is_death()
+        self.avail_forms_on_visit_2000M_only_when_consent_version_is_greater_than_two()
         super(MaternalVisit, self).save(*args, **kwargs)
 
     def create_meta_status_if_visit_reason_is_death(self):
@@ -62,6 +63,19 @@ class MaternalVisit(MaternalOffStudyMixin, BaseVisitTracking):
             entry = Entry.objects.get(model_name='maternaldeath', visit_definition_id=self.appointment.visit_definition_id)
             scheduled_meta_data = ScheduledEntryMetaData.objects.create(appointment=self.appointment, entry=entry, registered_subject=self.registered_subject, entry_status='NEW')
             return scheduled_meta_data
+
+    def avail_forms_on_visit_2000M_only_when_consent_version_is_greater_than_two(self):
+        from .maternal_consent import MaternalConsent
+        confirm_consent = MaternalConsent.objects.get(registered_subject=self.registered_subject)
+        if confirm_consent.consent_version_recent >= 2:
+            check = self.appointment.visit_definition.code == '2000M'
+            if check:
+                avail_forms = ['feedingchoice', 'feedingchoicesectionone', 'feedingchoicesectiontwo', 'feedingchoicesectionthree']
+                for forms in avail_forms:
+                    entry = Entry.objects.get(model_name=forms, visit_definition_id=self.appointment.visit_definition_id)
+                    scheduled_meta_data = ScheduledEntryMetaData.objects.get(appointment=self.appointment, entry=entry, registered_subject=self.registered_subject)
+                    scheduled_meta_data.entry_status = 'NEW'
+                    scheduled_meta_data.save()
 
     def get_absolute_url(self):
         return reverse('admin:mpepu_maternal_maternalvisit_change', args=(self.id,))
