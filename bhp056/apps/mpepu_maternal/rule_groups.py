@@ -5,21 +5,21 @@ from .models import (MaternalVisit, MaternalArvPreg, MaternalArvPost,
                                    MaternalEnroll, FeedingChoice)
 
 
-class ConsentRuleGroup(RuleGroup):
-
-    consent_version_two = ScheduledDataRule(
-        logic=Logic(
-            predicate=('consent_version', 'gte', 2),
-            consequence='new',
-            alternative='not_required',
-            comment='v2 only'),
-        target_model=['feedingchoice', 'feedingchoicesectionone', 'feedingchoicesectiontwo', 'feedingchoicesectionthree'])
-
-    class Meta:
-        app_label = 'mpepu_maternal'
-        source_fk = (MaternalVisit, 'maternal_visit')
-        source_model = RegisteredSubject
-site_rule_groups.register(ConsentRuleGroup)
+# class ConsentRuleGroup(RuleGroup):
+# 
+#     consent_version_two = ScheduledDataRule(
+#         logic=Logic(
+#             predicate=('consent_version', 'gte', 2),
+#             consequence='new',
+#             alternative='not_required',
+#             comment='v2 only'),
+#         target_model=['feedingchoice', 'feedingchoicesectionone', 'feedingchoicesectiontwo', 'feedingchoicesectionthree'])
+# 
+#     class Meta:
+#         app_label = 'mpepu_maternal'
+#         source_fk = (MaternalVisit, 'maternal_visit')
+#         source_model = RegisteredSubject
+# site_rule_groups.register(ConsentRuleGroup)
 
 
 class MaternalEnrollRuleGroup(RuleGroup):
