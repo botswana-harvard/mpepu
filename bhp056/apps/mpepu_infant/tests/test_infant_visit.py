@@ -19,7 +19,7 @@ from apps.mpepu.mpepu_app_configuration.classes import MpepuAppConfiguration
 
 from apps.mpepu_maternal.tests.factories import (MaternalConsentFactory, MaternalEligibilityPostFactory,
                                                  MaternalVisitFactory, MaternalLabDelFactory)
-from apps.mpepu_infant.tests.factories import (InfantBirthFactory, InfantVisitFactory)
+from apps.mpepu_infant.tests.factories import (InfantBirthFactory, InfantVisitFactory, InfantEligibilityFactory)
 
 
 class InfantVisitTests(TestCase):
@@ -33,7 +33,7 @@ class InfantVisitTests(TestCase):
         site_lab_tracker.autodiscover()
         site_visit_schedules.autodiscover()
         site_visit_schedules.build_all()
-        study_site = StudySiteFactory(site_code=2)
+        study_site = StudySiteFactory()
         content_type_map = ContentTypeMap.objects.get(model='maternalconsent', app_label='mpepu_maternal')
         consent_catalogue = ConsentCatalogueFactory(content_type_map=content_type_map)
         consent_catalogue.add_for_app = 'mpepu_infant'
@@ -77,4 +77,32 @@ class InfantVisitTests(TestCase):
         self.assertRaisesMessage(ValidationError,
             'Please complete the Infant Eligibility or Infant Pre-eligibility before conducting scheduled visits beyond visit 2000.',
             InfantVisitFactory, appointment=appointment_2010, report_datetime=datetime.today(), reason='scheduled')
-        
+
+    def test_previous_visit_required(self):
+        print 'get registered subject of the infant'
+        self.registered_subject = RegisteredSubject.objects.filter(relative_identifier=self.maternal_consent.subject_identifier).order_by('subject_identifier')[0]
+        print 'infant registered subject {}'.format(self.registered_subject)
+        self.infant_birth = InfantBirthFactory(registered_subject=self.registered_subject, maternal_lab_del=self.maternal_lab_del, dob=self.delivery_datetime.date())
+        print 'infant birth {}'.format(self.infant_birth)
+        print 'get 2000 appointment'
+        appointment_2000 = Appointment.objects.get(registered_subject=self.registered_subject, visit_definition__code='2000')
+        print '2000 appointment {}'.format(appointment_2000)
+        infant_visit_2000 = InfantVisitFactory(appointment=appointment_2000, report_datetime=datetime.today(), reason='scheduled')
+        print '2000 infant visit {}'.format(infant_visit_2000)
+        print 'get 2010 appointment'
+        appointment_2010 = Appointment.objects.get(registered_subject=self.registered_subject, visit_definition__code='2010')
+        print 'Infant Eligibility'
+        self.infant_eligibility = InfantEligibilityFactory(infant_birth=self.infant_birth, registered_subject=self.registered_subject)
+        print 'infant eligibility {}'.format(self.infant_eligibility)
+        print 'assert that the rest of the visits were created'
+        appointment_all = Appointment.objects.filter(registered_subject=self.registered_subject)
+        self.assertEqual(appointment_all.count(), 9)
+        print 'assert that trying to save a visit before the previous one has been filled in will fail'
+        appointment_2030 = Appointment.objects.get(registered_subject=self.registered_subject, visit_definition__code='2030')
+        self.assertRaises(ValidationError, InfantVisitFactory, appointment=appointment_2030)
+        print 'assert that saving previous visit then re-saving the visit will save.'
+        infant_visit_2010 = InfantVisitFactory(appointment=appointment_2010, report_datetime=datetime.today(), reason='scheduled')
+        appointment_2020 = Appointment.objects.get(registered_subject=self.registered_subject, visit_definition__code='2020')
+        infant_visit_2020 = InfantVisitFactory(appointment=appointment_2020, report_datetime=datetime.today(), reason='scheduled')
+        infant_visit_2030 = InfantVisitFactory(appointment=appointment_2030, report_datetime=datetime.today(), reason='scheduled')
+        print 'infant 2030 visit {}'.format(infant_visit_2030)

@@ -32,7 +32,7 @@ class InfantFuTests(TestCase):
         site_lab_tracker.autodiscover()
         site_visit_schedules.autodiscover()
         site_visit_schedules.build_all()
-        study_site = StudySiteFactory(site_code=2)
+        study_site = StudySiteFactory()
         content_type_map = ContentTypeMap.objects.get(model='maternalconsent', app_label='mpepu_maternal')
         consent_catalogue = ConsentCatalogueFactory(content_type_map=content_type_map)
         consent_catalogue.add_for_app = 'mpepu_infant'
