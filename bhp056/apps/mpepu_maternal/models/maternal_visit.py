@@ -73,7 +73,7 @@ class MaternalVisit(MaternalOffStudyMixin, BaseVisitTracking):
                 avail_forms = ['feedingchoice', 'feedingchoicesectionone', 'feedingchoicesectiontwo', 'feedingchoicesectionthree']
                 for forms in avail_forms:
                     entry = Entry.objects.get(model_name=forms, visit_definition_id=self.appointment.visit_definition_id)
-                    scheduled_meta_data = ScheduledEntryMetaData.objects.get(appointment=self.appointment, entry=entry, registered_subject=self.registered_subject)
+                    scheduled_meta_data = ScheduledEntryMetaData.objects.create(appointment=self.appointment, entry=entry, registered_subject=self.registered_subject)
                     scheduled_meta_data.entry_status = 'NEW'
                     scheduled_meta_data.save()
 
