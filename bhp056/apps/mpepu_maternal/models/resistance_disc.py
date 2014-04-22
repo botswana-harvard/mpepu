@@ -75,7 +75,7 @@ class ResistanceDisc(BaseScheduledVisitModel):
     info_source = models.CharField(
         verbose_name="What is the source of the information collected in #1,2 & 3 above?",
         choices=INFO_SOURCE,
-        help_text='Tick all that applies',
+        help_text='',
         max_length=15,
         )
     info_source_other = OtherCharField()
