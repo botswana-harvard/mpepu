@@ -27,8 +27,8 @@ class ResistanceEligibilityForm (BaseConsentedModelForm):
 
     def clean(self):
         cleaned_data = self.cleaned_data
-        if cleaned_data.get('lates_cd4') > 350:
-            raise ValidationError('CD4 count is greater than 350, participant is INELIGIBLE')
+        if cleaned_data.get('lates_cd4') < 350:
+            raise ValidationError('CD4 count is less than 350, participant is INELIGIBLE')
         return super(ResistanceEligibilityForm, self).clean()
 
     class Meta:
