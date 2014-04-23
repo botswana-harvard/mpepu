@@ -5,6 +5,7 @@ from django.core.exceptions import ValidationError
 from edc.core.bhp_content_type_map.models import ContentTypeMap
 from edc.core.bhp_variables.tests.factories import StudySiteFactory
 from edc.core.identifier.models import SubjectIdentifier
+from edc.entry_meta_data.models import ScheduledEntryMetaData
 from edc.lab.lab_profile.classes import site_lab_profiles
 from edc.lab.lab_profile.exceptions import AlreadyRegistered
 from edc.subject.appointment.models import Appointment
@@ -13,6 +14,7 @@ from edc.subject.entry.tests.factories import EntryFactory
 from edc.subject.lab_tracker.classes import site_lab_tracker
 from edc.subject.registration.models import RegisteredSubject
 from edc.subject.visit_schedule.classes import site_visit_schedules
+from edc.subject.entry.models import Entry
 
 from apps.mpepu_lab.lab_profiles import MpepuInfantProfile
 from apps.mpepu.mpepu_app_configuration.classes import MpepuAppConfiguration
@@ -43,11 +45,11 @@ class InfantVisitTests(TestCase):
         print "Consent a mother"
         self.maternal_consent = MaternalConsentFactory(study_site=study_site, consent_datetime=datetime.today() - timedelta(days=delivery_days_ago))
         print "Consent: {}".format(self.maternal_consent)
-        self.registered_subject = RegisteredSubject.objects.get(subject_identifier=self.maternal_consent.subject_identifier)
+        m_registered_subject = RegisteredSubject.objects.get(subject_identifier=self.maternal_consent.subject_identifier)
         print 'check if mother is eligible'
-        self.maternal_eligibility = MaternalEligibilityPostFactory(maternal_consent=self.maternal_consent, registered_subject=self.registered_subject, registration_datetime=datetime.today() - timedelta(days=delivery_days_ago))
+        self.maternal_eligibility = MaternalEligibilityPostFactory(maternal_consent=self.maternal_consent, registered_subject=m_registered_subject, registration_datetime=datetime.today() - timedelta(days=delivery_days_ago))
         print 'get the 2000M visit'
-        self.m_appointment = Appointment.objects.get(registered_subject=self.registered_subject, visit_definition__code='2000M')
+        self.m_appointment = Appointment.objects.get(registered_subject=m_registered_subject, visit_definition__code='2000M')
         print 'create a maternal visit for the 2000M visit'
         self.maternal_visit = MaternalVisitFactory(appointment=self.m_appointment, report_datetime=datetime.today() - timedelta(days=delivery_days_ago))
         print 'create a maternal_lab_del registering 2 of 2 infants'
@@ -106,3 +108,38 @@ class InfantVisitTests(TestCase):
         infant_visit_2020 = InfantVisitFactory(appointment=appointment_2020, report_datetime=datetime.today(), reason='scheduled')
         infant_visit_2030 = InfantVisitFactory(appointment=appointment_2030, report_datetime=datetime.today(), reason='scheduled')
         print 'infant 2030 visit {}'.format(infant_visit_2030)
+
+    def test_meta_data_status(self):
+        print 'get registered subject of the infant'
+        self.registered_subject = RegisteredSubject.objects.filter(relative_identifier=self.maternal_consent.subject_identifier).order_by('subject_identifier')[0]
+        print 'infant registered subject {}'.format(self.registered_subject)
+        self.infant_birth = InfantBirthFactory(registered_subject=self.registered_subject, maternal_lab_del=self.maternal_lab_del, dob=self.delivery_datetime.date())
+        print 'infant birth {}'.format(self.infant_birth)
+        print 'get 2000 appointment'
+        appointment_2000 = Appointment.objects.get(registered_subject=self.registered_subject, visit_definition__code='2000')
+        print '2000 appointment {}'.format(appointment_2000)
+        infant_visit_2000 = InfantVisitFactory(appointment=appointment_2000, report_datetime=datetime.today(), reason='scheduled')
+        print '2000 infant visit {}'.format(infant_visit_2000)
+        print 'Infant Eligibility'
+        self.infant_eligibility = InfantEligibilityFactory(infant_birth=self.infant_birth, registered_subject=self.registered_subject)
+        print 'infant eligibility {}'.format(self.infant_eligibility)
+        print 'get 2010 appointment'
+        appointment_2010 = Appointment.objects.get(registered_subject=self.registered_subject, visit_definition__code='2010')
+        infant_visit_2010 = InfantVisitFactory(appointment=appointment_2010, report_datetime=datetime.today(), reason='scheduled')
+        appointment_2020 = Appointment.objects.get(registered_subject=self.registered_subject, visit_definition__code='2020')
+        infant_visit_2020 = InfantVisitFactory(appointment=appointment_2020, report_datetime=datetime.today(), reason='scheduled')
+        appointment_2030 = Appointment.objects.get(registered_subject=self.registered_subject, visit_definition__code='2030')
+        infant_visit_2030 = InfantVisitFactory(appointment=appointment_2030, report_datetime=datetime.today(), reason='scheduled')
+        print 'infant 2030 visit {}'.format(infant_visit_2030)
+
+#         form = 'infantoffstudy'
+#         entry = Entry.objects.get(model_name=form, visit_definition_id=appointment_2030.visit_definition_id)
+#         print entry.default_entry_status
+#         obj = ScheduledEntryMetaData.objects.get(appointment=appointment_2030, registered_subject=self.registered_subject, entry=entry)
+#         print "entrystatus {}" .format(obj.entry_status)
+        
+        form = 'infantdeath'
+        entry = Entry.objects.get(model_name=form, visit_definition_id=appointment_2030.visit_definition_id)
+        print entry.default_entry_status
+        obj = ScheduledEntryMetaData.objects.get(appointment=appointment_2030, registered_subject=self.registered_subject, entry=entry)
+        print "entrystatus {}" .format(obj.entry_status)
