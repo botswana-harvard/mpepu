@@ -31,7 +31,7 @@ class InfantStoolCollectionForm(BaseInfantModelForm):
         if cleaned_data.get('past_diarrhea', None) == 'Yes' and cleaned_data.get('diarrhea_past_24hrs', None) == 'N/A':
             raise forms.ValidationError('If the child had diarrhea for the past 7days, info about diarrhea in the past 24hours CANNOT be N/A')
         if cleaned_data.get('past_diarrhea', None) == 'No' and cleaned_data.get('diarrhea_past_24hrs', None) != 'N/A':
-            raise forms.ValidationError('If the child did not have diarrhea for the past 7days, info about diarrhea in the past 24hours SHOULD BE N/A')
+            raise forms.ValidationError('If the child did not have diarrhea for the past 7days, info about diarrhea continuing the past 24hours SHOULD BE N/A')
 
         #validation antibiotics
         if cleaned_data.get('antibiotics_7days', None) == 'Yes' and cleaned_data.get('antibiotic_dose_24hrs', None) == 'N/A':
