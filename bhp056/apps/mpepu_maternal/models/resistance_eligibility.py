@@ -42,6 +42,7 @@ class ResistanceEligibility(BaseScheduledVisitModel):
         choices=YES_NO,
         verbose_name=("Has the Mother Stopped (or definitely planning to stop) EFV/TDF/FTC or"
                       " EFV/TDF/3TC postpartum?"),
+        validators=[eligible_if_yes]
         )
     incarcerated = models.CharField(
         max_length=3,
