@@ -38,7 +38,7 @@ class MaternalRegistrationTests(TestCase):
     def test_maternal_consent(self):
         print """Test Consenting a mother"""
         MaternalConsent.objects.all().delete()
-        study_site = StudySiteFactory(site_code=2)
+        study_site = StudySiteFactory()
         maternal_consent = MaternalConsentFactory(study_site=study_site)
         print "Maternal Consent: {}".format(maternal_consent)
         print "Maternal Consent subject identifier: {}".format(maternal_consent.subject_identifier)
@@ -147,7 +147,7 @@ class MaternalRegistrationTests(TestCase):
     def test_maternal_lab_del(self):
         print """Test maternal labour and delivery"""
         MaternalConsent.objects.all().delete()
-        study_site = StudySiteFactory(site_code=2)
+        study_site = StudySiteFactory()
         print "consent a mother"
         consent = MaternalConsentFactory(study_site=study_site)
         print consent.registered_subject

@@ -85,6 +85,7 @@ class MaternalRegistrationFormTests(TestCase):
         self.assertRaisesMessage(ValidationError,'If unable to answer questions from client and/or None, patient cannot be enrolled',consent_form.clean)
 
     def test_consent_dob(self):
+        #TODO: This validation is not working
 #         print "assert that the dob should not be greater than the consent date"
 #         consent_form = MaternalConsentForm()
 #         consent_form.cleaned_data = {'gender':'F',

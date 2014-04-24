@@ -44,21 +44,20 @@ class InfantBirthTests(TestCase):
         site_lab_tracker.autodiscover()
         site_visit_schedules.autodiscover()
         site_visit_schedules.build_all()
-
-    def test_p1(self):
-        study_site = StudySiteFactory(site_code=2)
+        self.study_site = StudySiteFactory()
         content_type_map = ContentTypeMap.objects.get(model='maternalconsent', app_label='mpepu_maternal')
         consent_catalogue = ConsentCatalogueFactory(content_type_map=content_type_map)
         consent_catalogue.add_for_app = 'mpepu_infant'
         consent_catalogue.save()
 
+    def test_p1(self):
         GA = 0
         DAYS = 1
         DAYS_UPPER = 2
         for delivery_days_ago in range(30, 42):
             for criteria in [(33, 27, 34)]:#, (34, 27, 34), (35, 27, 34), (36, 13, 27), (37, 13, 27), (38, 13, 27), (39, 13, 27)]:
                 delivery_datetime = datetime.today() - timedelta(days=delivery_days_ago - 3)
-                maternal_consent = MaternalConsentFactory(study_site=study_site, consent_datetime=datetime.today() - timedelta(days=delivery_days_ago))
+                maternal_consent = MaternalConsentFactory(study_site=self.study_site, consent_datetime=datetime.today() - timedelta(days=delivery_days_ago))
                 registered_subject = RegisteredSubject.objects.get(subject_identifier=maternal_consent.subject_identifier)
                 maternal_eligibility = MaternalEligibilityAnteFactory(maternal_consent=maternal_consent, registered_subject=registered_subject, registration_datetime=datetime.today() - timedelta(days=delivery_days_ago))
                 appointment = Appointment.objects.get(registered_subject=registered_subject, visit_definition__code='1000M')
@@ -112,12 +111,7 @@ class InfantBirthTests(TestCase):
                 self.assertEqual(delivery_date + timedelta(days=criteria[DAYS]), appt_date)
 
     def test_p2(self):
-        study_site = StudySiteFactory(site_code=2)
-        content_type_map = ContentTypeMap.objects.get(model='maternalconsent', app_label='mpepu_maternal')
-        consent_catalogue = ConsentCatalogueFactory(content_type_map=content_type_map)
-        consent_catalogue.add_for_app = 'mpepu_infant'
-        consent_catalogue.save()
-        consent = MaternalConsentFactory(study_site=study_site)
+        consent = MaternalConsentFactory(study_site=self.study_site)
         AGE = 0
         DAYS = 2
         DAYS_UPPER = 3
@@ -141,7 +135,7 @@ class InfantBirthTests(TestCase):
                                      #(12, 36, 13, 27, 2.5, 'No', 'No', 'fail')
                                      ]:
             print 'criteria {0}'.format(eligibility_criteria)
-            delivery_datetime, infant_birth, registered_subject = self.prepare_maternal(study_site, (eligibility_criteria[GA], eligibility_criteria[DAYS], eligibility_criteria[DAYS_UPPER]), eligibility_criteria[AGE])
+            delivery_datetime, infant_birth, registered_subject = self.prepare_maternal(self.study_site, (eligibility_criteria[GA], eligibility_criteria[DAYS], eligibility_criteria[DAYS_UPPER]), eligibility_criteria[AGE])
             delivery_date = date(delivery_datetime.year, delivery_datetime.month, delivery_datetime.day)
             self.assertTrue(Appointment.objects.filter(registered_subject=registered_subject).count() == 2)
             appointment = Appointment.objects.get(registered_subject=registered_subject, visit_definition__code='2010', visit_instance='0')
