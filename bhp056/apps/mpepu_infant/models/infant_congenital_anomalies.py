@@ -15,7 +15,6 @@ from apps.mpepu.choices import (CNS_ABNORMALITIES, FACIAL_DEFECT, CLEFT_DISORDER
                                 SKIN_ABNORMALITY, TRISOME_CHROSOMESOME_ABNORMALITY, OTHER_DEFECT)
 
 from .base_infant_registered_subject_model import BaseInfantRegisteredSubjectModel
-from .infant_base_uuid_model import InfantBaseUuidModel
 from .infant_off_study_mixin import InfantOffStudyMixin
 from .infant_visit import InfantVisit
 
@@ -58,12 +57,12 @@ class BaseCnsItem(InfantOffStudyMixin, BaseConsentedUuidModel):
         default=datetime.today()
         )
 
-    infant_visit = models.OneToOneField(InfantVisit)
+    #infant_visit = models.OneToOneField(InfantVisit)
 
-    entry_meta_data_manager = EntryMetaDataManager(InfantVisit)
+    #entry_meta_data_manager = EntryMetaDataManager(InfantVisit)
 
-    def get_visit(self):
-        return '2000'
+#     def get_visit(self):
+#         return '2000'
 
     def get_consenting_subject_identifier(self):
         """Returns mother's identifier."""
@@ -105,6 +104,9 @@ class InfantCnsAbnormalityItems(BaseCnsItem):
         null=True,
         )
 
+    def get_visit(self):
+        return self.congenital_anomalies.infant_visit
+
     def get_absolute_url(self):
         return reverse('admin:mpepu_infant_infantcnsabnormalityitems__change', args=(self.id,))
 
@@ -137,6 +139,9 @@ class InfantFacialDefectItems(BaseCnsItem):
         blank=True,
         null=True,
         )
+
+    def get_visit(self):
+        return self.congenital_anomalies.infant_visit
 
     def get_absolute_url(self):
         return reverse('admin:mpepu_infant_infantfacialdefectitems__change', args=(self.id,))
@@ -171,6 +176,9 @@ class InfantCleftDisorderItems(BaseCnsItem):
         null=True,
         )
 
+    def get_visit(self):
+        return self.congenital_anomalies.infant_visit
+
     def get_absolute_url(self):
         return reverse('admin:mpepu_infant_infantcleftdisorderitems__change', args=(self.id,))
 
@@ -202,6 +210,9 @@ class InfantMouthUpGastrointestinalItems(BaseCnsItem):
         verbose_name="if other specify...",
         blank=True,
         null=True)
+
+    def get_visit(self):
+        return self.congenital_anomalies.infant_visit
 
     def get_absolute_url(self):
         return reverse('admin:mpepu_infant_infantmouthupgastrointestinalitems__change', args=(self.id,))
@@ -236,6 +247,9 @@ class InfantCardiovascularDisorderItems(BaseCnsItem):
         null=True,
         )
 
+    def get_visit(self):
+        return self.congenital_anomalies.infant_visit
+
     def get_absolute_url(self):
         return reverse('admin:mpepu_infant_infantcardiovasculardisorderitems__change', args=(self.id,))
 
@@ -268,6 +282,9 @@ class InfantRespiratoryDefectItems(BaseCnsItem):
         blank=True,
         null=True,
         )
+
+    def get_visit(self):
+        return self.congenital_anomalies.infant_visit
 
     def get_absolute_url(self):
         return reverse('admin:mpepu_infant_infantrespiratorydefectitems__change', args=(self.id,))
@@ -302,6 +319,9 @@ class InfantLowerGastrointestinalItems(BaseCnsItem):
         null=True,
         )
 
+    def get_visit(self):
+        return self.congenital_anomalies.infant_visit
+
     def get_absolute_url(self):
         return reverse('admin:mpepu_infant_infantlowergastrointestinalitems__change', args=(self.id,))
 
@@ -334,6 +354,9 @@ class InfantFemaleGenitalAnomalyItems(BaseCnsItem):
         blank=True,
         null=True,
         )
+
+    def get_visit(self):
+        return self.congenital_anomalies.infant_visit
 
     def get_absolute_url(self):
         return reverse('admin:mpepu_infant_infantfemalegenitalanomalyitems__change', args=(self.id,))
@@ -368,6 +391,9 @@ class InfantMaleGenitalAnomalyItems(BaseCnsItem):
         null=True,
         )
 
+    def get_visit(self):
+        return self.congenital_anomalies.infant_visit
+
     def get_absolute_url(self):
         return reverse('admin:mpepu_infant_infantmalegenitalanomalyitems__change', args=(self.id,))
 
@@ -401,6 +427,9 @@ class InfantRenalAnomalyItems(BaseCnsItem):
         null=True,
         )
 
+    def get_visit(self):
+        return self.congenital_anomalies.infant_visit
+
     def get_absolute_url(self):
         return reverse('admin:mpepu_infant_infantcongenitalanomaliesrenal__change', args=(self.id,))
 
@@ -433,6 +462,9 @@ class InfantMusculoskeletalAbnormalItems(BaseCnsItem):
         blank=True,
         null=True,
         )
+
+    def get_visit(self):
+        return self.congenital_anomalies.infant_visit
 
     def get_absolute_url(self):
         return reverse('admin:mpepu_infant_infantcongenitalanomaliesmusculosk__change', args=(self.id,))
@@ -468,6 +500,9 @@ class InfantSkinAbnormalItems(BaseCnsItem):
         null=True,
         )
 
+    def get_visit(self):
+        return self.congenital_anomalies.infant_visit
+
     def get_absolute_url(self):
         return reverse('admin:mpepu_infant_infantcongenitalanomaliesskin__change', args=(self.id,))
 
@@ -501,6 +536,9 @@ class InfantTrisomiesChromosomeItems(BaseCnsItem):
         null=True,
         )
 
+    def get_visit(self):
+        return self.congenital_anomalies.infant_visit
+
     def get_absolute_url(self):
         return reverse('admin:mpepu_infant_infantcongenitalanomaliestrisomes__change', args=(self.id,))
 
@@ -533,6 +571,9 @@ class InfantOtherAbnormalityItems(BaseCnsItem):
         blank=True,
         null=True,
         )
+
+    def get_visit(self):
+        return self.congenital_anomalies.infant_visit
 
     def get_absolute_url(self):
         return reverse('admin:mpepu_infant_infantcongenitalanomaliesother__change', args=(self.id,))
