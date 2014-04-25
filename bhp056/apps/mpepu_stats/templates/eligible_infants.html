@@ -28,10 +28,10 @@
     <th>#</th>
     <th>Infant</th>
     <th>Date of Birth</th>
-    <th>Age (in days)</th>
+    <th>Age (DOL)</th>
     <th>Mother</th>
-    <th>Days Since being eligible</th>
-    <th>Days Until 34 days</th>
+    <th>Days Since being eligible (DOL)</th>
+    <th>Days Until 34 days (DOL)</th>
     <th>Site</th>
   </thead>
   <tbody>
@@ -44,7 +44,7 @@
           </a>
         </td>
         <td>{{eligible.infant.dob}}</td>
-        <td align="center">{{eligible.age}} days</td>
+        <td align="center">{{eligible.days_of_life}} days</td>
         <td><a href="{% url 'subject_dashboard_url' dashboard_type='maternal' dashboard_model='maternal_consent' dashboard_id=eligible.maternalconsent.pk show='appointments' %}">
               {{eligible.infant.relative_identifier}}
             </a>
