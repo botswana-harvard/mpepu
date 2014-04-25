@@ -1,5 +1,5 @@
 from django.core.urlresolvers import reverse
-from django.db import models
+from django.db import models, IntegrityError
 
 from edc.audit.audit_trail import AuditTrail
 from edc.subject.visit_tracking.models import BaseVisitTracking
@@ -60,9 +60,11 @@ class MaternalVisit(MaternalOffStudyMixin, BaseVisitTracking):
 
     def create_meta_status_if_visit_reason_is_death(self):
         if self.reason == 'death':
-            entry = Entry.objects.get(model_name='maternaldeath', visit_definition_id=self.appointment.visit_definition_id)
-            scheduled_meta_data = ScheduledEntryMetaData.objects.create(appointment=self.appointment, entry=entry, registered_subject=self.registered_subject, entry_status='NEW')
-            return scheduled_meta_data
+            forms = ['maternaldeath', 'maternaloffstudy']
+            for add_forms in forms:
+                entry = Entry.objects.get(model_name=add_forms, visit_definition_id=self.appointment.visit_definition_id)
+                scheduled_meta_data = ScheduledEntryMetaData.objects.create(appointment=self.appointment, entry=entry, registered_subject=self.registered_subject, entry_status='NEW')
+                return scheduled_meta_data
 
     def avail_forms_on_visit_2000M_only_when_consent_version_is_greater_than_two(self):
         from .maternal_consent import MaternalConsent
