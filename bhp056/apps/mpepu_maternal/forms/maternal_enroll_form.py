@@ -17,10 +17,10 @@ class MaternalEnrollForm (BaseMaternalModelForm):
             raise forms.ValidationError("If recruitment source is not 'OTHER', you cannot specify. You wrote '%s'" % cleaned_data.get('recruit_source_other', None)+". Please correct.")
         # if prev_pregnancy super(MyModelForm, self).clean()es == 0, prev_pregnancy_arv must be N/A"""
         if cleaned_data.get('prev_pregnancies', None) == 0 and cleaned_data.get('prev_pregnancy_arv', None) != 'N/A':
-            raise forms.ValidationError("If no previous pregnancies, question (4) refering to ARVs during previous pregnancies should be 'Not Applicable'. You wrote '%s'" % cleaned_data.get('prev_pregnancy_arv', None))
+            raise forms.ValidationError("If no previous pregnancies, question refering to ARVs during previous pregnancies should be 'Not Applicable'. You wrote '%s'" % cleaned_data.get('prev_pregnancy_arv', None))
         # if previous pregnancy <>0, then prev_pregnancy_arv <>N/A"""
         if cleaned_data.get('prev_pregnancies', None) != 0 and cleaned_data.get('prev_pregnancy_arv', None) == 'N/A':
-            raise forms.ValidationError("If there are previous pregnancies, question (4) refering to ARVs during previous pregnancies should be 'Yes' or 'No'. You wrote '%s'" % cleaned_data.get('prev_pregnancy_arv', None))
+            raise forms.ValidationError("If there are previous pregnancies, question refering to ARVs during previous pregnancies should be 'Yes' or 'No'. You wrote '%s'" % cleaned_data.get('prev_pregnancy_arv', None))
         # if prev_pregnancies == 0, forms MaternalEnrollOb and  MaternalEnrollClin are not required"""
 
         return super(MaternalEnrollForm, self).clean()
