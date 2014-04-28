@@ -7,3 +7,4 @@ from .maternal_off_study_factory import MaternalOffStudyFactory
 from .resistance_eligibility_factory import ResistanceEligibilityFactory
 from .resistance_consent_factory import ResistanceConsentFactory
 from .maternal_post_reg_factory import MaternalPostRegFactory
+from .maternal_postnatal_follow_up import MaternalPostFuFactory
