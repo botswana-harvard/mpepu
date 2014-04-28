@@ -97,7 +97,7 @@ class StoolSamplingRuleGroup(RuleGroup):
         logic=Logic(
             predicate=('sample_obtained', 'equals', 'no'),
             consequence='not_required',
-            alternative='none'),
+            alternative='new'),
         target_model=[('mpepu_lab', 'infantrequisition')],
         target_requisition_panels=['Stool storage'],)
 
