@@ -53,7 +53,8 @@ class InfantDeath (InfantOffStudyMixin, BaseDeathReport):
         return self.registered_subject.relative_identifier
 
     def get_report_datetime(self):
-        return datetime.combine(self.death_date, time(0, 0))
+        #return datetime.combine(self.death_date, time(0, 0))
+        return datetime.today()
 
     def get_absolute_url(self):
         return reverse('admin:mpepu_infant_infantdeath_change', args=(self.id,))
