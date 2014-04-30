@@ -55,6 +55,7 @@ class MaternalVisit(MaternalOffStudyMixin, BaseVisitTracking):
         if self.reason == 'vital status':
             self.appointment.appt_type = 'telephone'
         self.create_meta_status_if_visit_reason_is_death()
+        self.create_meta_status_if_visit_reason_is_off_study()
         self.avail_forms_on_visit_2000M_only_when_consent_version_is_greater_than_two()
         super(MaternalVisit, self).save(*args, **kwargs)
 
