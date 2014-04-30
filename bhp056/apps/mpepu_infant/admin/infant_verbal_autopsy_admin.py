@@ -14,16 +14,12 @@ class InfantVerbalAutopsyItemsInlineAdmin(BaseTabularInline):
 class InfantVerbalAutopsyAdmin(RegisteredSubjectModelAdmin):
 
     form = InfantVerbalAutopsyForm
-
     inlines = [
         InfantVerbalAutopsyItemsInlineAdmin,
         ]
 
     filter_horizontal = ("source",)
-
     radio_fields = {
-
         "sign_symptoms": admin.VERTICAL,
     }
-
 admin.site.register(InfantVerbalAutopsy, InfantVerbalAutopsyAdmin)

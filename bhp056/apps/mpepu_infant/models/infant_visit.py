@@ -67,10 +67,10 @@ class InfantVisit(InfantOffStudyMixin, BaseVisitTracking):
         dct = {}
         for item in VISIT_REASON_NO_FOLLOW_UP_CHOICES:
             dct.update({item: item})
-        del dct['death']
-        del dct['lost']
         dct.update({'deferred': 'deferred'})
         dct.update({'vital status': 'vital status'})
+        del dct['death']
+        del dct['lost']
         return dct
 
     @property
