@@ -94,7 +94,7 @@ class InfantBirthExam(BaseScheduledVisitModel):
         max_length=15,
         choices=YES_NO_NOT_EVALUATED_NA,
         verbose_name="Was Skin Exam Normal?",
-        help_text="If 'Normal' go to 10k. otherwise continue",
+        help_text="",
         default="N/A",
         )
     skin_exam_other = models.TextField(
