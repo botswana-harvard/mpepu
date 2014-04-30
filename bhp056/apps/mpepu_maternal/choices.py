@@ -1,3 +1,9 @@
+ALIVE_DEAD_UNKNOWN = (
+    ('ALIVE', 'Alive'),
+    ('DEAD', 'Deceased'),
+    ('UNKNOWN', 'Unknown'),
+    )
+
 VISIT_INFO_SOURCE = [
     ('participant', '1. Clinic visit with participant'),
     ('other_contact', '2. Other contact with participant (for example telephone call)'),
@@ -14,7 +20,8 @@ VISIT_REASON = [
     ('lost', '4. Lost to follow-up (use only when taking subject off study)'),
     ('death', '5. Death'),
     ('off study', '6. Subject has completed the study'),
-    ('deferred', '7. Deferred (not available for maternal visits)')
+    ('deferred', '7. Deferred (not available for maternal visits)'),
+    ('vital status', '8. Vital Status'),
 ]
 
 OFF_STUDY_REASON = [

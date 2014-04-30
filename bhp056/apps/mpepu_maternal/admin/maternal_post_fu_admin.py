@@ -34,6 +34,7 @@ class MaternalPostFuAdmin(MaternalVisitModelAdmin):
         "maternal_visit",
         "mother_weight",
         "enter_weight",
+        "bp",
         "breastfeeding",
         "had_mastitis",
         "has_chronic_cond",
@@ -55,6 +56,7 @@ class MaternalPostFuDxTInlineAdmin(BaseTabularInline):
 
     model = MaternalPostFuDxT
     form = MaternalPostFuDxTForm
+    extra = 1
 
 
 class MaternalPostFuDxTAdmin(BaseModelAdmin):

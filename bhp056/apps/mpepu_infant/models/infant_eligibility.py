@@ -29,7 +29,7 @@ class InfantEligibility(BaseInfantRegisteredSubjectModel):
     hiv_status = models.CharField(
         max_length=12,
         choices=YES_NO,
-        verbose_name="2. Infant is known HIV positive  ",
+        verbose_name="Infant is known HIV positive  ",
         help_text="If yes, INELIGIBLE",
         validators=[
             eligible_if_no,
@@ -65,7 +65,7 @@ class InfantEligibility(BaseInfantRegisteredSubjectModel):
 
     hiv_result_reference = models.CharField(
         max_length=25,
-        verbose_name="2a. Sample identifier from HIV result (NEG)",
+        verbose_name="Sample identifier from HIV result (NEG)",
         validators=[
             RegexValidator('[A-Z]{2}[0-9]{5}|PENDING', 'Must be a valid BHP sample identifier OR the word PENDING'),
             ],
@@ -77,7 +77,7 @@ class InfantEligibility(BaseInfantRegisteredSubjectModel):
     ctx_contra = models.CharField(
         max_length=3,
         choices=YES_NO,
-        verbose_name="3. Any contraindication to Cotrimoxazole ",
+        verbose_name="Any contraindication to Cotrimoxazole ",
         help_text="If yes, INELIGIBLE",
         validators=[
             eligible_if_no,
@@ -86,29 +86,28 @@ class InfantEligibility(BaseInfantRegisteredSubjectModel):
     congen_anomaly = models.CharField(
         max_length=3,
         choices=YES_NO,
-        verbose_name="4. Known infant anomalies resulting in a high probability that the infant will not survive to 18 months.?",
+        verbose_name="Known infant anomalies resulting in a high probability that the infant will not survive to 18 months.?",
         help_text="If yes, INELIGIBLE",
         validators=[
             eligible_if_no,
             ]
         )
-
     maternal_art_status = models.CharField(
         max_length=10,
-        verbose_name="5a. Maternal ART Status",
+        verbose_name="Maternal ART Status",
         choices=RANDOMIZATION_MATERNAL_ART_STATUS,
         help_text="",
         )
 
     maternal_feeding_choice = models.CharField(
         max_length=2,
-        verbose_name="5b. Feeding method / choice",
+        verbose_name="Feeding method / choice",
         choices=RANDOMIZATION_MATERNAL_FEEDING_CHOICE,
         help_text="",
         )
     #added v2 Q5bi only
     rando_bf_duration = models.CharField(
-        verbose_name="5bi. Are you willing to be randomized for the breastfeeding duration?",
+        verbose_name="Are you willing to be randomized for the breastfeeding duration?",
         max_length=15,
         choices=YES_NO_NA,
         null=True,
@@ -139,7 +138,7 @@ class InfantEligibility(BaseInfantRegisteredSubjectModel):
         super(InfantEligibility, self).save(*args, **kwargs)
 
     def post_save_delete_appointment(self):
-        self.safe_delete_appointment('2015')
+        self.safe_delete_appointment(None)
 
     def get_versioned_field_names(self, version_number):
         """Returns a list of field names by version number."""
@@ -154,6 +153,12 @@ class InfantEligibility(BaseInfantRegisteredSubjectModel):
     def get_registration_datetime(self):
 #         return self.infant_birth.maternal_lab_del.delivery_datetime
         return datetime.today()
+
+    def get_result_datetime(self):
+        return self.get_registration_datetime()
+
+    def get_test_code(self):
+        return 'HIV'
 
     def get_consenting_subject_identifier(self):
         """Returns mother's identifier."""

@@ -10,7 +10,7 @@ from .base_scheduled_visit_model import BaseScheduledVisitModel
 class FeedingChoice(BaseScheduledVisitModel):
 
     first_time_feeding = models.CharField(
-        verbose_name=("1.This pregnancy represents the first time I have had to make an infant"
+        verbose_name=("This pregnancy represents the first time I have had to make an infant"
                       " feeding choice: "),
         max_length=3,
         choices=YES_NO,

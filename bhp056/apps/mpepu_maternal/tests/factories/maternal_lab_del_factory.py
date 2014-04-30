@@ -1,8 +1,8 @@
 import factory
 from datetime import datetime
 from edc.base.model.tests.factories import BaseUuidModelFactory
-from ..models import MaternalLabDel
-from ..tests.factories import MaternalVisitFactory
+from apps.mpepu_maternal.models import MaternalLabDel
+from apps.mpepu_maternal.tests.factories import MaternalVisitFactory
 from apps.mpepu.choices import LABOUR_MODE_OF_DELIVERY, LABOUR_HOURS, DELIVERY_HOSPITAL
 
 
@@ -15,7 +15,7 @@ class MaternalLabDelFactory(BaseUuidModelFactory):
     labour_hrs = LABOUR_HOURS[0][0]
     del_mode = LABOUR_MODE_OF_DELIVERY[0][0]
     has_ga = 'Yes'
-    ga = 27
+    ga = 36
     del_hosp = DELIVERY_HOSPITAL[0][0]
     has_urine_tender = 'No'
     labr_max_temp = 36

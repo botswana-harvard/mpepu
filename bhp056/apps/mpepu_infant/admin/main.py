@@ -45,25 +45,24 @@ class InfantOffDrugAdmin(RegisteredSubjectModelAdmin):
 
     fields = (
         "registered_subject",
+        "infant_visit",
         "report_datetime",
         "last_dose_date",
         "reason_off",
         "reason_off_other"
     )
-
     radio_fields = {
         "reason_off": admin.VERTICAL
     }
-
 admin.site.register(InfantOffDrug, InfantOffDrugAdmin)
 
 
 class InfantOffStudyAdmin(OffStudyModelAdmin):
 
     form = InfantOffStudyForm
-    
     fields = (
         "registered_subject",
+        "infant_visit",
         "report_datetime",
         "offstudy_date",
         "reason",
@@ -71,46 +70,39 @@ class InfantOffStudyAdmin(OffStudyModelAdmin):
         "has_scheduled_data",
         "comment",
     )
-    
+    radio_fields = {
+        "has_scheduled_data": admin.VERTICAL}
 admin.site.register(InfantOffStudy, InfantOffStudyAdmin)
 
 
 class InfantPrerandoLossAdmin(RegisteredSubjectModelAdmin):
 
     form = InfantPrerandoLossForm
-
     fields = (
         "registered_subject",
-        #"infant_visit",
+        "infant_visit",
         "reason_loss",
         "loss_code",
         "reason_loss_other",
         "comment"
     )
-
     radio_fields = {
         "loss_code": admin.VERTICAL
     }
-
-    filter_horizontal = (
-
-    )
-
 admin.site.register(InfantPrerandoLoss, InfantPrerandoLossAdmin)
 
 
 class InfantSurvivalAdmin(RegisteredSubjectModelAdmin):
 
     form = InfantSurvivalForm
-
     fields = (
         "registered_subject",
+        "infant_visit",
         "infant_survival_status",
         "info_provider",
         "info_provider_other",
         "comment"
     )
-
     radio_fields = {
         "infant_survival_status": admin.VERTICAL,
         "info_provider": admin.VERTICAL
@@ -121,7 +113,6 @@ admin.site.register(InfantSurvival, InfantSurvivalAdmin)
 class InfantNvpAdherenceAdmin(MyInfantArvProphModelAdmin):
 
     form = InfantNvpAdherenceForm
-
     fields = (
         "infant_visit",
         "infant_arv_proph",
@@ -129,30 +120,26 @@ class InfantNvpAdherenceAdmin(MyInfantArvProphModelAdmin):
         "reason_missed",
         "reason_missed_other"
     )
-
     radio_fields = {
         "reason_missed": admin.VERTICAL
     }
-
 admin.site.register(InfantNvpAdherence, InfantNvpAdherenceAdmin)
 
 
 class InfantArvProphModInlineAdmin(BaseTabularInline):
     model = InfantArvProphMod
     form = InfantArvProphModForm
+    extra = 1
 
 
 class InfantArvProphAdmin(InfantVisitModelAdmin):
 
     form = InfantArvProphForm
-
     fields = (
         "infant_visit",
-        "report_datetime",
         "prophylatic_nvp",
         "arv_status"
     )
-
     radio_fields = {
         "arv_status": admin.VERTICAL,
         "prophylatic_nvp": admin.VERTICAL,
@@ -164,7 +151,6 @@ admin.site.register(InfantArvProph, InfantArvProphAdmin)
 class InfantArvProphModAdmin(BaseModelAdmin):
 
     form = InfantArvProphModForm
-
     fields = (
         "arv_code",
         "dose_status",
@@ -177,16 +163,14 @@ admin.site.register(InfantArvProphMod, InfantArvProphModAdmin)
 class InfantStudyDrugInitAdmin(InfantVisitModelAdmin):
 
     form = InfantStudyDrugInitForm
-
     fields = (
         "infant_visit",
         "initiated",
         "first_dose_date",
         "reason_not_init",
         "reason_not_init_other",
-        "reason_not_survive",       
+        "reason_not_survive",
     )
-
     radio_fields = {
         "initiated": admin.VERTICAL,
         "reason_not_init": admin.VERTICAL
@@ -205,7 +189,8 @@ class InfantDeathAdmin(RegisteredSubjectModelAdmin):
 
     fields = (
         "registered_subject",
-#         "death_date",
+        "infant_visit",
+        "death_date",
         "death_cause_info",
         "death_cause_info_other",
         "perform_autopsy",
@@ -225,7 +210,6 @@ class InfantDeathAdmin(RegisteredSubjectModelAdmin):
         "trad_med_relate",
         "comment",
     )
-
     radio_fields = {
         "death_reason_hospitalized": admin.VERTICAL,
         "death_medical_responsibility": admin.VERTICAL,
@@ -244,14 +228,12 @@ admin.site.register(InfantDeath, InfantDeathAdmin)
 class InfantFuAdmin(InfantVisitModelAdmin):
 
     form = InfantFuForm
-
     fields = (
         "infant_visit",
         "physical_assessment",
         "diarrhea_illness",
         "has_dx",
     )
-
     radio_fields = {
         "physical_assessment": admin.VERTICAL,
         "diarrhea_illness": admin.VERTICAL,
@@ -263,25 +245,21 @@ admin.site.register(InfantFu, InfantFuAdmin)
 class InfantFuPhysicalAdmin(MyInfantFuModelAdmin):
 
     form = InfantFuPhysicalForm
-
     fields = (
         "infant_visit",
         "infant_fu",
         "weight",
         "height",
+        "head_circumference",
         "has_abnormalities",
         "abnormalities",
         "was_hospitalized",
         "days_hospitalized",
-
     )
-
     radio_fields = {
         "has_abnormalities": admin.VERTICAL,
         "was_hospitalized": admin.VERTICAL,
-
     }
-
 admin.site.register(InfantFuPhysical, InfantFuPhysicalAdmin)
 
 
@@ -289,6 +267,7 @@ class InfantFuDxItemsInlineAdmin(BaseTabularInline):
 
     model = InfantFuDxItems
     form = InfantFuDxItemsForm
+    extra = 1
 
 
 class InfantFuDxAdmin(MyInfantFuModelAdmin):
@@ -308,12 +287,12 @@ admin.site.register(InfantFuDxItems, InfantFuDxItemsAdmin)
 class InfantFuDx2ProphItemsInlineAdmin(BaseTabularInline):
     model = InfantFuDx2ProphItems
     form = InfantFuDx2ProphItemsForm
+    extra = 1
 
 
 class InfantFuDx2ProphAdmin(MyInfantFuModelAdmin):
 
     form = InfantFuDx2ProphForm
-
     fields = (
         "infant_visit",
         "infant_fu",
@@ -332,7 +311,7 @@ admin.site.register(InfantFuDx2Proph, InfantFuDx2ProphAdmin)
 
 class InfantFuDx2ProphItemsAdmin(BaseModelAdmin):
     form = InfantFuDx2ProphItemsForm
-    
+
 admin.site.register(InfantFuDx2ProphItems, InfantFuDx2ProphItemsAdmin)
 
 
@@ -362,6 +341,7 @@ admin.site.register(InfantFuMed, InfantFuMedAdmin)
 class InfantFuNewMedItemsInlineAdmin(BaseTabularInline):
     model = InfantFuNewMedItems
     form = InfantFuNewMedItemsForm
+    extra = 1
 
 
 class InfantFuNewMedAdmin(MyInfantFuModelAdmin):
@@ -387,6 +367,7 @@ admin.site.register(InfantStudyDrugItems, InfantStudyDrugItemsAdmin)
 class InfantStudyDrugItemsInlineAdmin(BaseTabularInline):
     model = InfantStudyDrugItems
     form = InfantStudyDrugItemsForm
+    extra = 1
 
 
 class InfantStudyDrugAdmin(InfantVisitModelAdmin):

@@ -25,7 +25,7 @@ class InfantBirth(InfantEligibilityMixin, BaseInfantRegisteredSubjectModel):
 
     maternal_lab_del = models.ForeignKey(MaternalLabDel,
         verbose_name="Mother's delivery record")
-    
+
     first_name = EncryptedFirstnameField(
         #max_length = 250,
         verbose_name="Infant's first name",

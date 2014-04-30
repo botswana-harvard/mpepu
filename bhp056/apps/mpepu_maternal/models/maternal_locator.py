@@ -25,13 +25,13 @@ class MaternalLocator(MaternalOffStudyMixin, BaseLocator):
     has_caretaker_alt = models.CharField(
         max_length=25,
         choices=YES_NO,
-        verbose_name="6.Has the participant identified someone who will be responsible for the care of the baby in case of her death, to whom the study team could share information about her baby's health?",
+        verbose_name="Has the participant identified someone who will be responsible for the care of the baby in case of her death, to whom the study team could share information about her baby's health?",
         help_text="",
         )
 
     caretaker_name = EncryptedCharField(
         max_length=35,
-        verbose_name="6a. Full Name of the responsible person",
+        verbose_name="Full Name of the responsible person",
         help_text="include firstname and surname",
         blank=True,
         null=True,
@@ -39,7 +39,7 @@ class MaternalLocator(MaternalOffStudyMixin, BaseLocator):
 
     caretaker_cell = EncryptedCharField(
         max_length=8,
-        verbose_name="6b. Cell number",
+        verbose_name="Cell number",
         validators=[BWCellNumber, ],
         help_text="",
         blank=True,
@@ -48,7 +48,7 @@ class MaternalLocator(MaternalOffStudyMixin, BaseLocator):
 
     caretaker_tel = EncryptedCharField(
         max_length=8,
-        verbose_name="6c. Telephone number",
+        verbose_name="Telephone number",
         validators=[BWTelephoneNumber, ],
         help_text="",
         blank=True,
@@ -56,7 +56,7 @@ class MaternalLocator(MaternalOffStudyMixin, BaseLocator):
         )
 
     history = AuditTrail()
-    
+
     entry_meta_data_manager = EntryMetaDataManager(MaternalVisit)
 
     def get_subject_identifier(self):

@@ -19,14 +19,14 @@ class MyMaternalArvPPHistoryAdmin (MaternalVisitModelAdmin):
         return super(MyMaternalArvPPHistoryAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
     # override to disallow subject to be changed
-    def get_readonly_fields(self, request, obj=None):
-
-        self.readonly_fields = super(MyMaternalArvPPHistoryAdmin, self).get_readonly_fields(request, obj)
-
-        if obj:  # In edit mode
-            return ('maternal_arv_preg',) + self.readonly_fields
-        else:
-            return self.readonly_fields
+#     def get_readonly_fields(self, request, obj=None):
+# 
+#         self.readonly_fields = super(MyMaternalArvPPHistoryAdmin, self).get_readonly_fields(request, obj)
+# 
+#         if obj:  # In edit mode
+#             return ('maternal_arv_preg',) + self.readonly_fields
+#         else:
+#             return self.readonly_fields
 
 
 class MyMaternalArvPregHistoryAdmin (MaternalVisitModelAdmin):
@@ -39,14 +39,14 @@ class MyMaternalArvPregHistoryAdmin (MaternalVisitModelAdmin):
         return super(MyMaternalArvPregHistoryAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
     # override to disallow subject to be changed
-    def get_readonly_fields(self, request, obj=None):
-
-        self.readonly_fields = super(MyMaternalArvPregHistoryAdmin, self).get_readonly_fields(request, obj)
-
-        if obj:  # In edit mode
-            return ('maternal_arv_preg',) + self.readonly_fields
-        else:
-            return self.readonly_fields
+#     def get_readonly_fields(self, request, obj=None):
+# 
+#         self.readonly_fields = super(MyMaternalArvPregHistoryAdmin, self).get_readonly_fields(request, obj)
+# 
+#         if obj:  # In edit mode
+#             return ('maternal_arv_preg',) + self.readonly_fields
+#         else:
+#             return self.readonly_fields
 
 
 class MyMaternalArvPostModelAdmin (MaternalVisitModelAdmin):
@@ -59,17 +59,18 @@ class MyMaternalArvPostModelAdmin (MaternalVisitModelAdmin):
         return super(MyMaternalArvPostModelAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
     # override to disallow subject to be changed
-    def get_readonly_fields(self, request, obj=None):
-        if obj:  # In edit mode
-            return ('maternal_arv_post',) + self.readonly_fields
-        else:
-            return self.readonly_fields
+#     def get_readonly_fields(self, request, obj=None):
+#         if obj:  # In edit mode
+#             return ('maternal_arv_post',) + self.readonly_fields
+#         else:
+#             return self.readonly_fields
 
 
 class MaternalArvInlineAdmin(BaseTabularInline):
 
     model = MaternalArv
     fields = ('arv_code', 'date_start', 'date_stop',)
+    extra = 1
 
 
 class MaternalArvAdmin(BaseModelAdmin):
@@ -135,6 +136,7 @@ class MaternalArvPostModInlineAdmin(BaseTabularInline):
 
     model = MaternalArvPostMod
     form = MaternalArvPostModForm
+    extra = 1
 
 
 class MaternalArvPostAdmin(MaternalVisitModelAdmin):

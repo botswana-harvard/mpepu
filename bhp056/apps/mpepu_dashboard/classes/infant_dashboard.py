@@ -7,11 +7,12 @@ from apps.mpepu_infant.models import InfantBirth, InfantVisit, InfantEligibility
 from apps.mpepu_infant_rando.models import InfantRando
 from apps.mpepu_maternal.models import MaternalConsent, MaternalLabDel, MaternalLocator
 from apps.mpepu_lab.models import InfantRequisition, PackingList
+from .dashboard_mixin import DashboardMixin
 
 from edc.lab.lab_clinic_api.models import Panel
 
 
-class InfantDashboard(RegisteredSubjectDashboard):
+class InfantDashboard(DashboardMixin, RegisteredSubjectDashboard):
 
     view = 'infant_dashboard'
     dashboard_name = 'Infant Dashboard'
@@ -25,7 +26,7 @@ class InfantDashboard(RegisteredSubjectDashboard):
         kwargs.update({'dashboard_models': {'infant_birth': InfantBirth}, 'membership_form_category': ['infant_rando_eligible', 'infant_pre_randomize', 'infant_birth_record']})
         self.extra_url_context = ""
         self._locator_model = None
-        self._requisition_model = None
+        self._requisition_model = InfantRequisition
         super(InfantDashboard, self).__init__(*args, **kwargs)
 
     def add_to_context(self):
@@ -72,6 +73,7 @@ class InfantDashboard(RegisteredSubjectDashboard):
         # get delivery date if delivered
         return self.get_maternal_lab_del().delivery_datetime
 
+
     def get_visit_model(self):
         return InfantVisit
 
@@ -84,6 +86,10 @@ class InfantDashboard(RegisteredSubjectDashboard):
     def get_locator_scheduled_visit_code(self):
         """ Returns visit where the locator is scheduled, TODO: maybe search visit definition for this?."""
         return '1000M'
+
+    @RegisteredSubjectDashboard.locator_model.getter
+    def locator_model(self):
+        return self.get_locator_model()
 
     def get_packing_list_model(self):
         return PackingList
@@ -103,9 +109,11 @@ class InfantDashboard(RegisteredSubjectDashboard):
                     # TODO: v2 get rando_bf_duration from eligibility checklist and show along with BF duration
                     if InfantEligibility.objects.filter(registered_subject__subject_identifier=self.get_subject_identifier()).exists():
                         rando_bf_duration = InfantEligibility.objects.get(registered_subject__subject_identifier=self.get_subject_identifier()).rando_bf_duration
-                        #v4 changed to enable users to know which infants have mothers who were unwilling to be randomized NWR.
+
+                        #v4 changed to enable users to know which infants have mothers who were unwilling to be randomized [Opt-out]
+
                         if rando_bf_duration == 'No':
-                            stratum['bf_duration'] = '{0} ({1})'.format(stratum['bf_duration'], 'NWR')
+                            stratum['bf_duration'] = '{0} ({1})'.format(stratum['bf_duration'], 'Opt-out')
             else:
                 stratum = {'feeding_choice': 'pending', 'bf_duration': '-'}
         return stratum
@@ -147,3 +155,9 @@ class InfantDashboard(RegisteredSubjectDashboard):
             if date.today() - self.get_infant_birth().dob <= timedelta(days=60):
                 days_alive = (date.today() - self.get_infant_birth().dob + timedelta(days=1)).days
         return days_alive
+    
+    def subject_hiv_status(self):
+        super(InfantDashboard, self).subject_hiv_status
+        if not self._subject_hiv_status:
+            self._subject_hiv_status = 'UNK'
+        return self._subject_hiv_status

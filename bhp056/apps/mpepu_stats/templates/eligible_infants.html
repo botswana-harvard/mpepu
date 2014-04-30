@@ -28,10 +28,10 @@
     <th>#</th>
     <th>Infant</th>
     <th>Date of Birth</th>
-    <th>Age (in days)</th>
+    <th>Age (DOL)</th>
     <th>Mother</th>
-    <th>Days Since being eligible</th>
-    <th>Days Until 34 days</th>
+    <th>Days Since being eligible (DOL)</th>
+    <th>Days Until 34 days (DOL)</th>
     <th>Site</th>
   </thead>
   <tbody>
@@ -39,13 +39,16 @@
       <tr>
         <td>{{forloop.counter}}</td>
         <td>
-          <a href="{% url 'dashboard_url' dashboard_type='infant' subject_identifier=eligible.infant.subject_identifier %}">
+          <a href="{% url 'subject_dashboard_url' dashboard_type='infant' dashboard_model='infant_birth' dashboard_id=eligible.infant.infantbirth.pk show='appointments' %}">
             {{eligible.infant.subject_identifier}}
           </a>
         </td>
         <td>{{eligible.infant.dob}}</td>
-        <td align="center">{{eligible.age}} days</td>
-        <td><a href="#">{{eligible.infant.relative_identifier}}</a></td>
+        <td align="center">{{eligible.days_of_life}} days</td>
+        <td><a href="{% url 'subject_dashboard_url' dashboard_type='maternal' dashboard_model='maternal_consent' dashboard_id=eligible.maternalconsent.pk show='appointments' %}">
+              {{eligible.infant.relative_identifier}}
+            </a>
+        </td>
         <td align="center">{{eligible.days_from_early_date}} days</td>
         <td align="center">{{eligible.days_from_expiration}} days</td>
         <td>{{eligible.infant.study_site.site_name}}</td>

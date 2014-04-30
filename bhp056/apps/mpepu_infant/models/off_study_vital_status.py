@@ -6,8 +6,9 @@ from edc.subject.registration.models import BaseRegisteredSubjectModel
 
 from apps.mpepu_infant.choices import ALIVE_DEAD_UNKNOWN
 
+
 class OffStudyVitalStatus(BaseRegisteredSubjectModel):
-    
+
     report_datetime = models.DateTimeField(
         verbose_name="Visit Date and Time",
         validators=[
@@ -17,7 +18,7 @@ class OffStudyVitalStatus(BaseRegisteredSubjectModel):
             ],
         default=datetime.today()
         )
-    
+
     survival_status = models.CharField(
         max_length=10,
         verbose_name="Survival status",
@@ -31,7 +32,6 @@ class OffStudyVitalStatus(BaseRegisteredSubjectModel):
         null=True,
         blank=True
         )
-    
+
     class Meta:
         app_label = 'Off-Study Vital Status Update'
-    

@@ -5,7 +5,7 @@ from django.contrib.admin.widgets import AdminRadioSelect, AdminRadioFieldRender
 from edc.subject.consent.forms import BaseConsentedModelForm
 
 from ..choices import VISIT_INFO_SOURCE, VISIT_REASON
-from ..models import MaternalVisit, MaternalOffStudy, MaternalDeath
+from ..models import MaternalVisit
 
 
 class MaternalVisitForm (BaseConsentedModelForm):
@@ -41,33 +41,10 @@ class MaternalVisitForm (BaseConsentedModelForm):
             raise forms.ValidationError("Reason for visit is NOT 'missed' but you provided a reason missed. Please correct.")
         if cleaned_data['info_source'] == 'OTHER' and not cleaned_data['info_source_other']:
             raise forms.ValidationError("Source of information is 'OTHER', please provide details below your choice")
+        if cleaned_data.get('vital status') and not cleaned_data.get('survival_status') and not cleaned_data.get('date_last_alive'):
+            raise forms.ValidationError("Visit reason is 'Vital Status', please enter Survival Status and Date Last Alive.")
 
         cleaned_data = super(MaternalVisitForm, self).clean()
-
-        AdditionalEntryBucket = get_model('bhp_entry', 'additionalentrybucket')
-
-        """add forms to the bucket"""
-        if cleaned_data['reason'] == 'lost' or cleaned_data['reason'] == 'death' or cleaned_data['reason'] == 'off study':
-            """add maternal offstudy form"""
-            AdditionalEntryBucket.objects.add_for(
-                registered_subject=cleaned_data['appointment'].registered_subject,
-                model=MaternalOffStudy,
-                qset=Q(registered_subject=cleaned_data['appointment'].registered_subject),
-                )
-        if cleaned_data['reason'] == 'death':
-            """add death form"""
-            AdditionalEntryBucket.objects.add_for(
-                registered_subject=cleaned_data['appointment'].registered_subject,
-                model=MaternalDeath,
-                qset=Q(registered_subject=cleaned_data['appointment'].registered_subject),
-                )
-        if cleaned_data['reason'] == 'off study':
-            """add maternal offstudy form"""
-            AdditionalEntryBucket.objects.add_for(
-                registered_subject=cleaned_data['appointment'].registered_subject,
-                model=MaternalOffStudy,
-                qset=Q(registered_subject=cleaned_data['appointment'].registered_subject),
-                )
 
         return cleaned_data
 

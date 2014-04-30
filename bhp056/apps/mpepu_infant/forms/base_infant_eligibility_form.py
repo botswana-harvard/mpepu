@@ -1,9 +1,13 @@
 from django.db.models import get_model
 from django import forms
-from edc.subject.consent.classes import ConsentHelper
-from apps.mpepu_infant_rando.classes import Eligibility
-from .base_infant_model_form import BaseInfantModelForm
 
+from edc.subject.consent.classes import ConsentHelper
+from edc.subject.registration.models import RegisteredSubject
+
+from apps.mpepu_infant_rando.classes import Eligibility
+
+from .base_infant_model_form import BaseInfantModelForm
+from ..models import InfantEligibility
 
 class BaseInfantEligibilityForm (BaseInfantModelForm):
 
@@ -20,15 +24,19 @@ class BaseInfantEligibilityForm (BaseInfantModelForm):
         if not current_consent_version:
             raise forms.ValidationError('Randomization failed. Cannot determine version of the maternal consent. Contact the Data Manager.')
         dob = registered_subject.dob
+
         weight = None
         if 'weight' in cleaned_data:
             weight = cleaned_data.get('weight', None)
+
         clinical_jaundice = None
         if 'clinical_jaundice' in cleaned_data:
             clinical_jaundice = cleaned_data.get('clinical_jaundice', None)
+
         anemia_neutropenia = None
         if 'anemia_neutropenia' in cleaned_data:
             anemia_neutropenia = cleaned_data.get('anemia_neutropenia', None)
+
         MaternalLabDel = get_model('mpepu_maternal', 'MaternalLabDel')
         maternal_lab_del = MaternalLabDel.objects.get(maternal_visit__appointment__registered_subject__subject_identifier=registered_subject.relative_identifier)
         #if abs((date.today() - dob).days) < 13:

@@ -140,7 +140,7 @@ INSTALLED_APPS = (
     'django_databrowse',
     'dajaxice',
     'dajax',
-    'south',
+    #'south',
 
     'edc.apps.admin_supplemental_fields',
 
@@ -211,7 +211,7 @@ INSTALLED_APPS = (
     'edc.lab.lab_requisition',
     'edc.lab.lab_packing',
 
-    'lis.core.lab_barcode',
+    #'lis.core.lab_barcode',
     'lis.core.lab_common',
     'lis.core.lab_flag',
     'lis.core.lab_grading',
@@ -246,7 +246,7 @@ INSTALLED_APPS = (
     'apps.mpepu_dashboard',
     'apps.mpepu_stats',
     'apps.mpepu_reference',
-    'apps.mpepu_arv_resistance',
+    #'apps.mpepu_arv_resistance',
 )
 
 # django email settings
@@ -314,3 +314,4 @@ else:
                                    'DATABASE=BHPLAB')
 VAR_ROOT = '/var'
 LOGGING = LOGGING
+

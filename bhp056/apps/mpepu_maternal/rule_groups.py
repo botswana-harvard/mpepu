@@ -1,25 +1,8 @@
 from edc.subject.rule_groups.classes import RuleGroup, site_rule_groups, ScheduledDataRule, Logic
-from edc.subject.registration.models import RegisteredSubject
+# from edc.subject.registration.models import RegisteredSubject
 
 from .models import (MaternalVisit, MaternalArvPreg, MaternalArvPost,
                                    MaternalEnroll, FeedingChoice)
-
-
-class ConsentRuleGroup(RuleGroup):
-
-    consent_version_two = ScheduledDataRule(
-        logic=Logic(
-            predicate=('consent_version', 'gte', 2),
-            consequence='new',
-            alternative='not_required',
-            comment='v2 only'),
-        target_model=['feedingchoice', 'feedingchoicesectionone', 'feedingchoicesectiontwo', 'feedingchoicesectionthree'])
-
-    class Meta:
-        app_label = 'mpepu_maternal'
-        filter_model = (MaternalVisit, 'maternal_visit')
-        source_model = RegisteredSubject
-site_rule_groups.register(ConsentRuleGroup)
 
 
 class MaternalEnrollRuleGroup(RuleGroup):
@@ -35,8 +18,7 @@ class MaternalEnrollRuleGroup(RuleGroup):
         logic=Logic(
             predicate=('prior_health_haart', 'equals', 'yes'),
             consequence='new',
-            alternative='not_required',
-            ),
+            alternative='not_required'),
         target_model=['maternalenrollarv'])
 
     prev_pregnancy_arv = ScheduledDataRule(
@@ -48,7 +30,7 @@ class MaternalEnrollRuleGroup(RuleGroup):
 
     class Meta:
         app_label = 'mpepu_maternal'
-        filter_model = (MaternalVisit, 'maternal_visit')
+        source_fk = (MaternalVisit, 'maternal_visit')
         source_model = MaternalEnroll
 site_rule_groups.register(MaternalEnrollRuleGroup)
 
@@ -71,7 +53,7 @@ class MaternalArvPregRuleGroup(RuleGroup):
 
     class Meta:
         app_label = 'mpepu_maternal'
-        filter_model = (MaternalVisit, 'maternal_visit')
+        source_fk = (MaternalVisit, 'maternal_visit')
         source_model = MaternalArvPreg
 site_rule_groups.register(MaternalArvPregRuleGroup)
 
@@ -87,7 +69,7 @@ class MaternalArvPostRuleGroup(RuleGroup):
 
     class Meta:
         app_label = 'mpepu_maternal'
-        filter_model = (MaternalVisit, 'maternal_visit')
+        source_fk = (MaternalVisit, 'maternal_visit')
         source_model = MaternalArvPost
 site_rule_groups.register(MaternalArvPostRuleGroup)
 
@@ -110,6 +92,37 @@ class FeedingChoiceRuleGroup(RuleGroup):
 
     class Meta:
         app_label = 'mpepu_maternal'
-        filter_model = (MaternalVisit, 'maternal_visit')
+        source_fk = (MaternalVisit, 'maternal_visit')
         source_model = FeedingChoice
 site_rule_groups.register(FeedingChoiceRuleGroup)
+
+# class MaternalDeathRuleGroup(RuleGroup):
+#
+#     death = ScheduledDataRule(
+#         logic=Logic(
+#             predicate=('reason', 'equals', 'death'),
+#             consequence='new',
+#             alternative='not_required'),
+#         target_model=['maternaldeath', 'maternaloffstudy'])
+#
+#     class Meta:
+#         app_label = 'mpepu_maternal'
+#         source_fk = None
+#         source_model = RegisteredSubject
+# site_rule_groups.register(MaternalDeathRuleGroup)
+#
+#
+# class MaternalOffStudyRuleGroup(RuleGroup):
+#
+#     off_study = ScheduledDataRule(
+#         logic=Logic(
+#             predicate=('reason', 'equals', 'off study'),
+#             consequence='new',
+#             alternative='not_required'),
+#         target_model=['maternaloffstudy'])
+#
+#     class Meta:
+#         app_label = 'mpepu_maternal'
+#         source_fk = None
+#         source_model = RegisteredSubject
+# site_rule_groups.register(MaternalOffStudyRuleGroup)

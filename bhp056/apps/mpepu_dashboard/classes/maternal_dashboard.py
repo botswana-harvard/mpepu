@@ -1,13 +1,16 @@
+from collections import OrderedDict
+
 from edc.core.bhp_common.utils import convert_from_camel
 from edc.dashboard.subject.classes import RegisteredSubjectDashboard
 from edc.subject.registration.models import RegisteredSubject
 
 from apps.mpepu_infant.models import InfantBirth
-from apps.mpepu_maternal.models import MaternalConsent, MaternalVisit, MaternalLabDel, MaternalLocator
+from apps.mpepu_maternal.models import MaternalConsent, MaternalVisit, MaternalLabDel, MaternalLocator, MaternalEligibilityAnte, MaternalEligibilityPost
 from apps.mpepu_lab.models import MaternalRequisition, PackingList
+from .dashboard_mixin import DashboardMixin
 
 
-class MaternalDashboard(RegisteredSubjectDashboard):
+class MaternalDashboard(DashboardMixin, RegisteredSubjectDashboard):
 
     view = 'maternal_dashboard'
     dashboard_name = 'Maternal Dashboard'
@@ -18,9 +21,9 @@ class MaternalDashboard(RegisteredSubjectDashboard):
         self._registered_subject = None
         self._dashboard_type_list = ['maternal']
         self.extra_url_context = ""
-        kwargs.update({'dashboard_models': {'maternal_consent': MaternalConsent}, 'membership_form_category': ['maternal_eligible_antenat', 'maternal_eligible_postnat', 'maternal_postnatal_reg']})
+        kwargs.update({'dashboard_models': {'maternal_consent': MaternalConsent}, 'membership_form_category': ['maternal_eligible_antenatal', 'maternal_eligible_postnatal', 'maternal_postnatal_reg', 'maternal_resistance']})
         self._locator_model = None
-        self._requisition_model = None
+        self._requisition_model = MaternalRequisition
         super(MaternalDashboard, self).__init__(*args, **kwargs)
 
     def add_to_context(self):
@@ -72,12 +75,16 @@ class MaternalDashboard(RegisteredSubjectDashboard):
         """ Returns visit where the locator is scheduled, TODO: maybe search visit definition for this?."""
         return '1000M'
 
+    @RegisteredSubjectDashboard.locator_model.getter
+    def locator_model(self):
+        return self.get_locator_model()
+
     def get_packing_list_model(self):
         return PackingList
 
     def get_infants(self):
         """Returns a list of infants identifiers asssociated with the maternal subject_identifier by querying the Birth model or RegisteredSubject."""
-        infants = {}
+        infants = OrderedDict()
         for infant_registered_subject in RegisteredSubject.objects.filter(subject_type='infant', relative_identifier__iexact=self.get_subject_identifier()):
             #look for infant birth record
             if InfantBirth.objects.filter(registered_subject__exact=infant_registered_subject).exists():
@@ -102,3 +109,17 @@ class MaternalDashboard(RegisteredSubjectDashboard):
         else:
             delivery_datetime = None
         return delivery_datetime
+
+    def subject_hiv_status(self):
+        super(MaternalDashboard, self).subject_hiv_status
+        eligible_ante = MaternalEligibilityAnte.objects.filter(registered_subject=self.registered_subject)
+        eligible_post = MaternalEligibilityPost.objects.filter(registered_subject=self.registered_subject)
+        if eligible_ante:
+            if eligible_ante[0].is_hiv_positive == 'Yes':
+                self._subject_hiv_status = 'POS'
+        elif eligible_post:
+            if eligible_post[0].is_hiv_positive == 'Yes':
+                self._subject_hiv_status = 'POS'
+        elif not self._subject_hiv_status:
+            self._subject_hiv_status = 'UNK'
+        return self._subject_hiv_status

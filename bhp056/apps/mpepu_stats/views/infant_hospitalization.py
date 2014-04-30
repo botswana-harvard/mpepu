@@ -5,6 +5,7 @@ from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
 from edc.dashboard.search.forms.date_range_search_form import DateRangeSearchForm
 from apps.mpepu_infant.models import InfantDeath, InfantFuPhysical
+from ..query_objects.infant_data_decorator import InfantDataDecorator
 
 
 @login_required
@@ -36,21 +37,23 @@ def infant_hospitalization(request, **kwargs):
             total_hospitalized = InfantFuPhysical.objects.filter(was_hospitalized__iexact='yes').count() + InfantDeath.objects.filter(participant_hospitalized__iexact = 'Yes').count()
 
             # reported at followup before rando
-            infant_hospitalized_not_randomized = InfantFuPhysical.objects.filter(
+            not_randomized = InfantFuPhysical.objects.filter(
                                         was_hospitalized__iexact = 'Yes',
                                         infant_visit__report_datetime__gt=start_date,
                                         infant_visit__report_datetime__lte=end_date,
                                         infant_visit__appointment__visit_definition__code='2010'
                                         ).order_by('infant_visit__report_datetime')
+            infant_hospitalized_not_randomized = (InfantDataDecorator(hospitalized.infant_visit.appointment, report_datetime=hospitalized.infant_visit.report_datetime) for hospitalized in not_randomized)
 
             # reported at followup after rando
-            infant_hospitalized_randomized = InfantFuPhysical.objects.filter(
+            randomized = InfantFuPhysical.objects.filter(
                                         was_hospitalized__iexact = 'Yes',
                                         infant_visit__report_datetime__gt=start_date,
                                         infant_visit__report_datetime__lte=end_date,
                                         ).exclude(infant_visit__appointment__visit_definition__code='2010'
                                         ).order_by('infant_visit__report_datetime')
-            total_follow_up = infant_hospitalized_not_randomized.count() + infant_hospitalized_randomized.count()
+            infant_hospitalized_randomized = (InfantDataDecorator(hospitalized.infant_visit.appointment, report_datetime=hospitalized.infant_visit.report_datetime) for hospitalized in randomized )
+            total_follow_up = not_randomized.count() + randomized.count()
 
             period_total_hospitalized = total_follow_up
 
@@ -61,22 +64,24 @@ def infant_hospitalization(request, **kwargs):
                                         death_date__lte=end_date,).count()
 
             # reported at death before rando
-            infant_death_hospitalized_not_randomized = InfantDeath.objects.filter(
-                                        participant_hospitalized__iexact = 'Yes',
-                                        death_date__gt = start_date,
-                                        death_date__lte=end_date,
-                                        registered_subject__sid__isnull=True,
-                                        )
+            death_not_randomized = InfantDeath.objects.filter(
+                participant_hospitalized__iexact='Yes',
+                death_date__gt=start_date,
+                death_date__lte=end_date,
+                registered_subject__sid__isnull=True,
+            )
+            infant_death_hospitalized_not_randomized = (InfantDataDecorator(id) for id in death_not_randomized)
 
             # reported at death after rando
-            infant_death_hospitalized_randomized = InfantDeath.objects.filter(
-                                        participant_hospitalized__iexact = 'Yes',
-                                        death_date__gt = start_date,
-                                        death_date__lte = end_date,
-                                        registered_subject__sid__isnull=False,
-                                        )
+            death_randomized = InfantDeath.objects.filter(
+                participant_hospitalized__iexact='Yes',
+                death_date__gt=start_date,
+                death_date__lte=end_date,
+                registered_subject__sid__isnull=False,
+            )
+            infant_death_hospitalized_randomized = (InfantDataDecorator(id) for id in death_randomized)
 
-            total_death = infant_death_hospitalized_not_randomized.count() + infant_death_hospitalized_randomized.count()
+            total_death = death_not_randomized.count() + death_randomized.count()
             period_total_hospitalized += total_death
 
 

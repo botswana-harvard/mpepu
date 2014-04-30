@@ -24,19 +24,19 @@ class MaternalPostFuForm (BaseMaternalModelForm):
 
 class MaternalPostFuDxForm (BaseMaternalModelForm):
     def clean(self):
-        cleaned_data = super(MaternalPostFuDxForm, self).clean()
+        cleaned_data = self.cleaned_data
+#         cleaned_data = super(MaternalPostFuDxForm, self).clean()
         check_dx = self.data.get('maternalpostfudxt_set-0-post_fu_dx')
 #         if 'wcs_dx_adult' in cleaned_data.keys():
 #             self.validate_m2m(
 #                     label = 'WHO stage III/IV Diagnosis',
 #                     leading = cleaned_data['who_clinical_stage'],
 #                     m2m = cleaned_data['wcs_dx_adult'])
-        
-        if cleaned_data.get('new_diagnoses')=='Yes' and not check_dx:
+        if cleaned_data.get('new_diagnoses') == 'Yes' and not check_dx:
             raise forms.ValidationError('You indicated that participant had new diagnosis and yet did not provide them. Please correct.')     
 
         return cleaned_data
- 
+
     class Meta:
         model = MaternalPostFuDx
 
