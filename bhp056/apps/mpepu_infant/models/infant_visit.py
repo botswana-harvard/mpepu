@@ -4,11 +4,10 @@ from django.core.exceptions import ValidationError
 
 from edc.audit.audit_trail import AuditTrail
 from edc.subject.visit_tracking.models.base_visit_tracking import BaseVisitTracking
-from edc.subject.visit_tracking.settings import VISIT_REASON_NO_FOLLOW_UP_CHOICES, VISIT_REASON_FOLLOW_UP_CHOICES
-from edc.entry_meta_data.models import ScheduledEntryMetaData
-from edc.subject.entry.models import Entry
+from edc.subject.visit_tracking.settings import VISIT_REASON_NO_FOLLOW_UP_CHOICES
+from edc.entry_meta_data.models import ScheduledEntryMetaData, RequisitionMetaData
+from edc.subject.entry.models import Entry, LabEntry
 from edc.subject.registration.models import RegisteredSubject
-# from edc.entry_meta_data.managers.base_meta_data_manager import skip_create_visit_reasons
 
 from apps.mpepu.choices import INFO_PROVIDER
 from apps.mpepu_infant.choices import INFANT_VISIT_STUDY_STATUS, ALIVE_DEAD_UNKNOWN, VISIT_REASON
@@ -232,6 +231,16 @@ class InfantVisit(InfantOffStudyMixin, BaseVisitTracking):
                     scheduled_meta_data = ScheduledEntryMetaData.objects.get(appointment=self.appointment, entry=entry, registered_subject=self.registered_subject)
                     scheduled_meta_data.entry_status = 'NOT_REQUIRED'
                     scheduled_meta_data.save()
+
+    def disable_dna_pcr_when_feeding_choice_is_formula_feeding(self):
+        from .infant_eligibility import InfantEligibility
+        ff = InfantEligibility.objects.get(registered_subject=self.registered_subject)
+        if ff.maternal_feeding_choice == 'FF':
+            if self.appointment.visit_definition.code != '2000' and self.appointment.visit_definition.code != '2010' and self.appointment.visit_definition.code != '2020':
+                lab_entry = LabEntry.objects.get(model_name='DNA PCR', visit_definition_id=self.appointment.visit_definition_id)
+                requisition_meta_data = RequisitionMetaData.objects.get(appointment=self.appointment, lab_entry=lab_entry, registered_subject=self.registered_subject)
+                requisition_meta_data.entry_status = 'NOT_REQUIRED'
+                requisition_meta_data.save()
 
     class Meta:
         db_table = 'mpepu_infant_infantvisit'
