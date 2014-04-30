@@ -25,10 +25,10 @@ class MpepuResistanceStudyVisitSchedule(VisitScheduleConfiguration):
     # see edc.subject.visit_schedule.models.visit_defintion
     visit_definitions = OrderedDict()
 
-    visit_definitions['2030R'] = {
+    visit_definitions['ARVR'] = {
             'title': 'Maternal ARV Resistance',
-            'time_point': 30,
-            'base_interval': 3,
+            'time_point': 0,
+            'base_interval': 0,
             'base_interval_unit': 'M',
             'window_lower_bound': 0,
             'window_lower_bound_unit': 'D',
