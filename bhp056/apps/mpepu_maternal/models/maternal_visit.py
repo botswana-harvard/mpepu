@@ -64,13 +64,25 @@ class MaternalVisit(MaternalOffStudyMixin, BaseVisitTracking):
             forms = ['maternaldeath', 'maternaloffstudy']
             for add_forms in forms:
                 entry = Entry.objects.get(model_name=add_forms, visit_definition_id=self.appointment.visit_definition_id)
-                scheduled_meta_data = ScheduledEntryMetaData.objects.create(appointment=self.appointment, entry=entry, registered_subject=self.registered_subject, entry_status='NEW')
+                scheduled_meta_data = ScheduledEntryMetaData.objects.filter(appointment=self.appointment, entry=entry, registered_subject=self.registered_subject)
+                if not scheduled_meta_data:
+                    scheduled_meta_data = ScheduledEntryMetaData.objects.create(appointment=self.appointment, entry=entry, registered_subject=self.registered_subject)
+                else:
+                    scheduled_meta_data = scheduled_meta_data[0]
+                scheduled_meta_data.entry_status = 'NEW'
+                scheduled_meta_data.save()
                 return scheduled_meta_data
 
     def create_meta_status_if_visit_reason_is_off_study(self):
         if self.reason == 'off study':
             entry = Entry.objects.get(model_name='maternaloffstudy', visit_definition_id=self.appointment.visit_definition_id)
-            scheduled_meta_data = ScheduledEntryMetaData.objects.create(appointment=self.appointment, entry=entry, registered_subject=self.registered_subject, entry_status='NEW')
+            scheduled_meta_data = ScheduledEntryMetaData.objects.filter(appointment=self.appointment, entry=entry, registered_subject=self.registered_subject)
+            if not scheduled_meta_data:
+                scheduled_meta_data = ScheduledEntryMetaData.objects.create(appointment=self.appointment, entry=entry, registered_subject=self.registered_subject)
+            else:
+                scheduled_meta_data = scheduled_meta_data[0]
+            scheduled_meta_data.entry_status = 'NEW'
+            scheduled_meta_data.save()
             return scheduled_meta_data
 
     def avail_forms_on_visit_2000M_only_when_consent_version_is_greater_than_two(self):
@@ -82,7 +94,11 @@ class MaternalVisit(MaternalOffStudyMixin, BaseVisitTracking):
                 avail_forms = ['feedingchoice', 'feedingchoicesectionone', 'feedingchoicesectiontwo', 'feedingchoicesectionthree']
                 for forms in avail_forms:
                     entry = Entry.objects.get(model_name=forms, visit_definition_id=self.appointment.visit_definition_id)
-                    scheduled_meta_data = ScheduledEntryMetaData.objects.create(appointment=self.appointment, entry=entry, registered_subject=self.registered_subject)
+                    scheduled_meta_data = ScheduledEntryMetaData.objects.filter(appointment=self.appointment, entry=entry, registered_subject=self.registered_subject)
+                    if not scheduled_meta_data:
+                        scheduled_meta_data = ScheduledEntryMetaData.objects.create(appointment=self.appointment, entry=entry, registered_subject=self.registered_subject)
+                    else:
+                        scheduled_meta_data = scheduled_meta_data[0]
                     scheduled_meta_data.entry_status = 'NEW'
                     scheduled_meta_data.save()
 

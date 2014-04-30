@@ -8,6 +8,7 @@ from edc.subject.visit_tracking.settings import VISIT_REASON_NO_FOLLOW_UP_CHOICE
 from edc.entry_meta_data.models import ScheduledEntryMetaData, RequisitionMetaData
 from edc.subject.entry.models import Entry, LabEntry
 from edc.subject.registration.models import RegisteredSubject
+from edc.lab.lab_clinic_api.models import Panel
 
 from apps.mpepu.choices import INFO_PROVIDER
 from apps.mpepu_infant.choices import INFANT_VISIT_STUDY_STATUS, ALIVE_DEAD_UNKNOWN, VISIT_REASON
@@ -128,7 +129,11 @@ class InfantVisit(InfantOffStudyMixin, BaseVisitTracking):
                 enabled_forms = ['infantoffdrug', 'infantoffstudy']
                 for required_form in enabled_forms:
                     entry = Entry.objects.get(model_name=required_form, visit_definition_id=self.appointment.visit_definition_id)
-                    scheduled_meta_data = ScheduledEntryMetaData.objects.get(appointment=self.appointment, entry=entry, registered_subject=self.registered_subject)
+                    scheduled_meta_data = ScheduledEntryMetaData.objects.filter(appointment=self.appointment, entry=entry, registered_subject=self.registered_subject)
+                    if not scheduled_meta_data:
+                        scheduled_meta_data = ScheduledEntryMetaData.objects.create(appointment=self.appointment, entry=entry, registered_subject=self.registered_subject)
+                    else:
+                        scheduled_meta_data = scheduled_meta_data[0]
                     scheduled_meta_data.entry_status = 'NEW'
                     scheduled_meta_data.save()
 
@@ -150,6 +155,7 @@ class InfantVisit(InfantOffStudyMixin, BaseVisitTracking):
         self.change_meta_data_status_if_survial_status_is_dead()
         self.change_meta_data_status_if_info_source_is_telephone()
         self.change_meta_data_status_on_2180_if_visit_is_missed_at_2150()
+        self.disable_dna_pcr_when_feeding_choice_is_formula_feeding()
         super(InfantVisit, self).save(*args, **kwargs)
 
     def create_meta_if_visit_reason_is_death_when_sid_is_none(self):
@@ -159,7 +165,11 @@ class InfantVisit(InfantOffStudyMixin, BaseVisitTracking):
                 forms = ['infantdeath', 'infantprerandoloss', 'infantsurvival', 'infantverbalautopsy', 'infantoffstudy']
                 for form in forms:
                     entry = Entry.objects.get(model_name=form, visit_definition_id=self.appointment.visit_definition_id)
-                    scheduled_meta_data = ScheduledEntryMetaData.objects.create(appointment=self.appointment, entry=entry, registered_subject=self.registered_subject)
+                    scheduled_meta_data = ScheduledEntryMetaData.objects.filter(appointment=self.appointment, entry=entry, registered_subject=self.registered_subject)
+                    if not scheduled_meta_data:
+                        scheduled_meta_data = ScheduledEntryMetaData.objects.create(appointment=self.appointment, entry=entry, registered_subject=self.registered_subject)
+                    else:
+                        scheduled_meta_data = scheduled_meta_data[0]
                     scheduled_meta_data.entry_status = 'NEW'
                     scheduled_meta_data.save()
 
@@ -172,7 +182,11 @@ class InfantVisit(InfantOffStudyMixin, BaseVisitTracking):
                     forms.append('infantoffdrug')
                 for form in forms:
                     entry = Entry.objects.get(model_name=form, visit_definition_id=self.appointment.visit_definition_id)
-                    scheduled_meta_data = ScheduledEntryMetaData.objects.create(appointment=self.appointment, entry=entry, registered_subject=self.registered_subject)
+                    scheduled_meta_data = ScheduledEntryMetaData.objects.filter(appointment=self.appointment, entry=entry, registered_subject=self.registered_subject)
+                    if not scheduled_meta_data:
+                        scheduled_meta_data = ScheduledEntryMetaData.objects.create(appointment=self.appointment, entry=entry, registered_subject=self.registered_subject)
+                    else:
+                        scheduled_meta_data = scheduled_meta_data[0]
                     scheduled_meta_data.entry_status = 'NEW'
                     scheduled_meta_data.save()
 
@@ -183,7 +197,11 @@ class InfantVisit(InfantOffStudyMixin, BaseVisitTracking):
                 forms = ['infantprerandoloss', 'infantoffstudy']
                 for form in forms:
                     entry = Entry.objects.get(model_name=form, visit_definition_id=self.appointment.visit_definition_id)
-                    scheduled_meta_data = ScheduledEntryMetaData.objects.create(appointment=self.appointment, entry=entry, registered_subject=self.registered_subject)
+                    scheduled_meta_data = ScheduledEntryMetaData.objects.filter(appointment=self.appointment, entry=entry, registered_subject=self.registered_subject)
+                    if not scheduled_meta_data:
+                        scheduled_meta_data = ScheduledEntryMetaData.objects.create(appointment=self.appointment, entry=entry, registered_subject=self.registered_subject)
+                    else:
+                        scheduled_meta_data = scheduled_meta_data[0]
                     scheduled_meta_data.entry_status = 'NEW'
                     scheduled_meta_data.save()
 
@@ -194,14 +212,22 @@ class InfantVisit(InfantOffStudyMixin, BaseVisitTracking):
                 forms = ['infantoffdrug', 'infantoffstudy']
                 for form in forms:
                     entry = Entry.objects.get(model_name=form, visit_definition_id=self.appointment.visit_definition_id)
-                    scheduled_meta_data = ScheduledEntryMetaData.objects.create(appointment=self.appointment, entry=entry, registered_subject=self.registered_subject)
+                    scheduled_meta_data = ScheduledEntryMetaData.objects.filter(appointment=self.appointment, entry=entry, registered_subject=self.registered_subject)
+                    if not scheduled_meta_data:
+                        scheduled_meta_data = ScheduledEntryMetaData.objects.create(appointment=self.appointment, entry=entry, registered_subject=self.registered_subject)
+                    else:
+                        scheduled_meta_data = scheduled_meta_data[0]
                     scheduled_meta_data.entry_status = 'NEW'
                     scheduled_meta_data.save()
 
     def change_meta_data_status_if_visit_reason_is_off_study(self):
         if self.reason == 'off study':
             entry = Entry.objects.get(model_name='infantoffstudy', visit_definition_id=self.appointment.visit_definition_id)
-            scheduled_meta_data = ScheduledEntryMetaData.objects.get(appointment=self.appointment, entry=entry, registered_subject=self.registered_subject)
+            scheduled_meta_data = ScheduledEntryMetaData.objects.filter(appointment=self.appointment, entry=entry, registered_subject=self.registered_subject)
+            if not scheduled_meta_data:
+                scheduled_meta_data = ScheduledEntryMetaData.objects.create(appointment=self.appointment, entry=entry, registered_subject=self.registered_subject)
+            else:
+                scheduled_meta_data = scheduled_meta_data[0]
             scheduled_meta_data.entry_status = 'NEW'
             scheduled_meta_data.save()
             return scheduled_meta_data
@@ -209,7 +235,11 @@ class InfantVisit(InfantOffStudyMixin, BaseVisitTracking):
     def change_meta_data_status_if_study_status_is_onstudy_rando_offdrug(self):
         if self.study_status == 'onstudy rando offdrug':
             entry = Entry.objects.get(model_name='infantoffdrug', visit_definition_id=self.appointment.visit_definition_id)
-            scheduled_meta_data = ScheduledEntryMetaData.objects.get(appointment=self.appointment, entry=entry, registered_subject=self.registered_subject)
+            scheduled_meta_data = ScheduledEntryMetaData.objects.filter(appointment=self.appointment, entry=entry, registered_subject=self.registered_subject)
+            if not scheduled_meta_data:
+                scheduled_meta_data = ScheduledEntryMetaData.objects.create(appointment=self.appointment, entry=entry, registered_subject=self.registered_subject)
+            else:
+                scheduled_meta_data = scheduled_meta_data[0]
             scheduled_meta_data.entry_status = 'NEW'
             scheduled_meta_data.save()
             return scheduled_meta_data
@@ -217,7 +247,11 @@ class InfantVisit(InfantOffStudyMixin, BaseVisitTracking):
     def change_meta_data_status_if_survial_status_is_dead(self):
         if self.survival_status == 'DEAD':
             entry = Entry.objects.get(model_name='infantdeath', visit_definition_id=self.appointment.visit_definition_id)
-            scheduled_meta_data = ScheduledEntryMetaData.objects.get(appointment=self.appointment, entry=entry, registered_subject=self.registered_subject)
+            scheduled_meta_data = ScheduledEntryMetaData.objects.filter(appointment=self.appointment, entry=entry, registered_subject=self.registered_subject)
+            if not scheduled_meta_data:
+                scheduled_meta_data = ScheduledEntryMetaData.objects.create(appointment=self.appointment, entry=entry, registered_subject=self.registered_subject)
+            else:
+                scheduled_meta_data = scheduled_meta_data[0]
             scheduled_meta_data.entry_status = 'NEW'
             scheduled_meta_data.save()
             return scheduled_meta_data
@@ -228,17 +262,26 @@ class InfantVisit(InfantOffStudyMixin, BaseVisitTracking):
                 marked_forms = ['infantfu', 'infantfuphysical', 'infantfud', 'infantfudx', 'infantfudx2proph', 'infantfunewmed', 'infantfumed']
                 for forms in marked_forms:
                     entry = Entry.objects.get(model_name=forms, visit_definition_id=self.appointment.visit_definition_id)
-                    scheduled_meta_data = ScheduledEntryMetaData.objects.get(appointment=self.appointment, entry=entry, registered_subject=self.registered_subject)
+                    scheduled_meta_data = ScheduledEntryMetaData.objects.filter(appointment=self.appointment, entry=entry, registered_subject=self.registered_subject)
+                    if not scheduled_meta_data:
+                        scheduled_meta_data = ScheduledEntryMetaData.objects.create(appointment=self.appointment, entry=entry, registered_subject=self.registered_subject)
+                    else:
+                        scheduled_meta_data = scheduled_meta_data[0]
                     scheduled_meta_data.entry_status = 'NOT_REQUIRED'
                     scheduled_meta_data.save()
 
     def disable_dna_pcr_when_feeding_choice_is_formula_feeding(self):
         from .infant_eligibility import InfantEligibility
-        ff = InfantEligibility.objects.get(registered_subject=self.registered_subject)
-        if ff.maternal_feeding_choice == 'FF':
+        ff = InfantEligibility.objects.filter(registered_subject=self.registered_subject)
+        if ff and ff[0].maternal_feeding_choice == 'FF':
             if self.appointment.visit_definition.code != '2000' and self.appointment.visit_definition.code != '2010' and self.appointment.visit_definition.code != '2020':
-                lab_entry = LabEntry.objects.get(model_name='DNA PCR', visit_definition_id=self.appointment.visit_definition_id)
-                requisition_meta_data = RequisitionMetaData.objects.get(appointment=self.appointment, lab_entry=lab_entry, registered_subject=self.registered_subject)
+                panel = Panel.objects.get(edc_name='DNA PCR')
+                lab_entry = LabEntry.objects.get(model_name='infantrequisition', requisition_panel_id=panel.id, visit_definition_id=self.appointment.visit_definition_id)
+                requisition_meta_data = RequisitionMetaData.objects.filter(appointment_id=self.appointment.id, lab_entry_id=lab_entry.id, registered_subject_id=self.registered_subject.id)
+                if not requisition_meta_data:
+                    requisition_meta_data = RequisitionMetaData.objects.create(appointment_id=self.appointment.id, lab_entry_id=lab_entry.id, registered_subject_id=self.registered_subject.id)
+                else:
+                    requisition_meta_data = requisition_meta_data[0]
                 requisition_meta_data.entry_status = 'NOT_REQUIRED'
                 requisition_meta_data.save()
 
