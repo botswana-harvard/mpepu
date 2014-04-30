@@ -42,12 +42,11 @@ class InfantStoolCollectionForm(BaseInfantModelForm):
         #ensure medications were captured
         new_med = InfantFuNewMed.objects.filter(infant_visit=cleaned_data.get('infant_visit'))
 
-        if not new_med:
-            raise forms.ValidationError('You have not filled in Infant New Medications form. Please go back and fill it in.')
-
         if new_med:
             if cleaned_data.get('antibiotics_7days') == 'Yes' and new_med[0].new_medications == 'No':
                 raise forms.ValidationError('You indicated that participant received antibiotics in the past 7 days, yet indicated there were \'No\' new medications on Infant New Medications form. Please go back and fill them in.')
+            if cleaned_data.get('antibiotic_dose_24hrs') == 'Yes' and new_med[0].new_medications == 'No':
+                raise forms.ValidationError('You indicated that participant received antibiotics in the past 24 hours, yet indicated there were \'No\' new medications on Infant New Medications form. Please go back and fill them in.')
 
         return cleaned_data
 
