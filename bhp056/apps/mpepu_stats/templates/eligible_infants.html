@@ -44,7 +44,7 @@
           </a>
         </td>
         <td>{{eligible.infant.dob}}</td>
-        <td align="center">{{eligible.days_of_life}} days</td>
+        <td align="center">{{eligible.length_of_life.days}} days</td>
         <td><a href="{% url 'subject_dashboard_url' dashboard_type='maternal' dashboard_model='maternal_consent' dashboard_id=eligible.maternalconsent.pk show='appointments' %}">
               {{eligible.infant.relative_identifier}}
             </a>
