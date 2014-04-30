@@ -47,14 +47,15 @@ class MaternalVisit(MaternalOffStudyMixin, BaseVisitTracking):
         dct = {}
         for item in VISIT_REASON_NO_FOLLOW_UP_CHOICES:
             dct.update({item: item})
-        del dct['death']
         dct.update({'vital status': 'vital status'})
+        del dct['death']
         return dct
 
     def save(self, *args, **kwargs):
         if self.reason == 'vital status':
             self.appointment.appt_type = 'telephone'
         self.create_meta_status_if_visit_reason_is_death()
+        self.create_meta_status_if_visit_reason_is_off_study()
         self.avail_forms_on_visit_2000M_only_when_consent_version_is_greater_than_two()
         super(MaternalVisit, self).save(*args, **kwargs)
 
@@ -65,6 +66,12 @@ class MaternalVisit(MaternalOffStudyMixin, BaseVisitTracking):
                 entry = Entry.objects.get(model_name=add_forms, visit_definition_id=self.appointment.visit_definition_id)
                 scheduled_meta_data = ScheduledEntryMetaData.objects.create(appointment=self.appointment, entry=entry, registered_subject=self.registered_subject, entry_status='NEW')
                 return scheduled_meta_data
+
+    def create_meta_status_if_visit_reason_is_off_study(self):
+        if self.reason == 'off study':
+            entry = Entry.objects.get(model_name='maternaloffstudy', visit_definition_id=self.appointment.visit_definition_id)
+            scheduled_meta_data = ScheduledEntryMetaData.objects.create(appointment=self.appointment, entry=entry, registered_subject=self.registered_subject, entry_status='NEW')
+            return scheduled_meta_data
 
     def avail_forms_on_visit_2000M_only_when_consent_version_is_greater_than_two(self):
         from .maternal_consent import MaternalConsent

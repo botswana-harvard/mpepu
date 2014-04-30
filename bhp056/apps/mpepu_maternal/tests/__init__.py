@@ -6,3 +6,4 @@ from .test_natural_key import NaturalKeyTests
 from .test_resistance_consent import ResistanceConsentTests
 from .test_resistance_eligibility import ResistanceEligibilityTests
 from .test_maternal_visit import MaternalVisitTests
+from .test_maternal_meta_data import MaternalMetaDataTests

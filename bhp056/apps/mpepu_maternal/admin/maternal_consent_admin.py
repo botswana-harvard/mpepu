@@ -9,7 +9,7 @@ from ..forms import MaternalConsentForm, MaternalConsentUpdateForm
 class MaternalConsentUpdateInlineAdmin(BaseConsentUpdateInlineAdmin):
     model = MaternalConsentUpdate
     form = MaternalConsentUpdateForm
-    extra = 1
+    extra = 0
 
 
 class MaternalConsentUpdateAdmin(BaseConsentUpdateModelAdmin):

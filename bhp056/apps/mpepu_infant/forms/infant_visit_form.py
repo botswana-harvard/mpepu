@@ -44,6 +44,9 @@ class InfantVisitForm (BaseInfantModelForm):
 
         if cleaned_data['survival_status'] == 'DEAD' and not cleaned_data['date_last_alive']:
             raise forms.ValidationError('Please provide date information, when infant was last known to be alive')
+        
+        if cleaned_data.get('reason')=='death' and cleaned_data.get('info_source')=='telephone':
+            raise forms.ValidationError("If visit reason is death, info source cannot be {}. Please select another info source or 'Other contact with participant (for example telephone call)' if it is telephone")
 
         # check study status
         study_status_display = [choice[1] for choice in InfantVisit._meta.get_field('study_status').choices if choice[0] == cleaned_data['study_status']]

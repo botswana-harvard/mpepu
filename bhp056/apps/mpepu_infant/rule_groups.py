@@ -1,7 +1,8 @@
 from edc.subject.rule_groups.classes import RuleGroup, ScheduledDataRule, Logic, site_rule_groups, RequisitionRule
 # from edc.subject.registration.models import RegisteredSubject
 # from edc.subject.appointment.models import Appointment
-from .models import (InfantVisit, InfantArvProph, InfantFu, InfantStudyDrug, InfantBirthData, InfantStoolCollection)
+from .models import (InfantVisit, InfantArvProph, InfantFu, InfantStudyDrug, InfantBirthData,
+                     InfantStoolCollection, InfantEligibility)
 
 
 class InfantBirthDataRuleGroup(RuleGroup):
@@ -97,7 +98,7 @@ class StoolSamplingRuleGroup(RuleGroup):
         logic=Logic(
             predicate=('sample_obtained', 'equals', 'no'),
             consequence='not_required',
-            alternative='none'),
+            alternative='new'),
         target_model=[('mpepu_lab', 'infantrequisition')],
         target_requisition_panels=['Stool storage'],)
 
@@ -106,6 +107,24 @@ class StoolSamplingRuleGroup(RuleGroup):
         source_fk = (InfantVisit, 'infant_visit')
         source_model = InfantStoolCollection
 site_rule_groups.register(StoolSamplingRuleGroup)
+
+
+#this is meant to be applicable from visit 2030 onwards
+class FeedingChoiceRuleGroup(RuleGroup):
+
+    maternal_feeding_choice = RequisitionRule(
+        logic=Logic(
+            predicate=('maternal_feeding_choice', 'equals', 'FF'),
+            consequence='not_required',
+            alternative='new'),
+        target_model=[('mpepu_lab', 'infantrequisition')],
+        target_requisition_panels=['DNA PCR'],)
+
+    class Meta:
+        app_label = 'mpepu_infant'
+        source_fk = (InfantVisit, 'infant_visit')
+        source_model = InfantEligibility
+site_rule_groups.register(FeedingChoiceRuleGroup)
 
 
 # class InfantPrerandoLossRuleGroup(RuleGroup):

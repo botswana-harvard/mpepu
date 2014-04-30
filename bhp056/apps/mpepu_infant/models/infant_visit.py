@@ -4,10 +4,11 @@ from django.core.exceptions import ValidationError
 
 from edc.audit.audit_trail import AuditTrail
 from edc.subject.visit_tracking.models.base_visit_tracking import BaseVisitTracking
-from edc.subject.visit_tracking.settings import VISIT_REASON_NO_FOLLOW_UP_CHOICES
+from edc.subject.visit_tracking.settings import VISIT_REASON_NO_FOLLOW_UP_CHOICES, VISIT_REASON_FOLLOW_UP_CHOICES
 from edc.entry_meta_data.models import ScheduledEntryMetaData
 from edc.subject.entry.models import Entry
 from edc.subject.registration.models import RegisteredSubject
+# from edc.entry_meta_data.managers.base_meta_data_manager import skip_create_visit_reasons
 
 from apps.mpepu.choices import INFO_PROVIDER
 from apps.mpepu_infant.choices import INFANT_VISIT_STUDY_STATUS, ALIVE_DEAD_UNKNOWN, VISIT_REASON
@@ -67,10 +68,10 @@ class InfantVisit(InfantOffStudyMixin, BaseVisitTracking):
         dct = {}
         for item in VISIT_REASON_NO_FOLLOW_UP_CHOICES:
             dct.update({item: item})
-        del dct['death']
-        del dct['lost']
         dct.update({'deferred': 'deferred'})
         dct.update({'vital status': 'vital status'})
+        del dct['death']
+        del dct['lost']
         return dct
 
     @property
@@ -138,6 +139,7 @@ class InfantVisit(InfantOffStudyMixin, BaseVisitTracking):
                 raise ValidationError('Reason option \'deferred\' may only be used for the 2010 visit')
         if self.reason == 'vital status':
             self.appointment.appt_type = 'telephone'
+        self.get_visit_reason_no_follow_up_choices()
         self.requires_infant_eligibility()
         self.check_previous_visit_keyed(self)
         self.create_meta_if_visit_reason_is_death_when_sid_is_none()
@@ -166,7 +168,9 @@ class InfantVisit(InfantOffStudyMixin, BaseVisitTracking):
         if self.reason == 'death':
             rs = RegisteredSubject.objects.get(subject_identifier=self.registered_subject.subject_identifier)
             if rs.sid:
-                forms = ['infantdeath', 'infantoffdrug', 'infantsurvival', 'infantverbalautopsy', 'infantoffstudy']
+                forms = ['infantdeath', 'infantsurvival', 'infantverbalautopsy', 'infantoffstudy']
+                if self.appointment.visit_definition.code != '2000' and self.appointment.visit_definition.code != '2010':
+                    forms.append('infantoffdrug')
                 for form in forms:
                     entry = Entry.objects.get(model_name=form, visit_definition_id=self.appointment.visit_definition_id)
                     scheduled_meta_data = ScheduledEntryMetaData.objects.create(appointment=self.appointment, entry=entry, registered_subject=self.registered_subject)
@@ -221,12 +225,13 @@ class InfantVisit(InfantOffStudyMixin, BaseVisitTracking):
 
     def change_meta_data_status_if_info_source_is_telephone(self):
         if self.info_source == 'telephone':
-            marked_forms = ['infantfu', 'infantfuphysical', 'infantfud', 'infantfudx', 'infantfudx2proph', 'infantfunewmed', 'infantfumed']
-            for forms in marked_forms:
-                entry = Entry.objects.get(model_name=forms, visit_definition_id=self.appointment.visit_definition_id)
-                scheduled_meta_data = ScheduledEntryMetaData.objects.get(appointment=self.appointment, entry=entry, registered_subject=self.registered_subject)
-                scheduled_meta_data.entry_status = 'NOT_REQUIRED'
-                scheduled_meta_data.save()
+            if self.reason != 'vital status':
+                marked_forms = ['infantfu', 'infantfuphysical', 'infantfud', 'infantfudx', 'infantfudx2proph', 'infantfunewmed', 'infantfumed']
+                for forms in marked_forms:
+                    entry = Entry.objects.get(model_name=forms, visit_definition_id=self.appointment.visit_definition_id)
+                    scheduled_meta_data = ScheduledEntryMetaData.objects.get(appointment=self.appointment, entry=entry, registered_subject=self.registered_subject)
+                    scheduled_meta_data.entry_status = 'NOT_REQUIRED'
+                    scheduled_meta_data.save()
 
     class Meta:
         db_table = 'mpepu_infant_infantvisit'
