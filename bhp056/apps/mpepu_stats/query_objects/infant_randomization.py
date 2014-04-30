@@ -10,7 +10,6 @@ class NonRandomizedInfants(object):
         self.site = site
         self.cutoff = cutoff
         self.earliest = earliest
-        #self.eligibles = self.eligible_search()
 
     def query(self, search_date=date.today(), cutoff=34, earliest=14):
         old_dob = search_date - timedelta(days=cutoff)
@@ -24,7 +23,6 @@ class NonRandomizedInfants(object):
             eligibles = eligibles.filter(study_site__site_name__iexact=self.site)
         else:
             eligibles = eligibles.order_by('study_site__site_name')
-        #self.eligible_count = eligibles.count()
         eligible_infants = [self.wrap_registered_subject(subject) for subject in eligibles]
         return eligible_infants
 
@@ -37,21 +35,16 @@ class NonRandomizedInfants(object):
                 self.search_date = search_date
 
             def days_from_early_date(self):
-                diff = self.days_of_life - timedelta(days=self.earliest)
+                diff = self.length_of_life - timedelta(days=self.earliest)
                 return diff.days
 
             def days_from_expiration(self):
-                diff = timedelta(days=self.cutoff) - self.days_of_life
+                diff = timedelta(days=self.cutoff) - self.length_of_life
                 return diff.days
 
             @property
-            def age(self):
-                diff = self.search_date - self.infant.dob
-                return diff.days
-
-            @property
-            def days_of_life(self):
-                return self.age + 1
+            def length_of_life(self):
+                return (self.search_date - self.infant.dob) + timedelta(days=1)
 
             def maternalconsent(self):
                 return MaternalConsent.objects.filter(subject_identifier=self.infant.relative_identifier)[0]
