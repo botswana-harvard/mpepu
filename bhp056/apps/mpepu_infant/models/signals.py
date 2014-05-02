@@ -15,3 +15,16 @@ def infant_birth_data_on_post_save(sender, instance, **kwargs):
 # def infant_eligibility_post_save_delete_appointment(sender, instance, **kwargs):
 #     if isinstance(instance, (InfantEligibility)):
 #         instance.post_save_delete_appointment()
+
+
+# @receiver(post_save, weak=False, dispatch_uid="infant_eligibility_on_post_save")
+# def infant_eligibility_on_post_save(sender, instance, raw, created, using, **kwargs):
+#     """"""
+#     if isinstance(instance, (InfantEligibility)):
+#         instance.prepare_appointments(using)
+
+
+@receiver(post_save, weak=False, dispatch_uid='post_save_recalculate_appts')
+def post_save_recalculate_appts(sender, instance, **kwargs):
+    if isinstance(instance, (InfantEligibility)):
+        instance.post_save_recalculate_maternal_appts()

@@ -13,6 +13,7 @@ from edc.core.crypto_fields.utils import mask_encrypted
 from edc.core.identifier.classes import InfantIdentifier
 from edc.subject.adverse_event.choices import GRADING_SCALE
 from edc.subject.code_lists.models import WcsDxAdult
+from edc.subject.registration.models import RegisteredSubject
 
 from apps.mpepu.choices import LABOUR_HOURS, LABOUR_MODE_OF_DELIVERY, DELIVERY_HOSPITAL, DX
 from apps.mpepu_list.models import HealthCond, DelComp, ObComp, Suppliment
@@ -191,6 +192,21 @@ class MaternalLabDel(BaseScheduledVisitModel):
                         live_infants_to_register=self.live_infants_to_register,
                         user=self.user_created)
                     infant_identifier.get_identifier()
+
+#     def prepare_appointments(self, using):
+#         """Creates all appointments linked to this instance.
+# 
+#         Calls :func:`pre_prepare_appointments` and :func:`post_prepare_appointments`.
+# 
+#         .. seealso:: :class:`appointment_helper.AppointmentHelper`. """
+#         self.pre_prepare_appointments(using)
+#         from edc.subject.appointment_helper.classes import AppointmentHelper
+#         if 'registered_subject' in dir(self):
+#             registered_subject = self.registered_subject
+#         else:
+#             registered_subject = RegisteredSubject.objects.get(subject_identifier=self.subject_identifier)
+#         AppointmentHelper().create_all(registered_subject, self.__class__.__name__.lower(), using=using, source='BaseAppointmentMixin', base_appt_datetime=self.delivery_datetime)
+#         self.post_prepare_appointments(using)
 
     def get_absolute_url(self):
         return reverse('admin:mpepu_maternal_maternallabour&delivery_change', args=(self.id,))

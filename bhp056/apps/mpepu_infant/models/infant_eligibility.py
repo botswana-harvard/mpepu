@@ -8,6 +8,7 @@ from datetime import datetime
 from edc.audit.audit_trail import AuditTrail
 from edc.base.model.validators import eligible_if_no
 from edc.choices.common import YES_NO, YES_NO_NA
+from edc.subject.registration.models import RegisteredSubject
 
 from apps.mpepu_infant_rando.classes import Eligibility
 
@@ -190,6 +191,35 @@ class InfantEligibility(BaseInfantRegisteredSubjectModel):
         if infant_rando:
             retval = infant_rando.bf_duration
         return retval
+
+    def prepare_appointments(self, using):
+        """To calculate infant appointment from 2020 basing on infant DOB """
+        self.pre_prepare_appointments(using)
+        from edc.subject.appointment_helper.classes import AppointmentHelper
+        if 'registered_subject' in dir(self):
+            registered_subject = self.registered_subject
+        else:
+            registered_subject = RegisteredSubject.objects.get(subject_identifier=self.subject_identifier)
+        from apps.mpepu_maternal.models import MaternalLabDel
+        mat = MaternalLabDel.objects.get(maternal_visit__subject_identifier=self.registered_subject.relative_identifier)
+        AppointmentHelper().create_all(registered_subject, self.__class__.__name__.lower(), using=using, source='BaseAppointmentMixin', base_appt_datetime=mat.delivery_datetime)
+        self.post_prepare_appointments(using)
+
+    def post_save_recalculate_maternal_appts(self):
+        from edc.subject.appointment.models import Appointment
+        visits = ['2020', '2030', '2060', '2090', '2120', '2150', '2180']
+        for visit in visits:
+            subject = RegisteredSubject.objects.get(subject_identifier=self.registered_subject.relative_identifier)
+            infant_appointment = Appointment.objects.get(registered_subject=self.registered_subject, visit_definition__code=visit)
+            maternal_appointment = Appointment.objects.get(registered_subject=subject, visit_definition__code=visit+'M')
+            maternal_appointment.appt_datetime = infant_appointment.appt_datetime
+            maternal_appointment.raw_save()
+
+#         if self.delivery_datetime:
+#             Appointment = models.get_model('appointment', 'Appointment')
+#             if not Appointment.objects.filter(registered_subject=self.registered_subject, visit_definition__code='2000', visit_instance='0'):
+#                 raise ImproperlyConfigured('MaternalElibility expects 2000 visit to exist. Check the visit definition.')
+#             appointment = Appointment.objects.get(registered_subject=self.registered_subject, visit_definition__code='2000', visit_instance='0')
 
     class Meta:
         app_label = "mpepu_infant"
