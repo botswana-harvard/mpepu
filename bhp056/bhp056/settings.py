@@ -10,8 +10,17 @@ DEBUG = True
 INTERNAL_IPS = ('127.0.0.1',)
 TEMPLATE_DEBUG = DEBUG
 DIRNAME = os.path.dirname(__file__)
+
+#Email configuration
+SEND_BROKEN_LINK_EMAILS = True
+SERVER_EMAIL = 'edcdev@bhp.org.bw'
+EMAIL_SUBJECT_PRFFIX = '[mpepu]'
+DEFAULT_FROM_EMAIL = 'edcdev@bhp.org.bw'
 ADMINS = (
     ('erikvw', 'ew@2789@gmail.com'),
+    ('fchilisa', 'fchilisa@bhp.org.bw'),
+    ('twicet', 'twicet@gmail.com'),
+    ('mkewagamang', 'mkewagamang@bhp.org.bw'),
 )
 
 # Path
@@ -325,12 +334,13 @@ INSTALLED_APPS = (
     #'tastypie',
 )
 
-# email settings
-EMAIL_HOST = '192.168.1.48'
+# django email settings
+EMAIL_HOST = 'mail.bhp.org.bw'
 EMAIL_PORT = '25'
-EMAIL_HOST_USER = 'django'
-EMAIL_HOST_PASSWORD = 'paeH#ie9'
+EMAIL_HOST_USER = 'edcdev'
+EMAIL_HOST_PASSWORD = 'cc3721b'
 EMAIL_USE_TLS = True
+#EMAIL_AFTER_CONSUME = False
 
 SOUTH_LOGGING_FILE = os.path.join(os.path.dirname(__file__), "south.log")
 SOUTH_LOGGING_ON = True
