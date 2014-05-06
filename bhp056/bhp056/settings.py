@@ -6,12 +6,21 @@ import sys
 import logger
 
 
-DEBUG = True
+DEBUG = False
 INTERNAL_IPS = ('127.0.0.1',)
 TEMPLATE_DEBUG = DEBUG
 DIRNAME = os.path.dirname(__file__)
+
+#Email configuration
+SEND_BROKEN_LINK_EMAILS = True
+SERVER_EMAIL = 'edcdev@bhp.org.bw'
+EMAIL_SUBJECT_PREFIX = '[mpepu] '
+DEFAULT_FROM_EMAIL = 'edcdev@bhp.org.bw'
 ADMINS = (
-    ('erikvw', 'ew@2789@gmail.com'),
+    ('erikvw', 'ew2789@gmail.com'),
+    ('fchilisa', 'fchilisa@bhp.org.bw'),
+    ('twicet', 'twicet@gmail.com'),
+    ('mkewagamang', 'mkewagamang@bhp.org.bw'),
 )
 
 # Path
@@ -95,7 +104,7 @@ else:
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', 's007', 's007.bhp.org.bw', '192.168.1.50']
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -284,7 +293,7 @@ INSTALLED_APPS = (
     'edc.lab.lab_clinic_reference',
     'edc.lab.lab_requisition',
     'edc.lab.lab_packing',
-    'edc.pharma.dispenser'
+    'edc.pharma.dispenser',
 
     'lis.core.lab_common',
     'lis.core.lab_flag',
@@ -325,12 +334,13 @@ INSTALLED_APPS = (
     #'tastypie',
 )
 
-# email settings
-EMAIL_HOST = '192.168.1.48'
+# django email settings
+EMAIL_HOST = 'mail.bhp.org.bw'
 EMAIL_PORT = '25'
-EMAIL_HOST_USER = 'django'
-EMAIL_HOST_PASSWORD = 'paeH#ie9'
+EMAIL_HOST_USER = 'edcdev'
+EMAIL_HOST_PASSWORD = 'cc3721b'
 EMAIL_USE_TLS = True
+#EMAIL_AFTER_CONSUME = False
 
 SOUTH_LOGGING_FILE = os.path.join(os.path.dirname(__file__), "south.log")
 SOUTH_LOGGING_ON = True
