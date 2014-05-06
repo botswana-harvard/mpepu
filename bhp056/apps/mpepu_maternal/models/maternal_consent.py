@@ -13,13 +13,17 @@ class MaternalConsent(BaseMaternalConsent):
 
     history = AuditTrail()
 
-    registered_subject = models.ForeignKey(RegisteredSubject,
-        editable=False,
-        null=True,
-        help_text='')
-
+#    registered_subject = models.ForeignKey(RegisteredSubject,
+#        editable=False,
+#        null=True,
+#        help_text='')
+#
     def get_registered_subject(self):
-        return self._registered_subject
+        return RegisteredSubject.objects.get(subject_identifier=self.subject_identifier)
+
+    @property
+    def registered_subject(self):
+        return self.get_registered_subject()
 
     def dispatch_container_lookup(self):
         return None
