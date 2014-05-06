@@ -1,3 +1,4 @@
+from django.core.urlresolvers import reverse
 from django.db import models
 
 from edc.subject.registration.models import RegisteredSubject
@@ -21,6 +22,11 @@ class Receive(BaseReceive):
 
     def __unicode__(self):
         return self.receive_identifier
+
+    def requisition(self):
+        url = reverse('admin:mpepu_lab_subjectrequisition_changelist')
+        return '<a href="{0}?q={1}">{1}</a>'.format(url, self.requisition_identifier)
+    requisition.allow_tags = True
 
     class Meta:
         app_label = 'mpepu_lab'
