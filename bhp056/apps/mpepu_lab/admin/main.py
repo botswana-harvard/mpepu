@@ -1,7 +1,10 @@
 from django.contrib import admin
-from edc.lab.lab_packing.admin import BasePackingListAdmin, BasePackingListItemAdmin
 
-from ..models import InfantRequisition, MaternalRequisition
+from edc.lab.lab_packing.admin import BasePackingListAdmin, BasePackingListItemAdmin
+from edc.base.admin.admin import BaseModelAdmin
+
+from lis.labeling.actions import print_aliquot_label
+from ..models import (InfantRequisition, MaternalRequisition, Aliquot, AliquotType, Receive, Panel)
 from ..models import PackingList, PackingListItem
 from ..forms import InfantRequisitionForm, MaternalRequisitionForm
 from ..forms import PackingListForm, PackingListItemForm
@@ -33,3 +36,55 @@ class PackingListItemAdmin(BasePackingListItemAdmin):
     form = PackingListItemForm
     requisition = [InfantRequisition, MaternalRequisition, ]
 admin.site.register(PackingListItem, BasePackingListItemAdmin)
+
+
+class AliquotAdmin(BaseModelAdmin):
+    date_hierarchy = 'created'
+
+    actions = [print_aliquot_label]
+
+    list_display = ("aliquot_identifier", 'subject_identifier', 'processing', 'related', 'to_receive', 'drawn', "aliquot_type", 'aliquot_condition', 'is_packed', 'created', 'user_created', 'hostname_created')
+
+    search_fields = ('aliquot_identifier', 'receive__receive_identifier', 'receive__registered_subject__subject_identifier')
+
+    list_filter = ('aliquot_type', 'aliquot_condition', 'created', 'user_created', 'hostname_created')
+
+    list_per_page = 15
+
+admin.site.register(Aliquot, AliquotAdmin)
+
+
+class AliquotTypeAdmin(BaseModelAdmin):
+
+    list_display = ('name', 'alpha_code', 'numeric_code')
+
+admin.site.register(AliquotType, AliquotTypeAdmin)
+
+
+class ReceiveAdmin(BaseModelAdmin):
+
+    date_hierarchy = 'receive_datetime'
+
+    list_display = ("receive_identifier", "requisition", "receive_datetime", "drawn_datetime", 'registered_subject', 'subject_type', 'created', 'modified', 'import_datetime')
+
+    search_fields = ('registered_subject__subject_identifier', 'subject_type', "receive_identifier", "requisition_identifier",)
+
+    list_filter = ('created', "receive_datetime", "drawn_datetime", 'modified', 'import_datetime', )
+
+    list_per_page = 15
+
+    def get_readonly_fields(self, request, obj):
+        return ['receive_identifier', 'requisition_model_name', 'clinician_initials'] + [field.name for field in obj._meta.fields if field.editable]
+
+admin.site.register(Receive, ReceiveAdmin)
+
+
+class PanelAdmin(BaseModelAdmin):
+
+    list_display = ('name', 'panel_type')
+
+    filter_horizontal = ("test_code", "aliquot_type", )
+
+    list_filter = ('panel_type', )
+
+admin.site.register(Panel, PanelAdmin)
