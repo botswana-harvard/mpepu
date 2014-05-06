@@ -31,8 +31,9 @@ CONFIG_DIR = PROJECT_DIR.child('bhp056')
 #KEY_PATH = '/Users/twicet/dev/bhp/projs/git/bhp056_project/bhp056/keys'
 # print KEY_PATH
 # KEY_PATH = '/Users/fchilisa/source/bhp056_project/bhp056/keys'
-KEY_PATH = '/Users/melissa/Documents/git/bhp056_mpepu/bhp056/keys'
+#KEY_PATH = '/Users/melissa/Documents/git/bhp056_mpepu/bhp056/keys'
 # KEY_PATH = '/Users/twicet/dev/bhp/projs/git/bhp056_project/bhp056/keys'
+KEY_PATH = 'keys'
 
 
 MAP_DIR = STATIC_ROOT.child('img')
@@ -73,7 +74,7 @@ else:
             'OPTIONS': {
                 'init_command': 'SET storage_engine=INNODB',
             },
-            'NAME': 'bhp056_mpepu',
+            'NAME': 'bhp056',
             'USER': 'root',
             'PASSWORD': 'cc3721b',
             'HOST': '',
@@ -283,6 +284,7 @@ INSTALLED_APPS = (
     'edc.lab.lab_clinic_reference',
     'edc.lab.lab_requisition',
     'edc.lab.lab_packing',
+    'edc.pharma.dispenser'
 
     'lis.core.lab_common',
     'lis.core.lab_flag',
