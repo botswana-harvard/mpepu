@@ -201,19 +201,21 @@ class InfantEligibility(BaseInfantRegisteredSubjectModel):
         else:
             registered_subject = RegisteredSubject.objects.get(subject_identifier=self.subject_identifier)
         from apps.mpepu_maternal.models import MaternalLabDel
-        mat = MaternalLabDel.objects.get(maternal_visit__subject_identifier=self.registered_subject.relative_identifier)
-        AppointmentHelper().create_all(registered_subject, self.__class__.__name__.lower(), using=using, source='BaseAppointmentMixin', base_appt_datetime=mat.delivery_datetime)
-        self.post_prepare_appointments(using)
+        mat = MaternalLabDel.objects.filter(maternal_visit__subject_identifier=self.registered_subject.relative_identifier)
+        if mat:
+            AppointmentHelper().create_all(registered_subject, self.__class__.__name__.lower(), using=using, source='BaseAppointmentMixin', base_appt_datetime=mat[0].delivery_datetime)
+            self.post_prepare_appointments(using)
 
     def post_save_recalculate_maternal_appts(self):
         from edc.subject.appointment.models import Appointment
         visits = ['2020', '2030', '2060', '2090', '2120', '2150', '2180']
         for visit in visits:
             subject = RegisteredSubject.objects.get(subject_identifier=self.registered_subject.relative_identifier)
-            infant_appointment = Appointment.objects.get(registered_subject=self.registered_subject, visit_definition__code=visit)
-            maternal_appointment = Appointment.objects.get(registered_subject=subject, visit_definition__code=visit+'M')
-            maternal_appointment.appt_datetime = infant_appointment.appt_datetime
-            maternal_appointment.raw_save()
+            infant_appointment = Appointment.objects.filter(registered_subject=self.registered_subject, visit_definition__code=visit)
+            maternal_appointment = Appointment.objects.filter(registered_subject=subject, visit_definition__code=visit+'M')
+            if infant_appointment and maternal_appointment:
+                maternal_appointment[0].appt_datetime = infant_appointment[0].appt_datetime
+                maternal_appointment[0].raw_save()
 
 #         if self.delivery_datetime:
 #             Appointment = models.get_model('appointment', 'Appointment')
