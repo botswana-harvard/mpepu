@@ -87,7 +87,7 @@ class MaternalVisit(MaternalOffStudyMixin, BaseVisitTracking):
 
     def avail_forms_on_visit_2000M_only_when_consent_version_is_greater_than_two(self):
         from .maternal_consent import MaternalConsent
-        confirm_consent = MaternalConsent.objects.get(registered_subject=self.registered_subject)
+        confirm_consent = MaternalConsent.objects.get(subject_identifier=self.registered_subject.subject_identifier)
         if confirm_consent.consent_version_recent >= 2:
             check = self.appointment.visit_definition.code == '2000M'
             if check:
