@@ -9,7 +9,7 @@ class InfantBirthDataRuleGroup(RuleGroup):
 
     congenital_anomalities = ScheduledDataRule(
         logic=Logic(
-            predicate=('congenital_anomalities', 'equals', 'yes'),
+            predicate=('congenital_anomalities', 'equals', 'Yes'),
             consequence='new',
             alternative='not_required'),
         target_model=['infantcongenitalanomalies'])
@@ -25,7 +25,7 @@ class InfantArvProphRuleGroup(RuleGroup):
 
     prophylatic_nvp = ScheduledDataRule(
         logic=Logic(
-            predicate=('prophylatic_nvp', 'equals', 'no'),
+            predicate=('prophylatic_nvp', 'equals', 'No'),
             consequence='not_required',
             alternative='new'),
         target_model=['infantnvpadherence'])
@@ -41,14 +41,14 @@ class InfantFuRuleGroup(RuleGroup):
 
     diarrhea_illness = ScheduledDataRule(
         logic=Logic(
-            predicate=('diarrhea_illness', 'equals', 'no'),
+            predicate=('diarrhea_illness', 'equals', 'No'),
             consequence='not_required',
             alternative='new'),
         target_model=['Infantfud'])
 
     has_dx = ScheduledDataRule(
         logic=Logic(
-            predicate=('has_dx', 'equals', 'no'),
+            predicate=('has_dx', 'equals', 'No'),
             consequence='not_required',
             alternative='new'),
         target_model=['Infantfudx'])
@@ -64,7 +64,7 @@ class InfantStudyDrugRuleGroup(RuleGroup):
 
     on_placebo_status = ScheduledDataRule(
         logic=Logic(
-            predicate=('on_placebo_status', 'equals', 'no'),
+            predicate=('on_placebo_status', 'equals', 'No'),
             consequence='not_required',
             alternative='new'),
         target_model=['infantctxplaceboadh'])
@@ -96,7 +96,7 @@ class StoolSamplingRuleGroup(RuleGroup):
 
     no_sample_taken = RequisitionRule(
         logic=Logic(
-            predicate=('sample_obtained', 'equals', 'no'),
+            predicate=('sample_obtained', 'equals', 'No'),
             consequence='not_required',
             alternative='new'),
         target_model=[('mpepu_lab', 'infantrequisition')],
