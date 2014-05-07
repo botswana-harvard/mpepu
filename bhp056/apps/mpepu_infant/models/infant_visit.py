@@ -124,18 +124,19 @@ class InfantVisit(InfantOffStudyMixin, BaseVisitTracking):
     def change_meta_data_status_on_2180_if_visit_is_missed_at_2150(self):
         check = InfantVisit.objects.filter(appointment__registered_subject=self.registered_subject, appointment__visit_definition__code='2180').exists()
         if check:
-            app = InfantVisit.objects.get(appointment__registered_subject=self.registered_subject, appointment__visit_definition__code='2150', reason='missed')
+            app = InfantVisit.objects.filter(appointment__registered_subject=self.registered_subject, appointment__visit_definition__code='2150', reason='missed')
             if app:
                 enabled_forms = ['infantoffdrug', 'infantoffstudy']
                 for required_form in enabled_forms:
-                    entry = Entry.objects.get(model_name=required_form, visit_definition_id=self.appointment.visit_definition_id)
-                    scheduled_meta_data = ScheduledEntryMetaData.objects.filter(appointment=self.appointment, entry=entry, registered_subject=self.registered_subject)
-                    if not scheduled_meta_data:
-                        scheduled_meta_data = ScheduledEntryMetaData.objects.create(appointment=self.appointment, entry=entry, registered_subject=self.registered_subject)
-                    else:
-                        scheduled_meta_data = scheduled_meta_data[0]
-                    scheduled_meta_data.entry_status = 'NEW'
-                    scheduled_meta_data.save()
+                    entry = Entry.objects.filter(model_name=required_form, visit_definition_id=self.appointment.visit_definition_id)
+                    if entry:
+                        scheduled_meta_data = ScheduledEntryMetaData.objects.filter(appointment=self.appointment, entry=entry[0], registered_subject=self.registered_subject)
+                        if not scheduled_meta_data:
+                            scheduled_meta_data = ScheduledEntryMetaData.objects.create(appointment=self.appointment, entry=entry[0], registered_subject=self.registered_subject)
+                        else:
+                            scheduled_meta_data = scheduled_meta_data[0]
+                        scheduled_meta_data.entry_status = 'NEW'
+                        scheduled_meta_data.save()
 
     def save(self, *args, **kwargs):
         if self.reason == 'deferred':
@@ -145,7 +146,7 @@ class InfantVisit(InfantOffStudyMixin, BaseVisitTracking):
             self.appointment.appt_type = 'telephone'
         self.get_visit_reason_no_follow_up_choices()
         self.requires_infant_eligibility()
-        self.check_previous_visit_keyed(self)
+#         self.check_previous_visit_keyed(self)
         self.create_meta_if_visit_reason_is_death_when_sid_is_none()
         self.create_meta_if_visit_reason_is_death_when_sid_is_not_none()
         self.create_meta_if_visit_reason_is_lost_when_sid_is_none()
@@ -276,15 +277,16 @@ class InfantVisit(InfantOffStudyMixin, BaseVisitTracking):
         ff = InfantEligibility.objects.filter(registered_subject=self.registered_subject)
         if ff and ff[0].maternal_feeding_choice == 'FF':
             if self.appointment.visit_definition.code != '2000' and self.appointment.visit_definition.code != '2010' and self.appointment.visit_definition.code != '2020':
-                panel = Panel.objects.get(edc_name='DNA PCR')
-                lab_entry = LabEntry.objects.get(model_name='infantrequisition', requisition_panel_id=panel.id, visit_definition_id=self.appointment.visit_definition_id)
-                requisition_meta_data = RequisitionMetaData.objects.filter(appointment_id=self.appointment.id, lab_entry_id=lab_entry.id, registered_subject_id=self.registered_subject.id)
-                if not requisition_meta_data:
-                    requisition_meta_data = RequisitionMetaData.objects.create(appointment_id=self.appointment.id, lab_entry_id=lab_entry.id, registered_subject_id=self.registered_subject.id)
-                else:
-                    requisition_meta_data = requisition_meta_data[0]
-                requisition_meta_data.entry_status = 'NOT_REQUIRED'
-                requisition_meta_data.save()
+                panel = Panel.objects.filter(edc_name='DNA PCR')
+                if panel:
+                    lab_entry = LabEntry.objects.get(model_name='infantrequisition', requisition_panel_id=panel[0].id, visit_definition_id=self.appointment.visit_definition_id)
+                    requisition_meta_data = RequisitionMetaData.objects.filter(appointment_id=self.appointment.id, lab_entry_id=lab_entry.id, registered_subject_id=self.registered_subject.id)
+                    if not requisition_meta_data:
+                        requisition_meta_data = RequisitionMetaData.objects.create(appointment_id=self.appointment.id, lab_entry_id=lab_entry.id, registered_subject_id=self.registered_subject.id)
+                    else:
+                        requisition_meta_data = requisition_meta_data[0]
+                    requisition_meta_data.entry_status = 'NOT_REQUIRED'
+                    requisition_meta_data.save()
 
     def get_new_v4_forms(self):
         new_forms = ['infantstoolcollection']
