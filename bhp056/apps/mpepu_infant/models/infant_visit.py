@@ -124,18 +124,19 @@ class InfantVisit(InfantOffStudyMixin, BaseVisitTracking):
     def change_meta_data_status_on_2180_if_visit_is_missed_at_2150(self):
         check = InfantVisit.objects.filter(appointment__registered_subject=self.registered_subject, appointment__visit_definition__code='2180').exists()
         if check:
-            app = InfantVisit.objects.get(appointment__registered_subject=self.registered_subject, appointment__visit_definition__code='2150', reason='missed')
+            app = InfantVisit.objects.filter(appointment__registered_subject=self.registered_subject, appointment__visit_definition__code='2150', reason='missed')
             if app:
                 enabled_forms = ['infantoffdrug', 'infantoffstudy']
                 for required_form in enabled_forms:
-                    entry = Entry.objects.get(model_name=required_form, visit_definition_id=self.appointment.visit_definition_id)
-                    scheduled_meta_data = ScheduledEntryMetaData.objects.filter(appointment=self.appointment, entry=entry, registered_subject=self.registered_subject)
-                    if not scheduled_meta_data:
-                        scheduled_meta_data = ScheduledEntryMetaData.objects.create(appointment=self.appointment, entry=entry, registered_subject=self.registered_subject)
-                    else:
-                        scheduled_meta_data = scheduled_meta_data[0]
-                    scheduled_meta_data.entry_status = 'NEW'
-                    scheduled_meta_data.save()
+                    entry = Entry.objects.filter(model_name=required_form, visit_definition_id=self.appointment.visit_definition_id)
+                    if entry:
+                        scheduled_meta_data = ScheduledEntryMetaData.objects.filter(appointment=self.appointment, entry=entry[0], registered_subject=self.registered_subject)
+                        if not scheduled_meta_data:
+                            scheduled_meta_data = ScheduledEntryMetaData.objects.create(appointment=self.appointment, entry=entry[0], registered_subject=self.registered_subject)
+                        else:
+                            scheduled_meta_data = scheduled_meta_data[0]
+                        scheduled_meta_data.entry_status = 'NEW'
+                        scheduled_meta_data.save()
 
     def save(self, *args, **kwargs):
         if self.reason == 'deferred':
