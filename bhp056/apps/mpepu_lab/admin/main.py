@@ -43,7 +43,7 @@ class AliquotAdmin(BaseModelAdmin):
 
     actions = [print_aliquot_label]
 
-    list_display = ("aliquot_identifier", 'subject_identifier', 'processing', 'related', 'to_receive', 'drawn', "aliquot_type", 'aliquot_condition', 'is_packed', 'created', 'user_created', 'hostname_created')
+    list_display = ("aliquot_identifier", 'subject_identifier', 'to_receive', 'drawn', "aliquot_type", 'aliquot_condition', 'is_packed', 'created', 'user_created', 'hostname_created')
 
     search_fields = ('aliquot_identifier', 'receive__receive_identifier', 'receive__registered_subject__subject_identifier')
 
@@ -65,7 +65,7 @@ class ReceiveAdmin(BaseModelAdmin):
 
     date_hierarchy = 'receive_datetime'
 
-    list_display = ("receive_identifier", "requisition", "receive_datetime", "drawn_datetime", 'registered_subject', 'subject_type', 'created', 'modified', 'import_datetime')
+    list_display = ("receive_identifier", "receive_datetime", "drawn_datetime", 'registered_subject', 'subject_type', 'created', 'modified', 'import_datetime')
 
     search_fields = ('registered_subject__subject_identifier', 'subject_type', "receive_identifier", "requisition_identifier",)
 
