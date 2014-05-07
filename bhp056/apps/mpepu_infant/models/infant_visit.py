@@ -156,6 +156,7 @@ class InfantVisit(InfantOffStudyMixin, BaseVisitTracking):
         self.change_meta_data_status_if_info_source_is_telephone()
         self.change_meta_data_status_on_2180_if_visit_is_missed_at_2150()
         self.disable_dna_pcr_when_feeding_choice_is_formula_feeding()
+        self.get_new_v4_forms()
         super(InfantVisit, self).save(*args, **kwargs)
 
     def create_meta_if_visit_reason_is_death_when_sid_is_none(self):
@@ -284,6 +285,35 @@ class InfantVisit(InfantOffStudyMixin, BaseVisitTracking):
                     requisition_meta_data = requisition_meta_data[0]
                 requisition_meta_data.entry_status = 'NOT_REQUIRED'
                 requisition_meta_data.save()
+
+    def get_new_v4_forms(self):
+        new_forms = ['infantstoolcollection']
+        lab_model = ['infantrequisition']
+        from ...mpepu_maternal.models import MaternalConsent
+        check_consent = MaternalConsent.objects.filter(subject_identifier=self.registered_subject.relative_identifier)
+        if check_consent[0].consent_version_recent >= 4:
+            if self.appointment.visit_definition.code == '2010' and self.appointment.visit_definition.code == '2030' and self.appointment.visit_definition.code == '2060' and self.appointment.visit_definition.code == '2180':
+                for form in new_forms:
+                    entry = Entry.objects.filter(model_name=form, visit_definition_id=self.appointment.visit_definition_id)
+                    if entry:
+                        scheduled_meta_data = ScheduledEntryMetaData.objects.filter(appointment=self.appointment, entry=entry, registered_subject=self.registered_subject)
+                        if not scheduled_meta_data:
+                            scheduled_meta_data = ScheduledEntryMetaData.objects.create(appointment=self.appointment, entry=entry[0], registered_subject=self.registered_subject)
+                        else:
+                            scheduled_meta_data = scheduled_meta_data[0]
+                        scheduled_meta_data.entry_status = 'NEW'
+                        scheduled_meta_data.save()
+                for new_lab in lab_model:
+                    panel = Panel.objects.get(edc_name='Stool storage')
+                    lab_entry = LabEntry.objects.filter(model_name=new_lab, requisition_panel_id=panel.id, visit_definition_id=self.appointment.visit_definition_id)
+                    if lab_entry:
+                        requisition_meta_data = RequisitionMetaData.objects.filter(appointment=self.appointment, lab_entry=lab_entry, registered_subject=self.registered_subject)
+                        if not requisition_meta_data:
+                            requisition_meta_data = RequisitionMetaData.objects.create(appointment=self.appointment, lab_entry=lab_entry[0], registered_subject=self.registered_subject)
+                        else:
+                            requisition_meta_data = requisition_meta_data[0]
+                        requisition_meta_data.entry_status = 'NEW'
+                        requisition_meta_data.save()
 
     class Meta:
         db_table = 'mpepu_infant_infantvisit'

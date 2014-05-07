@@ -16,14 +16,14 @@ class MaternalEnrollRuleGroup(RuleGroup):
 
     prior_health_haart = ScheduledDataRule(
         logic=Logic(
-            predicate=('prior_health_haart', 'equals', 'yes'),
+            predicate=('prior_health_haart', 'equals', 'Yes'),
             consequence='new',
             alternative='not_required'),
         target_model=['maternalenrollarv'])
 
     prev_pregnancy_arv = ScheduledDataRule(
         logic=Logic(
-            predicate=('prev_pregnancy_arv', 'equals', 'yes'),
+            predicate=('prev_pregnancy_arv', 'equals', 'Yes'),
             consequence='new',
             alternative='not_required'),
         target_model=['maternalenrollclin'])
@@ -39,14 +39,14 @@ class MaternalArvPregRuleGroup(RuleGroup):
 
     took_arv = ScheduledDataRule(
         logic=Logic(
-            predicate=('took_arv', 'equals', 'yes'),
+            predicate=('took_arv', 'equals', 'Yes'),
             consequence='new',
             alternative='not_required'),
         target_model=['maternalarvpreghistory'])
 
     start_pp = ScheduledDataRule(
         logic=Logic(
-            predicate=('start_pp', 'equals', 'yes'),
+            predicate=('start_pp', 'equals', 'Yes'),
             consequence='new',
             alternative='not_required'),
         target_model=['maternalarvpphistory'])
@@ -62,7 +62,7 @@ class MaternalArvPostRuleGroup(RuleGroup):
 
     haart = ScheduledDataRule(
         logic=Logic(
-            predicate=(('haart_last_visit', 'equals', 'no'), ('arv_status', 'equals', 'never started', 'or')),
+            predicate=(('haart_last_visit', 'equals', 'No'), ('arv_status', 'equals', 'never started', 'or')),
             consequence='not_required',
             alternative='new'),
         target_model=['maternalarvpostadh'])
@@ -78,14 +78,14 @@ class FeedingChoiceRuleGroup(RuleGroup):
 
     first_time_feeding = ScheduledDataRule(
         logic=Logic(
-            predicate=('first_time_feeding', 'equals', 'no'),
+            predicate=('first_time_feeding', 'equals', 'No'),
             consequence='new',
             alternative='not_required'),
         target_model=['feedingchoicesectionone', 'feedingchoicesectiontwo', 'feedingchoicesectionthree'])
 
     first_time_feeding_yes = ScheduledDataRule(
         logic=Logic(
-            predicate=('first_time_feeding', 'equals', 'yes'),
+            predicate=('first_time_feeding', 'equals', 'Yes'),
             consequence='new',
             alternative='not_required'),
         target_model=['feedingchoicesectiontwo', 'feedingchoicesectionthree'])
