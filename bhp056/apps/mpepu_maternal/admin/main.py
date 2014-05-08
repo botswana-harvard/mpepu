@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 from .registered_subject_model_admin import RegisteredSubjectModelAdmin
-from ..models import MaternalDeath
+from ..models import MaternalDeath, MaternalVisit
 from ..forms import MaternalDeathForm
 
 
@@ -28,4 +28,11 @@ class MaternalDeathAdmin(RegisteredSubjectModelAdmin):
     radio_fields = {
         "perform_autopsy": admin.VERTICAL,
         "participant_hospitalized": admin.VERTICAL}
+
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if db_field.name == "maternal_visit":
+            if request.GET.get('maternal_visit'):
+                kwargs["queryset"] = MaternalVisit.objects.filter(id=request.GET.get('maternal_visit'))
+
+        return super(MaternalDeathAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 admin.site.register(MaternalDeath, MaternalDeathAdmin)

@@ -71,7 +71,7 @@ class MaternalVisit(MaternalOffStudyMixin, BaseVisitTracking):
                     scheduled_meta_data = scheduled_meta_data[0]
                 scheduled_meta_data.entry_status = 'NEW'
                 scheduled_meta_data.save()
-                return scheduled_meta_data
+            return scheduled_meta_data
 
     def create_meta_status_if_visit_reason_is_off_study(self):
         if self.reason == 'off study':
@@ -90,7 +90,7 @@ class MaternalVisit(MaternalOffStudyMixin, BaseVisitTracking):
         confirm_consent = MaternalConsent.objects.get(subject_identifier=self.registered_subject.subject_identifier)
         if confirm_consent.consent_version_recent >= 2:
             check = self.appointment.visit_definition.code == '2000M'
-            if check:
+            if check and self.reason != 'death':
                 avail_forms = ['feedingchoice', 'feedingchoicesectionone', 'feedingchoicesectiontwo', 'feedingchoicesectionthree']
                 for forms in avail_forms:
                     entry = Entry.objects.get(model_name=forms, visit_definition_id=self.appointment.visit_definition_id)

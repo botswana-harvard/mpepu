@@ -1,10 +1,12 @@
 from django.contrib import admin
 from edc.base.admin.admin import BaseModelAdmin, BaseTabularInline
+from edc.subject.registration.models import RegisteredSubject
+
 from ..models import (InfantHaart, InfantOffDrug, InfantOffStudy, InfantPrerandoLoss, InfantSurvival, InfantNvpAdherence,
                       InfantArvProphMod, InfantArvProph, InfantStudyDrugInit, InfantDeath, InfantFu, InfantFuPhysical,
                       InfantFuDxItems, InfantFuDx, InfantFuDx2ProphItems, InfantFuDx2Proph, InfantFuD, InfantFuMed,
                       InfantFuNewMedItems, InfantFuNewMed, InfantStudyDrugItems, InfantStudyDrug, InfantCtxPlaceboAdh,
-                      InfantFeeding)
+                      InfantFeeding, InfantVisit)
 from ..forms import (InfantHaartForm, InfantOffDrugForm, InfantOffStudyForm, InfantPrerandoLossForm, InfantSurvivalForm,
                      InfantNvpAdherenceForm, InfantArvProphModForm, InfantArvProphForm, InfantStudyDrugInitForm,
                      InfantDeathForm, InfantFuForm, InfantFuPhysicalForm, InfantFuDxItemsForm, InfantFuDxForm,
@@ -54,6 +56,13 @@ class InfantOffDrugAdmin(RegisteredSubjectModelAdmin):
     radio_fields = {
         "reason_off": admin.VERTICAL
     }
+
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if db_field.name == "infant_visit":
+            if request.GET.get('infant_visit'):
+                kwargs["queryset"] = InfantVisit.objects.filter(id=request.GET.get('infant_visit'))
+
+        return super(InfantOffDrugAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 admin.site.register(InfantOffDrug, InfantOffDrugAdmin)
 
 
@@ -72,6 +81,13 @@ class InfantOffStudyAdmin(OffStudyModelAdmin):
     )
     radio_fields = {
         "has_scheduled_data": admin.VERTICAL}
+
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if db_field.name == "infant_visit":
+            if request.GET.get('infant_visit'):
+                kwargs["queryset"] = InfantVisit.objects.filter(id=request.GET.get('infant_visit'))
+
+        return super(InfantOffStudyAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 admin.site.register(InfantOffStudy, InfantOffStudyAdmin)
 
 
@@ -89,6 +105,13 @@ class InfantPrerandoLossAdmin(RegisteredSubjectModelAdmin):
     radio_fields = {
         "loss_code": admin.VERTICAL
     }
+
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if db_field.name == "infant_visit":
+            if request.GET.get('infant_visit'):
+                kwargs["queryset"] = InfantVisit.objects.filter(id=request.GET.get('infant_visit'))
+
+        return super(InfantPrerandoLossAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 admin.site.register(InfantPrerandoLoss, InfantPrerandoLossAdmin)
 
 
@@ -107,6 +130,13 @@ class InfantSurvivalAdmin(RegisteredSubjectModelAdmin):
         "infant_survival_status": admin.VERTICAL,
         "info_provider": admin.VERTICAL
     }
+
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if db_field.name == "infant_visit":
+            if request.GET.get('infant_visit'):
+                kwargs["queryset"] = InfantVisit.objects.filter(id=request.GET.get('infant_visit'))
+
+        return super(InfantSurvivalAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 admin.site.register(InfantSurvival, InfantSurvivalAdmin)
 
 
@@ -222,6 +252,13 @@ class InfantDeathAdmin(RegisteredSubjectModelAdmin):
         "haart_relate": admin.VERTICAL,
         "trad_med_relate": admin.VERTICAL
     }
+
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if db_field.name == "infant_visit":
+            if request.GET.get('infant_visit'):
+                kwargs["queryset"] = InfantVisit.objects.filter(id=request.GET.get('infant_visit'))
+
+        return super(InfantDeathAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 admin.site.register(InfantDeath, InfantDeathAdmin)
 
 

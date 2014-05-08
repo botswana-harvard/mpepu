@@ -76,22 +76,6 @@ class InfantStudyDrugRuleGroup(RuleGroup):
 site_rule_groups.register(InfantStudyDrugRuleGroup)
 
 
-class InfantOffStudyDrugRuleGroup(RuleGroup):
-
-    on_placebo_status = ScheduledDataRule(
-        logic=Logic(
-            predicate=('id', 'ne', None),
-            consequence='not_required',
-            alternative='new'),
-        target_model=['infantctxplaceboadh'])
-
-    class Meta:
-        app_label = 'mpepu_infant'
-        source_fk = (InfantVisit, 'infant_visit')
-        source_model = InfantStudyDrug
-site_rule_groups.register(InfantOffStudyDrugRuleGroup)
-
-
 class StoolSamplingRuleGroup(RuleGroup):
 
     no_sample_taken = RequisitionRule(

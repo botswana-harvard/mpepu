@@ -298,7 +298,7 @@ class InfantVisit(InfantOffStudyMixin, BaseVisitTracking):
                 for form in new_forms:
                     entry = Entry.objects.filter(model_name=form, visit_definition_id=self.appointment.visit_definition_id)
                     if entry:
-                        scheduled_meta_data = ScheduledEntryMetaData.objects.filter(appointment=self.appointment, entry=entry, registered_subject=self.registered_subject)
+                        scheduled_meta_data = ScheduledEntryMetaData.objects.filter(appointment=self.appointment, entry=entry[0], registered_subject=self.registered_subject)
                         if not scheduled_meta_data:
                             scheduled_meta_data = ScheduledEntryMetaData.objects.create(appointment=self.appointment, entry=entry[0], registered_subject=self.registered_subject)
                         else:
@@ -309,7 +309,7 @@ class InfantVisit(InfantOffStudyMixin, BaseVisitTracking):
                     panel = Panel.objects.get(edc_name='Stool storage')
                     lab_entry = LabEntry.objects.filter(model_name=new_lab, requisition_panel_id=panel.id, visit_definition_id=self.appointment.visit_definition_id)
                     if lab_entry:
-                        requisition_meta_data = RequisitionMetaData.objects.filter(appointment=self.appointment, lab_entry=lab_entry, registered_subject=self.registered_subject)
+                        requisition_meta_data = RequisitionMetaData.objects.filter(appointment=self.appointment, lab_entry=lab_entry[0], registered_subject=self.registered_subject)
                         if not requisition_meta_data:
                             requisition_meta_data = RequisitionMetaData.objects.create(appointment=self.appointment, lab_entry=lab_entry[0], registered_subject=self.registered_subject)
                         else:

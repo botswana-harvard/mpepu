@@ -6,7 +6,8 @@ from edc.base.admin.admin import BaseTabularInline
 from ..models import (InfantCnsAbnormalityItems, InfantFacialDefectItems, InfantCleftDisorderItems, InfantMouthUpGastrointestinalItems,
                                  InfantCardiovascularDisorderItems, InfantRespiratoryDefectItems, InfantLowerGastrointestinalItems, InfantFemaleGenitalAnomalyItems,
                                  InfantMaleGenitalAnomalyItems, InfantRenalAnomalyItems, InfantMusculoskeletalAbnormalItems,
-                                 InfantSkinAbnormalItems, InfantTrisomiesChromosomeItems, InfantOtherAbnormalityItems, InfantCongenitalAnomalies, )
+                                 InfantSkinAbnormalItems, InfantTrisomiesChromosomeItems, InfantOtherAbnormalityItems, InfantCongenitalAnomalies,
+                                 InfantVisit)
 from ..forms import (InfantCongenitalAnomaliesForm, InfantCnsAbnormalityItemsForm, InfantFacialDefectItemsForm, InfantCleftDisorderItemsForm,
                      InfantMouthUpGastrointestinalItemsForm, InfantCardiovascularDisorderItemsForm, InfantRespiratoryDefectItemsForm, InfantLowerGastrointestinalItemsForm,
                      InfantFemaleGenitalAnomalyItemsForm, InfantMaleGenitalAnomalyItemsForm, InfantRenalAnomalyItemsForm, InfantMusculoskeletalAbnormalItemsForm, 
@@ -200,4 +201,11 @@ class InfantCongenitalAnomaliesAdmin(RegisteredSubjectModelAdmin):
         InfantSkinAbnormalItemsInlineAdmin,
         InfantTrisomiesChromosomeItemsInlineAdmin,
         InfantOtherAbnormalityItemsInlineAdmin]
+    
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if db_field.name == "infant_visit":
+            if request.GET.get('infant_visit'):
+                kwargs["queryset"] = InfantVisit.objects.filter(id=request.GET.get('infant_visit'))
+
+        return super(InfantCongenitalAnomaliesAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 admin.site.register(InfantCongenitalAnomalies, InfantCongenitalAnomaliesAdmin)
