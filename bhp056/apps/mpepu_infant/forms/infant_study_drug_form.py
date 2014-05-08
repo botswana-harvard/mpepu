@@ -44,7 +44,7 @@ class InfantStudyDrugItemsForm (BaseInfantModelForm):
                     raise forms.ValidationError("Dose status is 'Temporarily Held', modification reason cannot be {}.".format(reason))
 
         if cleaned_data.get('dose_status') == 'Permanently discontinued' and cleaned_data.get('modification_reason') == 'completed protocol':
-            if inf_study_drug.infant_visit.appointment.visit_definition.code != '2150' or inf_study_drug.infant_visit.appointment.visit_definition.code != '2180':
+            if inf_study_drug.infant_visit.appointment.visit_definition.code != '2150' and inf_study_drug.infant_visit.appointment.visit_definition.code != '2180':
                 raise forms.ValidationError("You indicated Completion of protocol as reason study drug is permanently discontinued yet this is visit {}."
                                             .format(inf_study_drug.infant_visit.appointment.visit_definition.code))
 
