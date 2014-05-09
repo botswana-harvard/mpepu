@@ -8,403 +8,1652 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Deleting model 'ArvResistanceEligibility'
-        db.delete_table(u'mpepu_maternal_arvresistanceeligibility')
-
-        # Deleting model 'ArvResistanceConsent'
-        db.delete_table(u'mpepu_maternal_arvresistanceconsent')
-
-        # Deleting model 'ArvResistanceEligibilityAudit'
-        db.delete_table(u'mpepu_maternal_arvresistanceeligibility_audit')
-
-        # Deleting model 'ArvResistanceConsentAudit'
-        db.delete_table(u'mpepu_maternal_arvresistanceconsent_audit')
-
-        # Deleting model 'ArvResistanceDiscAudit'
-        db.delete_table(u'mpepu_maternal_arvresistancedisc_audit')
-
-        # Deleting model 'ArvResistanceDisc'
-        db.delete_table(u'mpepu_maternal_arvresistancedisc')
+        # Adding model 'ResistanceConsent'
+#         db.create_table(u'mpepu_maternal_resistanceconsent', (
+#             ('created', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
+#             ('modified', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
+#             ('user_created', self.gf('django.db.models.fields.CharField')(default='', max_length=250, db_index=True)),
+#             ('user_modified', self.gf('django.db.models.fields.CharField')(default='', max_length=250, db_index=True)),
+#             ('hostname_created', self.gf('django.db.models.fields.CharField')(default='s007', max_length=50, db_index=True, blank=True)),
+#             ('hostname_modified', self.gf('django.db.models.fields.CharField')(default='s007', max_length=50, db_index=True, blank=True)),
+#             ('id', self.gf('django.db.models.fields.CharField')(max_length=36, primary_key=True)),
+#             ('revision', self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True)),
+#             ('subject_identifier_as_pk', self.gf('django.db.models.fields.CharField')(max_length=50, null=True, db_index=True)),
+#             ('first_name', self.gf('django.db.models.fields.CharField')(max_length=78L, null=True)),
+#             ('last_name', self.gf('django.db.models.fields.CharField')(max_length=78L, null=True)),
+#             ('initials', self.gf('django.db.models.fields.CharField')(max_length=10, null=True)),
+#             ('dob', self.gf('django.db.models.fields.DateField')(null=True)),
+#             ('is_dob_estimated', self.gf('django.db.models.fields.CharField')(max_length=25, null=True)),
+#             ('gender', self.gf('django.db.models.fields.CharField')(max_length=1, null=True)),
+#             ('subject_type', self.gf('django.db.models.fields.CharField')(max_length=25, null=True)),
+#             ('subject_identifier', self.gf('django.db.models.fields.CharField')(db_index=True, unique=True, max_length=50, blank=True)),
+#             ('study_site', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['bhp_variables.StudySite'], null=True)),
+#             ('consent_datetime', self.gf('django.db.models.fields.DateTimeField')()),
+#             ('guardian_name', self.gf('django.db.models.fields.CharField')(max_length=78L, null=True, blank=True)),
+#             ('may_store_samples', self.gf('django.db.models.fields.CharField')(max_length=3)),
+#             ('is_incarcerated', self.gf('django.db.models.fields.CharField')(default='-', max_length=3)),
+#             ('is_literate', self.gf('django.db.models.fields.CharField')(default='-', max_length=3)),
+#             ('witness_name', self.gf('django.db.models.fields.CharField')(max_length=78L, null=True, blank=True)),
+#             ('comment', self.gf('django.db.models.fields.CharField')(max_length=250, null=True, blank=True)),
+#             ('consent_version_on_entry', self.gf('django.db.models.fields.IntegerField')(default=1)),
+#             ('consent_version_recent', self.gf('django.db.models.fields.IntegerField')(default=1)),
+#             ('language', self.gf('django.db.models.fields.CharField')(default='not specified', max_length=25)),
+#             ('is_verified', self.gf('django.db.models.fields.BooleanField')(default=False)),
+#             ('is_verified_datetime', self.gf('django.db.models.fields.DateTimeField')(null=True)),
+#             ('consent_reviewed', self.gf('django.db.models.fields.CharField')(max_length=3, null=True)),
+#             ('study_questions', self.gf('django.db.models.fields.CharField')(max_length=3, null=True)),
+#             ('assessment_score', self.gf('django.db.models.fields.CharField')(max_length=3, null=True)),
+#             ('consent_copy', self.gf('django.db.models.fields.CharField')(max_length=20, null=True)),
+#             ('identity', self.gf('django.db.models.fields.CharField')(unique=True, max_length=78L)),
+#             ('identity_type', self.gf('django.db.models.fields.CharField')(max_length=15)),
+#             ('confirm_identity', self.gf('django.db.models.fields.CharField')(max_length=78L, null=True)),
+#             ('registered_subject', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['registration.RegisteredSubject'], unique=True, null=True)),
+#         ))
+#         db.send_create_signal('mpepu_maternal', ['ResistanceConsent'])
 
         # Adding model 'ResistanceDiscAudit'
-        db.create_table(u'mpepu_maternal_resistancedisc_audit', (
-            ('created', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
-            ('modified', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
-            ('user_created', self.gf('django.db.models.fields.CharField')(default='', max_length=250, db_index=True)),
-            ('user_modified', self.gf('django.db.models.fields.CharField')(default='', max_length=250, db_index=True)),
-            ('hostname_created', self.gf('django.db.models.fields.CharField')(default='silverapple', max_length=50, db_index=True, blank=True)),
-            ('hostname_modified', self.gf('django.db.models.fields.CharField')(default='silverapple', max_length=50, db_index=True, blank=True)),
-            ('revision', self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True)),
-            ('report_datetime', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2014, 3, 2, 0, 0))),
-            ('regimen', self.gf('django.db.models.fields.CharField')(max_length=15)),
-            ('date_arv_started', self.gf('django.db.models.fields.DateField')()),
-            ('discontinued_by', self.gf('django.db.models.fields.CharField')(max_length=3)),
-            ('stopped_once', self.gf('django.db.models.fields.CharField')(max_length=3)),
-            ('last_arv_date', self.gf('django.db.models.fields.DateField')(null=True, blank=True)),
-            ('last_ftc_date', self.gf('django.db.models.fields.DateField')(null=True, blank=True)),
-            ('last_tdf_date', self.gf('django.db.models.fields.DateField')(null=True, blank=True)),
-            ('last_3tc_date', self.gf('django.db.models.fields.DateField')(null=True, blank=True)),
-            ('as_prescribed', self.gf('django.db.models.fields.CharField')(max_length=50)),
-            ('info_source', self.gf('django.db.models.fields.CharField')(max_length=15)),
-            ('_audit_timestamp', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, db_index=True, blank=True)),
-            ('_audit_change_type', self.gf('django.db.models.fields.CharField')(max_length=1)),
-            ('id', self.gf('django.db.models.fields.CharField')(max_length=36)),
-            ('_audit_id', self.gf('django.db.models.fields.CharField')(max_length=36, primary_key=True)),
-            ('maternal_visit', self.gf('django.db.models.fields.related.ForeignKey')(related_name='_audit_resistancedisc', to=orm['mpepu_maternal.MaternalVisit'])),
-        ))
-        db.send_create_signal('mpepu_maternal', ['ResistanceDiscAudit'])
+#         db.create_table(u'mpepu_maternal_resistancedisc_audit', (
+#             ('created', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
+#             ('modified', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
+#             ('user_created', self.gf('django.db.models.fields.CharField')(default='', max_length=250, db_index=True)),
+#             ('user_modified', self.gf('django.db.models.fields.CharField')(default='', max_length=250, db_index=True)),
+#             ('hostname_created', self.gf('django.db.models.fields.CharField')(default='s007', max_length=50, db_index=True, blank=True)),
+#             ('hostname_modified', self.gf('django.db.models.fields.CharField')(default='s007', max_length=50, db_index=True, blank=True)),
+#             ('revision', self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True)),
+#             ('_audit_subject_identifier', self.gf('django.db.models.fields.CharField')(max_length=50, null=True)),
+#             ('report_datetime', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2014, 5, 5, 0, 0))),
+#             ('regimen', self.gf('django.db.models.fields.CharField')(max_length=15)),
+#             ('date_arv_started', self.gf('django.db.models.fields.DateField')()),
+#             ('discontinued_by', self.gf('django.db.models.fields.CharField')(max_length=3)),
+#             ('stopped_once', self.gf('django.db.models.fields.CharField')(max_length=3)),
+#             ('last_arv_date', self.gf('django.db.models.fields.DateField')(null=True, blank=True)),
+#             ('last_tdf_ftc_date', self.gf('django.db.models.fields.DateField')(null=True, blank=True)),
+#             ('last_tdf_date', self.gf('django.db.models.fields.DateField')(null=True, blank=True)),
+#             ('last_ftc_date', self.gf('django.db.models.fields.DateField')(null=True, blank=True)),
+#             ('last_3tc_date', self.gf('django.db.models.fields.DateField')(null=True, blank=True)),
+#             ('last_efv_date', self.gf('django.db.models.fields.DateField')(null=True, blank=True)),
+#             ('as_prescribed', self.gf('django.db.models.fields.CharField')(max_length=50)),
+#             ('info_source', self.gf('django.db.models.fields.CharField')(max_length=15)),
+#             ('info_source_other', self.gf('django.db.models.fields.CharField')(max_length=35, blank=True)),
+#             ('_audit_timestamp', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, db_index=True, blank=True)),
+#             ('_audit_change_type', self.gf('django.db.models.fields.CharField')(max_length=1)),
+#             ('id', self.gf('django.db.models.fields.CharField')(max_length=36)),
+#             ('_audit_id', self.gf('django.db.models.fields.CharField')(max_length=36, primary_key=True)),
+#             ('maternal_visit', self.gf('django.db.models.fields.related.ForeignKey')(related_name='_audit_resistancedisc', to=orm['mpepu_maternal.MaternalVisit'])),
+#         ))
+#         db.send_create_signal('mpepu_maternal', ['ResistanceDiscAudit'])
 
         # Adding model 'ResistanceEligibilityAudit'
-        db.create_table(u'mpepu_maternal_resistanceeligibility_audit', (
-            ('created', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
-            ('modified', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
-            ('user_created', self.gf('django.db.models.fields.CharField')(default='', max_length=250, db_index=True)),
-            ('user_modified', self.gf('django.db.models.fields.CharField')(default='', max_length=250, db_index=True)),
-            ('hostname_created', self.gf('django.db.models.fields.CharField')(default='silverapple', max_length=50, db_index=True, blank=True)),
-            ('hostname_modified', self.gf('django.db.models.fields.CharField')(default='silverapple', max_length=50, db_index=True, blank=True)),
-            ('revision', self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True)),
-            ('report_datetime', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2014, 3, 2, 0, 0))),
-            ('co_enrolled', self.gf('django.db.models.fields.CharField')(max_length=3)),
-            ('status_evidence', self.gf('django.db.models.fields.CharField')(max_length=3)),
-            ('lates_cd4', self.gf('django.db.models.fields.IntegerField')(max_length=4)),
-            ('who_illness', self.gf('django.db.models.fields.CharField')(max_length=3)),
-            ('stopped_arv', self.gf('django.db.models.fields.CharField')(max_length=3)),
-            ('incarcerated', self.gf('django.db.models.fields.CharField')(max_length=3)),
-            ('_audit_timestamp', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, db_index=True, blank=True)),
-            ('_audit_change_type', self.gf('django.db.models.fields.CharField')(max_length=1)),
-            ('id', self.gf('django.db.models.fields.CharField')(max_length=36)),
-            ('_audit_id', self.gf('django.db.models.fields.CharField')(max_length=36, primary_key=True)),
-            ('maternal_visit', self.gf('django.db.models.fields.related.ForeignKey')(related_name='_audit_resistanceeligibility', to=orm['mpepu_maternal.MaternalVisit'])),
-        ))
-        db.send_create_signal('mpepu_maternal', ['ResistanceEligibilityAudit'])
-
-        # Adding model 'ResistanceConsent'
-        db.create_table(u'mpepu_maternal_resistanceconsent', (
-            ('created', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
-            ('modified', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
-            ('user_created', self.gf('django.db.models.fields.CharField')(default='', max_length=250, db_index=True)),
-            ('user_modified', self.gf('django.db.models.fields.CharField')(default='', max_length=250, db_index=True)),
-            ('hostname_created', self.gf('django.db.models.fields.CharField')(default='silverapple', max_length=50, db_index=True, blank=True)),
-            ('hostname_modified', self.gf('django.db.models.fields.CharField')(default='silverapple', max_length=50, db_index=True, blank=True)),
-            ('id', self.gf('django.db.models.fields.CharField')(max_length=36, primary_key=True)),
-            ('revision', self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True)),
-            ('subject_identifier_as_pk', self.gf('django.db.models.fields.CharField')(max_length=50, null=True, db_index=True)),
-            ('first_name', self.gf('django.db.models.fields.CharField')(max_length=78L, null=True)),
-            ('last_name', self.gf('django.db.models.fields.CharField')(max_length=78L, null=True)),
-            ('initials', self.gf('django.db.models.fields.CharField')(max_length=10, null=True)),
-            ('dob', self.gf('django.db.models.fields.DateField')(null=True)),
-            ('is_dob_estimated', self.gf('django.db.models.fields.CharField')(max_length=25, null=True)),
-            ('gender', self.gf('django.db.models.fields.CharField')(max_length=1, null=True)),
-            ('subject_type', self.gf('django.db.models.fields.CharField')(max_length=25, null=True)),
-            ('subject_identifier', self.gf('django.db.models.fields.CharField')(db_index=True, unique=True, max_length=50, blank=True)),
-            ('study_site', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['bhp_variables.StudySite'], null=True)),
-            ('consent_datetime', self.gf('django.db.models.fields.DateTimeField')()),
-            ('guardian_name', self.gf('django.db.models.fields.CharField')(max_length=78L, null=True, blank=True)),
-            ('may_store_samples', self.gf('django.db.models.fields.CharField')(max_length=3)),
-            ('is_incarcerated', self.gf('django.db.models.fields.CharField')(default='-', max_length=3)),
-            ('is_literate', self.gf('django.db.models.fields.CharField')(default='-', max_length=3)),
-            ('witness_name', self.gf('django.db.models.fields.CharField')(max_length=78L, null=True, blank=True)),
-            ('comment', self.gf('django.db.models.fields.CharField')(max_length=250, null=True, blank=True)),
-            ('consent_version_on_entry', self.gf('django.db.models.fields.IntegerField')(default=1)),
-            ('consent_version_recent', self.gf('django.db.models.fields.IntegerField')(default=1)),
-            ('language', self.gf('django.db.models.fields.CharField')(default='not specified', max_length=25)),
-            ('is_verified', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('is_verified_datetime', self.gf('django.db.models.fields.DateTimeField')(null=True)),
-            ('consent_reviewed', self.gf('django.db.models.fields.CharField')(max_length=3, null=True)),
-            ('study_questions', self.gf('django.db.models.fields.CharField')(max_length=3, null=True)),
-            ('assessment_score', self.gf('django.db.models.fields.CharField')(max_length=3, null=True)),
-            ('consent_copy', self.gf('django.db.models.fields.CharField')(max_length=3, null=True)),
-            ('identity', self.gf('django.db.models.fields.CharField')(unique=True, max_length=78L)),
-            ('identity_type', self.gf('django.db.models.fields.CharField')(max_length=15)),
-            ('confirm_identity', self.gf('django.db.models.fields.CharField')(max_length=78L, null=True)),
-            ('registered_subject', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['registration.RegisteredSubject'], unique=True, null=True)),
-        ))
-        db.send_create_signal('mpepu_maternal', ['ResistanceConsent'])
+#         db.create_table(u'mpepu_maternal_resistanceeligibility_audit', (
+#             ('created', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
+#             ('modified', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
+#             ('user_created', self.gf('django.db.models.fields.CharField')(default='', max_length=250, db_index=True)),
+#             ('user_modified', self.gf('django.db.models.fields.CharField')(default='', max_length=250, db_index=True)),
+#             ('hostname_created', self.gf('django.db.models.fields.CharField')(default='s007', max_length=50, db_index=True, blank=True)),
+#             ('hostname_modified', self.gf('django.db.models.fields.CharField')(default='s007', max_length=50, db_index=True, blank=True)),
+#             ('revision', self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True)),
+#             ('_audit_subject_identifier', self.gf('django.db.models.fields.CharField')(max_length=50, null=True)),
+#             ('report_datetime', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2014, 5, 5, 0, 0))),
+#             ('co_enrolled', self.gf('django.db.models.fields.CharField')(max_length=3)),
+#             ('status_evidence', self.gf('django.db.models.fields.CharField')(max_length=3)),
+#             ('lates_cd4', self.gf('django.db.models.fields.IntegerField')(max_length=4)),
+#             ('who_illness', self.gf('django.db.models.fields.CharField')(max_length=3)),
+#             ('stopped_arv', self.gf('django.db.models.fields.CharField')(max_length=3)),
+#             ('incarcerated', self.gf('django.db.models.fields.CharField')(max_length=3)),
+#             ('_audit_timestamp', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, db_index=True, blank=True)),
+#             ('_audit_change_type', self.gf('django.db.models.fields.CharField')(max_length=1)),
+#             ('id', self.gf('django.db.models.fields.CharField')(max_length=36)),
+#             ('_audit_id', self.gf('django.db.models.fields.CharField')(max_length=36, primary_key=True)),
+#             ('maternal_visit', self.gf('django.db.models.fields.related.ForeignKey')(related_name='_audit_resistanceeligibility', to=orm['mpepu_maternal.MaternalVisit'])),
+#         ))
+#         db.send_create_signal('mpepu_maternal', ['ResistanceEligibilityAudit'])
 
         # Adding model 'ResistanceDisc'
-        db.create_table(u'mpepu_maternal_resistancedisc', (
-            ('created', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
-            ('modified', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
-            ('user_created', self.gf('django.db.models.fields.CharField')(default='', max_length=250, db_index=True)),
-            ('user_modified', self.gf('django.db.models.fields.CharField')(default='', max_length=250, db_index=True)),
-            ('hostname_created', self.gf('django.db.models.fields.CharField')(default='silverapple', max_length=50, db_index=True, blank=True)),
-            ('hostname_modified', self.gf('django.db.models.fields.CharField')(default='silverapple', max_length=50, db_index=True, blank=True)),
-            ('id', self.gf('django.db.models.fields.CharField')(max_length=36, primary_key=True)),
-            ('revision', self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True)),
-            ('report_datetime', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2014, 3, 2, 0, 0))),
-            ('maternal_visit', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['mpepu_maternal.MaternalVisit'], unique=True)),
-            ('regimen', self.gf('django.db.models.fields.CharField')(max_length=15)),
-            ('date_arv_started', self.gf('django.db.models.fields.DateField')()),
-            ('discontinued_by', self.gf('django.db.models.fields.CharField')(max_length=3)),
-            ('stopped_once', self.gf('django.db.models.fields.CharField')(max_length=3)),
-            ('last_arv_date', self.gf('django.db.models.fields.DateField')(null=True, blank=True)),
-            ('last_ftc_date', self.gf('django.db.models.fields.DateField')(null=True, blank=True)),
-            ('last_tdf_date', self.gf('django.db.models.fields.DateField')(null=True, blank=True)),
-            ('last_3tc_date', self.gf('django.db.models.fields.DateField')(null=True, blank=True)),
-            ('as_prescribed', self.gf('django.db.models.fields.CharField')(max_length=50)),
-            ('info_source', self.gf('django.db.models.fields.CharField')(max_length=15)),
-        ))
-        db.send_create_signal('mpepu_maternal', ['ResistanceDisc'])
+#         db.create_table(u'mpepu_maternal_resistancedisc', (
+#             ('created', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
+#             ('modified', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
+#             ('user_created', self.gf('django.db.models.fields.CharField')(default='', max_length=250, db_index=True)),
+#             ('user_modified', self.gf('django.db.models.fields.CharField')(default='', max_length=250, db_index=True)),
+#             ('hostname_created', self.gf('django.db.models.fields.CharField')(default='s007', max_length=50, db_index=True, blank=True)),
+#             ('hostname_modified', self.gf('django.db.models.fields.CharField')(default='s007', max_length=50, db_index=True, blank=True)),
+#             ('id', self.gf('django.db.models.fields.CharField')(max_length=36, primary_key=True)),
+#             ('revision', self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True)),
+#             ('report_datetime', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2014, 5, 5, 0, 0))),
+#             ('maternal_visit', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['mpepu_maternal.MaternalVisit'], unique=True)),
+#             ('regimen', self.gf('django.db.models.fields.CharField')(max_length=15)),
+#             ('date_arv_started', self.gf('django.db.models.fields.DateField')()),
+#             ('discontinued_by', self.gf('django.db.models.fields.CharField')(max_length=3)),
+#             ('stopped_once', self.gf('django.db.models.fields.CharField')(max_length=3)),
+#             ('last_arv_date', self.gf('django.db.models.fields.DateField')(null=True, blank=True)),
+#             ('last_tdf_ftc_date', self.gf('django.db.models.fields.DateField')(null=True, blank=True)),
+#             ('last_tdf_date', self.gf('django.db.models.fields.DateField')(null=True, blank=True)),
+#             ('last_ftc_date', self.gf('django.db.models.fields.DateField')(null=True, blank=True)),
+#             ('last_3tc_date', self.gf('django.db.models.fields.DateField')(null=True, blank=True)),
+#             ('last_efv_date', self.gf('django.db.models.fields.DateField')(null=True, blank=True)),
+#             ('as_prescribed', self.gf('django.db.models.fields.CharField')(max_length=50)),
+#             ('info_source', self.gf('django.db.models.fields.CharField')(max_length=15)),
+#             ('info_source_other', self.gf('django.db.models.fields.CharField')(max_length=35, blank=True)),
+#         ))
+#         db.send_create_signal('mpepu_maternal', ['ResistanceDisc'])
 
         # Adding model 'ResistanceEligibility'
-        db.create_table(u'mpepu_maternal_resistanceeligibility', (
-            ('created', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
-            ('modified', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
-            ('user_created', self.gf('django.db.models.fields.CharField')(default='', max_length=250, db_index=True)),
-            ('user_modified', self.gf('django.db.models.fields.CharField')(default='', max_length=250, db_index=True)),
-            ('hostname_created', self.gf('django.db.models.fields.CharField')(default='silverapple', max_length=50, db_index=True, blank=True)),
-            ('hostname_modified', self.gf('django.db.models.fields.CharField')(default='silverapple', max_length=50, db_index=True, blank=True)),
-            ('id', self.gf('django.db.models.fields.CharField')(max_length=36, primary_key=True)),
-            ('revision', self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True)),
-            ('report_datetime', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2014, 3, 2, 0, 0))),
-            ('maternal_visit', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['mpepu_maternal.MaternalVisit'], unique=True)),
-            ('co_enrolled', self.gf('django.db.models.fields.CharField')(max_length=3)),
-            ('status_evidence', self.gf('django.db.models.fields.CharField')(max_length=3)),
-            ('lates_cd4', self.gf('django.db.models.fields.IntegerField')(max_length=4)),
-            ('who_illness', self.gf('django.db.models.fields.CharField')(max_length=3)),
-            ('stopped_arv', self.gf('django.db.models.fields.CharField')(max_length=3)),
-            ('incarcerated', self.gf('django.db.models.fields.CharField')(max_length=3)),
-        ))
-        db.send_create_signal('mpepu_maternal', ['ResistanceEligibility'])
+#         db.create_table(u'mpepu_maternal_resistanceeligibility', (
+#             ('created', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
+#             ('modified', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
+#             ('user_created', self.gf('django.db.models.fields.CharField')(default='', max_length=250, db_index=True)),
+#             ('user_modified', self.gf('django.db.models.fields.CharField')(default='', max_length=250, db_index=True)),
+#             ('hostname_created', self.gf('django.db.models.fields.CharField')(default='s007', max_length=50, db_index=True, blank=True)),
+#             ('hostname_modified', self.gf('django.db.models.fields.CharField')(default='s007', max_length=50, db_index=True, blank=True)),
+#             ('id', self.gf('django.db.models.fields.CharField')(max_length=36, primary_key=True)),
+#             ('revision', self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True)),
+#             ('report_datetime', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2014, 5, 5, 0, 0))),
+#             ('maternal_visit', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['mpepu_maternal.MaternalVisit'], unique=True)),
+#             ('co_enrolled', self.gf('django.db.models.fields.CharField')(max_length=3)),
+#             ('status_evidence', self.gf('django.db.models.fields.CharField')(max_length=3)),
+#             ('lates_cd4', self.gf('django.db.models.fields.IntegerField')(max_length=4)),
+#             ('who_illness', self.gf('django.db.models.fields.CharField')(max_length=3)),
+#             ('stopped_arv', self.gf('django.db.models.fields.CharField')(max_length=3)),
+#             ('incarcerated', self.gf('django.db.models.fields.CharField')(max_length=3)),
+#         ))
+#         db.send_create_signal('mpepu_maternal', ['ResistanceEligibility'])
 
         # Adding model 'ResistanceConsentAudit'
-        db.create_table(u'mpepu_maternal_resistanceconsent_audit', (
-            ('created', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
-            ('modified', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
-            ('user_created', self.gf('django.db.models.fields.CharField')(default='', max_length=250, db_index=True)),
-            ('user_modified', self.gf('django.db.models.fields.CharField')(default='', max_length=250, db_index=True)),
-            ('hostname_created', self.gf('django.db.models.fields.CharField')(default='silverapple', max_length=50, db_index=True, blank=True)),
-            ('hostname_modified', self.gf('django.db.models.fields.CharField')(default='silverapple', max_length=50, db_index=True, blank=True)),
-            ('revision', self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True)),
-            ('subject_identifier_as_pk', self.gf('django.db.models.fields.CharField')(max_length=50, null=True, db_index=True)),
-            ('first_name', self.gf('django.db.models.fields.CharField')(max_length=78L, null=True)),
-            ('last_name', self.gf('django.db.models.fields.CharField')(max_length=78L, null=True)),
-            ('initials', self.gf('django.db.models.fields.CharField')(max_length=10, null=True)),
-            ('dob', self.gf('django.db.models.fields.DateField')(null=True)),
-            ('is_dob_estimated', self.gf('django.db.models.fields.CharField')(max_length=25, null=True)),
-            ('gender', self.gf('django.db.models.fields.CharField')(max_length=1, null=True)),
-            ('subject_type', self.gf('django.db.models.fields.CharField')(max_length=25, null=True)),
-            ('subject_identifier', self.gf('django.db.models.fields.CharField')(db_index=True, max_length=50, blank=True)),
-            ('study_site', self.gf('django.db.models.fields.related.ForeignKey')(related_name='_audit_resistanceconsent', null=True, to=orm['bhp_variables.StudySite'])),
-            ('consent_datetime', self.gf('django.db.models.fields.DateTimeField')()),
-            ('guardian_name', self.gf('django.db.models.fields.CharField')(max_length=78L, null=True, blank=True)),
-            ('may_store_samples', self.gf('django.db.models.fields.CharField')(max_length=3)),
-            ('is_incarcerated', self.gf('django.db.models.fields.CharField')(default='-', max_length=3)),
-            ('is_literate', self.gf('django.db.models.fields.CharField')(default='-', max_length=3)),
-            ('witness_name', self.gf('django.db.models.fields.CharField')(max_length=78L, null=True, blank=True)),
-            ('comment', self.gf('django.db.models.fields.CharField')(max_length=250, null=True, blank=True)),
-            ('consent_version_on_entry', self.gf('django.db.models.fields.IntegerField')(default=1)),
-            ('consent_version_recent', self.gf('django.db.models.fields.IntegerField')(default=1)),
-            ('language', self.gf('django.db.models.fields.CharField')(default='not specified', max_length=25)),
-            ('is_verified', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('is_verified_datetime', self.gf('django.db.models.fields.DateTimeField')(null=True)),
-            ('_audit_timestamp', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, db_index=True, blank=True)),
-            ('_audit_change_type', self.gf('django.db.models.fields.CharField')(max_length=1)),
-            ('id', self.gf('django.db.models.fields.CharField')(max_length=36)),
-            ('_audit_id', self.gf('django.db.models.fields.CharField')(max_length=36, primary_key=True)),
-            ('registered_subject', self.gf('django.db.models.fields.related.ForeignKey')(related_name='_audit_resistanceconsent', null=True, to=orm['registration.RegisteredSubject'])),
-        ))
-        db.send_create_signal('mpepu_maternal', ['ResistanceConsentAudit'])
+#         db.create_table(u'mpepu_maternal_resistanceconsent_audit', (
+#             ('created', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
+#             ('modified', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
+#             ('user_created', self.gf('django.db.models.fields.CharField')(default='', max_length=250, db_index=True)),
+#             ('user_modified', self.gf('django.db.models.fields.CharField')(default='', max_length=250, db_index=True)),
+#             ('hostname_created', self.gf('django.db.models.fields.CharField')(default='s007', max_length=50, db_index=True, blank=True)),
+#             ('hostname_modified', self.gf('django.db.models.fields.CharField')(default='s007', max_length=50, db_index=True, blank=True)),
+#             ('revision', self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True)),
+#             ('_audit_subject_identifier', self.gf('django.db.models.fields.CharField')(max_length=50, null=True)),
+#             ('subject_identifier_as_pk', self.gf('django.db.models.fields.CharField')(max_length=50, null=True, db_index=True)),
+#             ('first_name', self.gf('django.db.models.fields.CharField')(max_length=78L, null=True)),
+#             ('last_name', self.gf('django.db.models.fields.CharField')(max_length=78L, null=True)),
+#             ('initials', self.gf('django.db.models.fields.CharField')(max_length=10, null=True)),
+#             ('dob', self.gf('django.db.models.fields.DateField')(null=True)),
+#             ('is_dob_estimated', self.gf('django.db.models.fields.CharField')(max_length=25, null=True)),
+#             ('gender', self.gf('django.db.models.fields.CharField')(max_length=1, null=True)),
+#             ('subject_type', self.gf('django.db.models.fields.CharField')(max_length=25, null=True)),
+#             ('subject_identifier', self.gf('django.db.models.fields.CharField')(db_index=True, max_length=50, blank=True)),
+#             ('study_site', self.gf('django.db.models.fields.related.ForeignKey')(related_name='_audit_resistanceconsent', null=True, to=orm['bhp_variables.StudySite'])),
+#             ('consent_datetime', self.gf('django.db.models.fields.DateTimeField')()),
+#             ('guardian_name', self.gf('django.db.models.fields.CharField')(max_length=78L, null=True, blank=True)),
+#             ('may_store_samples', self.gf('django.db.models.fields.CharField')(max_length=3)),
+#             ('is_incarcerated', self.gf('django.db.models.fields.CharField')(default='-', max_length=3)),
+#             ('is_literate', self.gf('django.db.models.fields.CharField')(default='-', max_length=3)),
+#             ('witness_name', self.gf('django.db.models.fields.CharField')(max_length=78L, null=True, blank=True)),
+#             ('comment', self.gf('django.db.models.fields.CharField')(max_length=250, null=True, blank=True)),
+#             ('consent_version_on_entry', self.gf('django.db.models.fields.IntegerField')(default=1)),
+#             ('consent_version_recent', self.gf('django.db.models.fields.IntegerField')(default=1)),
+#             ('language', self.gf('django.db.models.fields.CharField')(default='not specified', max_length=25)),
+#             ('is_verified', self.gf('django.db.models.fields.BooleanField')(default=False)),
+#             ('is_verified_datetime', self.gf('django.db.models.fields.DateTimeField')(null=True)),
+#             ('consent_reviewed', self.gf('django.db.models.fields.CharField')(max_length=3, null=True)),
+#             ('study_questions', self.gf('django.db.models.fields.CharField')(max_length=3, null=True)),
+#             ('assessment_score', self.gf('django.db.models.fields.CharField')(max_length=3, null=True)),
+#             ('consent_copy', self.gf('django.db.models.fields.CharField')(max_length=20, null=True)),
+#             ('identity', self.gf('django.db.models.fields.CharField')(max_length=78L)),
+#             ('identity_type', self.gf('django.db.models.fields.CharField')(max_length=15)),
+#             ('confirm_identity', self.gf('django.db.models.fields.CharField')(max_length=78L, null=True)),
+#             ('_audit_timestamp', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, db_index=True, blank=True)),
+#             ('_audit_change_type', self.gf('django.db.models.fields.CharField')(max_length=1)),
+#             ('id', self.gf('django.db.models.fields.CharField')(max_length=36)),
+#             ('_audit_id', self.gf('django.db.models.fields.CharField')(max_length=36, primary_key=True)),
+#             ('registered_subject', self.gf('django.db.models.fields.related.ForeignKey')(related_name='_audit_resistanceconsent', null=True, to=orm['registration.RegisteredSubject'])),
+#         ))
+#         db.send_create_signal('mpepu_maternal', ['ResistanceConsentAudit'])
+
+        # Adding field 'MaternalEnrollDemAudit.revision'
+#         db.add_column(u'mpepu_maternal_maternalenrolldem_audit', 'revision',
+#                       self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True),
+#                       keep_default=False)
+# 
+#         # Adding field 'MaternalEnrollDemAudit.report_datetime'
+#         db.add_column(u'mpepu_maternal_maternalenrolldem_audit', 'report_datetime',
+#                       self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2014, 5, 5, 0, 0)),
+#                       keep_default=False)
+# 
+#         # Adding field 'MaternalArvPregHistoryAudit.revision'
+#         db.add_column(u'mpepu_maternal_maternalarvpreghistory_audit', 'revision',
+#                       self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True),
+#                       keep_default=False)
+# 
+#         # Adding field 'MaternalArvPregHistoryAudit.report_datetime'
+#         db.add_column(u'mpepu_maternal_maternalarvpreghistory_audit', 'report_datetime',
+#                       self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2014, 5, 5, 0, 0)),
+#                       keep_default=False)
+
+        # Adding field 'MaternalArvPregAudit.revision'
+#         db.add_column(u'mpepu_maternal_maternalarvpreg_audit', 'revision',
+#                       self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True),
+#                       keep_default=False)
+# 
+#         # Adding field 'MaternalArvPregAudit.report_datetime'
+#         db.add_column(u'mpepu_maternal_maternalarvpreg_audit', 'report_datetime',
+#                       self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2014, 5, 5, 0, 0)),
+#                       keep_default=False)
+
+        # Adding field 'MaternalVisit.revision'
+#         db.add_column('mpepu_maternal_maternalvisit', 'revision',
+#                       self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True),
+#                       keep_default=False)
+# 
+#         # Adding field 'MaternalVisit.subject_identifier'
+#         db.add_column('mpepu_maternal_maternalvisit', 'subject_identifier',
+#                       self.gf('django.db.models.fields.CharField')(default='', max_length=50),
+#                       keep_default=False)
+# 
+#         # Adding field 'MaternalVisit.survival_status'
+#         db.add_column('mpepu_maternal_maternalvisit', 'survival_status',
+#                       self.gf('django.db.models.fields.CharField')(max_length=10, null=True),
+#                       keep_default=False)
+# 
+#         # Adding field 'MaternalVisit.date_last_alive'
+#         db.add_column('mpepu_maternal_maternalvisit', 'date_last_alive',
+#                       self.gf('django.db.models.fields.DateField')(null=True, blank=True),
+#                       keep_default=False)
+
+
+        # Changing field 'MaternalVisit.appointment'
+#         db.alter_column('mpepu_maternal_maternalvisit', 'appointment_id', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['appointment.Appointment'], unique=True))
+        # Adding field 'MaternalLabDelMedAudit.revision'
+#         db.add_column(u'mpepu_maternal_maternallabdelmed_audit', 'revision',
+#                       self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True),
+#                       keep_default=False)
+# 
+#         # Adding field 'MaternalLabDelMedAudit.report_datetime'
+#         db.add_column(u'mpepu_maternal_maternallabdelmed_audit', 'report_datetime',
+#                       self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2014, 5, 5, 0, 0)),
+#                       keep_default=False)
+
+        # Adding field 'MaternalConsentAudit.revision'
+#         db.add_column(u'mpepu_maternal_maternalconsent_audit', 'revision',
+#                       self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True),
+#                       keep_default=False)
+# 
+#         # Adding field 'MaternalConsentAudit.language'
+#         db.add_column(u'mpepu_maternal_maternalconsent_audit', 'language',
+#                       self.gf('django.db.models.fields.CharField')(default='not specified', max_length=25),
+#                       keep_default=False)
+
+        # Adding field 'MaternalConsentAudit.registered_subject'
+#         db.add_column(u'mpepu_maternal_maternalconsent_audit', 'registered_subject',
+#                       self.gf('django.db.models.fields.related.ForeignKey')(related_name='_audit_maternalconsent', null=True, to=orm['registration.RegisteredSubject']),
+#                       keep_default=False)
+
+
+        # Changing field 'MaternalConsentAudit.consent_copy'
+#         db.alter_column(u'mpepu_maternal_maternalconsent_audit', 'consent_copy', self.gf('django.db.models.fields.CharField')(max_length=20, null=True))
+# 
+#         # Changing field 'MaternalConsentAudit.study_site'
+#         db.alter_column(u'mpepu_maternal_maternalconsent_audit', 'study_site_id', self.gf('django.db.models.fields.related.ForeignKey')(null=True, to=orm['bhp_variables.StudySite']))
+# 
+#         # Changing field 'MaternalConsentAudit.initials'
+#         db.alter_column(u'mpepu_maternal_maternalconsent_audit', 'initials', self.gf('django.db.models.fields.CharField')(max_length=10, null=True))
+        # Adding field 'MaternalVisitAudit.revision'
+#         db.add_column('mpepu_maternal_maternalvisit_audit', 'revision',
+#                       self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True),
+#                       keep_default=False)
+# 
+#         # Adding field 'MaternalVisitAudit.subject_identifier'
+#         db.add_column('mpepu_maternal_maternalvisit_audit', 'subject_identifier',
+#                       self.gf('django.db.models.fields.CharField')(default='', max_length=50),
+#                       keep_default=False)
+# 
+#         # Adding field 'MaternalVisitAudit.survival_status'
+#         db.add_column('mpepu_maternal_maternalvisit_audit', 'survival_status',
+#                       self.gf('django.db.models.fields.CharField')(max_length=10, null=True),
+#                       keep_default=False)
+# 
+#         # Adding field 'MaternalVisitAudit.date_last_alive'
+#         db.add_column('mpepu_maternal_maternalvisit_audit', 'date_last_alive',
+#                       self.gf('django.db.models.fields.DateField')(null=True, blank=True),
+#                       keep_default=False)
+
+
+        # Changing field 'MaternalVisitAudit.appointment'
+#         db.alter_column('mpepu_maternal_maternalvisit_audit', 'appointment_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['appointment.Appointment']))
+        # Adding field 'MaternalLabDelDxAudit.revision'
+#         db.add_column(u'mpepu_maternal_maternallabdeldx_audit', 'revision',
+#                       self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True),
+#                       keep_default=False)
+# 
+#         # Adding field 'MaternalLabDelDxAudit.report_datetime'
+#         db.add_column(u'mpepu_maternal_maternallabdeldx_audit', 'report_datetime',
+#                       self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2014, 5, 5, 0, 0)),
+#                       keep_default=False)
+
+        # Adding field 'MaternalArv.revision'
+#         db.add_column(u'mpepu_maternal_maternalarv', 'revision',
+#                       self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True),
+#                       keep_default=False)
+
+        # Adding field 'FeedingChoice.revision'
+#         db.add_column(u'mpepu_maternal_feedingchoice', 'revision',
+#                       self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True),
+#                       keep_default=False)
+# 
+#         # Adding field 'FeedingChoice.report_datetime'
+#         db.add_column(u'mpepu_maternal_feedingchoice', 'report_datetime',
+#                       self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2014, 5, 5, 0, 0)),
+#                       keep_default=False)
+
+        # Adding field 'MaternalDeathAudit.revision'
+#         db.add_column(u'mpepu_maternal_maternaldeath_audit', 'revision',
+#                       self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True),
+#                       keep_default=False)
+
+        # Adding field 'MaternalDeathAudit.maternal_visit'
+        db.add_column(u'mpepu_maternal_maternaldeath_audit', 'maternal_visit',
+                      self.gf('django.db.models.fields.related.ForeignKey')(null=True, blank=True, related_name='_audit_maternaldeath', to=orm['mpepu_maternal.MaternalVisit']),
+                      keep_default=False)
+
+
+        # Changing field 'MaternalDeathAudit.dx_code'
+        db.alter_column(u'mpepu_maternal_maternaldeath_audit', 'dx_code_id', self.gf('django.db.models.fields.related.ForeignKey')(max_length=25, to=orm['code_lists.DxCode']))
+
+        # Changing field 'MaternalDeathAudit.death_cause_category'
+        db.alter_column(u'mpepu_maternal_maternaldeath_audit', 'death_cause_category_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['adverse_event.DeathCauseCategory']))
+
+        # Changing field 'MaternalDeathAudit.registered_subject'
+        db.alter_column(u'mpepu_maternal_maternaldeath_audit', 'registered_subject_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['registration.RegisteredSubject']))
+
+        # Changing field 'MaternalDeathAudit.death_reason_hospitalized'
+        db.alter_column(u'mpepu_maternal_maternaldeath_audit', 'death_reason_hospitalized_id', self.gf('django.db.models.fields.related.ForeignKey')(null=True, to=orm['adverse_event.DeathReasonHospitalized']))
+
+        # Changing field 'MaternalDeathAudit.death_cause_info'
+        db.alter_column(u'mpepu_maternal_maternaldeath_audit', 'death_cause_info_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['adverse_event.DeathCauseInfo']))
+
+        # Changing field 'MaternalDeathAudit.death_medical_responsibility'
+        db.alter_column(u'mpepu_maternal_maternaldeath_audit', 'death_medical_responsibility_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['adverse_event.DeathMedicalResponsibility']))
+        # Adding field 'MaternalPostFuAudit.revision'
+        db.add_column(u'mpepu_maternal_maternalpostfu_audit', 'revision',
+                      self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True),
+                      keep_default=False)
+
+        # Adding field 'MaternalPostFuAudit.report_datetime'
+        db.add_column(u'mpepu_maternal_maternalpostfu_audit', 'report_datetime',
+                      self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2014, 5, 5, 0, 0)),
+                      keep_default=False)
+
+        # Adding field 'MaternalPostFuAudit.bp'
+        db.add_column(u'mpepu_maternal_maternalpostfu_audit', 'bp',
+                      self.gf('django.db.models.fields.CharField')(default='', max_length=7),
+                      keep_default=False)
+
+        # Adding field 'FeedingChoiceAudit.revision'
+        db.add_column(u'mpepu_maternal_feedingchoice_audit', 'revision',
+                      self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True),
+                      keep_default=False)
+
+        # Adding field 'FeedingChoiceAudit.report_datetime'
+        db.add_column(u'mpepu_maternal_feedingchoice_audit', 'report_datetime',
+                      self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2014, 5, 5, 0, 0)),
+                      keep_default=False)
+
+        # Adding field 'MaternalLabDelDx.revision'
+        db.add_column(u'mpepu_maternal_maternallabdeldx', 'revision',
+                      self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True),
+                      keep_default=False)
+
+        # Adding field 'MaternalLabDelDx.report_datetime'
+        db.add_column(u'mpepu_maternal_maternallabdeldx', 'report_datetime',
+                      self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2014, 5, 5, 0, 0)),
+                      keep_default=False)
+
+        # Adding field 'MaternalArvPregHistory.revision'
+        db.add_column(u'mpepu_maternal_maternalarvpreghistory', 'revision',
+                      self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True),
+                      keep_default=False)
+
+        # Adding field 'MaternalArvPregHistory.report_datetime'
+        db.add_column(u'mpepu_maternal_maternalarvpreghistory', 'report_datetime',
+                      self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2014, 5, 5, 0, 0)),
+                      keep_default=False)
+
+        # Adding field 'MaternalArvPostAdh.revision'
+        db.add_column(u'mpepu_maternal_maternalarvpostadh', 'revision',
+                      self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True),
+                      keep_default=False)
+
+        # Adding field 'MaternalArvPostAdh.report_datetime'
+        db.add_column(u'mpepu_maternal_maternalarvpostadh', 'report_datetime',
+                      self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2014, 5, 5, 0, 0)),
+                      keep_default=False)
+
+        # Adding field 'PostNatalInfantFeedingSurveyAudit.revision'
+        db.add_column(u'mpepu_maternal_postnatalinfantfeedingsurvey_audit', 'revision',
+                      self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True),
+                      keep_default=False)
+
+        # Adding field 'PostNatalInfantFeedingSurveyAudit.report_datetime'
+        db.add_column(u'mpepu_maternal_postnatalinfantfeedingsurvey_audit', 'report_datetime',
+                      self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2014, 5, 5, 0, 0)),
+                      keep_default=False)
+
+
+        # Changing field 'PostNatalInfantFeedingSurveyAudit.feeding_duration'
+        db.alter_column(u'mpepu_maternal_postnatalinfantfeedingsurvey_audit', 'feeding_duration', self.gf('django.db.models.fields.CharField')(max_length=10, null=True))
+        # Adding field 'MaternalEligibilityPostAudit.revision'
+        db.add_column(u'mpepu_maternal_maternaleligibilitypost_audit', 'revision',
+                      self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True),
+                      keep_default=False)
+
+
+        # Changing field 'MaternalEligibilityPostAudit.registered_subject'
+        db.alter_column(u'mpepu_maternal_maternaleligibilitypost_audit', 'registered_subject_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['registration.RegisteredSubject']))
+        # Adding field 'MaternalEnrollOb.revision'
+        db.add_column(u'mpepu_maternal_maternalenrollob', 'revision',
+                      self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True),
+                      keep_default=False)
+
+        # Adding field 'MaternalEnrollOb.report_datetime'
+        db.add_column(u'mpepu_maternal_maternalenrollob', 'report_datetime',
+                      self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2014, 5, 5, 0, 0)),
+                      keep_default=False)
+
+        # Adding field 'FeedingChoiceSectionOne.revision'
+        db.add_column(u'mpepu_maternal_feedingchoicesectionone', 'revision',
+                      self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True),
+                      keep_default=False)
+
+        # Adding field 'FeedingChoiceSectionOne.report_datetime'
+        db.add_column(u'mpepu_maternal_feedingchoicesectionone', 'report_datetime',
+                      self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2014, 5, 5, 0, 0)),
+                      keep_default=False)
+
+        # Adding field 'MaternalEnrollArv.revision'
+        db.add_column(u'mpepu_maternal_maternalenrollarv', 'revision',
+                      self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True),
+                      keep_default=False)
+
+        # Adding field 'MaternalEnrollArv.report_datetime'
+        db.add_column(u'mpepu_maternal_maternalenrollarv', 'report_datetime',
+                      self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2014, 5, 5, 0, 0)),
+                      keep_default=False)
+
+        # Adding field 'FeedingChoiceSectionTwo.revision'
+        db.add_column(u'mpepu_maternal_feedingchoicesectiontwo', 'revision',
+                      self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True),
+                      keep_default=False)
+
+        # Adding field 'FeedingChoiceSectionTwo.report_datetime'
+        db.add_column(u'mpepu_maternal_feedingchoicesectiontwo', 'report_datetime',
+                      self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2014, 5, 5, 0, 0)),
+                      keep_default=False)
+
+        # Adding field 'MaternalEligibilityAnteAudit.revision'
+        db.add_column(u'mpepu_maternal_maternaleligibilityante_audit', 'revision',
+                      self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True),
+                      keep_default=False)
+
+
+        # Changing field 'MaternalEligibilityAnteAudit.registered_subject'
+        db.alter_column(u'mpepu_maternal_maternaleligibilityante_audit', 'registered_subject_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['registration.RegisteredSubject']))
+        # Adding field 'MaternalLabDelDxTAudit.revision'
+        db.add_column(u'mpepu_maternal_maternallabdeldxt_audit', 'revision',
+                      self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True),
+                      keep_default=False)
+
+        # Adding field 'MaternalLabDelDxTAudit.report_datetime'
+        db.add_column(u'mpepu_maternal_maternallabdeldxt_audit', 'report_datetime',
+                      self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2014, 5, 5, 0, 0)),
+                      keep_default=False)
+
+
+        # Changing field 'MaternalLabDelDxTAudit.lab_del_dx'
+        db.alter_column(u'mpepu_maternal_maternallabdeldxt_audit', 'lab_del_dx', self.gf('django.db.models.fields.CharField')(max_length=175))
+        # Adding field 'PostNatalInfantFeedingSurvey.revision'
+        db.add_column(u'mpepu_maternal_postnatalinfantfeedingsurvey', 'revision',
+                      self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True),
+                      keep_default=False)
+
+        # Adding field 'PostNatalInfantFeedingSurvey.report_datetime'
+        db.add_column(u'mpepu_maternal_postnatalinfantfeedingsurvey', 'report_datetime',
+                      self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2014, 5, 5, 0, 0)),
+                      keep_default=False)
+
+
+        # Changing field 'PostNatalInfantFeedingSurvey.feeding_duration'
+        db.alter_column(u'mpepu_maternal_postnatalinfantfeedingsurvey', 'feeding_duration', self.gf('django.db.models.fields.CharField')(max_length=10, null=True))
+        # Adding field 'FeedingChoiceSectionTwoAudit.revision'
+        db.add_column(u'mpepu_maternal_feedingchoicesectiontwo_audit', 'revision',
+                      self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True),
+                      keep_default=False)
+
+        # Adding field 'FeedingChoiceSectionTwoAudit.report_datetime'
+        db.add_column(u'mpepu_maternal_feedingchoicesectiontwo_audit', 'report_datetime',
+                      self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2014, 5, 5, 0, 0)),
+                      keep_default=False)
+
+        # Adding field 'MaternalEnrollAudit.revision'
+        db.add_column(u'mpepu_maternal_maternalenroll_audit', 'revision',
+                      self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True),
+                      keep_default=False)
+
+        # Adding field 'MaternalEnrollAudit.report_datetime'
+        db.add_column(u'mpepu_maternal_maternalenroll_audit', 'report_datetime',
+                      self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2014, 5, 5, 0, 0)),
+                      keep_default=False)
+
+        # Adding field 'MaternalEnrollAudit.recruitment_clinic'
+        db.add_column(u'mpepu_maternal_maternalenroll_audit', 'recruitment_clinic',
+                      self.gf('django.db.models.fields.CharField')(default='', max_length=100),
+                      keep_default=False)
+
+        # Adding field 'MaternalEnrollAudit.recruitment_clinic_other'
+        db.add_column(u'mpepu_maternal_maternalenroll_audit', 'recruitment_clinic_other',
+                      self.gf('django.db.models.fields.CharField')(max_length=100, null=True, blank=True),
+                      keep_default=False)
+
+        # Adding field 'MaternalEnrollAudit.bp'
+        db.add_column(u'mpepu_maternal_maternalenroll_audit', 'bp',
+                      self.gf('django.db.models.fields.CharField')(default='', max_length=7),
+                      keep_default=False)
+
+        # Adding field 'FeedingChoiceSectionThree.revision'
+        db.add_column(u'mpepu_maternal_feedingchoicesectionthree', 'revision',
+                      self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True),
+                      keep_default=False)
+
+        # Adding field 'FeedingChoiceSectionThree.report_datetime'
+        db.add_column(u'mpepu_maternal_feedingchoicesectionthree', 'report_datetime',
+                      self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2014, 5, 5, 0, 0)),
+                      keep_default=False)
+
+        # Adding field 'MaternalOffStudy.revision'
+        db.add_column(u'mpepu_maternal_maternaloffstudy', 'revision',
+                      self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True),
+                      keep_default=False)
+
+        # Adding field 'MaternalOffStudy.maternal_visit'
+        db.add_column(u'mpepu_maternal_maternaloffstudy', 'maternal_visit',
+                      self.gf('django.db.models.fields.related.OneToOneField')(null=True, blank=True, to=orm['mpepu_maternal.MaternalVisit'], unique=True),
+                      keep_default=False)
+
+
+        # Changing field 'MaternalOffStudy.registered_subject'
+        db.alter_column(u'mpepu_maternal_maternaloffstudy', 'registered_subject_id', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['registration.RegisteredSubject'], unique=True))
+        # Adding field 'MaternalEligibilityPost.revision'
+        db.add_column(u'mpepu_maternal_maternaleligibilitypost', 'revision',
+                      self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True),
+                      keep_default=False)
+
+
+        # Changing field 'MaternalEligibilityPost.registered_subject'
+        db.alter_column(u'mpepu_maternal_maternaleligibilitypost', 'registered_subject_id', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['registration.RegisteredSubject'], unique=True))
+        # Adding field 'MaternalArvPostMod.revision'
+        db.add_column(u'mpepu_maternal_maternalarvpostmod', 'revision',
+                      self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True),
+                      keep_default=False)
+
+        # Adding field 'MaternalOffStudyAudit.revision'
+        db.add_column(u'mpepu_maternal_maternaloffstudy_audit', 'revision',
+                      self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True),
+                      keep_default=False)
+
+        # Adding field 'MaternalOffStudyAudit.maternal_visit'
+        db.add_column(u'mpepu_maternal_maternaloffstudy_audit', 'maternal_visit',
+                      self.gf('django.db.models.fields.related.ForeignKey')(null=True, blank=True, related_name='_audit_maternaloffstudy', to=orm['mpepu_maternal.MaternalVisit']),
+                      keep_default=False)
+
+
+        # Changing field 'MaternalOffStudyAudit.registered_subject'
+        db.alter_column(u'mpepu_maternal_maternaloffstudy_audit', 'registered_subject_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['registration.RegisteredSubject']))
+        # Adding field 'FeedingChoiceSectionOneAudit.revision'
+        db.add_column(u'mpepu_maternal_feedingchoicesectionone_audit', 'revision',
+                      self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True),
+                      keep_default=False)
+
+        # Adding field 'FeedingChoiceSectionOneAudit.report_datetime'
+        db.add_column(u'mpepu_maternal_feedingchoicesectionone_audit', 'report_datetime',
+                      self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2014, 5, 5, 0, 0)),
+                      keep_default=False)
+
+        # Adding field 'MaternalLabDelClinicAudit.revision'
+        db.add_column(u'mpepu_maternal_maternallabdelclinic_audit', 'revision',
+                      self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True),
+                      keep_default=False)
+
+        # Adding field 'MaternalLabDelClinicAudit.report_datetime'
+        db.add_column(u'mpepu_maternal_maternallabdelclinic_audit', 'report_datetime',
+                      self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2014, 5, 5, 0, 0)),
+                      keep_default=False)
+
+        # Adding field 'MaternalDeath.revision'
+        db.add_column(u'mpepu_maternal_maternaldeath', 'revision',
+                      self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True),
+                      keep_default=False)
+
+        # Adding field 'MaternalDeath.maternal_visit'
+        db.add_column(u'mpepu_maternal_maternaldeath', 'maternal_visit',
+                      self.gf('django.db.models.fields.related.OneToOneField')(null=True, blank=True, to=orm['mpepu_maternal.MaternalVisit'], unique=True),
+                      keep_default=False)
+
+
+        # Changing field 'MaternalDeath.dx_code'
+        db.alter_column(u'mpepu_maternal_maternaldeath', 'dx_code_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['code_lists.DxCode'], max_length=25))
+
+        # Changing field 'MaternalDeath.death_cause_category'
+        db.alter_column(u'mpepu_maternal_maternaldeath', 'death_cause_category_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['adverse_event.DeathCauseCategory']))
+
+        # Changing field 'MaternalDeath.registered_subject'
+        db.alter_column(u'mpepu_maternal_maternaldeath', 'registered_subject_id', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['registration.RegisteredSubject'], unique=True))
+
+        # Changing field 'MaternalDeath.death_reason_hospitalized'
+        db.alter_column(u'mpepu_maternal_maternaldeath', 'death_reason_hospitalized_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['adverse_event.DeathReasonHospitalized'], null=True))
+
+        # Changing field 'MaternalDeath.death_cause_info'
+        db.alter_column(u'mpepu_maternal_maternaldeath', 'death_cause_info_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['adverse_event.DeathCauseInfo']))
+
+        # Changing field 'MaternalDeath.death_medical_responsibility'
+        db.alter_column(u'mpepu_maternal_maternaldeath', 'death_medical_responsibility_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['adverse_event.DeathMedicalResponsibility']))
+        # Adding field 'MaternalEnrollClinAudit.revision'
+        db.add_column(u'mpepu_maternal_maternalenrollclin_audit', 'revision',
+                      self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True),
+                      keep_default=False)
+
+        # Adding field 'MaternalEnrollClinAudit.report_datetime'
+        db.add_column(u'mpepu_maternal_maternalenrollclin_audit', 'report_datetime',
+                      self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2014, 5, 5, 0, 0)),
+                      keep_default=False)
+
+        # Adding field 'MaternalArvPostModAudit.revision'
+        db.add_column(u'mpepu_maternal_maternalarvpostmod_audit', 'revision',
+                      self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True),
+                      keep_default=False)
+
+        # Adding field 'MaternalEligibilityAnte.revision'
+        db.add_column(u'mpepu_maternal_maternaleligibilityante', 'revision',
+                      self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True),
+                      keep_default=False)
+
+
+        # Changing field 'MaternalEligibilityAnte.registered_subject'
+        db.alter_column(u'mpepu_maternal_maternaleligibilityante', 'registered_subject_id', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['registration.RegisteredSubject'], unique=True))
+        # Adding field 'MaternalEnrollDx.revision'
+        db.add_column(u'mpepu_maternal_maternalenrolldx', 'revision',
+                      self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True),
+                      keep_default=False)
+
+        # Adding field 'MaternalEnrollDx.report_datetime'
+        db.add_column(u'mpepu_maternal_maternalenrolldx', 'report_datetime',
+                      self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2014, 5, 5, 0, 0)),
+                      keep_default=False)
+
+
+        # Changing field 'MaternalEnrollDx.diagnosis_year'
+        db.alter_column(u'mpepu_maternal_maternalenrolldx', 'diagnosis_year', self.gf('django.db.models.fields.IntegerField')(null=True))
+
+        # Changing field 'MaternalEnrollDx.diagnosis'
+        db.alter_column(u'mpepu_maternal_maternalenrolldx', 'diagnosis', self.gf('django.db.models.fields.CharField')(max_length=50, null=True))
+        # Adding field 'MaternalEnrollDxAudit.revision'
+        db.add_column(u'mpepu_maternal_maternalenrolldx_audit', 'revision',
+                      self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True),
+                      keep_default=False)
+
+        # Adding field 'MaternalEnrollDxAudit.report_datetime'
+        db.add_column(u'mpepu_maternal_maternalenrolldx_audit', 'report_datetime',
+                      self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2014, 5, 5, 0, 0)),
+                      keep_default=False)
+
+
+        # Changing field 'MaternalEnrollDxAudit.diagnosis_year'
+        db.alter_column(u'mpepu_maternal_maternalenrolldx_audit', 'diagnosis_year', self.gf('django.db.models.fields.IntegerField')(null=True))
+
+        # Changing field 'MaternalEnrollDxAudit.diagnosis'
+        db.alter_column(u'mpepu_maternal_maternalenrolldx_audit', 'diagnosis', self.gf('django.db.models.fields.CharField')(max_length=50, null=True))
+        # Adding field 'MaternalPostRegAudit.revision'
+        db.add_column(u'mpepu_maternal_maternalpostreg_audit', 'revision',
+                      self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True),
+                      keep_default=False)
+
+
+        # Changing field 'MaternalPostRegAudit.registered_subject'
+        db.alter_column(u'mpepu_maternal_maternalpostreg_audit', 'registered_subject_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['registration.RegisteredSubject']))
+        # Adding field 'MaternalArvPostAudit.revision'
+        db.add_column(u'mpepu_maternal_maternalarvpost_audit', 'revision',
+                      self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True),
+                      keep_default=False)
+
+        # Adding field 'MaternalArvPostAudit.report_datetime'
+        db.add_column(u'mpepu_maternal_maternalarvpost_audit', 'report_datetime',
+                      self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2014, 5, 5, 0, 0)),
+                      keep_default=False)
+
+        # Adding field 'MaternalEnroll.revision'
+        db.add_column(u'mpepu_maternal_maternalenroll', 'revision',
+                      self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True),
+                      keep_default=False)
+
+        # Adding field 'MaternalEnroll.report_datetime'
+        db.add_column(u'mpepu_maternal_maternalenroll', 'report_datetime',
+                      self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2014, 5, 5, 0, 0)),
+                      keep_default=False)
+
+        # Adding field 'MaternalEnroll.recruitment_clinic'
+        db.add_column(u'mpepu_maternal_maternalenroll', 'recruitment_clinic',
+                      self.gf('django.db.models.fields.CharField')(default='', max_length=100),
+                      keep_default=False)
+
+        # Adding field 'MaternalEnroll.recruitment_clinic_other'
+        db.add_column(u'mpepu_maternal_maternalenroll', 'recruitment_clinic_other',
+                      self.gf('django.db.models.fields.CharField')(max_length=100, null=True, blank=True),
+                      keep_default=False)
+
+        # Adding field 'MaternalEnroll.bp'
+        db.add_column(u'mpepu_maternal_maternalenroll', 'bp',
+                      self.gf('django.db.models.fields.CharField')(default='', max_length=7),
+                      keep_default=False)
+
+        # Adding field 'MaternalEnrollMed.revision'
+        db.add_column(u'mpepu_maternal_maternalenrollmed', 'revision',
+                      self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True),
+                      keep_default=False)
+
+        # Adding field 'MaternalEnrollMed.report_datetime'
+        db.add_column(u'mpepu_maternal_maternalenrollmed', 'report_datetime',
+                      self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2014, 5, 5, 0, 0)),
+                      keep_default=False)
+
+        # Adding field 'MaternalEnrollArvAudit.revision'
+        db.add_column(u'mpepu_maternal_maternalenrollarv_audit', 'revision',
+                      self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True),
+                      keep_default=False)
+
+        # Adding field 'MaternalEnrollArvAudit.report_datetime'
+        db.add_column(u'mpepu_maternal_maternalenrollarv_audit', 'report_datetime',
+                      self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2014, 5, 5, 0, 0)),
+                      keep_default=False)
+
+        # Adding field 'MaternalPostFu.revision'
+        db.add_column(u'mpepu_maternal_maternalpostfu', 'revision',
+                      self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True),
+                      keep_default=False)
+
+        # Adding field 'MaternalPostFu.report_datetime'
+        db.add_column(u'mpepu_maternal_maternalpostfu', 'report_datetime',
+                      self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2014, 5, 5, 0, 0)),
+                      keep_default=False)
+
+        # Adding field 'MaternalPostFu.bp'
+        db.add_column(u'mpepu_maternal_maternalpostfu', 'bp',
+                      self.gf('django.db.models.fields.CharField')(default='', max_length=7),
+                      keep_default=False)
+
+        # Adding field 'MaternalPostFuDxTAudit.revision'
+        db.add_column(u'mpepu_maternal_maternalpostfudxt_audit', 'revision',
+                      self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True),
+                      keep_default=False)
+
+        # Adding field 'MaternalPostFuDxTAudit.report_datetime'
+        db.add_column(u'mpepu_maternal_maternalpostfudxt_audit', 'report_datetime',
+                      self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2014, 5, 5, 0, 0)),
+                      keep_default=False)
+
+
+        # Changing field 'MaternalPostFuDxTAudit.hospitalized'
+        db.alter_column(u'mpepu_maternal_maternalpostfudxt_audit', 'hospitalized', self.gf('django.db.models.fields.CharField')(max_length=3, null=True))
+
+        # Changing field 'MaternalPostFuDxTAudit.grade'
+        db.alter_column(u'mpepu_maternal_maternalpostfudxt_audit', 'grade', self.gf('django.db.models.fields.IntegerField')(max_length=3, null=True))
+
+        # Changing field 'MaternalPostFuDxTAudit.post_fu_dx'
+        db.alter_column(u'mpepu_maternal_maternalpostfudxt_audit', 'post_fu_dx', self.gf('django.db.models.fields.CharField')(max_length=100, null=True))
+        # Adding field 'MaternalPostFuDxAudit.revision'
+        db.add_column(u'mpepu_maternal_maternalpostfudx_audit', 'revision',
+                      self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True),
+                      keep_default=False)
+
+        # Adding field 'MaternalPostFuDxAudit.report_datetime'
+        db.add_column(u'mpepu_maternal_maternalpostfudx_audit', 'report_datetime',
+                      self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2014, 5, 5, 0, 0)),
+                      keep_default=False)
+
+        # Adding field 'MaternalArvPostAdhAudit.revision'
+        db.add_column(u'mpepu_maternal_maternalarvpostadh_audit', 'revision',
+                      self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True),
+                      keep_default=False)
+
+        # Adding field 'MaternalArvPostAdhAudit.report_datetime'
+        db.add_column(u'mpepu_maternal_maternalarvpostadh_audit', 'report_datetime',
+                      self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2014, 5, 5, 0, 0)),
+                      keep_default=False)
+
+        # Adding field 'MaternalConsentUpdate.revision'
+        db.add_column(u'mpepu_maternal_maternalconsentupdate', 'revision',
+                      self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True),
+                      keep_default=False)
+
+
+        # Changing field 'MaternalConsentUpdate.consent_catalogue'
+        db.alter_column(u'mpepu_maternal_maternalconsentupdate', 'consent_catalogue_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['consent.ConsentCatalogue']))
+        # Adding field 'MaternalEnrollDem.revision'
+        db.add_column(u'mpepu_maternal_maternalenrolldem', 'revision',
+                      self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True),
+                      keep_default=False)
+
+        # Adding field 'MaternalEnrollDem.report_datetime'
+        db.add_column(u'mpepu_maternal_maternalenrolldem', 'report_datetime',
+                      self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2014, 5, 5, 0, 0)),
+                      keep_default=False)
+
+        # Adding field 'MaternalArvPPHistoryAudit.revision'
+        db.add_column(u'mpepu_maternal_maternalarvpphistory_audit', 'revision',
+                      self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True),
+                      keep_default=False)
+
+        # Adding field 'MaternalArvPPHistoryAudit.report_datetime'
+        db.add_column(u'mpepu_maternal_maternalarvpphistory_audit', 'report_datetime',
+                      self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2014, 5, 5, 0, 0)),
+                      keep_default=False)
+
+        # Adding field 'MaternalLabDelMed.revision'
+        db.add_column(u'mpepu_maternal_maternallabdelmed', 'revision',
+                      self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True),
+                      keep_default=False)
+
+        # Adding field 'MaternalLabDelMed.report_datetime'
+        db.add_column(u'mpepu_maternal_maternallabdelmed', 'report_datetime',
+                      self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2014, 5, 5, 0, 0)),
+                      keep_default=False)
+
+        # Adding field 'MaternalPostReg.revision'
+        db.add_column(u'mpepu_maternal_maternalpostreg', 'revision',
+                      self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True),
+                      keep_default=False)
+
+
+        # Changing field 'MaternalPostReg.registered_subject'
+        db.alter_column(u'mpepu_maternal_maternalpostreg', 'registered_subject_id', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['registration.RegisteredSubject'], unique=True))
+        # Adding field 'MaternalLocatorAudit.revision'
+        db.add_column(u'mpepu_maternal_maternallocator_audit', 'revision',
+                      self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True),
+                      keep_default=False)
+
+        # Adding field 'MaternalLocatorAudit.may_sms_follow_up'
+        db.add_column(u'mpepu_maternal_maternallocator_audit', 'may_sms_follow_up',
+                      self.gf('django.db.models.fields.CharField')(max_length=25, null=True),
+                      keep_default=False)
+
+
+        # Changing field 'MaternalLocatorAudit.registered_subject'
+        db.alter_column(u'mpepu_maternal_maternallocator_audit', 'registered_subject_id', self.gf('django.db.models.fields.related.ForeignKey')(null=True, to=orm['registration.RegisteredSubject']))
+        # Adding field 'MaternalArvPPHistory.revision'
+        db.add_column(u'mpepu_maternal_maternalarvpphistory', 'revision',
+                      self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True),
+                      keep_default=False)
+
+        # Adding field 'MaternalArvPPHistory.report_datetime'
+        db.add_column(u'mpepu_maternal_maternalarvpphistory', 'report_datetime',
+                      self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2014, 5, 5, 0, 0)),
+                      keep_default=False)
+
+        # Adding field 'MaternalArvPreg.revision'
+        db.add_column(u'mpepu_maternal_maternalarvpreg', 'revision',
+                      self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True),
+                      keep_default=False)
+
+        # Adding field 'MaternalArvPreg.report_datetime'
+        db.add_column(u'mpepu_maternal_maternalarvpreg', 'report_datetime',
+                      self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2014, 5, 5, 0, 0)),
+                      keep_default=False)
+
+        # Adding field 'MaternalPostFuDx.revision'
+        db.add_column(u'mpepu_maternal_maternalpostfudx', 'revision',
+                      self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True),
+                      keep_default=False)
+
+        # Adding field 'MaternalPostFuDx.report_datetime'
+        db.add_column(u'mpepu_maternal_maternalpostfudx', 'report_datetime',
+                      self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2014, 5, 5, 0, 0)),
+                      keep_default=False)
+
+        # Adding field 'MaternalLabDelClinic.revision'
+        db.add_column(u'mpepu_maternal_maternallabdelclinic', 'revision',
+                      self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True),
+                      keep_default=False)
+
+        # Adding field 'MaternalLabDelClinic.report_datetime'
+        db.add_column(u'mpepu_maternal_maternallabdelclinic', 'report_datetime',
+                      self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2014, 5, 5, 0, 0)),
+                      keep_default=False)
+
+        # Adding field 'MaternalEnrollClin.revision'
+        db.add_column(u'mpepu_maternal_maternalenrollclin', 'revision',
+                      self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True),
+                      keep_default=False)
+
+        # Adding field 'MaternalEnrollClin.report_datetime'
+        db.add_column(u'mpepu_maternal_maternalenrollclin', 'report_datetime',
+                      self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2014, 5, 5, 0, 0)),
+                      keep_default=False)
+
+        # Adding field 'MaternalLabDelDxT.revision'
+        db.add_column(u'mpepu_maternal_maternallabdeldxt', 'revision',
+                      self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True),
+                      keep_default=False)
+
+        # Adding field 'MaternalLabDelDxT.report_datetime'
+        db.add_column(u'mpepu_maternal_maternallabdeldxt', 'report_datetime',
+                      self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2014, 5, 5, 0, 0)),
+                      keep_default=False)
+
+
+        # Changing field 'MaternalLabDelDxT.lab_del_dx'
+        db.alter_column(u'mpepu_maternal_maternallabdeldxt', 'lab_del_dx', self.gf('django.db.models.fields.CharField')(max_length=175))
+        # Adding field 'MaternalArvAudit.revision'
+        db.add_column(u'mpepu_maternal_maternalarv_audit', 'revision',
+                      self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True),
+                      keep_default=False)
+
+        # Adding field 'MaternalPostFuDxT.revision'
+        db.add_column(u'mpepu_maternal_maternalpostfudxt', 'revision',
+                      self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True),
+                      keep_default=False)
+
+        # Adding field 'MaternalPostFuDxT.report_datetime'
+        db.add_column(u'mpepu_maternal_maternalpostfudxt', 'report_datetime',
+                      self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2014, 5, 5, 0, 0)),
+                      keep_default=False)
+
+
+        # Changing field 'MaternalPostFuDxT.hospitalized'
+        db.alter_column(u'mpepu_maternal_maternalpostfudxt', 'hospitalized', self.gf('django.db.models.fields.CharField')(max_length=3, null=True))
+
+        # Changing field 'MaternalPostFuDxT.grade'
+        db.alter_column(u'mpepu_maternal_maternalpostfudxt', 'grade', self.gf('django.db.models.fields.IntegerField')(max_length=3, null=True))
+
+        # Changing field 'MaternalPostFuDxT.post_fu_dx'
+        db.alter_column(u'mpepu_maternal_maternalpostfudxt', 'post_fu_dx', self.gf('django.db.models.fields.CharField')(max_length=100, null=True))
+        # Adding field 'MaternalEnrollObAudit.revision'
+        db.add_column(u'mpepu_maternal_maternalenrollob_audit', 'revision',
+                      self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True),
+                      keep_default=False)
+
+        # Adding field 'MaternalEnrollObAudit.report_datetime'
+        db.add_column(u'mpepu_maternal_maternalenrollob_audit', 'report_datetime',
+                      self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2014, 5, 5, 0, 0)),
+                      keep_default=False)
+
+        # Adding field 'FeedingChoiceSectionThreeAudit.revision'
+        db.add_column(u'mpepu_maternal_feedingchoicesectionthree_audit', 'revision',
+                      self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True),
+                      keep_default=False)
+
+        # Adding field 'FeedingChoiceSectionThreeAudit.report_datetime'
+        db.add_column(u'mpepu_maternal_feedingchoicesectionthree_audit', 'report_datetime',
+                      self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2014, 5, 5, 0, 0)),
+                      keep_default=False)
+
+        # Adding field 'MaternalLabDelAudit.revision'
+        db.add_column(u'mpepu_maternal_maternallabdel_audit', 'revision',
+                      self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True),
+                      keep_default=False)
+
+        # Adding field 'MaternalLabDelAudit.report_datetime'
+        db.add_column(u'mpepu_maternal_maternallabdel_audit', 'report_datetime',
+                      self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2014, 5, 5, 0, 0)),
+                      keep_default=False)
+
+        # Adding field 'MaternalConsent.revision'
+        db.add_column(u'mpepu_maternal_maternalconsent', 'revision',
+                      self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True),
+                      keep_default=False)
+
+        # Adding field 'MaternalConsent.language'
+        db.add_column(u'mpepu_maternal_maternalconsent', 'language',
+                      self.gf('django.db.models.fields.CharField')(default='not specified', max_length=25),
+                      keep_default=False)
+
+        # Adding field 'MaternalConsent.registered_subject'
+        db.add_column(u'mpepu_maternal_maternalconsent', 'registered_subject',
+                      self.gf('django.db.models.fields.related.ForeignKey')(to=orm['registration.RegisteredSubject'], null=True),
+                      keep_default=False)
+
+
+        # Changing field 'MaternalConsent.consent_copy'
+        db.alter_column(u'mpepu_maternal_maternalconsent', 'consent_copy', self.gf('django.db.models.fields.CharField')(max_length=20, null=True))
+
+        # Changing field 'MaternalConsent.study_site'
+        db.alter_column(u'mpepu_maternal_maternalconsent', 'study_site_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['bhp_variables.StudySite'], null=True))
+
+        # Changing field 'MaternalConsent.initials'
+        db.alter_column(u'mpepu_maternal_maternalconsent', 'initials', self.gf('django.db.models.fields.CharField')(max_length=10, null=True))
+        # Adding field 'MaternalArvPost.revision'
+        db.add_column(u'mpepu_maternal_maternalarvpost', 'revision',
+                      self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True),
+                      keep_default=False)
+
+        # Adding field 'MaternalArvPost.report_datetime'
+        db.add_column(u'mpepu_maternal_maternalarvpost', 'report_datetime',
+                      self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2014, 5, 5, 0, 0)),
+                      keep_default=False)
+
+        # Adding field 'MaternalEnrollMedAudit.revision'
+        db.add_column(u'mpepu_maternal_maternalenrollmed_audit', 'revision',
+                      self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True),
+                      keep_default=False)
+
+        # Adding field 'MaternalEnrollMedAudit.report_datetime'
+        db.add_column(u'mpepu_maternal_maternalenrollmed_audit', 'report_datetime',
+                      self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2014, 5, 5, 0, 0)),
+                      keep_default=False)
+
+        # Adding field 'MaternalLocator.revision'
+        db.add_column(u'mpepu_maternal_maternallocator', 'revision',
+                      self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True),
+                      keep_default=False)
+
+        # Adding field 'MaternalLocator.may_sms_follow_up'
+        db.add_column(u'mpepu_maternal_maternallocator', 'may_sms_follow_up',
+                      self.gf('django.db.models.fields.CharField')(max_length=25, null=True),
+                      keep_default=False)
+
+
+        # Changing field 'MaternalLocator.registered_subject'
+        db.alter_column(u'mpepu_maternal_maternallocator', 'registered_subject_id', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['registration.RegisteredSubject'], unique=True, null=True))
+        # Adding field 'MaternalLabDel.revision'
+        db.add_column(u'mpepu_maternal_maternallabdel', 'revision',
+                      self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True),
+                      keep_default=False)
+
+        # Adding field 'MaternalLabDel.report_datetime'
+        db.add_column(u'mpepu_maternal_maternallabdel', 'report_datetime',
+                      self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2014, 5, 5, 0, 0)),
+                      keep_default=False)
 
 
     def backwards(self, orm):
-        # Adding model 'ArvResistanceEligibility'
-        db.create_table(u'mpepu_maternal_arvresistanceeligibility', (
-            ('hostname_created', self.gf('django.db.models.fields.CharField')(default='silverapple', max_length=50, blank=True, db_index=True)),
-            ('created', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
-            ('incarcerated', self.gf('django.db.models.fields.CharField')(max_length=3)),
-            ('lates_cd4', self.gf('django.db.models.fields.IntegerField')(max_length=4)),
-            ('co_enrolled', self.gf('django.db.models.fields.CharField')(max_length=3)),
-            ('hostname_modified', self.gf('django.db.models.fields.CharField')(default='silverapple', max_length=50, blank=True, db_index=True)),
-            ('modified', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
-            ('user_modified', self.gf('django.db.models.fields.CharField')(default='', max_length=250, db_index=True)),
-            ('maternal_visit', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['mpepu_maternal.MaternalVisit'], unique=True)),
-            ('who_illness', self.gf('django.db.models.fields.CharField')(max_length=3)),
-            ('status_evidence', self.gf('django.db.models.fields.CharField')(max_length=3)),
-            ('user_created', self.gf('django.db.models.fields.CharField')(default='', max_length=250, db_index=True)),
-            ('report_datetime', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2014, 2, 28, 0, 0))),
-            ('stopped_arv', self.gf('django.db.models.fields.CharField')(max_length=3)),
-            ('id', self.gf('django.db.models.fields.CharField')(max_length=36, primary_key=True)),
-            ('revision', self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True)),
-        ))
-        db.send_create_signal('mpepu_maternal', ['ArvResistanceEligibility'])
-
-        # Adding model 'ArvResistanceConsent'
-        db.create_table(u'mpepu_maternal_arvresistanceconsent', (
-            ('comment', self.gf('django.db.models.fields.CharField')(max_length=250, null=True, blank=True)),
-            ('confirm_identity', self.gf('django.db.models.fields.CharField')(max_length=78L, null=True)),
-            ('consent_reviewed', self.gf('django.db.models.fields.CharField')(max_length=3, null=True)),
-            ('last_name', self.gf('django.db.models.fields.CharField')(max_length=78L, null=True)),
-            ('may_store_samples', self.gf('django.db.models.fields.CharField')(max_length=3)),
-            ('consent_datetime', self.gf('django.db.models.fields.DateTimeField')()),
-            ('witness_name', self.gf('django.db.models.fields.CharField')(max_length=78L, null=True, blank=True)),
-            ('assessment_score', self.gf('django.db.models.fields.CharField')(max_length=3, null=True)),
-            ('consent_version_on_entry', self.gf('django.db.models.fields.IntegerField')(default=1)),
-            ('consent_version_recent', self.gf('django.db.models.fields.IntegerField')(default=1)),
-            ('registered_subject', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['registration.RegisteredSubject'], unique=True, null=True)),
-            ('subject_identifier', self.gf('django.db.models.fields.CharField')(blank=True, max_length=50, unique=True, db_index=True)),
-            ('is_literate', self.gf('django.db.models.fields.CharField')(default='-', max_length=3)),
-            ('subject_identifier_as_pk', self.gf('django.db.models.fields.CharField')(max_length=50, null=True, db_index=True)),
-            ('user_modified', self.gf('django.db.models.fields.CharField')(default='', max_length=250, db_index=True)),
-            ('consent_copy', self.gf('django.db.models.fields.CharField')(max_length=3, null=True)),
-            ('user_created', self.gf('django.db.models.fields.CharField')(default='', max_length=250, db_index=True)),
-            ('id', self.gf('django.db.models.fields.CharField')(max_length=36, primary_key=True)),
-            ('identity', self.gf('django.db.models.fields.CharField')(max_length=78L, unique=True)),
-            ('first_name', self.gf('django.db.models.fields.CharField')(max_length=78L, null=True)),
-            ('study_site', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['bhp_variables.StudySite'], null=True)),
-            ('identity_type', self.gf('django.db.models.fields.CharField')(max_length=15)),
-            ('language', self.gf('django.db.models.fields.CharField')(default='not specified', max_length=25)),
-            ('created', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
-            ('dob', self.gf('django.db.models.fields.DateField')(null=True)),
-            ('gender', self.gf('django.db.models.fields.CharField')(max_length=1, null=True)),
-            ('subject_type', self.gf('django.db.models.fields.CharField')(max_length=25, null=True)),
-            ('modified', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
-            ('hostname_modified', self.gf('django.db.models.fields.CharField')(default='silverapple', max_length=50, blank=True, db_index=True)),
-            ('is_verified_datetime', self.gf('django.db.models.fields.DateTimeField')(null=True)),
-            ('guardian_name', self.gf('django.db.models.fields.CharField')(max_length=78L, null=True, blank=True)),
-            ('is_dob_estimated', self.gf('django.db.models.fields.CharField')(max_length=25, null=True)),
-            ('study_questions', self.gf('django.db.models.fields.CharField')(max_length=3, null=True)),
-            ('revision', self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True)),
-            ('is_verified', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('is_incarcerated', self.gf('django.db.models.fields.CharField')(default='-', max_length=3)),
-            ('hostname_created', self.gf('django.db.models.fields.CharField')(default='silverapple', max_length=50, blank=True, db_index=True)),
-            ('initials', self.gf('django.db.models.fields.CharField')(max_length=10, null=True)),
-        ))
-        db.send_create_signal('mpepu_maternal', ['ArvResistanceConsent'])
-
-        # Adding model 'ArvResistanceEligibilityAudit'
-        db.create_table(u'mpepu_maternal_arvresistanceeligibility_audit', (
-            ('status_evidence', self.gf('django.db.models.fields.CharField')(max_length=3)),
-            ('hostname_created', self.gf('django.db.models.fields.CharField')(default='silverapple', max_length=50, blank=True, db_index=True)),
-            ('created', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
-            ('_audit_change_type', self.gf('django.db.models.fields.CharField')(max_length=1)),
-            ('incarcerated', self.gf('django.db.models.fields.CharField')(max_length=3)),
-            ('lates_cd4', self.gf('django.db.models.fields.IntegerField')(max_length=4)),
-            ('co_enrolled', self.gf('django.db.models.fields.CharField')(max_length=3)),
-            ('hostname_modified', self.gf('django.db.models.fields.CharField')(default='silverapple', max_length=50, blank=True, db_index=True)),
-            ('modified', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
-            ('_audit_id', self.gf('django.db.models.fields.CharField')(max_length=36, primary_key=True)),
-            ('user_modified', self.gf('django.db.models.fields.CharField')(default='', max_length=250, db_index=True)),
-            ('maternal_visit', self.gf('django.db.models.fields.related.ForeignKey')(related_name='_audit_arvresistanceeligibility', to=orm['mpepu_maternal.MaternalVisit'])),
-            ('who_illness', self.gf('django.db.models.fields.CharField')(max_length=3)),
-            ('report_datetime', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2014, 2, 28, 0, 0))),
-            ('user_created', self.gf('django.db.models.fields.CharField')(default='', max_length=250, db_index=True)),
-            ('_audit_timestamp', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True, db_index=True)),
-            ('stopped_arv', self.gf('django.db.models.fields.CharField')(max_length=3)),
-            ('id', self.gf('django.db.models.fields.CharField')(max_length=36)),
-            ('revision', self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True)),
-        ))
-        db.send_create_signal('mpepu_maternal', ['ArvResistanceEligibilityAudit'])
-
-        # Adding model 'ArvResistanceConsentAudit'
-        db.create_table(u'mpepu_maternal_arvresistanceconsent_audit', (
-            ('comment', self.gf('django.db.models.fields.CharField')(max_length=250, null=True, blank=True)),
-            ('consent_version_on_entry', self.gf('django.db.models.fields.IntegerField')(default=1)),
-            ('hostname_created', self.gf('django.db.models.fields.CharField')(default='silverapple', max_length=50, blank=True, db_index=True)),
-            ('last_name', self.gf('django.db.models.fields.CharField')(max_length=78L, null=True)),
-            ('may_store_samples', self.gf('django.db.models.fields.CharField')(max_length=3)),
-            ('_audit_change_type', self.gf('django.db.models.fields.CharField')(max_length=1)),
-            ('consent_version_recent', self.gf('django.db.models.fields.IntegerField')(default=1)),
-            ('registered_subject', self.gf('django.db.models.fields.related.ForeignKey')(related_name='_audit_arvresistanceconsent', null=True, to=orm['registration.RegisteredSubject'])),
-            ('_audit_id', self.gf('django.db.models.fields.CharField')(max_length=36, primary_key=True)),
-            ('is_literate', self.gf('django.db.models.fields.CharField')(default='-', max_length=3)),
-            ('subject_type', self.gf('django.db.models.fields.CharField')(max_length=25, null=True)),
-            ('consent_datetime', self.gf('django.db.models.fields.DateTimeField')()),
-            ('witness_name', self.gf('django.db.models.fields.CharField')(max_length=78L, null=True, blank=True)),
-            ('user_created', self.gf('django.db.models.fields.CharField')(default='', max_length=250, db_index=True)),
-            ('_audit_timestamp', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True, db_index=True)),
-            ('id', self.gf('django.db.models.fields.CharField')(max_length=36)),
-            ('study_site', self.gf('django.db.models.fields.related.ForeignKey')(related_name='_audit_arvresistanceconsent', null=True, to=orm['bhp_variables.StudySite'])),
-            ('first_name', self.gf('django.db.models.fields.CharField')(max_length=78L, null=True)),
-            ('subject_identifier_as_pk', self.gf('django.db.models.fields.CharField')(max_length=50, null=True, db_index=True)),
-            ('language', self.gf('django.db.models.fields.CharField')(default='not specified', max_length=25)),
-            ('created', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
-            ('dob', self.gf('django.db.models.fields.DateField')(null=True)),
-            ('gender', self.gf('django.db.models.fields.CharField')(max_length=1, null=True)),
-            ('user_modified', self.gf('django.db.models.fields.CharField')(default='', max_length=250, db_index=True)),
-            ('modified', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
-            ('hostname_modified', self.gf('django.db.models.fields.CharField')(default='silverapple', max_length=50, blank=True, db_index=True)),
-            ('is_verified_datetime', self.gf('django.db.models.fields.DateTimeField')(null=True)),
-            ('guardian_name', self.gf('django.db.models.fields.CharField')(max_length=78L, null=True, blank=True)),
-            ('is_dob_estimated', self.gf('django.db.models.fields.CharField')(max_length=25, null=True)),
-            ('subject_identifier', self.gf('django.db.models.fields.CharField')(blank=True, max_length=50, db_index=True)),
-            ('revision', self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True)),
-            ('is_verified', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('is_incarcerated', self.gf('django.db.models.fields.CharField')(default='-', max_length=3)),
-            ('initials', self.gf('django.db.models.fields.CharField')(max_length=10, null=True)),
-        ))
-        db.send_create_signal('mpepu_maternal', ['ArvResistanceConsentAudit'])
-
-        # Adding model 'ArvResistanceDiscAudit'
-        db.create_table(u'mpepu_maternal_arvresistancedisc_audit', (
-            ('hostname_created', self.gf('django.db.models.fields.CharField')(default='silverapple', max_length=50, blank=True, db_index=True)),
-            ('hostname_modified', self.gf('django.db.models.fields.CharField')(default='silverapple', max_length=50, blank=True, db_index=True)),
-            ('maternal_visit', self.gf('django.db.models.fields.related.ForeignKey')(related_name='_audit_arvresistancedisc', to=orm['mpepu_maternal.MaternalVisit'])),
-            ('last_tdf_date', self.gf('django.db.models.fields.DateField')(null=True, blank=True)),
-            ('user_created', self.gf('django.db.models.fields.CharField')(default='', max_length=250, db_index=True)),
-            ('report_datetime', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2014, 2, 28, 0, 0))),
-            ('id', self.gf('django.db.models.fields.CharField')(max_length=36)),
-            ('info_source', self.gf('django.db.models.fields.CharField')(max_length=15)),
-            ('last_arv_date', self.gf('django.db.models.fields.DateField')(null=True, blank=True)),
-            ('user_modified', self.gf('django.db.models.fields.CharField')(default='', max_length=250, db_index=True)),
-            ('revision', self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True)),
-            ('date_arv_started', self.gf('django.db.models.fields.DateField')()),
-            ('_audit_change_type', self.gf('django.db.models.fields.CharField')(max_length=1)),
-            ('regimen', self.gf('django.db.models.fields.CharField')(max_length=15)),
-            ('_audit_id', self.gf('django.db.models.fields.CharField')(max_length=36, primary_key=True)),
-            ('_audit_timestamp', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True, db_index=True)),
-            ('last_ftc_date', self.gf('django.db.models.fields.DateField')(null=True, blank=True)),
-            ('discontinued_by', self.gf('django.db.models.fields.CharField')(max_length=3)),
-            ('last_3tc_date', self.gf('django.db.models.fields.DateField')(null=True, blank=True)),
-            ('created', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
-            ('modified', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
-            ('as_prescribed', self.gf('django.db.models.fields.CharField')(max_length=50)),
-            ('stopped_once', self.gf('django.db.models.fields.CharField')(max_length=3)),
-        ))
-        db.send_create_signal('mpepu_maternal', ['ArvResistanceDiscAudit'])
-
-        # Adding model 'ArvResistanceDisc'
-        db.create_table(u'mpepu_maternal_arvresistancedisc', (
-            ('last_ftc_date', self.gf('django.db.models.fields.DateField')(null=True, blank=True)),
-            ('date_arv_started', self.gf('django.db.models.fields.DateField')()),
-            ('discontinued_by', self.gf('django.db.models.fields.CharField')(max_length=3)),
-            ('last_3tc_date', self.gf('django.db.models.fields.DateField')(null=True, blank=True)),
-            ('created', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
-            ('last_arv_date', self.gf('django.db.models.fields.DateField')(null=True, blank=True)),
-            ('info_source', self.gf('django.db.models.fields.CharField')(max_length=15)),
-            ('user_modified', self.gf('django.db.models.fields.CharField')(default='', max_length=250, db_index=True)),
-            ('hostname_created', self.gf('django.db.models.fields.CharField')(default='silverapple', max_length=50, blank=True, db_index=True)),
-            ('hostname_modified', self.gf('django.db.models.fields.CharField')(default='silverapple', max_length=50, blank=True, db_index=True)),
-            ('modified', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
-            ('stopped_once', self.gf('django.db.models.fields.CharField')(max_length=3)),
-            ('as_prescribed', self.gf('django.db.models.fields.CharField')(max_length=50)),
-            ('last_tdf_date', self.gf('django.db.models.fields.DateField')(null=True, blank=True)),
-            ('user_created', self.gf('django.db.models.fields.CharField')(default='', max_length=250, db_index=True)),
-            ('regimen', self.gf('django.db.models.fields.CharField')(max_length=15)),
-            ('report_datetime', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2014, 2, 28, 0, 0))),
-            ('id', self.gf('django.db.models.fields.CharField')(max_length=36, primary_key=True)),
-            ('maternal_visit', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['mpepu_maternal.MaternalVisit'], unique=True)),
-            ('revision', self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True)),
-        ))
-        db.send_create_signal('mpepu_maternal', ['ArvResistanceDisc'])
-
-        # Deleting model 'ResistanceDiscAudit'
-        db.delete_table(u'mpepu_maternal_resistancedisc_audit')
-
-        # Deleting model 'ResistanceEligibilityAudit'
-        db.delete_table(u'mpepu_maternal_resistanceeligibility_audit')
-
+        pass
         # Deleting model 'ResistanceConsent'
-        db.delete_table(u'mpepu_maternal_resistanceconsent')
-
-        # Deleting model 'ResistanceDisc'
-        db.delete_table(u'mpepu_maternal_resistancedisc')
-
-        # Deleting model 'ResistanceEligibility'
-        db.delete_table(u'mpepu_maternal_resistanceeligibility')
-
-        # Deleting model 'ResistanceConsentAudit'
-        db.delete_table(u'mpepu_maternal_resistanceconsent_audit')
+#         db.delete_table(u'mpepu_maternal_resistanceconsent')
+# 
+#         # Deleting model 'ResistanceDiscAudit'
+#         db.delete_table(u'mpepu_maternal_resistancedisc_audit')
+# 
+#         # Deleting model 'ResistanceEligibilityAudit'
+#         db.delete_table(u'mpepu_maternal_resistanceeligibility_audit')
+# 
+#         # Deleting model 'ResistanceDisc'
+#         db.delete_table(u'mpepu_maternal_resistancedisc')
+# 
+#         # Deleting model 'ResistanceEligibility'
+#         db.delete_table(u'mpepu_maternal_resistanceeligibility')
+# 
+#         # Deleting model 'ResistanceConsentAudit'
+#         db.delete_table(u'mpepu_maternal_resistanceconsent_audit')
+# 
+#         # Deleting field 'MaternalEnrollDemAudit.revision'
+#         db.delete_column(u'mpepu_maternal_maternalenrolldem_audit', 'revision')
+# 
+#         # Deleting field 'MaternalEnrollDemAudit.report_datetime'
+#         db.delete_column(u'mpepu_maternal_maternalenrolldem_audit', 'report_datetime')
+# 
+#         # Deleting field 'MaternalArvPregHistoryAudit.revision'
+#         db.delete_column(u'mpepu_maternal_maternalarvpreghistory_audit', 'revision')
+# 
+#         # Deleting field 'MaternalArvPregHistoryAudit.report_datetime'
+#         db.delete_column(u'mpepu_maternal_maternalarvpreghistory_audit', 'report_datetime')
+# 
+#         # Deleting field 'MaternalArvPregAudit.revision'
+#         db.delete_column(u'mpepu_maternal_maternalarvpreg_audit', 'revision')
+# 
+#         # Deleting field 'MaternalArvPregAudit.report_datetime'
+#         db.delete_column(u'mpepu_maternal_maternalarvpreg_audit', 'report_datetime')
+# 
+#         # Deleting field 'MaternalVisit.revision'
+#         db.delete_column('mpepu_maternal_maternalvisit', 'revision')
+# 
+#         # Deleting field 'MaternalVisit.subject_identifier'
+#         db.delete_column('mpepu_maternal_maternalvisit', 'subject_identifier')
+# 
+#         # Deleting field 'MaternalVisit.survival_status'
+#         db.delete_column('mpepu_maternal_maternalvisit', 'survival_status')
+# 
+#         # Deleting field 'MaternalVisit.date_last_alive'
+#         db.delete_column('mpepu_maternal_maternalvisit', 'date_last_alive')
+# 
+# 
+#         # Changing field 'MaternalVisit.appointment'
+#         db.alter_column('mpepu_maternal_maternalvisit', 'appointment_id', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['bhp_appointment.Appointment'], unique=True))
+#         # Deleting field 'MaternalLabDelMedAudit.revision'
+#         db.delete_column(u'mpepu_maternal_maternallabdelmed_audit', 'revision')
+# 
+#         # Deleting field 'MaternalLabDelMedAudit.report_datetime'
+#         db.delete_column(u'mpepu_maternal_maternallabdelmed_audit', 'report_datetime')
+# 
+#         # Deleting field 'MaternalConsentAudit.revision'
+#         db.delete_column(u'mpepu_maternal_maternalconsent_audit', 'revision')
+# 
+#         # Deleting field 'MaternalConsentAudit.language'
+#         db.delete_column(u'mpepu_maternal_maternalconsent_audit', 'language')
+# 
+#         # Deleting field 'MaternalConsentAudit.registered_subject'
+#         db.delete_column(u'mpepu_maternal_maternalconsent_audit', 'registered_subject_id')
+# 
+# 
+#         # Changing field 'MaternalConsentAudit.consent_copy'
+#         db.alter_column(u'mpepu_maternal_maternalconsent_audit', 'consent_copy', self.gf('django.db.models.fields.CharField')(max_length=3, null=True))
+# 
+#         # Changing field 'MaternalConsentAudit.study_site'
+#         db.alter_column(u'mpepu_maternal_maternalconsent_audit', 'study_site_id', self.gf('django.db.models.fields.related.ForeignKey')(default='', to=orm['bhp_variables.StudySite']))
+# 
+#         # Changing field 'MaternalConsentAudit.initials'
+#         db.alter_column(u'mpepu_maternal_maternalconsent_audit', 'initials', self.gf('django.db.models.fields.CharField')(max_length=3, null=True))
+#         # Deleting field 'MaternalVisitAudit.revision'
+#         db.delete_column('mpepu_maternal_maternalvisit_audit', 'revision')
+# 
+#         # Deleting field 'MaternalVisitAudit.subject_identifier'
+#         db.delete_column('mpepu_maternal_maternalvisit_audit', 'subject_identifier')
+# 
+#         # Deleting field 'MaternalVisitAudit.survival_status'
+#         db.delete_column('mpepu_maternal_maternalvisit_audit', 'survival_status')
+# 
+#         # Deleting field 'MaternalVisitAudit.date_last_alive'
+#         db.delete_column('mpepu_maternal_maternalvisit_audit', 'date_last_alive')
+# 
+# 
+#         # Changing field 'MaternalVisitAudit.appointment'
+#         db.alter_column('mpepu_maternal_maternalvisit_audit', 'appointment_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['bhp_appointment.Appointment']))
+#         # Deleting field 'MaternalLabDelDxAudit.revision'
+#         db.delete_column(u'mpepu_maternal_maternallabdeldx_audit', 'revision')
+# 
+#         # Deleting field 'MaternalLabDelDxAudit.report_datetime'
+#         db.delete_column(u'mpepu_maternal_maternallabdeldx_audit', 'report_datetime')
+# 
+#         # Deleting field 'MaternalArv.revision'
+#         db.delete_column(u'mpepu_maternal_maternalarv', 'revision')
+# 
+#         # Deleting field 'FeedingChoice.revision'
+#         db.delete_column(u'mpepu_maternal_feedingchoice', 'revision')
+# 
+#         # Deleting field 'FeedingChoice.report_datetime'
+#         db.delete_column(u'mpepu_maternal_feedingchoice', 'report_datetime')
+# 
+#         # Deleting field 'MaternalDeathAudit.revision'
+#         db.delete_column(u'mpepu_maternal_maternaldeath_audit', 'revision')
+# 
+#         # Deleting field 'MaternalDeathAudit.maternal_visit'
+#         db.delete_column(u'mpepu_maternal_maternaldeath_audit', 'maternal_visit_id')
+# 
+# 
+#         # Changing field 'MaternalDeathAudit.dx_code'
+#         db.alter_column(u'mpepu_maternal_maternaldeath_audit', 'dx_code_id', self.gf('django.db.models.fields.related.ForeignKey')(max_length=25, to=orm['bhp_code_lists.DxCode']))
+# 
+#         # Changing field 'MaternalDeathAudit.death_cause_category'
+#         db.alter_column(u'mpepu_maternal_maternaldeath_audit', 'death_cause_category_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['bhp_adverse.DeathCauseCategory']))
+# 
+#         # Changing field 'MaternalDeathAudit.registered_subject'
+#         db.alter_column(u'mpepu_maternal_maternaldeath_audit', 'registered_subject_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['bhp_registration.RegisteredSubject']))
+# 
+#         # Changing field 'MaternalDeathAudit.death_reason_hospitalized'
+#         db.alter_column(u'mpepu_maternal_maternaldeath_audit', 'death_reason_hospitalized_id', self.gf('django.db.models.fields.related.ForeignKey')(null=True, to=orm['bhp_adverse.DeathReasonHospitalized']))
+# 
+#         # Changing field 'MaternalDeathAudit.death_cause_info'
+#         db.alter_column(u'mpepu_maternal_maternaldeath_audit', 'death_cause_info_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['bhp_adverse.DeathCauseInfo']))
+# 
+#         # Changing field 'MaternalDeathAudit.death_medical_responsibility'
+#         db.alter_column(u'mpepu_maternal_maternaldeath_audit', 'death_medical_responsibility_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['bhp_adverse.DeathMedicalResponsibility']))
+#         # Deleting field 'MaternalPostFuAudit.revision'
+#         db.delete_column(u'mpepu_maternal_maternalpostfu_audit', 'revision')
+# 
+#         # Deleting field 'MaternalPostFuAudit.report_datetime'
+#         db.delete_column(u'mpepu_maternal_maternalpostfu_audit', 'report_datetime')
+# 
+#         # Deleting field 'MaternalPostFuAudit.bp'
+#         db.delete_column(u'mpepu_maternal_maternalpostfu_audit', 'bp')
+# 
+#         # Deleting field 'FeedingChoiceAudit.revision'
+#         db.delete_column(u'mpepu_maternal_feedingchoice_audit', 'revision')
+# 
+#         # Deleting field 'FeedingChoiceAudit.report_datetime'
+#         db.delete_column(u'mpepu_maternal_feedingchoice_audit', 'report_datetime')
+# 
+#         # Deleting field 'MaternalLabDelDx.revision'
+#         db.delete_column(u'mpepu_maternal_maternallabdeldx', 'revision')
+# 
+#         # Deleting field 'MaternalLabDelDx.report_datetime'
+#         db.delete_column(u'mpepu_maternal_maternallabdeldx', 'report_datetime')
+# 
+#         # Deleting field 'MaternalArvPregHistory.revision'
+#         db.delete_column(u'mpepu_maternal_maternalarvpreghistory', 'revision')
+# 
+#         # Deleting field 'MaternalArvPregHistory.report_datetime'
+#         db.delete_column(u'mpepu_maternal_maternalarvpreghistory', 'report_datetime')
+# 
+#         # Deleting field 'MaternalArvPostAdh.revision'
+#         db.delete_column(u'mpepu_maternal_maternalarvpostadh', 'revision')
+# 
+#         # Deleting field 'MaternalArvPostAdh.report_datetime'
+#         db.delete_column(u'mpepu_maternal_maternalarvpostadh', 'report_datetime')
+# 
+#         # Deleting field 'PostNatalInfantFeedingSurveyAudit.revision'
+#         db.delete_column(u'mpepu_maternal_postnatalinfantfeedingsurvey_audit', 'revision')
+# 
+#         # Deleting field 'PostNatalInfantFeedingSurveyAudit.report_datetime'
+#         db.delete_column(u'mpepu_maternal_postnatalinfantfeedingsurvey_audit', 'report_datetime')
+# 
+# 
+#         # Changing field 'PostNatalInfantFeedingSurveyAudit.feeding_duration'
+#         db.alter_column(u'mpepu_maternal_postnatalinfantfeedingsurvey_audit', 'feeding_duration', self.gf('django.db.models.fields.CharField')(max_length=3, null=True))
+#         # Deleting field 'MaternalEligibilityPostAudit.revision'
+#         db.delete_column(u'mpepu_maternal_maternaleligibilitypost_audit', 'revision')
+# 
+# 
+#         # Changing field 'MaternalEligibilityPostAudit.registered_subject'
+#         db.alter_column(u'mpepu_maternal_maternaleligibilitypost_audit', 'registered_subject_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['bhp_registration.RegisteredSubject']))
+#         # Deleting field 'MaternalEnrollOb.revision'
+#         db.delete_column(u'mpepu_maternal_maternalenrollob', 'revision')
+# 
+#         # Deleting field 'MaternalEnrollOb.report_datetime'
+#         db.delete_column(u'mpepu_maternal_maternalenrollob', 'report_datetime')
+# 
+#         # Deleting field 'FeedingChoiceSectionOne.revision'
+#         db.delete_column(u'mpepu_maternal_feedingchoicesectionone', 'revision')
+# 
+#         # Deleting field 'FeedingChoiceSectionOne.report_datetime'
+#         db.delete_column(u'mpepu_maternal_feedingchoicesectionone', 'report_datetime')
+# 
+#         # Deleting field 'MaternalEnrollArv.revision'
+#         db.delete_column(u'mpepu_maternal_maternalenrollarv', 'revision')
+# 
+#         # Deleting field 'MaternalEnrollArv.report_datetime'
+#         db.delete_column(u'mpepu_maternal_maternalenrollarv', 'report_datetime')
+# 
+#         # Deleting field 'FeedingChoiceSectionTwo.revision'
+#         db.delete_column(u'mpepu_maternal_feedingchoicesectiontwo', 'revision')
+# 
+#         # Deleting field 'FeedingChoiceSectionTwo.report_datetime'
+#         db.delete_column(u'mpepu_maternal_feedingchoicesectiontwo', 'report_datetime')
+# 
+#         # Deleting field 'MaternalEligibilityAnteAudit.revision'
+#         db.delete_column(u'mpepu_maternal_maternaleligibilityante_audit', 'revision')
+# 
+# 
+#         # Changing field 'MaternalEligibilityAnteAudit.registered_subject'
+#         db.alter_column(u'mpepu_maternal_maternaleligibilityante_audit', 'registered_subject_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['bhp_registration.RegisteredSubject']))
+#         # Deleting field 'MaternalLabDelDxTAudit.revision'
+#         db.delete_column(u'mpepu_maternal_maternallabdeldxt_audit', 'revision')
+# 
+#         # Deleting field 'MaternalLabDelDxTAudit.report_datetime'
+#         db.delete_column(u'mpepu_maternal_maternallabdeldxt_audit', 'report_datetime')
+# 
+# 
+#         # Changing field 'MaternalLabDelDxTAudit.lab_del_dx'
+#         db.alter_column(u'mpepu_maternal_maternallabdeldxt_audit', 'lab_del_dx', self.gf('django.db.models.fields.CharField')(max_length=100))
+#         # Deleting field 'PostNatalInfantFeedingSurvey.revision'
+#         db.delete_column(u'mpepu_maternal_postnatalinfantfeedingsurvey', 'revision')
+# 
+#         # Deleting field 'PostNatalInfantFeedingSurvey.report_datetime'
+#         db.delete_column(u'mpepu_maternal_postnatalinfantfeedingsurvey', 'report_datetime')
+# 
+# 
+#         # Changing field 'PostNatalInfantFeedingSurvey.feeding_duration'
+#         db.alter_column(u'mpepu_maternal_postnatalinfantfeedingsurvey', 'feeding_duration', self.gf('django.db.models.fields.CharField')(max_length=3, null=True))
+#         # Deleting field 'FeedingChoiceSectionTwoAudit.revision'
+#         db.delete_column(u'mpepu_maternal_feedingchoicesectiontwo_audit', 'revision')
+# 
+#         # Deleting field 'FeedingChoiceSectionTwoAudit.report_datetime'
+#         db.delete_column(u'mpepu_maternal_feedingchoicesectiontwo_audit', 'report_datetime')
+# 
+#         # Deleting field 'MaternalEnrollAudit.revision'
+#         db.delete_column(u'mpepu_maternal_maternalenroll_audit', 'revision')
+# 
+#         # Deleting field 'MaternalEnrollAudit.report_datetime'
+#         db.delete_column(u'mpepu_maternal_maternalenroll_audit', 'report_datetime')
+# 
+#         # Deleting field 'MaternalEnrollAudit.recruitment_clinic'
+#         db.delete_column(u'mpepu_maternal_maternalenroll_audit', 'recruitment_clinic')
+# 
+#         # Deleting field 'MaternalEnrollAudit.recruitment_clinic_other'
+#         db.delete_column(u'mpepu_maternal_maternalenroll_audit', 'recruitment_clinic_other')
+# 
+#         # Deleting field 'MaternalEnrollAudit.bp'
+#         db.delete_column(u'mpepu_maternal_maternalenroll_audit', 'bp')
+# 
+#         # Deleting field 'FeedingChoiceSectionThree.revision'
+#         db.delete_column(u'mpepu_maternal_feedingchoicesectionthree', 'revision')
+# 
+#         # Deleting field 'FeedingChoiceSectionThree.report_datetime'
+#         db.delete_column(u'mpepu_maternal_feedingchoicesectionthree', 'report_datetime')
+# 
+#         # Deleting field 'MaternalOffStudy.revision'
+#         db.delete_column(u'mpepu_maternal_maternaloffstudy', 'revision')
+# 
+#         # Deleting field 'MaternalOffStudy.maternal_visit'
+#         db.delete_column(u'mpepu_maternal_maternaloffstudy', 'maternal_visit_id')
+# 
+# 
+#         # Changing field 'MaternalOffStudy.registered_subject'
+#         db.alter_column(u'mpepu_maternal_maternaloffstudy', 'registered_subject_id', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['bhp_registration.RegisteredSubject'], unique=True))
+#         # Deleting field 'MaternalEligibilityPost.revision'
+#         db.delete_column(u'mpepu_maternal_maternaleligibilitypost', 'revision')
+# 
+# 
+#         # Changing field 'MaternalEligibilityPost.registered_subject'
+#         db.alter_column(u'mpepu_maternal_maternaleligibilitypost', 'registered_subject_id', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['bhp_registration.RegisteredSubject'], unique=True))
+#         # Deleting field 'MaternalArvPostMod.revision'
+#         db.delete_column(u'mpepu_maternal_maternalarvpostmod', 'revision')
+# 
+#         # Deleting field 'MaternalOffStudyAudit.revision'
+#         db.delete_column(u'mpepu_maternal_maternaloffstudy_audit', 'revision')
+# 
+#         # Deleting field 'MaternalOffStudyAudit.maternal_visit'
+#         db.delete_column(u'mpepu_maternal_maternaloffstudy_audit', 'maternal_visit_id')
+# 
+# 
+#         # Changing field 'MaternalOffStudyAudit.registered_subject'
+#         db.alter_column(u'mpepu_maternal_maternaloffstudy_audit', 'registered_subject_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['bhp_registration.RegisteredSubject']))
+#         # Deleting field 'FeedingChoiceSectionOneAudit.revision'
+#         db.delete_column(u'mpepu_maternal_feedingchoicesectionone_audit', 'revision')
+# 
+#         # Deleting field 'FeedingChoiceSectionOneAudit.report_datetime'
+#         db.delete_column(u'mpepu_maternal_feedingchoicesectionone_audit', 'report_datetime')
+# 
+#         # Deleting field 'MaternalLabDelClinicAudit.revision'
+#         db.delete_column(u'mpepu_maternal_maternallabdelclinic_audit', 'revision')
+# 
+#         # Deleting field 'MaternalLabDelClinicAudit.report_datetime'
+#         db.delete_column(u'mpepu_maternal_maternallabdelclinic_audit', 'report_datetime')
+# 
+#         # Deleting field 'MaternalDeath.revision'
+#         db.delete_column(u'mpepu_maternal_maternaldeath', 'revision')
+# 
+#         # Deleting field 'MaternalDeath.maternal_visit'
+#         db.delete_column(u'mpepu_maternal_maternaldeath', 'maternal_visit_id')
+# 
+# 
+#         # Changing field 'MaternalDeath.dx_code'
+#         db.alter_column(u'mpepu_maternal_maternaldeath', 'dx_code_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['bhp_code_lists.DxCode'], max_length=25))
+# 
+#         # Changing field 'MaternalDeath.death_cause_category'
+#         db.alter_column(u'mpepu_maternal_maternaldeath', 'death_cause_category_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['bhp_adverse.DeathCauseCategory']))
+# 
+#         # Changing field 'MaternalDeath.registered_subject'
+#         db.alter_column(u'mpepu_maternal_maternaldeath', 'registered_subject_id', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['bhp_registration.RegisteredSubject'], unique=True))
+# 
+#         # Changing field 'MaternalDeath.death_reason_hospitalized'
+#         db.alter_column(u'mpepu_maternal_maternaldeath', 'death_reason_hospitalized_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['bhp_adverse.DeathReasonHospitalized'], null=True))
+# 
+#         # Changing field 'MaternalDeath.death_cause_info'
+#         db.alter_column(u'mpepu_maternal_maternaldeath', 'death_cause_info_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['bhp_adverse.DeathCauseInfo']))
+# 
+#         # Changing field 'MaternalDeath.death_medical_responsibility'
+#         db.alter_column(u'mpepu_maternal_maternaldeath', 'death_medical_responsibility_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['bhp_adverse.DeathMedicalResponsibility']))
+#         # Deleting field 'MaternalEnrollClinAudit.revision'
+#         db.delete_column(u'mpepu_maternal_maternalenrollclin_audit', 'revision')
+# 
+#         # Deleting field 'MaternalEnrollClinAudit.report_datetime'
+#         db.delete_column(u'mpepu_maternal_maternalenrollclin_audit', 'report_datetime')
+# 
+#         # Deleting field 'MaternalArvPostModAudit.revision'
+#         db.delete_column(u'mpepu_maternal_maternalarvpostmod_audit', 'revision')
+# 
+#         # Deleting field 'MaternalEligibilityAnte.revision'
+#         db.delete_column(u'mpepu_maternal_maternaleligibilityante', 'revision')
+# 
+# 
+#         # Changing field 'MaternalEligibilityAnte.registered_subject'
+#         db.alter_column(u'mpepu_maternal_maternaleligibilityante', 'registered_subject_id', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['bhp_registration.RegisteredSubject'], unique=True))
+#         # Deleting field 'MaternalEnrollDx.revision'
+#         db.delete_column(u'mpepu_maternal_maternalenrolldx', 'revision')
+# 
+#         # Deleting field 'MaternalEnrollDx.report_datetime'
+#         db.delete_column(u'mpepu_maternal_maternalenrolldx', 'report_datetime')
+# 
+# 
+#         # Changing field 'MaternalEnrollDx.diagnosis_year'
+#         db.alter_column(u'mpepu_maternal_maternalenrolldx', 'diagnosis_year', self.gf('django.db.models.fields.IntegerField')(default=''))
+# 
+#         # Changing field 'MaternalEnrollDx.diagnosis'
+#         db.alter_column(u'mpepu_maternal_maternalenrolldx', 'diagnosis', self.gf('django.db.models.fields.CharField')(default='', max_length=50))
+#         # Deleting field 'MaternalEnrollDxAudit.revision'
+#         db.delete_column(u'mpepu_maternal_maternalenrolldx_audit', 'revision')
+# 
+#         # Deleting field 'MaternalEnrollDxAudit.report_datetime'
+#         db.delete_column(u'mpepu_maternal_maternalenrolldx_audit', 'report_datetime')
+# 
+# 
+#         # Changing field 'MaternalEnrollDxAudit.diagnosis_year'
+#         db.alter_column(u'mpepu_maternal_maternalenrolldx_audit', 'diagnosis_year', self.gf('django.db.models.fields.IntegerField')(default=''))
+# 
+#         # Changing field 'MaternalEnrollDxAudit.diagnosis'
+#         db.alter_column(u'mpepu_maternal_maternalenrolldx_audit', 'diagnosis', self.gf('django.db.models.fields.CharField')(default='', max_length=50))
+#         # Deleting field 'MaternalPostRegAudit.revision'
+#         db.delete_column(u'mpepu_maternal_maternalpostreg_audit', 'revision')
+# 
+# 
+#         # Changing field 'MaternalPostRegAudit.registered_subject'
+#         db.alter_column(u'mpepu_maternal_maternalpostreg_audit', 'registered_subject_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['bhp_registration.RegisteredSubject']))
+#         # Deleting field 'MaternalArvPostAudit.revision'
+#         db.delete_column(u'mpepu_maternal_maternalarvpost_audit', 'revision')
+# 
+#         # Deleting field 'MaternalArvPostAudit.report_datetime'
+#         db.delete_column(u'mpepu_maternal_maternalarvpost_audit', 'report_datetime')
+# 
+#         # Deleting field 'MaternalEnroll.revision'
+#         db.delete_column(u'mpepu_maternal_maternalenroll', 'revision')
+# 
+#         # Deleting field 'MaternalEnroll.report_datetime'
+#         db.delete_column(u'mpepu_maternal_maternalenroll', 'report_datetime')
+# 
+#         # Deleting field 'MaternalEnroll.recruitment_clinic'
+#         db.delete_column(u'mpepu_maternal_maternalenroll', 'recruitment_clinic')
+# 
+#         # Deleting field 'MaternalEnroll.recruitment_clinic_other'
+#         db.delete_column(u'mpepu_maternal_maternalenroll', 'recruitment_clinic_other')
+# 
+#         # Deleting field 'MaternalEnroll.bp'
+#         db.delete_column(u'mpepu_maternal_maternalenroll', 'bp')
+# 
+#         # Deleting field 'MaternalEnrollMed.revision'
+#         db.delete_column(u'mpepu_maternal_maternalenrollmed', 'revision')
+# 
+#         # Deleting field 'MaternalEnrollMed.report_datetime'
+#         db.delete_column(u'mpepu_maternal_maternalenrollmed', 'report_datetime')
+# 
+#         # Deleting field 'MaternalEnrollArvAudit.revision'
+#         db.delete_column(u'mpepu_maternal_maternalenrollarv_audit', 'revision')
+# 
+#         # Deleting field 'MaternalEnrollArvAudit.report_datetime'
+#         db.delete_column(u'mpepu_maternal_maternalenrollarv_audit', 'report_datetime')
+# 
+#         # Deleting field 'MaternalPostFu.revision'
+#         db.delete_column(u'mpepu_maternal_maternalpostfu', 'revision')
+# 
+#         # Deleting field 'MaternalPostFu.report_datetime'
+#         db.delete_column(u'mpepu_maternal_maternalpostfu', 'report_datetime')
+# 
+#         # Deleting field 'MaternalPostFu.bp'
+#         db.delete_column(u'mpepu_maternal_maternalpostfu', 'bp')
+# 
+#         # Deleting field 'MaternalPostFuDxTAudit.revision'
+#         db.delete_column(u'mpepu_maternal_maternalpostfudxt_audit', 'revision')
+# 
+#         # Deleting field 'MaternalPostFuDxTAudit.report_datetime'
+#         db.delete_column(u'mpepu_maternal_maternalpostfudxt_audit', 'report_datetime')
+# 
+# 
+#         # Changing field 'MaternalPostFuDxTAudit.hospitalized'
+#         db.alter_column(u'mpepu_maternal_maternalpostfudxt_audit', 'hospitalized', self.gf('django.db.models.fields.CharField')(default='', max_length=3))
+# 
+#         # Changing field 'MaternalPostFuDxTAudit.grade'
+#         db.alter_column(u'mpepu_maternal_maternalpostfudxt_audit', 'grade', self.gf('django.db.models.fields.IntegerField')(default='', max_length=3))
+# 
+#         # Changing field 'MaternalPostFuDxTAudit.post_fu_dx'
+#         db.alter_column(u'mpepu_maternal_maternalpostfudxt_audit', 'post_fu_dx', self.gf('django.db.models.fields.CharField')(default='', max_length=100))
+#         # Deleting field 'MaternalPostFuDxAudit.revision'
+#         db.delete_column(u'mpepu_maternal_maternalpostfudx_audit', 'revision')
+# 
+#         # Deleting field 'MaternalPostFuDxAudit.report_datetime'
+#         db.delete_column(u'mpepu_maternal_maternalpostfudx_audit', 'report_datetime')
+# 
+#         # Deleting field 'MaternalArvPostAdhAudit.revision'
+#         db.delete_column(u'mpepu_maternal_maternalarvpostadh_audit', 'revision')
+# 
+#         # Deleting field 'MaternalArvPostAdhAudit.report_datetime'
+#         db.delete_column(u'mpepu_maternal_maternalarvpostadh_audit', 'report_datetime')
+# 
+#         # Deleting field 'MaternalConsentUpdate.revision'
+#         db.delete_column(u'mpepu_maternal_maternalconsentupdate', 'revision')
+# 
+# 
+#         # Changing field 'MaternalConsentUpdate.consent_catalogue'
+#         db.alter_column(u'mpepu_maternal_maternalconsentupdate', 'consent_catalogue_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['bhp_consent.ConsentCatalogue']))
+#         # Deleting field 'MaternalEnrollDem.revision'
+#         db.delete_column(u'mpepu_maternal_maternalenrolldem', 'revision')
+# 
+#         # Deleting field 'MaternalEnrollDem.report_datetime'
+#         db.delete_column(u'mpepu_maternal_maternalenrolldem', 'report_datetime')
+# 
+#         # Deleting field 'MaternalArvPPHistoryAudit.revision'
+#         db.delete_column(u'mpepu_maternal_maternalarvpphistory_audit', 'revision')
+# 
+#         # Deleting field 'MaternalArvPPHistoryAudit.report_datetime'
+#         db.delete_column(u'mpepu_maternal_maternalarvpphistory_audit', 'report_datetime')
+# 
+#         # Deleting field 'MaternalLabDelMed.revision'
+#         db.delete_column(u'mpepu_maternal_maternallabdelmed', 'revision')
+# 
+#         # Deleting field 'MaternalLabDelMed.report_datetime'
+#         db.delete_column(u'mpepu_maternal_maternallabdelmed', 'report_datetime')
+# 
+#         # Deleting field 'MaternalPostReg.revision'
+#         db.delete_column(u'mpepu_maternal_maternalpostreg', 'revision')
+# 
+# 
+#         # Changing field 'MaternalPostReg.registered_subject'
+#         db.alter_column(u'mpepu_maternal_maternalpostreg', 'registered_subject_id', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['bhp_registration.RegisteredSubject'], unique=True))
+#         # Deleting field 'MaternalLocatorAudit.revision'
+#         db.delete_column(u'mpepu_maternal_maternallocator_audit', 'revision')
+# 
+#         # Deleting field 'MaternalLocatorAudit.may_sms_follow_up'
+#         db.delete_column(u'mpepu_maternal_maternallocator_audit', 'may_sms_follow_up')
+# 
+# 
+#         # Changing field 'MaternalLocatorAudit.registered_subject'
+#         db.alter_column(u'mpepu_maternal_maternallocator_audit', 'registered_subject_id', self.gf('django.db.models.fields.related.ForeignKey')(null=True, to=orm['bhp_registration.RegisteredSubject']))
+#         # Deleting field 'MaternalArvPPHistory.revision'
+#         db.delete_column(u'mpepu_maternal_maternalarvpphistory', 'revision')
+# 
+#         # Deleting field 'MaternalArvPPHistory.report_datetime'
+#         db.delete_column(u'mpepu_maternal_maternalarvpphistory', 'report_datetime')
+# 
+#         # Deleting field 'MaternalArvPreg.revision'
+#         db.delete_column(u'mpepu_maternal_maternalarvpreg', 'revision')
+# 
+#         # Deleting field 'MaternalArvPreg.report_datetime'
+#         db.delete_column(u'mpepu_maternal_maternalarvpreg', 'report_datetime')
+# 
+#         # Deleting field 'MaternalPostFuDx.revision'
+#         db.delete_column(u'mpepu_maternal_maternalpostfudx', 'revision')
+# 
+#         # Deleting field 'MaternalPostFuDx.report_datetime'
+#         db.delete_column(u'mpepu_maternal_maternalpostfudx', 'report_datetime')
+# 
+#         # Deleting field 'MaternalLabDelClinic.revision'
+#         db.delete_column(u'mpepu_maternal_maternallabdelclinic', 'revision')
+# 
+#         # Deleting field 'MaternalLabDelClinic.report_datetime'
+#         db.delete_column(u'mpepu_maternal_maternallabdelclinic', 'report_datetime')
+# 
+#         # Deleting field 'MaternalEnrollClin.revision'
+#         db.delete_column(u'mpepu_maternal_maternalenrollclin', 'revision')
+# 
+#         # Deleting field 'MaternalEnrollClin.report_datetime'
+#         db.delete_column(u'mpepu_maternal_maternalenrollclin', 'report_datetime')
+# 
+#         # Deleting field 'MaternalLabDelDxT.revision'
+#         db.delete_column(u'mpepu_maternal_maternallabdeldxt', 'revision')
+# 
+#         # Deleting field 'MaternalLabDelDxT.report_datetime'
+#         db.delete_column(u'mpepu_maternal_maternallabdeldxt', 'report_datetime')
+# 
+# 
+#         # Changing field 'MaternalLabDelDxT.lab_del_dx'
+#         db.alter_column(u'mpepu_maternal_maternallabdeldxt', 'lab_del_dx', self.gf('django.db.models.fields.CharField')(max_length=100))
+#         # Deleting field 'MaternalArvAudit.revision'
+#         db.delete_column(u'mpepu_maternal_maternalarv_audit', 'revision')
+# 
+#         # Deleting field 'MaternalPostFuDxT.revision'
+#         db.delete_column(u'mpepu_maternal_maternalpostfudxt', 'revision')
+# 
+#         # Deleting field 'MaternalPostFuDxT.report_datetime'
+#         db.delete_column(u'mpepu_maternal_maternalpostfudxt', 'report_datetime')
+# 
+# 
+#         # Changing field 'MaternalPostFuDxT.hospitalized'
+#         db.alter_column(u'mpepu_maternal_maternalpostfudxt', 'hospitalized', self.gf('django.db.models.fields.CharField')(default='', max_length=3))
+# 
+#         # Changing field 'MaternalPostFuDxT.grade'
+#         db.alter_column(u'mpepu_maternal_maternalpostfudxt', 'grade', self.gf('django.db.models.fields.IntegerField')(default='', max_length=3))
+# 
+#         # Changing field 'MaternalPostFuDxT.post_fu_dx'
+#         db.alter_column(u'mpepu_maternal_maternalpostfudxt', 'post_fu_dx', self.gf('django.db.models.fields.CharField')(default='', max_length=100))
+#         # Deleting field 'MaternalEnrollObAudit.revision'
+#         db.delete_column(u'mpepu_maternal_maternalenrollob_audit', 'revision')
+# 
+#         # Deleting field 'MaternalEnrollObAudit.report_datetime'
+#         db.delete_column(u'mpepu_maternal_maternalenrollob_audit', 'report_datetime')
+# 
+#         # Deleting field 'FeedingChoiceSectionThreeAudit.revision'
+#         db.delete_column(u'mpepu_maternal_feedingchoicesectionthree_audit', 'revision')
+# 
+#         # Deleting field 'FeedingChoiceSectionThreeAudit.report_datetime'
+#         db.delete_column(u'mpepu_maternal_feedingchoicesectionthree_audit', 'report_datetime')
+# 
+#         # Deleting field 'MaternalLabDelAudit.revision'
+#         db.delete_column(u'mpepu_maternal_maternallabdel_audit', 'revision')
+# 
+#         # Deleting field 'MaternalLabDelAudit.report_datetime'
+#         db.delete_column(u'mpepu_maternal_maternallabdel_audit', 'report_datetime')
+# 
+#         # Deleting field 'MaternalConsent.revision'
+#         db.delete_column(u'mpepu_maternal_maternalconsent', 'revision')
+# 
+#         # Deleting field 'MaternalConsent.language'
+#         db.delete_column(u'mpepu_maternal_maternalconsent', 'language')
+# 
+#         # Deleting field 'MaternalConsent.registered_subject'
+#         db.delete_column(u'mpepu_maternal_maternalconsent', 'registered_subject_id')
+# 
+# 
+#         # Changing field 'MaternalConsent.consent_copy'
+#         db.alter_column(u'mpepu_maternal_maternalconsent', 'consent_copy', self.gf('django.db.models.fields.CharField')(max_length=3, null=True))
+# 
+#         # Changing field 'MaternalConsent.study_site'
+#         db.alter_column(u'mpepu_maternal_maternalconsent', 'study_site_id', self.gf('django.db.models.fields.related.ForeignKey')(default='', to=orm['bhp_variables.StudySite']))
+# 
+#         # Changing field 'MaternalConsent.initials'
+#         db.alter_column(u'mpepu_maternal_maternalconsent', 'initials', self.gf('django.db.models.fields.CharField')(max_length=3, null=True))
+#         # Deleting field 'MaternalArvPost.revision'
+#         db.delete_column(u'mpepu_maternal_maternalarvpost', 'revision')
+# 
+#         # Deleting field 'MaternalArvPost.report_datetime'
+#         db.delete_column(u'mpepu_maternal_maternalarvpost', 'report_datetime')
+# 
+#         # Deleting field 'MaternalEnrollMedAudit.revision'
+#         db.delete_column(u'mpepu_maternal_maternalenrollmed_audit', 'revision')
+# 
+#         # Deleting field 'MaternalEnrollMedAudit.report_datetime'
+#         db.delete_column(u'mpepu_maternal_maternalenrollmed_audit', 'report_datetime')
+# 
+#         # Deleting field 'MaternalLocator.revision'
+#         db.delete_column(u'mpepu_maternal_maternallocator', 'revision')
+# 
+#         # Deleting field 'MaternalLocator.may_sms_follow_up'
+#         db.delete_column(u'mpepu_maternal_maternallocator', 'may_sms_follow_up')
+# 
+# 
+#         # Changing field 'MaternalLocator.registered_subject'
+#         db.alter_column(u'mpepu_maternal_maternallocator', 'registered_subject_id', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['bhp_registration.RegisteredSubject'], unique=True, null=True))
+#         # Deleting field 'MaternalLabDel.revision'
+#         db.delete_column(u'mpepu_maternal_maternallabdel', 'revision')
+# 
+#         # Deleting field 'MaternalLabDel.report_datetime'
+#         db.delete_column(u'mpepu_maternal_maternallabdel', 'report_datetime')
 
 
     models = {
@@ -413,8 +1662,8 @@ class Migration(SchemaMigration):
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'display_index': ('django.db.models.fields.IntegerField', [], {'default': '0', 'db_index': 'True'}),
             'field_name': ('django.db.models.fields.CharField', [], {'max_length': '25', 'null': 'True', 'blank': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '250', 'unique': 'True', 'null': 'True', 'db_index': 'True'}),
@@ -428,8 +1677,8 @@ class Migration(SchemaMigration):
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'display_index': ('django.db.models.fields.IntegerField', [], {'default': '0', 'db_index': 'True'}),
             'field_name': ('django.db.models.fields.CharField', [], {'max_length': '25', 'null': 'True', 'blank': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '250', 'unique': 'True', 'null': 'True', 'db_index': 'True'}),
@@ -443,8 +1692,8 @@ class Migration(SchemaMigration):
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'display_index': ('django.db.models.fields.IntegerField', [], {'default': '0', 'db_index': 'True'}),
             'field_name': ('django.db.models.fields.CharField', [], {'max_length': '25', 'null': 'True', 'blank': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '250', 'unique': 'True', 'null': 'True', 'db_index': 'True'}),
@@ -458,8 +1707,8 @@ class Migration(SchemaMigration):
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'display_index': ('django.db.models.fields.IntegerField', [], {'default': '0', 'db_index': 'True'}),
             'field_name': ('django.db.models.fields.CharField', [], {'max_length': '25', 'null': 'True', 'blank': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '250', 'unique': 'True', 'null': 'True', 'db_index': 'True'}),
@@ -481,8 +1730,8 @@ class Migration(SchemaMigration):
             'contact_tel': ('django.db.models.fields.CharField', [], {'max_length': '250', 'blank': 'True'}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'dashboard_type': ('django.db.models.fields.CharField', [], {'db_index': 'True', 'max_length': '25', 'null': 'True', 'blank': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
             'is_confirmed': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
@@ -500,8 +1749,8 @@ class Migration(SchemaMigration):
             'app_label': ('django.db.models.fields.CharField', [], {'max_length': '50', 'db_index': 'True'}),
             'content_type': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['contenttypes.ContentType']", 'null': 'True', 'blank': 'True'}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'model': ('django.db.models.fields.CharField', [], {'max_length': '50', 'db_index': 'True'}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
@@ -513,8 +1762,8 @@ class Migration(SchemaMigration):
         'bhp_variables.studysite': {
             'Meta': {'ordering': "['site_code']", 'unique_together': "[('site_code', 'site_name')]", 'object_name': 'StudySite'},
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'revision': ('django.db.models.fields.CharField', [], {'max_length': '150', 'null': 'True', 'blank': 'True'}),
@@ -527,8 +1776,8 @@ class Migration(SchemaMigration):
             'Meta': {'object_name': 'DxCode', 'db_table': "'bhp_code_lists_dxcode'"},
             'code': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '15'}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'list_ref': ('django.db.models.fields.CharField', [], {'max_length': '35'}),
             'long_name': ('django.db.models.fields.CharField', [], {'max_length': '255', 'blank': 'True'}),
@@ -541,8 +1790,8 @@ class Migration(SchemaMigration):
             'Meta': {'object_name': 'WcsDxAdult', 'db_table': "'bhp_code_lists_wcsdxadult'"},
             'code': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '15'}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'list_ref': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'}),
             'long_name': ('django.db.models.fields.CharField', [], {'max_length': '255', 'blank': 'True'}),
@@ -558,8 +1807,8 @@ class Migration(SchemaMigration):
             'content_type_map': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['bhp_content_type_map.ContentTypeMap']", 'null': 'True'}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'end_datetime': ('django.db.models.fields.DateTimeField', [], {}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
             'list_for_update': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
@@ -582,8 +1831,8 @@ class Migration(SchemaMigration):
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'display_index': ('django.db.models.fields.IntegerField', [], {'default': '0', 'db_index': 'True'}),
             'field_name': ('django.db.models.fields.CharField', [], {'max_length': '25', 'null': 'True', 'blank': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '250', 'unique': 'True', 'null': 'True', 'db_index': 'True'}),
@@ -597,8 +1846,8 @@ class Migration(SchemaMigration):
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'display_index': ('django.db.models.fields.IntegerField', [], {'default': '0', 'db_index': 'True'}),
             'field_name': ('django.db.models.fields.CharField', [], {'max_length': '25', 'null': 'True', 'blank': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '250', 'unique': 'True', 'null': 'True', 'db_index': 'True'}),
@@ -612,8 +1861,8 @@ class Migration(SchemaMigration):
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'display_index': ('django.db.models.fields.IntegerField', [], {'default': '0', 'db_index': 'True'}),
             'field_name': ('django.db.models.fields.CharField', [], {'max_length': '25', 'null': 'True', 'blank': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '250', 'unique': 'True', 'null': 'True', 'db_index': 'True'}),
@@ -627,8 +1876,8 @@ class Migration(SchemaMigration):
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'display_index': ('django.db.models.fields.IntegerField', [], {'default': '0', 'db_index': 'True'}),
             'field_name': ('django.db.models.fields.CharField', [], {'max_length': '25', 'null': 'True', 'blank': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '250', 'unique': 'True', 'null': 'True', 'db_index': 'True'}),
@@ -642,8 +1891,8 @@ class Migration(SchemaMigration):
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'display_index': ('django.db.models.fields.IntegerField', [], {'default': '0', 'db_index': 'True'}),
             'field_name': ('django.db.models.fields.CharField', [], {'max_length': '25', 'null': 'True', 'blank': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '250', 'unique': 'True', 'null': 'True', 'db_index': 'True'}),
@@ -657,8 +1906,8 @@ class Migration(SchemaMigration):
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'display_index': ('django.db.models.fields.IntegerField', [], {'default': '0', 'db_index': 'True'}),
             'field_name': ('django.db.models.fields.CharField', [], {'max_length': '25', 'null': 'True', 'blank': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '250', 'unique': 'True', 'null': 'True', 'db_index': 'True'}),
@@ -672,8 +1921,8 @@ class Migration(SchemaMigration):
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'display_index': ('django.db.models.fields.IntegerField', [], {'default': '0', 'db_index': 'True'}),
             'field_name': ('django.db.models.fields.CharField', [], {'max_length': '25', 'null': 'True', 'blank': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '250', 'unique': 'True', 'null': 'True', 'db_index': 'True'}),
@@ -687,8 +1936,8 @@ class Migration(SchemaMigration):
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'display_index': ('django.db.models.fields.IntegerField', [], {'default': '0', 'db_index': 'True'}),
             'field_name': ('django.db.models.fields.CharField', [], {'max_length': '25', 'null': 'True', 'blank': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '250', 'unique': 'True', 'null': 'True', 'db_index': 'True'}),
@@ -702,8 +1951,8 @@ class Migration(SchemaMigration):
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'display_index': ('django.db.models.fields.IntegerField', [], {'default': '0', 'db_index': 'True'}),
             'field_name': ('django.db.models.fields.CharField', [], {'max_length': '25', 'null': 'True', 'blank': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '250', 'unique': 'True', 'null': 'True', 'db_index': 'True'}),
@@ -717,8 +1966,8 @@ class Migration(SchemaMigration):
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'display_index': ('django.db.models.fields.IntegerField', [], {'default': '0', 'db_index': 'True'}),
             'field_name': ('django.db.models.fields.CharField', [], {'max_length': '25', 'null': 'True', 'blank': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '250', 'unique': 'True', 'null': 'True', 'db_index': 'True'}),
@@ -731,12 +1980,12 @@ class Migration(SchemaMigration):
             'Meta': {'object_name': 'FeedingChoice'},
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'first_time_feeding': ('django.db.models.fields.CharField', [], {'max_length': '3'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
             'maternal_visit': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['mpepu_maternal.MaternalVisit']", 'unique': 'True'}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 3, 2, 0, 0)'}),
+            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 5, 5, 0, 0)'}),
             'revision': ('django.db.models.fields.CharField', [], {'max_length': '150', 'null': 'True', 'blank': 'True'}),
             'user_created': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'}),
             'user_modified': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'})
@@ -745,15 +1994,16 @@ class Migration(SchemaMigration):
             'Meta': {'ordering': "['-_audit_timestamp']", 'object_name': 'FeedingChoiceAudit', 'db_table': "u'mpepu_maternal_feedingchoice_audit'"},
             '_audit_change_type': ('django.db.models.fields.CharField', [], {'max_length': '1'}),
             '_audit_id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
+            '_audit_subject_identifier': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True'}),
             '_audit_timestamp': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'db_index': 'True', 'blank': 'True'}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'first_time_feeding': ('django.db.models.fields.CharField', [], {'max_length': '3'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36'}),
             'maternal_visit': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'_audit_feedingchoice'", 'to': "orm['mpepu_maternal.MaternalVisit']"}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 3, 2, 0, 0)'}),
+            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 5, 5, 0, 0)'}),
             'revision': ('django.db.models.fields.CharField', [], {'max_length': '150', 'null': 'True', 'blank': 'True'}),
             'user_created': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'}),
             'user_modified': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'})
@@ -764,13 +2014,13 @@ class Migration(SchemaMigration):
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'hiv_aware_feeding': ('django.db.models.fields.CharField', [], {'max_length': '3'}),
             'hiv_status': ('django.db.models.fields.CharField', [], {'max_length': '8', 'null': 'True', 'blank': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
             'last_baby_feeding': ('django.db.models.fields.CharField', [], {'max_length': '35'}),
             'maternal_visit': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['mpepu_maternal.MaternalVisit']", 'unique': 'True'}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 3, 2, 0, 0)'}),
+            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 5, 5, 0, 0)'}),
             'revision': ('django.db.models.fields.CharField', [], {'max_length': '150', 'null': 'True', 'blank': 'True'}),
             'user_created': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'}),
             'user_modified': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'})
@@ -779,18 +2029,19 @@ class Migration(SchemaMigration):
             'Meta': {'ordering': "['-_audit_timestamp']", 'object_name': 'FeedingChoiceSectionOneAudit', 'db_table': "u'mpepu_maternal_feedingchoicesectionone_audit'"},
             '_audit_change_type': ('django.db.models.fields.CharField', [], {'max_length': '1'}),
             '_audit_id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
+            '_audit_subject_identifier': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True'}),
             '_audit_timestamp': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'db_index': 'True', 'blank': 'True'}),
             'baby_weaned_age': ('django.db.models.fields.IntegerField', [], {'max_length': '2', 'null': 'True', 'blank': 'True'}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'hiv_aware_feeding': ('django.db.models.fields.CharField', [], {'max_length': '3'}),
             'hiv_status': ('django.db.models.fields.CharField', [], {'max_length': '8', 'null': 'True', 'blank': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36'}),
             'last_baby_feeding': ('django.db.models.fields.CharField', [], {'max_length': '35'}),
             'maternal_visit': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'_audit_feedingchoicesectionone'", 'to': "orm['mpepu_maternal.MaternalVisit']"}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 3, 2, 0, 0)'}),
+            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 5, 5, 0, 0)'}),
             'revision': ('django.db.models.fields.CharField', [], {'max_length': '150', 'null': 'True', 'blank': 'True'}),
             'user_created': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'}),
             'user_modified': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'})
@@ -802,12 +2053,12 @@ class Migration(SchemaMigration):
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'feeding_choice_made': ('django.db.models.fields.CharField', [], {'max_length': '3'}),
             'ff_advice': ('django.db.models.fields.CharField', [], {'max_length': '35'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
             'maternal_visit': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['mpepu_maternal.MaternalVisit']", 'unique': 'True'}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 3, 2, 0, 0)'}),
+            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 5, 5, 0, 0)'}),
             'revision': ('django.db.models.fields.CharField', [], {'max_length': '150', 'null': 'True', 'blank': 'True'}),
             'risk_benefit_training': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['mpepu_list.MaternalBfFfRisksBenefits']", 'symmetrical': 'False'}),
             'und_risk_benefit': ('django.db.models.fields.CharField', [], {'max_length': '35'}),
@@ -819,18 +2070,19 @@ class Migration(SchemaMigration):
             'Meta': {'ordering': "['-_audit_timestamp']", 'object_name': 'FeedingChoiceSectionThreeAudit', 'db_table': "u'mpepu_maternal_feedingchoicesectionthree_audit'"},
             '_audit_change_type': ('django.db.models.fields.CharField', [], {'max_length': '1'}),
             '_audit_id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
+            '_audit_subject_identifier': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True'}),
             '_audit_timestamp': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'db_index': 'True', 'blank': 'True'}),
             'bf_advice': ('django.db.models.fields.CharField', [], {'max_length': '35'}),
             'chosen_feeding_choice': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'feeding_choice_made': ('django.db.models.fields.CharField', [], {'max_length': '3'}),
             'ff_advice': ('django.db.models.fields.CharField', [], {'max_length': '35'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36'}),
             'maternal_visit': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'_audit_feedingchoicesectionthree'", 'to': "orm['mpepu_maternal.MaternalVisit']"}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 3, 2, 0, 0)'}),
+            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 5, 5, 0, 0)'}),
             'revision': ('django.db.models.fields.CharField', [], {'max_length': '150', 'null': 'True', 'blank': 'True'}),
             'und_risk_benefit': ('django.db.models.fields.CharField', [], {'max_length': '35'}),
             'user_created': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'}),
@@ -847,8 +2099,8 @@ class Migration(SchemaMigration):
             'disclose_hiv_father': ('django.db.models.fields.CharField', [], {'max_length': '3'}),
             'doc_feeding_advice': ('django.db.models.fields.CharField', [], {'max_length': '35'}),
             'hiv_worry': ('django.db.models.fields.CharField', [], {'max_length': '35'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
             'infant_hiv_risk': ('django.db.models.fields.CharField', [], {'max_length': '35'}),
             'influential_people': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['mpepu_list.MaternalFeedingInfluence']", 'symmetrical': 'False'}),
@@ -856,7 +2108,7 @@ class Migration(SchemaMigration):
             'maternal_visit': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['mpepu_maternal.MaternalVisit']", 'unique': 'True'}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'outside_disclosure': ('django.db.models.fields.CharField', [], {'max_length': '45'}),
-            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 3, 2, 0, 0)'}),
+            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 5, 5, 0, 0)'}),
             'revision': ('django.db.models.fields.CharField', [], {'max_length': '150', 'null': 'True', 'blank': 'True'}),
             'safe_ff': ('django.db.models.fields.CharField', [], {'max_length': '35'}),
             'status_disclosure': ('django.db.models.fields.CharField', [], {'max_length': '45'}),
@@ -869,6 +2121,7 @@ class Migration(SchemaMigration):
             'Meta': {'ordering': "['-_audit_timestamp']", 'object_name': 'FeedingChoiceSectionTwoAudit', 'db_table': "u'mpepu_maternal_feedingchoicesectiontwo_audit'"},
             '_audit_change_type': ('django.db.models.fields.CharField', [], {'max_length': '1'}),
             '_audit_id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
+            '_audit_subject_identifier': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True'}),
             '_audit_timestamp': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'db_index': 'True', 'blank': 'True'}),
             'baby_bf_choice': ('django.db.models.fields.CharField', [], {'max_length': '35'}),
             'bf_ff_benefits': ('django.db.models.fields.CharField', [], {'max_length': '35'}),
@@ -879,15 +2132,15 @@ class Migration(SchemaMigration):
             'disclose_hiv_father': ('django.db.models.fields.CharField', [], {'max_length': '3'}),
             'doc_feeding_advice': ('django.db.models.fields.CharField', [], {'max_length': '35'}),
             'hiv_worry': ('django.db.models.fields.CharField', [], {'max_length': '35'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36'}),
             'infant_hiv_risk': ('django.db.models.fields.CharField', [], {'max_length': '35'}),
             'influential_people_other': ('django.db.models.fields.CharField', [], {'max_length': '35', 'blank': 'True'}),
             'maternal_visit': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'_audit_feedingchoicesectiontwo'", 'to': "orm['mpepu_maternal.MaternalVisit']"}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'outside_disclosure': ('django.db.models.fields.CharField', [], {'max_length': '45'}),
-            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 3, 2, 0, 0)'}),
+            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 5, 5, 0, 0)'}),
             'revision': ('django.db.models.fields.CharField', [], {'max_length': '150', 'null': 'True', 'blank': 'True'}),
             'safe_ff': ('django.db.models.fields.CharField', [], {'max_length': '35'}),
             'status_disclosure': ('django.db.models.fields.CharField', [], {'max_length': '45'}),
@@ -902,8 +2155,8 @@ class Migration(SchemaMigration):
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'date_start': ('django.db.models.fields.DateField', [], {'null': 'True', 'blank': 'True'}),
             'date_stop': ('django.db.models.fields.DateField', [], {'null': 'True', 'blank': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
             'maternal_arv_pp_history': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['mpepu_maternal.MaternalArvPPHistory']", 'null': 'True', 'blank': 'True'}),
             'maternal_arv_preg_history': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['mpepu_maternal.MaternalArvPregHistory']", 'null': 'True', 'blank': 'True'}),
@@ -917,13 +2170,14 @@ class Migration(SchemaMigration):
             'Meta': {'ordering': "['-_audit_timestamp']", 'object_name': 'MaternalArvAudit', 'db_table': "u'mpepu_maternal_maternalarv_audit'"},
             '_audit_change_type': ('django.db.models.fields.CharField', [], {'max_length': '1'}),
             '_audit_id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
+            '_audit_subject_identifier': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True'}),
             '_audit_timestamp': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'db_index': 'True', 'blank': 'True'}),
             'arv_code': ('django.db.models.fields.CharField', [], {'max_length': '25'}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'date_start': ('django.db.models.fields.DateField', [], {'null': 'True', 'blank': 'True'}),
             'date_stop': ('django.db.models.fields.DateField', [], {'null': 'True', 'blank': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36'}),
             'maternal_arv_pp_history': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'_audit_maternalarv'", 'null': 'True', 'to': "orm['mpepu_maternal.MaternalArvPPHistory']"}),
             'maternal_arv_preg_history': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'_audit_maternalarv'", 'null': 'True', 'to': "orm['mpepu_maternal.MaternalArvPregHistory']"}),
@@ -940,12 +2194,12 @@ class Migration(SchemaMigration):
             'haart_last_visit': ('django.db.models.fields.CharField', [], {'max_length': '25'}),
             'haart_reason': ('django.db.models.fields.CharField', [], {'default': "'N/A'", 'max_length': '25'}),
             'haart_reason_other': ('django.db.models.fields.TextField', [], {'max_length': '35', 'null': 'True', 'blank': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
             'maternal_visit': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['mpepu_maternal.MaternalVisit']", 'unique': 'True'}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 3, 2, 0, 0)'}),
+            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 5, 5, 0, 0)'}),
             'revision': ('django.db.models.fields.CharField', [], {'max_length': '150', 'null': 'True', 'blank': 'True'}),
             'user_created': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'}),
             'user_modified': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'})
@@ -954,8 +2208,8 @@ class Migration(SchemaMigration):
             'Meta': {'object_name': 'MaternalArvPostAdh'},
             'comment': ('django.db.models.fields.TextField', [], {'max_length': '250', 'null': 'True', 'blank': 'True'}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
             'maternal_arv_post': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['mpepu_maternal.MaternalArvPost']", 'unique': 'True'}),
             'maternal_visit': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['mpepu_maternal.MaternalVisit']", 'unique': 'True'}),
@@ -963,7 +2217,7 @@ class Migration(SchemaMigration):
             'missed_days_discnt': ('django.db.models.fields.IntegerField', [], {'default': "'0'"}),
             'missed_doses': ('django.db.models.fields.IntegerField', [], {}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 3, 2, 0, 0)'}),
+            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 5, 5, 0, 0)'}),
             'revision': ('django.db.models.fields.CharField', [], {'max_length': '150', 'null': 'True', 'blank': 'True'}),
             'user_created': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'}),
             'user_modified': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'})
@@ -972,11 +2226,12 @@ class Migration(SchemaMigration):
             'Meta': {'ordering': "['-_audit_timestamp']", 'object_name': 'MaternalArvPostAdhAudit', 'db_table': "u'mpepu_maternal_maternalarvpostadh_audit'"},
             '_audit_change_type': ('django.db.models.fields.CharField', [], {'max_length': '1'}),
             '_audit_id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
+            '_audit_subject_identifier': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True'}),
             '_audit_timestamp': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'db_index': 'True', 'blank': 'True'}),
             'comment': ('django.db.models.fields.TextField', [], {'max_length': '250', 'null': 'True', 'blank': 'True'}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36'}),
             'maternal_arv_post': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'_audit_maternalarvpostadh'", 'to': "orm['mpepu_maternal.MaternalArvPost']"}),
             'maternal_visit': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'_audit_maternalarvpostadh'", 'to': "orm['mpepu_maternal.MaternalVisit']"}),
@@ -984,7 +2239,7 @@ class Migration(SchemaMigration):
             'missed_days_discnt': ('django.db.models.fields.IntegerField', [], {'default': "'0'"}),
             'missed_doses': ('django.db.models.fields.IntegerField', [], {}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 3, 2, 0, 0)'}),
+            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 5, 5, 0, 0)'}),
             'revision': ('django.db.models.fields.CharField', [], {'max_length': '150', 'null': 'True', 'blank': 'True'}),
             'user_created': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'}),
             'user_modified': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'})
@@ -993,18 +2248,19 @@ class Migration(SchemaMigration):
             'Meta': {'ordering': "['-_audit_timestamp']", 'object_name': 'MaternalArvPostAudit', 'db_table': "u'mpepu_maternal_maternalarvpost_audit'"},
             '_audit_change_type': ('django.db.models.fields.CharField', [], {'max_length': '1'}),
             '_audit_id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
+            '_audit_subject_identifier': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True'}),
             '_audit_timestamp': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'db_index': 'True', 'blank': 'True'}),
             'arv_status': ('django.db.models.fields.CharField', [], {'default': "'N/A'", 'max_length': '25'}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'haart_last_visit': ('django.db.models.fields.CharField', [], {'max_length': '25'}),
             'haart_reason': ('django.db.models.fields.CharField', [], {'default': "'N/A'", 'max_length': '25'}),
             'haart_reason_other': ('django.db.models.fields.TextField', [], {'max_length': '35', 'null': 'True', 'blank': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36'}),
             'maternal_visit': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'_audit_maternalarvpost'", 'to': "orm['mpepu_maternal.MaternalVisit']"}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 3, 2, 0, 0)'}),
+            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 5, 5, 0, 0)'}),
             'revision': ('django.db.models.fields.CharField', [], {'max_length': '150', 'null': 'True', 'blank': 'True'}),
             'user_created': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'}),
             'user_modified': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'})
@@ -1014,8 +2270,8 @@ class Migration(SchemaMigration):
             'arv_code': ('django.db.models.fields.CharField', [], {'max_length': '25'}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'dose_status': ('django.db.models.fields.CharField', [], {'max_length': '25'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
             'maternal_arv_post': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['mpepu_maternal.MaternalArvPost']"}),
             'modification_code': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
@@ -1029,12 +2285,13 @@ class Migration(SchemaMigration):
             'Meta': {'ordering': "['-_audit_timestamp']", 'object_name': 'MaternalArvPostModAudit', 'db_table': "u'mpepu_maternal_maternalarvpostmod_audit'"},
             '_audit_change_type': ('django.db.models.fields.CharField', [], {'max_length': '1'}),
             '_audit_id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
+            '_audit_subject_identifier': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True'}),
             '_audit_timestamp': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'db_index': 'True', 'blank': 'True'}),
             'arv_code': ('django.db.models.fields.CharField', [], {'max_length': '25'}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'dose_status': ('django.db.models.fields.CharField', [], {'max_length': '25'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36'}),
             'maternal_arv_post': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'_audit_maternalarvpostmod'", 'to': "orm['mpepu_maternal.MaternalArvPost']"}),
             'modification_code': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
@@ -1048,13 +2305,13 @@ class Migration(SchemaMigration):
             'Meta': {'object_name': 'MaternalArvPPHistory'},
             'comment': ('django.db.models.fields.CharField', [], {'max_length': '35', 'null': 'True', 'blank': 'True'}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
             'maternal_arv_preg': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['mpepu_maternal.MaternalArvPreg']"}),
             'maternal_visit': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['mpepu_maternal.MaternalVisit']", 'unique': 'True'}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 3, 2, 0, 0)'}),
+            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 5, 5, 0, 0)'}),
             'revision': ('django.db.models.fields.CharField', [], {'max_length': '150', 'null': 'True', 'blank': 'True'}),
             'user_created': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'}),
             'user_modified': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'})
@@ -1063,16 +2320,17 @@ class Migration(SchemaMigration):
             'Meta': {'ordering': "['-_audit_timestamp']", 'object_name': 'MaternalArvPPHistoryAudit', 'db_table': "u'mpepu_maternal_maternalarvpphistory_audit'"},
             '_audit_change_type': ('django.db.models.fields.CharField', [], {'max_length': '1'}),
             '_audit_id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
+            '_audit_subject_identifier': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True'}),
             '_audit_timestamp': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'db_index': 'True', 'blank': 'True'}),
             'comment': ('django.db.models.fields.CharField', [], {'max_length': '35', 'null': 'True', 'blank': 'True'}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36'}),
             'maternal_arv_preg': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'_audit_maternalarvpphistory'", 'to': "orm['mpepu_maternal.MaternalArvPreg']"}),
             'maternal_visit': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'_audit_maternalarvpphistory'", 'to': "orm['mpepu_maternal.MaternalVisit']"}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 3, 2, 0, 0)'}),
+            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 5, 5, 0, 0)'}),
             'revision': ('django.db.models.fields.CharField', [], {'max_length': '150', 'null': 'True', 'blank': 'True'}),
             'user_created': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'}),
             'user_modified': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'})
@@ -1080,12 +2338,12 @@ class Migration(SchemaMigration):
         'mpepu_maternal.maternalarvpreg': {
             'Meta': {'object_name': 'MaternalArvPreg'},
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
             'maternal_visit': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['mpepu_maternal.MaternalVisit']", 'unique': 'True'}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 3, 2, 0, 0)'}),
+            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 5, 5, 0, 0)'}),
             'revision': ('django.db.models.fields.CharField', [], {'max_length': '150', 'null': 'True', 'blank': 'True'}),
             'sd_nvp': ('django.db.models.fields.CharField', [], {'max_length': '10'}),
             'start_pp': ('django.db.models.fields.CharField', [], {'max_length': '3'}),
@@ -1097,14 +2355,15 @@ class Migration(SchemaMigration):
             'Meta': {'ordering': "['-_audit_timestamp']", 'object_name': 'MaternalArvPregAudit', 'db_table': "u'mpepu_maternal_maternalarvpreg_audit'"},
             '_audit_change_type': ('django.db.models.fields.CharField', [], {'max_length': '1'}),
             '_audit_id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
+            '_audit_subject_identifier': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True'}),
             '_audit_timestamp': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'db_index': 'True', 'blank': 'True'}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36'}),
             'maternal_visit': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'_audit_maternalarvpreg'", 'to': "orm['mpepu_maternal.MaternalVisit']"}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 3, 2, 0, 0)'}),
+            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 5, 5, 0, 0)'}),
             'revision': ('django.db.models.fields.CharField', [], {'max_length': '150', 'null': 'True', 'blank': 'True'}),
             'sd_nvp': ('django.db.models.fields.CharField', [], {'max_length': '10'}),
             'start_pp': ('django.db.models.fields.CharField', [], {'max_length': '3'}),
@@ -1116,8 +2375,8 @@ class Migration(SchemaMigration):
             'Meta': {'object_name': 'MaternalArvPregHistory'},
             'comment': ('django.db.models.fields.TextField', [], {'max_length': '250', 'null': 'True', 'blank': 'True'}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
             'interrupt': ('django.db.models.fields.CharField', [], {'default': "'N/A'", 'max_length': '50'}),
             'interrupt_other': ('django.db.models.fields.TextField', [], {'max_length': '250', 'null': 'True', 'blank': 'True'}),
@@ -1125,7 +2384,7 @@ class Migration(SchemaMigration):
             'maternal_arv_preg': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['mpepu_maternal.MaternalArvPreg']"}),
             'maternal_visit': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['mpepu_maternal.MaternalVisit']", 'unique': 'True'}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 3, 2, 0, 0)'}),
+            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 5, 5, 0, 0)'}),
             'revision': ('django.db.models.fields.CharField', [], {'max_length': '150', 'null': 'True', 'blank': 'True'}),
             'user_created': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'}),
             'user_modified': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'})
@@ -1134,11 +2393,12 @@ class Migration(SchemaMigration):
             'Meta': {'ordering': "['-_audit_timestamp']", 'object_name': 'MaternalArvPregHistoryAudit', 'db_table': "u'mpepu_maternal_maternalarvpreghistory_audit'"},
             '_audit_change_type': ('django.db.models.fields.CharField', [], {'max_length': '1'}),
             '_audit_id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
+            '_audit_subject_identifier': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True'}),
             '_audit_timestamp': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'db_index': 'True', 'blank': 'True'}),
             'comment': ('django.db.models.fields.TextField', [], {'max_length': '250', 'null': 'True', 'blank': 'True'}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36'}),
             'interrupt': ('django.db.models.fields.CharField', [], {'default': "'N/A'", 'max_length': '50'}),
             'interrupt_other': ('django.db.models.fields.TextField', [], {'max_length': '250', 'null': 'True', 'blank': 'True'}),
@@ -1146,7 +2406,7 @@ class Migration(SchemaMigration):
             'maternal_arv_preg': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'_audit_maternalarvpreghistory'", 'to': "orm['mpepu_maternal.MaternalArvPreg']"}),
             'maternal_visit': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'_audit_maternalarvpreghistory'", 'to': "orm['mpepu_maternal.MaternalVisit']"}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 3, 2, 0, 0)'}),
+            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 5, 5, 0, 0)'}),
             'revision': ('django.db.models.fields.CharField', [], {'max_length': '150', 'null': 'True', 'blank': 'True'}),
             'user_created': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'}),
             'user_modified': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'})
@@ -1156,7 +2416,7 @@ class Migration(SchemaMigration):
             'assessment_score': ('django.db.models.fields.CharField', [], {'max_length': '3', 'null': 'True'}),
             'comment': ('django.db.models.fields.CharField', [], {'max_length': '250', 'null': 'True', 'blank': 'True'}),
             'confirm_identity': ('django.db.models.fields.CharField', [], {'max_length': '78L', 'null': 'True'}),
-            'consent_copy': ('django.db.models.fields.CharField', [], {'max_length': '3', 'null': 'True'}),
+            'consent_copy': ('django.db.models.fields.CharField', [], {'max_length': '20', 'null': 'True'}),
             'consent_datetime': ('django.db.models.fields.DateTimeField', [], {}),
             'consent_reviewed': ('django.db.models.fields.CharField', [], {'max_length': '3', 'null': 'True'}),
             'consent_version_on_entry': ('django.db.models.fields.IntegerField', [], {'default': '1'}),
@@ -1166,8 +2426,8 @@ class Migration(SchemaMigration):
             'first_name': ('django.db.models.fields.CharField', [], {'max_length': '78L', 'null': 'True'}),
             'gender': ('django.db.models.fields.CharField', [], {'max_length': '1', 'null': 'True'}),
             'guardian_name': ('django.db.models.fields.CharField', [], {'max_length': '78L', 'null': 'True', 'blank': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
             'identity': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '78L'}),
             'identity_type': ('django.db.models.fields.CharField', [], {'max_length': '15'}),
@@ -1196,11 +2456,12 @@ class Migration(SchemaMigration):
             'Meta': {'ordering': "['-_audit_timestamp']", 'object_name': 'MaternalConsentAudit', 'db_table': "u'mpepu_maternal_maternalconsent_audit'"},
             '_audit_change_type': ('django.db.models.fields.CharField', [], {'max_length': '1'}),
             '_audit_id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
+            '_audit_subject_identifier': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True'}),
             '_audit_timestamp': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'db_index': 'True', 'blank': 'True'}),
             'assessment_score': ('django.db.models.fields.CharField', [], {'max_length': '3', 'null': 'True'}),
             'comment': ('django.db.models.fields.CharField', [], {'max_length': '250', 'null': 'True', 'blank': 'True'}),
             'confirm_identity': ('django.db.models.fields.CharField', [], {'max_length': '78L', 'null': 'True'}),
-            'consent_copy': ('django.db.models.fields.CharField', [], {'max_length': '3', 'null': 'True'}),
+            'consent_copy': ('django.db.models.fields.CharField', [], {'max_length': '20', 'null': 'True'}),
             'consent_datetime': ('django.db.models.fields.DateTimeField', [], {}),
             'consent_reviewed': ('django.db.models.fields.CharField', [], {'max_length': '3', 'null': 'True'}),
             'consent_version_on_entry': ('django.db.models.fields.IntegerField', [], {'default': '1'}),
@@ -1210,8 +2471,8 @@ class Migration(SchemaMigration):
             'first_name': ('django.db.models.fields.CharField', [], {'max_length': '78L', 'null': 'True'}),
             'gender': ('django.db.models.fields.CharField', [], {'max_length': '1', 'null': 'True'}),
             'guardian_name': ('django.db.models.fields.CharField', [], {'max_length': '78L', 'null': 'True', 'blank': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36'}),
             'identity': ('django.db.models.fields.CharField', [], {'max_length': '78L'}),
             'identity_type': ('django.db.models.fields.CharField', [], {'max_length': '15'}),
@@ -1244,8 +2505,8 @@ class Migration(SchemaMigration):
             'consent_version': ('django.db.models.fields.IntegerField', [], {'null': 'True'}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'guardian_name': ('django.db.models.fields.CharField', [], {'max_length': '78L', 'null': 'True', 'blank': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
             'maternal_consent': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['mpepu_maternal.MaternalConsent']"}),
             'may_store_samples': ('django.db.models.fields.CharField', [], {'max_length': '3'}),
@@ -1269,10 +2530,11 @@ class Migration(SchemaMigration):
             'death_medical_responsibility': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['adverse_event.DeathMedicalResponsibility']"}),
             'death_reason_hospitalized': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['adverse_event.DeathReasonHospitalized']", 'null': 'True', 'blank': 'True'}),
             'dx_code': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['code_lists.DxCode']", 'max_length': '25'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
             'illness_duration': ('django.db.models.fields.IntegerField', [], {}),
+            'maternal_visit': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['mpepu_maternal.MaternalVisit']", 'unique': 'True'}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'participant_hospitalized': ('django.db.models.fields.CharField', [], {'max_length': '3'}),
             'perform_autopsy': ('django.db.models.fields.CharField', [], {'max_length': '3'}),
@@ -1285,6 +2547,7 @@ class Migration(SchemaMigration):
             'Meta': {'ordering': "['-_audit_timestamp']", 'object_name': 'MaternalDeathAudit', 'db_table': "u'mpepu_maternal_maternaldeath_audit'"},
             '_audit_change_type': ('django.db.models.fields.CharField', [], {'max_length': '1'}),
             '_audit_id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
+            '_audit_subject_identifier': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True'}),
             '_audit_timestamp': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'db_index': 'True', 'blank': 'True'}),
             'comment': ('django.db.models.fields.TextField', [], {'max_length': '500', 'null': 'True', 'blank': 'True'}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
@@ -1298,10 +2561,11 @@ class Migration(SchemaMigration):
             'death_medical_responsibility': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'_audit_maternaldeath'", 'to': "orm['adverse_event.DeathMedicalResponsibility']"}),
             'death_reason_hospitalized': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'_audit_maternaldeath'", 'null': 'True', 'to': "orm['adverse_event.DeathReasonHospitalized']"}),
             'dx_code': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'_audit_maternaldeath'", 'max_length': '25', 'to': "orm['code_lists.DxCode']"}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36'}),
             'illness_duration': ('django.db.models.fields.IntegerField', [], {}),
+            'maternal_visit': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'_audit_maternaldeath'", 'to': "orm['mpepu_maternal.MaternalVisit']"}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'participant_hospitalized': ('django.db.models.fields.CharField', [], {'max_length': '3'}),
             'perform_autopsy': ('django.db.models.fields.CharField', [], {'max_length': '3'}),
@@ -1316,8 +2580,8 @@ class Migration(SchemaMigration):
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'feeding_choice': ('django.db.models.fields.CharField', [], {'max_length': '3', 'null': 'True', 'blank': 'True'}),
             'gestational_age': ('django.db.models.fields.IntegerField', [], {}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
             'is_cd4_low': ('django.db.models.fields.IntegerField', [], {'max_length': '4', 'null': 'True', 'blank': 'True'}),
             'is_hiv_positive': ('django.db.models.fields.CharField', [], {'max_length': '3'}),
@@ -1334,13 +2598,14 @@ class Migration(SchemaMigration):
             'Meta': {'ordering': "['-_audit_timestamp']", 'object_name': 'MaternalEligibilityAnteAudit', 'db_table': "u'mpepu_maternal_maternaleligibilityante_audit'"},
             '_audit_change_type': ('django.db.models.fields.CharField', [], {'max_length': '1'}),
             '_audit_id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
+            '_audit_subject_identifier': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True'}),
             '_audit_timestamp': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'db_index': 'True', 'blank': 'True'}),
             'agree_follow_up': ('django.db.models.fields.CharField', [], {'max_length': '3'}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'feeding_choice': ('django.db.models.fields.CharField', [], {'max_length': '3', 'null': 'True', 'blank': 'True'}),
             'gestational_age': ('django.db.models.fields.IntegerField', [], {}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36'}),
             'is_cd4_low': ('django.db.models.fields.IntegerField', [], {'max_length': '4', 'null': 'True', 'blank': 'True'}),
             'is_hiv_positive': ('django.db.models.fields.CharField', [], {'max_length': '3'}),
@@ -1359,8 +2624,8 @@ class Migration(SchemaMigration):
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'days_pnc': ('django.db.models.fields.IntegerField', [], {}),
             'feeding_choice': ('django.db.models.fields.CharField', [], {'max_length': '3', 'null': 'True', 'blank': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
             'is_cd4_low': ('django.db.models.fields.IntegerField', [], {'max_length': '4', 'null': 'True', 'blank': 'True'}),
             'is_hiv_positive': ('django.db.models.fields.CharField', [], {'max_length': '3'}),
@@ -1377,13 +2642,14 @@ class Migration(SchemaMigration):
             'Meta': {'ordering': "['-_audit_timestamp']", 'object_name': 'MaternalEligibilityPostAudit', 'db_table': "u'mpepu_maternal_maternaleligibilitypost_audit'"},
             '_audit_change_type': ('django.db.models.fields.CharField', [], {'max_length': '1'}),
             '_audit_id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
+            '_audit_subject_identifier': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True'}),
             '_audit_timestamp': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'db_index': 'True', 'blank': 'True'}),
             'agree_follow_up': ('django.db.models.fields.CharField', [], {'max_length': '3'}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'days_pnc': ('django.db.models.fields.IntegerField', [], {}),
             'feeding_choice': ('django.db.models.fields.CharField', [], {'max_length': '3', 'null': 'True', 'blank': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36'}),
             'is_cd4_low': ('django.db.models.fields.IntegerField', [], {'max_length': '4', 'null': 'True', 'blank': 'True'}),
             'is_hiv_positive': ('django.db.models.fields.CharField', [], {'max_length': '3'}),
@@ -1401,8 +2667,8 @@ class Migration(SchemaMigration):
             'bp': ('django.db.models.fields.CharField', [], {'max_length': '7'}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'height': ('django.db.models.fields.DecimalField', [], {'max_digits': '5', 'decimal_places': '2'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
             'maternal_visit': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['mpepu_maternal.MaternalVisit']", 'unique': 'True'}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
@@ -1413,7 +2679,7 @@ class Migration(SchemaMigration):
             'recruit_source_other': ('django.db.models.fields.CharField', [], {'max_length': '35', 'null': 'True', 'blank': 'True'}),
             'recruitment_clinic': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'recruitment_clinic_other': ('django.db.models.fields.CharField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
-            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 3, 2, 0, 0)'}),
+            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 5, 5, 0, 0)'}),
             'revision': ('django.db.models.fields.CharField', [], {'max_length': '150', 'null': 'True', 'blank': 'True'}),
             'user_created': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'}),
             'user_modified': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'}),
@@ -1424,8 +2690,8 @@ class Migration(SchemaMigration):
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'haart_changes': ('django.db.models.fields.IntegerField', [], {}),
             'haart_start_date': ('django.db.models.fields.DateField', [], {}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
             'is_date_estimated': ('django.db.models.fields.CharField', [], {'max_length': '25'}),
             'maternal_enroll': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['mpepu_maternal.MaternalEnroll']", 'unique': 'True'}),
@@ -1435,7 +2701,7 @@ class Migration(SchemaMigration):
             'prior_arv': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['mpepu_list.PriorArv']", 'symmetrical': 'False'}),
             'prior_arv_other': ('django.db.models.fields.CharField', [], {'max_length': '35', 'null': 'True', 'blank': 'True'}),
             'prior_preg': ('django.db.models.fields.CharField', [], {'max_length': '80'}),
-            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 3, 2, 0, 0)'}),
+            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 5, 5, 0, 0)'}),
             'revision': ('django.db.models.fields.CharField', [], {'max_length': '150', 'null': 'True', 'blank': 'True'}),
             'user_created': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'}),
             'user_modified': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'})
@@ -1444,12 +2710,13 @@ class Migration(SchemaMigration):
             'Meta': {'ordering': "['-_audit_timestamp']", 'object_name': 'MaternalEnrollArvAudit', 'db_table': "u'mpepu_maternal_maternalenrollarv_audit'"},
             '_audit_change_type': ('django.db.models.fields.CharField', [], {'max_length': '1'}),
             '_audit_id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
+            '_audit_subject_identifier': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True'}),
             '_audit_timestamp': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'db_index': 'True', 'blank': 'True'}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'haart_changes': ('django.db.models.fields.IntegerField', [], {}),
             'haart_start_date': ('django.db.models.fields.DateField', [], {}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36'}),
             'is_date_estimated': ('django.db.models.fields.CharField', [], {'max_length': '25'}),
             'maternal_enroll': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'_audit_maternalenrollarv'", 'to': "orm['mpepu_maternal.MaternalEnroll']"}),
@@ -1458,7 +2725,7 @@ class Migration(SchemaMigration):
             'preg_on_haart': ('django.db.models.fields.CharField', [], {'max_length': '25'}),
             'prior_arv_other': ('django.db.models.fields.CharField', [], {'max_length': '35', 'null': 'True', 'blank': 'True'}),
             'prior_preg': ('django.db.models.fields.CharField', [], {'max_length': '80'}),
-            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 3, 2, 0, 0)'}),
+            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 5, 5, 0, 0)'}),
             'revision': ('django.db.models.fields.CharField', [], {'max_length': '150', 'null': 'True', 'blank': 'True'}),
             'user_created': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'}),
             'user_modified': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'})
@@ -1467,12 +2734,13 @@ class Migration(SchemaMigration):
             'Meta': {'ordering': "['-_audit_timestamp']", 'object_name': 'MaternalEnrollAudit', 'db_table': "u'mpepu_maternal_maternalenroll_audit'"},
             '_audit_change_type': ('django.db.models.fields.CharField', [], {'max_length': '1'}),
             '_audit_id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
+            '_audit_subject_identifier': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True'}),
             '_audit_timestamp': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'db_index': 'True', 'blank': 'True'}),
             'bp': ('django.db.models.fields.CharField', [], {'max_length': '7'}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'height': ('django.db.models.fields.DecimalField', [], {'max_digits': '5', 'decimal_places': '2'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36'}),
             'maternal_visit': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'_audit_maternalenroll'", 'to': "orm['mpepu_maternal.MaternalVisit']"}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
@@ -1483,7 +2751,7 @@ class Migration(SchemaMigration):
             'recruit_source_other': ('django.db.models.fields.CharField', [], {'max_length': '35', 'null': 'True', 'blank': 'True'}),
             'recruitment_clinic': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'recruitment_clinic_other': ('django.db.models.fields.CharField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
-            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 3, 2, 0, 0)'}),
+            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 5, 5, 0, 0)'}),
             'revision': ('django.db.models.fields.CharField', [], {'max_length': '150', 'null': 'True', 'blank': 'True'}),
             'user_created': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'}),
             'user_modified': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'}),
@@ -1495,8 +2763,8 @@ class Migration(SchemaMigration):
             'cd4_date': ('django.db.models.fields.DateField', [], {'null': 'True', 'blank': 'True'}),
             'comment': ('django.db.models.fields.TextField', [], {'max_length': '250', 'null': 'True', 'blank': 'True'}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
             'is_date_estimated': ('django.db.models.fields.CharField', [], {'max_length': '25'}),
             'maternal_enroll': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['mpepu_maternal.MaternalEnroll']", 'unique': 'True'}),
@@ -1505,7 +2773,7 @@ class Migration(SchemaMigration):
             'prev_preg_azt': ('django.db.models.fields.CharField', [], {'max_length': '25'}),
             'prev_preg_haart': ('django.db.models.fields.CharField', [], {'max_length': '25'}),
             'prev_sdnvp_labour': ('django.db.models.fields.CharField', [], {'max_length': '25'}),
-            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 3, 2, 0, 0)'}),
+            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 5, 5, 0, 0)'}),
             'revision': ('django.db.models.fields.CharField', [], {'max_length': '150', 'null': 'True', 'blank': 'True'}),
             'user_created': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'}),
             'user_modified': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'})
@@ -1514,13 +2782,14 @@ class Migration(SchemaMigration):
             'Meta': {'ordering': "['-_audit_timestamp']", 'object_name': 'MaternalEnrollClinAudit', 'db_table': "u'mpepu_maternal_maternalenrollclin_audit'"},
             '_audit_change_type': ('django.db.models.fields.CharField', [], {'max_length': '1'}),
             '_audit_id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
+            '_audit_subject_identifier': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True'}),
             '_audit_timestamp': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'db_index': 'True', 'blank': 'True'}),
             'cd4_count': ('django.db.models.fields.IntegerField', [], {}),
             'cd4_date': ('django.db.models.fields.DateField', [], {'null': 'True', 'blank': 'True'}),
             'comment': ('django.db.models.fields.TextField', [], {'max_length': '250', 'null': 'True', 'blank': 'True'}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36'}),
             'is_date_estimated': ('django.db.models.fields.CharField', [], {'max_length': '25'}),
             'maternal_enroll': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'_audit_maternalenrollclin'", 'to': "orm['mpepu_maternal.MaternalEnroll']"}),
@@ -1529,7 +2798,7 @@ class Migration(SchemaMigration):
             'prev_preg_azt': ('django.db.models.fields.CharField', [], {'max_length': '25'}),
             'prev_preg_haart': ('django.db.models.fields.CharField', [], {'max_length': '25'}),
             'prev_sdnvp_labour': ('django.db.models.fields.CharField', [], {'max_length': '25'}),
-            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 3, 2, 0, 0)'}),
+            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 5, 5, 0, 0)'}),
             'revision': ('django.db.models.fields.CharField', [], {'max_length': '150', 'null': 'True', 'blank': 'True'}),
             'user_created': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'}),
             'user_modified': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'})
@@ -1544,8 +2813,8 @@ class Migration(SchemaMigration):
             'ethnicity_other': ('django.db.models.fields.CharField', [], {'max_length': '35', 'null': 'True', 'blank': 'True'}),
             'hh_goods': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['mpepu_list.HhGoods']", 'symmetrical': 'False'}),
             'highest_education': ('django.db.models.fields.CharField', [], {'max_length': '25'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'house_electrified': ('django.db.models.fields.CharField', [], {'max_length': '25'}),
             'house_fridge': ('django.db.models.fields.CharField', [], {'max_length': '25'}),
             'house_people_number': ('django.db.models.fields.IntegerField', [], {}),
@@ -1562,7 +2831,7 @@ class Migration(SchemaMigration):
             'own_phone': ('django.db.models.fields.CharField', [], {'max_length': '25'}),
             'provides_money': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
             'provides_money_other': ('django.db.models.fields.CharField', [], {'max_length': '35', 'null': 'True', 'blank': 'True'}),
-            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 3, 2, 0, 0)'}),
+            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 5, 5, 0, 0)'}),
             'revision': ('django.db.models.fields.CharField', [], {'max_length': '150', 'null': 'True', 'blank': 'True'}),
             'toilet_facility': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
             'toilet_facility_other': ('django.db.models.fields.CharField', [], {'max_length': '35', 'null': 'True', 'blank': 'True'}),
@@ -1574,6 +2843,7 @@ class Migration(SchemaMigration):
             'Meta': {'ordering': "['-_audit_timestamp']", 'object_name': 'MaternalEnrollDemAudit', 'db_table': "u'mpepu_maternal_maternalenrolldem_audit'"},
             '_audit_change_type': ('django.db.models.fields.CharField', [], {'max_length': '1'}),
             '_audit_id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
+            '_audit_subject_identifier': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True'}),
             '_audit_timestamp': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'db_index': 'True', 'blank': 'True'}),
             'cooking_method': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
@@ -1582,8 +2852,8 @@ class Migration(SchemaMigration):
             'ethnicity': ('django.db.models.fields.CharField', [], {'max_length': '25'}),
             'ethnicity_other': ('django.db.models.fields.CharField', [], {'max_length': '35', 'null': 'True', 'blank': 'True'}),
             'highest_education': ('django.db.models.fields.CharField', [], {'max_length': '25'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'house_electrified': ('django.db.models.fields.CharField', [], {'max_length': '25'}),
             'house_fridge': ('django.db.models.fields.CharField', [], {'max_length': '25'}),
             'house_people_number': ('django.db.models.fields.IntegerField', [], {}),
@@ -1600,7 +2870,7 @@ class Migration(SchemaMigration):
             'own_phone': ('django.db.models.fields.CharField', [], {'max_length': '25'}),
             'provides_money': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
             'provides_money_other': ('django.db.models.fields.CharField', [], {'max_length': '35', 'null': 'True', 'blank': 'True'}),
-            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 3, 2, 0, 0)'}),
+            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 5, 5, 0, 0)'}),
             'revision': ('django.db.models.fields.CharField', [], {'max_length': '150', 'null': 'True', 'blank': 'True'}),
             'toilet_facility': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
             'toilet_facility_other': ('django.db.models.fields.CharField', [], {'max_length': '35', 'null': 'True', 'blank': 'True'}),
@@ -1613,12 +2883,12 @@ class Migration(SchemaMigration):
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'diagnosis': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True', 'blank': 'True'}),
             'diagnosis_year': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
             'maternal_enroll_med': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['mpepu_maternal.MaternalEnrollMed']"}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 3, 2, 0, 0)'}),
+            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 5, 5, 0, 0)'}),
             'revision': ('django.db.models.fields.CharField', [], {'max_length': '150', 'null': 'True', 'blank': 'True'}),
             'user_created': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'}),
             'user_modified': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'})
@@ -1627,16 +2897,17 @@ class Migration(SchemaMigration):
             'Meta': {'ordering': "['-_audit_timestamp']", 'object_name': 'MaternalEnrollDxAudit', 'db_table': "u'mpepu_maternal_maternalenrolldx_audit'"},
             '_audit_change_type': ('django.db.models.fields.CharField', [], {'max_length': '1'}),
             '_audit_id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
+            '_audit_subject_identifier': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True'}),
             '_audit_timestamp': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'db_index': 'True', 'blank': 'True'}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'diagnosis': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True', 'blank': 'True'}),
             'diagnosis_year': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36'}),
             'maternal_enroll_med': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'_audit_maternalenrolldx'", 'to': "orm['mpepu_maternal.MaternalEnrollMed']"}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 3, 2, 0, 0)'}),
+            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 5, 5, 0, 0)'}),
             'revision': ('django.db.models.fields.CharField', [], {'max_length': '150', 'null': 'True', 'blank': 'True'}),
             'user_created': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'}),
             'user_modified': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'})
@@ -1647,13 +2918,13 @@ class Migration(SchemaMigration):
             'chronic_cond_other': ('django.db.models.fields.CharField', [], {'max_length': '35', 'null': 'True', 'blank': 'True'}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'has_chronic_cond': ('django.db.models.fields.CharField', [], {'max_length': '25'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
             'maternal_enroll': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['mpepu_maternal.MaternalEnroll']", 'unique': 'True'}),
             'maternal_visit': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['mpepu_maternal.MaternalVisit']", 'unique': 'True'}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 3, 2, 0, 0)'}),
+            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 5, 5, 0, 0)'}),
             'revision': ('django.db.models.fields.CharField', [], {'max_length': '150', 'null': 'True', 'blank': 'True'}),
             'user_created': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'}),
             'user_modified': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'}),
@@ -1663,17 +2934,18 @@ class Migration(SchemaMigration):
             'Meta': {'ordering': "['-_audit_timestamp']", 'object_name': 'MaternalEnrollMedAudit', 'db_table': "u'mpepu_maternal_maternalenrollmed_audit'"},
             '_audit_change_type': ('django.db.models.fields.CharField', [], {'max_length': '1'}),
             '_audit_id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
+            '_audit_subject_identifier': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True'}),
             '_audit_timestamp': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'db_index': 'True', 'blank': 'True'}),
             'chronic_cond_other': ('django.db.models.fields.CharField', [], {'max_length': '35', 'null': 'True', 'blank': 'True'}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'has_chronic_cond': ('django.db.models.fields.CharField', [], {'max_length': '25'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36'}),
             'maternal_enroll': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'_audit_maternalenrollmed'", 'to': "orm['mpepu_maternal.MaternalEnroll']"}),
             'maternal_visit': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'_audit_maternalenrollmed'", 'to': "orm['mpepu_maternal.MaternalVisit']"}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 3, 2, 0, 0)'}),
+            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 5, 5, 0, 0)'}),
             'revision': ('django.db.models.fields.CharField', [], {'max_length': '150', 'null': 'True', 'blank': 'True'}),
             'user_created': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'}),
             'user_modified': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'}),
@@ -1683,8 +2955,8 @@ class Migration(SchemaMigration):
             'Meta': {'object_name': 'MaternalEnrollOb'},
             'children_died_b4_5yrs': ('django.db.models.fields.IntegerField', [], {}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
             'live_children': ('django.db.models.fields.IntegerField', [], {}),
             'lost_after_24wks': ('django.db.models.fields.IntegerField', [], {}),
@@ -1693,7 +2965,7 @@ class Migration(SchemaMigration):
             'maternal_visit': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['mpepu_maternal.MaternalVisit']", 'unique': 'True'}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'pregs_24wks_or_more': ('django.db.models.fields.IntegerField', [], {}),
-            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 3, 2, 0, 0)'}),
+            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 5, 5, 0, 0)'}),
             'revision': ('django.db.models.fields.CharField', [], {'max_length': '150', 'null': 'True', 'blank': 'True'}),
             'user_created': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'}),
             'user_modified': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'})
@@ -1702,11 +2974,12 @@ class Migration(SchemaMigration):
             'Meta': {'ordering': "['-_audit_timestamp']", 'object_name': 'MaternalEnrollObAudit', 'db_table': "u'mpepu_maternal_maternalenrollob_audit'"},
             '_audit_change_type': ('django.db.models.fields.CharField', [], {'max_length': '1'}),
             '_audit_id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
+            '_audit_subject_identifier': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True'}),
             '_audit_timestamp': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'db_index': 'True', 'blank': 'True'}),
             'children_died_b4_5yrs': ('django.db.models.fields.IntegerField', [], {}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36'}),
             'live_children': ('django.db.models.fields.IntegerField', [], {}),
             'lost_after_24wks': ('django.db.models.fields.IntegerField', [], {}),
@@ -1715,7 +2988,7 @@ class Migration(SchemaMigration):
             'maternal_visit': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'_audit_maternalenrollob'", 'to': "orm['mpepu_maternal.MaternalVisit']"}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'pregs_24wks_or_more': ('django.db.models.fields.IntegerField', [], {}),
-            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 3, 2, 0, 0)'}),
+            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 5, 5, 0, 0)'}),
             'revision': ('django.db.models.fields.CharField', [], {'max_length': '150', 'null': 'True', 'blank': 'True'}),
             'user_created': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'}),
             'user_modified': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'})
@@ -1737,8 +3010,8 @@ class Migration(SchemaMigration):
             'has_del_comp': ('django.db.models.fields.CharField', [], {'max_length': '3'}),
             'has_ga': ('django.db.models.fields.CharField', [], {'max_length': '10'}),
             'has_urine_tender': ('django.db.models.fields.CharField', [], {'max_length': '10'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
             'labour_hrs': ('django.db.models.fields.CharField', [], {'max_length': '10'}),
             'labr_max_temp': ('django.db.models.fields.DecimalField', [], {'max_digits': '3', 'decimal_places': '1'}),
@@ -1746,7 +3019,7 @@ class Migration(SchemaMigration):
             'live_infants_to_register': ('django.db.models.fields.IntegerField', [], {}),
             'maternal_visit': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['mpepu_maternal.MaternalVisit']", 'unique': 'True'}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 3, 2, 0, 0)'}),
+            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 5, 5, 0, 0)'}),
             'revision': ('django.db.models.fields.CharField', [], {'max_length': '150', 'null': 'True', 'blank': 'True'}),
             'still_born_congen_abn': ('django.db.models.fields.CharField', [], {'max_length': '35', 'null': 'True', 'blank': 'True'}),
             'still_born_has_congen_abn': ('django.db.models.fields.CharField', [], {'default': "'N/A'", 'max_length': '3', 'null': 'True', 'blank': 'True'}),
@@ -1758,6 +3031,7 @@ class Migration(SchemaMigration):
             'Meta': {'ordering': "['-_audit_timestamp']", 'object_name': 'MaternalLabDelAudit', 'db_table': "u'mpepu_maternal_maternallabdel_audit'"},
             '_audit_change_type': ('django.db.models.fields.CharField', [], {'max_length': '1'}),
             '_audit_id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
+            '_audit_subject_identifier': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True'}),
             '_audit_timestamp': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'db_index': 'True', 'blank': 'True'}),
             'comment': ('django.db.models.fields.TextField', [], {'max_length': '250', 'null': 'True', 'blank': 'True'}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
@@ -1773,8 +3047,8 @@ class Migration(SchemaMigration):
             'has_del_comp': ('django.db.models.fields.CharField', [], {'max_length': '3'}),
             'has_ga': ('django.db.models.fields.CharField', [], {'max_length': '10'}),
             'has_urine_tender': ('django.db.models.fields.CharField', [], {'max_length': '10'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36'}),
             'labour_hrs': ('django.db.models.fields.CharField', [], {'max_length': '10'}),
             'labr_max_temp': ('django.db.models.fields.DecimalField', [], {'max_digits': '3', 'decimal_places': '1'}),
@@ -1782,7 +3056,7 @@ class Migration(SchemaMigration):
             'live_infants_to_register': ('django.db.models.fields.IntegerField', [], {}),
             'maternal_visit': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'_audit_maternallabdel'", 'to': "orm['mpepu_maternal.MaternalVisit']"}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 3, 2, 0, 0)'}),
+            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 5, 5, 0, 0)'}),
             'revision': ('django.db.models.fields.CharField', [], {'max_length': '150', 'null': 'True', 'blank': 'True'}),
             'still_born_congen_abn': ('django.db.models.fields.CharField', [], {'max_length': '35', 'null': 'True', 'blank': 'True'}),
             'still_born_has_congen_abn': ('django.db.models.fields.CharField', [], {'default': "'N/A'", 'max_length': '3', 'null': 'True', 'blank': 'True'}),
@@ -1798,13 +3072,13 @@ class Migration(SchemaMigration):
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'has_cd4': ('django.db.models.fields.CharField', [], {'max_length': '3'}),
             'has_vl': ('django.db.models.fields.CharField', [], {'max_length': '3'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
             'maternal_lab_del': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['mpepu_maternal.MaternalLabDel']", 'unique': 'True'}),
             'maternal_visit': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['mpepu_maternal.MaternalVisit']", 'unique': 'True'}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 3, 2, 0, 0)'}),
+            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 5, 5, 0, 0)'}),
             'revision': ('django.db.models.fields.CharField', [], {'max_length': '150', 'null': 'True', 'blank': 'True'}),
             'suppliment': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['mpepu_list.Suppliment']", 'symmetrical': 'False'}),
             'took_suppliments': ('django.db.models.fields.CharField', [], {'max_length': '3'}),
@@ -1817,6 +3091,7 @@ class Migration(SchemaMigration):
             'Meta': {'ordering': "['-_audit_timestamp']", 'object_name': 'MaternalLabDelClinicAudit', 'db_table': "u'mpepu_maternal_maternallabdelclinic_audit'"},
             '_audit_change_type': ('django.db.models.fields.CharField', [], {'max_length': '1'}),
             '_audit_id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
+            '_audit_subject_identifier': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True'}),
             '_audit_timestamp': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'db_index': 'True', 'blank': 'True'}),
             'cd4_date': ('django.db.models.fields.DateField', [], {'null': 'True', 'blank': 'True'}),
             'cd4_result': ('django.db.models.fields.CharField', [], {'max_length': '35', 'null': 'True', 'blank': 'True'}),
@@ -1824,13 +3099,13 @@ class Migration(SchemaMigration):
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'has_cd4': ('django.db.models.fields.CharField', [], {'max_length': '3'}),
             'has_vl': ('django.db.models.fields.CharField', [], {'max_length': '3'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36'}),
             'maternal_lab_del': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'_audit_maternallabdelclinic'", 'to': "orm['mpepu_maternal.MaternalLabDel']"}),
             'maternal_visit': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'_audit_maternallabdelclinic'", 'to': "orm['mpepu_maternal.MaternalVisit']"}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 3, 2, 0, 0)'}),
+            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 5, 5, 0, 0)'}),
             'revision': ('django.db.models.fields.CharField', [], {'max_length': '150', 'null': 'True', 'blank': 'True'}),
             'took_suppliments': ('django.db.models.fields.CharField', [], {'max_length': '3'}),
             'user_created': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'}),
@@ -1843,13 +3118,13 @@ class Migration(SchemaMigration):
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'has_preg_dx': ('django.db.models.fields.CharField', [], {'max_length': '3'}),
             'has_who_dx': ('django.db.models.fields.CharField', [], {'max_length': '3'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
             'maternal_lab_del': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['mpepu_maternal.MaternalLabDel']", 'unique': 'True'}),
             'maternal_visit': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['mpepu_maternal.MaternalVisit']", 'unique': 'True'}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 3, 2, 0, 0)'}),
+            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 5, 5, 0, 0)'}),
             'revision': ('django.db.models.fields.CharField', [], {'max_length': '150', 'null': 'True', 'blank': 'True'}),
             'user_created': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'}),
             'user_modified': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'}),
@@ -1859,17 +3134,18 @@ class Migration(SchemaMigration):
             'Meta': {'ordering': "['-_audit_timestamp']", 'object_name': 'MaternalLabDelDxAudit', 'db_table': "u'mpepu_maternal_maternallabdeldx_audit'"},
             '_audit_change_type': ('django.db.models.fields.CharField', [], {'max_length': '1'}),
             '_audit_id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
+            '_audit_subject_identifier': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True'}),
             '_audit_timestamp': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'db_index': 'True', 'blank': 'True'}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'has_preg_dx': ('django.db.models.fields.CharField', [], {'max_length': '3'}),
             'has_who_dx': ('django.db.models.fields.CharField', [], {'max_length': '3'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36'}),
             'maternal_lab_del': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'_audit_maternallabdeldx'", 'to': "orm['mpepu_maternal.MaternalLabDel']"}),
             'maternal_visit': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'_audit_maternallabdeldx'", 'to': "orm['mpepu_maternal.MaternalVisit']"}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 3, 2, 0, 0)'}),
+            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 5, 5, 0, 0)'}),
             'revision': ('django.db.models.fields.CharField', [], {'max_length': '150', 'null': 'True', 'blank': 'True'}),
             'user_created': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'}),
             'user_modified': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'})
@@ -1879,14 +3155,14 @@ class Migration(SchemaMigration):
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'grade': ('django.db.models.fields.IntegerField', [], {}),
             'hospitalized': ('django.db.models.fields.CharField', [], {'max_length': '3'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
-            'lab_del_dx': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
+            'lab_del_dx': ('django.db.models.fields.CharField', [], {'max_length': '175'}),
             'lab_del_dx_specify': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True', 'blank': 'True'}),
             'maternal_lab_del_dx': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['mpepu_maternal.MaternalLabDelDx']"}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 3, 2, 0, 0)'}),
+            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 5, 5, 0, 0)'}),
             'revision': ('django.db.models.fields.CharField', [], {'max_length': '150', 'null': 'True', 'blank': 'True'}),
             'user_created': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'}),
             'user_modified': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'})
@@ -1895,18 +3171,19 @@ class Migration(SchemaMigration):
             'Meta': {'ordering': "['-_audit_timestamp']", 'object_name': 'MaternalLabDelDxTAudit', 'db_table': "u'mpepu_maternal_maternallabdeldxt_audit'"},
             '_audit_change_type': ('django.db.models.fields.CharField', [], {'max_length': '1'}),
             '_audit_id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
+            '_audit_subject_identifier': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True'}),
             '_audit_timestamp': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'db_index': 'True', 'blank': 'True'}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'grade': ('django.db.models.fields.IntegerField', [], {}),
             'hospitalized': ('django.db.models.fields.CharField', [], {'max_length': '3'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36'}),
-            'lab_del_dx': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
+            'lab_del_dx': ('django.db.models.fields.CharField', [], {'max_length': '175'}),
             'lab_del_dx_specify': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True', 'blank': 'True'}),
             'maternal_lab_del_dx': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'_audit_maternallabdeldxt'", 'to': "orm['mpepu_maternal.MaternalLabDelDx']"}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 3, 2, 0, 0)'}),
+            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 5, 5, 0, 0)'}),
             'revision': ('django.db.models.fields.CharField', [], {'max_length': '150', 'null': 'True', 'blank': 'True'}),
             'user_created': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'}),
             'user_modified': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'})
@@ -1919,15 +3196,15 @@ class Migration(SchemaMigration):
             'has_ob_comp': ('django.db.models.fields.CharField', [], {'max_length': '3'}),
             'health_cond': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['mpepu_list.HealthCond']", 'symmetrical': 'False'}),
             'health_cond_other': ('django.db.models.fields.CharField', [], {'max_length': '35', 'blank': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
             'maternal_lab_del': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['mpepu_maternal.MaternalLabDel']", 'unique': 'True'}),
             'maternal_visit': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['mpepu_maternal.MaternalVisit']", 'unique': 'True'}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'ob_comp': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['mpepu_list.ObComp']", 'symmetrical': 'False'}),
             'ob_comp_other': ('django.db.models.fields.TextField', [], {'max_length': '250', 'null': 'True', 'blank': 'True'}),
-            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 3, 2, 0, 0)'}),
+            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 5, 5, 0, 0)'}),
             'revision': ('django.db.models.fields.CharField', [], {'max_length': '150', 'null': 'True', 'blank': 'True'}),
             'user_created': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'}),
             'user_modified': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'})
@@ -1936,20 +3213,21 @@ class Migration(SchemaMigration):
             'Meta': {'ordering': "['-_audit_timestamp']", 'object_name': 'MaternalLabDelMedAudit', 'db_table': "u'mpepu_maternal_maternallabdelmed_audit'"},
             '_audit_change_type': ('django.db.models.fields.CharField', [], {'max_length': '1'}),
             '_audit_id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
+            '_audit_subject_identifier': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True'}),
             '_audit_timestamp': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'db_index': 'True', 'blank': 'True'}),
             'comment': ('django.db.models.fields.TextField', [], {'max_length': '250', 'null': 'True', 'blank': 'True'}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'has_health_cond': ('django.db.models.fields.CharField', [], {'max_length': '3'}),
             'has_ob_comp': ('django.db.models.fields.CharField', [], {'max_length': '3'}),
             'health_cond_other': ('django.db.models.fields.CharField', [], {'max_length': '35', 'blank': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36'}),
             'maternal_lab_del': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'_audit_maternallabdelmed'", 'to': "orm['mpepu_maternal.MaternalLabDel']"}),
             'maternal_visit': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'_audit_maternallabdelmed'", 'to': "orm['mpepu_maternal.MaternalVisit']"}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'ob_comp_other': ('django.db.models.fields.TextField', [], {'max_length': '250', 'null': 'True', 'blank': 'True'}),
-            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 3, 2, 0, 0)'}),
+            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 5, 5, 0, 0)'}),
             'revision': ('django.db.models.fields.CharField', [], {'max_length': '150', 'null': 'True', 'blank': 'True'}),
             'user_created': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'}),
             'user_modified': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'})
@@ -1966,11 +3244,11 @@ class Migration(SchemaMigration):
             'contact_physical_address': ('django.db.models.fields.CharField', [], {'max_length': '500', 'null': 'True', 'blank': 'True'}),
             'contact_rel': ('django.db.models.fields.CharField', [], {'max_length': '78L', 'null': 'True', 'blank': 'True'}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'date_signed': ('django.db.models.fields.DateField', [], {'default': 'datetime.datetime(2014, 3, 2, 0, 0)'}),
+            'date_signed': ('django.db.models.fields.DateField', [], {'default': 'datetime.datetime(2014, 5, 5, 0, 0)'}),
             'has_caretaker_alt': ('django.db.models.fields.CharField', [], {'max_length': '25'}),
             'home_visit_permission': ('django.db.models.fields.CharField', [], {'max_length': '25'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
             'mail_address': ('django.db.models.fields.CharField', [], {'max_length': '500', 'null': 'True', 'blank': 'True'}),
             'maternal_visit': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['mpepu_maternal.MaternalVisit']"}),
@@ -1981,7 +3259,7 @@ class Migration(SchemaMigration):
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'physical_address': ('django.db.models.fields.CharField', [], {'max_length': '500', 'null': 'True', 'blank': 'True'}),
             'registered_subject': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['registration.RegisteredSubject']", 'unique': 'True', 'null': 'True'}),
-            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 3, 2, 0, 0)'}),
+            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 5, 5, 0, 0)'}),
             'revision': ('django.db.models.fields.CharField', [], {'max_length': '150', 'null': 'True', 'blank': 'True'}),
             'subject_cell': ('django.db.models.fields.CharField', [], {'max_length': '78L', 'null': 'True', 'blank': 'True'}),
             'subject_cell_alt': ('django.db.models.fields.CharField', [], {'max_length': '78L', 'null': 'True', 'blank': 'True'}),
@@ -1996,6 +3274,7 @@ class Migration(SchemaMigration):
             'Meta': {'ordering': "['-_audit_timestamp']", 'object_name': 'MaternalLocatorAudit', 'db_table': "u'mpepu_maternal_maternallocator_audit'"},
             '_audit_change_type': ('django.db.models.fields.CharField', [], {'max_length': '1'}),
             '_audit_id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
+            '_audit_subject_identifier': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True'}),
             '_audit_timestamp': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'db_index': 'True', 'blank': 'True'}),
             'care_clinic': ('django.db.models.fields.CharField', [], {'max_length': '35', 'blank': 'True'}),
             'caretaker_cell': ('django.db.models.fields.CharField', [], {'max_length': '78L', 'null': 'True', 'blank': 'True'}),
@@ -2007,11 +3286,11 @@ class Migration(SchemaMigration):
             'contact_physical_address': ('django.db.models.fields.CharField', [], {'max_length': '500', 'null': 'True', 'blank': 'True'}),
             'contact_rel': ('django.db.models.fields.CharField', [], {'max_length': '78L', 'null': 'True', 'blank': 'True'}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'date_signed': ('django.db.models.fields.DateField', [], {'default': 'datetime.datetime(2014, 3, 2, 0, 0)'}),
+            'date_signed': ('django.db.models.fields.DateField', [], {'default': 'datetime.datetime(2014, 5, 5, 0, 0)'}),
             'has_caretaker_alt': ('django.db.models.fields.CharField', [], {'max_length': '25'}),
             'home_visit_permission': ('django.db.models.fields.CharField', [], {'max_length': '25'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36'}),
             'mail_address': ('django.db.models.fields.CharField', [], {'max_length': '500', 'null': 'True', 'blank': 'True'}),
             'maternal_visit': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'_audit_maternallocator'", 'to': "orm['mpepu_maternal.MaternalVisit']"}),
@@ -2022,7 +3301,7 @@ class Migration(SchemaMigration):
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'physical_address': ('django.db.models.fields.CharField', [], {'max_length': '500', 'null': 'True', 'blank': 'True'}),
             'registered_subject': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'_audit_maternallocator'", 'null': 'True', 'to': "orm['registration.RegisteredSubject']"}),
-            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 3, 2, 0, 0)'}),
+            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 5, 5, 0, 0)'}),
             'revision': ('django.db.models.fields.CharField', [], {'max_length': '150', 'null': 'True', 'blank': 'True'}),
             'subject_cell': ('django.db.models.fields.CharField', [], {'max_length': '78L', 'null': 'True', 'blank': 'True'}),
             'subject_cell_alt': ('django.db.models.fields.CharField', [], {'max_length': '78L', 'null': 'True', 'blank': 'True'}),
@@ -2038,9 +3317,10 @@ class Migration(SchemaMigration):
             'comment': ('django.db.models.fields.TextField', [], {'max_length': '250', 'null': 'True', 'blank': 'True'}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'has_scheduled_data': ('django.db.models.fields.CharField', [], {'default': "'Yes'", 'max_length': '10'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
+            'maternal_visit': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['mpepu_maternal.MaternalVisit']", 'unique': 'True'}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'offstudy_date': ('django.db.models.fields.DateField', [], {}),
             'reason': ('django.db.models.fields.CharField', [], {'max_length': '30'}),
@@ -2054,13 +3334,15 @@ class Migration(SchemaMigration):
             'Meta': {'ordering': "['-_audit_timestamp']", 'object_name': 'MaternalOffStudyAudit', 'db_table': "u'mpepu_maternal_maternaloffstudy_audit'"},
             '_audit_change_type': ('django.db.models.fields.CharField', [], {'max_length': '1'}),
             '_audit_id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
+            '_audit_subject_identifier': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True'}),
             '_audit_timestamp': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'db_index': 'True', 'blank': 'True'}),
             'comment': ('django.db.models.fields.TextField', [], {'max_length': '250', 'null': 'True', 'blank': 'True'}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'has_scheduled_data': ('django.db.models.fields.CharField', [], {'default': "'Yes'", 'max_length': '10'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36'}),
+            'maternal_visit': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'_audit_maternaloffstudy'", 'to': "orm['mpepu_maternal.MaternalVisit']"}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'offstudy_date': ('django.db.models.fields.DateField', [], {}),
             'reason': ('django.db.models.fields.CharField', [], {'max_length': '30'}),
@@ -2072,6 +3354,7 @@ class Migration(SchemaMigration):
         },
         'mpepu_maternal.maternalpostfu': {
             'Meta': {'object_name': 'MaternalPostFu'},
+            'bp': ('django.db.models.fields.CharField', [], {'max_length': '7'}),
             'breastfeeding': ('django.db.models.fields.CharField', [], {'max_length': '3'}),
             'chronic_cond': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['mpepu_list.ChronicCond']", 'symmetrical': 'False'}),
             'chronic_cond_other': ('django.db.models.fields.CharField', [], {'max_length': '35', 'blank': 'True'}),
@@ -2080,13 +3363,13 @@ class Migration(SchemaMigration):
             'enter_weight': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '4', 'decimal_places': '1', 'blank': 'True'}),
             'had_mastitis': ('django.db.models.fields.CharField', [], {'max_length': '3', 'null': 'True', 'blank': 'True'}),
             'has_chronic_cond': ('django.db.models.fields.CharField', [], {'max_length': '3'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
             'maternal_visit': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['mpepu_maternal.MaternalVisit']", 'unique': 'True'}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'mother_weight': ('django.db.models.fields.CharField', [], {'max_length': '3'}),
-            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 3, 2, 0, 0)'}),
+            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 5, 5, 0, 0)'}),
             'revision': ('django.db.models.fields.CharField', [], {'max_length': '150', 'null': 'True', 'blank': 'True'}),
             'started_ctx': ('django.db.models.fields.CharField', [], {'max_length': '3'}),
             'user_created': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'}),
@@ -2096,7 +3379,9 @@ class Migration(SchemaMigration):
             'Meta': {'ordering': "['-_audit_timestamp']", 'object_name': 'MaternalPostFuAudit', 'db_table': "u'mpepu_maternal_maternalpostfu_audit'"},
             '_audit_change_type': ('django.db.models.fields.CharField', [], {'max_length': '1'}),
             '_audit_id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
+            '_audit_subject_identifier': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True'}),
             '_audit_timestamp': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'db_index': 'True', 'blank': 'True'}),
+            'bp': ('django.db.models.fields.CharField', [], {'max_length': '7'}),
             'breastfeeding': ('django.db.models.fields.CharField', [], {'max_length': '3'}),
             'chronic_cond_other': ('django.db.models.fields.CharField', [], {'max_length': '35', 'blank': 'True'}),
             'comment': ('django.db.models.fields.CharField', [], {'max_length': '350', 'null': 'True', 'blank': 'True'}),
@@ -2104,13 +3389,13 @@ class Migration(SchemaMigration):
             'enter_weight': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '4', 'decimal_places': '1', 'blank': 'True'}),
             'had_mastitis': ('django.db.models.fields.CharField', [], {'max_length': '3', 'null': 'True', 'blank': 'True'}),
             'has_chronic_cond': ('django.db.models.fields.CharField', [], {'max_length': '3'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36'}),
             'maternal_visit': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'_audit_maternalpostfu'", 'to': "orm['mpepu_maternal.MaternalVisit']"}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'mother_weight': ('django.db.models.fields.CharField', [], {'max_length': '3'}),
-            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 3, 2, 0, 0)'}),
+            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 5, 5, 0, 0)'}),
             'revision': ('django.db.models.fields.CharField', [], {'max_length': '150', 'null': 'True', 'blank': 'True'}),
             'started_ctx': ('django.db.models.fields.CharField', [], {'max_length': '3'}),
             'user_created': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'}),
@@ -2119,15 +3404,15 @@ class Migration(SchemaMigration):
         'mpepu_maternal.maternalpostfudx': {
             'Meta': {'object_name': 'MaternalPostFuDx'},
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
             'maternal_post_fu': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['mpepu_maternal.MaternalPostFu']", 'unique': 'True'}),
             'maternal_visit': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['mpepu_maternal.MaternalVisit']", 'unique': 'True'}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'mother_hospitalized': ('django.db.models.fields.CharField', [], {'max_length': '3'}),
             'new_diagnoses': ('django.db.models.fields.CharField', [], {'max_length': '3'}),
-            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 3, 2, 0, 0)'}),
+            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 5, 5, 0, 0)'}),
             'revision': ('django.db.models.fields.CharField', [], {'max_length': '150', 'null': 'True', 'blank': 'True'}),
             'user_created': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'}),
             'user_modified': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'}),
@@ -2138,17 +3423,18 @@ class Migration(SchemaMigration):
             'Meta': {'ordering': "['-_audit_timestamp']", 'object_name': 'MaternalPostFuDxAudit', 'db_table': "u'mpepu_maternal_maternalpostfudx_audit'"},
             '_audit_change_type': ('django.db.models.fields.CharField', [], {'max_length': '1'}),
             '_audit_id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
+            '_audit_subject_identifier': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True'}),
             '_audit_timestamp': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'db_index': 'True', 'blank': 'True'}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36'}),
             'maternal_post_fu': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'_audit_maternalpostfudx'", 'to': "orm['mpepu_maternal.MaternalPostFu']"}),
             'maternal_visit': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'_audit_maternalpostfudx'", 'to': "orm['mpepu_maternal.MaternalVisit']"}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'mother_hospitalized': ('django.db.models.fields.CharField', [], {'max_length': '3'}),
             'new_diagnoses': ('django.db.models.fields.CharField', [], {'max_length': '3'}),
-            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 3, 2, 0, 0)'}),
+            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 5, 5, 0, 0)'}),
             'revision': ('django.db.models.fields.CharField', [], {'max_length': '150', 'null': 'True', 'blank': 'True'}),
             'user_created': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'}),
             'user_modified': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'}),
@@ -2159,14 +3445,14 @@ class Migration(SchemaMigration):
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'grade': ('django.db.models.fields.IntegerField', [], {'max_length': '3', 'null': 'True', 'blank': 'True'}),
             'hospitalized': ('django.db.models.fields.CharField', [], {'max_length': '3', 'null': 'True', 'blank': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
             'maternal_post_fu': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['mpepu_maternal.MaternalPostFuDx']"}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'post_fu_dx': ('django.db.models.fields.CharField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
             'post_fu_specify': ('django.db.models.fields.CharField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
-            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 3, 2, 0, 0)'}),
+            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 5, 5, 0, 0)'}),
             'revision': ('django.db.models.fields.CharField', [], {'max_length': '150', 'null': 'True', 'blank': 'True'}),
             'user_created': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'}),
             'user_modified': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'})
@@ -2175,18 +3461,19 @@ class Migration(SchemaMigration):
             'Meta': {'ordering': "['-_audit_timestamp']", 'object_name': 'MaternalPostFuDxTAudit', 'db_table': "u'mpepu_maternal_maternalpostfudxt_audit'"},
             '_audit_change_type': ('django.db.models.fields.CharField', [], {'max_length': '1'}),
             '_audit_id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
+            '_audit_subject_identifier': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True'}),
             '_audit_timestamp': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'db_index': 'True', 'blank': 'True'}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'grade': ('django.db.models.fields.IntegerField', [], {'max_length': '3', 'null': 'True', 'blank': 'True'}),
             'hospitalized': ('django.db.models.fields.CharField', [], {'max_length': '3', 'null': 'True', 'blank': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36'}),
             'maternal_post_fu': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'_audit_maternalpostfudxt'", 'to': "orm['mpepu_maternal.MaternalPostFuDx']"}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'post_fu_dx': ('django.db.models.fields.CharField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
             'post_fu_specify': ('django.db.models.fields.CharField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
-            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 3, 2, 0, 0)'}),
+            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 5, 5, 0, 0)'}),
             'revision': ('django.db.models.fields.CharField', [], {'max_length': '150', 'null': 'True', 'blank': 'True'}),
             'user_created': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'}),
             'user_modified': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'})
@@ -2194,8 +3481,8 @@ class Migration(SchemaMigration):
         'mpepu_maternal.maternalpostreg': {
             'Meta': {'object_name': 'MaternalPostReg'},
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'reg_datetime': ('django.db.models.fields.DateTimeField', [], {}),
@@ -2208,10 +3495,11 @@ class Migration(SchemaMigration):
             'Meta': {'ordering': "['-_audit_timestamp']", 'object_name': 'MaternalPostRegAudit', 'db_table': "u'mpepu_maternal_maternalpostreg_audit'"},
             '_audit_change_type': ('django.db.models.fields.CharField', [], {'max_length': '1'}),
             '_audit_id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
+            '_audit_subject_identifier': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True'}),
             '_audit_timestamp': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'db_index': 'True', 'blank': 'True'}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36'}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'reg_datetime': ('django.db.models.fields.DateTimeField', [], {}),
@@ -2225,8 +3513,9 @@ class Migration(SchemaMigration):
             'appointment': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['appointment.Appointment']", 'unique': 'True'}),
             'comments': ('django.db.models.fields.TextField', [], {'max_length': '250', 'null': 'True', 'blank': 'True'}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'date_last_alive': ('django.db.models.fields.DateField', [], {'null': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
             'info_source': ('django.db.models.fields.CharField', [], {'max_length': '25'}),
             'info_source_other': ('django.db.models.fields.CharField', [], {'max_length': '35', 'blank': 'True'}),
@@ -2236,6 +3525,7 @@ class Migration(SchemaMigration):
             'report_datetime': ('django.db.models.fields.DateTimeField', [], {}),
             'revision': ('django.db.models.fields.CharField', [], {'max_length': '150', 'null': 'True', 'blank': 'True'}),
             'subject_identifier': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
+            'survival_status': ('django.db.models.fields.CharField', [], {'max_length': '10', 'null': 'True'}),
             'user_created': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'}),
             'user_modified': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'})
         },
@@ -2243,12 +3533,14 @@ class Migration(SchemaMigration):
             'Meta': {'ordering': "['-_audit_timestamp']", 'object_name': 'MaternalVisitAudit', 'db_table': "'mpepu_maternal_maternalvisit_audit'"},
             '_audit_change_type': ('django.db.models.fields.CharField', [], {'max_length': '1'}),
             '_audit_id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
+            '_audit_subject_identifier': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True'}),
             '_audit_timestamp': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'db_index': 'True', 'blank': 'True'}),
             'appointment': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'_audit_maternalvisit'", 'to': "orm['appointment.Appointment']"}),
             'comments': ('django.db.models.fields.TextField', [], {'max_length': '250', 'null': 'True', 'blank': 'True'}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'date_last_alive': ('django.db.models.fields.DateField', [], {'null': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36'}),
             'info_source': ('django.db.models.fields.CharField', [], {'max_length': '25'}),
             'info_source_other': ('django.db.models.fields.CharField', [], {'max_length': '35', 'blank': 'True'}),
@@ -2258,6 +3550,7 @@ class Migration(SchemaMigration):
             'report_datetime': ('django.db.models.fields.DateTimeField', [], {}),
             'revision': ('django.db.models.fields.CharField', [], {'max_length': '150', 'null': 'True', 'blank': 'True'}),
             'subject_identifier': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
+            'survival_status': ('django.db.models.fields.CharField', [], {'max_length': '10', 'null': 'True'}),
             'user_created': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'}),
             'user_modified': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'})
         },
@@ -2268,13 +3561,13 @@ class Migration(SchemaMigration):
             'feeding_duration': ('django.db.models.fields.CharField', [], {'max_length': '10', 'null': 'True', 'blank': 'True'}),
             'feeding_period': ('django.db.models.fields.CharField', [], {'max_length': '3'}),
             'feeding_satisfaction': ('django.db.models.fields.CharField', [], {'max_length': '3'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
             'maternal_visit': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['mpepu_maternal.MaternalVisit']", 'unique': 'True'}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'next_feeding_choice': ('django.db.models.fields.CharField', [], {'max_length': '30'}),
-            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 3, 2, 0, 0)'}),
+            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 5, 5, 0, 0)'}),
             'revision': ('django.db.models.fields.CharField', [], {'max_length': '150', 'null': 'True', 'blank': 'True'}),
             'user_created': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'}),
             'user_modified': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'})
@@ -2283,19 +3576,20 @@ class Migration(SchemaMigration):
             'Meta': {'ordering': "['-_audit_timestamp']", 'object_name': 'PostNatalInfantFeedingSurveyAudit', 'db_table': "u'mpepu_maternal_postnatalinfantfeedingsurvey_audit'"},
             '_audit_change_type': ('django.db.models.fields.CharField', [], {'max_length': '1'}),
             '_audit_id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
+            '_audit_subject_identifier': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True'}),
             '_audit_timestamp': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'db_index': 'True', 'blank': 'True'}),
             'correct_bf_duration': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'feeding_duration': ('django.db.models.fields.CharField', [], {'max_length': '10', 'null': 'True', 'blank': 'True'}),
             'feeding_period': ('django.db.models.fields.CharField', [], {'max_length': '3'}),
             'feeding_satisfaction': ('django.db.models.fields.CharField', [], {'max_length': '3'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36'}),
             'maternal_visit': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'_audit_postnatalinfantfeedingsurvey'", 'to': "orm['mpepu_maternal.MaternalVisit']"}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'next_feeding_choice': ('django.db.models.fields.CharField', [], {'max_length': '30'}),
-            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 3, 2, 0, 0)'}),
+            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 5, 5, 0, 0)'}),
             'revision': ('django.db.models.fields.CharField', [], {'max_length': '150', 'null': 'True', 'blank': 'True'}),
             'user_created': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'}),
             'user_modified': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'})
@@ -2305,7 +3599,7 @@ class Migration(SchemaMigration):
             'assessment_score': ('django.db.models.fields.CharField', [], {'max_length': '3', 'null': 'True'}),
             'comment': ('django.db.models.fields.CharField', [], {'max_length': '250', 'null': 'True', 'blank': 'True'}),
             'confirm_identity': ('django.db.models.fields.CharField', [], {'max_length': '78L', 'null': 'True'}),
-            'consent_copy': ('django.db.models.fields.CharField', [], {'max_length': '3', 'null': 'True'}),
+            'consent_copy': ('django.db.models.fields.CharField', [], {'max_length': '20', 'null': 'True'}),
             'consent_datetime': ('django.db.models.fields.DateTimeField', [], {}),
             'consent_reviewed': ('django.db.models.fields.CharField', [], {'max_length': '3', 'null': 'True'}),
             'consent_version_on_entry': ('django.db.models.fields.IntegerField', [], {'default': '1'}),
@@ -2315,8 +3609,8 @@ class Migration(SchemaMigration):
             'first_name': ('django.db.models.fields.CharField', [], {'max_length': '78L', 'null': 'True'}),
             'gender': ('django.db.models.fields.CharField', [], {'max_length': '1', 'null': 'True'}),
             'guardian_name': ('django.db.models.fields.CharField', [], {'max_length': '78L', 'null': 'True', 'blank': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
             'identity': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '78L'}),
             'identity_type': ('django.db.models.fields.CharField', [], {'max_length': '15'}),
@@ -2345,9 +3639,14 @@ class Migration(SchemaMigration):
             'Meta': {'ordering': "['-_audit_timestamp']", 'object_name': 'ResistanceConsentAudit', 'db_table': "u'mpepu_maternal_resistanceconsent_audit'"},
             '_audit_change_type': ('django.db.models.fields.CharField', [], {'max_length': '1'}),
             '_audit_id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
+            '_audit_subject_identifier': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True'}),
             '_audit_timestamp': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'db_index': 'True', 'blank': 'True'}),
+            'assessment_score': ('django.db.models.fields.CharField', [], {'max_length': '3', 'null': 'True'}),
             'comment': ('django.db.models.fields.CharField', [], {'max_length': '250', 'null': 'True', 'blank': 'True'}),
+            'confirm_identity': ('django.db.models.fields.CharField', [], {'max_length': '78L', 'null': 'True'}),
+            'consent_copy': ('django.db.models.fields.CharField', [], {'max_length': '20', 'null': 'True'}),
             'consent_datetime': ('django.db.models.fields.DateTimeField', [], {}),
+            'consent_reviewed': ('django.db.models.fields.CharField', [], {'max_length': '3', 'null': 'True'}),
             'consent_version_on_entry': ('django.db.models.fields.IntegerField', [], {'default': '1'}),
             'consent_version_recent': ('django.db.models.fields.IntegerField', [], {'default': '1'}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
@@ -2355,9 +3654,11 @@ class Migration(SchemaMigration):
             'first_name': ('django.db.models.fields.CharField', [], {'max_length': '78L', 'null': 'True'}),
             'gender': ('django.db.models.fields.CharField', [], {'max_length': '1', 'null': 'True'}),
             'guardian_name': ('django.db.models.fields.CharField', [], {'max_length': '78L', 'null': 'True', 'blank': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36'}),
+            'identity': ('django.db.models.fields.CharField', [], {'max_length': '78L'}),
+            'identity_type': ('django.db.models.fields.CharField', [], {'max_length': '15'}),
             'initials': ('django.db.models.fields.CharField', [], {'max_length': '10', 'null': 'True'}),
             'is_dob_estimated': ('django.db.models.fields.CharField', [], {'max_length': '25', 'null': 'True'}),
             'is_incarcerated': ('django.db.models.fields.CharField', [], {'default': "'-'", 'max_length': '3'}),
@@ -2370,6 +3671,7 @@ class Migration(SchemaMigration):
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'registered_subject': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'_audit_resistanceconsent'", 'null': 'True', 'to': "orm['registration.RegisteredSubject']"}),
             'revision': ('django.db.models.fields.CharField', [], {'max_length': '150', 'null': 'True', 'blank': 'True'}),
+            'study_questions': ('django.db.models.fields.CharField', [], {'max_length': '3', 'null': 'True'}),
             'study_site': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'_audit_resistanceconsent'", 'null': 'True', 'to': "orm['bhp_variables.StudySite']"}),
             'subject_identifier': ('django.db.models.fields.CharField', [], {'db_index': 'True', 'max_length': '50', 'blank': 'True'}),
             'subject_identifier_as_pk': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True', 'db_index': 'True'}),
@@ -2384,18 +3686,21 @@ class Migration(SchemaMigration):
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'date_arv_started': ('django.db.models.fields.DateField', [], {}),
             'discontinued_by': ('django.db.models.fields.CharField', [], {'max_length': '3'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
             'info_source': ('django.db.models.fields.CharField', [], {'max_length': '15'}),
+            'info_source_other': ('django.db.models.fields.CharField', [], {'max_length': '35', 'blank': 'True'}),
             'last_3tc_date': ('django.db.models.fields.DateField', [], {'null': 'True', 'blank': 'True'}),
             'last_arv_date': ('django.db.models.fields.DateField', [], {'null': 'True', 'blank': 'True'}),
+            'last_efv_date': ('django.db.models.fields.DateField', [], {'null': 'True', 'blank': 'True'}),
             'last_ftc_date': ('django.db.models.fields.DateField', [], {'null': 'True', 'blank': 'True'}),
             'last_tdf_date': ('django.db.models.fields.DateField', [], {'null': 'True', 'blank': 'True'}),
+            'last_tdf_ftc_date': ('django.db.models.fields.DateField', [], {'null': 'True', 'blank': 'True'}),
             'maternal_visit': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['mpepu_maternal.MaternalVisit']", 'unique': 'True'}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'regimen': ('django.db.models.fields.CharField', [], {'max_length': '15'}),
-            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 3, 2, 0, 0)'}),
+            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 5, 5, 0, 0)'}),
             'revision': ('django.db.models.fields.CharField', [], {'max_length': '150', 'null': 'True', 'blank': 'True'}),
             'stopped_once': ('django.db.models.fields.CharField', [], {'max_length': '3'}),
             'user_created': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'}),
@@ -2405,23 +3710,27 @@ class Migration(SchemaMigration):
             'Meta': {'ordering': "['-_audit_timestamp']", 'object_name': 'ResistanceDiscAudit', 'db_table': "u'mpepu_maternal_resistancedisc_audit'"},
             '_audit_change_type': ('django.db.models.fields.CharField', [], {'max_length': '1'}),
             '_audit_id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
+            '_audit_subject_identifier': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True'}),
             '_audit_timestamp': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'db_index': 'True', 'blank': 'True'}),
             'as_prescribed': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'date_arv_started': ('django.db.models.fields.DateField', [], {}),
             'discontinued_by': ('django.db.models.fields.CharField', [], {'max_length': '3'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36'}),
             'info_source': ('django.db.models.fields.CharField', [], {'max_length': '15'}),
+            'info_source_other': ('django.db.models.fields.CharField', [], {'max_length': '35', 'blank': 'True'}),
             'last_3tc_date': ('django.db.models.fields.DateField', [], {'null': 'True', 'blank': 'True'}),
             'last_arv_date': ('django.db.models.fields.DateField', [], {'null': 'True', 'blank': 'True'}),
+            'last_efv_date': ('django.db.models.fields.DateField', [], {'null': 'True', 'blank': 'True'}),
             'last_ftc_date': ('django.db.models.fields.DateField', [], {'null': 'True', 'blank': 'True'}),
             'last_tdf_date': ('django.db.models.fields.DateField', [], {'null': 'True', 'blank': 'True'}),
+            'last_tdf_ftc_date': ('django.db.models.fields.DateField', [], {'null': 'True', 'blank': 'True'}),
             'maternal_visit': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'_audit_resistancedisc'", 'to': "orm['mpepu_maternal.MaternalVisit']"}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'regimen': ('django.db.models.fields.CharField', [], {'max_length': '15'}),
-            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 3, 2, 0, 0)'}),
+            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 5, 5, 0, 0)'}),
             'revision': ('django.db.models.fields.CharField', [], {'max_length': '150', 'null': 'True', 'blank': 'True'}),
             'stopped_once': ('django.db.models.fields.CharField', [], {'max_length': '3'}),
             'user_created': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'}),
@@ -2431,14 +3740,14 @@ class Migration(SchemaMigration):
             'Meta': {'object_name': 'ResistanceEligibility'},
             'co_enrolled': ('django.db.models.fields.CharField', [], {'max_length': '3'}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
             'incarcerated': ('django.db.models.fields.CharField', [], {'max_length': '3'}),
             'lates_cd4': ('django.db.models.fields.IntegerField', [], {'max_length': '4'}),
             'maternal_visit': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['mpepu_maternal.MaternalVisit']", 'unique': 'True'}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 3, 2, 0, 0)'}),
+            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 5, 5, 0, 0)'}),
             'revision': ('django.db.models.fields.CharField', [], {'max_length': '150', 'null': 'True', 'blank': 'True'}),
             'status_evidence': ('django.db.models.fields.CharField', [], {'max_length': '3'}),
             'stopped_arv': ('django.db.models.fields.CharField', [], {'max_length': '3'}),
@@ -2450,17 +3759,18 @@ class Migration(SchemaMigration):
             'Meta': {'ordering': "['-_audit_timestamp']", 'object_name': 'ResistanceEligibilityAudit', 'db_table': "u'mpepu_maternal_resistanceeligibility_audit'"},
             '_audit_change_type': ('django.db.models.fields.CharField', [], {'max_length': '1'}),
             '_audit_id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
+            '_audit_subject_identifier': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True'}),
             '_audit_timestamp': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'db_index': 'True', 'blank': 'True'}),
             'co_enrolled': ('django.db.models.fields.CharField', [], {'max_length': '3'}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36'}),
             'incarcerated': ('django.db.models.fields.CharField', [], {'max_length': '3'}),
             'lates_cd4': ('django.db.models.fields.IntegerField', [], {'max_length': '4'}),
             'maternal_visit': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'_audit_resistanceeligibility'", 'to': "orm['mpepu_maternal.MaternalVisit']"}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 3, 2, 0, 0)'}),
+            'report_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 5, 5, 0, 0)'}),
             'revision': ('django.db.models.fields.CharField', [], {'max_length': '150', 'null': 'True', 'blank': 'True'}),
             'status_evidence': ('django.db.models.fields.CharField', [], {'max_length': '3'}),
             'stopped_arv': ('django.db.models.fields.CharField', [], {'max_length': '3'}),
@@ -2476,8 +3786,8 @@ class Migration(SchemaMigration):
             'first_name': ('django.db.models.fields.CharField', [], {'max_length': '78L', 'null': 'True'}),
             'gender': ('django.db.models.fields.CharField', [], {'max_length': '1', 'null': 'True'}),
             'hiv_status': ('django.db.models.fields.CharField', [], {'max_length': '15', 'null': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
             'identity': ('django.db.models.fields.CharField', [], {'max_length': '78L', 'null': 'True', 'blank': 'True'}),
             'identity_type': ('django.db.models.fields.CharField', [], {'max_length': '15'}),
@@ -2510,8 +3820,8 @@ class Migration(SchemaMigration):
             'category': ('django.db.models.fields.CharField', [], {'default': "'subject'", 'max_length': '35', 'unique': 'True', 'null': 'True'}),
             'content_type_map': ('django.db.models.fields.related.OneToOneField', [], {'related_name': "'+'", 'unique': 'True', 'to': "orm['bhp_content_type_map.ContentTypeMap']"}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
             'model_name': ('django.db.models.fields.CharField', [], {'max_length': '25', 'null': 'True'}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
@@ -2526,8 +3836,8 @@ class Migration(SchemaMigration):
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'group_name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '25'}),
             'grouping_key': ('django.db.models.fields.CharField', [], {'max_length': '25', 'null': 'True', 'blank': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
             'membership_form': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['visit_schedule.MembershipForm']"}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
@@ -2542,8 +3852,8 @@ class Migration(SchemaMigration):
             'code': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '6', 'db_index': 'True'}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'grouping': ('django.db.models.fields.CharField', [], {'max_length': '25', 'null': 'True', 'blank': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
             'instruction': ('django.db.models.fields.TextField', [], {'max_length': '255', 'blank': 'True'}),
             'lower_window': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
