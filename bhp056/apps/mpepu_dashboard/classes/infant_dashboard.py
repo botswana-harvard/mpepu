@@ -73,12 +73,8 @@ class InfantDashboard(DashboardMixin, RegisteredSubjectDashboard):
         # get delivery date if delivered
         return self.get_maternal_lab_del().delivery_datetime
 
-
     def get_visit_model(self):
         return InfantVisit
-
-    def get_requisition_model(self):
-        return InfantRequisition
 
     def get_locator_model(self):
         return MaternalLocator
@@ -155,7 +151,7 @@ class InfantDashboard(DashboardMixin, RegisteredSubjectDashboard):
             if date.today() - self.get_infant_birth().dob <= timedelta(days=60):
                 days_alive = (date.today() - self.get_infant_birth().dob + timedelta(days=1)).days
         return days_alive
-    
+
     def subject_hiv_status(self):
         super(InfantDashboard, self).subject_hiv_status
         if not self._subject_hiv_status:
