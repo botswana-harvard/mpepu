@@ -114,6 +114,9 @@ class InfantVerbalAutopsyItems(InfantBaseUuidModel):
         """Returns mother's identifier."""
         return self.verbal_autopsy.get_consenting_subject_identifier()
 
+    def get_visit(self):
+        return self.verbal_autopsy.infant_visit
+
     class Meta:
         app_label = "mpepu_infant"
         verbose_name = "Infant Verbal Autopsy:Item"

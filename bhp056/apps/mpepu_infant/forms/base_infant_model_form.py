@@ -11,5 +11,3 @@ class BaseInfantModelForm(BaseConsentedModelForm):
             self.fields['infant_visit'].queryset = InfantVisit.objects.filter(pk=self.instance.infant_visit.pk)
         except:
             pass
-
-        

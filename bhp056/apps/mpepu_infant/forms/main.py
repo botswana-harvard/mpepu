@@ -6,7 +6,7 @@ from edc.subject.consent.forms import BaseConsentedModelForm
 
 from apps.mpepu_infant.models import (InfantDeath, InfantPrerandoLoss, InfantStudyDrugInit, InfantNvpAdherence,
                                       InfantSurvival, InfantArvProph, InfantArvProphMod, InfantHaart, InfantHaartMod,
-                                      InfantCtxPlaceboAdh, InfantFeeding, InfantVerbalAutopsy)
+                                      InfantCtxPlaceboAdh, InfantFeeding, InfantVerbalAutopsy, InfantVerbalAutopsyItems)
 from .base_infant_model_form import BaseInfantModelForm
 
 
@@ -169,7 +169,31 @@ class InfantFeedingForm (BaseInfantModelForm):
         model = InfantFeeding
 
 
-class InfantVerbalAutopsyForm (forms.ModelForm):
+class InfantVerbalAutopsyForm (BaseInfantModelForm):
+    def clean(self):
+        cleaned_data = super(InfantVerbalAutopsyForm, self).clean()
+        check_items = self.data.get('infantverbalautopsyitems_set-0-sign_symptom')
+        #
+        if cleaned_data.get('sign_symptoms') =='Yes' and not check_items:
+            raise forms.ValidationError('You indicated that there were signs and symptoms. Please provide them.')
+
+        #Ensure all required fileds are keyed
+        if not cleaned_data.get('infant_visit') or not cleaned_data.get('source') or not cleaned_data.get('first_sign') or not cleaned_data.get('prop_cause') or not cleaned_data.get('sign_symptoms') or not cleaned_data.get('report_datetime'):
+            raise forms.ValidationError('This field is required. Please fill it in.')
+        return cleaned_data
 
     class Meta:
         model = InfantVerbalAutopsy
+
+
+class InfantVerbalAutopsyItemsForm(BaseInfantModelForm):
+    def clean(self):
+        cleaned_data = super(InfantVerbalAutopsyItemsForm, self).clean()
+        verbal_autopsy = cleaned_data.get('verbal_autopsy')
+
+        if verbal_autopsy.sign_symptoms == 'No':
+            raise forms.ValidationError('You answered that the participant did not experience any sign or symptoms, yet you listed them. Please correct.')
+        return cleaned_data
+
+    class Meta:
+        model = InfantVerbalAutopsyItems

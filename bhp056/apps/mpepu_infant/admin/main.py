@@ -264,6 +264,9 @@ admin.site.register(InfantDeath, InfantDeathAdmin)
 
 class InfantFuAdmin(InfantVisitModelAdmin):
 
+    def __init__(self, *args):
+        super(InfantFuAdmin, self).__init__(*args)
+
     form = InfantFuForm
     fields = (
         "infant_visit",
