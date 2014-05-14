@@ -153,7 +153,7 @@ class MpepuAppConfiguration(BaseAppConfiguration):
                                       ProfileItemTuple('Plasma and Buffy Coat Storage', 'PL', 0.1, 3)]}}
 
     labeling_setup = {'label_printer': [LabelPrinterTuple('Zebra_Technologies_ZTC_GK420t', '192.168.1.25', True),
-                                        #LabelPrinterTuple('Zebra Technologies ZTC GK420t', '192.168.1.160', True),
+                                        LabelPrinterTuple('Mpepu_Pharmacy_Label_Printer', '192.168.1.160', True),
                                         ],
                     'zpl_template': [
                         ZplTemplateTuple(
