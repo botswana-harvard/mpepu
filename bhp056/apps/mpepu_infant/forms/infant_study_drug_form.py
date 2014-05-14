@@ -7,7 +7,7 @@ class InfantStudyDrugForm (BaseInfantModelForm):
     def clean(self):
         cleaned_data = super(InfantStudyDrugForm, self).clean()
         #Ensure all required fields are keyed
-        if not cleaned_data.get('on_placebo_status') or not cleaned_data('drug_status'):
+        if not cleaned_data.get('on_placebo_status') or not cleaned_data.get('drug_status'):
             raise forms.ValidationError('This field is required. please fill it in.')
         # if infant not on CTX/Placebo before this visit then InfantCtxPlaceboAdh is not required """
         if cleaned_data['on_placebo_status'] == 'No':

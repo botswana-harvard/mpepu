@@ -19,7 +19,7 @@ DEFAULT_FROM_EMAIL = 'edcdev@bhp.org.bw'
 ADMINS = (
     ('erikvw', 'ew2789@gmail.com'),
     ('fchilisa', 'fchilisa@bhp.org.bw'),
-    ('twicet', 'twicet@gmail.com'),
+    ('twicet', 'ttshwenyane@bhp.org.bw'),
     ('mkewagamang', 'mkewagamang@bhp.org.bw'),
 )
 
