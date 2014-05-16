@@ -8,7 +8,9 @@ from .base_infant_model_form import BaseInfantModelForm
 class InfantStoolCollectionForm(BaseInfantModelForm):
 
     def clean(self):
-        cleaned_data = super(InfantStoolCollectionForm, self).clean()
+        cleaned_data = self.cleaned_data
+        if not cleaned_data.get('infant_visit'):
+            raise forms.ValidationError('This field is required. Please fill it in.')
         # validating no sample collection
         if cleaned_data.get('sample_obtained', None) == 'No' and cleaned_data.get('axi_temp', None):
             raise forms.ValidationError('If no sample is obtained, do not give temp')
@@ -48,7 +50,7 @@ class InfantStoolCollectionForm(BaseInfantModelForm):
             if cleaned_data.get('antibiotic_dose_24hrs') == 'Yes' and new_med[0].new_medications == 'No':
                 raise forms.ValidationError('You indicated that participant received antibiotics in the past 24 hours, yet indicated there were \'No\' new medications on Infant New Medications form. Please go back and fill them in.')
 
-        return cleaned_data
+        return super(InfantStoolCollectionForm, self).clean()
 
     class Meta:
         model = InfantStoolCollection

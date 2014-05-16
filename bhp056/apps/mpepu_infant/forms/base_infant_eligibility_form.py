@@ -9,10 +9,13 @@ from apps.mpepu_infant_rando.classes import Eligibility
 from .base_infant_model_form import BaseInfantModelForm
 from ..models import InfantEligibility
 
+
 class BaseInfantEligibilityForm (BaseInfantModelForm):
 
     def clean(self):
         cleaned_data = self.cleaned_data
+        if  not cleaned_data.get('registered_subject'):
+            raise forms.ValidationError('This field is required. Please fill it in')
         if not cleaned_data.get('registered_subject').subject_identifier:
             raise forms.ValidationError('Randomization failed. Cannot determine subject_identifier from RegisteredSubject table. Contact the Data Manager.')
         if not cleaned_data.get('registered_subject').dob:

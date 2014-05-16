@@ -30,8 +30,10 @@ class InfantVisitForm (BaseInfantModelForm):
 
     def clean(self):
 
-        cleaned_data = super(InfantVisitForm, self).clean()
+        cleaned_data = self.cleaned_data
         """validate data"""
+        if not cleaned_data.get('appointment'):
+            raise forms.ValidationError('This field is required. please fill it in')
         if cleaned_data.get('reason') == 'deferred':
             if cleaned_data.get('appointment').visit_definition.code != '2010':
                 raise forms.ValidationError('Reason \'deferred\' may only be used on visit 2010. Please correct.')
@@ -65,9 +67,11 @@ class InfantVisitForm (BaseInfantModelForm):
                     # is rando'ed, so no...
                     raise forms.ValidationError("Infant is randomized. Please choose the correct study status. You wrote %s" % study_status_display)
 
+        #validate that you cant save infant visit greater that 2000 if infant eligibility has not been filled in
+        self.instance.requires_infant_eligibility(InfantVisit(**cleaned_data), forms.ValidationError)
         #validate that you cant save infant visit if previous visit has not been saved.
         #self.instance.check_previous_visit_keyed(InfantVisit(**cleaned_data), forms.ValidationError)
-        return cleaned_data
+        return super(InfantVisitForm, self).clean()
 
     class Meta:
         model = InfantVisit
