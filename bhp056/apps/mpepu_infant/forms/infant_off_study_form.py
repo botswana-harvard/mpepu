@@ -13,11 +13,12 @@ class InfantOffStudyForm (BaseOffStudyForm):
         help_text="",
         widget=AdminRadioSelect(renderer=AdminRadioFieldRenderer),
         )
-    
+
     def clean(self):
-        cleaned_data = super(InfantOffStudyForm, self).clean()
-        
-        return cleaned_data
+        cleaned_data = self.cleaned_data
+        if  not cleaned_data.get('registered_subject'):
+            raise forms.ValidationError('This field is required. Please fill it in')
+        return super(InfantOffStudyForm, self).clean()
 
     class Meta:
         model = InfantOffStudy

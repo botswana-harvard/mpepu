@@ -13,17 +13,22 @@ from .base_infant_model_form import BaseInfantModelForm
 class InfantDeathForm (BaseInfantDeathForm):
 
     def clean(self):
-        cleaned_data = super(InfantDeathForm, self).clean()
+        cleaned_data = self.cleaned_data
         if cleaned_data.get('death_reason_hospitalized'):
-            if 'specify' in cleaned_data.get('death_reason_hospitalized').name.lower() and not cleaned_data.get('death_reason_hospitalized_other'):
+            if 'specify' in cleaned_data.get('death_reason_hospitalized').name and not cleaned_data.get('death_reason_hospitalized_other'):
                 raise forms.ValidationError('Please specify further details for the reason hospitalized.')
-        return cleaned_data
+        return super(InfantDeathForm, self).clean()
 
     class Meta:
         model = InfantDeath
 
 
 class InfantPrerandoLossForm(BaseInfantModelForm):
+    def clean(self):
+        cleaned_data = self.cleaned_data
+        if  not cleaned_data.get('registered_subject'):
+            raise forms.ValidationError('This field is required. Please fill it in')
+        return super(InfantPrerandoLossForm, self).clean()
 
     class Meta:
         model = InfantPrerandoLoss
@@ -43,9 +48,13 @@ class InfantSurvivalForm (forms.ModelForm):
 
 class InfantArvProphForm (BaseInfantModelForm):
     def clean(self):
-        cleaned_data = super(InfantArvProphForm, self).clean()
+        cleaned_data = self.cleaned_data
         arv_status = cleaned_data.get('arv_status')
         check_mod = self.data.get('infantarvprophmod_set-0-arv_code')
+
+        if not cleaned_data.get('infant_visit'):
+            raise forms.ValidationError('This field is required. Please fill it in')
+
         if cleaned_data.get('prophylatic_nvp') == 'No':
             if arv_status == 'no_mod' or 'arv_status' == 'modified':
                 raise forms.ValidationError("You have indicated that the infant is not on NVP yet the status is ' %s. Please correct'"
@@ -62,7 +71,7 @@ class InfantArvProphForm (BaseInfantModelForm):
                 forms.ValidationError("NVP data is available, You wrote 'infant was not supposed to be on NVP. "
                                       "Please correct '%s' first." % InfantNvpAdherence._meta.verbose_name)
 
-        return cleaned_data
+        return super(InfantArvProphForm, self).clean()
 
     class Meta:
         model = InfantArvProph
@@ -74,7 +83,7 @@ class InfantArvProphModForm (forms.ModelForm):
         infant_arv_proph = cleaned_data.get('infant_arv_proph')
         if infant_arv_proph.arv_status == 'N/A' or infant_arv_proph.arv_status == 'never started':
             if cleaned_data.get('arv_code'):
-                raise forms.ValidationError('You cannot fill in NVP/AZT Proph modificaion form with the arv status you chose. Please correct.')
+                raise forms.ValidationError('You cannot fill in NVP/AZT Proph modification form with the arv status you chose. Please correct.')
 
         return cleaned_data
 
@@ -96,14 +105,17 @@ class InfantHaartModForm (forms.ModelForm):
 
 class InfantNvpAdherenceForm (BaseInfantModelForm):
     def clean(self):
-        cleaned_data = super(InfantNvpAdherenceForm, self).clean()
+        cleaned_data = self.cleaned_data
+        if not cleaned_data.get('infant_visit'):
+            raise forms.ValidationError('This field is required. Please fill it in')
+
         if cleaned_data.get('days_missed') > 0 and not cleaned_data.get('reason_missed'):
             raise forms.ValidationError('You indicated that days of NVP were missed. Please provide a reason.')
 
         if cleaned_data.get('days_missed') == 0 and cleaned_data.get('reason_missed') is not None:
             raise forms.ValidationError('You indicated that no entire days of NVP were missed and provided a reason missed. Please correct.')
 
-        return cleaned_data
+        return super(InfantNvpAdherenceForm, self).clean()
 
     class Meta:
         model = InfantNvpAdherence
@@ -112,7 +124,9 @@ class InfantNvpAdherenceForm (BaseInfantModelForm):
 class InfantCtxPlaceboAdhForm (BaseInfantModelForm):
 
     def clean(self):
-        cleaned_data = super(InfantCtxPlaceboAdhForm, self).clean()
+        cleaned_data = self.cleaned_data
+        if not cleaned_data.get('infant_visit'):
+            raise forms.ValidationError('This field is required. Please fill it in')
         # ensuring that when no drug is missed that reason becomes N/A
         if cleaned_data.get('day_missed_drug') == 0 and cleaned_data.get('reason_missed') != 'N/A':
             raise forms.ValidationError('if no entire days where missed, your reason missed should be NOT APPLICABLE')
@@ -122,7 +136,7 @@ class InfantCtxPlaceboAdhForm (BaseInfantModelForm):
     # validating that other,specify is given if other reason is selected
         if cleaned_data.get('reason_missed') == 'OTHER' and not cleaned_data.get('reason_missed_other'):
             raise forms.ValidationError('If reason missed is other, please specify the reason in field provided')
-        return cleaned_data
+        return super(InfantCtxPlaceboAdhForm, self).clean()
 
     class Meta:
         model = InfantCtxPlaceboAdh
@@ -131,14 +145,14 @@ class InfantCtxPlaceboAdhForm (BaseInfantModelForm):
 class InfantFeedingForm (BaseInfantModelForm):
 
     def clean(self):
-        cleaned_data = super(InfantFeedingForm, self).clean()
+        cleaned_data = self.cleaned_data
         visit = cleaned_data.get('infant_visit')
 
         # validating that the weaning date is not greater than the visit/today's date
-        if cleaned_data.get('formula_date'):
+        if cleaned_data.get('formula_date') and visit:
             if cleaned_data.get('formula_date') > visit.report_datetime.date():
                 raise forms.ValidationError('Date participant first received formula milk cannot be greater than today\'s date. Please correct.')
-        if cleaned_data.get('most_recent_bm'):
+        if cleaned_data.get('most_recent_bm') and visit:
             if cleaned_data.get('most_recent_bm') > visit.report_datetime.date():
                 raise forms.ValidationError('The most recent breast feeding date cannot be greater than today\'s date. Please correct.')
 
@@ -163,7 +177,7 @@ class InfantFeedingForm (BaseInfantModelForm):
             if cleaned_data.get('rehydration_salts') == 'Yes':
                 raise forms.ValidationError("You indicated that infant has not received other foods or liquids other than breast milk(Q3) and yet selected infant received rehydration salts. Please correct")
 
-        return cleaned_data
+        return super(InfantFeedingForm, self).clean()
 
     class Meta:
         model = InfantFeeding
@@ -171,16 +185,14 @@ class InfantFeedingForm (BaseInfantModelForm):
 
 class InfantVerbalAutopsyForm (BaseInfantModelForm):
     def clean(self):
-        cleaned_data = super(InfantVerbalAutopsyForm, self).clean()
+        cleaned_data = self.cleaned_data
         check_items = self.data.get('infantverbalautopsyitems_set-0-sign_symptom')
+        if  not cleaned_data.get('registered_subject'):
+            raise forms.ValidationError('This field is required. Please fill it in')
         #
         if cleaned_data.get('sign_symptoms') =='Yes' and not check_items:
             raise forms.ValidationError('You indicated that there were signs and symptoms. Please provide them.')
-
-        #Ensure all required fileds are keyed
-        if not cleaned_data.get('infant_visit') or not cleaned_data.get('source') or not cleaned_data.get('first_sign') or not cleaned_data.get('prop_cause') or not cleaned_data.get('sign_symptoms') or not cleaned_data.get('report_datetime'):
-            raise forms.ValidationError('This field is required. Please fill it in.')
-        return cleaned_data
+        return super(InfantVerbalAutopsyForm, self).clean()
 
     class Meta:
         model = InfantVerbalAutopsy

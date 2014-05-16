@@ -85,21 +85,21 @@ class InfantVisit(InfantOffStudyMixin, BaseVisitTracking):
         """Returns mother's identifier."""
         return self.appointment.registered_subject.relative_identifier
 
-    def requires_infant_eligibility(self, exception_cls=None):
+    def requires_infant_eligibility(self, infant_visit, exception_cls=None):
         """Requires InfantEligibility to be completed for any visit after 2000 or InfantPreEligibility for 2015 ."""
         if not exception_cls:
             exception_cls = ValidationError
         # must have InfantEligibility or InfantPreEligibility
         InfantEligibility = models.get_model('mpepu_infant', 'InfantEligibility')
-        has_infant_eligibility = InfantEligibility.objects.filter(registered_subject=self.appointment.registered_subject).exists()
+        has_infant_eligibility = InfantEligibility.objects.filter(registered_subject=infant_visit.appointment.registered_subject).exists()
         InfantPreEligibility = models.get_model('mpepu_infant', 'InfantPreEligibility')
-        has_infant_pre_eligibility = InfantPreEligibility.objects.filter(registered_subject=self.appointment.registered_subject).exists()
+        has_infant_pre_eligibility = InfantPreEligibility.objects.filter(registered_subject=infant_visit.appointment.registered_subject).exists()
         if not has_infant_eligibility and not has_infant_pre_eligibility:
-            if self.appointment.visit_definition.code != '2000' and self.reason in ['scheduled', 'unscheduled']:
+            if infant_visit.appointment.visit_definition.code != '2000' and infant_visit.reason in ['scheduled', 'unscheduled']:
                 raise exception_cls('Please complete the Infant Eligibility or Infant Pre-eligibility before conducting scheduled visits beyond visit 2000.')
         if not has_infant_eligibility and has_infant_pre_eligibility:
-            if self.appointment.visit_definition.code not in ['2000', '2010'] and self.reason in ['scheduled', 'unscheduled']:
-                raise exception_cls('Please complete the Infant Eligibility or Infant Pre-eligibility before conducting scheduled visits beyond visit 2000.')
+            if infant_visit.appointment.visit_definition.code != '2000' and infant_visit.reason in ['scheduled', 'unscheduled']:
+                raise exception_cls('Please complete the Infant Eligibility before conducting scheduled visits beyond visit 2000.')
 
     def check_previous_visit_keyed(self, infant_visit, exception_cls=None):
         """Check that previous visit has been keyed before allowing saving of current visit"""
@@ -145,7 +145,7 @@ class InfantVisit(InfantOffStudyMixin, BaseVisitTracking):
         if self.reason == 'vital status':
             self.appointment.appt_type = 'telephone'
         self.get_visit_reason_no_follow_up_choices()
-        self.requires_infant_eligibility()
+        self.requires_infant_eligibility(self)
 #         self.check_previous_visit_keyed(self)
         self.create_meta_if_visit_reason_is_death_when_sid_is_none()
         self.create_meta_if_visit_reason_is_death_when_sid_is_not_none()
