@@ -13,23 +13,21 @@ from .base_infant_model_form import BaseInfantModelForm
 class InfantFuForm (BaseInfantModelForm):
 
     def clean(self):
-        cleaned_data = super(InfantFuForm,self).clean()
-        #ensure all non nullable fields are filled in
-        if not cleaned_data.get('physical_assessment') or not cleaned_data.get('diarrhea_illness') or not cleaned_data.get('has_dx'):
-            raise forms.ValidationError('This is a required field, therefore cannot be left blank, please fill it in')
-
+        cleaned_data = self.cleaned_data
+        if not cleaned_data.get('infant_visit'):
+            raise forms.ValidationError('This field is required. Please fill it in.')
         # if infant had no diarrheal illness, InfantFuD is not required """
-        if cleaned_data.get('diarrhea_illness').upper() == 'NO':
+        if cleaned_data.get('diarrhea_illness') == 'No':
             if InfantFuD.objects.filter(infant_fu__infant_visit=cleaned_data.get('infant_visit')).exists():
                 raise forms.ValidationError("Graded Infant Diarrhea data exists. You wrote infant had no "
                                             "diarrheal illness. Please correct '%s' first." % InfantFuD._meta.verbose_name)
         # if infant does not have DX, InfantFuDx is not required """
-        if cleaned_data.get('has_dx').upper() == 'NO':
+        if cleaned_data.get('has_dx') == 'No':
             if InfantFuDx.objects.filter(infant_fu__infant_visit=cleaned_data.get('infant_visit')):
                 raise forms.ValidationError("Infant diagnosis have been reported for this visit. "
                                             "You wrote infant had no new events/episodes. Please "
                                             "correct '%s' first." % InfantFuDx._meta.verbose_name)
-        return cleaned_data
+        return super(InfantFuForm,self).clean()
 
     class Meta:
         model = InfantFu
@@ -39,7 +37,9 @@ class InfantFuPhysicalForm (BaseInfantModelForm):
 
     def clean(self):
 
-        cleaned_data = super(InfantFuPhysicalForm, self).clean()
+        cleaned_data = self.cleaned_data
+        if not cleaned_data.get('infant_visit'):
+            raise forms.ValidationError('This field is required. Please fill it in.')
         # validating abnormal findings
         if cleaned_data.get('has_abnormalities') == 'Yes' and not cleaned_data.get('abnormalities'):
             raise forms.ValidationError('You indicated infant has abnormalities. Please describe them.')
@@ -51,7 +51,7 @@ class InfantFuPhysicalForm (BaseInfantModelForm):
             raise forms.ValidationError('If patient was hospitalised, give number of days in hospital')
         if cleaned_data.get('was_hospitalized') == 'No' and cleaned_data.get('days_hospitalized'):
             raise forms.ValidationError('Do not give number of hospital days if patient was never hospitalized.')
-        return cleaned_data
+        return super(InfantFuPhysicalForm, self).clean()
 
     class Meta:
         model = InfantFuPhysical
@@ -59,9 +59,10 @@ class InfantFuPhysicalForm (BaseInfantModelForm):
 
 class InfantFuDxForm (BaseInfantModelForm):
     def clean(self):
-        cleaned_data = super(InfantFuDxForm,self).clean()
-
-        return cleaned_data
+        cleaned_data = self.cleaned_data
+        if not cleaned_data.get('infant_visit'):
+            raise forms.ValidationError('This field is required. Please fill it in.')
+        return super(InfantFuDxForm,self).clean()
 
     class Meta:
         model = InfantFuDx
@@ -79,10 +80,6 @@ class InfantFuDxItemsForm (BaseInfantModelForm):
         cleaned_data = super(InfantFuDxItemsForm, self).clean()
         infant_fu_dx = cleaned_data.get('infant_fu_dx')
         visit = infant_fu_dx.infant_visit
-
-        #Ensure all required fields are keyed
-        if not cleaned_data.get('infant_fu_dx') or not cleaned_data.get('fu_dx') or not cleaned_data.get('health_facility') or not cleaned_data.get('was_hospitalized') or not cleaned_data.get('grade') or not cleaned_data.get('is_eae_required'):
-            raise forms.ValidationError('This field is required. Please fill it in.')
 
         if 'specify' in cleaned_data.get('fu_dx', None):
             if not cleaned_data.get('fu_dx_specify', None):
@@ -120,6 +117,8 @@ class InfantFuDx2ProphForm (BaseInfantModelForm):
     def clean(self):
         cleaned_data = self.cleaned_data
         check_items = self.data.get('infantfudx2prophitems_set-0-dx')
+        if not cleaned_data.get('infant_visit'):
+            raise forms.ValidationError('This field is required. Please fill it in.')
 
         #WHO validations
         if not cleaned_data.get('wcs_dx_ped'):
@@ -133,8 +132,7 @@ class InfantFuDx2ProphForm (BaseInfantModelForm):
             if not check_items:
                 raise forms.ValidationError('New Diagnosis is indicated to have occured. Please list')
 
-        return cleaned_data
-#         return super(InfantFuDx2ProphForm, self).clean()
+        return super(InfantFuDx2ProphForm, self).clean()
 
     class Meta:
         model = InfantFuDx2Proph
@@ -162,9 +160,8 @@ class InfantFuDx2ProphItemsForm (BaseInfantModelForm):
 
 class InfantFuDForm (BaseInfantModelForm):
     def clean(self):
-        cleaned_data = super(InfantFuDForm,self).clean()
-        #Ensure all required fields are keyed
-        if not cleaned_data.get('infant_fu'):
+        cleaned_data = self.cleaned_data
+        if not cleaned_data.get('infant_visit'):
             raise forms.ValidationError('This field is required. Please fill it in.')
         # if hospitalized, response about hospitalization in InfantPhysical and infantfudxitems should be same
         infant_fu = cleaned_data.get('infant_fu')
@@ -178,7 +175,7 @@ class InfantFuDForm (BaseInfantModelForm):
         # validating that d_onsetdate is not greater than the visit date
         if visit and cleaned_data.get('d_onset_date') > visit.report_datetime:
             raise forms.ValidationError("Diarhoea onset date cannot be greater than the visit date. Please correct")
-        return cleaned_data
+        return super(InfantFuDForm,self).clean()
 
     class Meta:
         model = InfantFuD
@@ -186,13 +183,15 @@ class InfantFuDForm (BaseInfantModelForm):
 
 class InfantFuMedForm (BaseInfantModelForm):
     def clean(self):
-        cleaned_data = super(InfantFuMedForm, self).clean()
+        cleaned_data = self.cleaned_data
+        if not cleaned_data.get('infant_visit'):
+            raise forms.ValidationError('This field is required. Please fill it in.')
         if 'vaccination' in cleaned_data:
             self.validate_m2m(
                     label=' infant vaccination',
                     leading=cleaned_data.get('vaccines_received'),
                     m2m=cleaned_data.get('vaccination'))
-        return cleaned_data
+        return super(InfantFuMedForm, self).clean()
 
     class Meta:
         model = InfantFuMed
@@ -202,6 +201,9 @@ class InfantFuNewMedForm (BaseInfantModelForm):
     def clean(self):
         cleaned_data = self.cleaned_data
         check_items = self.data.get('infantfunewmeditems_set-0-medication')
+
+        if not cleaned_data.get('infant_visit'):
+            raise forms.ValidationError('This field is required. Please fill it in.')
         #Validating that if new medication is indicated as given, then medication listing should be provided
         if cleaned_data.get('new_medications') == 'Yes':
             if not check_items:

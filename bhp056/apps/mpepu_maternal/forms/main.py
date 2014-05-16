@@ -6,6 +6,11 @@ from ..models import MaternalDeath, MaternalLocator
 
 
 class MaternalDeathForm (BaseMaternalModelForm):
+    def clean(self):
+        cleaned_data = self.cleaned_data
+        if not cleaned_data.get('maternal_visit') or not cleaned_data.get('registered_subject'):
+            raise forms.ValidationError('This field is required. Please fill it in')
+        return super(MaternalDeathForm, self).clean()
 
     class Meta:
         model = MaternalDeath
@@ -13,7 +18,9 @@ class MaternalDeathForm (BaseMaternalModelForm):
 
 class MaternalLocatorForm (BaseMaternalModelForm):
     def clean(self):
-        cleaned_data = super(MaternalLocatorForm, self).clean()
+        cleaned_data = self.cleaned_data
+        if not cleaned_data.get('maternal_visit'):
+            raise forms.ValidationError('This field is required. Please fill it in')
 
         if cleaned_data.get('home_visit_permission') == 'Yes' and not cleaned_data.get('physical_address'):
             raise forms.ValidationError('You indicated that participant consented to for home visits. Please provide physical address.')
@@ -32,7 +39,7 @@ class MaternalLocatorForm (BaseMaternalModelForm):
         if cleaned_data.get('has_caretaker_alt') == 'Yes' and not cleaned_data.get('caretaker_name'):
             raise forms.ValidationError('You indicated that participant has identified an alternate caretaker in case of death. Please provide full details.')
 
-        return cleaned_data
+        return super(MaternalLocatorForm, self).clean()
 
     class Meta:
         model = MaternalLocator
