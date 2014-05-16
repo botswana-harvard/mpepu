@@ -38,7 +38,7 @@ class MaternalPostFuDxForm (BaseMaternalModelForm):
         if cleaned_data.get('new_diagnoses') == 'Yes' and not check_dx:
             raise forms.ValidationError('You indicated that participant had new diagnosis and yet did not provide them. Please correct.')     
 
-        return super(MaternalPostFuDxForm, self).clean()
+        return cleaned_data
 
     class Meta:
         model = MaternalPostFuDx
