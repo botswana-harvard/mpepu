@@ -132,7 +132,7 @@ class InfantFuDx2ProphForm (BaseInfantModelForm):
             if not check_items:
                 raise forms.ValidationError('New Diagnosis is indicated to have occured. Please list')
 
-        return super(InfantFuDx2ProphForm, self).clean()
+        return cleaned_data
 
     class Meta:
         model = InfantFuDx2Proph
