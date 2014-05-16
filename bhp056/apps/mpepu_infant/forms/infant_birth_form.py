@@ -12,8 +12,6 @@ class InfantBirthForm (BaseInfantModelForm):
 
     def clean(self):
         cleaned_data = self.cleaned_data
-        if not cleaned_data.get('infant_visit'):
-            raise forms.ValidationError('This field is required. Please fill it in')
         # does dob match maternal lab del?
         maternal_identifier = cleaned_data.get('registered_subject', None)
         if maternal_identifier:
