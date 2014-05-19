@@ -188,7 +188,8 @@ class MpepuAppConfiguration(BaseAppConfiguration):
                                 'dispensing', (
                                     """^XA
                                     ^FO100,25^A0N,25^FDBotswana-Harvard Partnership - SID ${sid}^FS
-                                    ^FO100,50^BY2.0^BCN,50,N,N,N^BY^FD${barcode_value}^FS
+                                    ^FO100,50^BY2.0^BCN,50,N,N,N
+                                    ^BY^FD${barcode_value}^FS
                                     ^FO100,120^A0N,20^FD${barcode_value}^FS
                                     ^FO100,150^A0N,30^FD${subject_identifier} [${initials}]^FS
                                     ^FO100,180^A0N,40^FD${treatment}^FS
