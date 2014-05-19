@@ -24,10 +24,10 @@ class MaternalArvPostForm (BaseMaternalModelForm):
             raise forms.ValidationError("You indicated that participant was on HAART. Reason CANNOT be 'Not Applicable'. Please correct.")
 
         if cleaned_data.get('arv_status') != 'N/A' or cleaned_data.get('arv_status') != 'no_mod':
-            if check_arvs:
+            if not check_arvs:
                 raise forms.ValidationError('You indicated that the participants ARV status has changed. Please provide details.')
 
-        return super(MaternalArvPostForm, self).clean()
+        return cleaned_data
 
     class Meta:
         model = MaternalArvPost
@@ -35,11 +35,11 @@ class MaternalArvPostForm (BaseMaternalModelForm):
 
 class MaternalArvPostModForm (BaseMaternalModelForm):
     def clean(self):
-        cleaned_data = super(MaternalArvPostModForm, self).clean()
+        cleaned_data = self.cleaned_data
 
         if cleaned_data.get('maternal_arv_post').arv_status == 'N/A' or cleaned_data.get('maternal_arv_post').arv_status == 'no_mod':
             if cleaned_data.get('arv_code'):
-                raise forms.ValidationError("You cannot indicate arv modifaction as you indicated 'Not applicable' or 'No modifications above.")
+                raise forms.ValidationError("You cannot indicate arv modifaction as you indicated {} above.".format(cleaned_data.get('maternal_arv_post').arv_status))
         return cleaned_data
 
     class Meta:
