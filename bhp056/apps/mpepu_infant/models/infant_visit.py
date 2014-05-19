@@ -273,20 +273,20 @@ class InfantVisit(InfantOffStudyMixin, BaseVisitTracking):
                     scheduled_meta_data.save()
 
     def disable_dna_pcr_when_feeding_choice_is_formula_feeding(self):
-        from .infant_eligibility import InfantEligibility
-        ff = InfantEligibility.objects.filter(registered_subject=self.registered_subject)
-        if ff and ff[0].maternal_feeding_choice == 'FF':
-            if self.appointment.visit_definition.code != '2000' and self.appointment.visit_definition.code != '2010' and self.appointment.visit_definition.code != '2020':
-                panel = Panel.objects.filter(edc_name='DNA PCR')
-                if panel:
-                    lab_entry = LabEntry.objects.get(model_name='infantrequisition', requisition_panel_id=panel[0].id, visit_definition_id=self.appointment.visit_definition_id)
-                    requisition_meta_data = RequisitionMetaData.objects.filter(appointment_id=self.appointment.id, lab_entry_id=lab_entry.id, registered_subject_id=self.registered_subject.id)
-                    if not requisition_meta_data:
-                        requisition_meta_data = RequisitionMetaData.objects.create(appointment_id=self.appointment.id, lab_entry_id=lab_entry.id, registered_subject_id=self.registered_subject.id)
-                    else:
-                        requisition_meta_data = requisition_meta_data[0]
-                    requisition_meta_data.entry_status = 'NOT_REQUIRED'
-                    requisition_meta_data.save()
+        from ...mpepu_maternal.models import MaternalConsent
+        check_consent = MaternalConsent.objects.filter(subject_identifier=self.registered_subject.relative_identifier)
+        if check_consent[0].consent_version_recent >= 4:
+            from .infant_eligibility import InfantEligibility
+            ff = InfantEligibility.objects.filter(registered_subject=self.registered_subject)
+            if ff and ff[0].maternal_feeding_choice == 'FF':
+                if self.appointment.visit_definition.code != '2000' and self.appointment.visit_definition.code != '2010' and self.appointment.visit_definition.code != '2015':
+                    panel = Panel.objects.filter(edc_name='DNA PCR')
+                    if panel:
+                        lab_entry = LabEntry.objects.get(model_name='infantrequisition', requisition_panel_id=panel[0].id, visit_definition_id=self.appointment.visit_definition_id)
+                        requisition_meta_data = RequisitionMetaData.objects.filter(appointment_id=self.appointment.id, lab_entry_id=lab_entry.id, registered_subject_id=self.registered_subject.id)
+                        if requisition_meta_data:
+                            requisition_meta_data.entry_status = 'NOT_REQUIRED'
+                            requisition_meta_data.save()
 
     def get_new_v4_forms(self):
         new_forms = ['infantstoolcollection']
