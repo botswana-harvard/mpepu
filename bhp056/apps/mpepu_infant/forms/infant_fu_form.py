@@ -216,7 +216,7 @@ class InfantFuNewMedForm (BaseInfantModelForm):
 
 
 class InfantFuNewMedItemsForm (BaseInfantModelForm):
- 
+
     def clean(self):
         cleaned_data = self.cleaned_data
         medication = cleaned_data.get('medication')
