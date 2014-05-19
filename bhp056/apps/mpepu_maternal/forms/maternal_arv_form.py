@@ -23,7 +23,7 @@ class MaternalArvPostForm (BaseMaternalModelForm):
         if cleaned_data.get('haart_last_visit') == 'Yes' and cleaned_data.get('haart_reason') == 'N/A':
             raise forms.ValidationError("You indicated that participant was on HAART. Reason CANNOT be 'Not Applicable'. Please correct.")
 
-        if cleaned_data.get('arv_status') != 'N/A' or cleaned_data.get('arv_status') != 'no_mod':
+        if cleaned_data.get('arv_status') != 'N/A' and cleaned_data.get('arv_status') != 'no_mod':
             if not check_arvs:
                 raise forms.ValidationError('You indicated that the participants ARV status has changed. Please provide details.')
 
