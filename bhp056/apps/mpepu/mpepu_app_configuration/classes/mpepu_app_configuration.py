@@ -154,6 +154,7 @@ class MpepuAppConfiguration(BaseAppConfiguration):
 
     labeling_setup = {'label_printer': [LabelPrinterTuple('Zebra_Technologies_ZTC_GK420t', '192.168.1.25', True),
                                         LabelPrinterTuple('Mpepu_Pharmacy_Label_Printer', '192.168.1.160', True),
+                                        LabelPrinterTuple('Moleps_room2_Label_Printer', '10.70.117.37', True)
                                         ],
                     'zpl_template': [
                         ZplTemplateTuple(
