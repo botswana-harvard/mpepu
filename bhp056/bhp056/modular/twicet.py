@@ -11,8 +11,8 @@ KEY_PATH = join(SETTINGS_DIR, '..', '..', 'keys')
 LOCALE_PATHS = ('locale',)
 
 DATABASES = {
-    'default': mysql_db(NAME='bhp056_new'),
-    'lab_api': mysql_db(NAME='lab', HOST='192.168.1.50'),
+    'default': mysql_db(NAME='bhp056_live'),
+    'lab_api': mysql_db(NAME='lab'),
 }
 
 INSTALLED_APPS += ('debug_toolbar',)
@@ -20,7 +20,8 @@ INSTALLED_APPS += ('debug_toolbar',)
 INTERNAL_IPS = ('127.0.0.1', )
 
 DEBUG_TOOLBAR_CONFIG = {
-    'INTERCEPT_REDIRECTS': False,
+    'RENDER_PANELS': True,
+    'SHOW_COLLAPSED': False,
 }
 
 MIDDLEWARE_CLASSES += (

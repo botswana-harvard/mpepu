@@ -43,8 +43,9 @@ class InfantDashboard(DashboardMixin, RegisteredSubjectDashboard):
             delivery_date=self.get_delivery_date(),
             maternal_consent=self.get_maternal_consent(),
             days_alive=self.get_days_alive(),
-            panels=panels
-            )
+            panels=panels,
+            local_results=self.render_labs()
+        )
 
     def set_registered_subject(self, pk=None):
         self._registered_subject = self.registered_subject
@@ -72,7 +73,6 @@ class InfantDashboard(DashboardMixin, RegisteredSubjectDashboard):
     def get_delivery_datetime(self):
         # get delivery date if delivered
         return self.get_maternal_lab_del().delivery_datetime
-
 
     def get_visit_model(self):
         return InfantVisit
@@ -155,7 +155,7 @@ class InfantDashboard(DashboardMixin, RegisteredSubjectDashboard):
             if date.today() - self.get_infant_birth().dob <= timedelta(days=60):
                 days_alive = (date.today() - self.get_infant_birth().dob + timedelta(days=1)).days
         return days_alive
-    
+
     def subject_hiv_status(self):
         super(InfantDashboard, self).subject_hiv_status
         if not self._subject_hiv_status:

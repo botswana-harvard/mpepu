@@ -1,5 +1,4 @@
-from dajaxice.core import dajaxice_autodiscover
-
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf.urls import patterns, include, url
 from django.contrib.auth.decorators import login_required
 from django.contrib import admin
@@ -18,7 +17,8 @@ from edc.dashboard.subject.views import additional_requisition
 
 admin.autodiscover()
 site_lab_profiles.autodiscover()
-dajaxice_autodiscover()
+#from dajaxice.core import dajaxice_autodiscover, dajaxice_config
+#dajaxice_autodiscover()
 from apps.mpepu.mpepu_app_configuration.classes import MpepuAppConfiguration
 MpepuAppConfiguration()
 site_visit_schedules.autodiscover()
@@ -44,7 +44,8 @@ urlpatterns = patterns('',
 )
 
 urlpatterns += patterns('',
-    (r'^%s/' % settings.DAJAXICE_MEDIA_PREFIX, include('dajaxice.urls')),
+    #(r'^%s/' % settings.DAJAXICE_MEDIA_PREFIX, include('dajaxice.urls')),
+    #url(dajaxice_config.dajaxice_url, include('dajaxice.urls')),
 )
 #this is for additional_requisitions
 urlpatterns += patterns('',
@@ -71,7 +72,7 @@ urlpatterns += patterns('',
  )
 
 urlpatterns += patterns('',
-    url(r'^{app_name}/(?P<section_name>specimens)/'.format(app_name=APP_NAME),
+    url(r'^{app_name}/section/labclinic/'.format(app_name=APP_NAME),
         include('edc.lab.lab_clinic_api.urls'), name="section_url_name"),
 )
 
@@ -112,3 +113,5 @@ urlpatterns += patterns('',
 #     urlpatterns += patterns('django.contrib.staticfiles.views',
 #         url(r'^static/(?P<path>.*)$', 'serve'),
 #     )
+
+urlpatterns += staticfiles_urlpatterns()
