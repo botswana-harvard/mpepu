@@ -8,340 +8,24 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding model 'Processing'
-        db.create_table(u'mpepu_lab_processing', (
-            ('created', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
-            ('modified', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
-            ('user_created', self.gf('django.db.models.fields.CharField')(default='', max_length=250, db_index=True)),
-            ('user_modified', self.gf('django.db.models.fields.CharField')(default='', max_length=250, db_index=True)),
-            ('hostname_created', self.gf('django.db.models.fields.CharField')(default='silverapple', max_length=50, db_index=True, blank=True)),
-            ('hostname_modified', self.gf('django.db.models.fields.CharField')(default='silverapple', max_length=50, db_index=True, blank=True)),
-            ('id', self.gf('django.db.models.fields.CharField')(max_length=36, primary_key=True)),
-            ('revision', self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True)),
-            ('print_labels', self.gf('django.db.models.fields.BooleanField')(default=True)),
-            ('aliquot', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['mpepu_lab.Aliquot'])),
-            ('profile', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['mpepu_lab.Profile'])),
-        ))
-        db.send_create_signal('mpepu_lab', ['Processing'])
-
-        # Adding model 'AliquotType'
-        db.create_table(u'mpepu_lab_aliquottype', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('created', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
-            ('modified', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
-            ('user_created', self.gf('django.db.models.fields.CharField')(default='', max_length=250, db_index=True)),
-            ('user_modified', self.gf('django.db.models.fields.CharField')(default='', max_length=250, db_index=True)),
-            ('hostname_created', self.gf('django.db.models.fields.CharField')(default='silverapple', max_length=50, db_index=True, blank=True)),
-            ('hostname_modified', self.gf('django.db.models.fields.CharField')(default='silverapple', max_length=50, db_index=True, blank=True)),
-            ('name', self.gf('django.db.models.fields.CharField')(max_length=50)),
-            ('alpha_code', self.gf('django.db.models.fields.CharField')(unique=True, max_length=15)),
-            ('numeric_code', self.gf('django.db.models.fields.CharField')(unique=True, max_length=2)),
-        ))
-        db.send_create_signal('mpepu_lab', ['AliquotType'])
-
-        # Adding model 'AliquotCondition'
-        db.create_table(u'mpepu_lab_aliquotcondition', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('created', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
-            ('modified', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
-            ('user_created', self.gf('django.db.models.fields.CharField')(default='', max_length=250, db_index=True)),
-            ('user_modified', self.gf('django.db.models.fields.CharField')(default='', max_length=250, db_index=True)),
-            ('hostname_created', self.gf('django.db.models.fields.CharField')(default='silverapple', max_length=50, db_index=True, blank=True)),
-            ('hostname_modified', self.gf('django.db.models.fields.CharField')(default='silverapple', max_length=50, db_index=True, blank=True)),
-            ('name', self.gf('django.db.models.fields.CharField')(max_length=250, unique=True, null=True, db_index=True)),
-            ('short_name', self.gf('django.db.models.fields.CharField')(max_length=250, unique=True, null=True, db_index=True)),
-            ('display_index', self.gf('django.db.models.fields.IntegerField')(default=0, db_index=True)),
-            ('field_name', self.gf('django.db.models.fields.CharField')(max_length=25, null=True, blank=True)),
-            ('version', self.gf('django.db.models.fields.CharField')(default='1.0', max_length=35)),
-        ))
-        db.send_create_signal('mpepu_lab', ['AliquotCondition'])
-
-        # Adding model 'Aliquot'
-        db.create_table(u'mpepu_lab_aliquot', (
-            ('created', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
-            ('modified', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
-            ('user_created', self.gf('django.db.models.fields.CharField')(default='', max_length=250, db_index=True)),
-            ('user_modified', self.gf('django.db.models.fields.CharField')(default='', max_length=250, db_index=True)),
-            ('hostname_created', self.gf('django.db.models.fields.CharField')(default='silverapple', max_length=50, db_index=True, blank=True)),
-            ('hostname_modified', self.gf('django.db.models.fields.CharField')(default='silverapple', max_length=50, db_index=True, blank=True)),
-            ('id', self.gf('django.db.models.fields.CharField')(max_length=36, primary_key=True)),
-            ('revision', self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True)),
-            ('primary_aliquot', self.gf('django.db.models.fields.related.ForeignKey')(related_name='primary', null=True, to=orm['mpepu_lab.Aliquot'])),
-            ('source_aliquot', self.gf('django.db.models.fields.related.ForeignKey')(related_name='source', null=True, to=orm['mpepu_lab.Aliquot'])),
-            ('aliquot_identifier', self.gf('django.db.models.fields.CharField')(unique=True, max_length=25)),
-            ('aliquot_datetime', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2014, 3, 20, 0, 0))),
-            ('count', self.gf('django.db.models.fields.IntegerField')(null=True)),
-            ('medium', self.gf('django.db.models.fields.CharField')(default='TUBE', max_length=25)),
-            ('original_measure', self.gf('django.db.models.fields.DecimalField')(default='5.00', max_digits=10, decimal_places=2)),
-            ('current_measure', self.gf('django.db.models.fields.DecimalField')(default='5.00', max_digits=10, decimal_places=2)),
-            ('measure_units', self.gf('django.db.models.fields.CharField')(default='mL', max_length=25)),
-            ('status', self.gf('django.db.models.fields.CharField')(default='available', max_length=25)),
-            ('comment', self.gf('django.db.models.fields.CharField')(max_length=50, null=True, blank=True)),
-            ('subject_identifier', self.gf('django.db.models.fields.CharField')(max_length=50, null=True)),
-            ('receive_identifier', self.gf('django.db.models.fields.CharField')(max_length=25, null=True)),
-            ('receive', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['mpepu_lab.Receive'])),
-            ('aliquot_type', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['mpepu_lab.AliquotType'], null=True)),
-            ('aliquot_condition', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['mpepu_lab.AliquotCondition'], null=True, blank=True)),
-        ))
-        db.send_create_signal('mpepu_lab', ['Aliquot'])
-
-        # Adding unique constraint on 'Aliquot', fields ['receive', 'count']
-        db.create_unique(u'mpepu_lab_aliquot', ['receive_id', 'count'])
-
-        # Adding model 'Profile'
-        db.create_table(u'mpepu_lab_profile', (
-            ('created', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
-            ('modified', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
-            ('user_created', self.gf('django.db.models.fields.CharField')(default='', max_length=250, db_index=True)),
-            ('user_modified', self.gf('django.db.models.fields.CharField')(default='', max_length=250, db_index=True)),
-            ('hostname_created', self.gf('django.db.models.fields.CharField')(default='silverapple', max_length=50, db_index=True, blank=True)),
-            ('hostname_modified', self.gf('django.db.models.fields.CharField')(default='silverapple', max_length=50, db_index=True, blank=True)),
-            ('id', self.gf('django.db.models.fields.CharField')(max_length=36, primary_key=True)),
-            ('revision', self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True)),
-            ('name', self.gf('django.db.models.fields.CharField')(unique=True, max_length=25)),
-            ('aliquot_type', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['mpepu_lab.AliquotType'])),
-        ))
-        db.send_create_signal('mpepu_lab', ['Profile'])
-
-        # Adding model 'Receive'
-        db.create_table(u'mpepu_lab_receive', (
-            ('created', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
-            ('modified', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
-            ('user_created', self.gf('django.db.models.fields.CharField')(default='', max_length=250, db_index=True)),
-            ('user_modified', self.gf('django.db.models.fields.CharField')(default='', max_length=250, db_index=True)),
-            ('hostname_created', self.gf('django.db.models.fields.CharField')(default='silverapple', max_length=50, db_index=True, blank=True)),
-            ('hostname_modified', self.gf('django.db.models.fields.CharField')(default='silverapple', max_length=50, db_index=True, blank=True)),
-            ('id', self.gf('django.db.models.fields.CharField')(max_length=36, primary_key=True)),
-            ('revision', self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True)),
-            ('receive_identifier', self.gf('django.db.models.fields.CharField')(max_length=25, unique=True, null=True, db_index=True)),
-            ('requisition_identifier', self.gf('django.db.models.fields.CharField')(db_index=True, max_length=25, null=True, blank=True)),
-            ('drawn_datetime', self.gf('django.db.models.fields.DateTimeField')(db_index=True)),
-            ('receive_datetime', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2014, 3, 20, 0, 0), db_index=True)),
-            ('visit', self.gf('django.db.models.fields.CharField')(max_length=25)),
-            ('clinician_initials', self.gf('django.db.models.fields.CharField')(max_length=3)),
-            ('receive_condition', self.gf('django.db.models.fields.CharField')(max_length=50, null=True)),
-            ('import_datetime', self.gf('django.db.models.fields.DateTimeField')(null=True)),
-            ('registered_subject', self.gf('django.db.models.fields.related.ForeignKey')(related_name='mpepu_receive', null=True, to=orm['registration.RegisteredSubject'])),
-            ('requisition_model_name', self.gf('django.db.models.fields.CharField')(max_length=25, null=True)),
-            ('subject_type', self.gf('django.db.models.fields.CharField')(max_length=25, null=True)),
-        ))
-        db.send_create_signal('mpepu_lab', ['Receive'])
-
-        # Adding model 'ProfileItem'
-        db.create_table(u'mpepu_lab_profileitem', (
-            ('created', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
-            ('modified', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
-            ('user_created', self.gf('django.db.models.fields.CharField')(default='', max_length=250, db_index=True)),
-            ('user_modified', self.gf('django.db.models.fields.CharField')(default='', max_length=250, db_index=True)),
-            ('hostname_created', self.gf('django.db.models.fields.CharField')(default='silverapple', max_length=50, db_index=True, blank=True)),
-            ('hostname_modified', self.gf('django.db.models.fields.CharField')(default='silverapple', max_length=50, db_index=True, blank=True)),
-            ('id', self.gf('django.db.models.fields.CharField')(max_length=36, primary_key=True)),
-            ('revision', self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True)),
-            ('volume', self.gf('django.db.models.fields.DecimalField')(null=True, max_digits=10, decimal_places=1)),
-            ('count', self.gf('django.db.models.fields.IntegerField')()),
-            ('profile', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['mpepu_lab.Profile'])),
-            ('aliquot_type', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['mpepu_lab.AliquotType'])),
-        ))
-        db.send_create_signal('mpepu_lab', ['ProfileItem'])
-
-        # Adding model 'Panel'
-        db.create_table(u'mpepu_lab_panel', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('created', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
-            ('modified', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
-            ('user_created', self.gf('django.db.models.fields.CharField')(default='', max_length=250, db_index=True)),
-            ('user_modified', self.gf('django.db.models.fields.CharField')(default='', max_length=250, db_index=True)),
-            ('hostname_created', self.gf('django.db.models.fields.CharField')(default='silverapple', max_length=50, db_index=True, blank=True)),
-            ('hostname_modified', self.gf('django.db.models.fields.CharField')(default='silverapple', max_length=50, db_index=True, blank=True)),
-            ('name', self.gf('django.db.models.fields.CharField')(unique=True, max_length=50, db_index=True)),
-            ('comment', self.gf('django.db.models.fields.CharField')(max_length=250, blank=True)),
-            ('panel_type', self.gf('django.db.models.fields.CharField')(default='TEST', max_length=15)),
-        ))
-        db.send_create_signal('mpepu_lab', ['Panel'])
-
-        # Adding M2M table for field test_code on 'Panel'
-        m2m_table_name = db.shorten_name(u'mpepu_lab_panel_test_code')
-        db.create_table(m2m_table_name, (
-            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
-            ('panel', models.ForeignKey(orm['mpepu_lab.panel'], null=False)),
-            ('testcode', models.ForeignKey(orm['lab_clinic_api.testcode'], null=False))
-        ))
-        db.create_unique(m2m_table_name, ['panel_id', 'testcode_id'])
-
-        # Adding M2M table for field aliquot_type on 'Panel'
-        m2m_table_name = db.shorten_name(u'mpepu_lab_panel_aliquot_type')
-        db.create_table(m2m_table_name, (
-            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
-            ('panel', models.ForeignKey(orm['mpepu_lab.panel'], null=False)),
-            ('aliquottype', models.ForeignKey(orm['mpepu_lab.aliquottype'], null=False))
-        ))
-        db.create_unique(m2m_table_name, ['panel_id', 'aliquottype_id'])
-
-        # Adding field 'InfantRequisitionAudit.subject_identifier'
-        db.add_column(u'mpepu_lab_infantrequisition_audit', 'subject_identifier',
-                      self.gf('django.db.models.fields.CharField')(max_length=25, null=True),
-                      keep_default=False)
-
-        # Adding field 'InfantRequisitionAudit.packing_list'
-        db.add_column(u'mpepu_lab_infantrequisition_audit', 'packing_list',
-                      self.gf('django.db.models.fields.related.ForeignKey')(blank=True, related_name='_audit_infantrequisition', null=True, to=orm['mpepu_lab.PackingList']),
-                      keep_default=False)
+        # Deleting field 'Aliquot.is_packed'
+        #db.delete_column(u'mpepu_lab_aliquot', 'is_packed')
 
 
-        # Changing field 'InfantRequisitionAudit.panel'
-        db.alter_column(u'mpepu_lab_infantrequisition_audit', 'panel_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['mpepu_lab.Panel']))
-
-        # Changing field 'InfantRequisitionAudit.aliquot_type'
-        db.alter_column(u'mpepu_lab_infantrequisition_audit', 'aliquot_type_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['mpepu_lab.AliquotType']))
-        # Adding field 'MaternalRequisitionAudit.subject_identifier'
-        db.add_column(u'mpepu_lab_maternalrequisition_audit', 'subject_identifier',
-                      self.gf('django.db.models.fields.CharField')(max_length=25, null=True),
-                      keep_default=False)
-
-        # Adding field 'MaternalRequisitionAudit.packing_list'
-        db.add_column(u'mpepu_lab_maternalrequisition_audit', 'packing_list',
-                      self.gf('django.db.models.fields.related.ForeignKey')(blank=True, related_name='_audit_maternalrequisition', null=True, to=orm['mpepu_lab.PackingList']),
-                      keep_default=False)
-
-
-        # Changing field 'MaternalRequisitionAudit.panel'
-        db.alter_column(u'mpepu_lab_maternalrequisition_audit', 'panel_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['mpepu_lab.Panel']))
-
-        # Changing field 'MaternalRequisitionAudit.aliquot_type'
-        db.alter_column(u'mpepu_lab_maternalrequisition_audit', 'aliquot_type_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['mpepu_lab.AliquotType']))
-        # Adding field 'InfantRequisition.subject_identifier'
-        db.add_column(u'mpepu_lab_infantrequisition', 'subject_identifier',
-                      self.gf('django.db.models.fields.CharField')(max_length=25, null=True),
-                      keep_default=False)
-
-        # Adding field 'InfantRequisition.packing_list'
-        db.add_column(u'mpepu_lab_infantrequisition', 'packing_list',
-                      self.gf('django.db.models.fields.related.ForeignKey')(to=orm['mpepu_lab.PackingList'], null=True, blank=True),
-                      keep_default=False)
-
-
-        # Changing field 'InfantRequisition.panel'
-        db.alter_column(u'mpepu_lab_infantrequisition', 'panel_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['mpepu_lab.Panel']))
-
-        # Changing field 'InfantRequisition.aliquot_type'
-        db.alter_column(u'mpepu_lab_infantrequisition', 'aliquot_type_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['mpepu_lab.AliquotType']))
-        # Adding unique constraint on 'InfantRequisition', fields ['infant_visit', 'is_drawn', 'panel']
-        db.create_unique(u'mpepu_lab_infantrequisition', ['infant_visit_id', 'is_drawn', 'panel_id'])
-
-        # Adding field 'MaternalRequisition.subject_identifier'
-        db.add_column(u'mpepu_lab_maternalrequisition', 'subject_identifier',
-                      self.gf('django.db.models.fields.CharField')(max_length=25, null=True),
-                      keep_default=False)
-
-        # Adding field 'MaternalRequisition.packing_list'
-        db.add_column(u'mpepu_lab_maternalrequisition', 'packing_list',
-                      self.gf('django.db.models.fields.related.ForeignKey')(to=orm['mpepu_lab.PackingList'], null=True, blank=True),
-                      keep_default=False)
-
-
-        # Changing field 'MaternalRequisition.panel'
-        db.alter_column(u'mpepu_lab_maternalrequisition', 'panel_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['mpepu_lab.Panel']))
-
-        # Changing field 'MaternalRequisition.aliquot_type'
-        db.alter_column(u'mpepu_lab_maternalrequisition', 'aliquot_type_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['mpepu_lab.AliquotType']))
-        # Adding unique constraint on 'MaternalRequisition', fields ['is_drawn', 'maternal_visit', 'panel']
-        db.create_unique(u'mpepu_lab_maternalrequisition', ['is_drawn', 'maternal_visit_id', 'panel_id'])
-
-
-        # Changing field 'PackingListItem.packing_list'
-        db.alter_column(u'mpepu_lab_packinglistitem', 'packing_list_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['mpepu_lab.PackingList'], null=True))
+        # Changing field 'PackingListItem.panel'
+        db.alter_column(u'mpepu_lab_packinglistitem', 'panel_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['mpepu_lab.Panel'], null=True))
 
     def backwards(self, orm):
-        # Removing unique constraint on 'MaternalRequisition', fields ['is_drawn', 'maternal_visit', 'panel']
-        db.delete_unique(u'mpepu_lab_maternalrequisition', ['is_drawn', 'maternal_visit_id', 'panel_id'])
-
-        # Removing unique constraint on 'InfantRequisition', fields ['infant_visit', 'is_drawn', 'panel']
-        db.delete_unique(u'mpepu_lab_infantrequisition', ['infant_visit_id', 'is_drawn', 'panel_id'])
-
-        # Removing unique constraint on 'Aliquot', fields ['receive', 'count']
-        db.delete_unique(u'mpepu_lab_aliquot', ['receive_id', 'count'])
-
-        # Deleting model 'Processing'
-        db.delete_table(u'mpepu_lab_processing')
-
-        # Deleting model 'AliquotType'
-        db.delete_table(u'mpepu_lab_aliquottype')
-
-        # Deleting model 'AliquotCondition'
-        db.delete_table(u'mpepu_lab_aliquotcondition')
-
-        # Deleting model 'Aliquot'
-        db.delete_table(u'mpepu_lab_aliquot')
-
-        # Deleting model 'Profile'
-        db.delete_table(u'mpepu_lab_profile')
-
-        # Deleting model 'Receive'
-        db.delete_table(u'mpepu_lab_receive')
-
-        # Deleting model 'ProfileItem'
-        db.delete_table(u'mpepu_lab_profileitem')
-
-        # Deleting model 'Panel'
-        db.delete_table(u'mpepu_lab_panel')
-
-        # Removing M2M table for field test_code on 'Panel'
-        db.delete_table(db.shorten_name(u'mpepu_lab_panel_test_code'))
-
-        # Removing M2M table for field aliquot_type on 'Panel'
-        db.delete_table(db.shorten_name(u'mpepu_lab_panel_aliquot_type'))
-
-        # Deleting field 'InfantRequisitionAudit.subject_identifier'
-        db.delete_column(u'mpepu_lab_infantrequisition_audit', 'subject_identifier')
-
-        # Deleting field 'InfantRequisitionAudit.packing_list'
-        db.delete_column(u'mpepu_lab_infantrequisition_audit', 'packing_list_id')
+        
+        pass
+        # Adding field 'Aliquot.is_packed'
+        #db.add_column(u'mpepu_lab_aliquot', 'is_packed',
+                      #self.gf('django.db.models.fields.BooleanField')(default=False),
+                      #keep_default=False)
 
 
-        # Changing field 'InfantRequisitionAudit.panel'
-        db.alter_column(u'mpepu_lab_infantrequisition_audit', 'panel_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['lab_clinic_api.Panel']))
-
-        # Changing field 'InfantRequisitionAudit.aliquot_type'
-        db.alter_column(u'mpepu_lab_infantrequisition_audit', 'aliquot_type_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['lab_clinic_api.AliquotType']))
-        # Deleting field 'MaternalRequisitionAudit.subject_identifier'
-        db.delete_column(u'mpepu_lab_maternalrequisition_audit', 'subject_identifier')
-
-        # Deleting field 'MaternalRequisitionAudit.packing_list'
-        db.delete_column(u'mpepu_lab_maternalrequisition_audit', 'packing_list_id')
-
-
-        # Changing field 'MaternalRequisitionAudit.panel'
-        db.alter_column(u'mpepu_lab_maternalrequisition_audit', 'panel_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['lab_clinic_api.Panel']))
-
-        # Changing field 'MaternalRequisitionAudit.aliquot_type'
-        db.alter_column(u'mpepu_lab_maternalrequisition_audit', 'aliquot_type_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['lab_clinic_api.AliquotType']))
-        # Deleting field 'InfantRequisition.subject_identifier'
-        db.delete_column(u'mpepu_lab_infantrequisition', 'subject_identifier')
-
-        # Deleting field 'InfantRequisition.packing_list'
-        db.delete_column(u'mpepu_lab_infantrequisition', 'packing_list_id')
-
-
-        # Changing field 'InfantRequisition.panel'
-        db.alter_column(u'mpepu_lab_infantrequisition', 'panel_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['lab_clinic_api.Panel']))
-
-        # Changing field 'InfantRequisition.aliquot_type'
-        db.alter_column(u'mpepu_lab_infantrequisition', 'aliquot_type_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['lab_clinic_api.AliquotType']))
-        # Deleting field 'MaternalRequisition.subject_identifier'
-        db.delete_column(u'mpepu_lab_maternalrequisition', 'subject_identifier')
-
-        # Deleting field 'MaternalRequisition.packing_list'
-        db.delete_column(u'mpepu_lab_maternalrequisition', 'packing_list_id')
-
-
-        # Changing field 'MaternalRequisition.panel'
-        db.alter_column(u'mpepu_lab_maternalrequisition', 'panel_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['lab_clinic_api.Panel']))
-
-        # Changing field 'MaternalRequisition.aliquot_type'
-        db.alter_column(u'mpepu_lab_maternalrequisition', 'aliquot_type_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['lab_clinic_api.AliquotType']))
-
-        # Changing field 'PackingListItem.packing_list'
-        db.alter_column(u'mpepu_lab_packinglistitem', 'packing_list_id', self.gf('django.db.models.fields.related.ForeignKey')(default='', to=orm['mpepu_lab.PackingList']))
+        # Changing field 'PackingListItem.panel'
+        #db.alter_column(u'mpepu_lab_packinglistitem', 'panel_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['lab_clinic_api.Panel'], null=True))
 
     models = {
         'appointment.appointment': {
@@ -406,35 +90,6 @@ class Migration(SchemaMigration):
             'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         },
-        'lab_clinic_api.aliquottype': {
-            'Meta': {'ordering': "['name']", 'object_name': 'AliquotType'},
-            'alpha_code': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '15'}),
-            'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
-            'numeric_code': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '2'}),
-            'user_created': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'}),
-            'user_modified': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'})
-        },
-        'lab_clinic_api.panel': {
-            'Meta': {'object_name': 'Panel'},
-            'aliquot_type': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['lab_clinic_api.AliquotType']", 'symmetrical': 'False'}),
-            'comment': ('django.db.models.fields.CharField', [], {'max_length': '250', 'blank': 'True'}),
-            'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'edc_name': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '50', 'db_index': 'True'}),
-            'panel_type': ('django.db.models.fields.CharField', [], {'default': "'TEST'", 'max_length': '15'}),
-            'test_code': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'to': "orm['lab_clinic_api.TestCode']", 'null': 'True', 'blank': 'True'}),
-            'user_created': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'}),
-            'user_modified': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'})
-        },
         'lab_clinic_api.testcode': {
             'Meta': {'ordering': "['edc_name']", 'object_name': 'TestCode'},
             'code': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '15'}),
@@ -493,7 +148,7 @@ class Migration(SchemaMigration):
         'mpepu_lab.aliquot': {
             'Meta': {'ordering': "('receive', 'count')", 'unique_together': "(('receive', 'count'),)", 'object_name': 'Aliquot'},
             'aliquot_condition': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['mpepu_lab.AliquotCondition']", 'null': 'True', 'blank': 'True'}),
-            'aliquot_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 3, 20, 0, 0)'}),
+            'aliquot_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 5, 14, 0, 0)'}),
             'aliquot_identifier': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '25'}),
             'aliquot_type': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['mpepu_lab.AliquotType']", 'null': 'True'}),
             'comment': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True', 'blank': 'True'}),
@@ -553,7 +208,7 @@ class Migration(SchemaMigration):
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'dmis_identifier': ('django.db.models.fields.CharField', [], {'max_length': '25', 'null': 'True'}),
             'drawn_datetime': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
-            'estimated_volume': ('django.db.models.fields.DecimalField', [], {'default': '5.0', 'max_digits': '7', 'decimal_places': '1'}),
+            'estimated_volume': ('django.db.models.fields.DecimalField', [], {'default': '5.0', 'max_digits': '7', 'decimal_places': '2'}),
             'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
@@ -589,6 +244,7 @@ class Migration(SchemaMigration):
             'Meta': {'ordering': "['-_audit_timestamp']", 'object_name': 'InfantRequisitionAudit', 'db_table': "u'mpepu_lab_infantrequisition_audit'"},
             '_audit_change_type': ('django.db.models.fields.CharField', [], {'max_length': '1'}),
             '_audit_id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
+            '_audit_subject_identifier': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True'}),
             '_audit_timestamp': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'db_index': 'True', 'blank': 'True'}),
             'aliquot_type': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'_audit_infantrequisition'", 'to': "orm['mpepu_lab.AliquotType']"}),
             'clinician_initials': ('django.db.models.fields.CharField', [], {'default': "'--'", 'max_length': '3', 'null': 'True', 'blank': 'True'}),
@@ -596,7 +252,7 @@ class Migration(SchemaMigration):
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'dmis_identifier': ('django.db.models.fields.CharField', [], {'max_length': '25', 'null': 'True'}),
             'drawn_datetime': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
-            'estimated_volume': ('django.db.models.fields.DecimalField', [], {'default': '5.0', 'max_digits': '7', 'decimal_places': '1'}),
+            'estimated_volume': ('django.db.models.fields.DecimalField', [], {'default': '5.0', 'max_digits': '7', 'decimal_places': '2'}),
             'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36'}),
@@ -635,7 +291,7 @@ class Migration(SchemaMigration):
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'dmis_identifier': ('django.db.models.fields.CharField', [], {'max_length': '25', 'null': 'True'}),
             'drawn_datetime': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
-            'estimated_volume': ('django.db.models.fields.DecimalField', [], {'default': '5.0', 'max_digits': '7', 'decimal_places': '1'}),
+            'estimated_volume': ('django.db.models.fields.DecimalField', [], {'default': '5.0', 'max_digits': '7', 'decimal_places': '2'}),
             'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
@@ -671,6 +327,7 @@ class Migration(SchemaMigration):
             'Meta': {'ordering': "['-_audit_timestamp']", 'object_name': 'MaternalRequisitionAudit', 'db_table': "u'mpepu_lab_maternalrequisition_audit'"},
             '_audit_change_type': ('django.db.models.fields.CharField', [], {'max_length': '1'}),
             '_audit_id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
+            '_audit_subject_identifier': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True'}),
             '_audit_timestamp': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'db_index': 'True', 'blank': 'True'}),
             'aliquot_type': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'_audit_maternalrequisition'", 'to': "orm['mpepu_lab.AliquotType']"}),
             'clinician_initials': ('django.db.models.fields.CharField', [], {'default': "'--'", 'max_length': '3', 'null': 'True', 'blank': 'True'}),
@@ -678,7 +335,7 @@ class Migration(SchemaMigration):
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'dmis_identifier': ('django.db.models.fields.CharField', [], {'max_length': '25', 'null': 'True'}),
             'drawn_datetime': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
-            'estimated_volume': ('django.db.models.fields.DecimalField', [], {'default': '5.0', 'max_digits': '7', 'decimal_places': '1'}),
+            'estimated_volume': ('django.db.models.fields.DecimalField', [], {'default': '5.0', 'max_digits': '7', 'decimal_places': '2'}),
             'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36'}),
@@ -716,7 +373,7 @@ class Migration(SchemaMigration):
             'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
             'list_comment': ('django.db.models.fields.CharField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
-            'list_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 3, 20, 0, 0)'}),
+            'list_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 5, 14, 0, 0)'}),
             'list_items': ('django.db.models.fields.TextField', [], {'max_length': '1000'}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'revision': ('django.db.models.fields.CharField', [], {'max_length': '150', 'null': 'True', 'blank': 'True'}),
@@ -737,8 +394,8 @@ class Migration(SchemaMigration):
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'old_panel_id': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True'}),
             'packing_list': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['mpepu_lab.PackingList']", 'null': 'True'}),
-            'panel': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['lab_clinic_api.Panel']", 'null': 'True', 'blank': 'True'}),
-            'requisition': ('django.db.models.fields.CharField', [], {'max_length': '35', 'null': 'True'}),
+            'panel': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['mpepu_lab.Panel']", 'null': 'True', 'blank': 'True'}),
+            'requisition': ('django.db.models.fields.CharField', [], {'max_length': '36', 'null': 'True'}),
             'revision': ('django.db.models.fields.CharField', [], {'max_length': '150', 'null': 'True', 'blank': 'True'}),
             'user_created': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'}),
             'user_modified': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'})
@@ -780,7 +437,7 @@ class Migration(SchemaMigration):
             'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'silverapple'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '25'}),
+            'name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '50'}),
             'revision': ('django.db.models.fields.CharField', [], {'max_length': '150', 'null': 'True', 'blank': 'True'}),
             'user_created': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'}),
             'user_modified': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'})
@@ -811,7 +468,7 @@ class Migration(SchemaMigration):
             'import_datetime': ('django.db.models.fields.DateTimeField', [], {'null': 'True'}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'receive_condition': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True'}),
-            'receive_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 3, 20, 0, 0)', 'db_index': 'True'}),
+            'receive_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 5, 14, 0, 0)', 'db_index': 'True'}),
             'receive_identifier': ('django.db.models.fields.CharField', [], {'max_length': '25', 'unique': 'True', 'null': 'True', 'db_index': 'True'}),
             'registered_subject': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'mpepu_receive'", 'null': 'True', 'to': "orm['registration.RegisteredSubject']"}),
             'requisition_identifier': ('django.db.models.fields.CharField', [], {'db_index': 'True', 'max_length': '25', 'null': 'True', 'blank': 'True'}),

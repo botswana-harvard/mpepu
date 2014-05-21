@@ -9,6 +9,8 @@ class MaternalEnrollForm (BaseMaternalModelForm):
 
     def clean(self):
         cleaned_data = self.cleaned_data
+        if not cleaned_data.get('maternal_visit'):
+            raise forms.ValidationError('This field is required. Please fill it in')
 
         # if recruit_source == OTHER, recruit_source_other may not be blank"""
         if cleaned_data.get('recruit_source', None) == 'OTHER' and not cleaned_data.get('recruit_source_other', None) :
@@ -34,6 +36,8 @@ class MaternalEnrollDemForm (BaseMaternalModelForm):
     def clean(self):
 
         cleaned_data = self.cleaned_data
+        if not cleaned_data.get('maternal_visit'):
+            raise forms.ValidationError('This field is required. Please fill it in')
 
         # if unemployed then they have no personal earn and they are not providing most money"""
         if cleaned_data.get('current_occupation', None) == 'Unemployed' and cleaned_data.get('provides_money', None) == 'You':
@@ -63,9 +67,10 @@ class MaternalEnrollDemForm (BaseMaternalModelForm):
 
 class MaternalEnrollObForm (BaseMaternalModelForm):
     def clean(self):
-        cleaned_data = super(MaternalEnrollObForm, self).clean()
-      
-        return cleaned_data
+        cleaned_data = self.cleaned_data
+        if not cleaned_data.get('maternal_visit'):
+            raise forms.ValidationError('This field is required. Please fill it in')
+        return super(MaternalEnrollObForm, self).clean()
 
     class Meta:
         model = MaternalEnrollOb
@@ -77,7 +82,10 @@ class MaternalEnrollMedForm (BaseMaternalModelForm):
 
         cleaned_data = self.cleaned_data
         check_dx = self.data.get('maternalenrolldx_set-0-diagnosis')
-        
+
+        if not cleaned_data.get('maternal_visit'):
+            raise forms.ValidationError('This field is required. Please fill it in')
+
         #validate that if yes to WHO diagnosis then list
         if cleaned_data.get('who_diagnosis') == 'Yes' and not check_dx:
             raise forms.ValidationError('You indicated that the participant was diagnosed with stage 3 or 4 WHO illness. Please fill in diagnosis form.')
@@ -96,16 +104,17 @@ class MaternalEnrollMedForm (BaseMaternalModelForm):
 
 
 class MaternalEnrollDxForm (BaseMaternalModelForm):
-    
     def clean(self):
-        cleaned_data = super(MaternalEnrollDxForm, self).clean()
+        cleaned_data = self.cleaned_data
+        if not cleaned_data.get('maternal_visit'):
+            raise forms.ValidationError('This field is required. Please fill it in')
         maternal_enroll_med = cleaned_data.get('maternal_enroll_med')
-        
+
         #ensure that if stage 3 or 4 WHO diagnosis is indicated as No then list should not be filled in.
         if maternal_enroll_med.who_diagnosis == 'No':
             raise forms.ValidationError('You indicated that the participant did NOT have a stage 3 or 4 diagnosis yet provided a diagnosis. Please correct.')
-        
-        return cleaned_data
+
+        return super(MaternalEnrollDxForm, self).clean()
 
     class Meta:
         model = MaternalEnrollDx
@@ -113,19 +122,26 @@ class MaternalEnrollDxForm (BaseMaternalModelForm):
 
 class MaternalEnrollArvForm (BaseMaternalModelForm):
     def clean(self):
-        cleaned_data = super(MaternalEnrollArvForm, self).clean()
-        maternal_visit= cleaned_data.get('maternal_visit')
+        cleaned_data = self.cleaned_data
+        if not cleaned_data.get('maternal_visit'):
+            raise forms.ValidationError('This field is required. Please fill it in')
+        maternal_visit = cleaned_data.get('maternal_visit')
         #validate HAART start date
         if cleaned_data.get('haart_start_date') > maternal_visit.report_datetime.date():
             raise forms.ValidationError('Date of HAART is greater than Visit Date. Please correct.')
-        
-        return cleaned_data
+
+        return super(MaternalEnrollArvForm, self).clean()
 
     class Meta:
         model = MaternalEnrollArv
 
 
 class MaternalEnrollClinForm (BaseMaternalModelForm):
+    def clean(self):
+        cleaned_data = self.cleaned_data
+        if not cleaned_data.get('maternal_visit'):
+            raise forms.ValidationError('This field is required. Please fill it in')
+        return super(MaternalEnrollClinForm, self).clean()
 
     class Meta:
         model = MaternalEnrollClin

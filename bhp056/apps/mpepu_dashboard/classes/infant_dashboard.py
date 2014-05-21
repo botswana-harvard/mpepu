@@ -77,9 +77,6 @@ class InfantDashboard(DashboardMixin, RegisteredSubjectDashboard):
     def get_visit_model(self):
         return InfantVisit
 
-    def get_requisition_model(self):
-        return InfantRequisition
-
     def get_locator_model(self):
         return MaternalLocator
 

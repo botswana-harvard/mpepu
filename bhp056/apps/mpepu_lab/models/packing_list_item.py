@@ -1,12 +1,9 @@
 from django.db import models
 
 from edc.lab.lab_packing.models import BasePackingListItem
-from edc.lab.lab_clinic_api.models import Panel
-# from edc.subject.registration.models import RegisteredSubject
 
+from .panel import Panel
 from .packing_list import PackingList
-
-# from maternal_requisition import MaternalRequisition
 
 
 class PackingListItem(BasePackingListItem):
@@ -17,38 +14,6 @@ class PackingListItem(BasePackingListItem):
         null=True,
         blank=True,
         )
-
-#     def drawn_datetime(self):
-#         retval = "n/a"
-#         if self.item_reference:
-#             requisition = MaternalRequisition.objects.get(
-#                                 specimen_identifier=self.item_reference
-#                                 )
-#             retval = requisition.drawn_datetime
-#         return retval
-#
-#     def clinician(self):
-#         retval = "n/a"
-#         if self.item_reference:
-#             requisition = MaternalRequisition.objects.get(
-#                                 specimen_identifier=self.item_reference
-#                                 )
-#             retval = requisition.user_created
-#         return retval
-#
-#     def gender(self):
-#         retval = "n/a"
-#         if self.item_reference:
-#             requisition = MaternalRequisition.objects.get(
-#                                 specimen_identifier=self.item_reference
-#                                 )
-#             subject_identifier = requisition.subject()
-#             if subject_identifier:
-#                 registered_subject = RegisteredSubject.objects.get(
-#                                         subject_identifier=subject_identifier
-#                                     )
-#                 retval = registered_subject.gender
-#         return retval
 
     class Meta:
         app_label = "mpepu_lab"
