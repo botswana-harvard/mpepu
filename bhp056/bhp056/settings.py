@@ -170,7 +170,7 @@ STATICFILES_DIRS = ()
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    'dajaxice.finders.DajaxiceFinder',
+    #'dajaxice.finders.DajaxiceFinder',
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
@@ -221,7 +221,7 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
     'django_extensions',
     'django_databrowse',
-    'dajaxice',
+    #'dajaxice',
     'dajax',
     'south',
 
@@ -346,7 +346,7 @@ EMAIL_USE_TLS = True
 SOUTH_LOGGING_FILE = os.path.join(os.path.dirname(__file__), "south.log")
 SOUTH_LOGGING_ON = True
 AUTH_PROFILE_MODULE = "bhp_userprofile.userprofile"
-DAJAXICE_MEDIA_PREFIX = "dajaxice"
+#DAJAXICE_MEDIA_PREFIX = "dajaxice"
 
 # only for community server
 IS_COMMUNITY_SERVER = True
