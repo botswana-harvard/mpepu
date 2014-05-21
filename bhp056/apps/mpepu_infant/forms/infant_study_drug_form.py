@@ -5,9 +5,15 @@ from .base_infant_model_form import BaseInfantModelForm
 
 class InfantStudyDrugForm (BaseInfantModelForm):
     def clean(self):
-        cleaned_data = super(InfantStudyDrugForm, self).clean()
+        cleaned_data = self.cleaned_data
+
+        if not cleaned_data.get('infant_visit'):
+            raise forms.ValidationError('This field is required. Please fill it in.')
+        #Ensure all required fields are keyed
+        if not cleaned_data.get('on_placebo_status') or not cleaned_data.get('drug_status'):
+            raise forms.ValidationError('This field is required. please fill it in.')
         # if infant not on CTX/Placebo before this visit then InfantCtxPlaceboAdh is not required """
-        if cleaned_data['on_placebo_status'] == 'No':
+        if cleaned_data.get('on_placebo_status') == 'No':
             if InfantCtxPlaceboAdh.objects.filter(infant_visit=cleaned_data.get('infant_visit')).exists():
                 raise forms.ValidationError("Adherence data exists. You wrote infant was not on drug "
                                             "before this visit. Please correct '%s' first." % InfantCtxPlaceboAdh._meta.verbose_name)
@@ -16,7 +22,7 @@ class InfantStudyDrugForm (BaseInfantModelForm):
         if cleaned_data.get('drug_status')=='Starting CTX/Placebo today' or cleaned_data.get('drug_status')=='Change in CTX/Placebo since the last scheduled visit or today':
             if not check_drugs:
                 raise forms.ValidationError("Please fill out the study drug items as you indicated 'Starting' or 'Change' in CTX/Placebo.")
-        return cleaned_data
+        return super(InfantStudyDrugForm, self).clean()
 
     class Meta:
         model = InfantStudyDrug
@@ -44,7 +50,7 @@ class InfantStudyDrugItemsForm (BaseInfantModelForm):
                     raise forms.ValidationError("Dose status is 'Temporarily Held', modification reason cannot be {}.".format(reason))
 
         if cleaned_data.get('dose_status') == 'Permanently discontinued' and cleaned_data.get('modification_reason') == 'completed protocol':
-            if inf_study_drug.infant_visit.appointment.visit_definition.code != '2150' or inf_study_drug.infant_visit.appointment.visit_definition.code != '2180':
+            if inf_study_drug.infant_visit.appointment.visit_definition.code != '2150' and inf_study_drug.infant_visit.appointment.visit_definition.code != '2180':
                 raise forms.ValidationError("You indicated Completion of protocol as reason study drug is permanently discontinued yet this is visit {}."
                                             .format(inf_study_drug.infant_visit.appointment.visit_definition.code))
 
@@ -57,7 +63,9 @@ class InfantStudyDrugItemsForm (BaseInfantModelForm):
 class InfantStudyDrugInitForm(BaseInfantModelForm):
 
     def clean(self):
-        cleaned_data = super(InfantStudyDrugInitForm, self).clean()
+        cleaned_data = self.cleaned_data
+        if not cleaned_data.get('infant_visit'):
+            raise forms.ValidationError('This field is required. Please fill it in.')
 
         #validate initiation date and wether infant was indicated to start drug
         if cleaned_data.get('initiated') == 'No' and cleaned_data.get('first_dose_date'):
@@ -81,7 +89,7 @@ class InfantStudyDrugInitForm(BaseInfantModelForm):
             if study_drug_items[0].ingestion_date != cleaned_data.get('first_dose_date'):
                 raise forms.ValidationError("You indicated that Study Drug initiation date was {0}, yet indicated {1} on {2}. Please correct"
                     .format(cleaned_data.get('first_dose_date'), study_drug_items[0].ingestion_date,study_drug_items[0]._meta.verbose_name))
-        return cleaned_data
+        return super(InfantStudyDrugInitForm, self).clean()
 
     class Meta:
         model = InfantStudyDrugInit

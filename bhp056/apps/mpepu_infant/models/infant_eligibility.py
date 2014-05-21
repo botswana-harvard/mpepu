@@ -194,17 +194,15 @@ class InfantEligibility(BaseInfantRegisteredSubjectModel):
 
     def prepare_appointments(self, using):
         """To calculate infant appointment from 2020 basing on infant DOB """
-        self.pre_prepare_appointments(using)
         from edc.subject.appointment_helper.classes import AppointmentHelper
         if 'registered_subject' in dir(self):
             registered_subject = self.registered_subject
         else:
             registered_subject = RegisteredSubject.objects.get(subject_identifier=self.subject_identifier)
         from apps.mpepu_maternal.models import MaternalLabDel
-        mat = MaternalLabDel.objects.filter(maternal_visit__subject_identifier=self.registered_subject.relative_identifier)
+        mat = MaternalLabDel.objects.filter(maternal_visit__appointment__registered_subject__subject_identifier=self.registered_subject.relative_identifier)
         if mat:
             AppointmentHelper().create_all(registered_subject, self.__class__.__name__.lower(), using=using, source='BaseAppointmentMixin', base_appt_datetime=mat[0].delivery_datetime)
-            self.post_prepare_appointments(using)
 
     def post_save_recalculate_maternal_appts(self):
         from edc.subject.appointment.models import Appointment

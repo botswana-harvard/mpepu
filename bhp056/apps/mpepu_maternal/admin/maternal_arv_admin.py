@@ -6,7 +6,8 @@ from .maternal_visit_model_admin import MaternalVisitModelAdmin
 from ..models import MaternalArvPreg, MaternalArv, MaternalArvPregHistory
 from ..forms import (MaternalArvPPHistoryForm, MaternalArvPregHistoryForm, MaternalArvPostModForm,
                                   MaternalArvPostForm, MaternalArvPostAdhForm, MaternalArvPregForm)
-from ..models import MaternalArvPPHistory, MaternalArvPostMod, MaternalArvPost, MaternalArvPostAdh
+from ..models import (MaternalArvPPHistory, MaternalArvPostMod, MaternalArvPost, MaternalArvPostAdh,
+                    MaternalVisit)
 
 
 class MyMaternalArvPPHistoryAdmin (MaternalVisitModelAdmin):
@@ -156,6 +157,13 @@ class MaternalArvPostAdmin(MaternalVisitModelAdmin):
         "haart_reason": admin.VERTICAL,
         "arv_status": admin.VERTICAL}
     inlines = [MaternalArvPostModInlineAdmin, ]
+
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if db_field.name == "maternal_visit":
+            if request.GET.get('maternal_visit'):
+                kwargs["queryset"] = MaternalVisit.objects.filter(id=request.GET.get('maternal_visit'))
+
+        return super(MaternalArvPostAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 admin.site.register(MaternalArvPost, MaternalArvPostAdmin)
 
 

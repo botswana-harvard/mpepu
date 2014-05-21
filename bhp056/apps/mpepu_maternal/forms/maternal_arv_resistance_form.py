@@ -40,6 +40,8 @@ class ResistanceDiscForm(BaseMaternalModelForm):
     def clean(self):
 
         cleaned_data = self.cleaned_data
+        if not cleaned_data.get('maternal_visit'):
+            raise forms.ValidationError('This field is required. Please fill it in')
 
         if cleaned_data.get('stopped_once') == 'Yes' and not cleaned_data.get('last_arv_date'):
             raise ValidationError('You indicated that antiretrovirals were stopped. Please provide a date')

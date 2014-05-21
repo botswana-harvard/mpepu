@@ -30,22 +30,24 @@ class InfantVisitForm (BaseInfantModelForm):
 
     def clean(self):
 
-        cleaned_data = super(InfantVisitForm, self).clean()
+        cleaned_data = self.cleaned_data
         """validate data"""
+        if not cleaned_data.get('appointment'):
+            raise forms.ValidationError('This field is required. please fill it in')
         if cleaned_data.get('reason') == 'deferred':
             if cleaned_data.get('appointment').visit_definition.code != '2010':
                 raise forms.ValidationError('Reason \'deferred\' may only be used on visit 2010. Please correct.')
-        if cleaned_data['reason'] == 'missed' and not cleaned_data['reason_missed']:
+        if cleaned_data.get('reason') == 'missed' and not cleaned_data.get('reason_missed'):
             raise forms.ValidationError('Please provide the reason the scheduled visit was missed')
-        if cleaned_data['reason'] != 'missed' and cleaned_data['reason_missed']:
+        if cleaned_data.get('reason') != 'missed' and cleaned_data.get('reason_missed'):
             raise forms.ValidationError("Reason for visit is NOT 'missed' but you provided a reason missed. Please correct.")
-        if cleaned_data['info_source'] == 'OTHER' and not cleaned_data['info_source_other']:
+        if cleaned_data.get('info_source') == 'OTHER' and not cleaned_data.get('info_source_other'):
             raise forms.ValidationError("Source of information is 'OTHER', please provide details below your choice")
 
-        if cleaned_data['survival_status'] == 'DEAD' and not cleaned_data['date_last_alive']:
+        if cleaned_data.get('survival_status') == 'DEAD' and not cleaned_data.get('date_last_alive'):
             raise forms.ValidationError('Please provide date information, when infant was last known to be alive')
-        
-        if cleaned_data.get('reason')=='death' and cleaned_data.get('info_source')=='telephone':
+
+        if cleaned_data.get('reason') == 'death' and cleaned_data.get('info_source') == 'telephone':
             raise forms.ValidationError("If visit reason is death, info source cannot be {}. Please select another info source or 'Other contact with participant (for example telephone call)' if it is telephone")
 
         # check study status
@@ -65,9 +67,11 @@ class InfantVisitForm (BaseInfantModelForm):
                     # is rando'ed, so no...
                     raise forms.ValidationError("Infant is randomized. Please choose the correct study status. You wrote %s" % study_status_display)
 
+        #validate that you cant save infant visit greater that 2000 if infant eligibility has not been filled in
+        self.instance.requires_infant_eligibility(InfantVisit(**cleaned_data), forms.ValidationError)
         #validate that you cant save infant visit if previous visit has not been saved.
         #self.instance.check_previous_visit_keyed(InfantVisit(**cleaned_data), forms.ValidationError)
-        return cleaned_data
+        return super(InfantVisitForm, self).clean()
 
     class Meta:
         model = InfantVisit

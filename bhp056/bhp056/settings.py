@@ -19,7 +19,7 @@ DEFAULT_FROM_EMAIL = 'edcdev@bhp.org.bw'
 ADMINS = (
     ('erikvw', 'ew2789@gmail.com'),
     ('fchilisa', 'fchilisa@bhp.org.bw'),
-    ('twicet', 'twicet@gmail.com'),
+    ('twicet', 'ttshwenyane@bhp.org.bw'),
     ('mkewagamang', 'mkewagamang@bhp.org.bw'),
 )
 
@@ -42,7 +42,7 @@ CONFIG_DIR = PROJECT_DIR.child('bhp056')
 # KEY_PATH = '/Users/fchilisa/source/bhp056_project/bhp056/keys'
 #KEY_PATH = '/Users/melissa/Documents/git/bhp056_mpepu/bhp056/keys'
 # KEY_PATH = '/Users/twicet/dev/bhp/projs/git/bhp056_project/bhp056/keys'
-KEY_PATH = 'keys'
+KEY_PATH = PROJECT_DIR.child('keys')
 
 
 MAP_DIR = STATIC_ROOT.child('img')
@@ -104,7 +104,7 @@ else:
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = ['localhost', 's007', 's007.bhp.org.bw', '192.168.1.50']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 's007', 's007.bhp.org.bw', '192.168.1.50']
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -170,6 +170,7 @@ STATICFILES_DIRS = ()
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    #'dajaxice.finders.DajaxiceFinder',
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
@@ -220,7 +221,7 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
     'django_extensions',
     'django_databrowse',
-    'dajaxice',
+    #'dajaxice',
     'dajax',
     'south',
 
@@ -345,7 +346,7 @@ EMAIL_USE_TLS = True
 SOUTH_LOGGING_FILE = os.path.join(os.path.dirname(__file__), "south.log")
 SOUTH_LOGGING_ON = True
 AUTH_PROFILE_MODULE = "bhp_userprofile.userprofile"
-DAJAXICE_MEDIA_PREFIX = "dajaxice"
+#DAJAXICE_MEDIA_PREFIX = "dajaxice"
 
 # only for community server
 IS_COMMUNITY_SERVER = True

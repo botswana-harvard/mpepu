@@ -13,7 +13,9 @@ class InfantBirthForm (BaseInfantModelForm):
     def clean(self):
         cleaned_data = self.cleaned_data
         # does dob match maternal lab del?
-        maternal_identifier = cleaned_data.get('registered_subject', None).relative_identifier
+        maternal_identifier = cleaned_data.get('registered_subject', None)
+        if maternal_identifier:
+            maternal_identifier = maternal_identifier.relative_identifier
         if MaternalLabDel.objects.filter(maternal_visit__appointment__registered_subject__subject_identifier=maternal_identifier):
             maternal_lab_del = MaternalLabDel.objects.get(maternal_visit__appointment__registered_subject__subject_identifier=maternal_identifier)
             if not cleaned_data.get('dob', None) == maternal_lab_del.delivery_datetime.date():
@@ -28,7 +30,7 @@ class InfantBirthForm (BaseInfantModelForm):
             if infant == cleaned_data.get('registered_subject'):
                 if cleaned_data.get('birth_order') != index:
                     raise forms.ValidationError('Birth order for this infant can only be {0}, you indicated {1}. Please correct'.format(index, cleaned_data.get('birth_order')))
-        return cleaned_data
+        return super(InfantBirthForm, self).clean()
 
     class Meta:
         model = InfantBirth
@@ -37,8 +39,11 @@ class InfantBirthForm (BaseInfantModelForm):
 class InfantBirthExamForm (BaseInfantModelForm):
 
     def clean(self):
-        cleaned_data = super(InfantBirthExamForm, self).clean()
+        cleaned_data = self.cleaned_data
         birth = cleaned_data.get('infant_birth')
+
+        if not cleaned_data.get('infant_visit'):
+            raise forms.ValidationError('This field is required. Please fill it in')
 
         #validate other general activity
         if cleaned_data.get('general_activity') == 'ABNORMAL' and not cleaned_data.get('abnormal_activity'):
@@ -106,7 +111,7 @@ class InfantBirthExamForm (BaseInfantModelForm):
             if birth.gender != cleaned_data.get('gender'):
                 raise forms.ValidationError('The gender does not correspond to gender as indicated in Infant Birth. Please correct Infant Birth first. ')
 
-        return cleaned_data
+        return super(InfantBirthExamForm, self).clean()
 
     class Meta:
         model = InfantBirthExam
@@ -114,7 +119,9 @@ class InfantBirthExamForm (BaseInfantModelForm):
 
 class InfantBirthDataForm (BaseInfantModelForm):
     def clean(self):
-        cleaned_data = super(InfantBirthDataForm, self).clean()
+        cleaned_data = self.cleaned_data
+        if not cleaned_data.get('infant_visit'):
+            raise forms.ValidationError('This field is required. Please fill it in')
         #apgar score results required
         if cleaned_data.get('apgar_score') == 'Yes':
             if not cleaned_data.get('apgar_score_min_1') or not cleaned_data.get('apgar_score_min_5') or not cleaned_data.get('apgar_score_min_10'):
@@ -124,7 +131,7 @@ class InfantBirthDataForm (BaseInfantModelForm):
         if cleaned_data.get('apgar_score') == 'No':
             if cleaned_data.get('apgar_score_min_1') or cleaned_data.get('apgar_score_min_5') or cleaned_data.get('apgar_score_min_10'):
                 raise forms.ValidationError("You indicated that apgar score NOT was performed. Yet you provided results, please correct.")
-        return cleaned_data
+        return super(InfantBirthDataForm, self).clean()
 
     class Meta:
         model = InfantBirthData
@@ -132,8 +139,11 @@ class InfantBirthDataForm (BaseInfantModelForm):
 
 class InfantBirthArvForm (BaseInfantModelForm):
     def clean(self):
-        cleaned_data = super(InfantBirthArvForm, self).clean()
+        cleaned_data = self.cleaned_data
         birth = cleaned_data.get('infant_birth')
+
+        if not cleaned_data.get('infant_visit'):
+            raise forms.ValidationError('This field is required. Please fill it in')
         #validate azt
         if cleaned_data.get('azt_after_birth') == 'Yes' and not cleaned_data.get('azt_dose_date'):
             raise forms.ValidationError('You indicated that AZT was given after birth, please provide the date it was administered')
@@ -148,20 +158,25 @@ class InfantBirthArvForm (BaseInfantModelForm):
             raise forms.ValidationError('You indicated that NVP was NOT given after birth and yet provided the date it was administered. Please correct.')
 
         #ensure dates given not before dob
-        if cleaned_data.get('azt_dose_date'):
+        if cleaned_data.get('azt_dose_date') and birth:
             if cleaned_data.get('azt_dose_date') < birth.dob:
                 raise forms.ValidationError('AZT dose date is before Date of Birth. Please correct.')
 
-        if cleaned_data.get('nvp_dose_date'):
+        if cleaned_data.get('nvp_dose_date') and birth:
             if cleaned_data.get('nvp_dose_date') < birth.dob:
                 raise forms.ValidationError('NVP dose date is before Date of Birth. Please correct.')
-        return cleaned_data
+        return super(InfantBirthArvForm, self).clean()
 
     class Meta:
         model = InfantBirthArv
 
 
 class InfantBirthFeedForm (BaseInfantModelForm):
+    def clean(self):
+        cleaned_data = self.cleaned_data
+        if not cleaned_data.get('infant_visit'):
+            raise forms.ValidationError('This field is required. Please fill it in')
+        return super(InfantBirthFeedForm, self).clean()
 
     class Meta:
         model = InfantBirthFeed

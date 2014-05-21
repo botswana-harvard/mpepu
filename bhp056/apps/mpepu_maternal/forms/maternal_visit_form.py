@@ -33,13 +33,15 @@ class MaternalVisitForm (BaseConsentedModelForm):
         cleaned_data = self.cleaned_data
 
         """validate data"""
+        if not cleaned_data.get('report_datetime'):
+            raise forms.ValidationError('This field is required. Please fill it in')
         if cleaned_data.get('reason') == 'deferred':
             raise forms.ValidationError('Reason \'deferred\' is not valid for maternal visits. Please correct.')
-        if cleaned_data['reason'] == 'missed' and not cleaned_data['reason_missed']:
+        if cleaned_data.get('reason') == 'missed' and not cleaned_data.get('reason_missed'):
             raise forms.ValidationError('Please provide the reason the scheduled visit was missed')
-        if cleaned_data['reason'] != 'missed' and cleaned_data['reason_missed']:
+        if cleaned_data.get('reason') != 'missed' and cleaned_data.get('reason_missed'):
             raise forms.ValidationError("Reason for visit is NOT 'missed' but you provided a reason missed. Please correct.")
-        if cleaned_data['info_source'] == 'OTHER' and not cleaned_data['info_source_other']:
+        if cleaned_data.get('info_source') == 'OTHER' and not cleaned_data.get('info_source_other'):
             raise forms.ValidationError("Source of information is 'OTHER', please provide details below your choice")
         if cleaned_data.get('vital status') and not cleaned_data.get('survival_status') and not cleaned_data.get('date_last_alive'):
             raise forms.ValidationError("Visit reason is 'Vital Status', please enter Survival Status and Date Last Alive.")

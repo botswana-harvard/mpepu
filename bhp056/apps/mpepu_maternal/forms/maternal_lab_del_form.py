@@ -9,21 +9,23 @@ from ..models import MaternalLabDel, MaternalLabDelMed, MaternalLabDelClinic, Ma
 class MaternalLabDelForm (BaseMaternalModelForm):
     def clean(self):
         cleaned_data = self.cleaned_data
+        if not cleaned_data.get('maternal_visit'):
+            raise forms.ValidationError('This field is required. Please fill it in')
 
         #validate that if gestational age is known that the age in weeks should be provided
-        if cleaned_data['has_ga'] == 'Yes' and not cleaned_data['ga']:
+        if cleaned_data.get('has_ga') == 'Yes' and not cleaned_data.get('ga'):
             raise forms.ValidationError('If patient gestational age is known, give the gestational age in weeks')
 
-        if cleaned_data['has_ga'] == 'No' and cleaned_data['ga']:
+        if cleaned_data.get('has_ga') == 'No' and cleaned_data.get('ga'):
             raise forms.ValidationError('If patient gestational age is NOT known, you CANNOT provide the gestational age. Please correct')
 
         #if its confirmed that there is a delivery complication, confirm listing. If other selected, describe the complication
         if 'del_comp' in cleaned_data.keys():
             self.validate_m2m(
                     label='delivery complication',
-                    leading=cleaned_data['has_del_comp'],
-                    m2m=cleaned_data['del_comp'],
-                    other=cleaned_data['del_comp_other'],
+                    leading=cleaned_data.get('has_del_comp'),
+                    m2m=cleaned_data.get('del_comp'),
+                    other=cleaned_data.get('del_comp_other'),
             )
 
         #to ensure that maternal labour delivery is not greater than today
@@ -56,18 +58,20 @@ class MaternalLabDelForm (BaseMaternalModelForm):
 class MaternalLabDelMedForm (BaseMaternalModelForm):
     def clean(self):
         cleaned_data = self.cleaned_data
+        if not cleaned_data.get('maternal_visit'):
+            raise forms.ValidationError('This field is required. Please fill it in')
         if 'health_cond' in cleaned_data.keys():
             self.validate_m2m(
                     label='health condition',
-                    leading=cleaned_data['has_health_cond'],
-                    m2m=cleaned_data['health_cond'],
-                    other=cleaned_data['health_cond_other'])
+                    leading=cleaned_data.get('has_health_cond'),
+                    m2m=cleaned_data.get('health_cond'),
+                    other=cleaned_data.get('health_cond_other'))
         if 'ob_comp' in cleaned_data.keys():
             self.validate_m2m(
                     label='obstetric complication',
-                    leading=cleaned_data['has_ob_comp'],
-                    m2m=cleaned_data['ob_comp'],
-                    other=cleaned_data['ob_comp_other'])
+                    leading=cleaned_data.get('has_ob_comp'),
+                    m2m=cleaned_data.get('ob_comp'),
+                    other=cleaned_data.get('ob_comp_other'))
         return super(MaternalLabDelMedForm, self).clean()
 
     class Meta:
@@ -78,19 +82,21 @@ class MaternalLabDelClinicForm (BaseMaternalModelForm):
     def clean(self):
 
         cleaned_data = self.cleaned_data
+        if not cleaned_data.get('maternal_visit'):
+            raise forms.ValidationError('This field is required. Please fill it in')
         if 'suppliment' in cleaned_data.keys():
             self.validate_m2m(
                     label='pregnancy suppliment',
-                    leading=cleaned_data['took_suppliments'],
-                    m2m=cleaned_data['suppliment'])
+                    leading=cleaned_data.get('took_suppliments'),
+                    m2m=cleaned_data.get('suppliment'))
 
         # cd4 was done, enter cd4 date
-        if cleaned_data['has_cd4'] == 'Yes':
+        if cleaned_data.get('has_cd4') == 'Yes':
             if not cleaned_data.get('cd4_date') or not cleaned_data.get('cd4_result'):
                 raise forms.ValidationError("You indicated CD4 test was done, enter cd4 date and result.")
 
         # cd4 was not done, you cannot enter cd4 date
-        if cleaned_data['has_cd4'] == 'No':
+        if cleaned_data.get('has_cd4') == 'No':
             if cleaned_data.get('cd4_date') or cleaned_data.get('cd4_result'):
                 raise forms.ValidationError("You indicated CD4 test was NOT done, you cannot enter cd4 date and result.")
 
@@ -113,6 +119,8 @@ class MaternalLabDelDxForm (BaseMaternalModelForm):
     def clean(self):
         cleaned_data = self.cleaned_data #super(MaternalLabDelDxForm,self).clean()
         check_dx = self.data.get('maternallabdeldxt_set-0-lab_del_dx')
+        if not cleaned_data.get('maternal_visit'):
+            raise forms.ValidationError('This field is required. Please fill it in')
 
         #WHO validations
         if not cleaned_data.get('wcs_dx_adult'):
@@ -139,6 +147,8 @@ class MaternalLabDelDxTForm (BaseMaternalModelForm):
 #         cleaned_data=super(MaternalLabDelDxTForm,self).clean()
         cleaned_data = self.cleaned_data
         maternal_lab_del_dx = cleaned_data.get('maternal_lab_del_dx')
+        if not cleaned_data.get('maternal_visit'):
+            raise forms.ValidationError('This field is required. Please fill it in')
 
         if maternal_lab_del_dx.has_preg_dx == 'No' and cleaned_data.get('lab_del_dx'):
             raise forms.ValidationError('You have indicated that the participant did NOT have diagnosis and yet provided them. Please correct.')

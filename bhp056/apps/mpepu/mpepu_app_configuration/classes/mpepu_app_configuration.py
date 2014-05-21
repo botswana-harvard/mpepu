@@ -152,17 +152,9 @@ class MpepuAppConfiguration(BaseAppConfiguration):
                      'profile_item': [ProfileItemTuple('PBMC Plasma (STORE ONLY)', 'PL', 0.1, 3),
                                       ProfileItemTuple('Plasma and Buffy Coat Storage', 'PL', 0.1, 3)]}}
 
-    labeling_setup = {'label_printer': [LabelPrinterTuple('Zebra_Technologies GK420t', '192.168.1.33', True),
-                                   LabelPrinterTuple('Zebra_Technologies_ZTC_GK420t', '192.168.1.25', True),
-                                   LabelPrinterTuple('ZZebra_Technologies GK420t', '192.168.1.186', True),
-                                   LabelPrinterTuple('Zebra_Technologies_ZTC_GK420t', '192.168.1.146', True),
-                                   LabelPrinterTuple('Zebra_Technologies_ZTC_GK420t', '192.168.1.160', True),
-                                   LabelPrinterTuple('Zebra_Technologies_ZTC_GK420t', '192.168.1.30', True),
-                                   LabelPrinterTuple('Zebra_Technologies_ZTC_GK420t', '192.168.1.159', True),
-                                   LabelPrinterTuple('Zebra_Technologies_ZTC_GK420t', '192.168.1.137', True),
-                                   LabelPrinterTuple('Zebra_Technologies_ZTC_GK420t', '10.70.117.37', True),
-                                   LabelPrinterTuple('Zebra_Technologies_ZTC_GK420t', '192.168.1.140', True),
-                                   LabelPrinterTuple('Zebra_Technologies_ZTC_GK420t', '192.168.1.246', True)],
+    labeling_setup = {'label_printer': [LabelPrinterTuple('Zebra_Technologies_ZTC_GK420t', '192.168.1.25', True),
+                                        LabelPrinterTuple('Mpepu_Pharmacy_Label_Printer', '192.168.1.160', True),
+                                        ],
                     'zpl_template': [
                         ZplTemplateTuple(
                                 'clinic specimen label small', (
@@ -195,7 +187,15 @@ class MpepuAppConfiguration(BaseAppConfiguration):
                         ZplTemplateTuple(
                                 'dispensing', (
                                     """^XA
-                                    FO100,25^A0N,25^FDBotswana-Harvard Partnership - SID ${sid}^FS^FO100,50^BY2.0^BCN,50,N,N,N^BY^FD${barcode_value}^FS^FO100,120^A0N,20^FD${barcode_value}^FS^FO100,150^A0N,30^FD${subject_identifier} [${initials}]^FS^FO100,180^A0N,40^FD${treatment}^FS^FO100,220^A0N,35^FDDosage: ${dose}^FS^FO100,270^A0N,40^FD${packing_amount} ${packing_unit}^FS^FO100,330^A0N,30^FDdispensed on ${dispense_date} by ${user_created}^FS
+                                    ^FO100,25^A0N,25^FDBotswana-Harvard Partnership - SID ${sid}^FS
+                                    ^FO100,50^BY2.0^BCN,50,N,N,N
+                                    ^BY^FD${barcode_value}^FS
+                                    ^FO100,120^A0N,20^FD${barcode_value}^FS
+                                    ^FO100,150^A0N,30^FD${subject_identifier} [${initials}]^FS
+                                    ^FO100,180^A0N,40^FD${treatment}^FS
+                                    ^FO100,220^A0N,35^FDDosage: ${dose}^FS
+                                    ^FO100,270^A0N,40^FD${packing_amount} ${packing_unit}^FS
+                                    ^FO100,330^A0N,30^FDdispensed on ${dispense_date} by ${user_created}^FS
                                     ^XZ"""
                                     ),
                                 True),
