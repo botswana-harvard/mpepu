@@ -4,15 +4,14 @@ from django.db import models, IntegrityError
 from edc.audit.audit_trail import AuditTrail
 from edc.subject.visit_tracking.models import BaseVisitTracking
 from edc.subject.visit_tracking.settings import VISIT_REASON_NO_FOLLOW_UP_CHOICES
-from edc.entry_meta_data.models import ScheduledEntryMetaData
-from edc.subject.entry.models import Entry
 
+from apps.mpepu.classes.mpepu_meta_data_mixin import MpepuMetaDataMixin
 
 from .maternal_off_study_mixin import MaternalOffStudyMixin
 from ..choices import VISIT_REASON, ALIVE_DEAD_UNKNOWN
 
 
-class MaternalVisit(MaternalOffStudyMixin, BaseVisitTracking):
+class MaternalVisit(MaternalOffStudyMixin, BaseVisitTracking, MpepuMetaDataMixin):
 
     """ Maternal visit form that links all follow-up forms """
 
@@ -62,28 +61,15 @@ class MaternalVisit(MaternalOffStudyMixin, BaseVisitTracking):
     def create_meta_status_if_visit_reason_is_death(self):
         if self.reason == 'death':
             forms = ['maternaldeath', 'maternaloffstudy']
-            for add_forms in forms:
-                entry = Entry.objects.get(model_name=add_forms, visit_definition_id=self.appointment.visit_definition_id)
-                scheduled_meta_data = ScheduledEntryMetaData.objects.filter(appointment=self.appointment, entry=entry, registered_subject=self.registered_subject)
-                if not scheduled_meta_data:
-                    scheduled_meta_data = ScheduledEntryMetaData.objects.create(appointment=self.appointment, entry=entry, registered_subject=self.registered_subject)
-                else:
-                    scheduled_meta_data = scheduled_meta_data[0]
-                scheduled_meta_data.entry_status = 'NEW'
-                scheduled_meta_data.save()
-            return scheduled_meta_data
+            for form in forms:
+                entry = self.query_entry(form, self.appointment.visit_definition)
+                self.create_scheduled_meta_data(self.appointment, entry, self.registered_subject)
 
     def create_meta_status_if_visit_reason_is_off_study(self):
         if self.reason == 'off study':
-            entry = Entry.objects.get(model_name='maternaloffstudy', visit_definition_id=self.appointment.visit_definition_id)
-            scheduled_meta_data = ScheduledEntryMetaData.objects.filter(appointment=self.appointment, entry=entry, registered_subject=self.registered_subject)
-            if not scheduled_meta_data:
-                scheduled_meta_data = ScheduledEntryMetaData.objects.create(appointment=self.appointment, entry=entry, registered_subject=self.registered_subject)
-            else:
-                scheduled_meta_data = scheduled_meta_data[0]
-            scheduled_meta_data.entry_status = 'NEW'
-            scheduled_meta_data.save()
-            return scheduled_meta_data
+            form = 'maternaloffstudy'
+            entry = self.query_entry(form, self.appointment.visit_definition)
+            self.create_scheduled_meta_data(self.appointment, entry, self.registered_subject)
 
     def avail_forms_on_visit_2000M_only_when_consent_version_is_greater_than_two(self):
         from .maternal_consent import MaternalConsent
@@ -92,15 +78,9 @@ class MaternalVisit(MaternalOffStudyMixin, BaseVisitTracking):
             check = self.appointment.visit_definition.code == '2000M'
             if check and self.reason != 'death':
                 avail_forms = ['feedingchoice', 'feedingchoicesectionone', 'feedingchoicesectiontwo', 'feedingchoicesectionthree']
-                for forms in avail_forms:
-                    entry = Entry.objects.get(model_name=forms, visit_definition_id=self.appointment.visit_definition_id)
-                    scheduled_meta_data = ScheduledEntryMetaData.objects.filter(appointment=self.appointment, entry=entry, registered_subject=self.registered_subject)
-                    if not scheduled_meta_data:
-                        scheduled_meta_data = ScheduledEntryMetaData.objects.create(appointment=self.appointment, entry=entry, registered_subject=self.registered_subject)
-                    else:
-                        scheduled_meta_data = scheduled_meta_data[0]
-                    scheduled_meta_data.entry_status = 'NEW'
-                    scheduled_meta_data.save()
+                for form in avail_forms:
+                    entry = self.query_entry(form, self.appointment.visit_definition)
+                    self.create_scheduled_meta_data(self.appointment, entry, self.registered_subject)
 
     def get_absolute_url(self):
         return reverse('admin:mpepu_maternal_maternalvisit_change', args=(self.id,))
