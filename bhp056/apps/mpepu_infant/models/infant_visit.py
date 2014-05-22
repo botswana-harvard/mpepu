@@ -12,11 +12,12 @@ from edc.subject.registration.models import RegisteredSubject
 from apps.mpepu.choices import INFO_PROVIDER
 from apps.mpepu_infant.choices import INFANT_VISIT_STUDY_STATUS, ALIVE_DEAD_UNKNOWN, VISIT_REASON
 from apps.mpepu_lab.models.panel import Panel
+from apps.mpepu.classes.mpepu_meta_data_mixin import MpepuMetaDataMixin
 
 from .infant_off_study_mixin import InfantOffStudyMixin
 
 
-class InfantVisit(InfantOffStudyMixin, BaseVisitTracking):
+class InfantVisit(InfantOffStudyMixin, BaseVisitTracking, MpepuMetaDataMixin):
 
     information_provider = models.CharField(
         verbose_name="Please indicate who provided most of the information for this child's visit",
@@ -127,8 +128,8 @@ class InfantVisit(InfantOffStudyMixin, BaseVisitTracking):
             if app:
                 enabled_forms = ['infantoffdrug', 'infantoffstudy']
                 for form in enabled_forms:
-                    entry = self._query_entry(form, self.appointment.visit_definition)
-                    self._create_scheduled_meta_data(self.appointment, entry, self.registered_subject)
+                    entry = self.query_entry(form, self.appointment.visit_definition)
+                    self.create_scheduled_meta_data(self.appointment, entry, self.registered_subject)
 
     def save(self, *args, **kwargs):
         if self.reason == 'deferred':
@@ -152,48 +153,14 @@ class InfantVisit(InfantOffStudyMixin, BaseVisitTracking):
         self.disable_v4_forms()
         super(InfantVisit, self).save(*args, **kwargs)
 
-    def _query_entry(self, model_name, visit_definition):
-        return Entry.objects.get(model_name=model_name, visit_definition=visit_definition)
-
-    def _query_scheduled_meta_data(self, appointment, entry, registered_subject):
-        scheduled_meta_data = ScheduledEntryMetaData.objects.filter(appointment=appointment, entry=entry, registered_subject=registered_subject)
-        if scheduled_meta_data.count() == 1:
-            return scheduled_meta_data[0]
-        return scheduled_meta_data
-
-    def _create_scheduled_meta_data(self, appointment, entry, registered_subject):
-        scheduled_meta_data = self._query_scheduled_meta_data(appointment, entry, registered_subject)
-        if not scheduled_meta_data:
-            scheduled_meta_data = ScheduledEntryMetaData.objects.create(appointment=appointment, entry=entry, registered_subject=registered_subject)
-            scheduled_meta_data.entry_status = 'NEW'
-            scheduled_meta_data.save()
-        return scheduled_meta_data
-
-    def _query_lab_entry(self, model_name, panel, visit_definition):
-        return LabEntry.objects.get(model_name=model_name, requisition_panel=panel, visit_definition=visit_definition)
-
-    def _query_requisition_meta_data(self, appointment, lab_entry, registered_subject):
-        requisition_meta_data = RequisitionMetaData.objects.filter(appointment=appointment, lab_entry=lab_entry, registered_subject=registered_subject)
-        if requisition_meta_data.count() == 1:
-            return requisition_meta_data[0]
-        return requisition_meta_data
-
-    def _create_requisition_meta_data(self, appointment, lab_entry, registered_subject):
-        requisition_meta_data = self._query_requisition_meta_data(appointment, lab_entry, registered_subject)
-        if not requisition_meta_data:
-            requisition_meta_data = RequisitionMetaData.objects.create(appointment=appointment, lab_entry=lab_entry, registered_subject=registered_subject)
-            requisition_meta_data.entry_status = 'NEW'
-            requisition_meta_data.save()
-        return requisition_meta_data
-
     def create_meta_if_visit_reason_is_death_when_sid_is_none(self):
         if self.reason == 'death':
             rs = RegisteredSubject.objects.get(subject_identifier=self.registered_subject.subject_identifier)
             if not rs.sid:
                 forms = ['infantdeath', 'infantprerandoloss', 'infantsurvival', 'infantverbalautopsy', 'infantoffstudy']
                 for form in forms:
-                    entry = self._query_entry(form, self.appointment.visit_definition)
-                    self._create_scheduled_meta_data(self.appointment, entry, self.registered_subject)
+                    entry = self.query_entry(form, self.appointment.visit_definition)
+                    self.create_scheduled_meta_data(self.appointment, entry, self.registered_subject)
 
     def create_meta_if_visit_reason_is_death_when_sid_is_not_none(self):
         if self.reason == 'death':
@@ -203,8 +170,8 @@ class InfantVisit(InfantOffStudyMixin, BaseVisitTracking):
                 if self.appointment.visit_definition.code != '2000' and self.appointment.visit_definition.code != '2010':
                     forms.append('infantoffdrug')
                 for form in forms:
-                    entry = self._query_entry(form, self.appointment.visit_definition)
-                    self._create_scheduled_meta_data(self.appointment, entry, self.registered_subject)
+                    entry = self.query_entry(form, self.appointment.visit_definition)
+                    self.create_scheduled_meta_data(self.appointment, entry, self.registered_subject)
 
     def create_meta_if_visit_reason_is_lost_when_sid_is_none(self):
         if self.reason == 'lost':
@@ -212,8 +179,8 @@ class InfantVisit(InfantOffStudyMixin, BaseVisitTracking):
             if not rs.sid:
                 forms = ['infantprerandoloss', 'infantoffstudy']
                 for form in forms:
-                    entry = self._query_entry(form, self.appointment.visit_definition)
-                    self._create_scheduled_meta_data(self.appointment, entry, self.registered_subject)
+                    entry = self.query_entry(form, self.appointment.visit_definition)
+                    self.create_scheduled_meta_data(self.appointment, entry, self.registered_subject)
 
     def create_meta_if_visit_reason_is_lost_when_sid_is_not_none(self):
         if self.reason == 'lost':
@@ -221,33 +188,33 @@ class InfantVisit(InfantOffStudyMixin, BaseVisitTracking):
             if rs.sid:
                 forms = ['infantoffdrug', 'infantoffstudy']
                 for form in forms:
-                    entry = self._query_entry(form, self.appointment.visit_definition)
-                    self._create_scheduled_meta_data(self.appointment, entry, self.registered_subject)
+                    entry = self.query_entry(form, self.appointment.visit_definition)
+                    self.create_scheduled_meta_data(self.appointment, entry, self.registered_subject)
 
     def change_meta_data_status_if_visit_reason_is_off_study(self):
         if self.reason == 'off study':
             form = 'infantoffstudy'
-            entry = self._query_entry(form, self.appointment.visit_definition)
-            self._create_scheduled_meta_data(self.appointment, entry, self.registered_subject)
+            entry = self.query_entry(form, self.appointment.visit_definition)
+            self.create_scheduled_meta_data(self.appointment, entry, self.registered_subject)
 
     def change_meta_data_status_if_study_status_is_onstudy_rando_offdrug(self):
         if self.study_status == 'onstudy rando offdrug':
-            entry = self._query_entry('infantoffdrug', self.appointment.visit_definition)
-            self._create_scheduled_meta_data(self.appointment, entry, self.registered_subject)
+            entry = self.query_entry('infantoffdrug', self.appointment.visit_definition)
+            self.create_scheduled_meta_data(self.appointment, entry, self.registered_subject)
 
     def change_meta_data_status_if_survial_status_is_dead(self):
         if self.survival_status == 'DEAD':
             form = 'infantdeath'
-            entry = self._query_entry(form, self.appointment.visit_definition)
-            self._create_scheduled_meta_data(self.appointment, entry, self.registered_subject)
+            entry = self.query_entry(form, self.appointment.visit_definition)
+            self.create_scheduled_meta_data(self.appointment, entry, self.registered_subject)
 
     def change_meta_data_status_if_info_source_is_telephone(self):
         if self.info_source == 'telephone':
             if self.reason != 'vital status':
                 marked_forms = ['infantfu', 'infantfuphysical', 'infantfud', 'infantfudx', 'infantfudx2proph', 'infantfunewmed', 'infantfumed']
                 for form in marked_forms:
-                    entry = self._query_entry(form, self.appointment.visit_definition)
-                    scheduled_meta_data = self._create_scheduled_meta_data(self.appointment, entry, self.registered_subject)
+                    entry = self.query_entry(form, self.appointment.visit_definition)
+                    scheduled_meta_data = self.create_scheduled_meta_data(self.appointment, entry, self.registered_subject)
                     scheduled_meta_data.entry_status = 'NOT_REQUIRED'
                     scheduled_meta_data.save()
 
@@ -262,8 +229,8 @@ class InfantVisit(InfantOffStudyMixin, BaseVisitTracking):
                     panel = Panel.objects.filter(name='DNA PCR')
                     lab_model = 'infantrequisition'
                     if panel:
-                        lab_entry = self._query_lab_entry(lab_model, panel, self.appointment.visit_definition)
-                        requisition_meta_data = self._create_requisition_meta_data(self.appointment, lab_entry, self.registered_subject)
+                        lab_entry = self.query_lab_entry(lab_model, panel, self.appointment.visit_definition)
+                        requisition_meta_data = self.create_requisition_meta_data(self.appointment, lab_entry, self.registered_subject)
                         requisition_meta_data.entry_status = 'NOT_REQUIRED'
                         requisition_meta_data.save()
 
@@ -276,14 +243,14 @@ class InfantVisit(InfantOffStudyMixin, BaseVisitTracking):
         if check_consent[0].consent_version_recent < 4:
             if self.appointment.visit_definition.code == '2010' or self.appointment.visit_definition.code == '2030' or self.appointment.visit_definition.code == '2060' or self.appointment.visit_definition.code == '2180':
                 for form in new_forms:
-                    entry = self._query_entry(form, self.appointment.visit_definition)
-                    scheduled_meta_data = self._create_scheduled_meta_data(self.appointment, entry, self.registered_subject)
+                    entry = self.query_entry(form, self.appointment.visit_definition)
+                    scheduled_meta_data = self.create_scheduled_meta_data(self.appointment, entry, self.registered_subject)
                     scheduled_meta_data.entry_status = 'NOT_REQUIRED'
                     scheduled_meta_data.save()
                 for lab in lab_model:
                     panel = Panel.objects.get(name='Stool storage')
-                    lab_entry = self._query_lab_entry(lab, panel, self.appointment.visit_definition)
-                    requisition_meta_data = self._create_requisition_meta_data(self.appointment, lab_entry, self.registered_subject)
+                    lab_entry = self.query_lab_entry(lab, panel, self.appointment.visit_definition)
+                    requisition_meta_data = self.create_requisition_meta_data(self.appointment, lab_entry, self.registered_subject)
                     requisition_meta_data.entry_status = 'NOT_REQUIRED'
                     requisition_meta_data.save()
 
