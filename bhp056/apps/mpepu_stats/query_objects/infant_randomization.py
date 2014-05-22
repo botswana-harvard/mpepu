@@ -22,8 +22,6 @@ class NonRandomizedInfants(object):
         if self.site:
             eligibles = eligibles.filter(study_site__site_name__iexact=self.site)
         eligibles = eligibles.order_by('dob')
-       # else:
-       #     eligibles = eligibles.order_by('study_site__site_name')
         eligible_infants = [self.wrap_registered_subject(subject) for subject in eligibles]
         return eligible_infants
 

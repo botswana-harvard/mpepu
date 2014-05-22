@@ -43,8 +43,9 @@ class InfantDashboard(DashboardMixin, RegisteredSubjectDashboard):
             delivery_date=self.get_delivery_date(),
             maternal_consent=self.get_maternal_consent(),
             days_alive=self.get_days_alive(),
-            panels=panels
-            )
+            panels=panels,
+            local_results=self.render_labs()
+        )
 
     def set_registered_subject(self, pk=None):
         self._registered_subject = self.registered_subject

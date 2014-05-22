@@ -19,17 +19,31 @@ MEDIA_ROOT = PROJECT_DIR.child('media')
 STATIC_ROOT = PROJECT_DIR.child('static')
 TEMPLATE_DIRS = (
     PROJECT_DIR.child('templates'),
+    PROJECT_DIR.child('edc', 'lab', 'lab_clinic_api', 'templates'),
 )
 STATICFILES_DIRS = ()
 CONFIG_DIR = PROJECT_DIR.child('bhp056')
 MAP_DIR = STATIC_ROOT.child('img')
 DEFAULT_FILE_STORAGE = 'database_files.storage.DatabaseStorage'
 
+#Email configuration
+SEND_BROKEN_LINK_EMAILS = True
+SERVER_EMAIL = 'edcdev@bhp.org.bw'
+EMAIL_SUBJECT_PREFIX = '[mpepu] '
+DEFAULT_FROM_EMAIL = 'edcdev@bhp.org.bw'
+ADMINS = (
+    ('erikvw', 'ew2789@gmail.com'),
+    ('fchilisa', 'fchilisa@bhp.org.bw'),
+    ('twicet', 'ttshwenyane@bhp.org.bw'),
+    ('mkewagamang', 'mkewagamang@bhp.org.bw'),
+)
+
+
 MANAGERS = ADMINS
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', 's007', 's007.bhp.org.bw', '192.168.1.50']
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -90,6 +104,7 @@ STATICFILES_DIRS = ()
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    #'dajaxice.finders.DajaxiceFinder',
 #   'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
@@ -138,11 +153,12 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
     'django_extensions',
     'django_databrowse',
-    'dajaxice',
+    #'dajaxice',
     'dajax',
-    #'south',
+    'south',
 
     'edc.apps.admin_supplemental_fields',
+    'edc.apps.app_configuration',
 
     'edc.audit',
 
@@ -210,8 +226,8 @@ INSTALLED_APPS = (
     'edc.lab.lab_clinic_reference',
     'edc.lab.lab_requisition',
     'edc.lab.lab_packing',
+    'edc.pharma.dispenser',
 
-    #'lis.core.lab_barcode',
     'lis.core.lab_common',
     'lis.core.lab_flag',
     'lis.core.lab_grading',
@@ -237,6 +253,8 @@ INSTALLED_APPS = (
     'lis.exim.lab_import_lis',
     'lis.exim.lab_import_dmis',
 
+    'lis.labeling',
+
     'apps.mpepu',
     'apps.mpepu_lab',
     'apps.mpepu_list',
@@ -246,21 +264,22 @@ INSTALLED_APPS = (
     'apps.mpepu_dashboard',
     'apps.mpepu_stats',
     'apps.mpepu_reference',
-    #'apps.mpepu_arv_resistance',
+    #'tastypie',
 )
 
+
 # django email settings
-EMAIL_HOST = '192.168.1.48'
+EMAIL_HOST = 'localhost'
 EMAIL_PORT = '25'
-EMAIL_HOST_USER = 'django'
-EMAIL_HOST_PASSWORD = 'paeH#ie9'
+EMAIL_HOST_USER = 'edcdev'
+EMAIL_HOST_PASSWORD = 'cc3721b'
 EMAIL_USE_TLS = True
-EMAIL_AFTER_CONSUME = False
+#EMAIL_AFTER_CONSUME = False
 
 SOUTH_LOGGING_FILE = join(dirname(__file__), "south.log")
 SOUTH_LOGGING_ON = True
 AUTH_PROFILE_MODULE = "bhp_userprofile.userprofile"
-DAJAXICE_MEDIA_PREFIX = "dajaxice"
+#DAJAXICE_MEDIA_PREFIX = "dajaxice"
 
 # only for community server
 IS_COMMUNITY_SERVER = True
@@ -314,4 +333,3 @@ else:
                                    'DATABASE=BHPLAB')
 VAR_ROOT = '/var'
 LOGGING = LOGGING
-
