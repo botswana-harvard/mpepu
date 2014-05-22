@@ -147,8 +147,6 @@ class MaternalLabDelDxTForm (BaseMaternalModelForm):
 #         cleaned_data=super(MaternalLabDelDxTForm,self).clean()
         cleaned_data = self.cleaned_data
         maternal_lab_del_dx = cleaned_data.get('maternal_lab_del_dx')
-        if not cleaned_data.get('maternal_visit'):
-            raise forms.ValidationError('This field is required. Please fill it in')
 
         if maternal_lab_del_dx.has_preg_dx == 'No' and cleaned_data.get('lab_del_dx'):
             raise forms.ValidationError('You have indicated that the participant did NOT have diagnosis and yet provided them. Please correct.')
