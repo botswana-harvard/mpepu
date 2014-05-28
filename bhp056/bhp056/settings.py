@@ -389,11 +389,20 @@ FIELD_MAX_LENGTH = 'migration'
 REFERENCE_RANGE_LIST = 'BHPLAB_NORMAL_RANGES_201005'
 GRADING_LIST = 'DAIDS_2004'
 # for bhp_import_dmis
+dsn = 's012'
+user = 'sa'
+password = 'cc3721b'
+database = 'BHPLAB'
+driver = '{FreeTDS}'
+mac_driver = '/usr/local/lib/libtdsodbc.so'
 if platform.system() == 'Darwin':
-    LAB_IMPORT_DMIS_DATA_SOURCE = ('DRIVER=/usr/local/lib/libtdsodbc.so;SERVER=192.168.1.141;'
-                                  'PORT=1433;UID=sa;PWD=cc3721b;DATABASE=BHPLAB')
+    LAB_IMPORT_DMIS_DATA_SOURCE = 'DSN=%s;UID=%s;PWD=%s;DATABASE=%s;DRIVER=%s' % (dsn, user, password, database, mac_driver)
+                                  #('DRIVER=/usr/local/lib/libtdsodbc.so;SERVER=192.168.1.141;'
+                                  #'PORT=1433;UID=sa;PWD=cc3721b;DATABASE=BHPLAB;'
+                                  #'CHARSET=UTF8;TDS_Version=8.0; ServerName=s012')
 else:
-    LAB_IMPORT_DMIS_DATA_SOURCE = ('DRIVER={FreeTDS};SERVER=192.168.1.141;UID=sa;PWD=cc3721b;'
-                                   'DATABASE=BHPLAB')
+    LAB_IMPORT_DMIS_DATA_SOURCE = 'DSN=%s;UID=%s;PWD=%s;DATABASE=%s;DRIVER=%s' % (dsn, user, password, database, driver)
+                                  #('DRIVER={FreeTDS};SERVER=192.168.1.141;UID=sa;PWD=cc3721b;'
+                                  #'DATABASE=BHPLAB;CHARSET=UTF8;TDS_Version=8.0;PORT=1433; ServerName=s012')
 VAR_ROOT = '/var'
 LOGGING = logger.LOGGING

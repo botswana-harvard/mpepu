@@ -32,7 +32,7 @@ class MaternalPostFuDx(BaseScheduledVisitModel):
         max_length=3,
         choices=YES_NO,
         verbose_name="Since the last attended scheduled visit, has the mother ever had any of the diagnoses listed in the WHO Adult/Adolescent HIV clinical staging document which are NEW?",
-        help_text="never previously reported, or a NEW episode of a previously resolved diagnosis, and which is NOT reported above in Question 6",
+        help_text="never previously reported, or a NEW episode of a previously resolved diagnosis, and which is NOT reported above in Question 4",
         )
     wcs_dx_adult = models.ManyToManyField(WcsDxAdult,
         verbose_name="List any new WHO Stage III/IV diagnoses that are not reported in Question 6 above:  ",

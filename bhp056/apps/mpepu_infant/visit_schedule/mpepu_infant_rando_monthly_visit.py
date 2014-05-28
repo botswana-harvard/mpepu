@@ -330,6 +330,6 @@ class MpepuInfantRandoMonthlyVisitSchedule(VisitScheduleConfiguration):
                 EntryTuple(201L, u'mpepu_infant', u'infantsurvival', NOT_REQUIRED, ADDITIONAL),
                 EntryTuple(210L, u'mpepu_infant', u'infantverbalautopsy', NOT_REQUIRED, ADDITIONAL),
                 EntryTuple(220L, u'mpepu_infant', u'infantoffdrug', NOT_REQUIRED, ADDITIONAL),
-                EntryTuple(230L, u'mpepu_infant', u'infantoffstudy', NOT_REQUIRED, ADDITIONAL)
+                EntryTuple(230L, u'mpepu_infant', u'infantoffstudy', REQUIRED, NOT_ADDITIONAL),
             )}
 site_visit_schedules.register(MpepuInfantRandoMonthlyVisitSchedule)
