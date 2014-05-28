@@ -281,6 +281,6 @@ class MpepuMaternalPostPartumVisitSchedule(VisitScheduleConfiguration):
                 EntryTuple(50L, u'mpepu_maternal', u'postnatalinfantfeedingsurvey', REQUIRED, NOT_ADDITIONAL),
                 #following are additional forms
                 EntryTuple(200L, u'mpepu_maternal', u'maternaldeath', NOT_REQUIRED, ADDITIONAL),
-                EntryTuple(210L, u'mpepu_maternal', u'maternaloffstudy', NOT_REQUIRED, ADDITIONAL),
+                EntryTuple(210L, u'mpepu_maternal', u'maternaloffstudy', REQUIRED, NOT_ADDITIONAL),
             )}
 site_visit_schedules.register(MpepuMaternalPostPartumVisitSchedule)
