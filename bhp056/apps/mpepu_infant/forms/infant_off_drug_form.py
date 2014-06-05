@@ -11,8 +11,13 @@ class InfantOffDrugForm (BaseInfantModelForm):
         cleaned_data = super(InfantOffDrugForm, self).clean()
         # confirm last_dose_date falls between visit date going off drug and the previous visit date
         last_dose_date = cleaned_data.get('last_dose_date')
+        #validating unkeyed dose data
+        if not last_dose_date:
+            raise forms.ValidationError('Please key in the last_dose_date')
+
         subject_identifier = cleaned_data.get('registered_subject').subject_identifier
-        last_dose_datetime = datetime(last_dose_date.year, last_dose_date.month, last_dose_date.day)
+#         last_dose_datetime = datetime(last_dose_date.year, last_dose_date.month, last_dose_date.day)
+
         # is infant onstuy offdrug
         off_drug_visit_datetime = InfantVisit.objects.filter(
             appointment__registered_subject__subject_identifier=subject_identifier,
