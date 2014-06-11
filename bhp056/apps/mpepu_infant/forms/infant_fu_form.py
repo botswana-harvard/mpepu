@@ -184,7 +184,7 @@ class InfantFuDForm (BaseInfantModelForm):
 class InfantFuMedForm (BaseInfantModelForm):
     def clean(self):
         cleaned_data = self.cleaned_data
-        if not cleaned_data.get('infant_visit'):
+        if not cleaned_data.get('infant_visit') or not cleaned_data.get('vaccines_received'):
             raise forms.ValidationError('This field is required. Please fill it in.')
         if 'vaccination' in cleaned_data:
             self.validate_m2m(
