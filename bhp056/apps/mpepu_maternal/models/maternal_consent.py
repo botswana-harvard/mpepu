@@ -25,9 +25,9 @@ class MaternalConsent(BaseMaternalConsent):
             reg_subject = subject[0]
         return reg_subject
 
-#     @property
-#     def registered_subject(self):
-#         return self.get_registered_subject()
+    @property
+    def registered_subject(self):
+        return self.get_registered_subject()
 
     def dispatch_container_lookup(self):
         return None

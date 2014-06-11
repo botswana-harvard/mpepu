@@ -51,18 +51,18 @@ class InfantVisitForm (BaseInfantModelForm):
             raise forms.ValidationError("If visit reason is death, info source cannot be {}. Please select another info source or 'Other contact with participant (for example telephone call)' if it is telephone")
 
         # check study status
-        study_status_display = [choice[1] for choice in InfantVisit._meta.get_field('study_status').choices if choice[0] == cleaned_data['study_status']]
-        if re.search('onstudy', cleaned_data['study_status']):
-            registered_subject = cleaned_data['appointment'].registered_subject
+        study_status_display = [choice[1] for choice in InfantVisit._meta.get_field('study_status').choices if choice[0] == cleaned_data.get('study_status')]
+        if re.search('onstudy', cleaned_data.get('study_status')):
+            registered_subject = cleaned_data.get('appointment').registered_subject
             # check birth
             if not InfantBirth.objects.filter(registered_subject=registered_subject):
                 # not born, cannot be on study
                 raise forms.ValidationError("Study status cannot be 'On Study'. Infant Birth Record not available. You wrote %s" % study_status_display)
-            elif re.search('drug', cleaned_data['study_status']):
+            elif re.search('drug', cleaned_data.get('study_status')):
                 if not registered_subject.sid:
                     # not on drug, etc because has not rando'ed
                     raise forms.ValidationError("Infant has not yet randomized. Study status cannot be 'On Drug', 'Off Drug' or 'Not Yet Started Drug'. You wrote %s" % study_status_display)
-            elif re.search('notrando', cleaned_data['study_status']):
+            elif re.search('notrando', cleaned_data.get('study_status')):
                 if registered_subject.sid:
                     # is rando'ed, so no...
                     raise forms.ValidationError("Infant is randomized. Please choose the correct study status. You wrote %s" % study_status_display)
