@@ -19,15 +19,25 @@ class MaternalConsent(BaseMaternalConsent):
         help_text='')
 
     def get_registered_subject(self):
-        reg_subject = None
+#         reg_subject = None
         subject = RegisteredSubject.objects.filter(subject_identifier=self.subject_identifier)
         if subject:
-            reg_subject = subject[0]
-        return reg_subject
+            self.registered_subject = subject[0]
+        return self.registered_subject
 
-    @property
-    def registered_subject(self):
-        return self.get_registered_subject()
+#     @property
+#     def registered_subject(self):
+#         return self.registered_subject
+#         return self.get_registered_subject()
+
+#     @registered_subject.setter
+#     def registered_subject(self, registered_subject):
+#         if registered_subject:
+#             self.registered_subject=registered_subject
+#         else:
+#             subject = RegisteredSubject.objects.filter(subject_identifier=self.subject_identifier)
+#             if subject:
+#                 self.registered_subject = subject[0]
 
     def dispatch_container_lookup(self):
         return None
