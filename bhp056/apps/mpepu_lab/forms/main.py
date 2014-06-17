@@ -1,5 +1,8 @@
+from django import forms
+
 from edc.lab.lab_packing.forms import BasePackingListForm, BasePackingListItemForm
 from edc.lab.lab_requisition.forms import BaseRequisitionForm
+
 from ..models import InfantRequisition, MaternalRequisition
 from ..models import PackingList, PackingListItem
 
@@ -7,6 +10,9 @@ from ..models import PackingList, PackingListItem
 class InfantRequisitionForm (BaseRequisitionForm):
 
     def clean(self):
+        cleaned_data = self.cleaned_data
+        if not cleaned_data.get('is_drawn'):
+            raise forms.ValidationError("This field is required. Please fill it in.")
         return super(InfantRequisitionForm, self).clean()
 
     class Meta:

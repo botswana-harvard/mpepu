@@ -55,27 +55,51 @@ class InfantPreEligibility(InfantEligibilityMixin, BaseInfantRegisteredSubjectMo
     history = AuditTrail()
 
     def save(self, *args, **kwargs):
-        if not self.id:
-            if InfantEligibility.objects.filter(infant_birth=self.infant_birth).exists():
-                raise ValidationError('Save failed. InfantEligibility already submitted.')
-            if not InfantVisit.objects.filter(appointment__registered_subject=self.registered_subject, appointment__visit_definition__code='2000').exists():
-                raise ValidationError('Save failed. InfantVisit 2000 must be submitted before InfantPreEligibility.')
-            if InfantVisit.objects.filter(appointment__registered_subject=self.registered_subject, appointment__visit_definition__code='2010').exists():
-                raise ValidationError('Save failed. InfantVisit 2010 exists but should NOT have been submitted before InfantPreEligibility.')
-            if abs((date.today() - self.infant_birth.dob).days) < 13:
-                raise ValidationError('Save failed. Infant must be 14 days of life or older to verify eligibility.')
+        self.pre_eligibility_checks(self)
+#         if not self.id:
+#             if InfantEligibility.objects.filter(infant_birth=self.infant_birth).exists():
+#                 raise ValidationError('Save failed. InfantEligibility already submitted.')
+#             if not InfantVisit.objects.filter(appointment__registered_subject=self.registered_subject, appointment__visit_definition__code='2000').exists():
+#                 raise ValidationError('Save failed. InfantVisit 2000 must be submitted before InfantPreEligibility.')
+#             if InfantVisit.objects.filter(appointment__registered_subject=self.registered_subject, appointment__visit_definition__code='2010').exists():
+#                 raise ValidationError('Save failed. InfantVisit 2010 exists but should NOT have been submitted before InfantPreEligibility.')
+#             if abs((date.today() - self.infant_birth.dob).days) < 13:
+#                 raise ValidationError('Save failed. Infant must be 14 days of life or older to verify eligibility.')
             #current_consent_version = ConsentHelper(self.infant_birth, exception_cls=ValidationError).get_current_consent_version()
+#             if Eligibility().check(
+#                     current_consent_version=2,  # TODO: defaulting to 2 (2013-05-15)!!
+#                     dob=self.infant_birth.dob,
+#                     ga=self.infant_birth.maternal_lab_del.ga,
+#                     weight=self.weight,
+#                     clinical_jaundice=self.clinical_jaundice,
+#                     anemia_neutropenia=self.anemia_neutropenia,
+#                     exception_cls=ValidationError,
+#                     suppress_exception=True):
+#                 raise ValidationError('Save failed. Infant is eligible! Complete the InfantEligibility form instead of InfantPreEligibility. Perhaps catch this in forms module.')
+        super(InfantPreEligibility, self).save(*args, **kwargs)
+
+    def pre_eligibility_checks(self, pre_eligibility, exception_cls=None):
+        if not exception_cls:
+            exception_cls = ValidationError
+        if not pre_eligibility.id:
+            if InfantEligibility.objects.filter(infant_birth=pre_eligibility.infant_birth).exists():
+                    raise exception_cls('Save failed. InfantEligibility already submitted.')
+            if not InfantVisit.objects.filter(appointment__registered_subject=pre_eligibility.registered_subject, appointment__visit_definition__code='2000').exists():
+                raise exception_cls('Save failed. InfantVisit 2000 must be submitted before InfantPreEligibility.')
+            if InfantVisit.objects.filter(appointment__registered_subject=pre_eligibility.registered_subject, appointment__visit_definition__code='2010').exists():
+                raise exception_cls('Save failed. InfantVisit 2010 exists but should NOT have been submitted before InfantPreEligibility.')
+            if abs((date.today() - pre_eligibility.infant_birth.dob).days) < 13:
+                raise exception_cls('Save failed. Infant must be 14 days of life or older to verify eligibility.')
             if Eligibility().check(
                     current_consent_version=2,  # TODO: defaulting to 2 (2013-05-15)!!
-                    dob=self.infant_birth.dob,
-                    ga=self.infant_birth.maternal_lab_del.ga,
-                    weight=self.weight,
-                    clinical_jaundice=self.clinical_jaundice,
-                    anemia_neutropenia=self.anemia_neutropenia,
+                    dob=pre_eligibility.infant_birth.dob,
+                    ga=pre_eligibility.infant_birth.maternal_lab_del.ga,
+                    weight=pre_eligibility.weight,
+                    clinical_jaundice=pre_eligibility.clinical_jaundice,
+                    anemia_neutropenia=pre_eligibility.anemia_neutropenia,
                     exception_cls=ValidationError,
                     suppress_exception=True):
                 raise ValidationError('Save failed. Infant is eligible! Complete the InfantEligibility form instead of InfantPreEligibility. Perhaps catch this in forms module.')
-        super(InfantPreEligibility, self).save(*args, **kwargs)
 
     def get_versioned_field_names(self, version_number):
         """Returns a list of field names by version number."""
