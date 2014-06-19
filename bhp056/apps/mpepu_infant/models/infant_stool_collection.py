@@ -68,6 +68,12 @@ class InfantStoolCollection(BaseScheduledVisitModel):
 
     objects = models.Manager()
 
+    def __unicode__(self):
+        return "%s" % (self.infant_visit)
+
+    def get_absolute_url(self):
+        return reverse('admin:mpepu_infant_infantstoolcollection_change', args=(self.id,))
+
     class Meta:
         app_label = "mpepu_infant"
         verbose_name = "Infant Stool Collection"
