@@ -3,16 +3,17 @@ from django.core.urlresolvers import reverse
 from django.core.exceptions import ValidationError
 
 from edc.audit.audit_trail import AuditTrail
-from edc.subject.visit_tracking.models.base_visit_tracking import BaseVisitTracking
-from edc.subject.visit_tracking.settings import VISIT_REASON_NO_FOLLOW_UP_CHOICES
 from edc.entry_meta_data.models import ScheduledEntryMetaData, RequisitionMetaData
+from edc.subject.appointment.constants import IN_PROGRESS, DONE, INCOMPLETE, NEW
 from edc.subject.entry.models import Entry, LabEntry
 from edc.subject.registration.models import RegisteredSubject
+from edc.subject.visit_tracking.models.base_visit_tracking import BaseVisitTracking
+from edc.subject.visit_tracking.settings import VISIT_REASON_NO_FOLLOW_UP_CHOICES, VISIT_REASON_FOLLOW_UP_CHOICES
 
 from apps.mpepu.choices import INFO_PROVIDER
+from apps.mpepu.classes.mpepu_meta_data_mixin import MpepuMetaDataMixin
 from apps.mpepu_infant.choices import INFANT_VISIT_STUDY_STATUS, ALIVE_DEAD_UNKNOWN, VISIT_REASON
 from apps.mpepu_lab.models.panel import Panel
-from apps.mpepu.classes.mpepu_meta_data_mixin import MpepuMetaDataMixin
 
 from .infant_off_study_mixin import InfantOffStudyMixin
 
@@ -67,6 +68,8 @@ class InfantVisit(InfantOffStudyMixin, BaseVisitTracking, MpepuMetaDataMixin):
     def get_visit_reason_no_follow_up_choices(self):
         """Returns the visit reasons that do not imply any data collection; that is, the subject is not available."""
         dct = {}
+        if self.appointment.visit_definition.code == '2180':
+            return dct
         for item in VISIT_REASON_NO_FOLLOW_UP_CHOICES:
             dct.update({item: item})
         dct.update({'deferred': 'deferred'})
@@ -151,6 +154,7 @@ class InfantVisit(InfantOffStudyMixin, BaseVisitTracking, MpepuMetaDataMixin):
         self.change_meta_data_status_on_2180_if_visit_is_missed_at_2150()
         self.disable_dna_pcr_when_feeding_choice_is_formula_feeding()
         self.disable_v4_forms()
+        self.enable_2180_forms()
         super(InfantVisit, self).save(*args, **kwargs)
 
     def create_meta_if_visit_reason_is_death_when_sid_is_none(self):
@@ -250,6 +254,21 @@ class InfantVisit(InfantOffStudyMixin, BaseVisitTracking, MpepuMetaDataMixin):
                     requisition_meta_data = self.create_requisition_meta_data(self.appointment, lab_entry, self.registered_subject)
                     requisition_meta_data.entry_status = 'NOT_REQUIRED'
                     requisition_meta_data.save()
+
+    def enable_2180_forms(self):
+        from .infant_off_drug import InfantOffDrug
+        if self.appointment.visit_definition.code == '2180':
+            entry = self.query_entry('infantoffstudy', self.appointment.visit_definition)
+            self.create_scheduled_meta_data(self.appointment, entry, self.registered_subject)
+            if not InfantOffDrug.objects.filter(registered_subject=self.appointment.registered_subject):
+                entry = self.query_entry('infantoffdrug', self.appointment.visit_definition)
+                self.create_scheduled_meta_data(self.appointment, entry, self.registered_subject)
+            if self.reason == 'vital status' or self.reason == 'missed':
+                entry = self.query_entry('infantstoolcollection', self.appointment.visit_definition)
+                scheduled_meta_data = self.query_scheduled_meta_data(self.appointment, entry, self.registered_subject)
+                scheduled_meta_data.delete()
+                requisitions = RequisitionMetaData.objects.filter(appointment=self.appointment)
+                requisitions.delete()
 
     class Meta:
         db_table = 'mpepu_infant_infantvisit'
