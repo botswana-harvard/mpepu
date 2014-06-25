@@ -12,7 +12,7 @@ from .infant_fu import InfantFu
 
 class InfantFuMed(BaseScheduledVisitModel):
 
-    infant_fu = models.ForeignKey(InfantFu)
+    infant_fu = models.OneToOneField(InfantFu)
 
     vaccines_received = models.CharField(
         max_length=25,
