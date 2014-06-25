@@ -8,7 +8,7 @@ from .infant_fu import InfantFu
 
 class InfantFuDx(BaseScheduledVisitModel):
 
-    infant_fu = models.ForeignKey(InfantFu)
+    infant_fu = models.OneToOneField(InfantFu)
 
     history = AuditTrail()
 
