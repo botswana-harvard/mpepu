@@ -11,7 +11,7 @@ from .infant_fu import InfantFu
 
 class InfantFuDx2Proph(BaseScheduledVisitModel):
 
-    infant_fu = models.ForeignKey(InfantFu)
+    infant_fu = models.OneToOneField(InfantFu)
 
     has_dx = models.CharField(
         max_length=25,
