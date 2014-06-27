@@ -396,6 +396,12 @@ class InfantFuNewMedAdmin(MyInfantFuModelAdmin):
 admin.site.register(InfantFuNewMed, InfantFuNewMedAdmin)
 
 
+class InfantFuNewMedItemsAdmin(BaseModelAdmin):
+    form = InfantFuNewMedItemsForm
+
+admin.site.register(InfantFuNewMedItems, InfantFuNewMedItemsAdmin)
+
+
 class InfantStudyDrugItemsAdmin(BaseModelAdmin):
     form = InfantStudyDrugItemsForm
     list_display = ('inf_study_drug', 'dose_status', 'ingestion_date', 'modification_reason', 'modified')
