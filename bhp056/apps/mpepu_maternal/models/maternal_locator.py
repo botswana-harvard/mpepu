@@ -14,7 +14,7 @@ from .maternal_off_study_mixin import MaternalOffStudyMixin
 
 class MaternalLocator(MaternalOffStudyMixin, BaseLocator):
 
-    maternal_visit = models.ForeignKey(MaternalVisit)
+    maternal_visit = models.OneToOneField(MaternalVisit)
 
     care_clinic = OtherCharField(
         max_length=35,

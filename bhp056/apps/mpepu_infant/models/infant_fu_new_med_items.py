@@ -37,7 +37,7 @@ class InfantFuNewMedItems(InfantBaseUuidModel):
         return unicode(self.infant_fu_med.infant_visit)
 
     def get_absolute_url(self):
-        return reverse('admin:mpepu_infant_infantfunewmed_change', args=(self.id,))
+        return reverse('admin:mpepu_infant_infantfunewmeditems_change', args=(self.id,))
 
     class Meta:
         app_label = "mpepu_infant"
