@@ -161,20 +161,22 @@ class InfantFuDx2ProphItemsForm (BaseInfantModelForm):
 class InfantFuDForm (BaseInfantModelForm):
     def clean(self):
         cleaned_data = self.cleaned_data
-        if not cleaned_data.get('infant_visit'):
+        if not cleaned_data.get('infant_visit') or not cleaned_data.get('d_onset_date'):
             raise forms.ValidationError('This field is required. Please fill it in.')
         # if hospitalized, response about hospitalization in InfantPhysical and infantfudxitems should be same
         infant_fu = cleaned_data.get('infant_fu')
-        visit = infant_fu.infant_visit
-        if InfantFuPhysical.objects.filter(infant_visit=visit).exists():
-            infant_fu_physical = InfantFuPhysical.objects.get(infant_visit=visit)
+        if InfantFuPhysical.objects.filter(infant_visit=cleaned_data.get('infant_visit')).exists():
+            infant_fu_physical = InfantFuPhysical.objects.get(infant_visit=cleaned_data.get('infant_visit'))
 
             if infant_fu_physical.was_hospitalized != cleaned_data.get('hospitalized'):
                 raise forms.ValidationError('Your response about hospitalization in InfantFuPhysical, and whether or not patient was hospitalized in this Diarhoea form are not the same. Please correct.')
 
         # validating that d_onsetdate is not greater than the visit date
-        if visit and cleaned_data.get('d_onset_date') > visit.report_datetime:
+        if cleaned_data.get('d_onset_date').date() > cleaned_data.get('report_datetime').date():
             raise forms.ValidationError("Diarhoea onset date cannot be greater than the visit date. Please correct")
+
+        if cleaned_data.get('diarrhea_episodes')=='0':
+            raise forms.ValidationError('There should be at least one diarrheal episodes. You wrote 0.')
         return super(InfantFuDForm,self).clean()
 
     class Meta:
