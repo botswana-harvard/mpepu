@@ -42,3 +42,4 @@ class InfantFuNewMedItems(InfantBaseUuidModel):
     class Meta:
         app_label = "mpepu_infant"
         verbose_name = "Infant FollowUp: New Med Items"
+        verbose_name_plural = "Infant FollowUp: New Med Items"
