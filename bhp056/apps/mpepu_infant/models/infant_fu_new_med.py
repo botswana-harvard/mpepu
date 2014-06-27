@@ -11,7 +11,7 @@ from .infant_fu import InfantFu
 
 class InfantFuNewMed(BaseScheduledVisitModel):
 
-    infant_fu = models.ForeignKey(InfantFu)
+    infant_fu = models.OneToOneField(InfantFu)
 
     new_medications = models.CharField(
         max_length=25,
