@@ -13,7 +13,7 @@ class InfantFuPhysical(BaseScheduledVisitModel):
 
     """Infant follow up physical assessment."""
 
-    infant_fu = models.ForeignKey(InfantFu)
+    infant_fu = models.OneToOneField(InfantFu)
 
     weight = models.DecimalField(
         max_digits=6,
