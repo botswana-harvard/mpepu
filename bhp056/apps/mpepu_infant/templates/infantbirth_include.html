@@ -30,3 +30,19 @@
         {% endfor %}
     </table>    
     </div>
+<div class="pagination">
+    <span class="step-links">
+        {% if search_result.has_previous %}
+            <a href="?page={{ search_result.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ search_result.number }} of {{ search_result.paginator.num_pages }}.
+        </span>
+
+        {% if search_result.has_next %}
+            <a href="?page={{ search_result.next_page_number }}">next</a>
+        {% endif %}
+    </span>
+</div>
+
