@@ -1,5 +1,7 @@
 from django.contrib import admin
+from collections import OrderedDict
 
+from edc.export.actions import export_as_csv_action
 from edc.subject.appointment.admin import BaseAppointmentModelAdmin
 
 from apps.mpepu_lab.models import MaternalRequisition
@@ -50,5 +52,16 @@ class MaternalVisitAdmin(BaseAppointmentModelAdmin):
         'date_last_alive',
         "comments",
         )
+    
+    actions = [export_as_csv_action(description="CSV Export of Maternal Visit",
+        fields=[],
+        delimiter=',',
+        exclude=['created', 'modified', 'user_created', 'user_modified', 'revision', 'id', 'hostname_created', 'hostname_modified' ],
+        extra_fields=OrderedDict(
+            {'subject_identifier': 'appointment__registered_subject__subject_identifier',
+             'gender': 'appointment__registered_subject__gender',
+             'dob': 'appointment__registered_subject__dob',
+             'registered': 'appointment__registered_subject__registration_datetime'}),
+        )]
 
 admin.site.register(MaternalVisit, MaternalVisitAdmin)

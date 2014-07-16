@@ -1,4 +1,7 @@
 from django.contrib import admin
+from collections import OrderedDict
+
+from edc.export.actions import export_as_csv_action
 from edc.base.admin.admin import BaseModelAdmin, BaseTabularInline
 from edc.subject.registration.models import RegisteredSubject
 
@@ -88,6 +91,17 @@ class InfantOffStudyAdmin(OffStudyModelAdmin):
                 kwargs["queryset"] = InfantVisit.objects.filter(id=request.GET.get('infant_visit'))
 
         return super(InfantOffStudyAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
+
+    actions = [export_as_csv_action(description="CSV Export of Off Study",
+        fields=[],
+        delimiter=',',
+        exclude=['created', 'modified', 'user_created', 'user_modified', 'revision', 'id', 'hostname_created', 'hostname_modified' ],
+        extra_fields=OrderedDict(
+            {'subject_identifier': 'registered_subject__subject_identifier',
+             'gender': 'registered_subject__gender',
+             'dob': 'registered_subject__dob',
+             'registered': 'registered_subject__registration_datetime'}),
+        )]
 admin.site.register(InfantOffStudy, InfantOffStudyAdmin)
 
 
