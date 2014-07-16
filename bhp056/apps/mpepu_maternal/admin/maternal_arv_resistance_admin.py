@@ -1,6 +1,8 @@
 from django.contrib import admin
 from django.core.exceptions import ValidationError
+from collections import OrderedDict
 
+from edc.export.actions import export_as_csv_action
 from edc.subject.consent.admin import BaseConsentModelAdmin
 from edc.subject.registration.models import RegisteredSubject
 
@@ -63,6 +65,17 @@ class ResistanceConsentAdmin(BaseConsentModelAdmin):
         if db_field.name == "registered_subject":
             kwargs["queryset"] = RegisteredSubject.objects.filter(id__exact=request.GET.get('registered_subject'))
         return super(ResistanceConsentAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
+
+    actions = [export_as_csv_action(description="CSV Export of Resistance Consent",
+        fields=[],
+        delimiter=',',
+        exclude=['created', 'modified', 'user_created', 'user_modified', 'revision', 'id', 'hostname_created', 'hostname_modified' ],
+        extra_fields=OrderedDict(
+            {'subject_identifier': 'registered_subject__subject_identifier',
+             'gender': 'registered_subject__gender',
+             'dob': 'registered_subject__dob',
+             'registered': 'registered_subject__registration_datetime'}),
+        )]
 
 admin.site.register(ResistanceConsent, ResistanceConsentAdmin)
 
