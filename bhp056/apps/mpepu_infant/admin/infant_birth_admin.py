@@ -32,7 +32,7 @@ class InfantBirthAdmin(RegisteredSubjectModelAdmin):
                 kwargs["queryset"] = MaternalLabDel.objects.filter(maternal_visit__appointment__registered_subject__subject_identifier=maternal_subject_identifier)
             else:
                 kwargs["queryset"] = MaternalLabDel.objects.none()
-    
+
         return super(InfantBirthAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
     fields = (
@@ -69,10 +69,8 @@ class InfantBirthArvAdmin(InfantVisitModelAdmin):
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == "infant_birth":
             if request.GET.get('infant_visit'):
-                infant_visit_subject_id=InfantVisit.objects.get(id=request.GET.get('infant_visit')).subject_identifier
-                kwargs["queryset"] = InfantBirth.objects.filter(registered_subject__subject_identifier=infant_visit_subject_id)
-            else:
-                kwargs["queryset"] = InfantBirth.objects.none()
+                infant_visit=InfantVisit.objects.get(id=request.GET.get('infant_visit'))
+                kwargs["queryset"] = InfantBirth.objects.filter(registered_subject=infant_visit.appointment.registered_subject)
         return super(InfantBirthArvAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
     fields = (
@@ -110,12 +108,10 @@ class InfantBirthDataAdmin(InfantVisitModelAdmin):
     form = InfantBirthDataForm
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
-        if db_field.name == "infant_birth":         
+        if db_field.name == "infant_birth":
             if request.GET.get('infant_visit'):
-                infant_visit_subject_id=InfantVisit.objects.get(id=request.GET.get('infant_visit')).subject_identifier
-                kwargs["queryset"] = InfantBirth.objects.filter(registered_subject__subject_identifier=infant_visit_subject_id)
-            else:
-                kwargs["queryset"] = InfantBirth.objects.none()
+                infant_visit=InfantVisit.objects.get(id=request.GET.get('infant_visit'))
+                kwargs["queryset"] = InfantBirth.objects.filter(registered_subject=infant_visit.appointment.registered_subject)
         return super(InfantBirthDataAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
     fields = (
@@ -151,10 +147,8 @@ class InfantBirthExamAdmin(InfantVisitModelAdmin):
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == "infant_birth":
             if request.GET.get('infant_visit'):
-                infant_visit_subject_id=InfantVisit.objects.get(id=request.GET.get('infant_visit')).subject_identifier
-                kwargs["queryset"] = InfantBirth.objects.filter(registered_subject__subject_identifier=infant_visit_subject_id)
-            else:
-                kwargs["queryset"] = InfantBirth.objects.none()
+                infant_visit=InfantVisit.objects.get(id=request.GET.get('infant_visit'))
+                kwargs["queryset"] = InfantBirth.objects.filter(registered_subject=infant_visit.appointment.registered_subject)
         return super(InfantBirthExamAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
     fields = (
@@ -208,10 +202,8 @@ class InfantBirthFeedAdmin(InfantVisitModelAdmin):
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == "infant_birth":
             if request.GET.get('infant_visit'):
-                infant_visit_subject_id=InfantVisit.objects.get(id=request.GET.get('infant_visit')).subject_identifier
-                kwargs["queryset"] = InfantBirth.objects.filter(registered_subject__subject_identifier=infant_visit_subject_id)
-            else:
-                kwargs["queryset"] = InfantBirth.objects.none()
+                infant_visit=InfantVisit.objects.get(id=request.GET.get('infant_visit'))
+                kwargs["queryset"] = InfantBirth.objects.filter(registered_subject=infant_visit.appointment.registered_subject)
         return super(InfantBirthFeedAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
     fields = (
