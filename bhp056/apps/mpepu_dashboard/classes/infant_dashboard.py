@@ -154,7 +154,14 @@ class InfantDashboard(DashboardMixin, RegisteredSubjectDashboard):
         return days_alive
 
     def subject_hiv_status(self):
+        from edc.subject.lab_tracker.classes import site_lab_tracker
         super(InfantDashboard, self).subject_hiv_status
-        if not self._subject_hiv_status:
+        eligibility = InfantEligibility.objects.filter(registered_subject=self.registered_subject)
+        if eligibility and eligibility[0].hiv_status == 'Yes':
+            self._subject_hiv_status = 'POS'
+        elif not self._subject_hiv_status:
             self._subject_hiv_status = 'UNK'
         return self._subject_hiv_status
+    
+    
+

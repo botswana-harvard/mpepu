@@ -157,7 +157,7 @@ class InfantEligibility(BaseInfantRegisteredSubjectModel):
 
     def get_result_datetime(self):
         return self.get_registration_datetime()
-
+ 
     def get_test_code(self):
         return 'HIV'
 
