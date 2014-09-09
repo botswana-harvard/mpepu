@@ -1,15 +1,30 @@
-# Django settings for bhp project.
-from unipath import Path
-import os
 import platform
 import sys
-import logger
+from os.path import realpath, abspath, join, dirname
+
+from unipath import Path
+
+from bhp056.config import LOGGING
+
+from bhp056.config import *
 
 
-DEBUG = False
-INTERNAL_IPS = ('127.0.0.1',)
-TEMPLATE_DEBUG = DEBUG
-DIRNAME = os.path.dirname(__file__)
+ADMINS = (('erikvw', 'ew@2789@gmail.com'),)
+
+# Path
+SETTINGS_DIR = dirname(realpath(__file__))
+SOURCE_DIR = Path(__file__).ancestor(4)
+PROJECT_DIR = Path(__file__).ancestor(3)
+MEDIA_ROOT = PROJECT_DIR.child('media')
+STATIC_ROOT = PROJECT_DIR.child('static')
+TEMPLATE_DIRS = (
+    PROJECT_DIR.child('templates'),
+    PROJECT_DIR.child('edc', 'lab', 'lab_clinic_api', 'templates'),
+)
+STATICFILES_DIRS = ()
+CONFIG_DIR = PROJECT_DIR.child('bhp056')
+MAP_DIR = STATIC_ROOT.child('img')
+DEFAULT_FILE_STORAGE = 'database_files.storage.DatabaseStorage'
 
 #Email configuration
 SEND_BROKEN_LINK_EMAILS = True
@@ -23,88 +38,12 @@ ADMINS = (
     ('mkewagamang', 'mkewagamang@bhp.org.bw'),
 )
 
-# Path
-SOURCE_DIR = Path(__file__).ancestor(3)
-PROJECT_DIR = Path(__file__).ancestor(2)
-MEDIA_ROOT = PROJECT_DIR.child('media')
-STATIC_ROOT = PROJECT_DIR.child('static')
-TEMPLATE_DIRS = (
-    PROJECT_DIR.child('templates'),
-    )
-STATICFILES_DIRS = ()
-CONFIG_DIR = PROJECT_DIR.child('bhp056')
-
-
-#Key Path
-# KEY_PATH = '/Users/melissa/Documents/git/bhp066/bhp066/keys'
-#KEY_PATH = '/Users/twicet/dev/bhp/projs/git/bhp056_project/bhp056/keys'
-# print KEY_PATH
-# KEY_PATH = '/Users/fchilisa/source/bhp056_project/bhp056/keys'
-#KEY_PATH = '/Users/melissa/Documents/git/bhp056_mpepu/bhp056/keys'
-# KEY_PATH = '/Users/twicet/dev/bhp/projs/git/bhp056_project/bhp056/keys'
-KEY_PATH = PROJECT_DIR.child('keys')
-
-
-MAP_DIR = STATIC_ROOT.child('img')
 
 MANAGERS = ADMINS
-testing_db_name = 'sqlite'
-if 'test' in sys.argv:
-    # make tests faster
-    SOUTH_TESTS_MIGRATE = False
-    if testing_db_name == 'sqlite':
-        DATABASES = {
-            'default': {
-                'ENGINE': 'django.db.backends.sqlite3',
-                'NAME': 'default',
-                'USER': 'root',
-                'PASSWORD': 'cc3721b',
-                'HOST': '',
-                'PORT': ''},
-        }
-    else:
-        DATABASES = {
-            'default': {
-                'ENGINE': 'django.db.backends.mysql',
-                'OPTIONS': {
-                    'init_command': 'SET storage_engine=INNODB',
-                },
-                'NAME': 'test_default',
-                'USER': 'root',
-                'PASSWORD': 'cc3721b',
-                'HOST': '',
-                'PORT': '',
-            },
-        }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'OPTIONS': {
-                'init_command': 'SET storage_engine=INNODB',
-            },
-            'NAME': 'bhp056',
-            'USER': 'root',
-            'PASSWORD': 'cc3721b',
-            'HOST': '',
-            'PORT': '',
-        },
-        'lab_api': {
-            'ENGINE': 'django.db.backends.mysql',
-            'OPTIONS': {
-                'init_command': 'SET storage_engine=INNODB',
-            },
-            'NAME': 'lab',
-            'USER': 'root',
-            'PASSWORD': 'cc3721b',
-            'HOST': '192.168.1.50',
-            'PORT': '3306',
-        },
-    }
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 's007', 's007.bhp.org.bw', '192.168.1.50']
+ALLOWED_HOSTS = ['localhost', 's007', 's007.bhp.org.bw', '192.168.1.50']
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -117,12 +56,12 @@ TIME_ZONE = 'Africa/Gaborone'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
+#langauage setting
+ugettext = lambda s: s
+
+#LOCALE_PATHS = ('locale', )
 
 LANGUAGE_CODE = 'en'
-LANGUAGES = (
-             ('en', 'English'),
-             ('tn', 'Setswana'),
-)
 
 SITE_ID = 1
 
@@ -133,11 +72,6 @@ USE_I18N = True
 # If you set this to False, Django will not format dates, numbers and
 # calendars according to the current locale
 USE_L10N = True
-
-# Django debug settings
-# DEBUG_TOOLBAR_CONFIG = {
-#     'INTERCEPT_REDIRECTS': False,
-#     }
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
@@ -171,13 +105,12 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     #'dajaxice.finders.DajaxiceFinder',
-#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+#   'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = '0$q&@p=jz(+_r^+phzenyqi49#y2^3ot3h#jru+32z&+cm&j51'
 
-# List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
     ('django.template.loaders.cached.Loader', (
      'django.template.loaders.filesystem.Loader',
@@ -194,7 +127,6 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-#     'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = ("django.contrib.auth.context_processors.auth",
@@ -208,7 +140,7 @@ TEMPLATE_CONTEXT_PROCESSORS = ("django.contrib.auth.context_processors.auth",
 ROOT_URLCONF = 'bhp056.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
-WSGI_APPLICATION = 'bhp056.wsgi.application'
+WSGI_APPLICATION = 'config.wsgi.application'
 
 INSTALLED_APPS = (
     'django.contrib.auth',
@@ -230,7 +162,7 @@ INSTALLED_APPS = (
 
     'edc.audit',
 
-    'edc.base.admin',
+    'edc.base.modeladmin',
     'edc.base.form',
     'edc.base.model',
 
@@ -335,15 +267,16 @@ INSTALLED_APPS = (
     #'tastypie',
 )
 
+
 # django email settings
-EMAIL_HOST = 'mail.bhp.org.bw'
+EMAIL_HOST = 'localhost'
 EMAIL_PORT = '25'
 EMAIL_HOST_USER = 'edcdev'
 EMAIL_HOST_PASSWORD = 'cc3721b'
 EMAIL_USE_TLS = True
 #EMAIL_AFTER_CONSUME = False
 
-SOUTH_LOGGING_FILE = os.path.join(os.path.dirname(__file__), "south.log")
+SOUTH_LOGGING_FILE = join(dirname(__file__), "south.log")
 SOUTH_LOGGING_ON = True
 AUTH_PROFILE_MODULE = "bhp_userprofile.userprofile"
 #DAJAXICE_MEDIA_PREFIX = "dajaxice"
@@ -352,6 +285,9 @@ AUTH_PROFILE_MODULE = "bhp_userprofile.userprofile"
 IS_COMMUNITY_SERVER = True
 ALLOW_DELETE_MODEL_FROM_SERIALIZATION = False
 ALLOW_MODEL_SERIALIZATION = True
+
+# django auth
+AUTH_PROFILE_MODULE = "bhp_userprofile.userprofile"
 
 # EDC GENERAL SETTINGS
 APP_NAME = 'mpepu'
@@ -389,20 +325,11 @@ FIELD_MAX_LENGTH = 'migration'
 REFERENCE_RANGE_LIST = 'BHPLAB_NORMAL_RANGES_201005'
 GRADING_LIST = 'DAIDS_2004'
 # for bhp_import_dmis
-dsn = 's012'
-user = 'sa'
-password = 'cc3721b'
-database = 'BHPLAB'
-driver = '{FreeTDS}'
-mac_driver = '/usr/local/lib/libtdsodbc.so'
 if platform.system() == 'Darwin':
-    LAB_IMPORT_DMIS_DATA_SOURCE = 'DSN=%s;UID=%s;PWD=%s;DATABASE=%s;DRIVER=%s' % (dsn, user, password, database, mac_driver)
-                                  #('DRIVER=/usr/local/lib/libtdsodbc.so;SERVER=192.168.1.141;'
-                                  #'PORT=1433;UID=sa;PWD=cc3721b;DATABASE=BHPLAB;'
-                                  #'CHARSET=UTF8;TDS_Version=8.0; ServerName=s012')
+    LAB_IMPORT_DMIS_DATA_SOURCE = ('DRIVER=/usr/local/lib/libtdsodbc.so;SERVER=192.168.1.141;'
+                                   'PORT=1433;UID=sa;PWD=cc3721b;DATABASE=BHPLAB')
 else:
-    LAB_IMPORT_DMIS_DATA_SOURCE = 'DSN=%s;UID=%s;PWD=%s;DATABASE=%s;DRIVER=%s' % (dsn, user, password, database, driver)
-                                  #('DRIVER={FreeTDS};SERVER=192.168.1.141;UID=sa;PWD=cc3721b;'
-                                  #'DATABASE=BHPLAB;CHARSET=UTF8;TDS_Version=8.0;PORT=1433; ServerName=s012')
+    LAB_IMPORT_DMIS_DATA_SOURCE = ('DRIVER={FreeTDS};SERVER=192.168.1.141;UID=sa;PWD=cc3721b;'
+                                   'DATABASE=BHPLAB')
 VAR_ROOT = '/var'
-LOGGING = logger.LOGGING
+LOGGING = LOGGING

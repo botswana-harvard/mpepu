@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from edc.base.admin.admin import BaseTabularInline, BaseModelAdmin
+from edc.base.modeladmin.admin import BaseTabularInline, BaseModelAdmin
 
 from ..models import (MaternalEnroll, MaternalEnrollDem, MaternalEnrollOb, MaternalEnrollDx, MaternalEnrollMed,
                                    MaternalEnrollArv, MaternalEnrollClin)

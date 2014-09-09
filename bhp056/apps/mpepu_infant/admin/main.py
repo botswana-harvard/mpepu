@@ -2,7 +2,7 @@ from django.contrib import admin
 from collections import OrderedDict
 
 from edc.export.actions import export_as_csv_action
-from edc.base.admin.admin import BaseModelAdmin, BaseTabularInline
+from edc.base.modeladmin.admin import BaseModelAdmin, BaseTabularInline
 from edc.subject.registration.models import RegisteredSubject
 
 from ..models import (InfantHaart, InfantOffDrug, InfantOffStudy, InfantPrerandoLoss, InfantSurvival, InfantNvpAdherence,
