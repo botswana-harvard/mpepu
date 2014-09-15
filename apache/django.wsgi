@@ -29,3 +29,11 @@ execfile(activate_env, dict(__file__=activate_env))
  
 import django.core.handlers.wsgi
 application = django.core.handlers.wsgi.WSGIHandler()
+
+types {
+    text/html                             html htm shtml;
+    text/css                              css;
+    image/gif                             gif;
+    image/jpeg                            jpeg jpg;
+    application/x-javascript              js;
+}
