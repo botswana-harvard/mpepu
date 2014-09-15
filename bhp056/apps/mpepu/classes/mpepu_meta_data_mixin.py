@@ -17,8 +17,8 @@ class MpepuMetaDataMixin(object):
         scheduled_meta_data = self.query_scheduled_meta_data(appointment, entry, registered_subject)
         if not scheduled_meta_data:
             scheduled_meta_data = ScheduledEntryMetaData.objects.create(appointment=appointment, entry=entry, registered_subject=registered_subject)
-            scheduled_meta_data.entry_status = 'NEW'
-            scheduled_meta_data.save()
+        scheduled_meta_data.entry_status = 'NEW'
+        scheduled_meta_data.save()
         return scheduled_meta_data
 
     def query_lab_entry(self, model_name, panel, visit_definition):
@@ -34,6 +34,6 @@ class MpepuMetaDataMixin(object):
         requisition_meta_data = self.query_requisition_meta_data(appointment, lab_entry, registered_subject)
         if not requisition_meta_data:
             requisition_meta_data = RequisitionMetaData.objects.create(appointment=appointment, lab_entry=lab_entry, registered_subject=registered_subject)
-            requisition_meta_data.entry_status = 'NEW'
-            requisition_meta_data.save()
+        requisition_meta_data.entry_status = 'NEW'
+        requisition_meta_data.save()
         return requisition_meta_data

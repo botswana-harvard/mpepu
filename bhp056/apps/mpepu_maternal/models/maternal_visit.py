@@ -44,11 +44,14 @@ class MaternalVisit(MaternalOffStudyMixin, BaseVisitTracking, MpepuMetaDataMixin
     def get_visit_reason_no_follow_up_choices(self):
         """Returns the visit reasons that do not imply any data collection; that is, the subject is not available."""
         dct = {}
-        for item in VISIT_REASON_NO_FOLLOW_UP_CHOICES:
-            dct.update({item: item})
-        dct.update({'vital status': 'vital status'})
-        del dct['death']
-        return dct
+        if self.appointment.visit_definition.code == '2180M':
+            return dct
+        else:
+            for item in VISIT_REASON_NO_FOLLOW_UP_CHOICES:
+                dct.update({item: item})
+            dct.update({'vital status': 'vital status'})
+            del dct['death']
+            return dct
 
     def save(self, *args, **kwargs):
         if self.reason == 'vital status':
@@ -56,6 +59,7 @@ class MaternalVisit(MaternalOffStudyMixin, BaseVisitTracking, MpepuMetaDataMixin
         self.create_meta_status_if_visit_reason_is_death()
         self.create_meta_status_if_visit_reason_is_off_study()
         self.avail_forms_on_visit_2000M_only_when_consent_version_is_greater_than_two()
+        self.enable_2180M_forms()
         super(MaternalVisit, self).save(*args, **kwargs)
 
     def create_meta_status_if_visit_reason_is_death(self):
@@ -81,6 +85,11 @@ class MaternalVisit(MaternalOffStudyMixin, BaseVisitTracking, MpepuMetaDataMixin
                 for form in avail_forms:
                     entry = self.query_entry(form, self.appointment.visit_definition)
                     self.create_scheduled_meta_data(self.appointment, entry, self.registered_subject)
+
+    def enable_2180M_forms(self):
+        if self.appointment.visit_definition.code == '2180M':
+            entry = self.query_entry('maternaloffstudy', self.appointment.visit_definition)
+            self.create_scheduled_meta_data(self.appointment, entry, self.registered_subject)
 
     def get_absolute_url(self):
         return reverse('admin:mpepu_maternal_maternalvisit_change', args=(self.id,))

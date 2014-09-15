@@ -69,8 +69,10 @@ class InfantVisitForm (BaseInfantModelForm):
 
         #validate that you cant save infant visit greater that 2000 if infant eligibility has not been filled in
         self.instance.requires_infant_eligibility(InfantVisit(**cleaned_data), forms.ValidationError)
+        #Meta data validations
+        self.instance.recalculate_meta(InfantVisit(**cleaned_data), forms.ValidationError)
         #validate that you cant save infant visit if previous visit has not been saved.
-        #self.instance.check_previous_visit_keyed(InfantVisit(**cleaned_data), forms.ValidationError)
+        self.instance.check_previous_visit_keyed(InfantVisit(**cleaned_data), forms.ValidationError)
         return super(InfantVisitForm, self).clean()
 
     class Meta:
