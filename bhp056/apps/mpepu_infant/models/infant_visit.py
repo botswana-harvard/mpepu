@@ -206,9 +206,11 @@ class InfantVisit(InfantOffStudyMixin, BaseVisitTracking, MpepuMetaDataMixin):
             self.create_scheduled_meta_data(self.appointment, entry, self.registered_subject)
 
     def change_meta_data_status_if_study_status_is_onstudy_rando_offdrug(self):
+        from .infant_off_drug import InfantOffDrug
         if self.study_status == 'onstudy rando offdrug':
-            entry = self.query_entry('infantoffdrug', self.appointment.visit_definition)
-            self.create_scheduled_meta_data(self.appointment, entry, self.registered_subject)
+            if not InfantOffDrug.objects.filter(registered_subject=self.registered_subject).exists():
+                entry = self.query_entry('infantoffdrug', self.appointment.visit_definition)
+                self.create_scheduled_meta_data(self.appointment, entry, self.registered_subject)
 
     def change_meta_data_status_if_study_status_is_onstudy_rando_ondrug(self):
         if self.study_status == 'onstudy rando ondrug':
@@ -330,23 +332,12 @@ class InfantVisit(InfantOffStudyMixin, BaseVisitTracking, MpepuMetaDataMixin):
         """Ensure that the metadata for every visit is always re-calculated with every save"""
         if not exception_cls:
             exception_cls = ValidationError
-        flag = False
         # Check if the visit report is being modified and not new
         if self.id is not None:
             scheduled_meta_data = ScheduledEntryMetaData.objects.filter(appointment=self.appointment, registered_subject=self.registered_subject)
             requisition_meta_data = RequisitionMetaData.objects.filter(appointment=self.appointment, registered_subject=self.registered_subject)
-            #Ensure there are no keyed forms
-            for meta_data in scheduled_meta_data:
-                if meta_data.entry_status == 'KEYED':
-                    flag = True
-            #Ensure there are no keyed lab requisitions
-            for rmeta_data in requisition_meta_data:
-                if rmeta_data.entry_status == 'KEYED':
-                    flag = True
-            if not flag:
-                scheduled_meta_data.delete()
-                requisition_meta_data.delete()
-            else:
+            empty = self.remove_all_meta_data(self.appointment, self.registered_subject, scheduled_meta_data, requisition_meta_data)
+            if not empty:
                 if infant_visit.reason == 'missed':
                     if self.appointment.visit_definition.code != '2180':
                         raise exception_cls('Please delete all filled in forms before you may change the visit to Missed.')
