@@ -8,7 +8,7 @@ import logger
 from .installed_apps import MPEPU_INSTALLED_APPS
 
 
-DEBUG = True
+DEBUG = False
 INTERNAL_IPS = ('127.0.0.1',)
 TEMPLATE_DEBUG = DEBUG
 DIRNAME = os.path.dirname(__file__)
@@ -22,6 +22,7 @@ ADMINS = (
     ('erikvw', 'ew2789@gmail.com'),
     ('fchilisa', 'fchilisa@bhp.org.bw'),
     ('mkewagamang', 'mkewagamang@bhp.org.bw'),
+    ('sirone', 'opharatlhatlhe@bhp.org.bw')
 )
 
 # Path
@@ -40,9 +41,9 @@ CONFIG_DIR = PROJECT_DIR.child('bhp056')
 
 
 #Key Path
-KEY_PATH = '/Users/fchilisa/source/bhp056_project/bhp056/keys'
+# KEY_PATH = '/Users/fchilisa/source/bhp056_project/bhp056/keys'
 #KEY_PATH = '/Users/melissa/Documents/git/bhp056_mpepu/bhp056/keys'
-# KEY_PATH = PROJECT_DIR.child('keys')
+KEY_PATH = PROJECT_DIR.child('keys')
 
 
 MAP_DIR = STATIC_ROOT.child('img')
@@ -83,22 +84,22 @@ else:
             'OPTIONS': {
                 'init_command': 'SET storage_engine=INNODB',
             },
-            'NAME': 'bhp056_mpepu',
+            'NAME': 'bhp056',
             'USER': 'root',
             'PASSWORD': 'cc3721b',
             'HOST': '',
-            'PORT': '3306',
+            'PORT': '',
         },
         'lab_api': {
             'ENGINE': 'django.db.backends.mysql',
             'OPTIONS': {
                 'init_command': 'SET storage_engine=INNODB',
             },
-            'NAME': 'bhp056_lab',
+            'NAME': 'lab',
             'USER': 'root',
             'PASSWORD': 'cc3721b',
-            'HOST': '',
-            'PORT': '',
+            'HOST': '192.168.1.50',
+            'PORT': '3306',
         },
     }
 
@@ -170,7 +171,7 @@ STATICFILES_DIRS = ()
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    #'dajaxice.finders.DajaxiceFinder',
+    'dajaxice.finders.DajaxiceFinder',
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
@@ -223,7 +224,7 @@ EMAIL_USE_TLS = True
 SOUTH_LOGGING_FILE = os.path.join(os.path.dirname(__file__), "south.log")
 SOUTH_LOGGING_ON = True
 AUTH_PROFILE_MODULE = "bhp_userprofile.userprofile"
-#DAJAXICE_MEDIA_PREFIX = "dajaxice"
+DAJAXICE_MEDIA_PREFIX = "dajaxice"
 
 # only for community server
 IS_COMMUNITY_SERVER = True
@@ -248,6 +249,8 @@ LABDB = 'bhplab'
 SESSION_COOKIE_AGE = 3000
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 DEVICE_ID = '99'
+SERVER_DEVICE_ID_LIST = [99,]
+MIDDLEMAN_DEVICE_ID_LIST = []
 SUBJECT_TYPES = ['infant', 'maternal']
 MAX_SUBJECTS = {'maternal': 3274, 'infant': 4500}
 APPOINTMENTS_PER_DAY_MAX = 20

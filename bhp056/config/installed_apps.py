@@ -11,6 +11,7 @@ MPEPU_INSTALLED_APPS = (
     'django_databrowse',
     'dajaxice',
     'dajax',
+#     'debug_toolbar',
     'south',
 
     'edc.apps.admin_supplemental_fields',
