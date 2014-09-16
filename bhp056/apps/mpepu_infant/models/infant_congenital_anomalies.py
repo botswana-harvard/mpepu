@@ -57,13 +57,6 @@ class BaseCnsItem(InfantOffStudyMixin, BaseConsentedUuidModel):
         default=datetime.today()
         )
 
-    #infant_visit = models.OneToOneField(InfantVisit)
-
-    #entry_meta_data_manager = EntryMetaDataManager(InfantVisit)
-
-#     def get_visit(self):
-#         return '2000'
-
     def get_consenting_subject_identifier(self):
         """Returns mother's identifier."""
         return self.congenital_anomalies.registered_subject.relative_identifier
