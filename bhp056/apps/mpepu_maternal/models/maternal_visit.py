@@ -159,7 +159,7 @@ class MaternalVisit(MaternalOffStudyMixin, BaseVisitTracking, MpepuMetaDataMixin
                     death = maternal_visit.recalculate_death_meta(scheduled_meta_data, requisition_meta_data)
                     if not death:
                         raise exception_cls('Please delete all filled in forms that are not Death forms before you may change the visit to Death.')
-    
+
     class Meta:
         db_table = 'mpepu_maternal_maternalvisit'
         verbose_name = "Maternal Visit"
