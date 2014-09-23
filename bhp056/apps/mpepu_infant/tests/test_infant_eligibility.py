@@ -28,7 +28,7 @@ class InfantEligibilityTests(TestCase):
             site_lab_profiles.register(MpepuInfantProfile())
         except AlreadyRegistered:
             pass
-        MpepuAppConfiguration()
+        MpepuAppConfiguration().prepare()
         site_lab_tracker.autodiscover()
         site_visit_schedules.autodiscover()
         site_visit_schedules.build_all()
