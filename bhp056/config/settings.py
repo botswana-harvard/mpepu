@@ -95,11 +95,11 @@ else:
             'OPTIONS': {
                 'init_command': 'SET storage_engine=INNODB',
             },
-            'NAME': 'bhp056',
+            'NAME': 'lab',
             'USER': 'root',
             'PASSWORD': 'cc3721b',
-            'HOST': '',
-            'PORT': '',
+            'HOST': '192.168.1.50',
+            'PORT': '3306',
         },
     }
 
