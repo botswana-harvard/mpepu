@@ -5,20 +5,23 @@ from datetime import datetime, date, timedelta
 from django.test import TestCase
 from django.db.models import get_app, get_models
 
-from edc.core.identifier.exceptions import IdentifierError
-from edc.subject.lab_tracker.classes import site_lab_tracker
-from edc.core.bhp_variables.models import StudySpecific, StudySite
-from edc.core.bhp_variables.tests.factories import StudySpecificFactory, StudySiteFactory
-from edc.subject.registration.models import RegisteredSubject
-from edc.subject.consent.tests.factories import ConsentCatalogueFactory
-from edc.subject.appointment.models import Appointment
-from edc.subject.visit_schedule.tests.factories import MembershipFormFactory, ScheduleGroupFactory, VisitDefinitionFactory
 from edc.core.bhp_content_type_map.classes import ContentTypeMapHelper
 from edc.core.bhp_content_type_map.models import ContentTypeMap
+from edc.core.bhp_variables.models import StudySpecific, StudySite
+from edc.core.bhp_variables.tests.factories import StudySpecificFactory, StudySiteFactory
+from edc.core.identifier.exceptions import IdentifierError
+from edc.core.identifier.models import SubjectIdentifier, Sequence
+from edc.subject.appointment.models import Appointment
+from edc.subject.consent.tests.factories import ConsentCatalogueFactory
+from edc.subject.lab_tracker.classes import site_lab_tracker
+from edc.subject.off_study.exceptions import SubjectOffStudyError, SubjectOffStudyDateError
+from edc.subject.registration.models import RegisteredSubject
+from edc.subject.visit_schedule.tests.factories import MembershipFormFactory, ScheduleGroupFactory, VisitDefinitionFactory
+
+from apps.mpepu.mpepu_app_configuration.classes import MpepuAppConfiguration
+
 from ..models import MaternalVisit, MaternalConsent, MaternalOffStudy, MaternalEligibilityAnte, MaternalEligibilityPost, MaternalPostReg
 from ..tests.factories import MaternalConsentFactory, MaternalOffStudyFactory, MaternalVisitFactory, MaternalEligibilityAnteFactory, MaternalLabDelFactory
-from edc.core.identifier.models import SubjectIdentifier, Sequence
-from edc.subject.off_study.exceptions import SubjectOffStudyError, SubjectOffStudyDateError
 
 
 class MaternalOffStudyTests(TestCase):
@@ -42,6 +45,7 @@ class MaternalOffStudyTests(TestCase):
         site_lab_tracker.autodiscover()
         StudySpecificFactory()
         study_site = StudySiteFactory()
+        MpepuAppConfiguration().prepare()
         content_type_map_helper = ContentTypeMapHelper()
         content_type_map_helper.populate()
         content_type_map_helper.sync()

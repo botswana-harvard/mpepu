@@ -40,7 +40,7 @@ class InfantBirthTests(TestCase):
             site_lab_profiles.register(MpepuInfantProfile())
         except AlreadyRegistered:
             pass
-        MpepuAppConfiguration()
+        MpepuAppConfiguration().prepare()
         site_lab_tracker.autodiscover()
         site_visit_schedules.autodiscover()
         site_visit_schedules.build_all()
@@ -86,7 +86,7 @@ class InfantBirthTests(TestCase):
                 print 'Infant 2010 at {0}'.format(Appointment.objects.get(registered_subject=registered_subject, visit_definition__code='2010').appt_datetime)
                 print '    add an infant visit'
                 appointment = Appointment.objects.get(registered_subject=registered_subject, visit_definition__code='2000')
-                infant_visit = InfantVisitFactory(appointment=appointment, report_datetime=datetime.today(), reason='scheduled')
+                infant_visit = InfantVisitFactory(appointment=appointment, report_datetime=datetime.today(), reason='scheduled', study_status = 'onstudy notrando')
                 print '    {0}'.format(infant_visit)
                 appt_2000 = Appointment.objects.get(registered_subject=registered_subject, visit_definition__code='2000').appt_datetime
                 appt_2010 = Appointment.objects.get(registered_subject=registered_subject, visit_definition__code='2010').appt_datetime
@@ -178,7 +178,7 @@ class InfantBirthTests(TestCase):
                 self.assertEqual(eligibility_criteria[STAT], 'fail')
                 print '    add InfantVisit 2000'
                 appointment = Appointment.objects.get(visit_definition__code='2000', registered_subject=registered_subject)
-                infant_visit = InfantVisitFactory(appointment=appointment, reason='scheduled')
+                infant_visit = InfantVisitFactory(appointment=appointment, reason='scheduled', study_status = 'onstudy notrando')
                 print '    attempt add InfantVisit 2010 to trigger ValidationError'
                 appointment = Appointment.objects.get(visit_definition__code='2010', registered_subject=registered_subject)
                 self.assertRaises(ValidationError, InfantVisitFactory, appointment=appointment, reason='scheduled')
@@ -210,7 +210,7 @@ class InfantBirthTests(TestCase):
                 self.assertEqual(eligibility_criteria[STAT], 'fail')
                 print '    add InfantVisit 2000'
                 appointment = Appointment.objects.get(visit_definition__code='2000', registered_subject=registered_subject)
-                infant_visit = InfantVisitFactory(appointment=appointment, reason='scheduled')
+                infant_visit = InfantVisitFactory(appointment=appointment, reason='scheduled', study_status = 'onstudy notrando')
                 print '    attempt add InfantVisit 2010 to trigger ValidationError'
                 appointment = Appointment.objects.get(visit_definition__code='2010', registered_subject=registered_subject)
                 self.assertRaises(ValidationError, InfantVisitFactory, appointment=appointment, reason='scheduled')
@@ -237,7 +237,7 @@ class InfantBirthTests(TestCase):
                 self.assertEqual(eligibility_criteria[STAT], 'fail')
                 print '    add InfantVisit 2000'
                 appointment = Appointment.objects.get(visit_definition__code='2000', registered_subject=registered_subject)
-                infant_visit = InfantVisitFactory(appointment=appointment, reason='scheduled')
+                infant_visit = InfantVisitFactory(appointment=appointment, reason='scheduled', study_status = 'onstudy notrando')
                 print '    attempt add InfantVisit 2010 to trigger ValidationError'
                 appointment = Appointment.objects.get(visit_definition__code='2010', registered_subject=registered_subject)
                 self.assertRaises(ValidationError, InfantVisitFactory, appointment=appointment, reason='scheduled')
@@ -289,7 +289,7 @@ class InfantBirthTests(TestCase):
         appointment = Appointment.objects.get(registered_subject=registered_subject, visit_definition__code='2010')
         print '    {0}, {1}'.format(delivery_datetime, appointment.appt_datetime)
         return delivery_datetime, infant_birth, registered_subject
-        infant_visit = InfantVisitFactory(appointment=appointment)
+        infant_visit = InfantVisitFactory(appointment=appointment, study_status = 'onstudy notrando')
         print 'complete infant birth data'
         print 'confirm appt date was changed to __. (Criteria are : ga >=36, weight >=2.5, clinical_jaundice=No, anemia_neutropenia=No)'
         infant_birth_data = InfantBirthDataFactory(infant_visit=infant_visit, infant_birth=infant_birth, infant_birth_weight=3.5, )

@@ -43,6 +43,8 @@ class InfantVisitForm (BaseInfantModelForm):
             raise forms.ValidationError("Reason for visit is NOT 'missed' but you provided a reason missed. Please correct.")
         if cleaned_data.get('info_source') == 'OTHER' and not cleaned_data.get('info_source_other'):
             raise forms.ValidationError("Source of information is 'OTHER', please provide details below your choice")
+        if not cleaned_data.get('report_datetime'):
+            raise forms.ValidationError("Please fill in the Date and Time of visit.")
 
         if cleaned_data.get('survival_status') == 'DEAD' and not cleaned_data.get('date_last_alive'):
             raise forms.ValidationError('Please provide date information, when infant was last known to be alive')

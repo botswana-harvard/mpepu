@@ -6,7 +6,7 @@ from edc.lab.lab_profile.classes import ProfileItemTuple, ProfileTuple
 
 from lis.specimen.lab_aliquot_list.classes import AliquotTypeTuple
 from lis.specimen.lab_panel.classes import PanelTuple
-from lis.labeling.classes import LabelPrinterTuple, ZplTemplateTuple
+from lis.labeling.classes import LabelPrinterTuple, ZplTemplateTuple, ClientTuple
 
 study_start_datetime = datetime(2011, 05, 10, 8, 00, 00)
 study_end_datetime = datetime(2016, 01, 20, 23, 49, 40)
@@ -14,8 +14,8 @@ study_end_datetime = datetime(2016, 01, 20, 23, 49, 40)
 
 class MpepuAppConfiguration(BaseAppConfiguration):
 
-    def __init__(self):
-        super(MpepuAppConfiguration, self).__init__()
+    def prepare(self):
+        super(MpepuAppConfiguration, self).prepare()
 
     global_configuration = {'dashboard': {'show_not_required_metadata': False, 'allow_additional_requisitions': False, 'show_drop_down_requisitions': True},
                             'appointment': {'allowed_iso_weekdays': '12345', 'use_same_weekday': True, 'default_appt_type': 'default'},
@@ -152,14 +152,14 @@ class MpepuAppConfiguration(BaseAppConfiguration):
                      'profile_item': [ProfileItemTuple('PBMC Plasma (STORE ONLY)', 'PL', 0.1, 3),
                                       ProfileItemTuple('Plasma and Buffy Coat Storage', 'PL', 0.1, 3)]}}
 
-    labeling_setup = {'label_printer': [LabelPrinterTuple('Zebra_Technologies_ZTC_GK420t', '192.168.1.25', True),
-                                        LabelPrinterTuple('Mpepu_Pharmacy_Label_Printer', '192.168.1.160', True),
-                                        LabelPrinterTuple('Moleps_room2_Label_Printer', '10.70.117.77', True),
-                                        LabelPrinterTuple('Moleps_Pharmacy_Label_Printer', '10.70.117.38', True),
-                                        LabelPrinterTuple('test_label_printer', '192.168.1.178', True)
+    labeling_setup = {'label_printer': [LabelPrinterTuple('zebra', 'localhost', '127.0.0.1', True),
+                                        LabelPrinterTuple('Zebra_Technologies_ZTC_GK420t', 'mpepu01', '192.168.1.63', False),
+                                        LabelPrinterTuple('Mpepu_Pharmacy_Label_Printer', 'mpepu02',  '192.168.1.160', False),
+                                        LabelPrinterTuple('test_label_printer', 'mpepu03', '192.168.1.178', False),
+                                        LabelPrinterTuple('Moleps_room2_Label_Printer', 'moleps16', '10.70.117.77', False),
+                                        LabelPrinterTuple('Moleps_Pharmacy_Label_Printer', 'moleps17', '10.70.117.38', False),
                                         ],
-                    'zpl_template': [
-                        ZplTemplateTuple(
+                      'zpl_template': [ZplTemplateTuple(
                                 'clinic specimen label small', (
                                     """^XA
                                     ^FO325,5^A0N,15,20^FD%(protocol)s Site %(site)s %(item_count)s/%(item_count_total)s^FS

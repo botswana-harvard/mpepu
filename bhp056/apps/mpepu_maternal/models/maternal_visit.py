@@ -83,7 +83,7 @@ class MaternalVisit(MaternalOffStudyMixin, BaseVisitTracking, MpepuMetaDataMixin
     def avail_forms_on_visit_2000M_only_when_consent_version_is_greater_than_two(self):
         from .maternal_consent import MaternalConsent
         confirm_consent = MaternalConsent.objects.get(subject_identifier=self.registered_subject.subject_identifier)
-        if confirm_consent.consent_version_recent >= 2 or confirm_consent.consent_datetime >= datetime(2013, 21, 1, 7, 0):
+        if confirm_consent.consent_version_recent >= 2 or confirm_consent.consent_datetime >= datetime(2013, 1, 21, 7, 0):
             if self.appointment.visit_definition.code == '2000M' or self.appointment.visit_definition.code == '1000M':
                 if self.reason != 'death':
                     avail_forms = ['feedingchoice', 'feedingchoicesectionone', 'feedingchoicesectiontwo', 'feedingchoicesectionthree']
@@ -159,7 +159,7 @@ class MaternalVisit(MaternalOffStudyMixin, BaseVisitTracking, MpepuMetaDataMixin
                     death = maternal_visit.recalculate_death_meta(scheduled_meta_data, requisition_meta_data)
                     if not death:
                         raise exception_cls('Please delete all filled in forms that are not Death forms before you may change the visit to Death.')
-    
+
     class Meta:
         db_table = 'mpepu_maternal_maternalvisit'
         verbose_name = "Maternal Visit"

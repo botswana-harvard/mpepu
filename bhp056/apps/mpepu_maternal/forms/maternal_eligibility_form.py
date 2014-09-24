@@ -8,7 +8,7 @@ from ..models import MaternalEligibilityPost, MaternalEligibilityAnte
 class BaseMaternalEligibilityForm (BaseConsentedModelForm):
     def clean(self):
         cleaned_data = self.cleaned_data
-        if  not cleaned_data.get('registered_subject'):
+        if not cleaned_data.get('registered_subject'):
             raise forms.ValidationError('This field is required. Please fill it in')
 
         if cleaned_data.get('is_cd4_low') < 250 and cleaned_data.get('feeding_choice') == 'Yes' and cleaned_data.get('maternal_haart') == 'No':
@@ -19,6 +19,9 @@ class BaseMaternalEligibilityForm (BaseConsentedModelForm):
 
 class MaternalEligibilityPostForm(BaseMaternalEligibilityForm):
     def clean(self):
+        cleaned_data = self.cleaned_data
+        #Ensure that the post eligibility form is not filled in when the ante-natal eligibility has been filled in.
+        self.instance.ante_natal_check(MaternalEligibilityPost(**cleaned_data), forms.ValidationError)
         return super(MaternalEligibilityPostForm, self).clean()
 
     class Meta:

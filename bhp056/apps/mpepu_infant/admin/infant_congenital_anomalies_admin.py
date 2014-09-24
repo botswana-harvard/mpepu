@@ -24,7 +24,7 @@ class InfantCnsAbnormalityItemsInlineAdmin(BaseTabularInline):
 
     model = InfantCnsAbnormalityItems
     form = InfantCnsAbnormalityItemsForm
-    extra = 1
+    extra = 0
 
 
 class InfantFacialDefectItemsAdmin(BaseModelAdmin):
@@ -36,14 +36,14 @@ class InfantFacialDefectItemsInlineAdmin(BaseTabularInline):
 
     model = InfantFacialDefectItems
     form = InfantFacialDefectItemsForm
-    extra = 1
+    extra = 0
 
 
 class InfantCleftDisorderItemsInlineAdmin(BaseTabularInline):
 
     model = InfantCleftDisorderItems
     form = InfantCleftDisorderItemsForm
-    extra = 1
+    extra = 0
 
 
 class InfantCleftDisorderItemsAdmin(BaseModelAdmin):
@@ -60,7 +60,7 @@ class InfantMouthUpGastrointestinalItemsInlineAdmin(BaseTabularInline):
 
     model = InfantMouthUpGastrointestinalItems
     form = InfantMouthUpGastrointestinalItemsForm
-    extra = 1
+    extra = 0
 
 
 class InfantCardiovascularDisorderItemsAdmin(BaseModelAdmin):
@@ -72,7 +72,7 @@ class InfantCardiovascularDisorderItemsInlineAdmin(BaseTabularInline):
 
     model = InfantCardiovascularDisorderItems
     form = InfantCardiovascularDisorderItemsForm
-    extra = 1
+    extra = 0
 
 
 class InfantRespiratoryDefectItemsAdmin(BaseModelAdmin):
@@ -84,7 +84,7 @@ class InfantRespiratoryDefectItemsInlineAdmin(BaseTabularInline):
 
     model = InfantRespiratoryDefectItems
     form = InfantRespiratoryDefectItemsForm
-    extra = 1
+    extra = 0
 
 
 class InfantLowerGastrointestinalItemsAdmin(BaseModelAdmin):
@@ -96,7 +96,7 @@ class InfantLowerGastrointestinalItemsInlineAdmin(BaseTabularInline):
 
     model = InfantLowerGastrointestinalItems
     form = InfantLowerGastrointestinalItemsForm
-    extra = 1
+    extra = 0
 
 
 class InfantFemaleGenitalAnomalyItemsAdmin(BaseModelAdmin):
@@ -108,7 +108,7 @@ class InfantFemaleGenitalAnomalyItemsInlineAdmin(BaseTabularInline):
 
     model = InfantFemaleGenitalAnomalyItems
     form = InfantFemaleGenitalAnomalyItemsForm
-    extra = 1
+    extra = 0
 
 
 class InfantMaleGenitalAnomalyItemsAdmin(BaseModelAdmin):
@@ -120,7 +120,7 @@ class InfantMaleGenitalAnomalyItemsInlineAdmin(BaseTabularInline):
 
     model = InfantMaleGenitalAnomalyItems
     form = InfantMaleGenitalAnomalyItemsForm
-    extra = 1
+    extra = 0
 
 
 class InfantRenalAnomalyItemsAdmin(BaseModelAdmin):
@@ -132,7 +132,7 @@ class InfantRenalAnomalyItemsInlineAdmin(BaseTabularInline):
 
     model = InfantRenalAnomalyItems
     form = InfantRenalAnomalyItemsForm
-    extra = 1
+    extra = 0
 
 
 class InfantMusculoskeletalAbnormalItemsAdmin(BaseModelAdmin):
@@ -144,7 +144,7 @@ class InfantMusculoskeletalAbnormalItemsInlineAdmin(BaseTabularInline):
 
     model = InfantMusculoskeletalAbnormalItems
     form = InfantMusculoskeletalAbnormalItemsForm
-    extra = 1
+    extra = 0
 
 
 class InfantSkinAbnormalItemsAdmin(BaseModelAdmin):
@@ -156,7 +156,7 @@ class InfantSkinAbnormalItemsInlineAdmin(BaseTabularInline):
 
     model = InfantSkinAbnormalItems
     form = InfantSkinAbnormalItemsForm
-    extra = 1
+    extra = 0
 
 
 class InfantTrisomiesChromosomeItemsAdmin(BaseModelAdmin):
@@ -168,7 +168,7 @@ class InfantTrisomiesChromosomeItemsInlineAdmin(BaseTabularInline):
 
     model = InfantTrisomiesChromosomeItems
     form = InfantTrisomiesChromosomeItemsForm
-    extra = 1
+    extra = 0
 
 
 class InfantOtherAbnormalityItemsAdmin(BaseModelAdmin):
@@ -180,7 +180,7 @@ class InfantOtherAbnormalityItemsInlineAdmin(BaseTabularInline):
 
     model = InfantOtherAbnormalityItems
     form = InfantOtherAbnormalityItemsForm
-    extra = 1
+    extra = 0
 
 
 class InfantCongenitalAnomaliesAdmin(RegisteredSubjectModelAdmin):
@@ -201,11 +201,10 @@ class InfantCongenitalAnomaliesAdmin(RegisteredSubjectModelAdmin):
         InfantSkinAbnormalItemsInlineAdmin,
         InfantTrisomiesChromosomeItemsInlineAdmin,
         InfantOtherAbnormalityItemsInlineAdmin]
-    
+
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == "infant_visit":
             if request.GET.get('infant_visit'):
                 kwargs["queryset"] = InfantVisit.objects.filter(id=request.GET.get('infant_visit'))
-
         return super(InfantCongenitalAnomaliesAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 admin.site.register(InfantCongenitalAnomalies, InfantCongenitalAnomaliesAdmin)

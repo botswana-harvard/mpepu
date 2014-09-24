@@ -21,5 +21,8 @@ class BaseInfantRegisteredSubjectModel(InfantOffStudyMixin, BaseRegisteredSubjec
     def get_report_datetime(self):
         return self.get_registration_datetime()
 
+    def get_visit(self):
+        return self.infant_visit
+
     class Meta:
         abstract = True

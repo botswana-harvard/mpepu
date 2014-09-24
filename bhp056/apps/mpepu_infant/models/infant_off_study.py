@@ -41,6 +41,9 @@ class InfantOffStudy(BaseOffStudy):
         #set field for date-based grouping
         return 'offstudy_date'
 
+    def get_visit(self):
+        return self.infant_visit
+
     def get_report_datetime(self):
         return self.report_datetime
 

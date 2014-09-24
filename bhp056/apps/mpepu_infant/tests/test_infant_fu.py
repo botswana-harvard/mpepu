@@ -28,7 +28,7 @@ class InfantFuTests(TestCase):
             site_lab_profiles.register(MpepuInfantProfile())
         except AlreadyRegistered:
             pass
-        MpepuAppConfiguration()
+        MpepuAppConfiguration().prepare()
         site_lab_tracker.autodiscover()
         site_visit_schedules.autodiscover()
         site_visit_schedules.build_all()
@@ -65,11 +65,11 @@ class InfantFuTests(TestCase):
         self.infant_birth = InfantBirthFactory(registered_subject=self.registered_subject, maternal_lab_del=self.maternal_lab_del, dob=delivery_datetime.date())
         print 'infant birth {}'.format(self.infant_birth)
         self.appointment = Appointment.objects.get(registered_subject=self.registered_subject, visit_definition__code='2000')
-        self.infant_visit = InfantVisitFactory(appointment=self.appointment, report_datetime=datetime.today(), reason='scheduled')
+        self.infant_visit = InfantVisitFactory(appointment=self.appointment, report_datetime=datetime.today(), reason='scheduled', study_status = 'onstudy notrando')
         self.infant_eligibility = InfantEligibilityFactory(infant_birth=self.infant_birth, registered_subject=self.registered_subject)
         print 'infant eligibility {}'.format(self.infant_eligibility)
         app_2010 = Appointment.objects.get(registered_subject=self.registered_subject, visit_definition__code='2010')
-        visit_2010 = InfantVisitFactory(appointment=app_2010, report_datetime=datetime.today(), reason='scheduled')
+        visit_2010 = InfantVisitFactory(appointment=app_2010, report_datetime=datetime.today(), reason='scheduled', study_status = 'onstudy rando today')
         self.fu = InfantFuFactory(infant_visit=visit_2010)
         self.fu_physical = InfantFuPhysicalFactory(infant_fu=self.fu, infant_visit=visit_2010)
         self.fu_dx = InfantFuDxFactory(infant_fu=self.fu, infant_visit=visit_2010)
