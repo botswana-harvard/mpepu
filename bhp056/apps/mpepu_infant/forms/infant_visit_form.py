@@ -43,6 +43,8 @@ class InfantVisitForm (BaseInfantModelForm):
             raise forms.ValidationError("Reason for visit is NOT 'missed' but you provided a reason missed. Please correct.")
         if cleaned_data.get('info_source') == 'OTHER' and not cleaned_data.get('info_source_other'):
             raise forms.ValidationError("Source of information is 'OTHER', please provide details below your choice")
+        if not cleaned_data.get('report_datetime'):
+            raise forms.ValidationError("Please fill in the Date and Time of visit.")
 
         if cleaned_data.get('survival_status') == 'DEAD' and not cleaned_data.get('date_last_alive'):
             raise forms.ValidationError('Please provide date information, when infant was last known to be alive')
@@ -69,8 +71,10 @@ class InfantVisitForm (BaseInfantModelForm):
 
         #validate that you cant save infant visit greater that 2000 if infant eligibility has not been filled in
         self.instance.requires_infant_eligibility(InfantVisit(**cleaned_data), forms.ValidationError)
+        #Meta data validations
+        self.instance.recalculate_meta(InfantVisit(**cleaned_data), forms.ValidationError)
         #validate that you cant save infant visit if previous visit has not been saved.
-        #self.instance.check_previous_visit_keyed(InfantVisit(**cleaned_data), forms.ValidationError)
+        self.instance.check_previous_visit_keyed(InfantVisit(**cleaned_data), forms.ValidationError)
         return super(InfantVisitForm, self).clean()
 
     class Meta:

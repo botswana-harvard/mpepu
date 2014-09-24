@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from edc.base.admin.admin import BaseTabularInline, BaseModelAdmin
+from edc.base.modeladmin.admin import BaseTabularInline, BaseModelAdmin
 
 from ..models import MaternalLabDel, MaternalLabDelMed, MaternalLabDelDx, MaternalLabDelDxT, MaternalLabDelClinic
 from ..forms import MaternalLabDelMedForm, MaternalLabDelClinicForm, MaternalLabDelDxForm, MaternalLabDelForm, MaternalLabDelDxTForm

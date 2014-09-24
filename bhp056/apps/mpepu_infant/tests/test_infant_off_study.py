@@ -18,7 +18,6 @@ from edc.subject.registration.models import RegisteredSubject
 from edc.subject.visit_schedule.classes import site_visit_schedules
 
 from apps.mpepu.mpepu_app_configuration.classes import MpepuAppConfiguration
-from apps.mpepu_infant.models import InfantBirth, InfantVisit
 from apps.mpepu_lab.lab_profiles import MpepuInfantProfile
 from apps.mpepu_maternal.models import MaternalVisit, MaternalConsent, MaternalOffStudy, MaternalEligibilityAnte, MaternalEligibilityPost, MaternalPostReg
 from apps.mpepu_maternal.tests.factories import MaternalConsentFactory, MaternalOffStudyFactory, MaternalVisitFactory, MaternalEligibilityAnteFactory, MaternalLabDelFactory
@@ -37,7 +36,7 @@ class InfantOffStudyTests(TestCase):
             site_lab_profiles.register(MpepuInfantProfile())
         except AlreadyRegistered:
             pass
-        MpepuAppConfiguration()
+        MpepuAppConfiguration().prepare()
         site_lab_tracker.autodiscover()
         site_visit_schedules.autodiscover()
         site_visit_schedules.build_all()
@@ -54,7 +53,7 @@ class InfantOffStudyTests(TestCase):
                 self.assertTrue('get_subject_identifier' in dir(model), 'Method \'get_subject_identifier\' not found on model {0}'.format(model._meta.object_name))
 
     def test_p1(self):
-        study_site = StudySiteFactory(site_code=2)
+        study_site = StudySiteFactory()
         content_type_map = ContentTypeMap.objects.get(model='maternalconsent', app_label='mpepu_maternal')
         consent_catalogue = ConsentCatalogueFactory(content_type_map=content_type_map)
         consent_catalogue.add_for_app = 'mpepu_infant'
@@ -84,7 +83,7 @@ class InfantOffStudyTests(TestCase):
         print infant_birth
         print 'add a visit'
         appointment = Appointment.objects.get(registered_subject=registered_subject, visit_definition__code='2000')
-        infant_visit = InfantVisitFactory(appointment=appointment, report_datetime=datetime.today(), reason='scheduled')
+        infant_visit = InfantVisitFactory(appointment=appointment, report_datetime=datetime.today(), reason='scheduled',  study_status = 'onstudy notrando')
         print 'complete infant eligibility'
         infant_eligibility = InfantEligibilityFactory(infant_birth=infant_birth, registered_subject=registered_subject)
         print 'complete infant birth data'
@@ -118,12 +117,12 @@ class InfantOffStudyTests(TestCase):
         print infant_birth
         print 'add a visit 1 day ago'
         appointment = Appointment.objects.get(registered_subject=registered_subject, visit_definition__code='2000')
-        infant_visit = InfantVisitFactory(appointment=appointment, report_datetime=datetime.today() - timedelta(days=1), reason='scheduled')
+        infant_visit = InfantVisitFactory(appointment=appointment, report_datetime=datetime.today() - timedelta(days=1), reason='scheduled', study_status = 'onstudy notrando')
         print 'complete off study model'
         infant_off_study = InfantOffStudyFactory(registered_subject=registered_subject, offstudy_date=date.today() - timedelta(days=1), infant_visit=infant_visit)
         print 'confirm cannot add a visit'
         appointment = Appointment.objects.get(registered_subject=registered_subject, visit_definition__code='2000')
-        self.assertRaises(SubjectOffStudyError, InfantVisitFactory, appointment=appointment, report_datetime=datetime.today(), reason='scheduled')
+        self.assertRaises(SubjectOffStudyError, InfantVisitFactory, appointment=appointment, report_datetime=datetime.today(), reason='scheduled',  study_status = 'onstudy notrando')
         print 'remove off study'
         infant_off_study.delete()
         infant_off_study = InfantOffStudyFactory(registered_subject=registered_subject, offstudy_date=date.today() - timedelta(days=1),infant_visit=infant_visit)

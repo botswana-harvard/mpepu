@@ -34,7 +34,7 @@ class InfantVisitTests(TestCase):
             site_lab_profiles.register(MpepuInfantProfile())
         except AlreadyRegistered:
             pass
-        MpepuAppConfiguration()
+        MpepuAppConfiguration().prepare()
         site_lab_tracker.autodiscover()
         site_visit_schedules.autodiscover()
         site_visit_schedules.build_all()
@@ -74,7 +74,7 @@ class InfantVisitTests(TestCase):
         print 'get 2000 appointment'
         appointment_2000 = Appointment.objects.get(registered_subject=registered_subject, visit_definition__code='2000')
         print '2000 appointment {}'.format(appointment_2000)
-        infant_visit_2000 = InfantVisitFactory(appointment=appointment_2000, report_datetime=datetime.today(), reason='scheduled')
+        infant_visit_2000 = InfantVisitFactory(appointment=appointment_2000, report_datetime=datetime.today(), reason='scheduled', study_status = 'onstudy notrando')
         print '2000 infant visit {}'.format(infant_visit_2000)
         print 'get 2010 appointment'
         appointment_2010 = Appointment.objects.get(registered_subject=registered_subject, visit_definition__code='2010')
@@ -82,7 +82,7 @@ class InfantVisitTests(TestCase):
         self.assertRaisesMessage(ValidationError,
             'Please complete the Infant Eligibility or Infant Pre-eligibility before conducting scheduled visits beyond visit 2000.',
             InfantVisitFactory, appointment=appointment_2010, report_datetime=datetime.today(), reason='scheduled')
-
+ 
     def test_previous_visit_required(self):
         print 'get registered subject of the infant'
         registered_subject = RegisteredSubject.objects.filter(relative_identifier=self.maternal_consent.subject_identifier).order_by('subject_identifier')[0]
@@ -92,7 +92,7 @@ class InfantVisitTests(TestCase):
         print 'get 2000 appointment'
         appointment_2000 = Appointment.objects.get(registered_subject=registered_subject, visit_definition__code='2000')
         print '2000 appointment {}'.format(appointment_2000)
-        infant_visit_2000 = InfantVisitFactory(appointment=appointment_2000, report_datetime=datetime.today(), reason='scheduled')
+        infant_visit_2000 = InfantVisitFactory(appointment=appointment_2000, report_datetime=datetime.today(), reason='scheduled', study_status = 'onstudy notrando')
         print '2000 infant visit {}'.format(infant_visit_2000)
         print 'get 2010 appointment'
         appointment_2010 = Appointment.objects.get(registered_subject=registered_subject, visit_definition__code='2010')
@@ -106,12 +106,12 @@ class InfantVisitTests(TestCase):
         appointment_2030 = Appointment.objects.get(registered_subject=registered_subject, visit_definition__code='2030')
         self.assertRaises(ValidationError, InfantVisitFactory, appointment=appointment_2030)
         print 'assert that saving previous visit then re-saving the visit will save.'
-        infant_visit_2010 = InfantVisitFactory(appointment=appointment_2010, report_datetime=datetime.today(), reason='scheduled')
+        infant_visit_2010 = InfantVisitFactory(appointment=appointment_2010, report_datetime=datetime.today(), reason='scheduled', study_status = 'onstudy ondrug')
         appointment_2020 = Appointment.objects.get(registered_subject=registered_subject, visit_definition__code='2020')
         infant_visit_2020 = InfantVisitFactory(appointment=appointment_2020, report_datetime=datetime.today(), reason='scheduled')
         infant_visit_2030 = InfantVisitFactory(appointment=appointment_2030, report_datetime=datetime.today(), reason='scheduled')
         print 'infant 2030 visit {}'.format(infant_visit_2030)
-
+ 
     def test_meta_data_status_initial_state(self):
         print 'get registered subject of the infant'
         registered_subject = RegisteredSubject.objects.filter(relative_identifier=self.maternal_consent.subject_identifier).order_by('subject_identifier')[0]
@@ -121,47 +121,49 @@ class InfantVisitTests(TestCase):
         print 'Infant Eligibility'
         infant_eligibility = InfantEligibilityFactory(infant_birth=infant_birth, registered_subject=registered_subject)
         print 'infant eligibility {}'.format(infant_eligibility)
-
+ 
         print 'check initial state of additional forms for visits greater than 2020'
         visits = ['2000','2010']
         forms = ['infantdeath', 'infantverbalautopsy', 'infantsurvival', 'infantoffstudy']
         for visit in visits:
             appointment = Appointment.objects.get(registered_subject=registered_subject, visit_definition__code=visit)
-            InfantVisitFactory(appointment=appointment, report_datetime=datetime.today(), reason='scheduled')
+            InfantVisitFactory(appointment=appointment, report_datetime=datetime.today(), reason='scheduled', study_status = 'onstudy notrando')
             for form in forms:
                 print 'assert that {0} initial state is NOT_REQUIRED for a {1} visit where reason is not DEAD or LOST'.format(form, visit)
                 entry = Entry.objects.get(model_name=form, visit_definition_id=appointment.visit_definition_id)
                 meta_data = ScheduledEntryMetaData.objects.get(appointment=appointment, registered_subject=registered_subject, entry=entry)
                 self.assertEqual(meta_data.entry_status, 'NOT_REQUIRED')
-
+ 
         print 'check initial state of additional forms for visits greater than 2020'
         visits = ['2020', '2030', '2060', '2090', '2120', '2150', '2180']
         forms = ['infantdeath', 'infantoffdrug', 'infantverbalautopsy', 'infantsurvival', 'infantoffstudy']
         for visit in visits:
             appointment = Appointment.objects.get(registered_subject=registered_subject, visit_definition__code=visit)
-            InfantVisitFactory(appointment=appointment, report_datetime=datetime.today(), reason='scheduled')
+            iv = InfantVisitFactory(appointment=appointment, report_datetime=datetime.today(), reason='scheduled', study_status = 'onstudy ondrug')
             for form in forms:
                 print 'assert that {0} initial status is NOT_REQUIRED for a {1} visit where reason is not DEAD or LOST'.format(form, visit)
                 entry = Entry.objects.get(model_name=form, visit_definition_id=appointment.visit_definition_id)
                 meta_data = ScheduledEntryMetaData.objects.get(appointment=appointment, registered_subject=registered_subject, entry=entry)
-                self.assertEqual(meta_data.entry_status, 'NOT_REQUIRED')
-
+                #Infantoffdrug because new at 2180 if it was not filled in at 2150
+                if iv.appointment.visit_definition.code != '2180' and form !='infantoffdrug':
+                    self.assertEqual(meta_data.entry_status, 'NOT_REQUIRED')
+ 
     def test_meta_data_status_reason_death_sid_none(self):
         print 'get registered subject of the infant'
         registered_subject = RegisteredSubject.objects.filter(relative_identifier=self.maternal_consent.subject_identifier).order_by('subject_identifier')[0]
         print 'infant registered subject {}'.format(registered_subject)
         infant_birth = InfantBirthFactory(registered_subject=registered_subject, maternal_lab_del=self.maternal_lab_del, dob=self.delivery_datetime.date())
         print 'infant birth {}'.format(infant_birth)
-
+ 
         appointment = Appointment.objects.get(registered_subject=registered_subject, visit_definition__code='2000')
-        infant_visit = InfantVisitFactory(appointment=appointment, report_datetime=datetime.today(), reason='death')
+        infant_visit = InfantVisitFactory(appointment=appointment, report_datetime=datetime.today(), reason='death', study_status = 'onstudy notrando')
         forms = ['infantdeath', 'infantprerandoloss', 'infantsurvival', 'infantverbalautopsy', 'infantoffstudy']
         for form in forms:
             print 'assert that {0} status is \'NEW\' for a 2000 visit where reason DEAD and sid is none'.format(form)
             entry = Entry.objects.get(model_name=form, visit_definition_id=appointment.visit_definition_id)
             meta_data = ScheduledEntryMetaData.objects.get(appointment=appointment, registered_subject=registered_subject, entry=entry)
             self.assertEqual(meta_data.entry_status, 'NEW')
-
+ 
     def test_meta_data_status_reason_death_sid_not_none(self):
         print 'get registered subject of the infant'
         registered_subject = RegisteredSubject.objects.filter(relative_identifier=self.maternal_consent.subject_identifier).order_by('subject_identifier')[0]
@@ -186,11 +188,11 @@ class InfantVisitTests(TestCase):
         print 'Infant Rando {}'.format(infant_rando)
 
         appointment_2000 = Appointment.objects.get(registered_subject=registered_subject, visit_definition__code='2000')
-        InfantVisitFactory(appointment=appointment_2000, report_datetime=datetime.today(), reason='scheduled')
+        InfantVisitFactory(appointment=appointment_2000, report_datetime=datetime.today(), reason='scheduled', study_status = 'onstudy notrando')
         appointment_2010 = Appointment.objects.get(registered_subject=registered_subject, visit_definition__code='2010')
-        InfantVisitFactory(appointment=appointment_2010, report_datetime=datetime.today(), reason='scheduled')
+        InfantVisitFactory(appointment=appointment_2010, report_datetime=datetime.today(), reason='scheduled', study_status = 'onstudy rando today')
         appointment_2020 = Appointment.objects.get(registered_subject=registered_subject, visit_definition__code='2020')
-        InfantVisitFactory(appointment=appointment_2020, report_datetime=datetime.today(), reason='death')
+        InfantVisitFactory(appointment=appointment_2020, report_datetime=datetime.today(), reason='death', study_status = 'offstudy')
 
         forms = ['infantdeath', 'infantsurvival', 'infantverbalautopsy', 'infantoffstudy']
         for form in forms:
@@ -207,7 +209,7 @@ class InfantVisitTests(TestCase):
         print 'infant birth {}'.format(infant_birth)
 
         appointment = Appointment.objects.get(registered_subject=registered_subject, visit_definition__code='2000')
-        infant_visit = InfantVisitFactory(appointment=appointment, report_datetime=datetime.today(), reason='lost')
+        infant_visit = InfantVisitFactory(appointment=appointment, report_datetime=datetime.today(), reason='lost', study_status = 'onstudy notrando')
         forms = ['infantprerandoloss', 'infantoffstudy']
         for form in forms:
             print 'assert that {0} status is \'NEW\' for a 2000 visit where reason LOST and sid is none'.format(form)
@@ -239,11 +241,11 @@ class InfantVisitTests(TestCase):
         print 'Infant Rando {}'.format(infant_rando)
 
         appointment_2000 = Appointment.objects.get(registered_subject=registered_subject, visit_definition__code='2000')
-        InfantVisitFactory(appointment=appointment_2000, report_datetime=datetime.today(), reason='scheduled')
+        InfantVisitFactory(appointment=appointment_2000, report_datetime=datetime.today(), reason='scheduled', study_status = 'onstudy notrando')
         appointment_2010 = Appointment.objects.get(registered_subject=registered_subject, visit_definition__code='2010')
-        InfantVisitFactory(appointment=appointment_2010, report_datetime=datetime.today(), reason='scheduled')
+        InfantVisitFactory(appointment=appointment_2010, report_datetime=datetime.today(), reason='scheduled', study_status = 'onstudy rando today')
         appointment_2020 = Appointment.objects.get(registered_subject=registered_subject, visit_definition__code='2020')
-        InfantVisitFactory(appointment=appointment_2020, report_datetime=datetime.today(), reason='lost')
+        InfantVisitFactory(appointment=appointment_2020, report_datetime=datetime.today(), reason='lost', study_status = 'offstudy')
 
         forms = ['infantoffdrug', 'infantoffstudy']
         for form in forms:
@@ -274,16 +276,16 @@ class InfantVisitTests(TestCase):
         RandoTestHelper().populate_rando()
         infant_rando = InfantRando.objects.randomize(infant_eligibility=infant_eligibility)
         print 'Infant Rando {}'.format(infant_rando)
- 
+
         appointment_2000 = Appointment.objects.get(registered_subject=registered_subject, visit_definition__code='2000')
-        InfantVisitFactory(appointment=appointment_2000, report_datetime=datetime.today(), reason='scheduled')
+        InfantVisitFactory(appointment=appointment_2000, report_datetime=datetime.today(), reason='scheduled', study_status = 'onstudy notrando')
         appointment_2010 = Appointment.objects.get(registered_subject=registered_subject, visit_definition__code='2010')
-        InfantVisitFactory(appointment=appointment_2010, report_datetime=datetime.today(), reason='scheduled')
+        InfantVisitFactory(appointment=appointment_2010, report_datetime=datetime.today(), reason='scheduled', study_status = 'onstudy rando today')
         appointment_2020 = Appointment.objects.get(registered_subject=registered_subject, visit_definition__code='2020')
         infant_visit = InfantVisitFactory(appointment=appointment_2020, report_datetime=datetime.today())
         infant_visit.study_status='onstudy rando offdrug'
         infant_visit.change_meta_data_status_if_study_status_is_onstudy_rando_offdrug()
- 
+
         form = 'infantoffdrug'
         print 'assert that {0} status is \'NEW\' for a visit where visit study_status is \'onstudy rando offdrug\' and sid is not none'.format(form)
         entry = Entry.objects.get(model_name=form, visit_definition_id=appointment_2020.visit_definition_id)
@@ -312,22 +314,22 @@ class InfantVisitTests(TestCase):
         RandoTestHelper().populate_rando()
         infant_rando = InfantRando.objects.randomize(infant_eligibility=infant_eligibility)
         print 'Infant Rando {}'.format(infant_rando)
- 
+
         appointment_2000 = Appointment.objects.get(registered_subject=registered_subject, visit_definition__code='2000')
-        InfantVisitFactory(appointment=appointment_2000, report_datetime=datetime.today(), reason='scheduled')
+        InfantVisitFactory(appointment=appointment_2000, report_datetime=datetime.today(), reason='scheduled', study_status = 'onstudy notrando')
         appointment_2010 = Appointment.objects.get(registered_subject=registered_subject, visit_definition__code='2010')
-        InfantVisitFactory(appointment=appointment_2010, report_datetime=datetime.today(), reason='scheduled')
+        InfantVisitFactory(appointment=appointment_2010, report_datetime=datetime.today(), reason='scheduled', study_status = 'onstudy rando today')
         appointment_2020 = Appointment.objects.get(registered_subject=registered_subject, visit_definition__code='2020')
         infant_visit = InfantVisitFactory(appointment=appointment_2020, report_datetime=datetime.today())
         infant_visit.reason='off study'
         infant_visit.change_meta_data_status_if_visit_reason_is_off_study()
-
+ 
         form = 'infantoffstudy'
         print 'assert that {0} status is \'NEW\' for a visit where visit reason is \'off study\'.'.format(form)
         entry = Entry.objects.get(model_name=form, visit_definition_id=appointment_2020.visit_definition_id)
         meta_data = ScheduledEntryMetaData.objects.get(appointment=appointment_2020, registered_subject=registered_subject, entry=entry)
         self.assertEqual(meta_data.entry_status, 'NEW')
-
+ 
     def test_meta_data_status_info_source_telephone(self):
         print 'get registered subject of the infant'
         registered_subject = RegisteredSubject.objects.filter(relative_identifier=self.maternal_consent.subject_identifier).order_by('subject_identifier')[0]
@@ -350,11 +352,11 @@ class InfantVisitTests(TestCase):
         RandoTestHelper().populate_rando()
         infant_rando = InfantRando.objects.randomize(infant_eligibility=infant_eligibility)
         print 'Infant Rando {}'.format(infant_rando)
- 
+
         appointment_2000 = Appointment.objects.get(registered_subject=registered_subject, visit_definition__code='2000')
-        InfantVisitFactory(appointment=appointment_2000, report_datetime=datetime.today(), reason='scheduled')
+        InfantVisitFactory(appointment=appointment_2000, report_datetime=datetime.today(), reason='scheduled', study_status = 'onstudy notrando')
         appointment_2010 = Appointment.objects.get(registered_subject=registered_subject, visit_definition__code='2010')
-        InfantVisitFactory(appointment=appointment_2010, report_datetime=datetime.today(), reason='scheduled')
+        InfantVisitFactory(appointment=appointment_2010, report_datetime=datetime.today(), reason='scheduled', study_status = 'onstudy rando today')
         appointment_2020 = Appointment.objects.get(registered_subject=registered_subject, visit_definition__code='2020')
         infant_visit = InfantVisitFactory(appointment=appointment_2020, report_datetime=datetime.today())
 

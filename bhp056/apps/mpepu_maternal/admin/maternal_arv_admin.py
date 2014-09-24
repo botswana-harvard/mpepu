@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from edc.base.admin.admin import BaseTabularInline, BaseModelAdmin
+from edc.base.modeladmin.admin import BaseTabularInline, BaseModelAdmin
 
 from .maternal_visit_model_admin import MaternalVisitModelAdmin
 from ..models import MaternalArvPreg, MaternalArv, MaternalArvPregHistory

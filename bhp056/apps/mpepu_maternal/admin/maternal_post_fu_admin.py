@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from edc.base.admin.admin import BaseModelAdmin, BaseTabularInline
+from edc.base.modeladmin.admin import BaseModelAdmin, BaseTabularInline
 
 from ..admin import RegisteredSubjectModelAdmin
 from ..forms import (MaternalPostFuForm, MaternalPostFuDxForm, MaternalPostRegForm, MaternalPostFuDxTForm)

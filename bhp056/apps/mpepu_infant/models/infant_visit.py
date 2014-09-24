@@ -9,6 +9,8 @@ from edc.subject.entry.models import Entry, LabEntry
 from edc.subject.registration.models import RegisteredSubject
 from edc.subject.visit_tracking.models.base_visit_tracking import BaseVisitTracking
 from edc.subject.visit_tracking.settings import VISIT_REASON_NO_FOLLOW_UP_CHOICES, VISIT_REASON_FOLLOW_UP_CHOICES
+from edc.subject.rule_groups.classes import site_rule_groups
+from edc.entry_meta_data.helpers import ScheduledEntryMetaDataHelper, RequisitionMetaDataHelper
 
 from apps.mpepu.choices import INFO_PROVIDER
 from apps.mpepu.classes.mpepu_meta_data_mixin import MpepuMetaDataMixin
@@ -135,6 +137,7 @@ class InfantVisit(InfantOffStudyMixin, BaseVisitTracking, MpepuMetaDataMixin):
                     self.create_scheduled_meta_data(self.appointment, entry, self.registered_subject)
 
     def save(self, *args, **kwargs):
+        self.recalculate_meta(self)
         if self.reason == 'deferred':
             if self.appointment.visit_definition.code != '2010':
                 raise ValidationError('Reason option \'deferred\' may only be used for the 2010 visit')
@@ -142,13 +145,14 @@ class InfantVisit(InfantOffStudyMixin, BaseVisitTracking, MpepuMetaDataMixin):
             self.appointment.appt_type = 'telephone'
         self.get_visit_reason_no_follow_up_choices()
         self.requires_infant_eligibility(self)
-#         self.check_previous_visit_keyed(self)
+        self.check_previous_visit_keyed(self)
         self.create_meta_if_visit_reason_is_death_when_sid_is_none()
         self.create_meta_if_visit_reason_is_death_when_sid_is_not_none()
         self.create_meta_if_visit_reason_is_lost_when_sid_is_none()
         self.create_meta_if_visit_reason_is_lost_when_sid_is_not_none()
         self.change_meta_data_status_if_visit_reason_is_off_study()
         self.change_meta_data_status_if_study_status_is_onstudy_rando_offdrug()
+        self.change_meta_data_status_if_study_status_is_onstudy_rando_ondrug()
         self.change_meta_data_status_if_survial_status_is_dead()
         self.change_meta_data_status_if_info_source_is_telephone()
         self.change_meta_data_status_on_2180_if_visit_is_missed_at_2150()
@@ -202,9 +206,19 @@ class InfantVisit(InfantOffStudyMixin, BaseVisitTracking, MpepuMetaDataMixin):
             self.create_scheduled_meta_data(self.appointment, entry, self.registered_subject)
 
     def change_meta_data_status_if_study_status_is_onstudy_rando_offdrug(self):
+        from .infant_off_drug import InfantOffDrug
         if self.study_status == 'onstudy rando offdrug':
+            if not InfantOffDrug.objects.filter(registered_subject=self.registered_subject).exists():
+                entry = self.query_entry('infantoffdrug', self.appointment.visit_definition)
+                self.create_scheduled_meta_data(self.appointment, entry, self.registered_subject)
+
+    def change_meta_data_status_if_study_status_is_onstudy_rando_ondrug(self):
+        if self.study_status == 'onstudy rando ondrug':
             entry = self.query_entry('infantoffdrug', self.appointment.visit_definition)
-            self.create_scheduled_meta_data(self.appointment, entry, self.registered_subject)
+            scheduled_meta_data = self.query_scheduled_meta_data(self.appointment, entry, self.registered_subject)
+            if scheduled_meta_data:
+                scheduled_meta_data.entry_status = 'NOT_REQUIRED'
+                scheduled_meta_data.save()
 
     def change_meta_data_status_if_survial_status_is_dead(self):
         if self.survival_status == 'DEAD':
@@ -269,6 +283,79 @@ class InfantVisit(InfantOffStudyMixin, BaseVisitTracking, MpepuMetaDataMixin):
                 scheduled_meta_data.delete()
                 requisitions = RequisitionMetaData.objects.filter(appointment=self.appointment)
                 requisitions.delete()
+
+    def recalculate_death_meta(self, scheduled_meta_data, requisition_meta_data):
+        flag = False
+        count = 0
+        for meta_data in scheduled_meta_data:
+            if meta_data.entry_status == 'KEYED':
+                if meta_data.entry.model_name == 'infantdeath':
+                    flag = True
+                    count = count + 1
+                if meta_data.entry.model_name == 'infantsurvival':
+                    flag = True
+                    count = count + 1
+                if meta_data.entry.model_name == 'infantverbalautopsy':
+                    flag = True
+                    count = count + 1
+                if meta_data.entry.model_name == 'infantoffstudy':
+                    flag = True
+                    count = count + 1
+                if meta_data.entry.model_name == 'infantoffdrug' and self.appointment.visit_definition.code != '2000':
+                    flag = True
+                    count = count + 1
+                if meta_data.entry.model_name == 'infantprerandoloss' and self.appointment.visit_definition.code == '2000':
+                    flag = True
+                    count = count + 1
+                if not flag:
+                    meta_data.delete()
+        if count > 0:
+            return True
+        else:
+            return False
+
+    def recalculate_missed_meta(self, scheduled_meta_data, requisition_meta_data):
+        flag = False
+        count = 0
+        for meta_data in scheduled_meta_data:
+            if meta_data.entry.model_name == 'infantoffstudy':
+                flag = True
+                count = count + 1
+            if not flag:
+                meta_data.delete()
+        if count > 0:
+            return True
+        else:
+            return False
+
+    def recalculate_meta(self, infant_visit, exception_cls=None):
+        """Ensure that the metadata for every visit is always re-calculated with every save"""
+        if not exception_cls:
+            exception_cls = ValidationError
+        # Check if the visit report is being modified and not new
+        if self.id is not None:
+            scheduled_meta_data = ScheduledEntryMetaData.objects.filter(appointment=self.appointment, registered_subject=self.registered_subject)
+            requisition_meta_data = RequisitionMetaData.objects.filter(appointment=self.appointment, registered_subject=self.registered_subject)
+            empty = self.remove_all_meta_data(self.appointment, self.registered_subject, scheduled_meta_data, requisition_meta_data)
+            if not empty:
+                if infant_visit.reason == 'missed':
+                    if self.appointment.visit_definition.code != '2180':
+                        raise exception_cls('Please delete all filled in forms before you may change the visit to Missed.')
+                    else:
+                        missed_2180 = infant_visit.recalculate_missed_meta(scheduled_meta_data, requisition_meta_data)
+                        if not missed_2180:
+                            raise exception_cls('Please delete all filled in forms before you may change the visit to Missed.')
+                if infant_visit.reason == 'vital status':
+                    if self.appointment.visit_definition.code != '2180':
+                        raise exception_cls('Please delete all filled in forms before you may change the visit to Vital Status.')
+                    else:
+                        vital_status_2180 = infant_visit.recalculate_missed_meta(scheduled_meta_data, requisition_meta_data)
+                        if not vital_status_2180:
+                            raise exception_cls('Please delete all filled in forms before you may change the visit to Vital Status.')
+                if infant_visit.reason == 'death':
+                    death = infant_visit.recalculate_death_meta(scheduled_meta_data, requisition_meta_data)
+                    if not death:
+                        raise exception_cls('Please delete all filled in forms that are not Death forms before you may change the visit to Death.')
 
     class Meta:
         db_table = 'mpepu_infant_infantvisit'

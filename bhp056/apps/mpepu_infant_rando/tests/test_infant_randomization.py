@@ -33,12 +33,12 @@ class InfantRandomizationTests(TestCase):
             site_lab_profiles.register(MpepuInfantProfile())
         except AlreadyRegistered:
             pass
-        MpepuAppConfiguration()
+        MpepuAppConfiguration().prepare()
         site_lab_tracker.autodiscover()
         site_visit_schedules.autodiscover()
         site_visit_schedules.build_all()
         admin.autodiscover()
-        study_site = StudySiteFactory(site_code=2)
+        study_site = StudySiteFactory()
         content_type_map = ContentTypeMap.objects.get(model='maternalconsent', app_label='mpepu_maternal')
         consent_catalogue = ConsentCatalogueFactory(content_type_map=content_type_map)
         consent_catalogue.add_for_app = 'mpepu_infant'
@@ -72,14 +72,14 @@ class InfantRandomizationTests(TestCase):
         self.infant_birth1 = InfantBirthFactory(registered_subject=self.registered_subject1, maternal_lab_del=self.maternal_lab_del, dob=self.delivery_datetime.date())
         print 'first infant birth {}'.format(self.infant_birth1)
         appointment1 = Appointment.objects.get(registered_subject=self.registered_subject1, visit_definition__code='2000')
-        infant_visit1 = InfantVisitFactory(appointment=appointment1, report_datetime=datetime.today(), reason='scheduled')
+        infant_visit1 = InfantVisitFactory(appointment=appointment1, report_datetime=datetime.today(), reason='scheduled', study_status = 'onstudy notrando')
         print 'get registered subject of the second infant'
         self.registered_subject2 = RegisteredSubject.objects.filter(relative_identifier=self.maternal_consent.subject_identifier).order_by('subject_identifier')[1]
         print 'second registered subject {}'.format(self.registered_subject2)
         self.infant_birth2 = InfantBirthFactory(registered_subject=self.registered_subject2, maternal_lab_del=self.maternal_lab_del, dob=self.delivery_datetime.date())
         print 'second infant birth {}'.format(self.infant_birth2)
         appointment2 = Appointment.objects.get(registered_subject=self.registered_subject2, visit_definition__code='2000')
-        infant_visit2 = InfantVisitFactory(appointment=appointment2, report_datetime=datetime.today(), reason='scheduled')
+        infant_visit2 = InfantVisitFactory(appointment=appointment2, report_datetime=datetime.today(), reason='scheduled', study_status = 'onstudy notrando')
 
     def teardown(self):
         RegisteredSubject.objects.all().delete()

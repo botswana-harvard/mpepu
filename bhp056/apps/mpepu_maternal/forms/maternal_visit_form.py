@@ -46,6 +46,8 @@ class MaternalVisitForm (BaseConsentedModelForm):
         if cleaned_data.get('vital status') and not cleaned_data.get('survival_status') and not cleaned_data.get('date_last_alive'):
             raise forms.ValidationError("Visit reason is 'Vital Status', please enter Survival Status and Date Last Alive.")
 
+        #Meta data validations
+        self.instance.recalculate_meta(MaternalVisit(**cleaned_data), forms.ValidationError)
         cleaned_data = super(MaternalVisitForm, self).clean()
 
         return cleaned_data

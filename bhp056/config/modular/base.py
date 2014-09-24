@@ -4,9 +4,9 @@ from os.path import realpath, abspath, join, dirname
 
 from unipath import Path
 
-from .logger import LOGGING
+from bhp056.config import LOGGING
 
-from ._utils import *
+from bhp056.config import *
 
 
 ADMINS = (('erikvw', 'ew@2789@gmail.com'),)
@@ -140,7 +140,7 @@ TEMPLATE_CONTEXT_PROCESSORS = ("django.contrib.auth.context_processors.auth",
 ROOT_URLCONF = 'bhp056.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
-WSGI_APPLICATION = 'bhp056.wsgi.application'
+WSGI_APPLICATION = 'config.wsgi.application'
 
 INSTALLED_APPS = (
     'django.contrib.auth',
@@ -162,7 +162,7 @@ INSTALLED_APPS = (
 
     'edc.audit',
 
-    'edc.base.admin',
+    'edc.base.modeladmin',
     'edc.base.form',
     'edc.base.model',
 
