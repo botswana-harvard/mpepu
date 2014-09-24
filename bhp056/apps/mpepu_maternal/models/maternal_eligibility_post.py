@@ -24,8 +24,9 @@ class MaternalEligibilityPost(BaseMaternalEligibility):
 
     history = AuditTrail()
 
-    def save(self):
+    def save(self, *args, **kwargs):
         self.ante_natal_check(self)
+        super(MaternalEligibilityPost, self).save(*args, **kwargs)
 
     def ante_natal_check(self, eligibility_post, exception_cls=None):
         """If mother registered antenatally then eligibility post form should not be filled in"""

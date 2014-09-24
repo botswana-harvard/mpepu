@@ -20,13 +20,14 @@ site_lab_profiles.autodiscover()
 from dajaxice.core import dajaxice_autodiscover, dajaxice_config
 dajaxice_autodiscover()
 from apps.mpepu.mpepu_app_configuration.classes import MpepuAppConfiguration
-MpepuAppConfiguration()
+MpepuAppConfiguration().prepare()
 site_visit_schedules.autodiscover()
 site_visit_schedules.build_all()
 site_rule_groups.autodiscover()
 site_lab_tracker.autodiscover()
 data_manager.prepare()
 site_sections.autodiscover()
+site_sections.update_section_lists()
 
 
 APP_NAME = settings.APP_NAME

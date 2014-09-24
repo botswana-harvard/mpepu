@@ -95,11 +95,11 @@ else:
             'OPTIONS': {
                 'init_command': 'SET storage_engine=INNODB',
             },
-            'NAME': 'lab',
+            'NAME': 'bhp056',
             'USER': 'root',
             'PASSWORD': 'cc3721b',
-            'HOST': '192.168.1.50',
-            'PORT': '3306',
+            'HOST': '',
+            'PORT': '',
         },
     }
 
@@ -255,6 +255,7 @@ SUBJECT_TYPES = ['infant', 'maternal']
 MAX_SUBJECTS = {'maternal': 3274, 'infant': 4500}
 APPOINTMENTS_PER_DAY_MAX = 20
 APPOINTMENTS_DAYS_FORWARD = 15
+LABEL_PRINTER_MAKE_AND_MODEL = ['Zebra ZPL Label Printer']
 
 SUBJECT_APP_LIST = ['mpepu_infant', 'mpepu_maternal']
 DISPATCH_APP_LABELS = []
