@@ -3,7 +3,7 @@ import sys
 #import platform
  
 # for apache use be explicit about the ROOT folder
-ROOT = '/django/home'
+ROOT = '/home/django'
  
 VIRTUALENV_PATH = os.path.join(ROOT, '.virtualenvs/django-1.6')
 SOURCE_ROOT_PATH = os.path.join(ROOT, 'source')
