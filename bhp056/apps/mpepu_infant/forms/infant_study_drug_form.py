@@ -31,7 +31,7 @@ class InfantStudyDrugForm (BaseInfantModelForm):
 class InfantStudyDrugItemsForm (BaseInfantModelForm):
 
     def clean(self):
-        cleaned_data = super(InfantStudyDrugItemsForm, self).clean()
+        cleaned_data = self.cleaned_data
         #drug listing dependent upon the participants CTX/placebo status
         inf_study_drug = cleaned_data.get('inf_study_drug')
         if inf_study_drug.drug_status == 'No modification' or inf_study_drug.drug_status == 'Never started':
