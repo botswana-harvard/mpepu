@@ -152,8 +152,7 @@ class MpepuAppConfiguration(BaseAppConfiguration):
                      'profile_item': [ProfileItemTuple('PBMC Plasma (STORE ONLY)', 'PL', 0.1, 3),
                                       ProfileItemTuple('Plasma and Buffy Coat Storage', 'PL', 0.1, 3)]}}
 
-    labeling_setup = {'label_printer': [LabelPrinterTuple('zebra', 'localhost', '127.0.0.1', True),
-                                        LabelPrinterTuple('Zebra_Technologies_ZTC_GK420t', 'mpepu01', '192.168.1.63', False),
+    labeling_setup = {'label_printer': [LabelPrinterTuple('Zebra_Technologies_ZTC_GK420t', 'mpepu01', '192.168.1.63', False),
                                         LabelPrinterTuple('Mpepu_Pharmacy_Label_Printer', 'mpepu02',  '192.168.1.160', False),
                                         LabelPrinterTuple('test_label_printer', 'mpepu03', '192.168.1.178', False),
                                         LabelPrinterTuple('Moleps_room2_Label_Printer', 'moleps16', '10.70.117.77', False),

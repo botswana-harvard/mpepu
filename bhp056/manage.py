@@ -3,7 +3,7 @@
 import os
 import sys
 
-SOURCE_DIR = '/Users/fchilisa/source'#os.path.expanduser('~/source')
+SOURCE_DIR = '/home/django/source'#os.path.expanduser('~/source')
 
 if __name__ == "__main__":
 
