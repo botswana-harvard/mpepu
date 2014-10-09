@@ -3,21 +3,21 @@
     ServerAlias 192.168.1.50
  
     #Demon process for multiple virtual hosts
-    WSGIDaemonProcess mpepudjango  threads=15 python-path=/home/django/source/bhp056/bhp056:/home/django/.virtualenvs/mpepu_163/lib/python2.7/site-packages
+    WSGIDaemonProcess mpepudjango  threads=15 python-path=/home/django/source/bhp056_project/bhp056:/home/django/.virtualenvs/django-1.6/lib/python2.7/site-packages
 
     #Pointing wsgi script to config file
-    WSGIScriptAlias / /home/django/source/bhp056/apache/django.wsgi
+    WSGIScriptAlias / /home/django/source/bhp056_project/apache/django.wsgi
     WSGIProcessGroup mpepudjango
 
     ErrorLog /var/log/apache2/django-mpepu-error.log
     CustomLog /var/log/apache2/django-mpepu-access.log combined
  
     # static files location
-    Alias /static/ "/home/django/source/bhp056/bhp056/static/"
+    Alias /static/ "/home/django/source/bhp056_project/bhp056/static/"
     <Location "/media">
         SetHandler None
     </Location>
-    <Directory "/home/django/source/bhp056/apache">
+    <Directory "/home/django/source/bhp056_project/apache">
         <Files wsgi.py>
             Order allow,deny
             Allow from all

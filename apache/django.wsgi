@@ -5,7 +5,7 @@ import sys
 # for apache use be explicit about the ROOT folder
 ROOT = '/django/home'
  
-VIRTUALENV_PATH = os.path.join(ROOT, '.virtualenvs/django-1.6.5')
+VIRTUALENV_PATH = os.path.join(ROOT, '.virtualenvs/django-1.6')
 SOURCE_ROOT_PATH = os.path.join(ROOT, 'source')
 LOCAL_PROJECT_RELPATH = 'bhp056_project/bhp056'
  
@@ -30,10 +30,10 @@ execfile(activate_env, dict(__file__=activate_env))
 import django.core.handlers.wsgi
 application = django.core.handlers.wsgi.WSGIHandler()
 
-types {
-    text/html                             html htm shtml;
-    text/css                              css;
-    image/gif                             gif;
-    image/jpeg                            jpeg jpg;
-    application/x-javascript              js;
-}
+#types {
+#    text/html                             html htm shtml;
+#    text/css                              css;
+#    image/gif                             gif;
+#    image/jpeg                            jpeg jpg;
+#    application/x-javascript              js;
+#}

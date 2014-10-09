@@ -32,9 +32,10 @@ PROJECT_DIR = Path(__file__).ancestor(2)
 MEDIA_ROOT = PROJECT_DIR.child('media')
 STATIC_ROOT = PROJECT_DIR.child('static')
 TEMPLATE_DIRS = (
-    #PROJECT_DIR.child('templates'),
+    '/home/django/source/edc_project/edc/templates'
+#     PROJECT_DIR.child('templates'),
 #     '/Users/fchilisa/source/edc_project/edc/templates',
-    os.path.expanduser('~/source/edc_project/edc/templates'),  # edc template dir 
+#     os.path.expanduser('~/source/edc_project/edc/templates'),  # edc template dir 
     )
 STATICFILES_DIRS = ()
 CONFIG_DIR = PROJECT_DIR.child('bhp056')
