@@ -28,8 +28,8 @@ class InfantOffDrugForm (BaseInfantModelForm):
             off_drug_visit_datetime = InfantVisit.objects.filter(
                 appointment__registered_subject__subject_identifier=subject_identifier,
                 study_status='offstudy').aggregate(Min('report_datetime'))
-        if not off_drug_visit_datetime['report_datetime__min']:
-            raise forms.ValidationError('Cannot take off-drug. No visit found for reason \'off study\' or \' on study , off drug\'')
+#         if not off_drug_visit_datetime['report_datetime__min']:
+#             raise forms.ValidationError('Cannot take off-drug. No visit found for reason \'off study\' or \' on study , off drug\'')
         previous_visit_datetime = InfantVisit.objects.filter(
             report_datetime__lt=off_drug_visit_datetime['report_datetime__min'],
             appointment__registered_subject__subject_identifier=subject_identifier).aggregate(Max('report_datetime'))

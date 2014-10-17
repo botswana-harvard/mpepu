@@ -22,6 +22,9 @@ class MaternalLocatorForm (BaseMaternalModelForm):
         if not cleaned_data.get('maternal_visit'):
             raise forms.ValidationError('This field is required. Please fill it in')
 
+        if not cleaned_data.get('appointment'):
+            raise forms.ValidationError('This field is required. Please fill it in')
+
         if cleaned_data.get('home_visit_permission') == 'Yes' and not cleaned_data.get('physical_address'):
             raise forms.ValidationError('You indicated that participant consented to for home visits. Please provide physical address.')
 
