@@ -157,7 +157,11 @@ class MpepuAppConfiguration(BaseAppConfiguration):
                                         LabelPrinterTuple('test_label_printer', 'mpepu03', '192.168.1.178', False),
                                         LabelPrinterTuple('Moleps_room2_Label_Printer', 'moleps16', '10.70.117.77', False),
                                         LabelPrinterTuple('Moleps_Pharmacy_Label_Printer', 'moleps17', '10.70.117.38', False),
+                                        LabelPrinterTuple('zebra', 'fchilisa', 'localhost', False),
                                         ],
+                      'client': [ClientTuple(hostname='fchilisa', aliases=None, ip=None, printer_name='zebra', cups_hostname='fchilisa',),
+                                 ClientTuple(hostname='bcpp-tsetsiba', aliases=None, ip=None, printer_name='zebra', cups_hostname='fchilisa',),
+                                  ],
                       'zpl_template': [ZplTemplateTuple(
                                 'clinic specimen label small', (
                                     """^XA
