@@ -80,7 +80,7 @@ class FeedingChoiceRuleGroup(RuleGroup):
         logic=Logic(
             predicate=('first_time_feeding', 'equals', 'No'),
             consequence='new',
-            alternative='none'),
+            alternative='not_required'),
         target_model=['feedingchoicesectionone', 'feedingchoicesectiontwo', 'feedingchoicesectionthree'])
 
     first_time_feeding_yes = ScheduledDataRule(

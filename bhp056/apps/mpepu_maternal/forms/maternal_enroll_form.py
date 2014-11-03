@@ -70,6 +70,16 @@ class MaternalEnrollObForm (BaseMaternalModelForm):
         cleaned_data = self.cleaned_data
         if not cleaned_data.get('maternal_visit'):
             raise forms.ValidationError('This field is required. Please fill it in')
+
+        maternal_enroll = MaternalEnroll.objects.filter(maternal_visit__subject_identifier=cleaned_data.get('maternal_visit').subject_identifier)
+        pregnancies = cleaned_data.get('pregs_24wks_or_more') + cleaned_data.get('lost_before_24wks')
+        if maternal_enroll:
+            if maternal_enroll[0].prev_pregnancies != pregnancies:
+                raise forms.ValidationError('You indicated mother has had {} previous pregnancies in MaternalEnroll, yet'
+                    ' indicated that pregnancies at least 24 weeks are {} and pregnacies lost before 24 weeks are {}.'
+                    'This makes for a total of {} previous pregnancies, please correct.' 
+                    .format(maternal_enroll[0].prev_pregnancies, cleaned_data.get('pregs_24wks_or_more'), 
+                    cleaned_data.get('lost_before_24wks'), pregnancies))
         return super(MaternalEnrollObForm, self).clean()
 
     class Meta:
