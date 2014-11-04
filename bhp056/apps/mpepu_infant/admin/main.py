@@ -60,6 +60,8 @@ class InfantOffDrugAdmin(RegisteredSubjectModelAdmin):
         "reason_off": admin.VERTICAL
     }
 
+    list_select_related = True
+
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == "infant_visit":
             if request.GET.get('infant_visit'):

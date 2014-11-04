@@ -1,0 +1,46 @@
+{% extends "section_administration.html"%}
+{% load admin_urls %}
+{% load url from future %}
+
+
+{% block device_sync %}{% endblock device_sync %}
+
+{% block admin_sections %}
+    <ul>
+    <li><A href="/admin/">All sections</A>
+    </ul>
+    {% block mpepu %}
+	    <H5>Mpepu</H5>
+	    <ul>
+	    <li><A href="/admin/mpepu_infant/">Mpepu Infant</A></li>
+	    <li><A href="/admin/mpepu_maternal/">Mpepu Maternal</A></li>
+	    <li><A href="/admin/mpepu_list/">Mpepu List</A></li>
+	    </ul>
+    {% endblock mpepu %}   
+{% endblock admin_sections %}
+
+{% block lab_clinic_api %}
+    {% if 'edc.lab.lab_clinic_api' in installed_apps %}
+        <H5>Lab</H5>
+        <ul>
+        <li><A href="/admin/mpepu_lab/">Requisitions, Aliquots and Packing Lists</A></li>
+        <li><A href="/admin/lab_clinic_api/">Results</A></li>
+        {% if 'lis.labeling' in installed_apps %}
+            <li><A href="/admin/labeling/">Label Printers and Templates</A></li>
+        {% endif %}
+        </ul>
+    {% endif %}
+{% endblock lab_clinic_api %}
+
+{% block ph_dispenser %}
+    {% if 'edc.pharma.dispenser' in installed_apps %}
+        <h5>Pharmacy</h5>
+        <ul>
+        <li><A href="/admin/dispenser/">Dispensings</A>
+        </ul>
+    {% endif %}
+{% endblock ph_dispenser %}
+
+{% block edc_import %}{% endblock edc_import %}
+
+{% block edc_export %}{% endblock edc_export %}
