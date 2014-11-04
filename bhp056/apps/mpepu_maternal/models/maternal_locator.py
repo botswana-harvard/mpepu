@@ -59,6 +59,9 @@ class MaternalLocator(MaternalOffStudyMixin, BaseLocator):
 
     entry_meta_data_manager = EntryMetaDataManager(MaternalVisit)
 
+    def get_visit(self):
+        return self.maternal_visit
+
     def get_subject_identifier(self):
         return self.maternal_visit.appointment.registered_subject.subject_identifier
 
