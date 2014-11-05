@@ -117,7 +117,7 @@ class MaternalLabDelClinicForm (BaseMaternalModelForm):
 
 class MaternalLabDelDxForm (BaseMaternalModelForm):
     def clean(self):
-        cleaned_data = self.cleaned_data #super(MaternalLabDelDxForm,self).clean()
+        cleaned_data = super(MaternalLabDelDxForm,self).clean()
         check_dx = self.data.get('maternallabdeldxt_set-0-lab_del_dx')
         if not cleaned_data.get('maternal_visit'):
             raise forms.ValidationError('This field is required. Please fill it in')
@@ -144,13 +144,11 @@ class MaternalLabDelDxForm (BaseMaternalModelForm):
 class MaternalLabDelDxTForm (BaseMaternalModelForm):
 
     def clean(self):
-#         cleaned_data=super(MaternalLabDelDxTForm,self).clean()
-        cleaned_data = self.cleaned_data
+        cleaned_data = super(MaternalLabDelDxTForm,self).clean()
         maternal_lab_del_dx = cleaned_data.get('maternal_lab_del_dx')
 
         if maternal_lab_del_dx.has_preg_dx == 'No' and cleaned_data.get('lab_del_dx'):
             raise forms.ValidationError('You have indicated that the participant did NOT have diagnosis and yet provided them. Please correct.')
-
         return cleaned_data
 
     class Meta:
