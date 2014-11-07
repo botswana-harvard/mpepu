@@ -245,6 +245,7 @@ LOGIN_REDIRECT_URL = '/{app_name}/'.format(app_name=APP_NAME)
 LOGOUT_URL = '/{app_name}/logout/'.format(app_name=APP_NAME)
 SHORT_DATE_FORMAT = 'Y-m-d'
 SHORT_DATETIME_FORMAT = 'Y-m-d H:i'
+LAB_SECTION = 'mpepu_lab'
 LAB_LOCK_NAME = 'BHP056'
 LABDB = 'bhplab'
 SESSION_COOKIE_AGE = 3000

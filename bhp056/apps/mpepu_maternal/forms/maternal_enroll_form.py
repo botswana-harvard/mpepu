@@ -2,7 +2,7 @@ from django import forms
 
 from .base_maternal_model_form import BaseMaternalModelForm
 from ..models import (MaternalEnroll, MaternalEnrollDem, MaternalEnrollOb, MaternalEnrollMed, MaternalEnrollDx,
-                                   MaternalEnrollClin, MaternalEnrollArv)
+                       MaternalEnrollClin, MaternalEnrollArv)
 
 
 class MaternalEnrollForm (BaseMaternalModelForm):
@@ -25,6 +25,12 @@ class MaternalEnrollForm (BaseMaternalModelForm):
             raise forms.ValidationError("If there are previous pregnancies, question refering to ARVs during previous pregnancies should be 'Yes' or 'No'. You wrote '%s'" % cleaned_data.get('prev_pregnancy_arv', None))
         # if prev_pregnancies == 0, forms MaternalEnrollOb and  MaternalEnrollClin are not required"""
 
+        maternal_arv = MaternalEnrollArv.objects.filter(maternal_visit__subject_identifier=cleaned_data.get('maternal_visit').subject_identifier)
+
+        if maternal_arv and cleaned_data.get('prior_health_haart') == 'No':
+            raise forms.ValidationError('Please delete {} form before you can change question'
+                                        '"Before this pregnancy, was the mother on HAART for her own health" to "No"'
+                                        .format(maternal_arv.model._meta.verbose_name))
         return super(MaternalEnrollForm, self).clean()
 
     class Meta:
@@ -57,7 +63,8 @@ class MaternalEnrollDemForm (BaseMaternalModelForm):
 
         #if 'non of the above is selected, then no other option should be selected """
         if 'None of the above' in str(cleaned_data.get('hh_goods', None))   and len(cleaned_data.get('hh_goods', None)) > 1:
-            raise forms.ValidationError("If they have none of these goods, they cannot have any of other listed items. Please correct")
+            raise forms.ValidationError("If they have none of these goods, they cannot have any of other listed"
+                                        " items. Please correct")
 
         return super(MaternalEnrollDemForm, self).clean()
 
@@ -71,15 +78,31 @@ class MaternalEnrollObForm (BaseMaternalModelForm):
         if not cleaned_data.get('maternal_visit'):
             raise forms.ValidationError('This field is required. Please fill it in')
 
-        maternal_enroll = MaternalEnroll.objects.filter(maternal_visit__subject_identifier=cleaned_data.get('maternal_visit').subject_identifier)
+        maternal_enroll = MaternalEnroll.objects.filter(maternal_visit__subject_identifier=
+                                                        cleaned_data.get('maternal_visit').subject_identifier)
         pregnancies = cleaned_data.get('pregs_24wks_or_more') + cleaned_data.get('lost_before_24wks')
         if maternal_enroll:
             if maternal_enroll[0].prev_pregnancies != pregnancies:
-                raise forms.ValidationError('You indicated mother has had {} previous pregnancies in MaternalEnroll, yet'
-                    ' indicated that pregnancies at least 24 weeks are {} and pregnacies lost before 24 weeks are {}.'
-                    'This makes for a total of {} previous pregnancies, please correct.' 
+                raise forms.ValidationError('You indicated mother has had {} previous pregnancies in MaternalEnroll, '
+                    'yet indicated that pregnancies at least 24 weeks are {} and pregnacies lost before 24 weeks '
+                    'are {}. This makes for a total of {} previous pregnancies, please correct.' 
                     .format(maternal_enroll[0].prev_pregnancies, cleaned_data.get('pregs_24wks_or_more'), 
                     cleaned_data.get('lost_before_24wks'), pregnancies))
+
+        if cleaned_data.get('live_children') >  maternal_enroll[0].prev_pregnancies:
+            raise forms.ValidationError('You indicated that participant has had {} pregnancies in {}, yet indicated '
+                                        'that participant has {} living children. Please correct.'
+                                        .format(maternal_enroll[0].prev_pregnancies, 
+                                                maternal_enroll.model._meta.verbose_name, 
+                                                cleaned_data.get('live_children'))
+                                        )
+        if cleaned_data.get('children_died_b4_5yrs') >  maternal_enroll[0].prev_pregnancies:
+            raise forms.ValidationError('You indicated that participant has had {} pregnancies in {}, yet indicated '
+                                        'that participant has {} children who died before 5years. Please correct.'
+                                        .format(maternal_enroll[0].prev_pregnancies, 
+                                                maternal_enroll.model._meta.verbose_name, 
+                                                cleaned_data.get('children_died_b4_5yrs'))
+                                        )
         return super(MaternalEnrollObForm, self).clean()
 
     class Meta:
