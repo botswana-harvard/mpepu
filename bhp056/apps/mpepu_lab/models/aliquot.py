@@ -11,6 +11,7 @@ from .aliquot_condition import AliquotCondition
 from .aliquot_type import AliquotType
 from .receive import Receive
 from .infant_requisition import InfantRequisition
+from .maternal_requisition import MaternalRequisition
 
 
 class Aliquot(BaseAliquot):
@@ -31,8 +32,8 @@ class Aliquot(BaseAliquot):
 
     def save(self, *args, **kwargs):
         self.subject_identifier = self.receive.registered_subject.subject_identifier
-        if self.source_aliquot and not self.primary_aliquot:
-            raise ValidationError('Primary aliquot may not be None')
+#         if self.source_aliquot and not self.primary_aliquot:
+#             raise ValidationError('Primary aliquot may not be None')
         super(Aliquot, self).save(*args, **kwargs)
 
     @property
@@ -42,10 +43,11 @@ class Aliquot(BaseAliquot):
     def get_visit(self):
         from apps.mpepu_infant.models import InfantVisit
         visit = self.get_visit_model()
-        requisition = InfantRequisition.objects.get(requisition_identifier=self.aliquot_identifier[4:-4])
         if visit == InfantVisit:
+            requisition = InfantRequisition.objects.get(requisition_identifier=self.aliquot_identifier[4:-4])
             return requisition.infant_visit
         else:
+            requisition = MaternalRequisition.objects.get(requisition_identifier=self.aliquot_identifier[4:-4])
             return requisition.maternal_visit
         return visit
 
@@ -58,10 +60,15 @@ class Aliquot(BaseAliquot):
         else:
             return MaternalVisit
 
-    def to_process(self):
-        url = reverse('admin:mpepu_lab_processing_add')
+    def processing(self):
+        url = reverse('admin:mpepu_lab_aliquotprocessing_add')
         return '<a href="{0}?aliquot={1}">process</a>'.format(url, self.pk)
-    to_process.allow_tags = True
+    processing.allow_tags = True
+
+    def related(self):
+        url = reverse('admin:mpepu_lab_aliquot_changelist')
+        return '<a href="{0}?q={1}">related</a>'.format(url, self.receive.receive_identifier)
+    related.allow_tags = True
 
     class Meta:
         app_label = 'mpepu_lab'

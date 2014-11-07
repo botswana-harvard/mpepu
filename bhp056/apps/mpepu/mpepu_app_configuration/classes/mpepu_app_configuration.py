@@ -1,5 +1,10 @@
 from datetime import datetime
 
+try:
+    from config.labels import aliquot_label
+except ImportError:
+    aliquot_label = None
+
 from edc.apps.app_configuration.classes import BaseAppConfiguration
 from edc.core.bhp_variables.models import StudySpecific, StudySite
 from edc.lab.lab_profile.classes import ProfileItemTuple, ProfileTuple
@@ -147,14 +152,22 @@ class MpepuAppConfiguration(BaseAppConfiguration):
                                      AliquotTypeTuple('Plasma', 'PL', '32'),
                                      AliquotTypeTuple('Serum', 'SERUM', '06'),
                                      AliquotTypeTuple('Breast Milk: Whole', 'BM', '20'),
-                                     AliquotTypeTuple('Stool', 'ST', '01')],
+                                     AliquotTypeTuple('Stool', 'ST', '01'),
+                                     AliquotTypeTuple('Buffy Coat', 'BC', '16')
+                                     ],
                     'profile': [ProfileTuple('Viral load (storage only)','WB'),
                                 ProfileTuple('ARV Resistance Testing','WB'),
+                                ProfileTuple('Plasma and Buffy Coat Storage (Infant)','WB'),
+                                ProfileTuple('Plasma and Buffy Coat Storage (Maternal)','WB'),
                                 ],
                     'profile_item': [ProfileItemTuple('Viral load (storage only)', 'PL', 1.8, 3),
-                                     ProfileItemTuple('Viral load (storage only)', 'PL', 0.5, 1),
+                                     ProfileItemTuple('Viral load (storage only)', 'BC', 0.5, 1),
                                      ProfileItemTuple('ARV Resistance Testing','PL', 1.8, 3),
-                                     ProfileItemTuple('ARV Resistance Testing','PL', 0.5, 3),
+                                     ProfileItemTuple('ARV Resistance Testing','BC', 0.5, 1),
+                                     ProfileItemTuple('Plasma and Buffy Coat Storage (Infant)','PL', 1.0, 1),
+                                     ProfileItemTuple('Plasma and Buffy Coat Storage (Infant)','BC', 0.2, 1),
+                                     ProfileItemTuple('Plasma and Buffy Coat Storage (Maternal)','PL', 1.8, 2),
+                                     ProfileItemTuple('Plasma and Buffy Coat Storage (Maternal)','BC', 0.5, 2),
                                      ]
                     }}
 
@@ -166,8 +179,8 @@ class MpepuAppConfiguration(BaseAppConfiguration):
                                         ],
                       'client': [ClientTuple(hostname='mpepu08', aliases=None, ip=None, printer_name='Zebra_Technologies_ZTC_GK420t', cups_hostname='mpepu01',),
                                   ],
-                      'zpl_template': [ZplTemplateTuple(
-                                'clinic specimen label small', (
+                      'zpl_template': [aliquot_label or ZplTemplateTuple(
+                                'aliquot_label', (
                                     """^XA
                                     ^FO325,5^A0N,15,20^FD%(protocol)s Site %(site)s %(item_count)s/%(item_count_total)s^FS
                                     ^FO320,20^BY1,3.0^BCN,50,N,N,N
