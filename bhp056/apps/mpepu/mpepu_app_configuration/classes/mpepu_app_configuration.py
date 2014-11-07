@@ -148,14 +148,18 @@ class MpepuAppConfiguration(BaseAppConfiguration):
                                      AliquotTypeTuple('Serum', 'SERUM', '06'),
                                      AliquotTypeTuple('Breast Milk: Whole', 'BM', '20'),
                                      AliquotTypeTuple('Stool', 'ST', '01')],
-                    'profile': [ProfileTuple('PBMC Plasma (STORE ONLY)', 'WB'), ProfileTuple('Plasma and Buffy Coat Storage', 'WB')],
-                    'profile_item': [ProfileItemTuple('PBMC Plasma (STORE ONLY)', 'PL', 0.1, 3),
-                                     ProfileItemTuple('Plasma and Buffy Coat Storage', 'PL', 0.1, 2)]
+                    'profile': [ProfileTuple('Viral load (storage only)','WB'),
+                                ProfileTuple('ARV Resistance Testing','WB'),
+                                ],
+                    'profile_item': [ProfileItemTuple('Viral load (storage only)', 'PL', 1.8, 3),
+                                     ProfileItemTuple('Viral load (storage only)', 'PL', 0.5, 1),
+                                     ProfileItemTuple('ARV Resistance Testing','PL', 1.8, 3),
+                                     ProfileItemTuple('ARV Resistance Testing','PL', 0.5, 3),
+                                     ]
                     }}
 
     labeling_setup = {'label_printer': [LabelPrinterTuple('Zebra_Technologies_ZTC_GK420t', 'mpepu01', '192.168.1.63', False),
                                         LabelPrinterTuple('Mpepu_Pharmacy_Label_Printer', 'mpepu02',  '192.168.1.160', False),
-                                        LabelPrinterTuple('test_label_printer', 'mpepu03', '192.168.1.178', False),
                                         LabelPrinterTuple('Moleps_room2_Label_Printer', 'moleps16', '10.70.117.77', False),
                                         LabelPrinterTuple('Moleps_Pharmacy_Label_Printer', 'moleps17', '10.70.117.38', False),
                                         LabelPrinterTuple('zebra', 'fchilisa', 'localhost', False),
