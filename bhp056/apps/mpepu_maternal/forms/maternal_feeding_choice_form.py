@@ -24,6 +24,10 @@ class FeedingChoiceForm (BaseMaternalModelForm):
                 raise forms.ValidationError('You have indicated that participant had {} previous pregnancies in'
                    '"MaternalEnrollment" yet answered that this is the first time a feeding choice is being made.'
                    ' Please correct'.format(maternal_enroll[0].prev_pregnancies))
+            if maternal_enroll[0].prev_pregnancies == 0 and cleaned_data.get('first_time_feeding') =='No':
+                raise forms.ValidationError('You have indicated that participant had {} previous pregnancies in'
+                   '"MaternalEnrollment" yet answered that this is NOT the first time a feeding choice is being made.'
+                   ' Please correct'.format(maternal_enroll[0].prev_pregnancies))
         return super(FeedingChoiceForm, self).clean()
 
     class Meta:
