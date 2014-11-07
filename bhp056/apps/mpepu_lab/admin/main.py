@@ -27,14 +27,14 @@ admin.site.register(InfantRequisition, InfantRequisitionAdmin)
 
 class PackingListAdmin(BasePackingListAdmin):
     form = PackingListForm
-    requisition = [InfantRequisition, MaternalRequisition, ]
+    requisition = [InfantRequisition, MaternalRequisition, Aliquot ]
     packing_list_item_model = PackingListItem
 admin.site.register(PackingList, PackingListAdmin)
 
 
 class PackingListItemAdmin(BasePackingListItemAdmin):
     form = PackingListItemForm
-    requisition = [InfantRequisition, MaternalRequisition, ]
+    requisition = [InfantRequisition, MaternalRequisition, Aliquot]
 admin.site.register(PackingListItem, BasePackingListItemAdmin)
 
 

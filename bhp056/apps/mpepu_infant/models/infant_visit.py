@@ -118,12 +118,14 @@ class InfantVisit(InfantOffStudyMixin, BaseVisitTracking, MpepuMetaDataMixin):
 
         if has_infant_pre_eligibility:
             index = pre_codes.index(infant_visit.appointment.visit_definition.code)
-            prev_visit = InfantVisit.objects.filter(subject_identifier=infant_visit.registered_subject.subject_identifier, appointment__visit_definition__code=pre_codes.pop(index - 1))
+            prev_visit = InfantVisit.objects.filter(appointment__registered_subject__subject_identifier=infant_visit.registered_subject.subject_identifier, appointment__visit_definition__code=pre_codes.pop(index - 1))
         else:
             index = e_codes.index(infant_visit.appointment.visit_definition.code)
-            prev_visit = InfantVisit.objects.filter(subject_identifier=infant_visit.registered_subject.subject_identifier, appointment__visit_definition__code=e_codes.pop(index - 1))
+            prev_visit = InfantVisit.objects.filter(appointment__registered_subject__subject_identifier=infant_visit.registered_subject.subject_identifier, appointment__visit_definition__code=e_codes.pop(index - 1))
 
-        if not prev_visit and index != 0:
+        if not prev_visit:
+            if index == 0:
+                return True
             raise exception_cls('You cannot complete an Infant Visit, when previous visit has not been keyed. Please go back and key it in.')
         return True
 
