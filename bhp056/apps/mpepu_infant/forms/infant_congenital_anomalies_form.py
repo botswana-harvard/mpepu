@@ -16,8 +16,7 @@ class InfantCongenitalAnomaliesForm (BaseModelForm):
 
 class InfantCnsAbnormalityItemsForm (BaseModelForm):
     def clean(self):
-#         cleaned_data = super(InfantCnsAbnormalityItemsForm, self).clean()
-        cleaned_data = self.cleaned_data
+        cleaned_data = super(InfantCnsAbnormalityItemsForm, self).clean()
         if cleaned_data.get('cns_abnormality') and not cleaned_data.get('abnormality_status'):
             raise forms.ValidationError('You indicated that participant has CNS Abnormality and yet did not indicate the abnormality status. Please correct.')
         if not cleaned_data.get('cns_abnormality') and cleaned_data.get('abnormality_status'):
@@ -31,8 +30,7 @@ class InfantCnsAbnormalityItemsForm (BaseModelForm):
 
 class InfantFacialDefectItemsForm (BaseModelForm):
     def clean(self):
-#         cleaned_data = super(InfantFacialDefectItemsForm, self).clean()
-        cleaned_data = self.cleaned_data
+        cleaned_data = super(InfantFacialDefectItemsForm, self).clean()
         if cleaned_data.get('facial_defect') and not cleaned_data.get('abnormality_status'):
             raise forms.ValidationError('You indicated that participant has facial defect and yet did not indicate the abnormality status. Please correct.')
         if not cleaned_data.get('facial_defect') and cleaned_data.get('abnormality_status'):
@@ -46,8 +44,7 @@ class InfantFacialDefectItemsForm (BaseModelForm):
 
 class InfantCleftDisorderItemsForm (BaseModelForm):
     def clean(self):
-#         cleaned_data = super(InfantCleftDisorderItemsForm, self).clean()
-        cleaned_data = self.cleaned_data
+        cleaned_data = super(InfantCleftDisorderItemsForm, self).clean()
         if cleaned_data.get('cleft_disorder') and not cleaned_data.get('abnormality_status'):
             raise forms.ValidationError('You indicated that participant has cleft disorder and yet did not indicate the abnormality status. Please correct.')
         if not cleaned_data.get('cleft_disorder') and cleaned_data.get('abnormality_status'):
@@ -61,8 +58,7 @@ class InfantCleftDisorderItemsForm (BaseModelForm):
 
 class InfantMouthUpGastrointestinalItemsForm (BaseModelForm):
     def clean(self):
-#         cleaned_data = super(InfantMouthUpGastrointestinalItemsForm, self).clean()
-        cleaned_data = self.cleaned_data
+        cleaned_data = super(InfantMouthUpGastrointestinalItemsForm, self).clean()
         if cleaned_data.get('mouth_up_gastrointest') and not cleaned_data.get('abnormality_status'):
             raise forms.ValidationError('You indicated that participant has mouth up gastrointest and yet did not indicate the abnormality status. Please correct.')
         if not cleaned_data.get('mouth_up_gastrointest') and cleaned_data.get('abnormality_status'):
@@ -76,8 +72,7 @@ class InfantMouthUpGastrointestinalItemsForm (BaseModelForm):
 
 class InfantCardiovascularDisorderItemsForm (BaseModelForm):
     def clean(self):
-#         cleaned_data = super(InfantCardiovascularDisorderItemsForm, self).clean()
-        cleaned_data = self.cleaned_data
+        cleaned_data = super(InfantCardiovascularDisorderItemsForm, self).clean()
         if cleaned_data.get('cardiovascular_disorder') and not cleaned_data.get('abnormality_status'):
             raise forms.ValidationError('You indicated that participant has cardiovascular disorder and yet did not indicate the abnormality status. Please correct.')
         if not cleaned_data.get('cardiovascular_disorder') and cleaned_data.get('abnormality_status'):
@@ -91,8 +86,7 @@ class InfantCardiovascularDisorderItemsForm (BaseModelForm):
 
 class InfantRespiratoryDefectItemsForm (BaseModelForm):
     def clean(self):
-#         cleaned_data = super(InfantRespiratoryDefectItemsForm, self).clean()
-        cleaned_data = self.cleaned_data
+        cleaned_data = super(InfantRespiratoryDefectItemsForm, self).clean()
         if cleaned_data.get('respiratory_defect') and not cleaned_data.get('abnormality_status'):
             raise forms.ValidationError('You indicated that participant has respiratory defect and yet did not indicate the abnormality status. Please correct.')
         if not cleaned_data.get('respiratory_defect') and cleaned_data.get('abnormality_status'):
@@ -106,8 +100,7 @@ class InfantRespiratoryDefectItemsForm (BaseModelForm):
 
 class InfantLowerGastrointestinalItemsForm (forms.ModelForm):
     def clean(self):
-#         cleaned_data = super(InfantLowerGastrointestinalItemsForm, self).clean()
-        cleaned_data = self.cleaned_data
+        cleaned_data = super(InfantLowerGastrointestinalItemsForm, self).clean()
         if cleaned_data.get('lower_gastrointestinal') and not cleaned_data.get('abnormality_status'):
             raise forms.ValidationError('You indicated that participant has lower gastrointestinal and yet did not indicate the abnormality status. Please correct.')
         if not cleaned_data.get('lower_gastrointestinal') and cleaned_data.get('abnormality_status'):
@@ -121,8 +114,7 @@ class InfantLowerGastrointestinalItemsForm (forms.ModelForm):
 
 class InfantFemaleGenitalAnomalyItemsForm (BaseModelForm):
     def clean(self):
-#         cleaned_data = super(InfantFemaleGenitalAnomalyItemsForm, self).clean()
-        cleaned_data = self.cleaned_data
+        cleaned_data = super(InfantFemaleGenitalAnomalyItemsForm, self).clean()
         if cleaned_data.get('female_genital_anomal') and not cleaned_data.get('abnormality_status'):
             raise forms.ValidationError('You indicated that participant has female genital anomaly and yet did not indicate the abnormality status. Please correct.')
         if not cleaned_data.get('female_genital_anomal') and cleaned_data.get('abnormality_status'):
@@ -136,8 +128,7 @@ class InfantFemaleGenitalAnomalyItemsForm (BaseModelForm):
 
 class InfantMaleGenitalAnomalyItemsForm (BaseModelForm):
     def clean(self):
-#         cleaned_data = super(InfantMaleGenitalAnomalyItemsForm, self).clean()
-        cleaned_data = self.cleaned_data
+        cleaned_data = super(InfantMaleGenitalAnomalyItemsForm, self).clean()
         if cleaned_data.get('male_genital_anomal') and not cleaned_data.get('abnormality_status'):
             raise forms.ValidationError('You indicated that participant has male genital anomaly and yet did not indicate the abnormality status. Please correct.')
         if not cleaned_data.get('male_genital_anomal') and cleaned_data.get('abnormality_status'):
@@ -151,8 +142,7 @@ class InfantMaleGenitalAnomalyItemsForm (BaseModelForm):
 
 class InfantRenalAnomalyItemsForm (BaseModelForm):
     def clean(self):
-#         cleaned_data = super(InfantRenalAnomalyItemsForm, self).clean()
-        cleaned_data = self.cleaned_data
+        cleaned_data = super(InfantRenalAnomalyItemsForm, self).clean()
         if cleaned_data.get('renal_amomalies') and not cleaned_data.get('abnormality_status'):
             raise forms.ValidationError('You indicated that participant has renal anomalies and yet did not indicate the abnormality status. Please correct.')
         if not cleaned_data.get('renal_amomalies') and cleaned_data.get('abnormality_status'):
@@ -166,8 +156,7 @@ class InfantRenalAnomalyItemsForm (BaseModelForm):
 
 class InfantMusculoskeletalAbnormalItemsForm (BaseModelForm):
     def clean(self):
-#         cleaned_data = super(InfantMusculoskeletalAbnormalItemsForm, self).clean()
-        cleaned_data = self.cleaned_data
+        cleaned_data = super(InfantMusculoskeletalAbnormalItemsForm, self).clean()
         if cleaned_data.get('musculo_skeletal') and not cleaned_data.get('abnormality_status'):
             raise forms.ValidationError('You indicated that participant has musculo skeletal anomaly and yet did not indicate the abnormality status. Please correct.')
         if not cleaned_data.get('musculo_skeletal') and cleaned_data.get('abnormality_status'):
@@ -181,8 +170,7 @@ class InfantMusculoskeletalAbnormalItemsForm (BaseModelForm):
 
 class InfantSkinAbnormalItemsForm (BaseModelForm):
     def clean(self):
-#         cleaned_data = super(InfantSkinAbnormalItemsForm, self).clean()
-        cleaned_data = self.cleaned_data
+        cleaned_data = super(InfantSkinAbnormalItemsForm, self).clean()
         if cleaned_data.get('skin_abnormality') and not cleaned_data.get('abnormality_status'):
             raise forms.ValidationError('You indicated that participant has skin anomaly and yet did not indicate the abnormality status. Please correct.')
         if not cleaned_data.get('skin_abnormality') and cleaned_data.get('abnormality_status'):
@@ -196,8 +184,7 @@ class InfantSkinAbnormalItemsForm (BaseModelForm):
 
 class InfantTrisomiesChromosomeItemsForm (BaseModelForm):
     def clean(self):
-#         cleaned_data = super(InfantTrisomiesChromosomeItemsForm, self).clean()
-        cleaned_data = self.cleaned_data
+        cleaned_data = super(InfantTrisomiesChromosomeItemsForm, self).clean()
         if cleaned_data.get('triso_chromo_abnormal') and not cleaned_data.get('abnormality_status'):
             raise forms.ValidationError('You indicated that participant has tri chromo anomaly and yet did not indicate the abnormality status. Please correct.')
         if not cleaned_data.get('triso_chromo_abnormal') and cleaned_data.get('abnormality_status'):
@@ -211,8 +198,7 @@ class InfantTrisomiesChromosomeItemsForm (BaseModelForm):
 
 class InfantOtherAbnormalityItemsForm (BaseModelForm):
     def clean(self):
-#         cleaned_data = super(InfantOtherAbnormalityItemsForm, self).clean()
-        cleaned_data = self.cleaned_data
+        cleaned_data = super(InfantOtherAbnormalityItemsForm, self).clean()
         if cleaned_data.get('other_abnormalities') and not cleaned_data.get('abnormality_status'):
             raise forms.ValidationError('You indicated that participant has other abnormalities and yet did not indicate the abnormality status. Please correct.')
         if not cleaned_data.get('other_abnormalities') and cleaned_data.get('abnormality_status'):

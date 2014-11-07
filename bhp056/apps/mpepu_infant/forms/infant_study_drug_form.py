@@ -54,7 +54,7 @@ class InfantStudyDrugItemsForm (BaseInfantModelForm):
                 raise forms.ValidationError("You indicated Completion of protocol as reason study drug is permanently discontinued yet this is visit {}."
                                             .format(inf_study_drug.infant_visit.appointment.visit_definition.code))
 
-        return cleaned_data
+        return super(InfantStudyDrugItemsForm, self).clean()
 
     class Meta:
         model = InfantStudyDrugItems

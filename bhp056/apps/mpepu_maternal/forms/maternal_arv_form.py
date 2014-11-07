@@ -27,7 +27,7 @@ class MaternalArvPostForm (BaseMaternalModelForm):
             if not check_arvs:
                 raise forms.ValidationError('You indicated that the participants ARV status has changed. Please provide details.')
 
-        return cleaned_data
+        return super(MaternalArvPostForm, self).clean()
 
     class Meta:
         model = MaternalArvPost
@@ -40,7 +40,7 @@ class MaternalArvPostModForm (BaseMaternalModelForm):
         if cleaned_data.get('maternal_arv_post').arv_status == 'N/A' or cleaned_data.get('maternal_arv_post').arv_status == 'no_mod':
             if cleaned_data.get('arv_code'):
                 raise forms.ValidationError("You cannot indicate arv modifaction as you indicated {} above.".format(cleaned_data.get('maternal_arv_post').arv_status))
-        return cleaned_data
+        return super(MaternalArvPostModForm, self).clean()
 
     class Meta:
         model = MaternalArvPostMod
