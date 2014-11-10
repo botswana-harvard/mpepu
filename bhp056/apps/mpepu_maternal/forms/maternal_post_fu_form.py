@@ -36,9 +36,10 @@ class MaternalPostFuDxForm (BaseMaternalModelForm):
 #                     leading = cleaned_data['who_clinical_stage'],
 #                     m2m = cleaned_data['wcs_dx_adult'])
         if cleaned_data.get('new_diagnoses') == 'Yes' and not check_dx:
-            raise forms.ValidationError('You indicated that participant had new diagnosis and yet did not provide them. Please correct.')     
+            raise forms.ValidationError('You indicated that participant had new diagnosis and yet did not provide them. Please correct.')
+        #super(MaternalPostFuDxForm, self).clean()
 
-        return super(MaternalPostFuDxForm, self).clean()
+        return cleaned_data
 
     class Meta:
         model = MaternalPostFuDx
