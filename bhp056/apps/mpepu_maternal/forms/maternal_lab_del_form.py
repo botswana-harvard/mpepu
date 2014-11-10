@@ -117,7 +117,8 @@ class MaternalLabDelClinicForm (BaseMaternalModelForm):
 
 class MaternalLabDelDxForm (BaseMaternalModelForm):
     def clean(self):
-        cleaned_data = super(MaternalLabDelDxForm,self).clean()
+#         cleaned_data = super(MaternalLabDelDxForm,self).clean()
+        cleaned_data = self.cleaned_data
         check_dx = self.data.get('maternallabdeldxt_set-0-lab_del_dx')
         if not cleaned_data.get('maternal_visit'):
             raise forms.ValidationError('This field is required. Please fill it in')
