@@ -36,6 +36,7 @@ class PackingListItem(BasePackingListItem):
                     requisition_identifier=aliquot.receive.requisition_identifier
                     )
             self.panel = requisition.panel
+            self.item_priority = requisition.priority
         super(PackingListItem, self).save(*args, **kwargs)
 
     def drawn_datetime(self):
@@ -67,7 +68,7 @@ class PackingListItem(BasePackingListItem):
                     )
             retval = requisition.user_created
         return retval
-# 
+
     def gender(self):
         retval = "n/a"
         if self.item_reference:
