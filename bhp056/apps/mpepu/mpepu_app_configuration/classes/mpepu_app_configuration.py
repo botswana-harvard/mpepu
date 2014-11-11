@@ -171,13 +171,13 @@ class MpepuAppConfiguration(BaseAppConfiguration):
                                      ]
                     }}
 
-    labeling_setup = {'label_printer': [LabelPrinterTuple('Zebra_Technologies_ZTC_GK420t', 'mpepu01', '192.168.1.63', False),
+    labeling_setup = {'label_printer': [LabelPrinterTuple('Zebra_Technologies_ZTC_GK420t', 'mpepu10', '192.168.1.63', False),
                                         LabelPrinterTuple('Mpepu_Pharmacy_Label_Printer', 'mpepu02',  '192.168.1.160', False),
                                         LabelPrinterTuple('Moleps_room2_Label_Printer', 'moleps16', '10.70.117.77', False),
                                         LabelPrinterTuple('Moleps_Pharmacy_Label_Printer', 'moleps17', '10.70.117.38', False),
                                         LabelPrinterTuple('zebra', 'fchilisa', 'localhost', False),
                                         ],
-                      'client': [ClientTuple(hostname='mpepu08', aliases=None, ip=None, printer_name='Zebra_Technologies_ZTC_GK420t', cups_hostname='mpepu01',),
+                      'client': [ClientTuple(hostname='mpepu08', aliases=None, ip=None, printer_name='Zebra_Technologies_ZTC_GK420t', cups_hostname='mpepu10',),
                                   ],
                       'zpl_template': [aliquot_label or ZplTemplateTuple(
                                 'aliquot_label', (
