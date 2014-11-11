@@ -32,8 +32,6 @@ class Aliquot(BaseAliquot):
 
     def save(self, *args, **kwargs):
         self.subject_identifier = self.receive.registered_subject.subject_identifier
-#         if self.source_aliquot and not self.primary_aliquot:
-#             raise ValidationError('Primary aliquot may not be None')
         super(Aliquot, self).save(*args, **kwargs)
 
     @property
