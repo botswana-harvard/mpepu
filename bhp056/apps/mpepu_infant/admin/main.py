@@ -450,6 +450,7 @@ class InfantCtxPlaceboAdhAdmin(InfantVisitModelAdmin):
     form = InfantCtxPlaceboAdhForm
     fields = (
        "infant_visit",
+       "report_datetime",
        "day_missed_drug",
        "reason_missed",
        "reason_missed_other")
