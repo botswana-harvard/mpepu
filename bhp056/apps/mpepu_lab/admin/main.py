@@ -7,15 +7,15 @@ from edc.base.modeladmin.admin import BaseModelAdmin
 from edc.base.modeladmin.admin import BaseTabularInline
 from edc.export.actions import export_as_csv_action
 
-from lis.labeling.actions import print_aliquot_label
-from lis.labeling.actions import print_aliquot_label
+# from lis.labeling.actions import print_aliquot_label
+
 
 from ..models import (InfantRequisition, MaternalRequisition, Aliquot, AliquotType, Receive, Panel,
                       AliquotProfileItem, AliquotProfile, AliquotProcessing)
 from ..models import PackingList, PackingListItem
 from ..forms import InfantRequisitionForm, MaternalRequisitionForm
 from ..forms import PackingListForm, PackingListItemForm
-from ..actions import create_order
+from ..actions import create_order, print_aliquot_label
 
 from .base_infant_requisition_model_admin import BaseInfantRequisitionModelAdmin
 from .base_maternal_requisition_model_admin import BaseMaternalRequisitionModelAdmin

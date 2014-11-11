@@ -4,7 +4,7 @@ from django.contrib import messages
 
 from lis.labeling.exceptions import LabelPrinterError
 
-from .classes import RequisitionLabel
+from .classes import RequisitionLabel, MpepuAliquotLabeling
 from .models import Order, OrderItem
 
 
@@ -33,3 +33,14 @@ def print_requisition_label(modeladmin, request, requisitions):
     except LabelPrinterError as label_printer_error:
         messages.add_message(request, messages.ERROR, str(label_printer_error))
 print_requisition_label.short_description = "LABEL: print requisition label"
+
+
+def print_aliquot_label(modeladmin, request, aliquots):
+    """ Prints an aliquot label."""
+    aliquot_label = MpepuAliquotLabeling()
+    try:
+        for aliquot in aliquots:
+            aliquot_label.print_label_for_aliquot(request, aliquot)
+    except LabelPrinterError as label_printer_error:
+        messages.add_message(request, messages.ERROR, str(label_printer_error))
+print_aliquot_label.short_description = "LABEL: print aliquot label"
