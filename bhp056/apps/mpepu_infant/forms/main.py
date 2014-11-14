@@ -17,6 +17,9 @@ class InfantDeathForm (BaseInfantDeathForm):
         if cleaned_data.get('death_reason_hospitalized'):
             if 'specify' in cleaned_data.get('death_reason_hospitalized').name and not cleaned_data.get('death_reason_hospitalized_other'):
                 raise forms.ValidationError('Please specify further details for the reason hospitalized.')
+
+        if not cleaned_data.get('death_cause_info'):
+            raise forms.ValidationError("This field is required. Please fill it in.")
         return super(InfantDeathForm, self).clean()
 
     class Meta:

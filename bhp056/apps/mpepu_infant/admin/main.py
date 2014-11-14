@@ -437,6 +437,7 @@ class InfantStudyDrugAdmin(InfantVisitModelAdmin):
     form = InfantStudyDrugForm
     fields = (
        "infant_visit",
+       "report_datetime",
        "on_placebo_status",
        "drug_status")
     radio_fields = {
