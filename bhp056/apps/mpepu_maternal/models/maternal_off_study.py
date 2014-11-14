@@ -24,6 +24,9 @@ class MaternalOffStudy(BaseOffStudy):
     def __unicode__(self):
         return '%s ' % (self.registered_subject)
 
+    def get_visit(self):
+        return self.maternal_visit
+
     def get_absolute_url(self):
         return reverse('admin:mpepu_maternal_maternaloffstudy_change', args=(self.id,))
 

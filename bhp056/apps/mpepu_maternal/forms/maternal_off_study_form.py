@@ -20,6 +20,8 @@ class MaternalOffStudyForm (BaseOffStudyForm):
 
         if not cleaned_data.get('maternal_visit') or not cleaned_data.get('registered_subject'):
             raise forms.ValidationError('This field is required. Please fill it in')
+        if not cleaned_data.get('offstudy_date'):
+            raise forms.ValidationError('This field is required. Please fill it in')
         return super(MaternalOffStudyForm, self).clean()
 
     class Meta:
