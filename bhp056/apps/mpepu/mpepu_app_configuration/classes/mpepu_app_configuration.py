@@ -177,7 +177,11 @@ class MpepuAppConfiguration(BaseAppConfiguration):
                                         LabelPrinterTuple('Moleps_Pharmacy_Label_Printer', 'moleps17', '10.70.117.38', False),
                                         LabelPrinterTuple('zebra', 'fchilisa', 'localhost', False),
                                         ],
-                      'client': [ClientTuple(hostname='mpepu08', aliases=None, ip=None, printer_name='Zebra_Technologies_ZTC_GK420t', cups_hostname='mpepu10',),
+                      'client': [ClientTuple(hostname='mpepu01', aliases=None, ip=None, printer_name='Zebra_Technologies_ZTC_GK420t', cups_hostname='mpepu10',),
+                                 ClientTuple(hostname='mpepu03', aliases=None, ip=None, printer_name='Zebra_Technologies_ZTC_GK420t', cups_hostname='mpepu10',),
+                                 ClientTuple(hostname='mpepu08', aliases=None, ip=None, printer_name='Zebra_Technologies_ZTC_GK420t', cups_hostname='mpepu10',),
+                                 ClientTuple(hostname='mpepu20', aliases=None, ip=None, printer_name='Zebra_Technologies_ZTC_GK420t', cups_hostname='mpepu10',),
+                                 ClientTuple(hostname='mpepu16', aliases=None, ip=None, printer_name='Zebra_Technologies_ZTC_GK420t', cups_hostname='mpepu10',),
                                   ],
                       'zpl_template': [aliquot_label or ZplTemplateTuple(
                                 'aliquot_label', (
