@@ -58,6 +58,20 @@ class Aliquot(BaseAliquot):
         else:
             return MaternalVisit
 
+    def panel(self):
+        registered_subject = RegisteredSubject.objects.get(subject_identifier=self.subject_identifier)
+        if registered_subject.subject_type.lower() == 'infant':
+            requisition = InfantRequisition.objects.get(
+                requisition_identifier=self.receive.requisition_identifier
+                )
+        else:
+            requisition = MaternalRequisition.objects.get(
+                requisition_identifier=self.receive.requisition_identifier
+                )
+        aliquot_panel = requisition.panel
+        return '{}'.format(aliquot_panel)
+    panel.allow_tags = True
+
     def processing(self):
         url = reverse('admin:mpepu_lab_aliquotprocessing_add')
         return '<a href="{0}?aliquot={1}">process</a>'.format(url, self.pk)
