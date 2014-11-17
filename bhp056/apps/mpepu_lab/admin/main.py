@@ -54,7 +54,7 @@ class AliquotAdmin(BaseModelAdmin):
                export_as_csv_action("Export as csv", fields=[], delimiter=',', exclude=['id', 'revision', 'hostname_created', 'hostname_modified', 'user_created', 'user_modified'],)]
 
     list_display = ("aliquot_identifier", 'subject_identifier', 'processing', 'related',
-                    'to_receive', 'drawn', "aliquot_type", 'aliquot_condition', 'is_packed', 'created',
+                    'to_receive', 'drawn', "aliquot_type", 'is_packed', 'panel','aliquot_condition', 'created',
                     'user_created', 'hostname_created')
 
     search_fields = ('aliquot_identifier', 'receive__receive_identifier', 'receive__registered_subject__subject_identifier')
