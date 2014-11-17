@@ -18,6 +18,8 @@ class InfantOffStudyForm (BaseOffStudyForm):
         cleaned_data = self.cleaned_data
         if  not cleaned_data.get('registered_subject'):
             raise forms.ValidationError('This field is required. Please fill it in')
+        if not cleaned_data.get('offstudy_date'):
+            raise forms.ValidationError('This field is required. Please fill it in')
         return super(InfantOffStudyForm, self).clean()
 
     class Meta:
