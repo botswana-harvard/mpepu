@@ -17,7 +17,8 @@ class ResistanceConsentForm(BaseSubjectConsentForm):
             raise forms.ValidationError('Unable to locate Maternal Consent using the first_name, '
                                         'last_name and identity number provided. '
                                         'Enter the Maternal Consent first or check your criteria.')
-        return super(ResistanceConsentForm, self).clean()
+        #return super(ResistanceConsentForm, self).clean()
+        return cleaned_data
 
     class Meta:
         model = ResistanceConsent
