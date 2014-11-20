@@ -12,7 +12,7 @@ class ResistanceConsentForm(BaseSubjectConsentForm):
     def clean(self):
 
         cleaned_data = self.cleaned_data
-        maternal_consent = MaternalConsent.objects.filter(first_name=cleaned_data.get('first_name'), last_name=cleaned_data.get('last_name'), identity=cleaned_data.get('identity'))
+        maternal_consent = MaternalConsent.objects.filter(first_name=cleaned_data.get('first_name').strip(), last_name=cleaned_data.get('last_name').strip(), identity=cleaned_data.get('identity').strip())
         if not maternal_consent.exists():
             raise forms.ValidationError('Unable to locate Maternal Consent using the first_name, '
                                         'last_name and identity number provided. '
