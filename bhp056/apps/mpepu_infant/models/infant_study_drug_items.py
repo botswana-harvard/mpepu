@@ -4,6 +4,7 @@ from django.db.models import Q, get_model
 
 # from edc.subject.entry.models import AdditionalEntryBucket
 from edc.audit.audit_trail import AuditTrail
+from edc.base.model.validators import date_not_before_study_start, date_not_future
 from edc.subject.haart.choices import DOSE_STATUS, ARV_MODIFICATION_REASON
 
 from .infant_base_uuid_model import InfantBaseUuidModel
@@ -23,6 +24,10 @@ class InfantStudyDrugItems(InfantBaseUuidModel):
         )
     ingestion_date = models.DateField(
         verbose_name="Date of study drug ingestion",
+        validators=[
+            date_not_before_study_start,
+            date_not_future,
+            ],
         )
     modification_reason = models.CharField(
         verbose_name="Reason for modification",

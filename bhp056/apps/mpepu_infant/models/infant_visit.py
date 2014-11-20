@@ -1,16 +1,16 @@
-from django.db import models
-from django.core.urlresolvers import reverse
 from django.core.exceptions import ValidationError
+from django.core.urlresolvers import reverse
+from django.db import models
 
 from edc.audit.audit_trail import AuditTrail
+from edc.entry_meta_data.helpers import ScheduledEntryMetaDataHelper, RequisitionMetaDataHelper
 from edc.entry_meta_data.models import ScheduledEntryMetaData, RequisitionMetaData
 from edc.subject.appointment.constants import IN_PROGRESS, DONE, INCOMPLETE, NEW
 from edc.subject.entry.models import Entry, LabEntry
 from edc.subject.registration.models import RegisteredSubject
+from edc.subject.rule_groups.classes import site_rule_groups
 from edc.subject.visit_tracking.models.base_visit_tracking import BaseVisitTracking
 from edc.subject.visit_tracking.settings import VISIT_REASON_NO_FOLLOW_UP_CHOICES, VISIT_REASON_FOLLOW_UP_CHOICES
-from edc.subject.rule_groups.classes import site_rule_groups
-from edc.entry_meta_data.helpers import ScheduledEntryMetaDataHelper, RequisitionMetaDataHelper
 
 from apps.mpepu.choices import INFO_PROVIDER
 from apps.mpepu.classes.mpepu_meta_data_mixin import MpepuMetaDataMixin

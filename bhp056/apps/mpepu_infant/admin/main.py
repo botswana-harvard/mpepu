@@ -183,6 +183,7 @@ class InfantArvProphAdmin(InfantVisitModelAdmin):
     form = InfantArvProphForm
     fields = (
         "infant_visit",
+        "report_datetime",
         "prophylatic_nvp",
         "arv_status"
     )
@@ -464,6 +465,7 @@ class InfantFeedingAdmin(InfantVisitModelAdmin):
     form = InfantFeedingForm
     fields = (
         "infant_visit",
+        "report_datetime",
         "last_att_sche_visit",
         "other_feeding",
         "formula_intro_occur",
