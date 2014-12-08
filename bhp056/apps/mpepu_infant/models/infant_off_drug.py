@@ -4,7 +4,8 @@ from django.core.urlresolvers import reverse
 
 from edc.audit.audit_trail import AuditTrail
 from edc.base.model.fields.custom.custom_fields import OtherCharField
-from edc.base.model.validators import datetime_not_before_study_start, datetime_not_future, datetime_is_after_consent, date_not_future
+from edc.base.model.validators import (datetime_not_before_study_start, datetime_not_future, datetime_is_after_consent, 
+                                       date_not_future)
 from edc.entry_meta_data.managers import EntryMetaDataManager
 
 from .infant_visit import InfantVisit
