@@ -7,11 +7,12 @@ except ImportError:
 
 from edc.apps.app_configuration.classes import BaseAppConfiguration
 from edc.core.bhp_variables.models import StudySpecific, StudySite
+from edc.lab.lab_packing.models import DestinationTuple
 from edc.lab.lab_profile.classes import ProfileItemTuple, ProfileTuple
 
+from lis.labeling.classes import LabelPrinterTuple, ZplTemplateTuple, ClientTuple
 from lis.specimen.lab_aliquot_list.classes import AliquotTypeTuple
 from lis.specimen.lab_panel.classes import PanelTuple
-from lis.labeling.classes import LabelPrinterTuple, ZplTemplateTuple, ClientTuple
 
 study_start_datetime = datetime(2011, 05, 10, 8, 00, 00)
 study_end_datetime = datetime(2016, 01, 20, 23, 49, 40)
@@ -125,6 +126,8 @@ class MpepuAppConfiguration(BaseAppConfiguration):
                          AliquotTypeTuple('Stool', 'ST', '01')]}
 
     lab_setup = {'mpepu': {
+                    'destination': [DestinationTuple('BHHRL', 'Botswana-Harvard HIV Reference Laboratory',
+                                                  'Gaborone', '3902671', 'bhhrl@bhp.org.bw'),],
                     'panel': [PanelTuple('BHP023  HEMATOLOGY', 'TEST', 'WB'),
                               PanelTuple('Chromosonal Analysis', 'TEST', 'WB'),
                               PanelTuple('PBMC Plasma (STORE ONLY)', 'STORAGE', 'WB'),

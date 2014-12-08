@@ -1,6 +1,8 @@
 from django import forms
 from django.contrib.admin.widgets import AdminRadioSelect, AdminRadioFieldRenderer
+
 from edc.subject.off_study.forms import BaseOffStudyForm
+
 from apps.mpepu_infant.choices import OFF_STUDY_REASON
 from apps.mpepu_infant.models import InfantOffStudy
 
@@ -16,10 +18,14 @@ class InfantOffStudyForm (BaseOffStudyForm):
 
     def clean(self):
         cleaned_data = self.cleaned_data
-        if  not cleaned_data.get('registered_subject'):
+        if not cleaned_data.get('registered_subject'):
             raise forms.ValidationError('This field is required. Please fill it in')
+
         if not cleaned_data.get('offstudy_date'):
             raise forms.ValidationError('This field is required. Please fill it in')
+
+        self.instance.check_off_drug(InfantOffStudy(**cleaned_data), forms.ValidationError)
+
         return super(InfantOffStudyForm, self).clean()
 
     class Meta:

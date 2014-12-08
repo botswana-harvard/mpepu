@@ -2,13 +2,16 @@ from datetime import datetime, time
 
 from django.core.urlresolvers import reverse
 from django.db import models
+from django.core.exceptions import ValidationError
 
 from edc.audit.audit_trail import AuditTrail
 from edc.base.model.validators import datetime_not_before_study_start, datetime_not_future, datetime_is_after_consent
 from edc.subject.off_study.models.base_off_study import BaseOffStudy
 from edc.entry_meta_data.managers import EntryMetaDataManager
+from edc.subject.registration.models import RegisteredSubject
 
-from .infant_visit import InfantVisit
+
+from ..models import InfantVisit, InfantOffDrug
 
 
 class InfantOffStudy(BaseOffStudy):
@@ -26,6 +29,19 @@ class InfantOffStudy(BaseOffStudy):
             ],
         default=datetime.today()
         )
+
+    def save(self, *args, **kwargs):
+        self.check_off_drug(self)
+        super(InfantOffStudy, self).save(*args, **kwargs)
+
+    def check_off_drug(self, infant_off_study, exception_cls=None):
+        '''If the infant has been randomized, and the InfantOffDrug form is not filled in, raise error.'''
+        if not exception_cls:
+            exception_cls = ValidationError
+        infant_off_drug = InfantOffDrug.objects.filter(registered_subject=self.registered_subject)
+
+        if not infant_off_drug and self.registered_subject.sid:
+                raise exception_cls("Please key in the 'InfantOffDrug' form before you key this form")
 
     def __unicode__(self):
         return "%s" % (self.registered_subject.subject_identifier)
