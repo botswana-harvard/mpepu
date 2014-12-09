@@ -11,9 +11,9 @@ EDC_APPS = (
     'edc.core.bhp_common',
     'edc.core.bhp_content_type_map',
     'edc.core.bhp_context',
-    'edc.core.bhp_data_manager',
     'edc.core.bhp_export_data',
     #'edc.core.bhp_nmap',
+    'edc.core.bhp_data_manager',
     'edc.core.bhp_poll_mysql',
     'edc.core.bhp_site_edc',
     'edc.core.bhp_static',
@@ -33,6 +33,7 @@ EDC_APPS = (
     'edc.dashboard.section',
     'edc.dashboard.subject',
     'edc.data_dictionary',
+#     'edc.data_manager',
 
     'edc.entry_meta_data',
     'edc.export',

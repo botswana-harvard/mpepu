@@ -21,7 +21,7 @@ class ResistanceConsentAdmin(BaseConsentModelAdmin):
 
         super(ResistanceConsentAdmin, self).__init__(*args, **kwargs)
         self.search_fields = ['id', 'subject_identifier', 'first_name', 'last_name', 'identity', ]
-        self.list_display = ['subject_identifier', 'first_name', 'initials', 'gender', 'dob',
+        self.list_display = ['subject_identifier', 'is_verified', 'is_verified_datetime','first_name', 'initials', 'gender', 'dob',
                                  'consent_datetime', 'created', 'modified', 'user_created', 'user_modified', ]
 
         self.fields = [

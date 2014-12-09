@@ -55,6 +55,7 @@ class MaternalVisit(MaternalOffStudyMixin, BaseVisitTracking, MpepuMetaDataMixin
                 dct.update({item: item})
             dct.update({'vital status': 'vital status'})
             del dct['death']
+            del dct['lost']
             return dct
 
     def save(self, *args, **kwargs):
@@ -65,6 +66,7 @@ class MaternalVisit(MaternalOffStudyMixin, BaseVisitTracking, MpepuMetaDataMixin
         self.create_meta_status_if_visit_reason_is_off_study()
         self.avail_forms_on_visit_2000M_only_when_consent_version_is_greater_than_two()
         self.enable_2180M_forms()
+        self.change_meta_if_visit_reason_lost()
         super(MaternalVisit, self).save(*args, **kwargs)
 
     def create_meta_status_if_visit_reason_is_death(self):
@@ -94,6 +96,12 @@ class MaternalVisit(MaternalOffStudyMixin, BaseVisitTracking, MpepuMetaDataMixin
     def enable_2180M_forms(self):
         if self.appointment.visit_definition.code == '2180M':
             entry = self.query_entry('maternaloffstudy', self.appointment.visit_definition)
+            self.create_scheduled_meta_data(self.appointment, entry, self.registered_subject)
+
+    def change_meta_if_visit_reason_lost(self):
+        if self.reason == 'lost':
+            form = 'maternaloffstudy'
+            entry = self.query_entry(form, self.appointment.visit_definition)
             self.create_scheduled_meta_data(self.appointment, entry, self.registered_subject)
 
     def get_absolute_url(self):
