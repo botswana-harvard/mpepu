@@ -1,3 +1,5 @@
+from datetime import date
+
 from django import forms
 
 from apps.mpepu_infant.models import InfantStudyDrug, InfantStudyDrugItems, InfantCtxPlaceboAdh, InfantStudyDrugInit
@@ -45,12 +47,13 @@ class InfantStudyDrugItemsForm (BaseInfantModelForm):
         cleaned_data = self.cleaned_data
         #drug listing dependent upon the participants CTX/placebo status
         inf_study_drug = cleaned_data.get('inf_study_drug')
+        visit_code = inf_study_drug.infant_visit.appointment.visit_definition.code
         if inf_study_drug.drug_status == 'No modification':
             raise forms.ValidationError('Do not fill out the study drug items because you have stated that there was \'NO modification\' to drugs')
-        # status is starting dose shouls be new
+        # status is starting dose should be new
         if inf_study_drug.drug_status == 'Starting CTX/Placebo today' and cleaned_data.get('dose_status')!='New':
             raise forms.ValidationError("Drug status is indicated 'Starting CTX/Placebo', dose status must be 'New'. Please correct.")
-
+        # if status is  'NEW' then reason can only be 'Initial Dose'
         if cleaned_data.get('dose_status') == 'New' and cleaned_data.get('modification_reason') != 'Initial dose':
             raise forms.ValidationError("You indicated that the dose status is 'New', modification reason should be 'Initial dose'. Please correct.")
 
@@ -64,7 +67,23 @@ class InfantStudyDrugItemsForm (BaseInfantModelForm):
             if inf_study_drug.infant_visit.appointment.visit_definition.code != '2150' and inf_study_drug.infant_visit.appointment.visit_definition.code != '2180':
                 raise forms.ValidationError("You indicated Completion of protocol as reason study drug is permanently discontinued yet this is visit {}."
                                             .format(inf_study_drug.infant_visit.appointment.visit_definition.code))
-
+        # Validate dose status vs modification reason
+        if cleaned_data.get('dose_status') == 'Permanently discontinued' and cleaned_data.get('modification_reason') == 'Initial dose':
+            raise forms.ValidationError('You indicated dose status as "Permanently discontinued", You CANNOT indicate modification reason as "Initial dose". Please correct')
+        # Ensure cannot start study drug more than once
+        if cleaned_data.get('dose_status') == 'New':
+            check_drugs = InfantStudyDrugItems.objects.filter(inf_study_drug__infant_visit__subject_identifier=inf_study_drug.infant_visit.subject_identifier, dose_status='New')
+            if check_drugs and check_drugs[0].inf_study_drug.infant_visit.appointment.visit_definition.code != visit_code:
+                raise forms.ValidationError('Study Drug has already been initiated at {}. Please correct.'.format(check_drugs[0].inf_study_drug.infant_visit.appointment.visit_definition.code))
+            # Ensure start date is not before randomization
+            rando_date = inf_study_drug.infant_visit.appointment.registered_subject.randomization_datetime.date()
+            if cleaned_data.get('ingestion_date') < rando_date:
+                raise forms.ValidationError('Study initiation date CANNOT be before randomization date.')
+        # Ensure cannot discontinue study drug more than once
+        if cleaned_data.get('dose_status') == 'Permanently discontinued':
+            check_drugs = InfantStudyDrugItems.objects.filter(inf_study_drug__infant_visit__subject_identifier=inf_study_drug.infant_visit.subject_identifier, dose_status='Permanently discontinued')
+            if check_drugs and check_drugs[0].inf_study_drug.infant_visit.appointment.visit_definition.code != visit_code:
+                raise forms.ValidationError('Study Drug has already been discontinued at {}. Please correct.'.format(check_drugs[0].inf_study_drug.infant_visit.appointment.visit_definition.code))
         return super(InfantStudyDrugItemsForm, self).clean()
 
     class Meta:
@@ -103,6 +122,10 @@ class InfantStudyDrugInitForm(BaseInfantModelForm):
             if study_drug_items[0].ingestion_date != cleaned_data.get('first_dose_date'):
                 raise forms.ValidationError("You indicated that Study Drug initiation date was {0}, yet indicated {1} on {2}. Please correct"
                     .format(cleaned_data.get('first_dose_date'), study_drug_items[0].ingestion_date,study_drug_items[0]._meta.verbose_name))
+        #Ensure first dose date is not before randomization date
+        rando_date = cleaned_data.get('infant_visit').appointment.registered_subject.randomization_datetime.date()
+        if cleaned_data.get('first_dose_date') < rando_date:
+            raise forms.ValidationError('First dose date cannot be before randomization date. Please correct.')
         return super(InfantStudyDrugInitForm, self).clean()
 
     class Meta:

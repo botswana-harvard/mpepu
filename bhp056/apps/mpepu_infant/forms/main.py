@@ -87,7 +87,13 @@ class InfantArvProphModForm (forms.ModelForm):
         if infant_arv_proph.arv_status == 'N/A' or infant_arv_proph.arv_status == 'never started':
             if cleaned_data.get('arv_code'):
                 raise forms.ValidationError('You cannot fill in NVP/AZT Proph modification form with the arv status you chose. Please correct.')
-
+        # Ensure cannot enter discountinuation for the same arv more than once
+        if cleaned_data.get('dose_status') == 'Permanently discontinued':
+            check_arvs = InfantArvProphMod.objects.filter(arv_code=cleaned_data.get('arv_code'), 
+                    dose_status='Permanently discontinued', infant_arv_proph__infant_visit__subject_identifier=cleaned_data.get('infant_arv_proph').infant_visit.subject_identifier)
+            if check_arvs:
+                raise forms.ValidationError('You cannot indicate "Permanently discontinued" for {} as it has already been discontinued at {}'
+                                            .format(cleaned_data.get('arv_code'), check_arvs[0].infant_arv_proph.infant_visit.appointment.visit_definition.code))
         return cleaned_data
 
     class Meta:
