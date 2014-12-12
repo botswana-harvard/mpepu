@@ -34,7 +34,7 @@ class InfantStudyDrugForm (BaseInfantModelForm):
                 raise forms.ValidationError("Please fill out the study drug items as you indicated 'Starting' or 'Change' in CTX/Placebo.")
         # If study drug nerver start, provide a reason
         if cleaned_data.get('drug_status')=='Never started' and not check_drugs:
-            raise forms.ValidationError('Please provide a reason why the study drug was not inittiated.')
+            raise forms.ValidationError('Please provide a reason why the study drug was not initiated.')
         return super(InfantStudyDrugForm, self).clean()
 
     class Meta:

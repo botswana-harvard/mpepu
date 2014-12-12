@@ -161,9 +161,13 @@ class InfantFeedingForm (BaseInfantModelForm):
         if cleaned_data.get('formula_date') and visit:
             if cleaned_data.get('formula_date') > visit.report_datetime.date():
                 raise forms.ValidationError('Date participant first received formula milk cannot be greater than today\'s date. Please correct.')
+            if cleaned_data.get('formula_date') < visit.appointment.registered_subject.dob:
+                raise forms.ValidationError('Date participant first received formula milk cannot be less than the date of birth of {}'.format(visit.appointment.registered_subject.dob))
         if cleaned_data.get('most_recent_bm') and visit:
             if cleaned_data.get('most_recent_bm') > visit.report_datetime.date():
                 raise forms.ValidationError('The most recent breast feeding date cannot be greater than today\'s date. Please correct.')
+            if cleaned_data.get('most_recent_bm') < visit.appointment.registered_subject.dob:
+                raise forms.ValidationError('The most recent breast feeding date cannot be less than the date of birth of {}'.format(visit.appointment.registered_subject.dob))
 
         # infants should either be FF or BF they cannot be neither
         if cleaned_data.get('other_feeding', None) != 'Yes' and cleaned_data.get('ever_breastfeed', None) != 'Yes':
@@ -185,7 +189,11 @@ class InfantFeedingForm (BaseInfantModelForm):
                 raise forms.ValidationError("You indicated that infant has not received other foods or liquids other than breast milk(Q3) and yet selected infant received cereal and porridge. Please correct")
             if cleaned_data.get('rehydration_salts') == 'Yes':
                 raise forms.ValidationError("You indicated that infant has not received other foods or liquids other than breast milk(Q3) and yet selected infant received rehydration salts. Please correct")
-
+        if cleaned_data.get('other_feeding') == 'Yes':
+            if (cleaned_data.get('juice') == 'No' and cleaned_data.get('cow_milk') == 'No' 
+                and cleaned_data.get('other_milk') == 'No' and cleaned_data.get('fruits_veg') == 'No' 
+                and cleaned_data.get('cereal_porridge') == 'No' and cleaned_data.get('solid_liquid') == 'No'):
+                raise forms.ValidationError('You indicated that infant has received other foods or liquids yet did NOT indicate any solids or liquids received.')
         return super(InfantFeedingForm, self).clean()
 
     class Meta:
