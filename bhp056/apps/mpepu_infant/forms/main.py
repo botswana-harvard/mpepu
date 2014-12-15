@@ -87,7 +87,13 @@ class InfantArvProphModForm (forms.ModelForm):
         if infant_arv_proph.arv_status == 'N/A' or infant_arv_proph.arv_status == 'never started':
             if cleaned_data.get('arv_code'):
                 raise forms.ValidationError('You cannot fill in NVP/AZT Proph modification form with the arv status you chose. Please correct.')
-
+        # Ensure cannot enter discountinuation for the same arv more than once
+        if cleaned_data.get('dose_status') == 'Permanently discontinued':
+            check_arvs = InfantArvProphMod.objects.filter(arv_code=cleaned_data.get('arv_code'), 
+                    dose_status='Permanently discontinued', infant_arv_proph__infant_visit__subject_identifier=cleaned_data.get('infant_arv_proph').infant_visit.subject_identifier)
+            if check_arvs:
+                raise forms.ValidationError('You cannot indicate "Permanently discontinued" for {} as it has already been discontinued at {}'
+                                            .format(cleaned_data.get('arv_code'), check_arvs[0].infant_arv_proph.infant_visit.appointment.visit_definition.code))
         return cleaned_data
 
     class Meta:
@@ -155,9 +161,13 @@ class InfantFeedingForm (BaseInfantModelForm):
         if cleaned_data.get('formula_date') and visit:
             if cleaned_data.get('formula_date') > visit.report_datetime.date():
                 raise forms.ValidationError('Date participant first received formula milk cannot be greater than today\'s date. Please correct.')
+            if cleaned_data.get('formula_date') < visit.appointment.registered_subject.dob:
+                raise forms.ValidationError('Date participant first received formula milk cannot be less than the date of birth of {}'.format(visit.appointment.registered_subject.dob))
         if cleaned_data.get('most_recent_bm') and visit:
             if cleaned_data.get('most_recent_bm') > visit.report_datetime.date():
                 raise forms.ValidationError('The most recent breast feeding date cannot be greater than today\'s date. Please correct.')
+            if cleaned_data.get('most_recent_bm') < visit.appointment.registered_subject.dob:
+                raise forms.ValidationError('The most recent breast feeding date cannot be less than the date of birth of {}'.format(visit.appointment.registered_subject.dob))
 
         # infants should either be FF or BF they cannot be neither
         if cleaned_data.get('other_feeding', None) != 'Yes' and cleaned_data.get('ever_breastfeed', None) != 'Yes':
@@ -179,7 +189,11 @@ class InfantFeedingForm (BaseInfantModelForm):
                 raise forms.ValidationError("You indicated that infant has not received other foods or liquids other than breast milk(Q3) and yet selected infant received cereal and porridge. Please correct")
             if cleaned_data.get('rehydration_salts') == 'Yes':
                 raise forms.ValidationError("You indicated that infant has not received other foods or liquids other than breast milk(Q3) and yet selected infant received rehydration salts. Please correct")
-
+        if cleaned_data.get('other_feeding') == 'Yes':
+            if (cleaned_data.get('juice') == 'No' and cleaned_data.get('cow_milk') == 'No' 
+                and cleaned_data.get('other_milk') == 'No' and cleaned_data.get('fruits_veg') == 'No' 
+                and cleaned_data.get('cereal_porridge') == 'No' and cleaned_data.get('solid_liquid') == 'No'):
+                raise forms.ValidationError('You indicated that infant has received other foods or liquids yet did NOT indicate any solids or liquids received.')
         return super(InfantFeedingForm, self).clean()
 
     class Meta:
