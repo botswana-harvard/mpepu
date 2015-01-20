@@ -17,8 +17,11 @@ from edc.subject.lab_tracker.classes import site_lab_tracker
 from edc.subject.off_study.exceptions import SubjectOffStudyError, SubjectOffStudyDateError
 from edc.subject.registration.models import RegisteredSubject
 from edc.subject.visit_schedule.tests.factories import MembershipFormFactory, ScheduleGroupFactory, VisitDefinitionFactory
+from edc.lab.lab_profile.classes import site_lab_profiles
+from edc.lab.lab_profile.exceptions import AlreadyRegistered
 
 from apps.mpepu.mpepu_app_configuration.classes import MpepuAppConfiguration
+from apps.mpepu_lab.lab_profiles import MpepuMaternalProfile
 
 from ..models import MaternalVisit, MaternalConsent, MaternalOffStudy, MaternalEligibilityAnte, MaternalEligibilityPost, MaternalPostReg
 from ..tests.factories import MaternalConsentFactory, MaternalOffStudyFactory, MaternalVisitFactory, MaternalEligibilityAnteFactory, MaternalLabDelFactory
@@ -42,6 +45,11 @@ class MaternalOffStudyTests(TestCase):
                 self.assertTrue('get_subject_identifier' in dir(model), 'Method \'get_subject_identifier\' not found on model {0}'.format(model._meta.object_name))
 
     def test_p1(self):
+        try:
+            site_lab_profiles.register(MpepuMaternalProfile())
+        except AlreadyRegistered:
+            pass
+        MpepuAppConfiguration().prepare()
         site_lab_tracker.autodiscover()
         StudySpecificFactory()
         study_site = StudySiteFactory()

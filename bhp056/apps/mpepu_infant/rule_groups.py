@@ -93,7 +93,7 @@ class StoolSamplingRuleGroup(RuleGroup):
 site_rule_groups.register(StoolSamplingRuleGroup)
 
 
-#this is meant to be applicable from visit 2030 onwards
+# this is meant to be applicable from visit 2030 onwards
 class FeedingChoiceRuleGroup(RuleGroup):
 
     maternal_feeding_choice = RequisitionRule(
