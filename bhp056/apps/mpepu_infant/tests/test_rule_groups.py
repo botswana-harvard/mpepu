@@ -26,10 +26,12 @@ from apps.mpepu_infant.tests.factories import (InfantBirthFactory, InfantVisitFa
                                                InfantStudyDrugFactory, InfantStoolCollectionFactory)
 from apps.mpepu_infant_rando.tests import InfantRandomizationTests, RandoTestHelper
 from apps.mpepu_infant_rando.models import InfantRando
-from apps.mpepu_infant.models import InfantVisit
+from apps.mpepu_maternal.models import (MaternalConsent, MaternalLabDel, MaternalEligibilityPost, 
+                                        MaternalEligibilityPost, MaternalVisit)
+from apps.mpepu_infant.models import InfantVisit, InfantBirth, InfantEligibility
 
 from apps.mpepu_infant.rule_groups import (InfantArvProphRuleGroup, InfantFuRuleGroup, InfantBirthDataRuleGroup,
-                                           InfantStudyDrugRuleGroup)
+                                           InfantStudyDrugRuleGroup, FeedingChoiceRuleGroup)
 
 
 class InfantRuleGroupsTests(TestCase):
@@ -79,13 +81,26 @@ class InfantRuleGroupsTests(TestCase):
         self.infant_visit = InfantVisitFactory(appointment=self.appointment, report_datetime=datetime.today(), reason='scheduled', study_status = 'onstudy notrando')
         self.infant_eligibility = InfantEligibilityFactory(infant_birth=self.infant_birth, registered_subject=self.registered_subject)
 #         print 'infant eligibility {}'.format(self.infant_eligibility)
-        app_2010 = Appointment.objects.get(registered_subject=self.registered_subject, visit_definition__code='2010')
-        self.visit_2010 = InfantVisitFactory(appointment=app_2010, report_datetime=datetime.today(), reason='scheduled', study_status = 'onstudy rando today')
-        app_2020 = Appointment.objects.get(registered_subject=self.registered_subject, visit_definition__code='2020')
-        self.visit_2020 = InfantVisitFactory(appointment=app_2020, report_datetime=datetime.today(), reason='scheduled', study_status = 'onstudy rando ondrug')
+        self.app_2010 = Appointment.objects.get(registered_subject=self.registered_subject, visit_definition__code='2010')
+        self.visit_2010 = InfantVisitFactory(appointment=self.app_2010, report_datetime=datetime.today(), reason='scheduled', study_status = 'onstudy rando today')
+        self.app_2020 = Appointment.objects.get(registered_subject=self.registered_subject, visit_definition__code='2020')
+        self.visit_2020 = InfantVisitFactory(appointment=self.app_2020, report_datetime=datetime.today(), reason='scheduled', study_status = 'onstudy rando ondrug')
+        self.app_2030 = Appointment.objects.get(registered_subject=self.registered_subject, visit_definition__code='2030')
+        self.visit_2030 = InfantVisitFactory(appointment=self.app_2030, report_datetime=datetime.today(), reason='scheduled', study_status = 'onstudy rando ondrug')
 #         self.fu = InfantFuFactory(infant_visit=visit_2010)
 #         self.fu_physical = InfantFuPhysicalFactory(infant_fu=self.fu, infant_visit=visit_2010)
 #         self.fu_dx = InfantFuDxFactory(infant_fu=self.fu, infant_visit=visit_2010)
+
+    def teardown(self):
+        RegisteredSubject.objects.all().delete()
+        MaternalConsent.objects.all().delete()
+        InfantBirth.objects.all().delete()
+        InfantEligibility.objects.all().delete()
+        InfantVisit.objects.all().delete()
+        Appointment.objects.all().delete()
+        MaternalLabDel.objects.all().delete()
+        MaternalEligibilityPost.objects.all().delete()
+        MaternalVisit.objects.all().delete()
 
     def test_infant_birth_data_rule_group(self):
         """If indicated 'Yes' for congenital anomalies in InfantBirthData then CongenitalAnomalies form is required"""
@@ -182,16 +197,35 @@ class InfantRuleGroupsTests(TestCase):
         """Check rule group on stool sampling"""
         print "Assert that upon creation of a 2010 visit, stool sample is required."
         lab_entry = LabEntry.objects.get(model_name='infantrequisition', requisition_panel__name='Stool storage', visit_definition__code='2010')
-#         requisition = RequisitionMetaData.objects.get(registered_subject=self.registered_subject, appointment=self.visit_2010.appointment, lab_entry=lab_entry)
-#         self.assertEqual(requisition.entry_status, 'NEW')
 
         print "Assert that if sample_obtained is indicated as Yes then InfantStoolCollection is New"
         stool = InfantStoolCollectionFactory(infant_visit=self.visit_2010, sample_obtained='Yes')
         requisition = RequisitionMetaData.objects.get(registered_subject=self.registered_subject, appointment=self.visit_2010.appointment, lab_entry=lab_entry)
         self.assertEqual(requisition.entry_status, 'NEW')
 
-        print "Assert that if sample_obtained is indicated as No then InfantStoolCollection is New"
+        print "Assert that if sample_obtained is indicated as No then InfantStoolCollection is NOT_REQUIRED"
         stool.sample_obtained = 'No'
         stool.save()
         requisition = RequisitionMetaData.objects.get(registered_subject=self.registered_subject, appointment=self.visit_2010.appointment, lab_entry=lab_entry)
         self.assertEqual(requisition.entry_status, 'NOT_REQUIRED')
+
+    def test_feeding_choice_rule_groups(self):
+        """Check rule group on feeding choice"""
+        print "Assert that when a 2030 visit is created DNA PCR is NEW"
+        lab_entry = LabEntry.objects.get(model_name='infantrequisition', requisition_panel__name='DNA PCR', visit_definition__code='2030')
+        requisition = RequisitionMetaData.objects.get(registered_subject=self.registered_subject, appointment=self.visit_2030.appointment, lab_entry=lab_entry)
+        self.assertEqual(requisition.entry_status, 'NEW')
+
+#         print "Assert that if Formula feeeding DNA PCR is NOT_REQUIRED"
+#         self.infant_eligibility.maternal_feeding_choice = 'FF'
+#         self.infant_eligibility.appointment = self.app_2030
+#         self.infant_eligibility.save()
+#         requisition = RequisitionMetaData.objects.get(registered_subject=self.registered_subject, appointment=self.visit_2030.appointment, lab_entry=lab_entry)
+#         self.assertEqual(requisition.entry_status, 'NOT_REQUIRED')
+
+        print "Assert that if Beastfeeeding DNA PCR is NEW"
+        self.infant_eligibility.maternal_feeding_choice = 'BF'
+        self.infant_eligibility.appointment = self.app_2030
+        self.infant_eligibility.save()
+        requisition = RequisitionMetaData.objects.get(registered_subject=self.registered_subject, appointment=self.visit_2030.appointment, lab_entry=lab_entry)
+        self.assertEqual(requisition.entry_status, 'NEW')
