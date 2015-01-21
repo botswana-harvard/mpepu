@@ -8,3 +8,5 @@ from .infant_arv_proph_factory import InfantArvProphFactory
 from .infant_arv_proph_mod_factory import InfantArvProphModFactory
 from .infant_fu_factory import *
 from .infant_off_drug_factory import InfantOffDrugFactory
+from .infant_study_drug_factory import *
+from .infant_stool_collection_factory import InfantStoolCollectionFactory

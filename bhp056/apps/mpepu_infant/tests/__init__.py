@@ -3,3 +3,4 @@ from .test_infant_birth import InfantBirthTests
 from .test_infant_fu import InfantFuTests
 from .test_infant_eligibility import InfantEligibilityTests
 from .test_infant_visit import InfantVisitTests
+from .test_rule_groups import InfantRuleGroupsTests
