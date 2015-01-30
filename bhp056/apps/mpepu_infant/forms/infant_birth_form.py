@@ -154,8 +154,8 @@ class InfantBirthArvForm (BaseInfantModelForm):
         if cleaned_data.get('sdnvp_after_birth') == 'No' and cleaned_data.get('nvp_dose_date'):
             raise forms.ValidationError('You indicated that NVP was NOT given after birth and yet provided the date it was administered. Please correct.')
         # Ensure that cannot indicate that infant did not receive any prophylaxis at birth
-        if cleaned_data.get('sdnvp_after_birth') == 'No' and cleaned_data.get('azt_after_birth') == 'No':
-            raise forms.ValidationError('No prophylaxis has been indicated for this participant. Please correct.')
+#         if cleaned_data.get('sdnvp_after_birth') == 'No' and cleaned_data.get('azt_after_birth') == 'No':
+#             raise forms.ValidationError('No prophylaxis has been indicated for this participant. Please correct.')
         # Ensure dates given not before dob
         if cleaned_data.get('azt_dose_date') and birth:
             if cleaned_data.get('azt_dose_date') < birth.dob:

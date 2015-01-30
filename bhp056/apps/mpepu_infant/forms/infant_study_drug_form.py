@@ -70,6 +70,11 @@ class InfantStudyDrugItemsForm (BaseInfantModelForm):
         # Validate dose status vs modification reason
         if cleaned_data.get('dose_status') == 'Permanently discontinued' and cleaned_data.get('modification_reason') == 'Initial dose':
             raise forms.ValidationError('You indicated dose status as "Permanently discontinued", You CANNOT indicate modification reason as "Initial dose". Please correct')
+        no_start_reasons = ['Initial dose', 'Scheduled dose increase', 'completed protocol', 'Rash resolved', 'Completed postpartum tail', 'Completed PMTCT intervention']
+        if cleaned_data.get('dose_status') == 'Not initiated':
+            if cleaned_data.get('modification_reason') in no_start_reasons:
+                raise forms.ValidationError('You indicated dose status as "Not initiated". Modification reason cannot be {}. Please correct'
+                                        .format(cleaned_data.get('modification_reason')))
         # Ensure cannot start study drug more than once
         if cleaned_data.get('dose_status') == 'New':
             check_drugs = InfantStudyDrugItems.objects.filter(inf_study_drug__infant_visit__subject_identifier=inf_study_drug.infant_visit.subject_identifier, dose_status='New')
@@ -120,11 +125,12 @@ class InfantStudyDrugInitForm(BaseInfantModelForm):
                     raise forms.ValidationError("You indicated that Study Drug was Not being initiated on {}. Please correct".format(study_drug[0]._meta.verbose_name))
         if study_drug_items:
             if study_drug_items[0].ingestion_date != cleaned_data.get('first_dose_date'):
-                raise forms.ValidationError("You indicated that Study Drug initiation date was {0}, yet indicated {1} on {2}. Please correct"
-                    .format(cleaned_data.get('first_dose_date'), study_drug_items[0].ingestion_date,study_drug_items[0]._meta.verbose_name))
+                if study_drug_items[0].dose_status=='New':
+                    raise forms.ValidationError("You indicated that Study Drug initiation date was {0}, yet indicated {1} on {2}. Please correct"
+                                                .format(cleaned_data.get('first_dose_date'), study_drug_items[0].ingestion_date,study_drug_items[0]._meta.verbose_name))
         #Ensure first dose date is not before randomization date
         rando_date = cleaned_data.get('infant_visit').appointment.registered_subject.randomization_datetime.date()
-        if cleaned_data.get('first_dose_date') < rando_date:
+        if cleaned_data.get('first_dose_date') and cleaned_data.get('first_dose_date') < rando_date:
             raise forms.ValidationError('First dose date cannot be before randomization date. Please correct.')
         return super(InfantStudyDrugInitForm, self).clean()
 
