@@ -77,6 +77,7 @@ class MaternalArvInlineAdmin(BaseTabularInline):
 class MaternalArvAdmin(BaseModelAdmin):
 
     fields = (
+        "report_datetime",
         "arv_code",
         "date_start",
         "date_stop",
@@ -111,6 +112,7 @@ class MaternalArvPregHistoryAdmin(MyMaternalArvPregHistoryAdmin):
     fields = (
         "maternal_visit",
         "maternal_arv_preg",
+        "report_datetime",
         "is_interrupt",
         "interrupt",
         "interrupt_other",

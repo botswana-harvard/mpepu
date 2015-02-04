@@ -37,10 +37,10 @@ class InfantPrerandoLossForm(BaseInfantModelForm):
         model = InfantPrerandoLoss
 
 
-class InfantStudyDrugInitForm (forms.ModelForm):
-
-    class Meta:
-        model = InfantStudyDrugInit
+# class InfantStudyDrugInitForm (forms.ModelForm):
+# 
+#     class Meta:
+#         model = InfantStudyDrugInit
 
 
 class InfantSurvivalForm (forms.ModelForm):

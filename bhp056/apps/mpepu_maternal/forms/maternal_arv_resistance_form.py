@@ -48,8 +48,9 @@ class ResistanceDiscForm(BaseMaternalModelForm):
             raise ValidationError('You indicated that antiretrovirals were stopped. Please provide a date')
         if cleaned_data.get('stopped_once') == 'No' and cleaned_data.get('last_arv_date'):
             raise ValidationError('You indicated that antiretrovirals were not stopped without a tail yet you provided a date. Please correct')
-        if cleaned_data.get('stopped_once') == 'Yes' and cleaned_data.get('last_ftc_date') or cleaned_data.get('last_tdf_date') or cleaned_data.get('last_3tc_date'):
-            raise ValidationError('You indicated that antiretrovitals were stopped all at once. Please correct. ')
+        if cleaned_data.get('stopped_once') == 'Yes':
+            if cleaned_data.get('last_ftc_date') or cleaned_data.get('last_tdf_date') or cleaned_data.get('last_3tc_date'):
+                raise ValidationError('You indicated that antiretrovitals were stopped all at once. Please correct. ')
 
         return super(ResistanceDiscForm, self).clean()
 

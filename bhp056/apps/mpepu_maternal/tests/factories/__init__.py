@@ -9,3 +9,6 @@ from .resistance_consent_factory import ResistanceConsentFactory
 from .maternal_post_reg_factory import MaternalPostRegFactory
 from .maternal_post_fu_factory import *
 from .maternal_arv_post_factory import *
+from .maternal_enroll_factory import *
+from .maternal_arv_preg_factory import *
+from .maternal_feeding_choice_factory import *
