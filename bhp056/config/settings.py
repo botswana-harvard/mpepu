@@ -5,7 +5,7 @@ import platform
 import sys
 import logger
 
-from .installed_apps import MPEPU_INSTALLED_APPS
+from .installed_apps import DJANGO_APPS, THIRD_PARTY_APPS, EDC_APPS, LIS_APPS, LOCAL_APPS
 
 
 DEBUG = False
@@ -212,7 +212,7 @@ ROOT_URLCONF = 'config.urls'
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'config.wsgi.application'
 
-INSTALLED_APPS = MPEPU_INSTALLED_APPS
+INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + EDC_APPS + LIS_APPS + LOCAL_APPS
 
 # django email settings
 EMAIL_HOST = 'mail.bhp.org.bw'
@@ -271,6 +271,7 @@ FIELD_MAX_LENGTH = 'migration'
 # LAB REFERENCE AND GRADING
 REFERENCE_RANGE_LIST = 'BHPLAB_NORMAL_RANGES_201005'
 GRADING_LIST = 'DAIDS_2004'
+
 # for bhp_import_dmis
 dsn = 's012'
 user = 'sa'
