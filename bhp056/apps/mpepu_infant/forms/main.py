@@ -175,6 +175,8 @@ class InfantFeedingForm (BaseInfantModelForm):
 
         # Other feeding validaions
         if cleaned_data.get('other_feeding') == 'No':
+            if cleaned_data.get('formula') == 'Yes':
+                raise forms.ValidationError("You indicated that infant has not received other foods or liquids other than breast milk(Q3) and yet selected infant received Formula. Please correct")
             if cleaned_data.get('juice') == 'Yes':
                 raise forms.ValidationError("You indicated that infant has not received other foods or liquids other than breast milk(Q3) and yet selected infant received juice. Please correct")
             if cleaned_data.get('cow_milk') == 'Yes':
@@ -192,7 +194,8 @@ class InfantFeedingForm (BaseInfantModelForm):
         if cleaned_data.get('other_feeding') == 'Yes':
             if (cleaned_data.get('juice') == 'No' and cleaned_data.get('cow_milk') == 'No' 
                 and cleaned_data.get('other_milk') == 'No' and cleaned_data.get('fruits_veg') == 'No' 
-                and cleaned_data.get('cereal_porridge') == 'No' and cleaned_data.get('solid_liquid') == 'No'):
+                and cleaned_data.get('cereal_porridge') == 'No' and cleaned_data.get('solid_liquid') == 'No'
+                and cleaned_data.get('formula') == 'No'):
                 raise forms.ValidationError('You indicated that infant has received other foods or liquids yet did NOT indicate any solids or liquids received.')
         return super(InfantFeedingForm, self).clean()
 
