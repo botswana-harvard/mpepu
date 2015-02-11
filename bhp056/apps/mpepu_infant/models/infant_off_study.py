@@ -34,15 +34,6 @@ class InfantOffStudy(BaseOffStudy):
         self.check_off_drug(self)
         super(InfantOffStudy, self).save(*args, **kwargs)
 
-    def check_off_drug(self, infant_off_study, exception_cls=None):
-        '''If the infant has been randomized, and the InfantOffDrug form is not filled in, raise error.'''
-        if not exception_cls:
-            exception_cls = ValidationError
-        infant_off_drug = InfantOffDrug.objects.filter(registered_subject=self.registered_subject)
-
-        if not infant_off_drug and self.registered_subject.sid:
-                raise exception_cls("Please key in the 'InfantOffDrug' form before you key this form")
-
     def __unicode__(self):
         return "%s" % (self.registered_subject.subject_identifier)
 
