@@ -77,7 +77,7 @@ class InfantStudyDrugItemsForm (BaseInfantModelForm):
                                         .format(cleaned_data.get('modification_reason')))
         # Ensure cannot start study drug more than once
         if cleaned_data.get('dose_status') == 'New':
-            check_drugs = InfantStudyDrugItems.objects.filter(inf_study_drug__infant_visit__subject_identifier=inf_study_drug.infant_visit.subject_identifier, dose_status='New')
+            check_drugs = InfantStudyDrugItems.objects.filter(inf_study_drug__infant_visit__appointment__registered_subject__subject_identifier=inf_study_drug.infant_visit.appointment.registered_subject.subject_identifier, dose_status='New')
             if check_drugs and check_drugs[0].inf_study_drug.infant_visit.appointment.visit_definition.code != visit_code:
                 raise forms.ValidationError('Study Drug has already been initiated at {}. Please correct.'.format(check_drugs[0].inf_study_drug.infant_visit.appointment.visit_definition.code))
             # Ensure start date is not before randomization
@@ -86,7 +86,7 @@ class InfantStudyDrugItemsForm (BaseInfantModelForm):
                 raise forms.ValidationError('Study initiation date CANNOT be before randomization date.')
         # Ensure cannot discontinue study drug more than once
         if cleaned_data.get('dose_status') == 'Permanently discontinued':
-            check_drugs = InfantStudyDrugItems.objects.filter(inf_study_drug__infant_visit__subject_identifier=inf_study_drug.infant_visit.subject_identifier, dose_status='Permanently discontinued')
+            check_drugs = InfantStudyDrugItems.objects.filter(inf_study_drug__infant_visit__appointment__registered_subject__subject_identifier=inf_study_drug.infant_visit.appointment.registered_subject.subject_identifier, dose_status='Permanently discontinued')
             if check_drugs and check_drugs[0].inf_study_drug.infant_visit.appointment.visit_definition.code != visit_code:
                 raise forms.ValidationError('Study Drug has already been discontinued at {}. Please correct.'.format(check_drugs[0].inf_study_drug.infant_visit.appointment.visit_definition.code))
         return super(InfantStudyDrugItemsForm, self).clean()

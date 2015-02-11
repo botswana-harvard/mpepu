@@ -90,9 +90,10 @@ class InfantArvProphModForm (forms.ModelForm):
         # Ensure cannot enter discountinuation for the same arv more than once
         if cleaned_data.get('dose_status') == 'Permanently discontinued':
             check_arvs = InfantArvProphMod.objects.filter(arv_code=cleaned_data.get('arv_code'), 
-                    dose_status='Permanently discontinued', infant_arv_proph__infant_visit__subject_identifier=cleaned_data.get('infant_arv_proph').infant_visit.subject_identifier)
+                    dose_status='Permanently discontinued', infant_arv_proph__infant_visit__appointment__registered_subject__subject_identifier=cleaned_data.get('infant_arv_proph').infant_visit.appointment.registered_subject.subject_identifier)
             if check_arvs:
-                raise forms.ValidationError('You cannot indicate "Permanently discontinued" for {} as it has already been discontinued at {}'
+                if check_arvs[0].infant_arv_proph.infant_visit.appointment.visit_definition.code != infant_arv_proph.infant_visit.appointment.visit_definition.code:
+                    raise forms.ValidationError('You cannot indicate "Permanently discontinued" for {} as it has already been discontinued at {}'
                                             .format(cleaned_data.get('arv_code'), check_arvs[0].infant_arv_proph.infant_visit.appointment.visit_definition.code))
         return cleaned_data
 
