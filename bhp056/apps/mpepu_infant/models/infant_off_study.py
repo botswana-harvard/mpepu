@@ -31,7 +31,6 @@ class InfantOffStudy(BaseOffStudy):
         )
 
     def save(self, *args, **kwargs):
-        self.check_off_drug(self)
         super(InfantOffStudy, self).save(*args, **kwargs)
 
     def __unicode__(self):
