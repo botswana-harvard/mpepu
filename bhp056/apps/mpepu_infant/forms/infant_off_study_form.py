@@ -4,7 +4,8 @@ from django.contrib.admin.widgets import AdminRadioSelect, AdminRadioFieldRender
 from edc.subject.off_study.forms import BaseOffStudyForm
 
 from apps.mpepu_infant.choices import OFF_STUDY_REASON
-from apps.mpepu_infant.models import InfantOffStudy
+from apps.mpepu_infant.models import InfantOffStudy, InfantOffDrug
+from apps.mpepu_infant_rando.models import InfantRando
 
 
 class InfantOffStudyForm (BaseOffStudyForm):
@@ -24,7 +25,11 @@ class InfantOffStudyForm (BaseOffStudyForm):
         if not cleaned_data.get('offstudy_date'):
             raise forms.ValidationError('This field is required. Please fill it in')
 
-        self.instance.check_off_drug(InfantOffStudy(**cleaned_data), forms.ValidationError)
+        #If Infant Drug has not been discontinued and infant is randomised, raise error
+        infant_rando = InfantRando.objects.filter(subject_identifier=cleaned_data.get('registered_subject').subject_identifier)
+        infant_off_drug = InfantOffDrug.objects.filter(registered_subject=cleaned_data.get('registered_subject'))
+        if not infant_off_drug and infant_rando:
+            raise forms.ValidationError('Please key in InfantOffDrug before keying in the Off-study form.')
 
         return super(InfantOffStudyForm, self).clean()
 
