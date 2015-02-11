@@ -10,7 +10,7 @@ class MaternalPostRegForm (BaseMaternalModelForm):
     def clean(self):
 
         cleaned_data = self.cleaned_data
-        if not cleaned_data.get('registered_subject'):
+        if not cleaned_data.get('registered_subject') or not cleaned_data.get('reg_datetime'):
             raise forms.ValidationError('This field is required. Please fill it in')
 
         registered_subject = cleaned_data.get('registered_subject', None)
