@@ -89,7 +89,7 @@ else:
             'USER': 'root',
             'PASSWORD': 'cc3721b',
             'HOST': '192.168.1.47',
-            'PORT': '',
+            'PORT': '3306',
         },
         'lab_api': {
             'ENGINE': 'django.db.backends.mysql',
