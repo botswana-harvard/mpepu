@@ -88,7 +88,7 @@ else:
             'NAME': 'bhp056',
             'USER': 'root',
             'PASSWORD': 'cc3721b',
-            'HOST': '',
+            'HOST': '192.168.1.47',
             'PORT': '',
         },
         'lab_api': {
@@ -254,7 +254,7 @@ DEVICE_ID = '99'
 SERVER_DEVICE_ID_LIST = [99,]
 MIDDLEMAN_DEVICE_ID_LIST = []
 SUBJECT_TYPES = ['infant', 'maternal']
-MAX_SUBJECTS = {'maternal': 3274, 'infant': 4500}
+MAX_SUBJECTS = {'maternal': 3724, 'infant': 4500}
 APPOINTMENTS_PER_DAY_MAX = 20
 APPOINTMENTS_DAYS_FORWARD = 15
 LABEL_PRINTER_MAKE_AND_MODEL = ['Zebra ZPL Label Printer']
