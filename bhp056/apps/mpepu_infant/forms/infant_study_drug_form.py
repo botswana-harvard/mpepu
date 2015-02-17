@@ -48,7 +48,7 @@ class InfantStudyDrugItemsForm (BaseInfantModelForm):
         #drug listing dependent upon the participants CTX/placebo status
         inf_study_drug = cleaned_data.get('inf_study_drug')
         visit_code = inf_study_drug.infant_visit.appointment.visit_definition.code
-        if inf_study_drug.drug_status == 'No modification':
+        if inf_study_drug.drug_status == 'No modification' and self.cleaned_data.get('dose_status'):
             raise forms.ValidationError('Do not fill out the study drug items because you have stated that there was \'NO modification\' to drugs')
         # status is starting dose should be new
         if inf_study_drug.drug_status == 'Starting CTX/Placebo today' and cleaned_data.get('dose_status')!='New':
