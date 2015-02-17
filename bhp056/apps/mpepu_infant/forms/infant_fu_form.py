@@ -149,7 +149,7 @@ class InfantFuDx2ProphItemsForm (BaseInfantModelForm):
                 raise forms.ValidationError('If Diagnosis is given, provide information about relation to study ctx placebo and relation to infant nvp')
 
         # validation for ensuring that diagnosis table is only filled when its confirmed that new diagnoses occurred.        
-        if infant_fu_dx.has_dx == 'No':
+        if infant_fu_dx.has_dx == 'No' and self.cleaned_data.get('dx'):
             raise forms.ValidationError('You are listing diagnosis relation details yet answered \'NO\', to new diagnosis for this patient.')                 
 
         return super(InfantFuDx2ProphItemsForm, self).clean()
@@ -225,7 +225,7 @@ class InfantFuNewMedItemsForm (BaseInfantModelForm):
         drug_route = cleaned_data.get('drug_route')
         # validating that the medication listing is only done when its identified that new meds are given
         infant_fu_med = cleaned_data.get('infant_fu_med')
-        if infant_fu_med.new_medications == 'No':
+        if infant_fu_med.new_medications == 'No' and self.cleaned_data.get('medication'):
             raise forms.ValidationError('Give new medication listing only when new medication has been received. You answered \'NO\',')
 
         if medication and not drug_route:
