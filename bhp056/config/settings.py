@@ -88,8 +88,8 @@ else:
             'NAME': 'bhp056',
             'USER': 'root',
             'PASSWORD': 'cc3721b',
-            'HOST': '192.168.1.47',
-            'PORT': '3306',
+            'HOST': '',
+            'PORT': '',
         },
         'lab_api': {
             'ENGINE': 'django.db.backends.mysql',
