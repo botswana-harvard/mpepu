@@ -5,7 +5,7 @@ import sys
 # for apache use be explicit about the ROOT folder
 ROOT = '/home/django'
  
-VIRTUALENV_PATH = os.path.join(ROOT, '.virtualenvs/django-1.6')
+VIRTUALENV_PATH = os.path.join(ROOT, '.virtualenvs/django_1.6.5')
 SOURCE_ROOT_PATH = os.path.join(ROOT, 'source')
 LOCAL_PROJECT_RELPATH = 'bhp056_project/bhp056'
  
