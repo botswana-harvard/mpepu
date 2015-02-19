@@ -433,7 +433,7 @@ admin.site.register(InfantStudyDrugItems, InfantStudyDrugItemsAdmin)
 class InfantStudyDrugItemsInlineAdmin(BaseTabularInline):
     model = InfantStudyDrugItems
     form = InfantStudyDrugItemsForm
-    extra = 1
+    extra = 0
 
 
 class InfantStudyDrugAdmin(InfantVisitModelAdmin):

@@ -69,7 +69,6 @@ class InfantStudyDrugItemsForm (BaseInfantModelForm):
                 if cleaned_data.get('modification_reason') == reason:
                     raise forms.ValidationError("Dose status is 'Temporarily Held', modification reason cannot be {}.".format(reason))
 
-        
         # Validate dose status vs modification reason
         if cleaned_data.get('dose_status') == 'Permanently discontinued' and cleaned_data.get('modification_reason') == 'Initial dose':
             raise forms.ValidationError('You indicated dose status as "Permanently discontinued", You CANNOT indicate modification reason as "Initial dose". Please correct')
@@ -84,7 +83,7 @@ class InfantStudyDrugItemsForm (BaseInfantModelForm):
             if check_drugs and check_drugs[0].inf_study_drug.infant_visit.appointment.visit_definition.code != visit_code:
                 raise forms.ValidationError('Study Drug has already been initiated at {}. Please correct.'.format(check_drugs[0].inf_study_drug.infant_visit.appointment.visit_definition.code))
             # Ensure start date is not before randomization
-            
+
             if cleaned_data.get('ingestion_date') < rando_date:
                 raise forms.ValidationError('Study initiation date CANNOT be before randomization date.')
         # Ensure cannot discontinue study drug more than once

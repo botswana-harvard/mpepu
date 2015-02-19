@@ -99,7 +99,7 @@ admin.site.register(MaternalLabDelMed, MaternalLabDelMedAdmin)
 class MaternalLabDelDxTInlineAdmin(BaseTabularInline):
     model = MaternalLabDelDxT
     form = MaternalLabDelDxTForm
-    extra = 1
+    extra = 0
 
 
 class MaternalLabDelDxTAdmin(BaseModelAdmin):
