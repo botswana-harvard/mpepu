@@ -56,6 +56,9 @@ class InfantOffDrugAdmin(RegisteredSubjectModelAdmin):
         "reason_off",
         "reason_off_other"
     )
+
+    list_filter = ('created', 'modified', 'user_created', 'user_modified')
+
     radio_fields = {
         "reason_off": admin.VERTICAL
     }
@@ -84,6 +87,7 @@ class InfantOffStudyAdmin(OffStudyModelAdmin):
         "has_scheduled_data",
         "comment",
     )
+    list_filter = ('created', 'modified', 'user_created', 'user_modified')
     radio_fields = {
         "has_scheduled_data": admin.VERTICAL}
 
@@ -229,8 +233,7 @@ class InfantDeathAdmin(RegisteredSubjectModelAdmin):
 
     def __init__(self, *args, **kwargs):
         super(InfantDeathAdmin, self).__init__(*args, **kwargs)
-        self.list_filter.insert(0, 'registered_subject')
-        self.list_display = ('registered_subject', 'created', 'modified', 'user_created', 'user_modified')
+        self.list_display = ( 'registered_subject','created', 'modified', 'user_created', 'user_modified')
         self.date_hierarchy = 'death_date'
     form = InfantDeathForm
 
