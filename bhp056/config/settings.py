@@ -99,7 +99,7 @@ else:
             'NAME': 'lab',
             'USER': 'root',
             'PASSWORD': 'cc3721b',
-            'HOST': '192.168.1.50',
+            'HOST': 'bhhrl.bhp.org.bw',
             'PORT': '3306',
         },
     }
