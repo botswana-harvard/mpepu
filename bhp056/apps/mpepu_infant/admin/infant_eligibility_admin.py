@@ -16,13 +16,8 @@ class InfantEligibilityAdmin(RegisteredSubjectModelAdmin):
     """Confirms infant eligibility and handles infant randomization."""
     form = InfantEligibilityForm
 
-    def __init__(self, *args, **kwargs):
-        super(InfantEligibilityAdmin, self).__init__(*args, **kwargs)
-        self.list_filter.insert(0, FeedingDurationListFilter)
-        self.list_filter.insert(0, FeedingChoiceListFilter)
-        #added for v4
-        self.list_filter.insert(0, UnwillingToRandoListFilter)
-        self.list_display = ('registered_subject', 'infant_birth', 'randomization_site', 'feeding', 'duration', 'created', 'modified', 'user_created', 'user_modified')
+    list_filter = (UnwillingToRandoListFilter, FeedingChoiceListFilter, FeedingDurationListFilter, 'created', 'modified', 'user_created', 'user_modified')
+    list_display = ('registered_subject', 'infant_birth', 'randomization_site', 'feeding', 'duration', 'created', 'modified', 'user_created', 'user_modified')
 
     def save_model(self, request, obj, form, change):
         """Saves and randomizes."""
