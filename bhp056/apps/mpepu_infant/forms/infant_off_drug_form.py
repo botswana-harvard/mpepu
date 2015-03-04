@@ -40,7 +40,8 @@ class InfantOffDrugForm (BaseInfantModelForm):
 #             raise forms.ValidationError('Last dose date must be less than or equal to report date of visit where subject is going off drug ({0}). '
 #                                         'Got {1}'.format(off_drug_visit_datetime['report_datetime__min'].strftime('%Y-%m-%d'), last_dose_datetime.strftime('%Y-%m-%d')))
         # Ensure study drug dicontinuation indicated on StudyDrugRecord
-        drug_record =  InfantStudyDrugItems.objects.filter(inf_study_drug__infant_visit__subject_identifier=cleaned_data.get('registered_subject').subject_identifier, dose_status='Permanently discontinued')
+        drug_record =  InfantStudyDrugItems.objects.filter(inf_study_drug__infant_visit__appointment__registered_subject=
+                                                           cleaned_data.get('registered_subject'), dose_status='Permanently discontinued')
         if not drug_record:
             raise forms.ValidationError('Discontinuation of study drug has not been indicated on the Study Drug Record. Please enter it either at this visit or the previuos visit.')
 
