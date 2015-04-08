@@ -19,7 +19,7 @@
         {% for maternalconsent in search_result.object_list %}
             {% if maternalconsent.subject_identifier %}
                 <tr class="{% cycle 'row1' 'row2' %}">
-                <td><A href="{% url subject_dashboard_url dashboard_type='maternal' dashboard_model='maternal_consent' dashboard_id=maternalconsent.pk show='appointments' %}">{{ maternalconsent.subject_identifier }}</A></td>
+                <td><A href="{% url 'subject_dashboard_url' dashboard_type='maternal' dashboard_model='maternal_consent' dashboard_id=maternalconsent.pk show='appointments' %}">{{ maternalconsent.subject_identifier }}</A></td>
                 <td>{{maternalconsent.subject_identifier}}</td>            
               	<td>{{ maternalconsent.first_name|encrypted }}</td>
               	<td>{{ maternalconsent.initials }}</td>          	

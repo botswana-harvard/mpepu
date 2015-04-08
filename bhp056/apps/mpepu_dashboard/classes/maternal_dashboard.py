@@ -15,20 +15,33 @@ class MaternalDashboard(DashboardMixin, RegisteredSubjectDashboard):
     view = 'maternal_dashboard'
     dashboard_name = 'Maternal Dashboard'
     dashboard_url_name = 'subject_dashboard_url'
+    urlpatterns = [
+        RegisteredSubjectDashboard.urlpatterns[0][:-1] + '(?P<appointment_code>{appointment_code})/$'
+        ] + RegisteredSubjectDashboard.urlpatterns
+    urlpattern_options = dict(
+        RegisteredSubjectDashboard.urlpattern_options,
+        dashboard_model=RegisteredSubjectDashboard.urlpattern_options['dashboard_model'] + '|maternal_consent|materna_eligibility_post|maternal_eligibility_ante',
+        dashboard_type='maternal',
+        appointment_code='1000M|2000M|2010M|2020M|2030M|2060M|2090M|2120M|2150M|2180M')
 
+    template_name = 'maternal_dashboard.html'
+    
     def __init__(self, *args, **kwargs):
-        self._visit_model = MaternalVisit
-        self._registered_subject = None
-        self._dashboard_type_list = ['maternal']
-        self.extra_url_context = ""
-        kwargs.update({'dashboard_models': {'maternal_consent': MaternalConsent}, 'membership_form_category': ['maternal_eligible_antenatal', 'maternal_eligible_postnatal', 'maternal_postnatal_reg', 'maternal_resistance']})
-        self._locator_model = None
-        self._requisition_model = MaternalRequisition
         super(MaternalDashboard, self).__init__(*args, **kwargs)
+        self.visit_model = MaternalVisit
+        #self._registered_subject = None
+        self.dashboard_type_list = ['maternal']
+        self.dashboard_models['maternal_consent']  = MaternalConsent
+        #self.extra_url_context = ""
+        self.membership_form_category= ['maternal_eligible_antenatal', 'maternal_eligible_postnatal', 'maternal_postnatal_reg', 'maternal_resistance']
+        #self._locator_model = None
+        self._requisition_model = MaternalRequisition
+        
 
-    def add_to_context(self):
-        super(MaternalDashboard, self).add_to_context()
-        self.context.add(
+    #def add_to_context(self):
+    def get_context_data(self, **kwargs):
+        self.context = super(MaternalDashboard, self).get_context_data(**kwargs)
+        self.context.update(
             home='mpepu',
             infants=self.get_infants(),
             search_name='maternal',
@@ -37,22 +50,46 @@ class MaternalDashboard(DashboardMixin, RegisteredSubjectDashboard):
             delivery_datetime=self.get_delivery_datetime(),
             maternal_consent=self.consent
             )
+        return self.context
 
     @property
     def consent(self):
         self._consent = None
-        if MaternalConsent.objects.filter(subject_identifier=self.subject_identifier):
-            self._consent = MaternalConsent.objects.get(subject_identifier=self.subject_identifier)
+        try:
+            self._consent = MaternalConsent.objects.get(id=self.dashboard_id)
+        except MaternalConsent.DoesNotExist:
+            if self.appointment:
+                self._consent = MaternalConsent.objects.get(registered_subject=self.appointment.registered_subject)
         return self._consent
 
-    def set_registered_subject(self, pk=None):
-        self._registered_subject = self.registered_subject
-        if RegisteredSubject.objects.filter(subject_identifier=self.subject_identifier):
-            self._registered_subject = RegisteredSubject.objects.get(subject_identifier=self.subject_identifier)
+    @property
+    def registered_subject(self):
+        if not self._registered_subject:
+            try:
+                self._registered_subject = RegisteredSubject.objects.get(pk=self.dashboard_id)
+            except RegisteredSubject.DoesNotExist:
+                try:
+                    self._registered_subject = RegisteredSubject.objects.get(subject_identifier=self.subject_identifier)
+                except RegisteredSubject.DoesNotExist:
+                    try:
+                        self._registered_subject = self.appointment.registered_subject
+                    except AttributeError:
+                        pass
+        return self._registered_subject
 
-#     def set_membership_form_category(self, category):
-#         self._membership_form_category = 'maternal'
+    @property
+    def subject_identifier(self):
+        self._subject_identifier = None
+        if self.consent:
+            self._subject_identifier = self.consent.subject_identifier
+        else:
+            pass
+        return self._subject_identifier
 
+   
+    def subject_type(self):
+        return 'infant'
+    
     def get_infant_dashboard_url(self):
         return 'subject_dashboard_url'
 
@@ -77,7 +114,7 @@ class MaternalDashboard(DashboardMixin, RegisteredSubjectDashboard):
 
     @RegisteredSubjectDashboard.locator_model.getter
     def locator_model(self):
-        return self.get_locator_model()
+        return MaternalLocator
 
     def get_packing_list_model(self):
         return PackingList

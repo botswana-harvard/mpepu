@@ -17,48 +17,83 @@ class InfantDashboard(DashboardMixin, RegisteredSubjectDashboard):
     view = 'infant_dashboard'
     dashboard_name = 'Infant Dashboard'
     dashboard_url_name = 'subject_dashboard_url'
+    urlpatterns = [
+        RegisteredSubjectDashboard.urlpatterns[0][:-1] + '(?P<appointment_code>{appointment_code})/$'
+        ] + RegisteredSubjectDashboard.urlpatterns
+    urlpattern_options = dict(
+        RegisteredSubjectDashboard.urlpattern_options,
+        dashboard_model=RegisteredSubjectDashboard.urlpattern_options['dashboard_model'] + '|infant_birth_record',
+        dashboard_type='infant',
+        appointment_code='2000|2010|2015|2020|2030|2060|2090|2120|2150|2180')
+
+    template_name = 'infant_dashboard.html'
 
     def __init__(self, *args, **kwargs):
+        super(InfantDashboard, self).__init__(*args, **kwargs)
         self._infant_birth = None
         self._maternal_identifier = None
-        self._dashboard_type_list = self.set_dashboard_type_list()
-        self._visit_model = InfantVisit
-        kwargs.update({'dashboard_models': {'infant_birth': InfantBirth}, 'membership_form_category': ['infant_rando_eligible', 'infant_pre_randomize', 'infant_birth_record']})
-        self.extra_url_context = ""
+        self.dashboard_type_list = ['infant']
+        self.visit_model = InfantVisit
+        self.dashboard_models['infant_birth'] = InfantBirth
+        self.membership_form_category= ['infant_rando_eligible', 'infant_pre_randomize', 'infant_birth_record']
+#         self.extra_url_context = ""
         self._locator_model = None
         self._requisition_model = InfantRequisition
-        super(InfantDashboard, self).__init__(*args, **kwargs)
+        
 
-    def add_to_context(self):
-        super(InfantDashboard, self).add_to_context()
-        panels = Panel.objects.all()
-        self.context.add(
+#     def add_to_context(self):
+    def get_context_data(self, **kwargs):
+        self.context = super(InfantDashboard, self).get_context_data(**kwargs)
+#         panels = Panel.objects.all()
+        self.context.update(
             home='mpepu',
             search_name='infant',
             maternal_dashboard_url=self.get_maternal_dashboard_url(),
             title='Infant Dashboard',
             delivery_datetime=self.get_delivery_datetime(),
             stratum=self.get_feeding_stratum(),
-            infant_birth=self.get_infant_birth(),
+            infant_birth = self.infant_birth,
+#             infant_birth=self.get_infant_birth(),
             delivery_date=self.get_delivery_date(),
             maternal_consent=self.get_maternal_consent(),
             days_alive=self.get_days_alive(),
-            panels=panels,
+#             panels=panels,
             local_results=self.render_labs()
         )
+        return self.context
 
-    def set_registered_subject(self, pk=None):
-        self._registered_subject = self.registered_subject
-        if RegisteredSubject.objects.filter(subject_identifier=self.subject_identifier):
-            self._registered_subject = RegisteredSubject.objects.get(subject_identifier=self.subject_identifier)
+    @property
+    def subject_type(self):
+        return 'infant'
 
-    def get_registered_subject(self):
+    @property
+    def consent(self):
+        pass
+
+    @property
+    def registered_subject(self):
         if not self._registered_subject:
-            self.set_registered_subject()
+            try:
+                self._registered_subject = RegisteredSubject.objects.get(pk=self.dashboard_id)
+            except RegisteredSubject.DoesNotExist:
+                try:
+                    self._registered_subject = RegisteredSubject.objects.get(subject_identifier=self.subject_identifier)
+                except RegisteredSubject.DoesNotExist:
+                    try:
+                        self._registered_subject = self.appointment.registered_subject
+                    except AttributeError:
+                        pass
         return self._registered_subject
 
-#     def set_membership_form_category(self):
-#         self._membership_form_category = 'infant'
+    @property
+    def subject_identifier(self):
+        self._subject_identifier = None
+        if self.infant_birth:
+            self._subject_identifier=self.infant_birth.registered_subject.subject_identifier
+        return self._subject_identifier
+
+    def get_registered_subject(self):
+        return self.registered_subject
 
     def get_maternal_dashboard_url(self):
         return 'subject_dashboard_url'
@@ -127,21 +162,29 @@ class InfantDashboard(DashboardMixin, RegisteredSubjectDashboard):
         return MaternalLocator.objects.get(registered_subject__subject_identifier=self.get_maternal_identifier())
 
     def get_maternal_consent(self):
-        return MaternalConsent.objects.get(subject_identifier=self.get_maternal_identifier())
+        consent = MaternalConsent.objects.get(subject_identifier=self.registered_subject.relative_identifier)
+        return consent
 
     def get_maternal_lab_del(self):
         return MaternalLabDel.objects.get(maternal_visit__appointment__registered_subject__subject_identifier=self.get_maternal_identifier())
 
-    def set_infant_birth(self):
-        if InfantBirth.objects.filter(registered_subject__subject_identifier__exact=self.get_subject_identifier()):
-            self._infant_birth = InfantBirth.objects.get(registered_subject__subject_identifier__exact=self.get_subject_identifier())
+    @property
+    def infant_birth(self):
+        if InfantBirth.objects.filter(id=self.dashboard_id):
+            self._infant_birth = InfantBirth.objects.get(id=self.dashboard_id)
+        elif self.appointment:
+            self._infant_birth = InfantBirth.objects.get(registered_subject=self.appointment.registered_subject)
+        elif self.registered_subject:
+            try:
+                self._infant_birth = InfantBirth.objects.get(registered_subject=self.registered_subject)
+            except Exception as e:
+                self._infant_birth = InfantBirth.objects.none()
         else:
             self._infant_birth = InfantBirth.objects.none()
+        return self._infant_birth
 
     def get_infant_birth(self):
-        if not self._infant_birth:
-            self.set_infant_birth()
-        return self._infant_birth
+        return self.infant_birth
 
     def get_delivery_date(self):
         return self.get_maternal_lab_del().delivery_datetime.date()
