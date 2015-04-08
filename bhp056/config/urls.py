@@ -9,7 +9,7 @@ import django_databrowse
 
 from edc.subject.rule_groups.classes import site_rule_groups
 from edc.subject.lab_tracker.classes import site_lab_tracker
-from edc.core.bhp_data_manager.classes import data_manager
+from edc.data_manager.classes import data_manager
 from edc.dashboard.section.classes import site_sections
 from edc.subject.visit_schedule.classes import site_visit_schedules
 from edc.lab.lab_profile.classes import site_lab_profiles

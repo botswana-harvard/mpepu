@@ -36,7 +36,7 @@
     {% block maternal_consent %}
     <tr name="top right"><td>
     <H3>Mother</H3>
-        <ul><A href="{% url subject_dashboard_url dashboard_type='maternal' dashboard_model='maternal_consent' dashboard_id=maternal_consent.pk show='appointments' %}">{{ maternal_consent.subject_identifier }} [{{ maternal_consent.initials|encrypted }}]</A>
+        <ul><A href="{% url 'subject_dashboard_url' dashboard_type='maternal' dashboard_model='maternal_consent' dashboard_id=maternal_consent.pk show='appointments' %}">{{ maternal_consent.subject_identifier }} [{{ maternal_consent.initials|encrypted }}]</A>
     </td></tr>
     {% endblock maternal_consent %}
 {% endif %}

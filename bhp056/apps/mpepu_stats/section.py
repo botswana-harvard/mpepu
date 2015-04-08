@@ -1,7 +1,7 @@
-from edc.dashboard.section.classes import BaseSectionForDashboardView, site_sections
+from edc.dashboard.section.classes import BaseSectionView, site_sections
 
 
-class SectionStatisticsView(BaseSectionForDashboardView):
+class SectionStatisticsView(BaseSectionView):
     section_name = 'statistics'
     section_display_name = 'Statistics'
     section_display_index = 40

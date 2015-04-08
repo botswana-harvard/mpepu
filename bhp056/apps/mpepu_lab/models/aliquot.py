@@ -35,6 +35,14 @@ class Aliquot(BaseAliquot):
         super(Aliquot, self).save(*args, **kwargs)
 
     @property
+    def registered_subject(self):
+        return self.receive.registered_subject
+
+    @property
+    def visit_code(self):
+        return self.get_visit().appointment.visit_definition.code
+
+    @property
     def specimen_identifier(self):
         return self.aliquot_identifier[:-4]
 

@@ -13,7 +13,7 @@ EDC_APPS = (
     'edc.core.bhp_context',
     'edc.core.bhp_export_data',
     #'edc.core.bhp_nmap',
-    'edc.core.bhp_data_manager',
+    #'edc.core.bhp_data_manager',
     'edc.core.bhp_poll_mysql',
     'edc.core.bhp_site_edc',
     'edc.core.bhp_static',
@@ -33,7 +33,7 @@ EDC_APPS = (
     'edc.dashboard.section',
     'edc.dashboard.subject',
     'edc.data_dictionary',
-#     'edc.data_manager',
+    'edc.data_manager',
 
     'edc.entry_meta_data',
     'edc.export',
@@ -44,6 +44,7 @@ EDC_APPS = (
     'edc.lab.lab_clinic_reference',
     'edc.lab.lab_packing',
     'edc.lab.lab_requisition',
+    'edc.lab.lab_profile',
 
     'edc.map',
 
@@ -72,4 +73,5 @@ EDC_APPS = (
     'edc.subject.visit_tracking',
 
     'edc.testing',
+    'edc.utils',
 )
