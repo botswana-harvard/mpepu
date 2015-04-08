@@ -9,216 +9,40 @@ class Migration(SchemaMigration):
 
     def forwards(self, orm):
         pass
-        # Deleting model 'Processing'
-        #db.delete_table(u'mpepu_lab_processing')
+        # Adding field 'PackingListItem.received'
+#         db.add_column(u'mpepu_lab_packinglistitem', 'received',
+#                       self.gf('django.db.models.fields.BooleanField')(default=False),
+#                       keep_default=False)
 
-        # Deleting model 'Profile'
-        #db.delete_table(u'mpepu_lab_profile')
+        # Adding field 'PackingListItem.received_datetime'
+#         db.add_column(u'mpepu_lab_packinglistitem', 'received_datetime',
+#                       self.gf('django.db.models.fields.DateTimeField')(null=True),
+#                       keep_default=False)
 
-        # Deleting model 'ProfileItem'
-        #db.delete_table(u'mpepu_lab_profileitem')
+        # Adding field 'PackingList.destination'
+#         db.add_column(u'mpepu_lab_packinglist', 'destination',
+#                       self.gf('django.db.models.fields.related.ForeignKey')(to=orm['lab_packing.Destination'], null=True),
+#                       keep_default=False)
 
-        # Adding model 'Order'
-#         db.create_table(u'mpepu_lab_order', (
-#             ('created', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
-#             ('modified', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
-#             ('user_created', self.gf('django.db.models.fields.CharField')(default='', max_length=250, db_index=True)),
-#             ('user_modified', self.gf('django.db.models.fields.CharField')(default='', max_length=250, db_index=True)),
-#             ('hostname_created', self.gf('django.db.models.fields.CharField')(default='s007', max_length=50, db_index=True, blank=True)),
-#             ('hostname_modified', self.gf('django.db.models.fields.CharField')(default='s007', max_length=50, db_index=True, blank=True)),
-#             ('id', self.gf('django.db.models.fields.CharField')(max_length=36, primary_key=True)),
-#             ('revision', self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True)),
-#             ('order_datetime', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2014, 11, 10, 0, 0))),
-#         ))
-#         db.send_create_signal('mpepu_lab', ['Order'])
-
-        # Adding model 'OrderIdentifierHistory'
-#         db.create_table(u'mpepu_lab_orderidentifierhistory', (
-#             ('created', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
-#             ('modified', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
-#             ('user_created', self.gf('django.db.models.fields.CharField')(default='', max_length=250, db_index=True)),
-#             ('user_modified', self.gf('django.db.models.fields.CharField')(default='', max_length=250, db_index=True)),
-#             ('hostname_created', self.gf('django.db.models.fields.CharField')(default='s007', max_length=50, db_index=True, blank=True)),
-#             ('hostname_modified', self.gf('django.db.models.fields.CharField')(default='s007', max_length=50, db_index=True, blank=True)),
-#             ('id', self.gf('django.db.models.fields.CharField')(max_length=36, primary_key=True)),
-#             ('revision', self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True)),
-#             ('identifier', self.gf('django.db.models.fields.CharField')(unique=True, max_length=36)),
-#             ('padding', self.gf('django.db.models.fields.IntegerField')(default=4)),
-#             ('sequence_number', self.gf('django.db.models.fields.IntegerField')()),
-#             ('device_id', self.gf('django.db.models.fields.IntegerField')(default=0)),
-#             ('is_derived', self.gf('django.db.models.fields.BooleanField')(default=False)),
-#             ('sequence_app_label', self.gf('django.db.models.fields.CharField')(default='bhp_identifier', max_length=50)),
-#             ('sequence_model_name', self.gf('django.db.models.fields.CharField')(default='sequence', max_length=50)),
-#         ))
-#         db.send_create_signal('mpepu_lab', ['OrderIdentifierHistory'])
-
-        # Adding model 'OrderItem'
-#         db.create_table(u'mpepu_lab_orderitem', (
-#             ('created', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
-#             ('modified', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
-#             ('user_created', self.gf('django.db.models.fields.CharField')(default='', max_length=250, db_index=True)),
-#             ('user_modified', self.gf('django.db.models.fields.CharField')(default='', max_length=250, db_index=True)),
-#             ('hostname_created', self.gf('django.db.models.fields.CharField')(default='s007', max_length=50, db_index=True, blank=True)),
-#             ('hostname_modified', self.gf('django.db.models.fields.CharField')(default='s007', max_length=50, db_index=True, blank=True)),
-#             ('id', self.gf('django.db.models.fields.CharField')(max_length=36, primary_key=True)),
-#             ('revision', self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True)),
-#             ('order', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['mpepu_lab.Order'])),
-#             ('aliquot', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['mpepu_lab.Aliquot'])),
-#             ('panel', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['mpepu_lab.Panel'], null=True)),
-#             ('order_identifier', self.gf('django.db.models.fields.CharField')(max_length=25, null=True)),
-#             ('order_datetime', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2014, 11, 10, 0, 0))),
-#             ('subject_identifier', self.gf('django.db.models.fields.CharField')(max_length=50, null=True)),
-#         ))
-#         db.send_create_signal('mpepu_lab', ['OrderItem'])
-
-        # Adding model 'AliquotProcessing'
-        #db.create_table('mpepu_lab_processing', (
-            #('created', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
-            #('modified', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
-            #('user_created', self.gf('django.db.models.fields.CharField')(default='', max_length=250, db_index=True)),
-            #('user_modified', self.gf('django.db.models.fields.CharField')(default='', max_length=250, db_index=True)),
-            #('hostname_created', self.gf('django.db.models.fields.CharField')(default='s007', max_length=50, db_index=True, blank=True)),
-            #('hostname_modified', self.gf('django.db.models.fields.CharField')(default='s007', max_length=50, db_index=True, blank=True)),
-            #('id', self.gf('django.db.models.fields.CharField')(max_length=36, primary_key=True)),
-            #('revision', self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True)),
-            #('print_labels', self.gf('django.db.models.fields.BooleanField')(default=True)),
-            #('aliquot', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['mpepu_lab.Aliquot'])),
-            #('profile', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['mpepu_lab.AliquotProfile'])),
-        #))
-        #db.send_create_signal('mpepu_lab', ['AliquotProcessing'])
-
-        # Adding model 'OrderItemAudit'
-#         db.create_table(u'mpepu_lab_orderitem_audit', (
-#             ('created', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
-#             ('modified', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
-#             ('user_created', self.gf('django.db.models.fields.CharField')(default='', max_length=250, db_index=True)),
-#             ('user_modified', self.gf('django.db.models.fields.CharField')(default='', max_length=250, db_index=True)),
-#             ('hostname_created', self.gf('django.db.models.fields.CharField')(default='s007', max_length=50, db_index=True, blank=True)),
-#             ('hostname_modified', self.gf('django.db.models.fields.CharField')(default='s007', max_length=50, db_index=True, blank=True)),
-#             ('revision', self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True)),
-#             ('_audit_subject_identifier', self.gf('django.db.models.fields.CharField')(max_length=50, null=True)),
-#             ('order', self.gf('django.db.models.fields.related.ForeignKey')(related_name='_audit_orderitem', to=orm['mpepu_lab.Order'])),
-#             ('aliquot', self.gf('django.db.models.fields.related.ForeignKey')(related_name='_audit_orderitem', to=orm['mpepu_lab.Aliquot'])),
-#             ('panel', self.gf('django.db.models.fields.related.ForeignKey')(related_name='_audit_orderitem', null=True, to=orm['mpepu_lab.Panel'])),
-#             ('order_identifier', self.gf('django.db.models.fields.CharField')(max_length=25, null=True)),
-#             ('order_datetime', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2014, 11, 10, 0, 0))),
-#             ('subject_identifier', self.gf('django.db.models.fields.CharField')(max_length=50, null=True)),
-#             ('_audit_timestamp', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, db_index=True, blank=True)),
-#             ('_audit_change_type', self.gf('django.db.models.fields.CharField')(max_length=1)),
-#             ('id', self.gf('django.db.models.fields.CharField')(max_length=36)),
-#             ('_audit_id', self.gf('django.db.models.fields.CharField')(max_length=36, primary_key=True)),
-#         ))
-#         db.send_create_signal('mpepu_lab', ['OrderItemAudit'])
-
-        # Adding model 'AliquotProfileItem'
-        #db.create_table('mpepu_lab_profileitem', (
-            #('created', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
-            #('modified', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
-            #('user_created', self.gf('django.db.models.fields.CharField')(default='', max_length=250, db_index=True)),
-            #('user_modified', self.gf('django.db.models.fields.CharField')(default='', max_length=250, db_index=True)),
-            #('hostname_created', self.gf('django.db.models.fields.CharField')(default='s007', max_length=50, db_index=True, blank=True)),
-            #('hostname_modified', self.gf('django.db.models.fields.CharField')(default='s007', max_length=50, db_index=True, blank=True)),
-            #('id', self.gf('django.db.models.fields.CharField')(max_length=36, primary_key=True)),
-            #('revision', self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True)),
-            #('volume', self.gf('django.db.models.fields.DecimalField')(null=True, max_digits=10, decimal_places=1)),
-            #('count', self.gf('django.db.models.fields.IntegerField')()),
-            #('profile', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['mpepu_lab.AliquotProfile'])),
-            #('aliquot_type', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['mpepu_lab.AliquotType'])),
-        #))
-        #db.send_create_signal('mpepu_lab', ['AliquotProfileItem'])
-
-        # Adding unique constraint on 'AliquotProfileItem', fields ['profile', 'aliquot_type']
-#         db.create_unique('mpepu_lab_profileitem', ['profile_id', 'aliquot_type_id'])
-
-        # Adding model 'AliquotProfile'
-        #db.create_table('mpepu_lab_profile', (
-            #('created', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
-            #('modified', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
-            #('user_created', self.gf('django.db.models.fields.CharField')(default='', max_length=250, db_index=True)),
-            #('user_modified', self.gf('django.db.models.fields.CharField')(default='', max_length=250, db_index=True)),
-            #('hostname_created', self.gf('django.db.models.fields.CharField')(default='s007', max_length=50, db_index=True, blank=True)),
-            #('hostname_modified', self.gf('django.db.models.fields.CharField')(default='s007', max_length=50, db_index=True, blank=True)),
-            #('id', self.gf('django.db.models.fields.CharField')(max_length=36, primary_key=True)),
-            #('revision', self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True)),
-            #('name', self.gf('django.db.models.fields.CharField')(unique=True, max_length=50)),
-            #('aliquot_type', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['mpepu_lab.AliquotType'])),
-        #))
-        #db.send_create_signal('mpepu_lab', ['AliquotProfile'])
+        # Adding field 'PackingList.received'
+#         db.add_column(u'mpepu_lab_packinglist', 'received',
+#                       self.gf('django.db.models.fields.BooleanField')(default=False),
+#                       keep_default=False)
 
 
     def backwards(self, orm):
-	pass 
-        # Removing unique constraint on 'AliquotProfileItem', fields ['profile', 'aliquot_type']
-        #db.delete_unique('mpepu_lab_profileitem', ['profile_id', 'aliquot_type_id'])
-
-        # Adding model 'Processing'
-        #db.create_table(u'mpepu_lab_processing', (
-            #('profile', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['mpepu_lab.Profile'])),
-            #('hostname_created', self.gf('django.db.models.fields.CharField')(default='s007', max_length=50, blank=True, db_index=True)),
-            #('aliquot', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['mpepu_lab.Aliquot'])),
-            #('hostname_modified', self.gf('django.db.models.fields.CharField')(default='s007', max_length=50, blank=True, db_index=True)),
-            #('user_created', self.gf('django.db.models.fields.CharField')(default='', max_length=250, db_index=True)),
-            #('id', self.gf('django.db.models.fields.CharField')(max_length=36, primary_key=True)),
-            #('created', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
-            #('user_modified', self.gf('django.db.models.fields.CharField')(default='', max_length=250, db_index=True)),
-            #('modified', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
-            #('print_labels', self.gf('django.db.models.fields.BooleanField')(default=True)),
-            #('revision', self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True)),
-        #))
-        #db.send_create_signal('mpepu_lab', ['Processing'])
-
-        # Adding model 'Profile'
-        #db.create_table(u'mpepu_lab_profile', (
-            #('hostname_created', self.gf('django.db.models.fields.CharField')(default='s007', max_length=50, blank=True, db_index=True)),
-            #('hostname_modified', self.gf('django.db.models.fields.CharField')(default='s007', max_length=50, blank=True, db_index=True)),
-            #('user_created', self.gf('django.db.models.fields.CharField')(default='', max_length=250, db_index=True)),
-            #('id', self.gf('django.db.models.fields.CharField')(max_length=36, primary_key=True)),
-            #('name', self.gf('django.db.models.fields.CharField')(max_length=50, unique=True)),
-            #('created', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
-            #('user_modified', self.gf('django.db.models.fields.CharField')(default='', max_length=250, db_index=True)),
-            #('modified', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
-            #('aliquot_type', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['mpepu_lab.AliquotType'])),
-            #('revision', self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True)),
-        #))
-        #db.send_create_signal('mpepu_lab', ['Profile'])
-
-        # Adding model 'ProfileItem'
-        #db.create_table(u'mpepu_lab_profileitem', (
-            #('profile', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['mpepu_lab.Profile'])),
-            #('hostname_created', self.gf('django.db.models.fields.CharField')(default='s007', max_length=50, blank=True, db_index=True)),
-            #('hostname_modified', self.gf('django.db.models.fields.CharField')(default='s007', max_length=50, blank=True, db_index=True)),
-            #('volume', self.gf('django.db.models.fields.DecimalField')(null=True, max_digits=10, decimal_places=1)),
-            #('user_created', self.gf('django.db.models.fields.CharField')(default='', max_length=250, db_index=True)),
-            #('id', self.gf('django.db.models.fields.CharField')(max_length=36, primary_key=True)),
-            #('count', self.gf('django.db.models.fields.IntegerField')()),
-            #('created', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
-            #('user_modified', self.gf('django.db.models.fields.CharField')(default='', max_length=250, db_index=True)),
-            #('modified', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
-            #('aliquot_type', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['mpepu_lab.AliquotType'])),
-            #('revision', self.gf('django.db.models.fields.CharField')(max_length=150, null=True, blank=True)),
-        #))
-        #db.send_create_signal('mpepu_lab', ['ProfileItem'])
-
-        # Deleting model 'Order'
-        #db.delete_table(u'mpepu_lab_order')
-
-        # Deleting model 'OrderIdentifierHistory'
-        #db.delete_table(u'mpepu_lab_orderidentifierhistory')
-
-        # Deleting model 'OrderItem'
-        #db.delete_table(u'mpepu_lab_orderitem')
-
-        # Deleting model 'AliquotProcessing'
-        #db.delete_table('mpepu_lab_processing')
-
-        # Deleting model 'OrderItemAudit'
-        #db.delete_table(u'mpepu_lab_orderitem_audit')
-
-        # Deleting model 'AliquotProfileItem'
-        #db.delete_table('mpepu_lab_profileitem')
-
-        # Deleting model 'AliquotProfile'
-        #db.delete_table('mpepu_lab_profile')
+        pass
+        # Deleting field 'PackingListItem.received'
+#         db.delete_column(u'mpepu_lab_packinglistitem', 'received')
+# 
+#         # Deleting field 'PackingListItem.received_datetime'
+#         db.delete_column(u'mpepu_lab_packinglistitem', 'received_datetime')
+# 
+#         # Deleting field 'PackingList.destination'
+#         db.delete_column(u'mpepu_lab_packinglist', 'destination_id')
+# 
+#         # Deleting field 'PackingList.received'
+#         db.delete_column(u'mpepu_lab_packinglist', 'received')
 
 
     models = {
@@ -235,8 +59,8 @@ class Migration(SchemaMigration):
             'contact_tel': ('django.db.models.fields.CharField', [], {'max_length': '250', 'blank': 'True'}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'dashboard_type': ('django.db.models.fields.CharField', [], {'db_index': 'True', 'max_length': '25', 'null': 'True', 'blank': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'fchilisa'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'fchilisa'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
             'is_confirmed': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
@@ -254,8 +78,8 @@ class Migration(SchemaMigration):
             'app_label': ('django.db.models.fields.CharField', [], {'max_length': '50', 'db_index': 'True'}),
             'content_type': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['contenttypes.ContentType']", 'null': 'True', 'blank': 'True'}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'fchilisa'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'fchilisa'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'model': ('django.db.models.fields.CharField', [], {'max_length': '50', 'db_index': 'True'}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
@@ -267,8 +91,8 @@ class Migration(SchemaMigration):
         'bhp_variables.studysite': {
             'Meta': {'ordering': "['site_code']", 'unique_together': "[('site_code', 'site_name')]", 'object_name': 'StudySite'},
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'fchilisa'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'fchilisa'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'revision': ('django.db.models.fields.CharField', [], {'max_length': '150', 'null': 'True', 'blank': 'True'}),
@@ -292,8 +116,8 @@ class Migration(SchemaMigration):
             'edc_code': ('django.db.models.fields.CharField', [], {'max_length': '25', 'null': 'True', 'db_index': 'True'}),
             'edc_name': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True', 'db_index': 'True'}),
             'formula': ('django.db.models.fields.CharField', [], {'max_length': "'50'", 'null': 'True', 'blank': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'fchilisa'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'fchilisa'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'is_absolute': ('django.db.models.fields.CharField', [], {'default': "'absolute'", 'max_length': "'15'"}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
@@ -307,11 +131,27 @@ class Migration(SchemaMigration):
             'Meta': {'ordering': "['code']", 'object_name': 'TestCodeGroup'},
             'code': ('django.db.models.fields.CharField', [], {'max_length': '15', 'null': 'True'}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'fchilisa'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'fchilisa'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '25', 'null': 'True', 'blank': 'True'}),
+            'user_created': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'}),
+            'user_modified': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'})
+        },
+        'lab_packing.destination': {
+            'Meta': {'unique_together': "(('code', 'name'),)", 'object_name': 'Destination'},
+            'address': ('django.db.models.fields.TextField', [], {'max_length': '250'}),
+            'code': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '25'}),
+            'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
+            'email': ('django.db.models.fields.CharField', [], {'max_length': '25'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'fchilisa'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'fchilisa'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
+            'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
+            'name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '50'}),
+            'revision': ('django.db.models.fields.CharField', [], {'max_length': '150', 'null': 'True', 'blank': 'True'}),
+            'tel': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
             'user_created': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'}),
             'user_modified': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'})
         },
@@ -321,8 +161,8 @@ class Migration(SchemaMigration):
             'comments': ('django.db.models.fields.TextField', [], {'max_length': '250', 'null': 'True', 'blank': 'True'}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'date_last_alive': ('django.db.models.fields.DateField', [], {'null': 'True', 'blank': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'fchilisa'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'fchilisa'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
             'info_source': ('django.db.models.fields.CharField', [], {'max_length': '25'}),
             'info_source_other': ('django.db.models.fields.CharField', [], {'max_length': '35', 'blank': 'True'}),
@@ -342,15 +182,15 @@ class Migration(SchemaMigration):
         'mpepu_lab.aliquot': {
             'Meta': {'ordering': "('receive', 'count')", 'unique_together': "(('receive', 'count'),)", 'object_name': 'Aliquot'},
             'aliquot_condition': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['mpepu_lab.AliquotCondition']", 'null': 'True', 'blank': 'True'}),
-            'aliquot_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 11, 10, 0, 0)'}),
+            'aliquot_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2015, 3, 17, 0, 0)'}),
             'aliquot_identifier': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '25'}),
             'aliquot_type': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['mpepu_lab.AliquotType']", 'null': 'True'}),
             'comment': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True', 'blank': 'True'}),
             'count': ('django.db.models.fields.IntegerField', [], {'null': 'True'}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'current_measure': ('django.db.models.fields.DecimalField', [], {'default': "'5.00'", 'max_digits': '10', 'decimal_places': '2'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'fchilisa'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'fchilisa'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
             'is_packed': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'measure_units': ('django.db.models.fields.CharField', [], {'default': "'mL'", 'max_length': '25'}),
@@ -372,8 +212,8 @@ class Migration(SchemaMigration):
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'display_index': ('django.db.models.fields.IntegerField', [], {'default': '0', 'db_index': 'True'}),
             'field_name': ('django.db.models.fields.CharField', [], {'max_length': '25', 'null': 'True', 'blank': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'fchilisa'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'fchilisa'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '250', 'unique': 'True', 'null': 'True', 'db_index': 'True'}),
@@ -386,8 +226,8 @@ class Migration(SchemaMigration):
             'Meta': {'object_name': 'AliquotProcessing', 'db_table': "'mpepu_lab_processing'"},
             'aliquot': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['mpepu_lab.Aliquot']"}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'fchilisa'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'fchilisa'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'print_labels': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
@@ -400,8 +240,8 @@ class Migration(SchemaMigration):
             'Meta': {'object_name': 'AliquotProfile', 'db_table': "'mpepu_lab_profile'"},
             'aliquot_type': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['mpepu_lab.AliquotType']"}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'fchilisa'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'fchilisa'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '50'}),
@@ -414,8 +254,8 @@ class Migration(SchemaMigration):
             'aliquot_type': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['mpepu_lab.AliquotType']"}),
             'count': ('django.db.models.fields.IntegerField', [], {}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'fchilisa'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'fchilisa'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'profile': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['mpepu_lab.AliquotProfile']"}),
@@ -428,8 +268,8 @@ class Migration(SchemaMigration):
             'Meta': {'ordering': "['name']", 'object_name': 'AliquotType'},
             'alpha_code': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '15'}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'fchilisa'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'fchilisa'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
@@ -446,8 +286,8 @@ class Migration(SchemaMigration):
             'dmis_identifier': ('django.db.models.fields.CharField', [], {'max_length': '25', 'null': 'True'}),
             'drawn_datetime': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
             'estimated_volume': ('django.db.models.fields.DecimalField', [], {'default': '5.0', 'max_digits': '7', 'decimal_places': '2'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'fchilisa'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'fchilisa'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
             'infant_visit': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['mpepu_infant.InfantVisit']"}),
             'is_drawn': ('django.db.models.fields.CharField', [], {'default': "'Yes'", 'max_length': '3'}),
@@ -490,8 +330,8 @@ class Migration(SchemaMigration):
             'dmis_identifier': ('django.db.models.fields.CharField', [], {'max_length': '25', 'null': 'True'}),
             'drawn_datetime': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
             'estimated_volume': ('django.db.models.fields.DecimalField', [], {'default': '5.0', 'max_digits': '7', 'decimal_places': '2'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'fchilisa'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'fchilisa'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36'}),
             'infant_visit': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'_audit_infantrequisition'", 'to': "orm['mpepu_infant.InfantVisit']"}),
             'is_drawn': ('django.db.models.fields.CharField', [], {'default': "'Yes'", 'max_length': '3'}),
@@ -529,8 +369,8 @@ class Migration(SchemaMigration):
             'dmis_identifier': ('django.db.models.fields.CharField', [], {'max_length': '25', 'null': 'True'}),
             'drawn_datetime': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
             'estimated_volume': ('django.db.models.fields.DecimalField', [], {'default': '5.0', 'max_digits': '7', 'decimal_places': '2'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'fchilisa'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'fchilisa'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
             'is_drawn': ('django.db.models.fields.CharField', [], {'default': "'Yes'", 'max_length': '3'}),
             'is_labelled': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
@@ -573,8 +413,8 @@ class Migration(SchemaMigration):
             'dmis_identifier': ('django.db.models.fields.CharField', [], {'max_length': '25', 'null': 'True'}),
             'drawn_datetime': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
             'estimated_volume': ('django.db.models.fields.DecimalField', [], {'default': '5.0', 'max_digits': '7', 'decimal_places': '2'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'fchilisa'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'fchilisa'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36'}),
             'is_drawn': ('django.db.models.fields.CharField', [], {'default': "'Yes'", 'max_length': '3'}),
             'is_labelled': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
@@ -606,11 +446,11 @@ class Migration(SchemaMigration):
         'mpepu_lab.order': {
             'Meta': {'object_name': 'Order'},
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'fchilisa'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'fchilisa'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'order_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 11, 10, 0, 0)'}),
+            'order_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2015, 3, 17, 0, 0)'}),
             'revision': ('django.db.models.fields.CharField', [], {'max_length': '150', 'null': 'True', 'blank': 'True'}),
             'user_created': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'}),
             'user_modified': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'})
@@ -619,8 +459,8 @@ class Migration(SchemaMigration):
             'Meta': {'object_name': 'OrderIdentifierHistory'},
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'device_id': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'fchilisa'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'fchilisa'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
             'identifier': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '36'}),
             'is_derived': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
@@ -637,12 +477,12 @@ class Migration(SchemaMigration):
             'Meta': {'ordering': "['-order_datetime']", 'object_name': 'OrderItem'},
             'aliquot': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['mpepu_lab.Aliquot']"}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'fchilisa'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'fchilisa'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'order': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['mpepu_lab.Order']"}),
-            'order_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 11, 10, 0, 0)'}),
+            'order_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2015, 3, 17, 0, 0)'}),
             'order_identifier': ('django.db.models.fields.CharField', [], {'max_length': '25', 'null': 'True'}),
             'panel': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['mpepu_lab.Panel']", 'null': 'True'}),
             'revision': ('django.db.models.fields.CharField', [], {'max_length': '150', 'null': 'True', 'blank': 'True'}),
@@ -658,12 +498,12 @@ class Migration(SchemaMigration):
             '_audit_timestamp': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'db_index': 'True', 'blank': 'True'}),
             'aliquot': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'_audit_orderitem'", 'to': "orm['mpepu_lab.Aliquot']"}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'fchilisa'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'fchilisa'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36'}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'order': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'_audit_orderitem'", 'to': "orm['mpepu_lab.Order']"}),
-            'order_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 11, 10, 0, 0)'}),
+            'order_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2015, 3, 17, 0, 0)'}),
             'order_identifier': ('django.db.models.fields.CharField', [], {'max_length': '25', 'null': 'True'}),
             'panel': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'_audit_orderitem'", 'null': 'True', 'to': "orm['mpepu_lab.Panel']"}),
             'revision': ('django.db.models.fields.CharField', [], {'max_length': '150', 'null': 'True', 'blank': 'True'}),
@@ -674,13 +514,15 @@ class Migration(SchemaMigration):
         'mpepu_lab.packinglist': {
             'Meta': {'object_name': 'PackingList'},
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'destination': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['lab_packing.Destination']", 'null': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'fchilisa'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'fchilisa'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
             'list_comment': ('django.db.models.fields.CharField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
-            'list_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 11, 10, 0, 0)'}),
+            'list_datetime': ('django.db.models.fields.DateTimeField', [], {}),
             'list_items': ('django.db.models.fields.TextField', [], {'max_length': '1000'}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
+            'received': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'revision': ('django.db.models.fields.CharField', [], {'max_length': '150', 'null': 'True', 'blank': 'True'}),
             'timestamp': ('django.db.models.fields.CharField', [], {'max_length': '35', 'null': 'True'}),
             'user_created': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'}),
@@ -689,8 +531,8 @@ class Migration(SchemaMigration):
         'mpepu_lab.packinglistitem': {
             'Meta': {'object_name': 'PackingListItem'},
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'fchilisa'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'fchilisa'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
             'item_datetime': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
             'item_description': ('django.db.models.fields.TextField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
@@ -700,6 +542,8 @@ class Migration(SchemaMigration):
             'old_panel_id': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True'}),
             'packing_list': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['mpepu_lab.PackingList']", 'null': 'True'}),
             'panel': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['mpepu_lab.Panel']", 'null': 'True', 'blank': 'True'}),
+            'received': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
+            'received_datetime': ('django.db.models.fields.DateTimeField', [], {'null': 'True'}),
             'requisition': ('django.db.models.fields.CharField', [], {'max_length': '36', 'null': 'True'}),
             'revision': ('django.db.models.fields.CharField', [], {'max_length': '150', 'null': 'True', 'blank': 'True'}),
             'user_created': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'}),
@@ -710,8 +554,8 @@ class Migration(SchemaMigration):
             'aliquot_type': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['mpepu_lab.AliquotType']", 'symmetrical': 'False'}),
             'comment': ('django.db.models.fields.CharField', [], {'max_length': '250', 'blank': 'True'}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'fchilisa'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'fchilisa'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '50', 'db_index': 'True'}),
@@ -725,13 +569,13 @@ class Migration(SchemaMigration):
             'clinician_initials': ('django.db.models.fields.CharField', [], {'max_length': '3'}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'drawn_datetime': ('django.db.models.fields.DateTimeField', [], {'db_index': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'fchilisa'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'fchilisa'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
             'import_datetime': ('django.db.models.fields.DateTimeField', [], {'null': 'True'}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'receive_condition': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True'}),
-            'receive_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 11, 10, 0, 0)', 'db_index': 'True'}),
+            'receive_datetime': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2015, 3, 17, 0, 0)', 'db_index': 'True'}),
             'receive_identifier': ('django.db.models.fields.CharField', [], {'max_length': '25', 'unique': 'True', 'null': 'True', 'db_index': 'True'}),
             'registered_subject': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'mpepu_receive'", 'null': 'True', 'to': "orm['registration.RegisteredSubject']"}),
             'requisition_identifier': ('django.db.models.fields.CharField', [], {'db_index': 'True', 'max_length': '25', 'null': 'True', 'blank': 'True'}),
@@ -748,8 +592,8 @@ class Migration(SchemaMigration):
             'comments': ('django.db.models.fields.TextField', [], {'max_length': '250', 'null': 'True', 'blank': 'True'}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'date_last_alive': ('django.db.models.fields.DateField', [], {'null': 'True', 'blank': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'fchilisa'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'fchilisa'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
             'info_source': ('django.db.models.fields.CharField', [], {'max_length': '25'}),
             'info_source_other': ('django.db.models.fields.CharField', [], {'max_length': '35', 'blank': 'True'}),
@@ -764,15 +608,17 @@ class Migration(SchemaMigration):
             'user_modified': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'db_index': 'True'})
         },
         'registration.registeredsubject': {
-            'Meta': {'ordering': "['subject_identifier']", 'unique_together': "(('first_name', 'dob', 'initials'),)", 'object_name': 'RegisteredSubject', 'db_table': "'bhp_registration_registeredsubject'"},
+            'Meta': {'ordering': "['subject_identifier']", 'unique_together': "(('first_name', 'dob', 'initials', 'additional_key'),)", 'object_name': 'RegisteredSubject', 'db_table': "'bhp_registration_registeredsubject'"},
+            'additional_key': ('django.db.models.fields.CharField', [], {'default': 'None', 'max_length': '36', 'null': 'True'}),
             'comment': ('django.db.models.fields.TextField', [], {'max_length': '250', 'null': 'True', 'blank': 'True'}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
+            'dm_comment': ('django.db.models.fields.CharField', [], {'max_length': '150', 'null': 'True'}),
             'dob': ('django.db.models.fields.DateField', [], {'null': 'True'}),
             'first_name': ('django.db.models.fields.CharField', [], {'max_length': '78L', 'null': 'True'}),
             'gender': ('django.db.models.fields.CharField', [], {'max_length': '1', 'null': 'True'}),
             'hiv_status': ('django.db.models.fields.CharField', [], {'max_length': '15', 'null': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'fchilisa'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'fchilisa'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
             'identity': ('django.db.models.fields.CharField', [], {'max_length': '78L', 'null': 'True', 'blank': 'True'}),
             'identity_type': ('django.db.models.fields.CharField', [], {'max_length': '15'}),
@@ -793,6 +639,7 @@ class Migration(SchemaMigration):
             'study_site': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['bhp_variables.StudySite']", 'null': 'True', 'blank': 'True'}),
             'subject_consent_id': ('django.db.models.fields.CharField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
             'subject_identifier': ('django.db.models.fields.CharField', [], {'db_index': 'True', 'unique': 'True', 'max_length': '50', 'blank': 'True'}),
+            'subject_identifier_aka': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True'}),
             'subject_identifier_as_pk': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True', 'db_index': 'True'}),
             'subject_type': ('django.db.models.fields.CharField', [], {'max_length': '25', 'null': 'True'}),
             'survival_status': ('django.db.models.fields.CharField', [], {'max_length': '15', 'null': 'True'}),
@@ -805,8 +652,8 @@ class Migration(SchemaMigration):
             'category': ('django.db.models.fields.CharField', [], {'default': "'subject'", 'max_length': '35', 'unique': 'True', 'null': 'True'}),
             'content_type_map': ('django.db.models.fields.related.OneToOneField', [], {'related_name': "'+'", 'unique': 'True', 'to': "orm['bhp_content_type_map.ContentTypeMap']"}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'fchilisa'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'fchilisa'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
             'model_name': ('django.db.models.fields.CharField', [], {'max_length': '25', 'null': 'True'}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
@@ -821,8 +668,8 @@ class Migration(SchemaMigration):
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'group_name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '25'}),
             'grouping_key': ('django.db.models.fields.CharField', [], {'max_length': '25', 'null': 'True', 'blank': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'fchilisa'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'fchilisa'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
             'membership_form': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['visit_schedule.MembershipForm']"}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
@@ -837,8 +684,8 @@ class Migration(SchemaMigration):
             'code': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '6', 'db_index': 'True'}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'grouping': ('django.db.models.fields.CharField', [], {'max_length': '25', 'null': 'True', 'blank': 'True'}),
-            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
-            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'s007'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_created': ('django.db.models.fields.CharField', [], {'default': "'fchilisa'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
+            'hostname_modified': ('django.db.models.fields.CharField', [], {'default': "'fchilisa'", 'max_length': '50', 'db_index': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.CharField', [], {'max_length': '36', 'primary_key': 'True'}),
             'instruction': ('django.db.models.fields.TextField', [], {'max_length': '255', 'blank': 'True'}),
             'lower_window': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
