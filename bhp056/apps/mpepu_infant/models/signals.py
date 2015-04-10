@@ -4,6 +4,7 @@ from django.dispatch import receiver
 from .infant_birth import InfantBirth
 from .infant_eligibility import InfantEligibility
 from .infant_pre_eligibility import InfantPreEligibility
+from .infant_visit import InfantVisit
 
 
 @receiver(post_save, weak=False, dispatch_uid='infant_birth_data_on_post_save')
@@ -28,3 +29,9 @@ def infant_birth_data_on_post_save(sender, instance, **kwargs):
 def post_save_recalculate_appts(sender, instance, **kwargs):
     if isinstance(instance, (InfantEligibility)):
         instance.post_save_recalculate_maternal_appts()
+        
+@receiver(post_save, weak=False, dispatch_uid='mpepu_cessation_post_save')
+def mpepu_cessation_post_save(sender, instance, **kwargs):
+    if isinstance(instance, (InfantVisit)):
+        instance.mpepu_cessation_post_save()
+    
