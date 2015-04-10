@@ -1,6 +1,7 @@
 from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
 from django.db import models
+from datetime import datetime, date
 
 from edc.audit.audit_trail import AuditTrail
 from edc.entry_meta_data.helpers import ScheduledEntryMetaDataHelper, RequisitionMetaDataHelper
@@ -162,6 +163,17 @@ class InfantVisit(InfantOffStudyMixin, BaseVisitTracking, MpepuMetaDataMixin):
         self.disable_v4_forms()
         self.enable_2180_forms()
         super(InfantVisit, self).save(*args, **kwargs)
+
+    def mpepu_cessation_post_save(self):
+        if self.reason !='scheduled':
+            if self.report_datetime.date() >= date(2015, 4, 7):
+                forms = ['infantoffstudy', 'infantoffdrug']
+                scheduled_meta = ScheduledEntryMetaData.objects.filter(appointment=self.appointment, registered_subject=self.registered_subject)
+                for meta in scheduled_meta:
+                    if meta.entry.model_name not in forms:
+                        meta.delete()
+                requisition_meta = RequisitionMetaData.objects.filter(appointment=self.appointment, registered_subject=self.appointment.registered_subject)
+                requisition_meta.delete()
 
     def create_meta_if_visit_reason_is_death_when_sid_is_none(self):
         if self.reason == 'death':
