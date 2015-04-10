@@ -42,7 +42,7 @@ class MpepuInfantBirthVisitSchedule(VisitScheduleConfiguration):
             'instructions': None,
             'requisitions': (
                 # (entry_order, app_label, model_name, requisition_panel_name, panel_type, aliquot_type_alpha_code, form_visible)
-                RequisitionPanelTuple(100L, u'mpepu_lab', u'infantrequisition', 'DNA PCR', 'TEST', 'WB', REQUIRED, NOT_ADDITIONAL),
+                RequisitionPanelTuple(100L, u'mpepu_lab', u'infantrequisition', 'DNA PCR', 'TEST', 'WB', NOT_REQUIRED, ADDITIONAL),
                 RequisitionPanelTuple(200L, u'mpepu_lab', u'infantrequisition', 'Plasma and Buffy Coat Storage', 'STORAGE', 'WB', NOT_REQUIRED, ADDITIONAL),
                 RequisitionPanelTuple(300L, u'mpepu_lab', u'infantrequisition', 'Hematology (ARV)', 'TEST', 'WB', NOT_REQUIRED, ADDITIONAL),
                 RequisitionPanelTuple(400L, u'mpepu_lab', u'infantrequisition', 'ELISA', 'TEST', 'WB', NOT_REQUIRED, ADDITIONAL),
@@ -52,10 +52,10 @@ class MpepuInfantBirthVisitSchedule(VisitScheduleConfiguration):
                 RequisitionPanelTuple(800L, u'mpepu_lab', u'infantrequisition', 'PBMC Plasma (STORE ONLY)', 'STORAGE', 'WB', NOT_REQUIRED, ADDITIONAL),
                 ),
             'entries': (
-                EntryTuple(10L, u'mpepu_infant', u'infantbirthdata', REQUIRED, NOT_ADDITIONAL),
-                EntryTuple(20L, u'mpepu_infant', u'infantbirthexam', REQUIRED, NOT_ADDITIONAL),
-                EntryTuple(30L, u'mpepu_infant', u'infantbirtharv', REQUIRED, NOT_ADDITIONAL),
-                EntryTuple(40L, u'mpepu_infant', u'infantbirthfeed', REQUIRED, NOT_ADDITIONAL),
+                EntryTuple(10L, u'mpepu_infant', u'infantbirthdata', NOT_REQUIRED, ADDITIONAL),
+                EntryTuple(20L, u'mpepu_infant', u'infantbirthexam', NOT_REQUIRED, ADDITIONAL),
+                EntryTuple(30L, u'mpepu_infant', u'infantbirtharv', NOT_REQUIRED, ADDITIONAL),
+                EntryTuple(40L, u'mpepu_infant', u'infantbirthfeed', NOT_REQUIRED, ADDITIONAL),
                 #following are additional forms
                 EntryTuple(100L, u'mpepu_infant', u'infantcongenitalanomalies', NOT_REQUIRED, ADDITIONAL),
                 EntryTuple(200L, u'mpepu_infant', u'infantdeath', NOT_REQUIRED, ADDITIONAL),
@@ -79,10 +79,10 @@ class MpepuInfantBirthVisitSchedule(VisitScheduleConfiguration):
             'instructions': None,
             'requisitions': (
                 # (entry_order, app_label, model_name, panel.name, panel.edc_name, panel.panel_type, aliquot_type)
-                RequisitionPanelTuple(100L, u'mpepu_lab', u'infantrequisition', 'Hematology (ARV)', 'TEST', 'WB', REQUIRED, NOT_ADDITIONAL),
-                RequisitionPanelTuple(200L, u'mpepu_lab', u'infantrequisition', 'PBMC Plasma (STORE ONLY)', 'STORAGE', 'WB', REQUIRED, NOT_ADDITIONAL),
-                RequisitionPanelTuple(300L, u'mpepu_lab', u'infantrequisition', 'DNA PCR', 'TEST', 'WB', REQUIRED, NOT_ADDITIONAL),
-                RequisitionPanelTuple(400L, u'mpepu_lab', u'infantrequisition', 'Stool storage', 'STORAGE', 'ST', REQUIRED, NOT_ADDITIONAL),
+                RequisitionPanelTuple(100L, u'mpepu_lab', u'infantrequisition', 'Hematology (ARV)', 'TEST', 'WB', NOT_REQUIRED, ADDITIONAL),
+                RequisitionPanelTuple(200L, u'mpepu_lab', u'infantrequisition', 'PBMC Plasma (STORE ONLY)', 'STORAGE', 'WB', NOT_REQUIRED, ADDITIONAL),
+                RequisitionPanelTuple(300L, u'mpepu_lab', u'infantrequisition', 'DNA PCR', 'TEST', 'WB', NOT_REQUIRED, ADDITIONAL),
+                RequisitionPanelTuple(400L, u'mpepu_lab', u'infantrequisition', 'Stool storage', 'STORAGE', 'ST', NOT_REQUIRED, ADDITIONAL),
                 RequisitionPanelTuple(500L, u'mpepu_lab', u'infantrequisition', 'Plasma and Buffy Coat Storage', 'STORAGE', 'WB', NOT_REQUIRED, ADDITIONAL),
                 RequisitionPanelTuple(600L, u'mpepu_lab', u'infantrequisition', 'ELISA', 'TEST', 'WB', NOT_REQUIRED, ADDITIONAL),
                 RequisitionPanelTuple(700L, u'mpepu_lab', u'infantrequisition', 'Bana 01 Chemistry', 'TEST', 'WB', NOT_REQUIRED, ADDITIONAL),
