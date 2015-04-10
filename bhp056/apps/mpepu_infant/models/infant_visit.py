@@ -174,6 +174,15 @@ class InfantVisit(InfantOffStudyMixin, BaseVisitTracking, MpepuMetaDataMixin):
                         meta.delete()
                 requisition_meta = RequisitionMetaData.objects.filter(appointment=self.appointment, registered_subject=self.appointment.registered_subject)
                 requisition_meta.delete()
+        else:
+            rs = RegisteredSubject.objects.get(subject_identifier=self.registered_subject.subject_identifier)
+            if rs.sid:
+                for form in forms:
+                    entry = self.query_entry(form, self.appointment.visit_definition)
+                    self.create_scheduled_meta_data(self.appointment, entry, self.registered_subject)
+            else:
+                entry = self.query_entry('infantoffstudy', self.appointment.visit_definition)
+                self.create_scheduled_meta_data(self.appointment, entry, self.registered_subject)
 
     def create_meta_if_visit_reason_is_death_when_sid_is_none(self):
         if self.reason == 'death':
