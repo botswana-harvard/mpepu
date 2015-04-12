@@ -1,9 +1,12 @@
 import re
+from datetime import datetime, date
 from django import forms
 from django.db import models
 from django.contrib.admin.widgets import AdminRadioSelect, AdminRadioFieldRenderer
+
 from apps.mpepu_infant.choices import VISIT_INFO_SOURCE, VISIT_REASON
 from apps.mpepu_infant.models import InfantVisit, InfantBirth
+
 from .base_infant_model_form import BaseInfantModelForm
 
 
@@ -51,7 +54,8 @@ class InfantVisitForm (BaseInfantModelForm):
 
         if cleaned_data.get('reason') == 'death' and cleaned_data.get('info_source') == 'telephone':
             raise forms.ValidationError("If visit reason is death, info source cannot be {}. Please select another info source or 'Other contact with participant (for example telephone call)' if it is telephone")
-
+        if cleaned_data.get('reason') =='missed' and cleaned_data.get('report_datetime').date() >= date(2015, 4, 7):
+            raise forms.ValidationError('Visit Report reason CANNOT be missed for any date after 07-04-2015')
         # check study status
         study_status_display = [choice[1] for choice in InfantVisit._meta.get_field('study_status').choices if choice[0] == cleaned_data.get('study_status')]
         if re.search('onstudy', cleaned_data.get('study_status')):
@@ -75,6 +79,8 @@ class InfantVisitForm (BaseInfantModelForm):
         self.instance.recalculate_meta(InfantVisit(**cleaned_data), forms.ValidationError)
         #validate that you cant save infant visit if previous visit has not been saved.
         self.instance.check_previous_visit_keyed(InfantVisit(**cleaned_data), forms.ValidationError)
+        
+        
         return super(InfantVisitForm, self).clean()
 
     class Meta:
