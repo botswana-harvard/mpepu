@@ -165,13 +165,17 @@ class InfantVisit(InfantOffStudyMixin, BaseVisitTracking, MpepuMetaDataMixin):
         super(InfantVisit, self).save(*args, **kwargs)
 
     def mpepu_cessation_post_save(self):
+        forms = ['infantoffstudy', 'infantoffdrug']
         if self.reason !='scheduled':
             if self.report_datetime.date() >= date(2015, 4, 7):
-                forms = ['infantoffstudy', 'infantoffdrug']
                 scheduled_meta = ScheduledEntryMetaData.objects.filter(appointment=self.appointment, registered_subject=self.registered_subject)
                 for meta in scheduled_meta:
                     if meta.entry.model_name not in forms:
                         meta.delete()
+                    else:
+                        if meta.entry_status == 'NOT_REQUIRED':
+                            meta.entry_status = 'NEW'
+                            meta.save()
                 requisition_meta = RequisitionMetaData.objects.filter(appointment=self.appointment, registered_subject=self.appointment.registered_subject)
                 requisition_meta.delete()
         else:
