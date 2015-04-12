@@ -44,9 +44,9 @@ class InfantOffDrugForm (BaseInfantModelForm):
         drug_record = (InfantStudyDrugItems.objects.filter
                             (inf_study_drug__infant_visit__appointment__registered_subject=
                              cleaned_data.get('registered_subject'), dose_status='Permanently discontinued'))
-        if not drug_record:
-            raise forms.ValidationError('Discontinuation of study drug has not been indicated on the Study Drug Record.'
-                                        ' Please enter it either at this visit or the previuos visit.')
+        #if not drug_record:
+            #raise forms.ValidationError('Discontinuation of study drug has not been indicated on the Study Drug Record.'
+                                        #' Please enter it either at this visit or the previuos visit.')
 
         return cleaned_data
 
