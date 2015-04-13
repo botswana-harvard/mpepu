@@ -1,6 +1,7 @@
 from datetime import timedelta, date
 
 from edc.dashboard.subject.classes import RegisteredSubjectDashboard
+from edc.lab.lab_clinic_api.classes import EdcLabResults
 from edc.subject.registration.models import RegisteredSubject
 
 from apps.mpepu_infant.models import InfantBirth, InfantVisit, InfantEligibility
@@ -44,7 +45,7 @@ class InfantDashboard(DashboardMixin, RegisteredSubjectDashboard):
 #     def add_to_context(self):
     def get_context_data(self, **kwargs):
         self.context = super(InfantDashboard, self).get_context_data(**kwargs)
-#         panels = Panel.objects.all()
+        panels = Panel.objects.all()
         self.context.update(
             home='mpepu',
             search_name='infant',
@@ -57,10 +58,17 @@ class InfantDashboard(DashboardMixin, RegisteredSubjectDashboard):
             delivery_date=self.get_delivery_date(),
             maternal_consent=self.get_maternal_consent(),
             days_alive=self.get_days_alive(),
-#             panels=panels,
+            panels=panels,
             local_results=self.render_labs()
         )
         return self.context
+
+    def render_labs(self):
+#         super(InfantDashboard, self).render_labs()
+        if self._requisition_model:
+            edc_lab_results = EdcLabResults()
+            return edc_lab_results.results_template(self.subject_identifier, False)
+        return ''
 
     @property
     def subject_type(self):

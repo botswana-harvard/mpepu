@@ -181,7 +181,7 @@ class InfantVisit(InfantOffStudyMixin, BaseVisitTracking, MpepuMetaDataMixin):
                 requisition_meta.delete()
         elif self.reason =='unscheduled':
             if self.report_datetime.date() >= date(2015, 4, 7):
-                scheduled_meta = ScheduledEntryMetaData.objects.filter(appointment=self.appointment, registered_subject=self.appointment.registered_subject, appointment__visit_instance=0)
+                scheduled_meta = ScheduledEntryMetaData.objects.filter(appointment__visit_definition__code=self.appointment.visit_definition.code, registered_subject=self.registered_subject, appointment__visit_instance=0)
                 for meta in scheduled_meta:
                     if meta.entry.model_name in forms:
                         if meta.entry_status == 'NOT_REQUIRED':
