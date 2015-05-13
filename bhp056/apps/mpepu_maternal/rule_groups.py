@@ -1,8 +1,16 @@
+from datetime import date
+
 from edc.subject.rule_groups.classes import RuleGroup, site_rule_groups, ScheduledDataRule, Logic
-# from edc.subject.registration.models import RegisteredSubject
+from edc.subject.registration.models import RegisteredSubject
 
 from .models import (MaternalVisit, MaternalArvPreg, MaternalArvPost,
                                    MaternalEnroll, FeedingChoice)
+
+
+def func_feeding_survey(visit_instance):
+    if visit_instance.reason=='scheduled' and visit_instance.report_datetime.date() >= date(2015, 4, 7):
+        return True
+    return False
 
 
 class MaternalEnrollRuleGroup(RuleGroup):
@@ -95,6 +103,21 @@ class FeedingChoiceRuleGroup(RuleGroup):
         source_fk = (MaternalVisit, 'maternal_visit')
         source_model = FeedingChoice
 site_rule_groups.register(FeedingChoiceRuleGroup)
+
+class CessationRuleGroup(RuleGroup):
+
+    first_time_feeding = ScheduledDataRule(
+        logic=Logic(
+            predicate=func_feeding_survey,
+            consequence='new',
+            alternative='not_required'),
+        target_model=['PostNatalInfantFeedingSurvey'])
+
+    class Meta:
+        app_label = 'mpepu_maternal'
+        source_fk = None
+        source_model = RegisteredSubject
+site_rule_groups.register(CessationRuleGroup)
 
 # class MaternalDeathRuleGroup(RuleGroup):
 #

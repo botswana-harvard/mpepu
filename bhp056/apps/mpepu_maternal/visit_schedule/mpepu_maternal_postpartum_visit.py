@@ -54,6 +54,7 @@ class MpepuMaternalPostPartumVisitSchedule(VisitScheduleConfiguration):
                 EntryTuple(20L, u'mpepu_maternal', u'maternalpostfudx', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(30L, u'mpepu_maternal', u'maternalarvpost', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(40L, u'mpepu_maternal', u'maternalarvpostadh', REQUIRED, NOT_ADDITIONAL),
+                EntryTuple(50L, u'mpepu_maternal', u'postnatalinfantfeedingsurvey', REQUIRED, NOT_ADDITIONAL),
                 #following are additional forms
                 EntryTuple(200L, u'mpepu_maternal', u'maternaldeath', NOT_REQUIRED, ADDITIONAL),
                 EntryTuple(210L, u'mpepu_maternal', u'maternaloffstudy', NOT_REQUIRED, ADDITIONAL),
@@ -86,6 +87,7 @@ class MpepuMaternalPostPartumVisitSchedule(VisitScheduleConfiguration):
                 EntryTuple(20L, u'mpepu_maternal', u'maternalpostfudx', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(30L, u'mpepu_maternal', u'maternalarvpost', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(40L, u'mpepu_maternal', u'maternalarvpostadh', REQUIRED, NOT_ADDITIONAL),
+                EntryTuple(50L, u'mpepu_maternal', u'postnatalinfantfeedingsurvey', REQUIRED, NOT_ADDITIONAL),
                 #following are additional forms
                 EntryTuple(200L, u'mpepu_maternal', u'maternaldeath', NOT_REQUIRED, ADDITIONAL),
                 EntryTuple(210L, u'mpepu_maternal', u'maternaloffstudy', NOT_REQUIRED, ADDITIONAL),
@@ -118,6 +120,7 @@ class MpepuMaternalPostPartumVisitSchedule(VisitScheduleConfiguration):
                 EntryTuple(20L, u'mpepu_maternal', u'maternalpostfudx', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(30L, u'mpepu_maternal', u'maternalarvpost', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(40L, u'mpepu_maternal', u'maternalarvpostadh', REQUIRED, NOT_ADDITIONAL),
+                EntryTuple(50L, u'mpepu_maternal', u'postnatalinfantfeedingsurvey', REQUIRED, NOT_ADDITIONAL),
                 #following are additional forms
                 EntryTuple(200L, u'mpepu_maternal', u'maternaldeath', NOT_REQUIRED, ADDITIONAL),
                 EntryTuple(210L, u'mpepu_maternal', u'maternaloffstudy', NOT_REQUIRED, ADDITIONAL),
@@ -150,6 +153,7 @@ class MpepuMaternalPostPartumVisitSchedule(VisitScheduleConfiguration):
                 EntryTuple(20L, u'mpepu_maternal', u'maternalpostfudx', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(30L, u'mpepu_maternal', u'maternalarvpost', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(40L, u'mpepu_maternal', u'maternalarvpostadh', REQUIRED, NOT_ADDITIONAL),
+                EntryTuple(50L, u'mpepu_maternal', u'postnatalinfantfeedingsurvey', REQUIRED, NOT_ADDITIONAL),
                 #following are additional forms
                 EntryTuple(200L, u'mpepu_maternal', u'maternaldeath', NOT_REQUIRED, ADDITIONAL),
                 EntryTuple(210L, u'mpepu_maternal', u'maternaloffstudy', NOT_REQUIRED, ADDITIONAL),
@@ -182,6 +186,7 @@ class MpepuMaternalPostPartumVisitSchedule(VisitScheduleConfiguration):
                 EntryTuple(20L, u'mpepu_maternal', u'maternalpostfudx', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(30L, u'mpepu_maternal', u'maternalarvpost', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(40L, u'mpepu_maternal', u'maternalarvpostadh', REQUIRED, NOT_ADDITIONAL),
+                EntryTuple(50L, u'mpepu_maternal', u'postnatalinfantfeedingsurvey', REQUIRED, NOT_ADDITIONAL),
                 #following are additional forms
                 EntryTuple(200L, u'mpepu_maternal', u'maternaldeath', NOT_REQUIRED, ADDITIONAL),
                 EntryTuple(210L, u'mpepu_maternal', u'maternaloffstudy', NOT_REQUIRED, ADDITIONAL),
@@ -214,6 +219,7 @@ class MpepuMaternalPostPartumVisitSchedule(VisitScheduleConfiguration):
                 EntryTuple(20L, u'mpepu_maternal', u'maternalpostfudx', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(30L, u'mpepu_maternal', u'maternalarvpost', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(40L, u'mpepu_maternal', u'maternalarvpostadh', REQUIRED, NOT_ADDITIONAL),
+                EntryTuple(50L, u'mpepu_maternal', u'postnatalinfantfeedingsurvey', REQUIRED, NOT_ADDITIONAL),
                 #following are additional forms
                 EntryTuple(200L, u'mpepu_maternal', u'maternaldeath', NOT_REQUIRED, ADDITIONAL),
                 EntryTuple(210L, u'mpepu_maternal', u'maternaloffstudy', NOT_REQUIRED, ADDITIONAL),
@@ -246,6 +252,7 @@ class MpepuMaternalPostPartumVisitSchedule(VisitScheduleConfiguration):
                 EntryTuple(20L, u'mpepu_maternal', u'maternalpostfudx', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(30L, u'mpepu_maternal', u'maternalarvpost', REQUIRED, NOT_ADDITIONAL),
                 EntryTuple(40L, u'mpepu_maternal', u'maternalarvpostadh', REQUIRED, NOT_ADDITIONAL),
+                EntryTuple(50L, u'mpepu_maternal', u'postnatalinfantfeedingsurvey', REQUIRED, NOT_ADDITIONAL),
                 #following are additional forms
                 EntryTuple(200L, u'mpepu_maternal', u'maternaldeath', NOT_REQUIRED, ADDITIONAL),
                 EntryTuple(210L, u'mpepu_maternal', u'maternaloffstudy', NOT_REQUIRED, ADDITIONAL),
