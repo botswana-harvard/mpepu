@@ -12,6 +12,11 @@ def func_feeding_survey(visit_instance):
         return True
     return False
 
+def func_offstudy(visit_instance):
+    if visit_instance.report_datetime.date() >= date(2015, 4, 7):
+        return True
+    return False
+
 
 class MaternalEnrollRuleGroup(RuleGroup):
 
@@ -106,12 +111,19 @@ site_rule_groups.register(FeedingChoiceRuleGroup)
 
 class CessationRuleGroup(RuleGroup):
 
-    first_time_feeding = ScheduledDataRule(
+    feeding_survey = ScheduledDataRule(
         logic=Logic(
             predicate=func_feeding_survey,
             consequence='new',
-            alternative='not_required'),
+            alternative='none'),
         target_model=['PostNatalInfantFeedingSurvey'])
+
+    offstudy = ScheduledDataRule(
+        logic=Logic(
+            predicate=func_offstudy,
+            consequence='new',
+            alternative='none'),
+        target_model=['MaternalOffStudy'])
 
     class Meta:
         app_label = 'mpepu_maternal'
