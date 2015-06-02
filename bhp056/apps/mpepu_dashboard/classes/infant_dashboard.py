@@ -54,7 +54,7 @@ class InfantDashboard(DashboardMixin, RegisteredSubjectDashboard):
             delivery_datetime=self.get_delivery_datetime(),
             stratum=self.get_feeding_stratum(),
             infant_birth = self.infant_birth,
-#             infant_birth=self.get_infant_birth(),
+            infant_rando = self.infant_rando(),
             delivery_date=self.get_delivery_date(),
             maternal_consent=self.get_maternal_consent(),
             days_alive=self.get_days_alive(),
@@ -212,4 +212,9 @@ class InfantDashboard(DashboardMixin, RegisteredSubjectDashboard):
         elif not self._subject_hiv_status:
             self._subject_hiv_status = 'UNK'
         return self._subject_hiv_status
+
+    def infant_rando(self):
+        rando = InfantRando.objects.filter(subject_identifier=self.subject_identifier)
+        if rando:
+            return rando[0]
 

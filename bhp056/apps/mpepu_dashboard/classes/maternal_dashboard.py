@@ -25,7 +25,7 @@ class MaternalDashboard(DashboardMixin, RegisteredSubjectDashboard):
         appointment_code='1000M|2000M|2010M|2020M|2030M|2060M|2090M|2120M|2150M|2180M')
 
     template_name = 'maternal_dashboard.html'
-    
+
     def __init__(self, *args, **kwargs):
         super(MaternalDashboard, self).__init__(*args, **kwargs)
         self.visit_model = MaternalVisit
@@ -36,7 +36,6 @@ class MaternalDashboard(DashboardMixin, RegisteredSubjectDashboard):
         self.membership_form_category= ['maternal_eligible_antenatal', 'maternal_eligible_postnatal', 'maternal_postnatal_reg', 'maternal_resistance']
         #self._locator_model = None
         self._requisition_model = MaternalRequisition
-        
 
     #def add_to_context(self):
     def get_context_data(self, **kwargs):
@@ -86,10 +85,9 @@ class MaternalDashboard(DashboardMixin, RegisteredSubjectDashboard):
             pass
         return self._subject_identifier
 
-   
     def subject_type(self):
         return 'infant'
-    
+
     def get_infant_dashboard_url(self):
         return 'subject_dashboard_url'
 

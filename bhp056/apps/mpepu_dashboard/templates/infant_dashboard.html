@@ -19,6 +19,10 @@
     {% if registered_subject.sid %}    
         <td><B>RandoDate:</B> {{ stratum.randomization_datetime|date:"Y-m-d" }}</td> 
     {% endif %} 
+    {% if infant_rando%} 
+        <td><B>RANDO ARM: </B>{{infant_rando.rx|encrypted}}</td>
+    {% endif %}
+    
        <td><B>Survival:</B> {{ survival_status|lower }}</td>     
     <td><b>Status:</b> {{ subject_hiv_status }}</td>
     </tr>
@@ -27,7 +31,8 @@
         {% if not infant_birth.dob == delivery_date %}
             <font color="red"><B>Warning! infant DoB not equal to delivery_date of {{ delivery_date }}. Contact DMC.</B></font>
         {% endif %}
-    {% endif %}                
+    {% endif %} 
+              
 {% endblock %}
 
 
