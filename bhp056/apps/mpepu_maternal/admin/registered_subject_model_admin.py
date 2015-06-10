@@ -17,4 +17,5 @@ class RegisteredSubjectModelAdmin (BaseRegisteredSubjectModelAdmin):
              'gender': 'registered_subject__gender',
              'dob': 'registered_subject__dob',
              'registered': 'registered_subject__registration_datetime'}),
-        )]
+        )
+    ]
