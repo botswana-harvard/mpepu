@@ -8,7 +8,7 @@ import logger
 from .installed_apps import DJANGO_APPS, THIRD_PARTY_APPS, EDC_APPS, LIS_APPS, LOCAL_APPS
 
 
-DEBUG = True
+DEBUG = False
 INTERNAL_IPS = ('127.0.0.1',)
 TEMPLATE_DEBUG = DEBUG
 DIRNAME = os.path.dirname(__file__)
@@ -32,9 +32,9 @@ PROJECT_DIR = Path(__file__).ancestor(2)
 MEDIA_ROOT = PROJECT_DIR.child('media')
 STATIC_ROOT = PROJECT_DIR.child('static')
 TEMPLATE_DIRS = (
-#     '/home/django/source/edc_project/edc/templates'
+    '/home/django/source/edc_project/edc/templates'
 #     PROJECT_DIR.child('templates'),
-    '/Users/fchilisa/source/edc_project/edc/templates',
+#     '/Users/fchilisa/source/edc_project/edc/templates',
 #     os.path.expanduser('~/source/edc_project/edc/templates'),  # edc template dir 
     )
 STATICFILES_DIRS = ()
@@ -42,9 +42,9 @@ CONFIG_DIR = PROJECT_DIR.child('bhp056')
 
 
 #Key Path
-KEY_PATH = '/Users/fchilisa/source/bhp056_project/bhp056/keys'
+# KEY_PATH = '/Users/fchilisa/source/bhp056_project/bhp056/keys'
 #KEY_PATH = '/Users/melissa/Documents/git/bhp056_mpepu/bhp056/keys'
-# KEY_PATH = PROJECT_DIR.child('keys')
+KEY_PATH = PROJECT_DIR.child('keys')
 
 
 MAP_DIR = STATIC_ROOT.child('img')
@@ -85,7 +85,7 @@ else:
             'OPTIONS': {
                 'init_command': 'SET storage_engine=INNODB',
             },
-            'NAME': 'bhp056_mpepu',
+            'NAME': 'bhp056',
             'USER': 'root',
             'PASSWORD': 'cc3721b',
             'HOST': '',
