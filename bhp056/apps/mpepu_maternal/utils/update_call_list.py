@@ -3,7 +3,7 @@ from django.db.models import get_model
 from config.celery import app
 
 from edc.map.exceptions import MapperError
-from edc.constants import NEW
+from edc.constants import NEW, CLOSED, OPEN
 
 
 @app.task
@@ -72,11 +72,22 @@ def update_call_list(label, verbose=True):
 def call_participant(query_set):
     for call_list in query_set:
         call_list.call_attempts += 1
-        if call_list.call_status == 'New':
-            call_list.call_status = 'Open'
-        if call_list.call_attempts == 3:
-            call_list.call_status = 'Closed'
-            call_list.contacted = True
+        if call_list.call_attempts < 3:
+            call_list.call_status = OPEN
+        else:
+            call_list.call_status = CLOSED
+
+        try:
+            call_list.save()
+        except Exception as e:
+            print('Call not logged for particpant {}'.format(call_list.subject_identifier))
+
+
+@app.task
+def contacted(query_set):
+    for call_list in query_set:
+        call_list.contacted = True
+        call_list.call_status = CLOSED
         try:
             call_list.save()
         except Exception as e:
