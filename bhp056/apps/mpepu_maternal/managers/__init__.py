@@ -4,3 +4,4 @@ from .maternal_enroll_dx_manager import MaternalEnrollDxManager
 from .maternal_lab_del_dx_t_manager import MaternalLabDelDxTManager
 from .maternal_post_fu_dx_t_manager import MaternalPostFuDxTManager
 from .maternal_registration_model_manager import MaternalRegistrationModelManager
+from .call_list_manager import CallListManager
