@@ -2,10 +2,11 @@ from django.contrib import admin
 
 from edc.base.modeladmin.admin import BaseModelAdmin, BaseTabularInline
 
-from ..admin import RegisteredSubjectModelAdmin
 from ..forms import (MaternalPostFuForm, MaternalPostFuDxForm, MaternalPostRegForm, MaternalPostFuDxTForm)
 from ..models import (MaternalPostFu, MaternalPostFuDxT, MaternalPostFuDx, MaternalPostReg)
+
 from .maternal_visit_model_admin import MaternalVisitModelAdmin
+from .registered_subject_model_admin import RegisteredSubjectModelAdmin
 
 
 class MyMaternalPostFuModelAdmin (MaternalVisitModelAdmin):
@@ -18,12 +19,11 @@ class MyMaternalPostFuModelAdmin (MaternalVisitModelAdmin):
 #                                                                maternal_visit__appointment__visit_definition__code=request.GET.get('visit_code', 0),
 #                                                                maternal_visit__appointment__visit_instance=request.GET.get('visit_instance', 0))
 #         return super(MyMaternalPostFuModelAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
-    
+
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == "maternal_post_fu":
             if request.GET.get('maternal_visit'):
                 kwargs["queryset"] = MaternalPostFu.objects.filter(maternal_visit=request.GET.get('maternal_visit'))
-                                                               
         return super(MyMaternalPostFuModelAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
 

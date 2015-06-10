@@ -2,9 +2,10 @@ from django.contrib import admin
 
 from edc.subject.registration.models import RegisteredSubject
 
-from ..admin import RegisteredSubjectModelAdmin
 from ..models import MaternalConsent, MaternalEligibilityAnte, MaternalEligibilityPost
 from ..forms import MaternalEligibilityAnteForm, MaternalEligibilityPostForm
+
+from .registered_subject_model_admin import RegisteredSubjectModelAdmin
 
 
 class MaternalEligibilityAnteAdmin(RegisteredSubjectModelAdmin):
