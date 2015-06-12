@@ -1,4 +1,5 @@
 from django.db.models import get_model
+from django.utils.datastructures import SortedDict
 
 from config.celery import app
 
@@ -39,9 +40,10 @@ def update_call_list(label, verbose=True):
                 cell=locator.subject_cell,
                 alt_cell=get_alt_cell(locator),
                 consent=consent,
+                maternal_identifier=consent.subject_identifier,
+                infant_identifier=infant_identifier(consent),
 #                 age_in_years=target_household_member.age_in_years,
 #                 gender=target_household_member.gender,
-                subject_identifier=consent.subject_identifier,
                 app_label=MaternalConsent._meta.app_label,
                 object_name=MaternalConsent._meta.object_name,
                 object_pk=consent.pk,
@@ -92,6 +94,28 @@ def contacted(query_set):
             call_list.save()
         except Exception as e:
             print('Call not logged for particpant {}'.format(call_list.subject_identifier))
+
+
+def infant_identifier(consent):
+    RegisteredSubject = get_model('registration', 'RegisteredSubject')
+    registered_subject = RegisteredSubject.objects.filter(relative_identifier=consent.subject_identifier)
+    if len(registered_subject) == 0:
+        return ("No infant registered")
+    elif len(registered_subject) == 1:
+        return ("{} : {}".format(registered_subject[0].subject_identifier, rando_arm(registered_subject[0].subject_identifier)))
+    else:
+        subject = ""
+        for subj in registered_subject:
+            subject +=("{} : {}\n".format(subj.subject_identifier, rando_arm(subj.subject_identifier)))
+#             subject[subj.subject_identifier] = rando_arm(subj.subject_identifier)
+        return subject
+
+
+def rando_arm(infant_identifier):
+    InfantRando = get_model('mpepu_infant_rando', 'InfantRando')
+    infant_rando = InfantRando.objects.filter(subject_identifier=infant_identifier)
+    if infant_rando:
+        return infant_rando[0].rx
 
 
 def get_alt_cell(locator):
