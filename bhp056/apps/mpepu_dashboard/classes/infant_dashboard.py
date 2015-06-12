@@ -217,4 +217,3 @@ class InfantDashboard(DashboardMixin, RegisteredSubjectDashboard):
         rando = InfantRando.objects.filter(subject_identifier=self.subject_identifier)
         if rando:
             return rando[0]
-

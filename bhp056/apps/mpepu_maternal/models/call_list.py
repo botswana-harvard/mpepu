@@ -25,8 +25,17 @@ class CallList (BaseSyncUuidModel):
     site = models.CharField(
         max_length=50)
 
-    subject_identifier = models.CharField(
+    maternal_identifier = models.CharField(
         max_length=25)
+
+    infant_identifier = models.CharField(
+        max_length=75)
+
+    rando_arm = models.CharField(
+        max_length=10,
+        blank=True,
+        null=True,
+    )
 
     call_datetime = models.DateTimeField(
         null=True,
@@ -78,15 +87,6 @@ class CallList (BaseSyncUuidModel):
         validators=[
             datetime_not_before_study_start,
             datetime_not_future, ],
-        help_text=_("From Subject Consent.")
-    )
-
-    referral_appt_date = models.DateTimeField(
-        verbose_name="Referral date and time",
-        validators=[
-            datetime_not_before_study_start,
-            datetime_not_future, ],
-        null=True,
         help_text=_("From Subject Consent.")
     )
 
