@@ -33,6 +33,7 @@ class CallListAdmin(BaseModelAdmin):
         'call_status',
         'call_outcome',
         'contacted',
+        'cell',
         'consent_datetime',
         'label',
     )

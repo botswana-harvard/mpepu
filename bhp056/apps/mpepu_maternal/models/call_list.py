@@ -135,6 +135,10 @@ class CallList (BaseSyncUuidModel):
 
     contacted = models.BooleanField(default=False)
 
+    verified = models.BooleanField(default=False)
+
+    verified_by = models.BooleanField(default=False)
+
     history = AuditTrail()
 
     objects = CallListManager()

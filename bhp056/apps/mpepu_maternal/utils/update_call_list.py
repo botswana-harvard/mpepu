@@ -1,5 +1,6 @@
 from django.db.models import get_model
 from django.utils.datastructures import SortedDict
+from django.core.exceptions import ObjectDoesNotExist
 
 from config.celery import app
 
@@ -31,8 +32,8 @@ def update_call_list(label, verbose=True):
         n += 1
         try:
             locator = MaternalLocator.objects.get(
-                registered_subject__subject_identifier=consent.subject_identifier,
-                may_follow_up='Yes')
+                registered_subject__subject_identifier=consent.subject_identifier,)
+#                 may_follow_up='Yes')
 
             options.update(
                 first_name=consent.first_name,
@@ -42,6 +43,8 @@ def update_call_list(label, verbose=True):
                 consent=consent,
                 maternal_identifier=consent.subject_identifier,
                 infant_identifier=infant_identifier(consent),
+                infant_death=infant_death(consent),
+                maternal_death=maternal_death(consent),
 #                 age_in_years=target_household_member.age_in_years,
 #                 gender=target_household_member.gender,
                 app_label=MaternalConsent._meta.app_label,
@@ -96,6 +99,16 @@ def contacted(query_set):
             print('Call not logged for particpant {}'.format(call_list.subject_identifier))
 
 
+@app.Task
+def verified(query_set):
+    for call_list in query_set:
+        call_list.verified = True
+        try:
+            call_list.save()
+        except Exception as e:
+            print('Call not logged for participant {}'.format(call_list.subject_identifier))
+
+
 def infant_identifier(consent):
     RegisteredSubject = get_model('registration', 'RegisteredSubject')
     registered_subject = RegisteredSubject.objects.filter(relative_identifier=consent.subject_identifier)
@@ -116,6 +129,32 @@ def rando_arm(infant_identifier):
     infant_rando = InfantRando.objects.filter(subject_identifier=infant_identifier)
     if infant_rando:
         return infant_rando[0].rx
+
+
+def infant_death(consent):
+    RegisteredSubject = get_model('registration', 'RegisteredSubject')
+    InfantDeath = get_model('mpepu_infant', 'InfantDeath')
+    registered_subject = RegisteredSubject.objects.filter(relative_identifier=consent.subject_identifier)
+    death = {}
+    for subject in registered_subject:
+        try:
+            infant_death = InfantDeath.objects.get(registered_subject__subject_identifier=subject.subject_identifier)
+            subject_identifier = subject.subject_identifier
+            death.update(
+                subject_identifier="deceased",
+            )
+        except InfantDeath.DoesNotExist:
+            pass
+    return death
+
+
+def maternal_death(consent):
+    MaternalDeath = get_model('mpepu_maternal', 'MaternalDeath')
+    try:
+        maternal_death = MaternalDeath.objects.get(registered_subject__subject_identifier=consent.subject_identifier)
+        return True
+    except MaternalDeath.DoesNotExist:
+        return False
 
 
 def get_alt_cell(locator):
