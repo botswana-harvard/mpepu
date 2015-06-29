@@ -1,13 +1,9 @@
-from dateutil.relativedelta import relativedelta
-
-from django.core.urlresolvers import reverse
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
 from edc.audit.audit_trail import AuditTrail
 from edc.base.model.validators import BWCellNumber
 from edc.base.model.validators import datetime_not_future, datetime_not_before_study_start
-from edc.choices.common import GENDER
 from edc.constants import CLOSED, OPEN, NEW
 from edc.core.crypto_fields.fields import EncryptedCharField
 from edc.core.crypto_fields.fields import EncryptedFirstnameField
@@ -69,19 +65,6 @@ class CallList (BaseSyncUuidModel):
         editable=False,
     )
 
-    gender = models.CharField(
-        verbose_name='Gender',
-        max_length=1,
-        choices=GENDER,
-        editable=False,
-    )
-
-    age_in_years = models.IntegerField(
-        verbose_name=_('Age in years'),
-        null=True,
-        editable=False,
-    )
-
     consent_datetime = models.DateTimeField(
         verbose_name="Consent date and time",
         validators=[
@@ -133,7 +116,24 @@ class CallList (BaseSyncUuidModel):
         help_text="label to group reasons for contact, e.g. T1 preparation"
     )
 
+    maternal_survival = models.CharField(
+        max_length=25,
+        null=True,
+    )
+
+    infant_survival = models.CharField(
+        max_length=75,
+        null=True,
+    )
+
     contacted = models.BooleanField(default=False)
+
+    verified = models.BooleanField(default=False)
+
+    verified_by = models.CharField(
+        max_length=50,
+        null=True,
+    )
 
     history = AuditTrail()
 
@@ -146,10 +146,6 @@ class CallList (BaseSyncUuidModel):
             self.consent.initials,
             self.label,
         )
-
-    def age(self):
-        return relativedelta(self.consent_datetime.date(), self.dob).years
-    age.allow_tags = True
 
     class Meta:
         app_label = 'mpepu_maternal'
