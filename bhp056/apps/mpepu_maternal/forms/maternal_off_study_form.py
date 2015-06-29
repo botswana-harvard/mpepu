@@ -22,7 +22,7 @@ class MaternalOffStudyForm (BaseOffStudyForm):
             raise forms.ValidationError('This field is required. Please fill it in')
         if not cleaned_data.get('offstudy_date'):
             raise forms.ValidationError('This field is required. Please fill it in')
-        return super(MaternalOffStudyForm, self).clean()
+        return cleaned_data
 
     class Meta:
         model = MaternalOffStudy

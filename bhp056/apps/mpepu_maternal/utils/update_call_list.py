@@ -1,9 +1,7 @@
 from django.db.models import get_model
-from django.utils.datastructures import SortedDict
 
 from config.celery import app
 
-from edc.map.exceptions import MapperError
 from edc.constants import NEW, CLOSED, OPEN
 
 
@@ -31,8 +29,7 @@ def update_call_list(label, verbose=True):
         n += 1
         try:
             locator = MaternalLocator.objects.get(
-                registered_subject__subject_identifier=consent.subject_identifier,
-                may_follow_up='Yes')
+                registered_subject__subject_identifier=consent.subject_identifier,)
 
             options.update(
                 first_name=consent.first_name,
@@ -42,8 +39,27 @@ def update_call_list(label, verbose=True):
                 consent=consent,
                 maternal_identifier=consent.subject_identifier,
                 infant_identifier=infant_identifier(consent),
-#                 age_in_years=target_household_member.age_in_years,
-#                 gender=target_household_member.gender,
+                infant_survival=infant_death(consent),
+                maternal_survival=maternal_death(consent),
+                app_label=MaternalConsent._meta.app_label,
+                object_name=MaternalConsent._meta.object_name,
+                object_pk=consent.pk,
+                consent_datetime=consent.consent_datetime,
+                call_status=NEW,
+                label=label,
+                hostname_created=consent.hostname_created,
+            )
+        except MaternalLocator.DoesNotExist:
+            options.update(
+                first_name=consent.first_name,
+                initials=consent.initials,
+                cell='',
+                alt_cell='',
+                consent=consent,
+                maternal_identifier=consent.subject_identifier,
+                infant_identifier=infant_identifier(consent),
+                infant_survival=infant_death(consent),
+                maternal_survival=maternal_death(consent),
                 app_label=MaternalConsent._meta.app_label,
                 object_name=MaternalConsent._meta.object_name,
                 object_pk=consent.pk,
@@ -53,21 +69,18 @@ def update_call_list(label, verbose=True):
                 hostname_created=consent.hostname_created,
                 user_created=consent.user_created,
             )
-            try:
-                call_list = CallList.objects.get(consent=consent, label=label)
-                if verbose:
-                    print '{}/{}    {} already added to call list'.format(n, total, consent.subject_identifier)
+        try:
+            call_list = CallList.objects.get(consent=consent, label=label)
+            if verbose:
+                print '{}/{}    {} already added to call list'.format(n, total, consent.subject_identifier)
 
-            except CallList.DoesNotExist:
-                call_list = CallList.objects.create(**options)
-                if verbose:
-                    print '{}/{} Added {} to call list'.format(n, total, consent.subject_identifier)
-            call_list.hostname_created = consent.hostname_created
-            call_list.user_created = consent.user_created
-            call_list.save()
-        except MaternalLocator.DoesNotExist:
-            print('Not adding {} to call list. No contact information or may not '
-                  'follow (SubjectLocator)'.format(consent))
+        except CallList.DoesNotExist:
+            call_list = CallList.objects.create(**options)
+            if verbose:
+                print '{}/{} Added {} to call list'.format(n, total, consent.subject_identifier)
+        call_list.hostname_created = consent.hostname_created
+        call_list.user_created = consent.user_created
+        call_list.save()
 
 
 @app.task
@@ -81,7 +94,7 @@ def call_participant(query_set):
 
         try:
             call_list.save()
-        except Exception as e:
+        except Exception:
             print('Call not logged for particpant {}'.format(call_list.subject_identifier))
 
 
@@ -92,8 +105,20 @@ def contacted(query_set):
         call_list.call_status = CLOSED
         try:
             call_list.save()
-        except Exception as e:
+        except Exception:
             print('Call not logged for particpant {}'.format(call_list.subject_identifier))
+
+
+@app.task
+def verified(request, query_set):
+    print request
+    for call_list in query_set:
+        call_list.verified = True
+        call_list.verified_by = request.user.username
+        try:
+            call_list.save()
+        except Exception:
+            print('Rando arm not verified for participant {}'.format(call_list.maternal_identifier))
 
 
 def infant_identifier(consent):
@@ -106,8 +131,7 @@ def infant_identifier(consent):
     else:
         subject = ""
         for subj in registered_subject:
-            subject +=("{} : {}\n".format(subj.subject_identifier, rando_arm(subj.subject_identifier)))
-#             subject[subj.subject_identifier] = rando_arm(subj.subject_identifier)
+            subject += ("{} : {}\n".format(subj.subject_identifier, rando_arm(subj.subject_identifier)))
         return subject
 
 
@@ -116,6 +140,36 @@ def rando_arm(infant_identifier):
     infant_rando = InfantRando.objects.filter(subject_identifier=infant_identifier)
     if infant_rando:
         return infant_rando[0].rx
+
+
+def infant_death(consent):
+    RegisteredSubject = get_model('registration', 'RegisteredSubject')
+    InfantDeath = get_model('mpepu_infant', 'InfantDeath')
+    registered_subject = RegisteredSubject.objects.filter(relative_identifier=consent.subject_identifier)
+    death = ""
+    if len(registered_subject) == 1:
+        try:
+            infant_death = InfantDeath.objects.get(registered_subject__subject_identifier=registered_subject[0].subject_identifier)
+            return 'Deceased'
+        except InfantDeath.DoesNotExist:
+            pass
+    else:
+        for subject in registered_subject:
+            try:
+                infant_death = InfantDeath.objects.get(registered_subject__subject_identifier=subject.subject_identifier)
+                death += ("{} : Deceased \n".format(subject.subject_identifier))
+            except InfantDeath.DoesNotExist:
+                pass
+    return death
+
+
+def maternal_death(consent):
+    MaternalDeath = get_model('mpepu_maternal', 'MaternalDeath')
+    try:
+        maternal_death = MaternalDeath.objects.get(registered_subject__subject_identifier=consent.subject_identifier)
+        return 'deceased'
+    except MaternalDeath.DoesNotExist:
+        return ''
 
 
 def get_alt_cell(locator):
