@@ -106,7 +106,7 @@ def contacted(query_set):
         try:
             call_list.save()
         except Exception:
-            print('Call not logged for particpant {}'.format(call_list.maternal_identifier))
+            print('Call not logged for particpant {}'.format(call_list.maternal_identifier ))
 
 
 @app.task
