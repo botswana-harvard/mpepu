@@ -103,7 +103,7 @@ class CallList (BaseSyncUuidModel):
 
     alt_cell = EncryptedCharField(
         max_length=8,
-        verbose_name=_("Cell number"),
+        verbose_name=_("Alt Cell number"),
         validators=[BWCellNumber, ],
         blank=True,
         null=True,

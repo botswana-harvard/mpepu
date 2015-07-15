@@ -36,6 +36,7 @@ class CallListAdmin(BaseModelAdmin):
         'verified_by',
         'contacted',
         'cell',
+        'alt_cell',
         'consent_datetime',
         'label',
     )
