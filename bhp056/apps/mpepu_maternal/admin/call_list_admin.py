@@ -3,7 +3,7 @@ from django.contrib import admin
 from edc.base.modeladmin.admin import BaseModelAdmin
 from edc.subject.registration.models import RegisteredSubject
 
-from ..actions import update_call_list_action, call_participant_action, contacted_action, verified_action
+from ..actions import update_call_list_action, call_participant_action, contacted_action, verified_action, contact_not_required_action
 from ..forms import CallListForm
 from ..models import CallList, MaternalConsent
 
@@ -35,6 +35,7 @@ class CallListAdmin(BaseModelAdmin):
         'verified',
         'verified_by',
         'contacted',
+        'contact_not_required',
         'cell',
         'alt_cell',
         'consent_datetime',
@@ -63,7 +64,7 @@ class CallListAdmin(BaseModelAdmin):
                      'initials',
                      )
 
-    actions = [update_call_list_action, call_participant_action, contacted_action, verified_action]
+    actions = [update_call_list_action, call_participant_action, contacted_action, contact_not_required_action,verified_action]
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == "consent":

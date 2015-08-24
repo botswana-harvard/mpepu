@@ -128,6 +128,8 @@ class CallList (BaseSyncUuidModel):
 
     contacted = models.BooleanField(default=False)
 
+    contact_not_required = models.BooleanField(default=False)
+
     verified = models.BooleanField(default=False)
 
     verified_by = models.CharField(
