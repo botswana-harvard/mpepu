@@ -6,7 +6,7 @@ from django.contrib import messages
 
 from edc.export.classes import ExportAsCsv
 
-from .utils import update_call_list, call_participant, contacted, verified
+from .utils import update_call_list, call_participant, contacted, verified, contact_not_required
 
 
 def update_call_list_action(modeladmin, request, queryset):
@@ -22,6 +22,11 @@ call_participant.short_description = "Call participant"
 def contacted_action(modeladmin, request, queryset):
     contacted(queryset)
 contacted_action.short_description = "Contacted"
+
+
+def contact_not_required_action(modeladmin, request, queryset):
+    contact_not_required(queryset)
+contact_not_required_action.short_description = "Contact Not Required"
 
 
 def verified_action(modeladmin, request, queryset):
